@@ -1,0 +1,8 @@
+<% if entry.single_code_value? 
+  code = entry.codes.first[1].first
+  code_system_oid = QME::Importer::CodeSystemHelper.oid_for_code_system(entry.codes.first[0])
+  -%>
+<code code="<%= code %>" codeSystem="<%= code_system_oid %>">
+  <originalText><reference value="#<%= section %>-desc-<%= i %>"/></originalText>
+</code>
+<% end -%>

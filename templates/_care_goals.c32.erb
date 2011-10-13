@@ -1,0 +1,24 @@
+<component>
+  <!--Plan of Care-->
+  <section>
+    <templateId root="2.16.840.1.113883.3.88.11.83.124" assigningAuthorityName="HITSP/C83"/>
+    <templateId root="1.3.6.1.4.1.19376.1.5.3.1.3.31" assigningAuthorityName="IHE PCC"/>
+    <templateId root="2.16.840.1.113883.10.20.2.7" assigningAuthorityName="HL7 CCD"/>
+    <templateId root="2.16.840.1.113883.10.20.1.10" assigningAuthorityName="HL7 CCD"/>
+    <!--Plan of Care section template-->
+    <code code="18776-5" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Treatment plan"/>
+    <%= render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'plan_of_care'} %>
+    <% entries.each do |entry| -%>
+    <entry typeCode="DRIV">
+      <observation classCode="OBS" moodCode="RQO">
+        <templateId root="2.16.840.1.113883.10.20.1.25"/>
+        <!-- Plan of Activity activity template -->
+        <id root="<%= UUID.generate %>"/>
+        <%= raw code_display(entry) %>
+        <statusCode code="new"/>
+        <effectiveTime value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
+      </observation>
+    </entry>
+    <% end -%>
+  </section>
+</component>

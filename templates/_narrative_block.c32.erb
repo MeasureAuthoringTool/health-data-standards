@@ -1,0 +1,20 @@
+<text>
+  <table border="1" width="100%">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Codes</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% entries.each_with_index do |entry, i| -%>
+        <tr>
+          <td ID="<%= section %>-desc-<%= i %>"><%= entry.description %></td>
+          <td ID="<%= section %>-code-<%= i %>"><%= entry.codes_to_s %></td>
+          <td><%= entry.times_to_s %></td>
+        </tr>
+      <%- end -%>
+    </tbody>
+  </table>
+</text>
