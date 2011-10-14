@@ -7,7 +7,7 @@
     <!--Problems section template-->
     <code code="11450-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Problem list"/>
     <title>Problems</title>
-    <%= render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'conditions'} %>
+    <%== render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'conditions'} %>
     <% entries.each_with_index do |entry, i| -%>
     <entry typeCode="DRIV">
       <act classCode="ACT" moodCode="EVN">
@@ -40,7 +40,7 @@
             <effectiveTime>
               <low value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
             </effectiveTime>
-            <%= raw code_display(entry, 'value', 'xsi:type="CD"') %>
+            <%== code_display(entry, 'value', 'xsi:type="CD"') %>
             <% if entry.status -%>
             <entryRelationship typeCode="REFR">
               <observation classCode="OBS" moodCode="EVN">

@@ -8,7 +8,7 @@
     <!--Vital Signs section template-->
     <code code="8716-3" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Vital signs"/>
     <title>Vital Signs</title>
-    <%= render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'vitals'} %>
+    <%== render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'vitals'} %>
     <entry typeCode="DRIV">
       <organizer classCode="CLUSTER" moodCode="EVN">
         <templateId root="2.16.840.1.113883.10.20.1.32" assigningAuthorityName="CCD"/>
@@ -28,7 +28,7 @@
             <templateId root="1.3.6.1.4.1.19376.1.5.3.1.4.13" assigningAuthorityName="IHE PCC"/>
             <!-- Result observation template -->
             <id root="<%= UUID.generate %>"/>
-            <%= raw code_display(entry) %>
+            <%== code_display(entry) %>
             <text>
               <reference value="vitals-desc-<%= i %>"/>
             </text>

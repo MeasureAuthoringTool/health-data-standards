@@ -7,7 +7,7 @@
     <!-- Medical equipment section template -->
     <code code="46264-8" codeSystem="2.16.840.1.113883.6.1"/>
     <title>Medical Equipment</title>
-    <%= render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'medical_equipment'} %>
+    <%== render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'medical_equipment'} %>
     <% entries.each_with_index do |entry, i| -%>
     <entry typeCode="DRIV">
       <supply classCode="SPLY" moodCode="EVN">
@@ -23,7 +23,7 @@
             <addr/>
             <telecom/>
             <playingDevice>
-              <%= raw code_display(entry) %>
+              <%== code_display(entry) %>
             </playingDevice>
           </participantRole>
         </participant>

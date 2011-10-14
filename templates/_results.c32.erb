@@ -6,7 +6,7 @@
     <!--Diagnostic Results section template-->
     <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Results"/>
     <title>Diagnostic Results</title>
-    <%= render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'results'} %>
+    <%== render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'results'} %>
     <entry typeCode="DRIV">
       <organizer classCode="BATTERY" moodCode="EVN">
         <templateId root="2.16.840.1.113883.10.20.1.32"/>
@@ -39,7 +39,7 @@
             <templateId root="1.3.6.1.4.1.19376.1.5.3.1.4.13" assigningAuthorityName="IHE PCC"/>
             <!-- Result observation template -->
             <id root="<%= UUID.generate %>"/>
-            <%= raw code_display(entry) %>
+            <%== code_display(entry) %>
             <text>
               <reference value="#results-desc-<%= i %>"/>
             </text>

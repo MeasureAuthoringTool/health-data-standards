@@ -4,9 +4,11 @@ module HealthDataStandards
       include TemplateHelper
 
       def export(patient)
-        template_format "c32"
+        self.template_format = "c32"
         render(:template => 'show', :locals => {:patient => patient})
       end
+
+      extend self
     end
   end
 end

@@ -7,7 +7,7 @@
     <templateId root="1.3.6.1.4.1.19376.1.5.3.1.3.11" assigningAuthorityName="IHE PCC"/>
     <!--Surgeries section template-->
     <code code="47519-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="List of surgeries"/>
-    <%= render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'procedures'} %>
+    <%== render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'procedures'} %>
     <% entries.each_with_index do |entry, i| -%>
     <entry typeCode="DRIV">
       <procedure classCode="PROC" moodCode="EVN">
@@ -16,7 +16,7 @@
         <templateId root="1.3.6.1.4.1.19376.1.5.3.1.4.19" assigningAuthorityName="IHE PCC"/>
         <!-- Procedure activity template -->
         <id root="<%= UUID.generate %>"/>
-        <%= render :partial => 'code_with_reference', :locals => {:entry => entry, :i => i, :section => 'procedures'} %>
+        <%== render :partial => 'code_with_reference', :locals => {:entry => entry, :i => i, :section => 'procedures'} %>
         <text>
           <reference value="#procedures-desc-<%= i %>"/>
         </text>
