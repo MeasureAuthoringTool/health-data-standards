@@ -9,10 +9,11 @@ Gem::Specification.new do |s|
   s.authors = ["Andy Gregorowicz"]
   s.version = '0.1.0'
   
-  s.add_dependency 'erubis', '~> 2.7.0'
-  s.add_dependency 'mongoid', '~> 2.3.1'
+  s.add_dependency 'erubis', '~> 2.6'
+  s.add_dependency 'mongoid', '~> 2.2.0'
   s.add_dependency 'uuid', '~> 2.3.4'
   s.add_dependency 'quality-measure-engine', '~> 1.0.0'
+  s.add_dependency 'builder', '~> 3.0.0'
 
   s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/*.erb') +
             ["Gemfile", "README.md", "Rakefile", "VERSION"]
