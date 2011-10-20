@@ -5,7 +5,7 @@ module HealthDataStandards
         if entry.single_code_value?
           code = entry.codes.first[1].first
           code_system_oid = QME::Importer::CodeSystemHelper.oid_for_code_system(entry.codes.first[0])
-          "<#{tag_name} code=\"#{code}\" codeSystem=\"#{code_system_oid}\" #{extra_content}><originalText>#{entry.description}</originalText></#{tag_name}>"
+          "<#{tag_name} code=\"#{code}\" codeSystem=\"#{code_system_oid}\" #{extra_content}><originalText>#{entry.description.html_safe}</originalText></#{tag_name}>"
         else
           all_codes = []
           entry.codes.each_pair {|key, values| values.each {|v| all_codes << {:set => key, :value => v}}}
