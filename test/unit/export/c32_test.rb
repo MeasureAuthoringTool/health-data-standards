@@ -30,6 +30,12 @@ class C32Test < MiniTest::Unit::TestCase
     assert_equal({"CPT" => ["99201"]}, encounter.codes)
   end
   
+  def test_allergies
+    allergy = @patient[:allergies][0]
+    assert_equal 1271810257, allergy.as_point_in_time
+    assert_equal({"RxNorm" => ["70618"]}, allergy.codes)
+  end
+  
   def test_conditions
     condition = @patient[:conditions][0]
     assert_equal 1269776601, condition.as_point_in_time
