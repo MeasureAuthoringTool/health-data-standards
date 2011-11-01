@@ -6,6 +6,8 @@ class Record
   field :last, type: String
   field :gender, type: String
   field :birthdate, type: Integer
+  field :race, type: String
+  field :ethnicity, type: String
   field :test_id, type: BSON::ObjectId
 
   [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
