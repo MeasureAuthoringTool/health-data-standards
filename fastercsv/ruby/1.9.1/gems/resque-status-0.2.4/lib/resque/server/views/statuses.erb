@@ -1,0 +1,71 @@
+<%= status_view :status_styles, :layout => false %>
+
+<h1 class='wi'>Statuses</h1>
+<%unless @statuses.empty?%>
+  <form method="POST" action="<%= u(:statuses) %>/clear" class='clear-failed'>
+  <input type='submit' name='' value='Clear Statuses' />
+</form>
+<%end%>
+<p class='intro'>These are recent jobs created with the JobWithStatus class</p>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Status</th>
+    <th>Last Updated</th>
+    <th class="progress">% Complete</th>
+    <th>Message</th>
+    <th>Kill</th>
+  </tr>
+  <% unless @statuses.empty? %>
+    <% @statuses.each do |status| %>
+    <tr>
+      <td><a href="<%= u(:statuses) %>/<%= status.uuid %>"><%= status.uuid %></a></td>
+      <td><%= status.name %></td>
+      <td class="status status-<%= status.status %>"><%= status.status %></td>
+      <td class="time"><%= status.time %></td>
+      <td class="progress">
+        <div class="progress-bar" style="width:<%= status.pct_complete %>%">&nbsp;</div>
+        <div class="progress-pct"><%= status.pct_complete ? "#{status.pct_complete}%" : '' %></div>
+      </td>
+      <td><%= status.message %></td>
+      <td><% if status.killable? %><a href="<%= u(:statuses) %>/<%= status.uuid %>/kill" class="kill">Kill</a><% end %></td>
+    </tr>
+    <% end %>
+  <% else %>  
+  <tr>
+    <td colspan="7" class='no-data'>No Statuses right now...</td>
+  </tr>
+  <% end %>
+</table>
+
+<% unless @statuses.empty? %>
+	<%= partial :next_more, :start => @start, :size => @size %>
+<% end %>
+
+<%= status_poll(@start) %>
+
+<script type="text/javascript" charset="utf-8">
+  jQuery(function($) {
+    
+    $('a.kill').click(function(e) {
+      e.preventDefault();
+      var $link = $(this),
+          url = $link.attr('href'),
+          confirmed = confirm("Are you sure you want to kill this job? There is no undo.");
+      if (confirmed) {
+        $link.animate({opacity: 0.5});
+        $.ajax({
+          url: url,
+          type: 'post',
+          success: function() {
+            $link.remove();
+          }
+        });
+      } else {
+        return false
+      }
+    });
+    
+  });
+</script>
