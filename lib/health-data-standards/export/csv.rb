@@ -7,11 +7,17 @@ module HealthDataStandards
       def export(patient,header)
       
        
-       csv_string = header ? [["row", "of", "CSV", "data"],["another", "row"]] : ["another", "row"]                   
-        
-             
+        csv = header ? [generate_header,extract_patient_data(patient)] : extract_patient_data(patient)           
       
        
+      end
+      
+      def generate_header
+        ["patient_id", "first name", "last name", "gender","race","ethnicity","birthdate"]
+      end
+      
+      def extract_patient_data(patient)
+       [patient.patient_id, patient.first, patient.last, patient.gender,patient.race,patient.ethnicity,patient.birthdate]
       end
 
       extend self
