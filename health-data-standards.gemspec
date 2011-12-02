@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.email = "talk@projectpophealth.org"
   s.homepage = "http://barrel.mitre.org/health-data-standards"
   s.authors = ["Andy Gregorowicz"]
-  s.version = '0.2.0'
+  s.version = '0.3.0'
   
   s.add_dependency 'erubis', '~> 2.6'
   s.add_dependency 'mongoid', '~> 2.3.3'
@@ -16,5 +16,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'builder', '~> 3.0.0'
 
   s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/*.erb') +
-            ["Gemfile", "README.md", "Rakefile"]
+            ["Gemfile", "README.md", "Rakefile", "VERSION"]
 end
