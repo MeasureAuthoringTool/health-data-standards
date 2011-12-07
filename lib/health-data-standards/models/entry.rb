@@ -20,6 +20,32 @@ class Entry
     codes.map {|code_set, codes| "#{code_set}: #{codes.join(', ')}"}.join(' ')
   end
   
+  # Will return a single code and code set if one exists in the code sets that are
+  # passed in. Returns a hash with a key of code and code_set if found, nil otherwise
+  def preferred_code(preferred_code_sets)
+    matching_code_sets = preferred_code_sets & codes.keys
+    if matching_code_sets.present?
+      code_set = matching_code_sets.first
+      {'code' => codes[code_set].first, 'code_set' => code_set}
+    else
+      nil
+    end
+  end
+  
+  # Will return an Array of code and code_set hashes for all codes for this entry
+  # except for the preferred_code. It is intended that these codes would be used in
+  # the translation elements as childern of a CDA code element
+  def translation_codes(preferred_code_sets)
+    tx_codes = []
+    codes.each_pair do |code_set, code_list|
+      code_list.each do |code|
+        tx_codes << {'code' => code, 'code_set' => code_set}
+      end
+    end
+    
+    tx_codes - [preferred_code(preferred_code_sets)]
+  end
+  
   def times_to_s
     if start_time.present? || end_time.present?
       start_string = start_time ? Time.at(start_time).to_formatted_s(:long_ordinal) : 'UNK'
