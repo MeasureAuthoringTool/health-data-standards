@@ -14,7 +14,7 @@
         <templateId root="2.16.840.1.113883.10.20.1.25"/>
         <!-- Plan of Activity activity template -->
         <id root="<%= UUID.generate %>"/>
-        <%== code_display(entry) %>
+        <%== code_display(entry, :preferred_code_sets => ['SNOMED-CT']) %>
         <statusCode code="new"/>
         <effectiveTime value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
       </observation>

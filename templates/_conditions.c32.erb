@@ -40,7 +40,7 @@
             <effectiveTime>
               <low value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
             </effectiveTime>
-            <%== code_display(entry, 'value', 'xsi:type="CD"') %>
+            <%== code_display(entry, {'tag_name' => 'value', 'extra_content' => 'xsi:type="CD"', 'preferred_code_sets' => ['SNOMED-CT']}) %>
             <% if entry.status -%>
             <entryRelationship typeCode="REFR">
               <observation classCode="OBS" moodCode="EVN">

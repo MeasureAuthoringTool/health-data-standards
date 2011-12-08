@@ -1,23 +1,22 @@
 module HealthDataStandards
   module Export
     module ViewHelper
-      def code_display(entry, tag_name='code', extra_content=nil)
-        if entry.single_code_value?
-          code = entry.codes.first[1].first
-          code_system_oid = QME::Importer::CodeSystemHelper.oid_for_code_system(entry.codes.first[0])
-          "<#{tag_name} code=\"#{code}\" codeSystem=\"#{code_system_oid}\" #{extra_content}><originalText>#{ERB::Util.html_escape entry.description}</originalText></#{tag_name}>"
+      def code_display(entry, options={})
+        options['tag_name'] ||= 'code'
+        code_string = nil
+        preferred_code = entry.preferred_code(options['preferred_code_sets'])
+        if preferred_code
+          code_system_oid = QME::Importer::CodeSystemHelper.oid_for_code_system(preferred_code['code_set'])
+          code_string = "<#{options['tag_name']} code=\"#{preferred_code['code']}\" codeSystem=\"#{code_system_oid}\" #{options['extra_content']}>"
         else
-          all_codes = []
-          entry.codes.each_pair {|key, values| values.each {|v| all_codes << {:set => key, :value => v}}}
-          first_code = all_codes.first
-          code_string = "<#{tag_name} code=\"#{first_code[:value]}\" codeSystem=\"#{QME::Importer::CodeSystemHelper.oid_for_code_system(first_code[:set])}\">\n"
-          code_string += "<originalText>#{ERB::Util.html_escape entry.description}</originalText>\n"
-          all_codes[1..-1].each do |cv|
-            code_string += "<translation code=\"#{cv[:value]}\" codeSystem=\"#{QME::Importer::CodeSystemHelper.oid_for_code_system(cv[:set])}\"/>\n"
-          end
-          code_string += "</#{tag_name}>"
-          code_string
+          code_string = "<#{options['tag_name']} nullFlavor=\"UNK\" #{options['extra_content']}>"
         end
+        code_string += "<originalText>#{ERB::Util.html_escape entry.description}</originalText>"
+        entry.translation_codes(options['preferred_code_sets']).each do |translation|
+          code_string += "<translation code=\"#{translation['code']}\" codeSystem=\"#{QME::Importer::CodeSystemHelper.oid_for_code_system(translation['code_set'])}\"/>\n"
+        end
+        code_string += "</#{options['tag_name']}>"
+        code_string
       end
       
       def status_code_for(entry)
@@ -29,7 +28,7 @@ module HealthDataStandards
         when 'resolved'
           '413322009'
         end
-      end      
+      end
     end
   end
 end

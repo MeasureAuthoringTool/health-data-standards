@@ -16,7 +16,8 @@
         <templateId root="1.3.6.1.4.1.19376.1.5.3.1.4.14" assigningAuthorityName="IHE PCC"/>
         <!-- Encounter activity template -->
         <id root="<%= UUID.generate %>"/>
-        <%== render :partial => 'code_with_reference', :locals => {:entry => entry, :i => i, :section => 'encounters'} %>
+        <%== render :partial => 'code_with_reference', :locals => {:entry => entry, :i => i, :section => 'encounters',
+                                                                   :preferred_code_sets => ['CPT']} %>
         <text>
           <reference value="#encounters-desc-<%= i %>"/>
         </text>
