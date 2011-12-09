@@ -24,4 +24,50 @@ class EntryTest < MiniTest::Unit::TestCase
     assert translation_codes.include?({'code_set' => 'LOINC', 'code' => 'CCDD'})
     assert ! translation_codes.include?({'code_set' => 'ICD-9-CM', 'code' => 'GGHH'})
   end
+  
+  def test_is_usable
+    entry = Entry.new
+    entry.time = 1270598400
+    entry.add_code("314443004", "SNOMED-CT")
+    assert entry.usable?
+  end
+
+  def test_unusable_without_time
+    entry = Entry.new
+    entry.add_code("314443004", "SNOMED-CT")
+    assert ! entry.usable?
+  end
+
+  def test_unusable_without_code
+    entry = Entry.new
+    entry.time = 1270598400
+    assert ! entry.usable?
+  end
+
+  def test_is_in_code_set
+    entry = Entry.new
+    entry.add_code("854935", "RxNorm")
+    entry.add_code("44556699", "RxNorm")
+    entry.add_code("1245", "Junk")
+    assert entry.is_in_code_set?([{'set' => 'RxNorm', 'values' => ['854935', '5440']},
+                                  {'set' => 'SNOMED-CT', 'values' => ['24601']}])
+  end
+
+  def test_is_not_in_code_set
+    entry = Entry.new
+    entry.add_code("44556699", "RxNorm")
+    entry.add_code("1245", "Junk")
+    assert ! entry.is_in_code_set?([{'set' => 'RxNorm', 'values' => ['854935', '5440']},
+                                    {'set' => 'SNOMED-CT', 'values' => ['24601']}])
+  end
+  
+  def test_to_hash
+    entry = Entry.new
+    entry.add_code("44556699", "RxNorm")
+    entry.time = 1270598400
+    
+    h = entry.to_hash
+    assert_equal 1270598400, h['time']
+    assert h['codes']['RxNorm'].include?('44556699')
+  end
 end
