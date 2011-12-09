@@ -6,6 +6,8 @@ require 'quality-measure-engine'
 require 'builder'
 require 'csv'
 
+require_relative 'health-data-standards/util/hl7_helper'
+
 require_relative 'health-data-standards/export/template_helper'
 require_relative 'health-data-standards/export/view_helper'
 require_relative 'health-data-standards/export/rendering_context'
