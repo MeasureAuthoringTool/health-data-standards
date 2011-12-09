@@ -2,5 +2,8 @@ source "http://rubygems.org"
 
 gemspec :development_group => :test
 
-gem 'rake'
-gem 'pry'
+group :development do
+  gem 'rake'
+  gem 'pry'
+  gem 'cover_me'
+end
