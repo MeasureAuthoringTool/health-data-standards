@@ -54,7 +54,7 @@ module HealthDataStandards
         #    ./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code
         def initialize(check_usable = true)
           @section_importers = {}
-          @section_importers[:encounters] = SectionImporter.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.127']/cda:entry/cda:encounter")
+          @section_importers[:encounters] = EncounterImporter.new
           @section_importers[:procedures] = SectionImporter.new("//cda:procedure[cda:templateId/@root='2.16.840.1.113883.10.20.1.29']")
           @section_importers[:results] = SectionImporter.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.15.1'] | //cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.15']")
           @section_importers[:vital_signs] = SectionImporter.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.14']")
