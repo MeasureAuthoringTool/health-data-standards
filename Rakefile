@@ -6,7 +6,7 @@ Rake::TestTask.new(:test_unit) do |t|
   t.verbose = true
 end
 
-task :test, :test_unit do
+task :test => [:test_unit] do
   require 'cover_me'
   CoverMe.complete!
 end
