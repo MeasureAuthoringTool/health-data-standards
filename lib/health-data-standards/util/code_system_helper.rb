@@ -6,7 +6,7 @@ module HealthDataStandards
         '2.16.840.1.113883.6.1' =>    'LOINC',
         '2.16.840.1.113883.6.96' =>   'SNOMED-CT',
         '2.16.840.1.113883.6.12' =>   'CPT',
-        '2.16.840.1.113883.3.88.12.80.32' => 'CPT', # Encounter Type from C32, a subset of CPT
+        #'2.16.840.1.113883.3.88.12.80.32' => 'CPT', # Encounter Type from C32, a subset of CPT
         '2.16.840.1.113883.6.88' =>   'RxNorm',
         '2.16.840.1.113883.6.103' =>  'ICD-9-CM',
         '2.16.840.1.113883.6.104' =>  'ICD-9-CM',
