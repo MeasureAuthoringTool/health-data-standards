@@ -70,8 +70,7 @@ module HealthDataStandards
           @section_importers[:care_goals] = SectionImporter.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.1.25']")
           @section_importers[:medical_equipment] = SectionImporter.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.128']/cda:entry/cda:supply",
           "./cda:participant/cda:participantRole/cda:playingDevice/cda:code")
-          @section_importers[:allergies] = SectionImporter.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.1.18']",
-          "./cda:participant/cda:participantRole/cda:playingEntity/cda:code")
+          @section_importers[:allergies] = AllergyImporter.new
           @section_importers[:immunizations] = SectionImporter.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.117']/cda:entry/cda:substanceAdministration",
           "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code",
           nil,
