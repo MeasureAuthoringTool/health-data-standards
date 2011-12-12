@@ -23,3 +23,4 @@ require_relative 'health-data-standards/models/entry'
 require_relative 'health-data-standards/models/record'
 
 require_relative 'health-data-standards/import/c32/section_importer'
+require_relative 'health-data-standards/import/c32/patient_importer'

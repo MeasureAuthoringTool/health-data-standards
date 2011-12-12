@@ -1,5 +1,8 @@
 require 'cover_me'
 require_relative '../lib/health-data-standards'
+
+require 'pry'
+
 require 'minitest/autorun'
 
 Mongoid.configure do |config|

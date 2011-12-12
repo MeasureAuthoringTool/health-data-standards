@@ -9,6 +9,7 @@ class Record
   field :race, type: String
   field :ethnicity, type: String
   field :test_id, type: BSON::ObjectId
+  field :medical_record_number, type: String
 
   [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
    :medications, :procedures, :results, :social_history, :vital_signs].each do |section|
