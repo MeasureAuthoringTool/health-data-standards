@@ -2,9 +2,9 @@ require 'erubis'
 require 'active_support'
 require 'mongoid'
 require 'uuid'
-require 'quality-measure-engine'
 require 'builder'
 require 'csv'
+require 'nokogiri'
 
 # Freedom patches
 require_relative 'health-data-standards/ext/symbol'
