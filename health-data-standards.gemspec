@@ -5,9 +5,9 @@ Gem::Specification.new do |s|
   s.summary = "A library for generating and consuming various healthcare related formats."
   s.description = "A library for generating and consuming various healthcare related formats. This includes HITSP C32, ASTM CCR and PQRI."
   s.email = "talk@projectpophealth.org"
-  s.homepage = "http://barrel.mitre.org/health-data-standards"
+  s.homepage = "https://github.com/projectcypress/health-data-standards"
   s.authors = ["Andy Gregorowicz"]
-  s.version = '0.3.0'
+  s.version = '0.4.0'
   
   s.add_dependency 'erubis', '~> 2.6'
   s.add_dependency 'mongoid', '~> 2.3.3'
