@@ -8,6 +8,7 @@ require 'nokogiri'
 
 # Freedom patches
 require_relative 'health-data-standards/ext/symbol'
+require_relative 'health-data-standards/ext/string'
 
 require_relative 'health-data-standards/util/hl7_helper'
 require_relative 'health-data-standards/util/code_system_helper'
@@ -23,10 +24,14 @@ require_relative 'health-data-standards/models/entry'
 require_relative 'health-data-standards/models/allergy'
 require_relative 'health-data-standards/models/encounter'
 require_relative 'health-data-standards/models/immunization'
+require_relative 'health-data-standards/models/fulfillment_history'
+require_relative 'health-data-standards/models/order_information'
+require_relative 'health-data-standards/models/medication'
 require_relative 'health-data-standards/models/record'
 
 require_relative 'health-data-standards/import/c32/section_importer'
 require_relative 'health-data-standards/import/c32/allergy_importer'
 require_relative 'health-data-standards/import/c32/encounter_importer'
 require_relative 'health-data-standards/import/c32/immunization_importer'
+require_relative 'health-data-standards/import/c32/medication_importer'
 require_relative 'health-data-standards/import/c32/patient_importer'
