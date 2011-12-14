@@ -71,10 +71,7 @@ module HealthDataStandards
           @section_importers[:medical_equipment] = SectionImporter.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.128']/cda:entry/cda:supply",
           "./cda:participant/cda:participantRole/cda:playingDevice/cda:code")
           @section_importers[:allergies] = AllergyImporter.new
-          @section_importers[:immunizations] = SectionImporter.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.117']/cda:entry/cda:substanceAdministration",
-          "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code",
-          nil,
-          "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code/cda:originalText/cda:reference[@value]" )
+          @section_importers[:immunizations] = ImmunizationImporter.new
         end
 
         def build_id_map(doc)
