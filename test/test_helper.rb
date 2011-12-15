@@ -5,8 +5,10 @@ require 'pry'
 
 require 'minitest/autorun'
 
+db_host = ENV['TEST_DB_HOST'] || 'localhost'
+
 Mongoid.configure do |config|
-  config.master = Mongo::Connection.new.db("hds-test")
+  config.master = Mongo::Connection.new(db_host).db("hds-test")
 end
 
 class MiniTest::Unit::TestCase
