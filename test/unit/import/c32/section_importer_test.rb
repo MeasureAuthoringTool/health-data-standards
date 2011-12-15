@@ -20,7 +20,7 @@ class SectionImporterTest < MiniTest::Unit::TestCase
     assert_equal 1026777600, entry.time
     assert entry.codes['SNOMED-CT'].include?('314443004')
     assert_equal 'eleventeen', entry.value[:scalar]
-    assert_equal :active, entry.status
+    assert_equal 'active', entry.status
   end
 
   def test_create_entries_with_date_ranges
