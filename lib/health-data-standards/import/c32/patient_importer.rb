@@ -57,7 +57,7 @@ module HealthDataStandards
           @section_importers[:encounters] = EncounterImporter.new
           @section_importers[:procedures] = ProcedureImporter.new
           @section_importers[:results] = ResultImporter.new
-          @section_importers[:vital_signs] = SectionImporter.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.14']")
+          @section_importers[:vital_signs] = VitalSignImporter.new
           @section_importers[:medications] = MedicationImporter.new
           @section_importers[:conditions] = SectionImporter.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.103']/cda:entry/cda:act/cda:entryRelationship/cda:observation",
           "./cda:value",
