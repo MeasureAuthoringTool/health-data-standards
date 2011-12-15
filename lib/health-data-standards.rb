@@ -28,7 +28,7 @@ require_relative 'health-data-standards/models/fulfillment_history'
 require_relative 'health-data-standards/models/order_information'
 require_relative 'health-data-standards/models/medication'
 require_relative 'health-data-standards/models/procedure'
-require_relative 'health-data-standards/models/result'
+require_relative 'health-data-standards/models/lab_result'
 require_relative 'health-data-standards/models/record'
 
 require_relative 'health-data-standards/import/c32/section_importer'

@@ -20,7 +20,7 @@ module HealthDataStandards
           result_list = []
           entry_elements = doc.xpath(@entry_xpath)
           entry_elements.each do |entry_element|
-            result = Result.new
+            result = LabResult.new
             extract_codes(entry_element, result)
             extract_dates(entry_element, result)
             extract_value(entry_element, result)
