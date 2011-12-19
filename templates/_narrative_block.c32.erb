@@ -5,6 +5,13 @@
         <th>Description</th>
         <th>Codes</th>
         <th>Time</th>
+        <% if status.present? %>
+          <th>Status</th>
+        <% end %>
+        
+         <% if value.present? %>
+          <th>Value</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -13,6 +20,13 @@
           <td ID="<%= section %>-desc-<%= i %>"><%= entry.description %></td>
           <td ID="<%= section %>-code-<%= i %>"><%= entry.codes_to_s %></td>
           <td><%= entry.times_to_s %></td>
+           <% if status.present? %>
+            <td><%= entry.status %></td>
+           <% end %>
+           
+            <% if value.present? %>
+              <td><%= entry.value["scalar"] %></td>
+           <% end %>
         </tr>
       <%- end -%>
     </tbody>
