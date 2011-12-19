@@ -55,13 +55,10 @@ module HealthDataStandards
         def initialize(check_usable = true)
           @section_importers = {}
           @section_importers[:encounters] = EncounterImporter.new
-          @section_importers[:procedures] = SectionImporter.new("//cda:procedure[cda:templateId/@root='2.16.840.1.113883.10.20.1.29']")
-          @section_importers[:results] = SectionImporter.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.15.1'] | //cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.15']")
-          @section_importers[:vital_signs] = SectionImporter.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.14']")
-          @section_importers[:medications] = SectionImporter.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.112']/cda:entry/cda:substanceAdministration",
-          "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code",
-          nil,
-          "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code/cda:originalText/cda:reference[@value]")
+          @section_importers[:procedures] = ProcedureImporter.new
+          @section_importers[:results] = ResultImporter.new
+          @section_importers[:vital_signs] = VitalSignImporter.new
+          @section_importers[:medications] = MedicationImporter.new
           @section_importers[:conditions] = SectionImporter.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.103']/cda:entry/cda:act/cda:entryRelationship/cda:observation",
           "./cda:value",
           "./cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.1 13883.10.20.1.50']/cda:value",
@@ -71,10 +68,7 @@ module HealthDataStandards
           @section_importers[:medical_equipment] = SectionImporter.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.128']/cda:entry/cda:supply",
           "./cda:participant/cda:participantRole/cda:playingDevice/cda:code")
           @section_importers[:allergies] = AllergyImporter.new
-          @section_importers[:immunizations] = SectionImporter.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.117']/cda:entry/cda:substanceAdministration",
-          "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code",
-          nil,
-          "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code/cda:originalText/cda:reference[@value]" )
+          @section_importers[:immunizations] = ImmunizationImporter.new
         end
 
         def build_id_map(doc)
