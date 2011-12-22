@@ -27,7 +27,7 @@ module HealthDataStandards
             end
           end
           to_ccr_purpose(xml)
-          xml.body do
+          xml.Body do
             to_ccr_problems(xml, patient)
             to_ccr_vitals(xml, patient)
             to_ccr_results(xml, patient)
