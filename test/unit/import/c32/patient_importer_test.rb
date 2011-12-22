@@ -13,6 +13,7 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert_equal -87696000, patient.birthdate
     assert_equal 'M', patient.gender
     assert_equal '24602', patient.medical_record_number
+    assert_equal 1199189385, patient.effective_time
   end
   
   def test_parse_c32

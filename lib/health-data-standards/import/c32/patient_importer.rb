@@ -117,11 +117,13 @@ module HealthDataStandards
         end
 
         # Inspects a C32 document and populates the patient Hash with first name, last name
-        # birth date and gender.
+        # birth date, gender and the effectiveTime.
         #
         # @param [Hash] patient A hash that is used to represent the patient
         # @param [Nokogiri::XML::Node] doc The C32 document parsed by Nokogiri
         def get_demographics(patient, doc)
+          effective_date = doc.at_xpath('/cda:ClinicalDocument/cda:effectiveTime')['value']
+          patient.effective_time = HL7Helper.timestamp_to_integer(effective_date)
           patient_element = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient')
           patient.first = patient_element.at_xpath('cda:name/cda:given').text
           patient.last = patient_element.at_xpath('cda:name/cda:family').text
