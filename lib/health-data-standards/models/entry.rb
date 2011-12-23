@@ -152,8 +152,7 @@ class Entry
   
   # Compares hash values to determine equality
   def ==(other)
-    return false if other.class!=Entry
-    hash == other.hash
+    self.class==other.class && self.hash==other.hash
   end
   
   # Returns the hash value, calculating it if not already done
