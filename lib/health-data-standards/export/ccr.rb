@@ -46,10 +46,10 @@ module HealthDataStandards
       private
 
       def code_section(xml, codes)
-        xml.Code do
-          if codes.present?
-            codes.each_pair do |code_set, coded_values|
-              coded_values.each do |coded_value|
+        if codes.present?
+          codes.each_pair do |code_set, coded_values|
+            coded_values.each do |coded_value|
+              xml.Code do
                 xml.Value(coded_value)
                 xml.CodingSystem(code_set)
                 #TODO: Need to fix this and not be a hard-coded value
