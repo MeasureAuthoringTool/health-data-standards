@@ -70,6 +70,15 @@ module HealthDataStandards
           end
         end
       end
+      
+      def test_result_section(xml, test_result)
+        xml.TestResult do
+          xml.Value(test_result.value["scalar"])
+          xml.Units do
+            xml.Unit(test_result.value["units"])
+          end          
+        end  
+      end
 
       # Builds the XML snippet for the problems section inside the CCR standard
       #
@@ -148,6 +157,7 @@ module HealthDataStandards
                 xml.Description do
                   xml.Text(vital_sign.description)
                   code_section(xml, vital_sign.codes)
+                  test_result_section(xml,vital_sign)
                 end
               end
             end
@@ -244,6 +254,7 @@ module HealthDataStandards
                 xml.Description do
                   xml.Text(lab_result.description)
                   code_section(xml, lab_result.codes)
+                  test_result_section(xml,lab_result)
                 end
               end
             end
