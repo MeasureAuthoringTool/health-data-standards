@@ -1,10 +1,6 @@
 class Record
 
   include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::Versioning
-  
-  max_versions 5
   
   field :first, type: String
   field :last, type: String
