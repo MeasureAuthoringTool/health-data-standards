@@ -8,7 +8,7 @@ class Entry
   field :time, type: Integer
   field :start_time, type: Integer
   field :end_time, type: Integer
-  field :status, type: Symbol
+  field :status, type: String
   field :codes, type: Hash, default: {}
   field :value, type: Hash, default: {}
 
