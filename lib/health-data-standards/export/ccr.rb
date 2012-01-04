@@ -29,13 +29,14 @@ module HealthDataStandards
           to_ccr_purpose(xml)
           xml.Body do
             to_ccr_problems(xml, patient)
-            to_ccr_vitals(xml, patient)
-            to_ccr_results(xml, patient)
-            to_ccr_encounters(xml, patient)
+            to_ccr_allergies(xml, patient)
             to_ccr_medications(xml, patient)
             to_ccr_immunizations(xml, patient)
+            to_ccr_vitals(xml, patient)
+            to_ccr_results(xml, patient) 
             to_ccr_procedures(xml, patient)
-            to_ccr_allergies(xml, patient)
+            to_ccr_encounters(xml, patient)
+            
           end
           to_ccr_actors(xml, patient)
         end
@@ -283,6 +284,7 @@ module HealthDataStandards
                 xml.Status do
                   xml.Text("Active")
                 end
+                xml.Source
               end
             end
           end
@@ -312,6 +314,7 @@ module HealthDataStandards
                 xml.Status do
                   xml.Text("Current")
                 end
+                xml.Source
               end
             end
           end
@@ -347,6 +350,7 @@ module HealthDataStandards
                 end
               end
             end
+             xml.Source
           end
         end
       end
