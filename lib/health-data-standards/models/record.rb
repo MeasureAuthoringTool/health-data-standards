@@ -7,8 +7,8 @@ class Record
   field :gender, type: String
   field :birthdate, type: Integer
   field :effective_time, type: Integer
-  field :race, type: String
-  field :ethnicity, type: String
+  field :race, type: Hash
+  field :ethnicity, type: Hash
   field :test_id, type: BSON::ObjectId
   field :medical_record_number, type: String
 
