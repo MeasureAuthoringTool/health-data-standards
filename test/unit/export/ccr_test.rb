@@ -6,8 +6,15 @@ class CCRTest < MiniTest::Unit::TestCase
     record = Record.find('4dcbecdb431a5f5878000004')
 
     doc = Nokogiri::XML(HealthDataStandards::Export::CCR.export(record))
+    
+    #this will only run if there is an environment variable set to point to the 
+    #schema location.  Cant be pushing the schema to github ya know . 
+    if ENV['CCR_SCHEMA']
+      xsd = Nokogiri::XML::Schema(open(ENV['CCR_SCHEMA']))
+      assert_equal [], xsd.validate(doc) 
+    end  
     doc.root.add_namespace_definition('ccr', 'urn:astm-org:CCR')
-  
+    
   # registration information
     assert_equal 'Rosa', doc.at_xpath('//ccr:Actors/ccr:Actor/ccr:Person/ccr:Name/ccr:CurrentName/ccr:Given').text
     assert_equal 'Vasquez', doc.at_xpath('//ccr:Actors/ccr:Actor/ccr:Person/ccr:Name/ccr:CurrentName/ccr:Family').text
