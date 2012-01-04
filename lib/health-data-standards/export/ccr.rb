@@ -326,7 +326,7 @@ module HealthDataStandards
       def to_ccr_actors(xml, patient)
         xml.Actors do
           xml.Actor do
-            xml.ActorObjectID("AA0001")
+            xml.ActorObjectID(patient.id)
             xml.Person do
               xml.Name do
                 xml.CurrentName do
