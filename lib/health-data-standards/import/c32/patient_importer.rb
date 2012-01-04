@@ -134,6 +134,16 @@ module HealthDataStandards
           patient.gender = gender_node['code']
           id_node = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:id')
           patient.medical_record_number = id_node['extension']
+          
+          # parse race, ethnicity, and spoken language
+          race_node = patient_element.at_xpath('cda:raceCode')
+          patient.race = { code: race_node['code'], code_set: 'CDC-RE' } if race_node
+          ethnicity_node = patient_element.at_xpath('cda:ethnicGroupCode')
+          patient.ethnicity = {code: ethnicity_node['code'], code_set: 'CDC-RE'} if ethnicity_node
+
+          languages = patient_element.search('languageCommunication').map {|lc| lc.at_xpath('cda:languageCode')['code'] }
+          patient.languages = languages unless languages.empty?
+          
         end
       end
     end
