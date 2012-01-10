@@ -5,6 +5,8 @@ class Encounter < Entry
   field :dischargeDisp, type: Hash
   embeds_one :reason, class_name: "Entry"
   
-  alias admitType, admit_type
-  alias dischargeDisp, discharge_disp
+  alias :admit_type :admitType
+  alias :admit_type= :admitType=
+  alias :discharge_disp :dischargeDisp
+  alias :discharge_disp= :dischargeDisp=
 end
