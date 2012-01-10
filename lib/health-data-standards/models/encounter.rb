@@ -1,7 +1,12 @@
 class Encounter < Entry
   field :performer, type: Hash
   field :facility, type: Hash
-  field :admiType, type: Hash, as: 'admit_type'
-  field :dischargeDisp, type: Hash, as: 'discharge_disp'
+  field :admitType, type: Hash
+  field :dischargeDisp, type: Hash
   embeds_one :reason, class_name: "Entry"
+  
+  alias :admit_type :admitType
+  alias :admit_type= :admitType=
+  alias :discharge_disp :dischargeDisp
+  alias :discharge_disp= :dischargeDisp=
 end

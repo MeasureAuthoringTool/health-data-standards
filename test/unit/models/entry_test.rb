@@ -61,6 +61,22 @@ class EntryTest < MiniTest::Unit::TestCase
                                     {'set' => 'SNOMED-CT', 'values' => ['24601']}])
   end
   
+  def test_equality
+    entry1 = Entry.new
+    entry1.add_code("44556699", "RxNorm")
+    entry1.time = 1270598400
+    entry2 = Entry.new
+    entry2.add_code("44556699", "RxNorm")
+    entry2.time = 1270598400
+    entry3 = Entry.new
+    entry3.add_code("44556699", "RxNorm")
+    entry3.time = 1270598401
+    assert entry1 == entry2
+    assert entry2 == entry1
+    assert entry2 != entry3
+    assert entry1 != entry3
+  end
+  
   def test_to_hash
     entry = Entry.new
     entry.add_code("44556699", "RxNorm")

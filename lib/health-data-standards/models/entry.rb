@@ -8,7 +8,7 @@ class Entry
   field :time, type: Integer
   field :start_time, type: Integer
   field :end_time, type: Integer
-  field :status, type: Symbol
+  field :status, type: String
   field :codes, type: Hash, default: {}
   field :value, type: Hash, default: {}
 
@@ -148,6 +148,23 @@ class Entry
   # @return [true, false]
   def usable?
     codes.present? && (start_time.present? || end_time.present? || time.present?)
+  end
+  
+  # Compares hash values to determine equality
+  def ==(other)
+    self.class==other.class && self.hash==other.hash
+  end
+  
+  # Returns the hash value, calculating it if not already done
+  def hash
+    @hash || calculate_hash!
+  end
+  
+  # Calculates a hash value for this entry
+  def calculate_hash!
+    entry_hash = to_hash
+    entry_hash['description']=nil
+    @hash = entry_hash.hash
   end
   
   # Creates a Hash for this Entry

@@ -6,8 +6,10 @@ class Record
   field :last, type: String
   field :gender, type: String
   field :birthdate, type: Integer
-  field :race, type: String
-  field :ethnicity, type: String
+  field :effective_time, type: Integer
+  field :race, type: Hash
+  field :ethnicity, type: Hash
+  field :languages, type: Array
   field :test_id, type: BSON::ObjectId
   field :medical_record_number, type: String
 
