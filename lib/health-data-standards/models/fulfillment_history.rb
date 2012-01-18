@@ -19,4 +19,6 @@ class FulfillmentHistory
   alias :fill_number= :fillNumber=
   alias :fill_status :fillStatus
   alias :fill_status= :fillStatus=
+  alias :prescription_number :prescriptionNumber
+  alias :prescription_number= :prescriptionNumber=
 end
