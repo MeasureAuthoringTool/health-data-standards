@@ -1,7 +1,7 @@
 class Record
 
   include Mongoid::Document
-
+  
   field :first, type: String
   field :last, type: String
   field :gender, type: String
@@ -13,8 +13,10 @@ class Record
   field :test_id, type: BSON::ObjectId
   field :medical_record_number, type: String
 
-  [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
-   :medications, :procedures, :results, :social_history, :vital_signs].each do |section|
+  Sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
+   :medications, :procedures, :results, :social_history, :vital_signs]
+
+  Sections.each do |section|
     embeds_many section, as: :entry_list, class_name: "Entry"
   end
   
