@@ -27,15 +27,16 @@ module HealthDataStandards
             end
           end
           to_ccr_purpose(xml)
-          xml.body do
+          xml.Body do
             to_ccr_problems(xml, patient)
-            to_ccr_vitals(xml, patient)
-            to_ccr_results(xml, patient)
-            to_ccr_encounters(xml, patient)
+            to_ccr_allergies(xml, patient)
             to_ccr_medications(xml, patient)
             to_ccr_immunizations(xml, patient)
+            to_ccr_vitals(xml, patient)
+            to_ccr_results(xml, patient) 
             to_ccr_procedures(xml, patient)
-            to_ccr_allergies(xml, patient)
+            to_ccr_encounters(xml, patient)
+            
           end
           to_ccr_actors(xml, patient)
         end
@@ -46,10 +47,10 @@ module HealthDataStandards
       private
 
       def code_section(xml, codes)
-        xml.Code do
-          if codes.present?
-            codes.each_pair do |code_set, coded_values|
-              coded_values.each do |coded_value|
+        if codes.present?
+          codes.each_pair do |code_set, coded_values|
+            coded_values.each do |coded_value|
+              xml.Code do
                 xml.Value(coded_value)
                 xml.CodingSystem(code_set)
                 #TODO: Need to fix this and not be a hard-coded value
@@ -70,6 +71,7 @@ module HealthDataStandards
           end
         end
       end
+
 
       # Builds the XML snippet for the problems section inside the CCR standard
       #
@@ -136,25 +138,57 @@ module HealthDataStandards
         if patient.vital_signs.present?
           xml.VitalSigns do
             patient.vital_signs.each_with_index do |vital_sign, index|
-              xml.Result do
-                xml.CCRDataObjectID("VT000#{index + 1}")
-                xml.DateTime do
-                  xml.Type do
-                    xml.Text("Start date")
-                  end
-                  #time
-                  xml.ExactDateTime(convert_to_ccr_time_string(vital_sign.time))
-                end
-                xml.Description do
-                  xml.Text(vital_sign.description)
-                  code_section(xml, vital_sign.codes)
-                end
-              end
+              to_result(xml,vital_sign,"VT000#{index + 1}")
             end
           end
         end
       end
 
+
+      # Builds the XML snippet for the lab section inside the CCR standard
+      #
+      # @return [Builder::XmlMarkup] CCR XML representation of patient data
+      def to_ccr_results(xml, patient)
+        if patient.results.present?
+          xml.Results do
+            patient.results.each_with_index do |lab_result, index|
+              to_result(xml,lab_result,"LB000#{index + 1}")
+            end
+          end
+        end
+      end
+      
+
+     def to_result(xml, res, ccr_id )
+       xml.Result do
+         xml.CCRDataObjectID(ccr_id)
+         xml.DateTime do
+           xml.Type do
+             xml.Text("Start date")
+           end
+           #time
+           xml.ExactDateTime(convert_to_ccr_time_string(res.time))
+         end
+         xml.Description do
+           xml.Text(res.description)
+           code_section(xml, res.codes)
+         end
+         
+         xml.Source
+         xml.Test do
+           xml.CCRDataObjectID("#{ccr_id}TestResult")
+           xml.Source
+           xml.TestResult do
+             xml.Value(res.value["scalar"])
+             xml.Units do
+               xml.Unit(res.value["units"])
+             end          
+           end
+        end
+       end
+       
+     end
+     
       # Builds the XML snippet for the medications section inside the CCR standard
       #
       # @return [Builder::XmlMarkup] CCR XML representation of patient data
@@ -225,31 +259,7 @@ module HealthDataStandards
         end
       end
 
-      # Builds the XML snippet for the lab section inside the CCR standard
-      #
-      # @return [Builder::XmlMarkup] CCR XML representation of patient data
-      def to_ccr_results(xml, patient)
-        if patient.results.present?
-          xml.Results do
-            patient.results.each_with_index do |lab_result, index|
-              xml.Result do
-                xml.CCRDataObjectID("LB000#{index + 1}")
-                xml.DateTime do
-                  xml.Type do
-                    xml.Text("Start date")
-                  end
-                  #time
-                  xml.ExactDateTime(convert_to_ccr_time_string(lab_result.time))
-                end
-                xml.Description do
-                  xml.Text(lab_result.description)
-                  code_section(xml, lab_result.codes)
-                end
-              end
-            end
-          end
-        end
-      end
+      
 
       # Builds the XML snippet for the procedures section inside the CCR standard
       #
@@ -274,6 +284,7 @@ module HealthDataStandards
                 xml.Status do
                   xml.Text("Active")
                 end
+                xml.Source
               end
             end
           end
@@ -303,6 +314,7 @@ module HealthDataStandards
                 xml.Status do
                   xml.Text("Current")
                 end
+                xml.Source
               end
             end
           end
@@ -315,7 +327,7 @@ module HealthDataStandards
       def to_ccr_actors(xml, patient)
         xml.Actors do
           xml.Actor do
-            xml.ActorObjectID("AA0001")
+            xml.ActorObjectID(patient.id)
             xml.Person do
               xml.Name do
                 xml.CurrentName do
@@ -323,10 +335,10 @@ module HealthDataStandards
                   xml.Family(patient.last)
                 end
               end
-            end
-            xml.DateOfBirth do
-              xml.ExactDateTime(convert_to_ccr_time_string(patient.birthdate))
-                if (patient.gender)
+              xml.DateOfBirth do
+                xml.ExactDateTime(convert_to_ccr_time_string(patient.birthdate))
+              end
+              if (patient.gender)
                 xml.Gender do
                   if (patient.gender.upcase == "M")
                     xml.Text("Male")
@@ -338,6 +350,7 @@ module HealthDataStandards
                 end
               end
             end
+             xml.Source
           end
         end
       end

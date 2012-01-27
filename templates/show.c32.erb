@@ -67,15 +67,21 @@
     <structuredBody>
       <% if patient.allergies.present? -%>
         <%== render :partial => 'allergies', :locals => {:entries => patient.allergies} %>
+      <% else %>
+        <%== render :partial => 'allergies_no_current', :locals => {:entries => patient.allergies} %>
       <% end -%>
       <% if patient.medications.present? -%>
         <%== render :partial => 'medications', :locals => {:entries => patient.medications} %>
+      <% else %>
+        <%== render :partial => 'medications_no_current', :locals => {:entries => patient.medications} %>
       <% end -%>
       <% if patient.encounters.present? -%>
         <%== render :partial => 'encounters', :locals => {:entries => patient.encounters} %>
       <% end -%>
       <% if patient.conditions.present? -%>
         <%== render :partial => 'conditions', :locals => {:entries => patient.conditions} %>
+      <% else %>
+        <%== render :partial => 'conditions_no_current', :locals => {:entries => patient.conditions} %>
       <% end -%>
       <% if patient.vital_signs.present? -%>
         <%== render :partial => 'vital_signs', :locals => {:entries => patient.vital_signs} %>

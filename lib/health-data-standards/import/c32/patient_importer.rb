@@ -117,11 +117,13 @@ module HealthDataStandards
         end
 
         # Inspects a C32 document and populates the patient Hash with first name, last name
-        # birth date and gender.
+        # birth date, gender and the effectiveTime.
         #
         # @param [Hash] patient A hash that is used to represent the patient
         # @param [Nokogiri::XML::Node] doc The C32 document parsed by Nokogiri
         def get_demographics(patient, doc)
+          effective_date = doc.at_xpath('/cda:ClinicalDocument/cda:effectiveTime')['value']
+          patient.effective_time = HL7Helper.timestamp_to_integer(effective_date)
           patient_element = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient')
           patient.first = patient_element.at_xpath('cda:name/cda:given').text
           patient.last = patient_element.at_xpath('cda:name/cda:family').text
@@ -132,6 +134,16 @@ module HealthDataStandards
           patient.gender = gender_node['code']
           id_node = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:id')
           patient.medical_record_number = id_node['extension']
+          
+          # parse race, ethnicity, and spoken language
+          race_node = patient_element.at_xpath('cda:raceCode')
+          patient.race = { code: race_node['code'], code_set: 'CDC-RE' } if race_node
+          ethnicity_node = patient_element.at_xpath('cda:ethnicGroupCode')
+          patient.ethnicity = {code: ethnicity_node['code'], code_set: 'CDC-RE'} if ethnicity_node
+
+          languages = patient_element.search('languageCommunication').map {|lc| lc.at_xpath('cda:languageCode')['code'] }
+          patient.languages = languages unless languages.empty?
+          
         end
       end
     end
