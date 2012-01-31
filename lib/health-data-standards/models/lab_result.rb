@@ -4,4 +4,10 @@ class LabResult < Entry
   
   alias :reference_range :referenceRange
   alias :reference_range= :referenceRange=
+  
+  
+  def value_type
+    value[:units] ? :quantity : :integer
+  end
+  
 end

@@ -14,6 +14,8 @@ class ResultImporterTest < MiniTest::Unit::TestCase
     lab_results = @results.map { |result| @importer.import(result) }
     result = lab_results[0]
     
+    refute_nil result
+    
     code_system = result.codes.keys[0]
     assert_equal "LOINC", code_system
     assert_equal ["14647-2"], result.codes[code_system]
@@ -29,6 +31,8 @@ class ResultImporterTest < MiniTest::Unit::TestCase
     assert_equal ["N"], result.interpretation[interpretation_code_system]
   
     result2 = lab_results[1]
+    
+    refute_nil result2
     
     assert_equal "Triglyceride [Mass/volume] in Blood", result2.description
     

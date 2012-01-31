@@ -13,16 +13,22 @@ module HealthDataStandards
           code_system_oid = extract_attribute(element, "codeSystem")
           code = extract_attribute(element, "code")
           code_system = HealthDataStandards::Util::CodeSystemHelper.code_system_for(code_system_oid)
-          
-          entry.send(attribute).merge!({code_system => [code]})
+          codes = {code_system => [code]}
+          if entry.is_a?(Hash)
+            entry.send(attribute).merge!(codes)
+          else
+            entry.send("#{attribute}=", codes)
+          end
         end
         
         
         def extract_attribute(node, attribute_name, to_num=false)
+          return if node.nil? || (node.respond_to?(:empty?) && node.empty?)
+          # binding.pry
           attribute = node.attribute(attribute_name.to_s)
           value = attribute ? attribute.value : nil
-          return unless value
-          to_num ? value.to_f : value 
+          return unless value && value != ""
+          to_num ? value.to_f : value
         end
         
         def extract_node_text(node)
@@ -38,10 +44,10 @@ module HealthDataStandards
           
           value = case value_element.name
             when "physicalQuantity"
-              {"scalar" => node_value, "units" => extract_attribute(value_element, "unit") }
+
+                {"scalar" => node_value, "units" => extract_attribute(value_element, "unit") }
             when "integer"
-              node_int = node_value ? node_value.to_i : nil
-              {"scalar" => node_int}
+              node_value ? {'scalar' => node_value.to_i} : {}
             else
               puts "Value type #{value_element.name} not yet supported"  
             end

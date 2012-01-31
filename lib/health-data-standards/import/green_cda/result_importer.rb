@@ -17,7 +17,7 @@ module HealthDataStandards
           status = extract_attribute(result.xpath(@status).first, "code")
           description = extract_attribute(result.xpath(@description), 'displayName')
           
-          lab_result = LabResult.new(description: description, reference_range: range, status: status, interpretation: {})
+          lab_result = LabResult.new(description: description, reference_range: range, status: status)
           
           extract_code(result.xpath(@interpretation).first, lab_result, :interpretation)
           extract_code(result.xpath(@code).first, lab_result)
