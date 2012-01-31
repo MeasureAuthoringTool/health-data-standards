@@ -40,3 +40,6 @@ require_relative 'health-data-standards/import/c32/procedure_importer'
 require_relative 'health-data-standards/import/c32/result_importer'
 require_relative 'health-data-standards/import/c32/vital_sign_importer'
 require_relative 'health-data-standards/import/c32/patient_importer'
+
+require_relative 'health-data-standards/import/green_cda/section_importer'
+require_relative 'health-data-standards/import/green_cda/result_importer'
