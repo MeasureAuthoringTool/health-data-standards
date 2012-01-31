@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.version = '0.7.0'
   
   s.add_dependency 'erubis', '~> 2.6'
-  s.add_dependency 'mongoid', '~> 2.3.3'
+  s.add_dependency 'mongoid', '~> 2.4.2'
   s.add_dependency 'uuid', '~> 2.3.4'
   s.add_dependency 'builder', '~> 3.0.0'
   s.add_dependency 'nokogiri', '~> 1.4.7'
