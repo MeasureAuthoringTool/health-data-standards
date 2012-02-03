@@ -21,26 +21,9 @@ module HealthDataStandards
           data = JSON.parse(doc)
 
           # Validate the presence of required data
-          codes = data[CODES]
-          time = data[TIME]
-          desc = data[DESCRIPTION]
-
-          if codes.nil? || time.nil? || desc.nil?
-            return nil
-          end
-
-          return nil if codes.size == 0
-
-          key = codes.keys[0]
-          code_vals = codes[key]
-
-          oid = HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(key)
-          return nil if oid.nil?
-
-          return nil unless time.class == Fixnum
-
-          return nil if code_vals.nil?
-          return nil unless code_vals.class == Array
+          return nil unless validate_code data
+          return nil unless validate_time data
+          return nil unless validate_required data, DESCRIPTION
 
           result_list << LabResult.new(data)
 
