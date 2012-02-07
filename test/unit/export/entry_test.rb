@@ -11,6 +11,8 @@ module Export
 
     def test_results
       result = @record.results.first
+      result.reference_range = "< 500ml"
+      
       xml = HealthDataStandards::Export::GreenCda::Entry.export(result, :result)
       
       doc = Nokogiri::XML(xml)
