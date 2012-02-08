@@ -22,6 +22,7 @@ class MiniTest::Unit::TestCase
       id_attributes.each do |attr|
         fixture_json[attr] = BSON::ObjectId.from_string(fixture_json[attr])
       end
+
       Mongoid.database[collection].save(fixture_json, :safe=>true)
     end
   end

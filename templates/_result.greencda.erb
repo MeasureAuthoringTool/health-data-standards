@@ -1,0 +1,28 @@
+<result xmlns="urn:hl7-org:greencda:c32">
+    <resultID root="<%= result.id %>" />
+        
+    <resultDateTime nullFlavor="NI"/>
+        <% code = result.codes.first%>
+    <resultType code="<%= code.last.first %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(code.first)%>" displayName="<%= result.description %>">
+    
+    </resultType>
+        
+        <% if result.status %>
+    <resultStatus code="completed"/>
+        <% end %>
+    <resultValue>
+    <% if result.value_type == :quantity %>
+        <physicalQuantity value="<%= result.value['scalar']%>" unit="<%= result.value['units'] %>" />
+    <% elsif result.value_type == :integer %>
+        <integer value="<%= result.value['scalar']%>" />
+    <% end %>
+            
+    </resultValue>
+    <% if result.interpretation %>
+    <% int_code = result.interpretation.first %>
+        <resultInterpretation code="<%= int_code.last.first %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(int_code.first)%>"/>
+    <% end %>
+    <% if result.reference_range %>
+        <resultReferenceRange><%= result.reference_range %></resultReferenceRange>
+    <% end %>
+</result>
