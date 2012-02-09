@@ -19,7 +19,10 @@ require_relative 'health-data-standards/export/rendering_context'
 require_relative 'health-data-standards/export/c32'
 require_relative 'health-data-standards/export/ccr'
 require_relative 'health-data-standards/export/csv'
+
 require_relative 'health-data-standards/export/green_c32/entry'
+require_relative 'health-data-standards/export/green_c32/export_generator'
+
 
 require_relative 'health-data-standards/models/entry'
 require_relative 'health-data-standards/models/allergy'
