@@ -7,16 +7,16 @@ class ExportGeneratorTest < MiniTest::Unit::TestCase
   end
 
   def test_generating_results_exporter
-    exporter = HealthDataStandards::Export::GreenCda::ExportGenerator.create_exporter_for(:result)
+    exporter = HealthDataStandards::Export::GreenC32::ExportGenerator.create_exporter_for(:result)
     result = @record.results.first
     xml = exporter.export(result)
     
     doc = Nokogiri::XML(xml)
-    doc.root.add_namespace_definition('green', "urn:hl7-org:greencda:c32")
+    doc.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
     
-    ri = HealthDataStandards::Import::GreenCda::ResultImporter.instance
+    ri = HealthDataStandards::Import::GreenC32::ResultImporter.instance
     
-    result2 = ri.import(doc.xpath("/green:result"))
+    result2 = ri.import(doc.xpath("/gc32:result"))
     
     assert_equal result.value, result2.value
     assert_equal result.description, result2.description
