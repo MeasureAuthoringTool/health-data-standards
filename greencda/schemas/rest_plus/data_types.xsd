@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:complexType name="simpleCode">
+    <xs:attribute name="code"/>
+    <xs:attribute name="codeSystem"/>
+    <xs:attribute name="nullFlavor" />
+  </xs:complexType>
+	<xs:complexType name="code">
+	  <xs:extension base="gc32:simpleCode">
+	    <xs:attribute name="codeSystemName"/>
+  		<xs:attribute name="displayName"/>
+  		<xs:sequence>
+  		  <xs:element name="originalText" />
+  		  <xs:element name="translation" minOccurs="0" maxOccurs="unbounded" type="gc32:simpleCode" />
+  		</xs:sequence>
+	  </xs:extension>
+	</xs:complexType>
+	<xs:complexType name="quantity">
+    <xs:attribute name="amount" type="xs:float" />
+    <xs:attribute name="unit" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="interval">
+	  <xs:sequence>
+	    <xs:element name="start" type="xs:dateTime"
+			<xs:element name="end" type="xs:dateTime">
+	  </xs:sequence>
+	</xs:complexType>
+</xs:schema>

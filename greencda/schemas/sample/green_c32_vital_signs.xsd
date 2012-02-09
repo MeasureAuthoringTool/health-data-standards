@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="green_cda_narrative.xsd"/>
+	<xs:include schemaLocation="green_c32_base.xsd"/>
+	<xs:include schemaLocation="green_c32_datatypes.xsd"/>
+	<xs:element name="vitalSigns">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="vitalSignsOrganizer">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="code" type="gc32:cd"/>
+							<xs:element name="effectiveTime" type="gc32:ivlTs"/>
+							<xs:element name="vitalSign" type="gc32:result" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

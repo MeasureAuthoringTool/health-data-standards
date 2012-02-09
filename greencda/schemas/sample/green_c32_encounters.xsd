@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="green_cda_narrative.xsd"/>
+	<xs:include schemaLocation="green_c32_base.xsd"/>
+	<xs:include schemaLocation="green_c32_datatypes.xsd"/>
+	<xs:element name="encounters">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="encounter" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="encounterID" type="gc32:ii" maxOccurs="unbounded"/>
+							<xs:element name="encounterType" minOccurs="0">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="gc32:cd"/>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="encounterDateTime" type="gc32:ivlTs"/>
+							<xs:element name="dischargeDisposition" minOccurs="0"/>
+							<!-- Ignore for now, maps to part of the header -->
+							<xs:element name="admissionType" type="gc32:cd" minOccurs="0"/>
+							<xs:element name="encounterProvider" type="gc32:providerInformation" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element name="facilityLocation" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="locationDuration" type="gc32:ivlTs"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="reasonForVisit" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="text" type="gc32:textType" minOccurs="0"/>
+										<xs:element name="reason" type="gc32:cd"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<!-- Ignore for now, maps to part of the header -->
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

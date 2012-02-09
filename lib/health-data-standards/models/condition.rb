@@ -1,12 +1,8 @@
 class Condition < Entry
   field :diagnosisPriority,   type: Integer
-  field :problemDate,         type: Date
   field :problemType,         type: ???
-  field :problemName,         type: String
-  field :problemCode,         type: ???
   field :ageAtOnset,          type: Integer
   field :causeOfDeath,        type: Hash
-  field :problemStatus,       type: ???
   
   embeds_many :treatingProvider,  class_name: "TreatingProvider"
   embeds_many :comment,           class_name: "Comment"

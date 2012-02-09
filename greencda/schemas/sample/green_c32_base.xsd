@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="green_cda_narrative.xsd"/>
+	<xs:include schemaLocation="green_c32_datatypes.xsd"/>
+	<xs:element name="provider" type="gc32:organizationInformation"/>
+	<xs:element name="informationSource">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="author">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="authorId" type="gc32:ii"/>
+							<xs:element name="authorTime" type="gc32:ts"/>
+							<xs:element name="authorName" type="gc32:pnm"/>
+							<xs:element name="address" type="gc32:addr"/>
+							<xs:element name="telecom" type="gc32:tele"/>
+							<xs:element name="reference" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="referenceDocumentID" type="gc32:ii"/>
+										<xs:element name="referenceDocumentURL">
+											<xs:complexType>
+												<xs:attribute name="value"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="informationSourceName" minOccurs="0">
+					<xs:complexType>
+						<xs:choice>
+							<xs:element name="personName" type="gc32:pnm"/>
+							<xs:element name="organizationName" type="gc32:onm"/>
+							<xs:element name="relatedPersonName" type="gc32:pnm"/>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
