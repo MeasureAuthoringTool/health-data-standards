@@ -11,15 +11,15 @@ module HealthDataStandards
         end
         
         def import(result)
+          result.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
           
-          lab_result = LabResult.new(reference_range: extract_node_text(result.xpath(@range)))
+          result_element = result.xpath("./gc32:result")
+          lab_result = LabResult.new(reference_range: extract_node_text(result_element.xpath(@range)))
           
-          extract_status(result, lab_result)
-          extract_code(result, lab_result)
-          extract_description(result, lab_result)
-          extract_time(result, lab_result)
-          extract_value(result, lab_result)
-          extract_code(result, lab_result, @interpretation, :interpretation)
+          extract_entry(result_element, lab_result)
+          extract_time(result_element, lab_result)
+          extract_value(result_element, lab_result)
+          extract_code(result_element, lab_result, @interpretation, :interpretation)
               
           lab_result
         end

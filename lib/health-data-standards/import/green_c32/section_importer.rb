@@ -6,13 +6,12 @@ module HealthDataStandards
       class SectionImporter
         
         def initialize
-          @description = "./gc32:type/gc32:originalText"
-          @code = "./gc32:type"
+          @description = "./gc32:code/gc32:originalText"
           @status = "./gc32:status"
           @value = "./gc32:value"
         end
         
-        def extract_code(element, entry, xpath="./gc32:type", attribute=:codes)
+        def extract_code(element, entry, xpath="./gc32:code", attribute=:codes)
           
           code_element = element.xpath(xpath).first
 
@@ -38,10 +37,15 @@ module HealthDataStandards
           entry.status = status
         end
         
-        def extract_time(element, entry)
-          datetime = element.xpath("./gc32:effectiveTime").first
-          return unless datetime
-          entry.time = Time.parse(datetime.inner_text).to_i
+        def extract_time(element, entry, xpath = "./gc32:effectiveTime", attribute = "time")
+          datetime = element.xpath(xpath).first
+          return unless datetime && !datetime.inner_text.empty?
+          entry.send("#{attribute}=", Time.parse(datetime.inner_text).to_i)
+        end
+        
+        def extract_interval(element, entry)
+          extract_time(element, entry, "./gc32:effectiveTime/gc32:start", "start_time")
+          extract_time(element, entry, "./gc32:effectiveTime/gc32:end", "end_time")
         end
         
         def extract_value(element, entry)
@@ -55,6 +59,12 @@ module HealthDataStandards
           
           entry.value = {'scalar' => node_value, "unit" => node_units} if node_value
 
+        end
+        
+        def extract_entry(element, entry)
+          extract_code(element, entry)
+          extract_description(element, entry)
+          extract_status(element, entry)
         end
         
         private

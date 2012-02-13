@@ -2,9 +2,7 @@ require 'test_helper'
 
 class ResultImporterTest < MiniTest::Unit::TestCase
   def setup
-    doc = Nokogiri::XML(File.new('test/fixtures/green_c32_fragments/result.xml'))
-    doc.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
-    @result = doc.xpath("/gc32:result")
+    @result = Nokogiri::XML(File.new('test/fixtures/green_c32_fragments/result.xml'))
     @importer = HealthDataStandards::Import::GreenC32::ResultImporter.instance
   end
   

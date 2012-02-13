@@ -12,11 +12,10 @@ class ExportGeneratorTest < MiniTest::Unit::TestCase
     xml = exporter.export(result)
     
     doc = Nokogiri::XML(xml)
-    doc.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
-    
+
     ri = HealthDataStandards::Import::GreenC32::ResultImporter.instance
     
-    result2 = ri.import(doc.xpath("/gc32:result"))
+    result2 = ri.import(doc)
     
     assert_equal result.value, result2.value
     assert_equal result.description, result2.description

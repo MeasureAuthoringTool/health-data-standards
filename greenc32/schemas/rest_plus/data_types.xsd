@@ -3,13 +3,13 @@
   <xs:complexType name="entry">
     <xs:sequence>
       <xs:element name="id" type="xs:string" />
-			<xs:element name="type" type="gc32:code"/>
+			<xs:element name="code" type="gc32:code" />
+			<xs:element name="status" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="simpleCode">
     <xs:attribute name="code"/>
     <xs:attribute name="codeSystem"/>
-    <xs:attribute name="nullFlavor" />
   </xs:complexType>
 	<xs:complexType name="code">
 		<xs:complexContent>
@@ -33,15 +33,7 @@
 			<xs:element name="end" type="xs:dateTime"/>
 	  </xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="ii">
-		<xs:annotation>
-			<xs:documentation>Id</xs:documentation>
-		</xs:annotation>
-		<xs:attribute name="root"/>
-		<xs:attribute name="extension"/>
-		<xs:attribute name="nullFlavor" type="gc32:nullFlavorType"/>
-	</xs:complexType>
-	<xs:complexType name="addr" mixed="true">
+	<xs:complexType name="address" mixed="true">
 		<xs:annotation>
 			<xs:documentation>Address (US only)</xs:documentation>
 		</xs:annotation>
@@ -64,20 +56,21 @@
 			<xs:element name="organizationName" type="xs:string" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:simpleType name="nullFlavorType">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="NP"/>
-			<xs:enumeration value="NI"/>
-			<xs:enumeration value="MSK"/>
-			<xs:enumeration value="NA"/>
-			<xs:enumeration value="OTH"/>
-			<xs:enumeration value="NINF"/>
-			<xs:enumeration value="PINF"/>
-			<xs:enumeration value="UNK"/>
-			<xs:enumeration value="NASK"/>
-			<xs:enumeration value="TRC"/>
-			<xs:enumeration value="ASKU"/>
-			<xs:enumeration value="NAV"/>
-		</xs:restriction>
-	</xs:simpleType>
+  <!-- We can't handle null flavors at the moment -->
+  <!-- <xs:simpleType name="nullFlavorType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NP"/>
+      <xs:enumeration value="NI"/>
+      <xs:enumeration value="MSK"/>
+      <xs:enumeration value="NA"/>
+      <xs:enumeration value="OTH"/>
+      <xs:enumeration value="NINF"/>
+      <xs:enumeration value="PINF"/>
+      <xs:enumeration value="UNK"/>
+      <xs:enumeration value="NASK"/>
+      <xs:enumeration value="TRC"/>
+      <xs:enumeration value="ASKU"/>
+      <xs:enumeration value="NAV"/>
+    </xs:restriction>
+  </xs:simpleType> -->
 </xs:schema>
