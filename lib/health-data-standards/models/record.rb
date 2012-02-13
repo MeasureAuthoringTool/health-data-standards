@@ -6,6 +6,7 @@ class Record
   field :last, type: String
   field :gender, type: String
   field :birthdate, type: Integer
+  field :deathdate, type: Integer
   field :effective_time, type: Integer
   field :race, type: Hash
   field :ethnicity, type: Hash

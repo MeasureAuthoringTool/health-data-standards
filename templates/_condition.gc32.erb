@@ -1,0 +1,11 @@
+<condition <% if condition.cause_of_death %> causeOfDeath="true" <% end %> xmlns="urn:hl7-org:greencda:c32">
+  <id></id>
+  <%== code_display result, "tag_name" => "type", 'preferred_code_sets' => ['SNOMED-CT'] %>
+  <% if condition.name %>
+    <name><%= condition.name%></name>
+  <% end %>
+  <effectiveTime>
+    <start><%= Time.at(condition.start_time)%></start>
+    <end><%= Time.at(condition.end_time)%></end>
+  </effectiveTime>
+</condition>

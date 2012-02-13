@@ -1,8 +1,8 @@
 <result xmlns="urn:hl7-org:greencda:c32">
     <id><%= result.id %></id>
-    <effectiveTime><%= Time.at(result.time) %></effectiveTime>
-    <%== code_display result, "tag_name" => "type", 'preferred_code_sets' => ['SNOMED-CT'] %>
     
+    <%== code_display result, "tag_name" => "type", 'preferred_code_sets' => ['SNOMED-CT'] %>
+    <effectiveTime><%= Time.at(result.time) %></effectiveTime>
     <% if result.status %>
       <status code="completed"/>
     <% end %>

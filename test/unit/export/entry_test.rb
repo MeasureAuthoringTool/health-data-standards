@@ -33,7 +33,13 @@ module GreenC32
   end
   
   def test_encounters
+    condition = @record.conditions.first
+    refute_nil condition
     
+    xml = HealthDataStandards::Exporter::GreenC32::Entry.export(condition, :condition)
+    
+    doc = Nokogiri::XML(xml)
+    doc.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
   end
 end
 
