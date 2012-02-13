@@ -9,6 +9,8 @@ class FulfillmentHistory
   field :fillNumber, type: Integer
   field :fillStatus, type: Hash
   
+  alias :prescription_number :prescriptionNumber
+  alias :prescription_number= :prescriptionNumber=
   alias :dispensing_pharmacy_location :dispensingPharmacyLocation
   alias :dispensing_pharmacy_location= :dispensingPharmacyLocation=
   alias :dispense_date :dispenseDate
