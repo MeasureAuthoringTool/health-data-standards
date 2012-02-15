@@ -1,56 +1,47 @@
 module HealthDataStandards
   module Import
-    module C32
+    module CCR
       class ResultImporter < SectionImporter
-        def initialize
-          @entry_xpath = "//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.15.1'] | //cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.15']"
-          @code_xpath = "./cda:code"
-          @status_xpath = "./cda:statusCode"
-          @description_xpath = "./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value] "
-          @check_for_usable = true               # Pilot tools will set this to false
-        end
-    
-        # Traverses that HITSP C32 document passed in using XPath and creates an Array of Entry
+        
+        # Traverses that ASTM CCR document passed in using XPath and creates an Array of Entry
         # objects based on what it finds                          
         # @param [Nokogiri::XML::Document] doc It is expected that the root node of this document
-        #        will have the "cda" namespace registered to "urn:hl7-org:v3"
+        #        will have the "ccr" namespace registered to "urn:astm-org:CCR"
         #        measure definition
         # @return [Array] will be a list of Entry objects
-        def create_entries(doc,id_map = {})
-          result_list = []
+        def create_entries(doc)
+          entry_list = []
           entry_elements = doc.xpath(@entry_xpath)
           entry_elements.each do |entry_element|
-            result = LabResult.new
-            extract_codes(entry_element, result)
-            extract_dates(entry_element, result)
-            extract_value(entry_element, result)
-            extract_status(entry_element, result)
-            extract_description(entry_element, result, id_map)
-            extract_interpretation(entry_element, result)
-            if @check_for_usable
-              result_list << result if result.usable?
-            else
-              result_list << result
+            # Grab the time and the description from the Result node
+            dummy_entry = Entry.new
+            extract_dates(entry_element, dummy_entry)
+            dummy_entry.description = ""
+            if entry_element.at_xpath("./ccr:Description/ccr:Text")
+              dummy_entry.description = entry_element.at_xpath("./ccr:Description/ccr:Text").content  
             end
+            # Iterate over embedded tests
+            # Grab the values and the description from the Test nodes
+            # For each test, create an entry with the time from the Result,  the description a concatenation of the Result and Test descriptions, 
+            # and the value from the Test
+
+            tests = entry_element.xpath("./ccr:Test")
+            tests.each do |test|
+              entry = Entry.new
+              entry = dummy_entry.clone   # copies time and description
+              extract_codes(test, entry)
+              extract_value(test, entry)
+              extract_status(test, entry)
+              extract_dates(test, entry)
+              entry.description = dummy_entry.description + ": " + entry.description
+              if @check_for_usable
+                entry_list << entry if entry.usable?
+              else
+                entry_list << entry
+              end   
+            end          
           end
-          result_list
-        end
-    
-        private
-        def extract_interpretation(parent_element, result)
-          interpretation_element = parent_element.at_xpath("./cda:interpretationCode")
-          if interpretation_element
-            code = interpretation_element['code']
-            code_system = CodeSystemHelper.code_system_for(interpretation_element['codeSystem'])
-            result.interpretation = {'code' => code, 'codeSystem' => code_system}
-          end
-        end
-    
-        def extract_status(parent_element, result)
-          status_code_element = parent_element.at_xpath(@status_xpath)
-          if status_code_element
-            result.status = status_code_element['code']
-          end
+          entry_list        
         end
       end
     end
