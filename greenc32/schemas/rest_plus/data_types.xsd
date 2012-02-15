@@ -56,6 +56,19 @@
 			<xs:element name="organizationName" type="xs:string" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="result">
+		<xs:complexContent>
+			<xs:extension base="gc32:entry">
+				<xs:sequence>
+					<xs:element name="effectiveTime" type="xs:dateTime" />
+					<xs:element name="status" type="xs:string" />
+					<xs:element name="value" type="gc32:quantity" />
+					<xs:element name="interpretation" type="gc32:simpleCode" minOccurs="0"/>
+					<xs:element name="referenceRange" minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
   <!-- We can't handle null flavors at the moment -->
   <!-- <xs:simpleType name="nullFlavorType">
     <xs:restriction base="xs:string">
