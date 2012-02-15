@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="green_cda_narrative.xsd"/>
+	<xs:include schemaLocation="green_c32_datatypes.xsd"/>
+	<xs:include schemaLocation="green_c32_base.xsd"/>
+	<xs:include schemaLocation="green_c32_advance_directives.xsd"/>
+	<xs:include schemaLocation="green_c32_allergies.xsd"/>
+	<xs:include schemaLocation="green_c32_conditions.xsd"/>
+	<xs:include schemaLocation="green_c32_encounters.xsd"/>
+	<xs:include schemaLocation="green_c32_immunizations.xsd"/>
+	<xs:include schemaLocation="green_c32_insurance_providers.xsd"/>
+	<xs:include schemaLocation="green_c32_medications.xsd"/>
+	<xs:include schemaLocation="green_c32_plan_of_care.xsd"/>
+	<xs:include schemaLocation="green_c32_pregnancies.xsd"/>
+	<xs:include schemaLocation="green_c32_procedures.xsd"/>
+	<xs:include schemaLocation="green_c32_vital_signs.xsd"/>
+	<xs:include schemaLocation="green_c32_results.xsd"/>
+	<xs:element name="greenCCD">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="header">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="documentID" type="gc32:ii"/>
+							<xs:element name="title"/>
+							<xs:element name="version" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="number"/>
+										<xs:element name="setID" type="gc32:ii"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="language">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:restriction base="gc32:cd">
+											<xs:sequence minOccurs="0" maxOccurs="0">
+												<xs:element name="originalText" minOccurs="0"/>
+												<xs:element ref="gc32:qualifier" minOccurs="0" maxOccurs="unbounded"/>
+											</xs:sequence>
+											<xs:attribute name="codeSystem" use="prohibited"/>
+											<xs:attribute name="displayName" use="prohibited"/>
+											<xs:attribute name="codeSystemName" use="prohibited"/>
+										</xs:restriction>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="confidentiality" type="gc32:cd"/>
+							<xs:element name="documentTimestamp" type="gc32:ts"/>
+							<xs:element name="personalInformation">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="patientInformation">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="personID" type="gc32:ii"/>
+													<xs:element name="personAddress" type="gc32:addr" maxOccurs="unbounded"/>
+													<xs:element name="personPhone" type="gc32:tele" maxOccurs="unbounded"/>
+													<xs:element name="personInformation" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="personName" type="gc32:pnm" maxOccurs="unbounded"/>
+																<xs:element name="gender" type="gc32:cd"/>
+																<xs:element name="personDateOfBirth" type="gc32:ts"/>
+																<xs:element name="maritalStatus" type="gc32:cd" minOccurs="0" maxOccurs="unbounded"/>
+																<xs:element name="religiousAffiliation" type="gc32:cd" minOccurs="0"/>
+																<xs:element name="race" type="gc32:cd" minOccurs="0" maxOccurs="unbounded"/>
+																<xs:element name="ethnicity" type="gc32:cd" minOccurs="0"/>
+																<xs:element name="birthPlace" minOccurs="0">
+																	<xs:complexType>
+																		<xs:complexContent>
+																			<xs:extension base="gc32:addr">
+																				<xs:attribute name="name"/>
+																			</xs:extension>
+																		</xs:complexContent>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="languagesSpoken" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="languageSpoken" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="languageCode" type="gc32:cs"/>
+													<xs:element name="modeCode" type="gc32:ce" minOccurs="0"/>
+													<xs:element name="preferenceInd" minOccurs="0">
+														<xs:complexType>
+															<xs:attribute name="nullFlavor" type="gc32:nullFlavorType"/>
+															<xs:attribute name="value"/>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="supports" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="support" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="date" type="gc32:ivlTs"/>
+													<xs:choice>
+														<xs:element name="guardian" type="gc32:contactType"/>
+														<xs:element name="contact" type="gc32:contactType" maxOccurs="unbounded"/>
+													</xs:choice>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="custodian">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="custodianID" type="gc32:ii" maxOccurs="unbounded"/>
+										<xs:element name="custodianName" type="gc32:onm"/>
+										<xs:element name="custodianAddress" type="gc32:addr"/>
+										<xs:element name="custodianTelecom" type="gc32:tele"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="healthcareProviders" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="careProvisionDateRange" type="gc32:ivlTs">
+											<xs:annotation>
+												<xs:documentation>Not in C32, but required for CCD. </xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="healthcareProvider" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="role" type="gc32:cd"/>
+													<xs:element name="dateRange" type="gc32:ivlTs"/>
+													<xs:element name="providerEntity" type="gc32:providerInformation"/>
+													<xs:element name="patientID" type="gc32:ii" minOccurs="0"/>
+													<xs:element ref="gc32:comment" minOccurs="0" maxOccurs="unbounded"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element ref="gc32:informationSource"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="body">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="gc32:results">
+								<xs:annotation>
+									<xs:documentation> The Diagnostic Results Section contains information about the results from diagnostic procedures the patient received.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="gc32:encounters" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The Encounters Section contains information describing the patient history of encounters. At a minimum, current and pertinent historical encounters should be included; a full encounter history may be included.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="gc32:medications">
+								<xs:annotation>
+									<xs:documentation>The Medications Section contains information about the relevant medications for the patient. At a minimum, the currently active medications should be listed.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="gc32:immunizations">
+								<xs:annotation>
+									<xs:documentation>The Immunizations Section contains information describing the immunizations administered to the patient.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="gc32:allergies">
+								<xs:annotation>
+									<xs:documentation>The Allergies and Other Adverse Reactions Section contains data on the substance intolerances and the associated adverse reactions suffered by the patient. At a minimum, currently active and any relevant historical allergies and adverse reactions shall be listed.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="gc32:vitalSigns" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The Vital Signs Section contains information documenting the patient vital signs.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="gc32:advanceDirectives" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The Advance Directives Section contains information that defines the patient’s expectations and requests for care along with the locations of the documents.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="gc32:procedures">
+								<xs:annotation>
+									<xs:documentation>The Procedures and Interventions Section may be used to record the procedures and interventions that have been performed.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="gc32:insuranceProviders" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The Payers Section contains data on the patient’s payers, whether a ‘third party’ insurance, self-pay, other payer or guarantor, or some combination. At a minimum, the patient's pertinent current payment sources should be listed. If no payment sources are supplied, the reason shall be supplied as free text in the narrative block (e.g., Not Insured, Payer Unknown, Medicare Pending, etc.).</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="gc32:pregnancies" minOccurs="0"/>
+							<xs:element ref="gc32:conditions">
+								<xs:annotation>
+									<xs:documentation>The Problem List Section contains data on the problems currently being monitored for the patient.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="gc32:planOfCare" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The Plan of Care Section contains information about the expectations for care to be provided including proposed interventions and goals for improving the condition of the patient.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

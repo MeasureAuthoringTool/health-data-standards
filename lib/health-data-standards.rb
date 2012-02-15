@@ -20,9 +20,14 @@ require_relative 'health-data-standards/export/c32'
 require_relative 'health-data-standards/export/ccr'
 require_relative 'health-data-standards/export/csv'
 
+require_relative 'health-data-standards/export/green_c32/entry'
+require_relative 'health-data-standards/export/green_c32/export_generator'
+
+
 require_relative 'health-data-standards/models/entry'
 require_relative 'health-data-standards/models/allergy'
 require_relative 'health-data-standards/models/encounter'
+require_relative 'health-data-standards/models/condition'
 require_relative 'health-data-standards/models/immunization'
 require_relative 'health-data-standards/models/fulfillment_history'
 require_relative 'health-data-standards/models/order_information'
@@ -50,3 +55,7 @@ require_relative 'health-data-standards/import/ccr/section_importer'
 require_relative 'health-data-standards/import/ccr/result_importer'
 require_relative 'health-data-standards/import/ccr/simple_importer'
 require_relative 'health-data-standards/import/ccr/product_importer'
+
+require_relative 'health-data-standards/import/green_c32/section_importer'
+require_relative 'health-data-standards/import/green_c32/result_importer'
+require_relative 'health-data-standards/import/green_c32/condition_importer'

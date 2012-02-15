@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="green_cda_narrative.xsd"/>
+	<xs:include schemaLocation="green_c32_base.xsd"/>
+	<xs:include schemaLocation="green_c32_datatypes.xsd"/>
+	<xs:element name="medications">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="medication" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="freeTextSig" type="xs:string" minOccurs="0"/>
+							<xs:element name="indicateMedicationStartStop" type="gc32:ivlTs" minOccurs="0"/>
+							<xs:element name="administrationTiming" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:restriction base="gc32:pivlTs">
+											<xs:sequence>
+												<xs:element name="phase" type="gc32:ivlTs" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>
+				A prototype of the repeating interval specifying the
+				duration of each occurrence and anchors the periodic
+				interval sequence at a certain point in time.
+			 </xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="period" type="gc32:pq" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>
+				A time duration specifying a reciprocal measure of
+				the frequency at which the periodic interval repeats.
+			 </xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+											<xs:attribute name="institutionSpecified" type="xs:boolean" use="required">
+												<xs:annotation>
+													<xs:documentation>
+			 Indicates whether the exact timing is up to the party
+			 executing the schedule (e.g., to distinguish "every 8
+			 hours" from "3 times a day".)
+		  </xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:restriction>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="route" type="gc32:cd" minOccurs="0"/>
+							<xs:element name="dose" type="gc32:pq" minOccurs="0"/>
+							<xs:element name="site" type="gc32:cd" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element name="doseRestriction" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="numerator" type="gc32:pq"/>
+										<xs:element name="denominator" type="gc32:pq"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="productForm" type="gc32:cd" minOccurs="0"/>
+							<xs:element name="deliveryMethod" type="gc32:cd" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element name="medicationInformation" type="gc32:medicationInformation" maxOccurs="unbounded"/>
+							<xs:element name="typeOfMedication" minOccurs="0">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="gc32:cd"/>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="statusOfMedication" minOccurs="0">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="gc32:cd">
+											<xs:attribute name="status" type="gc32:statusType"/>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="indication" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="gc32:cd">
+											<xs:attribute name="status" type="gc32:statusType"/>
+											<xs:attribute name="freeTextRef"/>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="patientInstructions" minOccurs="0"/>
+							<xs:element name="reaction" type="gc32:cd" minOccurs="0"/>
+							<xs:element name="vehicle" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="gc32:cd">
+											<xs:attribute name="name"/>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="doseIndicator" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element name="orderInformation" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="orderNumber" type="gc32:ii" minOccurs="0"/>
+										<xs:element name="fills" minOccurs="0">
+											<xs:complexType>
+												<xs:attribute name="value"/>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="quantityOrdered" type="gc32:pq" minOccurs="0"/>
+										<xs:element name="orderExpirationDateTime" type="gc32:ts" minOccurs="0"/>
+										<xs:element name="orderDateTime" type="gc32:ivlTs" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="fulfillmentInstructions" minOccurs="0"/>
+							<xs:element name="fulfillmentHistory" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="prescriptionNumber" type="gc32:ii" minOccurs="0"/>
+										<xs:element ref="gc32:provider" minOccurs="0"/>
+										<xs:element name="dispensingPharmacyLocation" type="gc32:addr" minOccurs="0"/>
+										<xs:element name="dispenseDate" type="gc32:ivlTs" minOccurs="0"/>
+										<xs:element name="quantityDispensed" type="gc32:pq" minOccurs="0"/>
+										<xs:element name="fillNumber" minOccurs="0">
+											<xs:complexType>
+												<xs:attribute name="value"/>
+												<xs:attribute name="nullFlavor" type="gc32:nullFlavorType"/>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="fillStatus" minOccurs="0">
+											<xs:complexType>
+												<xs:attribute name="value" type="gc32:statusType"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element ref="gc32:comment" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

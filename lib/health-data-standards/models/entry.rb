@@ -11,6 +11,11 @@ class Entry
   field :status, type: String
   field :codes, type: Hash, default: {}
   field :value, type: Hash, default: {}
+  
+  attr_protected :version
+  attr_protected :_id
+  attr_protected :created_at
+  attr_protected :updated_at
 
   def single_code_value?
     codes.size == 1 && codes.first[1].size == 1
