@@ -29,11 +29,22 @@
         </name>
         <administrativeGenderCode code="<%= patient.gender %>" codeSystem="2.16.840.1.113883.5.1" codeSystemName="HL7 AdministrativeGender"/>
         <birthTime value="<%= Time.at(patient.birthdate).utc.to_formatted_s(:number) %>"/>
-        <languageCommunication>
-          <templateId root="2.16.840.1.113883.3.88.11.83.2" assigningAuthorityName="HITSP/C83"/>
-          <templateId root="1.3.6.1.4.1.19376.1.5.3.1.2.1" assigningAuthorityName="IHE/PCC"/>
-          <languageCode code="en-US"/>
-        </languageCommunication>
+        <% if (patient.race) %>
+          <raceCode code="<%= patient.race['code'] %>" <% if patient.race['name']%>displayName="<%= patient.race['name'] %>"<% end %> codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
+        <% end %>
+        <% if (patient.race) %>
+          <ethnicGroupCode code="<%= patient.ethnicity['code'] %>" <% if patient.ethnicity['name']%>displayName="<%= patient.ethnicity['name'] %>"<% end %> codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
+        <% end %>
+        <%
+          languages = patient.languages 
+          languages = ["en-US"] if languages.nil? or languages.empty?
+          languages.each do |language|%>
+          <languageCommunication>
+            <templateId root="2.16.840.1.113883.3.88.11.83.2" assigningAuthorityName="HITSP/C83"/>
+            <templateId root="1.3.6.1.4.1.19376.1.5.3.1.2.1" assigningAuthorityName="IHE/PCC"/>
+            <languageCode code="<%= language %>"/>
+          </languageCommunication>
+        <% end %>
       </patient>
     </patientRole>
   </recordTarget>
