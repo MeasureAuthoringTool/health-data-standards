@@ -82,6 +82,7 @@ module HealthDataStandards
           entries = create_hash(doc)
           get_demographics(ccr_patient, doc)
           process_events(ccr_patient, entries)
+          Record.new(ccr_patient)
         end
         # 
         # # Parses a patient hash containing demographic and event information
