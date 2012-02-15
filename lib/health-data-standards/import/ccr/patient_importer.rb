@@ -9,7 +9,9 @@ module HealthDataStandards
       class PatientImporter
 
         include Singleton
- 
+        
+        Gender = {"Male" => "M", "Female" => "F"}
+        
         # Creates a new PatientImporter with the following XPath expressions used to find content in 
         # an ASTM CCR
         #
@@ -186,7 +188,10 @@ module HealthDataStandards
           patient['last'] = patientActor.at_xpath('./ccr:Person/ccr:Name/ccr:CurrentName/ccr:Family').content
           birthdate = patientActor.at_xpath('./ccr:Person//ccr:DateOfBirth/ccr:ExactDateTime | ./ccr:Person//ccr:DateOfBirth/ccr:ApproximateDateTime')
           patient['birthdate'] = Time.iso8601(birthdate).to_i
-          patient['gender'] = patientActor.at_xpath('./ccr:Person/ccr:Gender/ccr:Text').content.downcase
+          
+          gender_string = patientActor.at_xpath('./ccr:Person/ccr:Gender/ccr:Text').content.downcase
+          patient['gender'] =  Gender[gender_string]
+          
           #race_node = doc.at_xpath('/ccr:placeholder')    #how do you find this?
           patient['race'] = nil
           #ethnicity_node = doc.at_xpath()
@@ -195,7 +200,7 @@ module HealthDataStandards
           # languages = doc.at_xpath()
           patient['languages'] = nil
  
-          patient['patient_id'] = patientID
+          patient['medical_record_number'] = patientID
         end
       end
     end
