@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:include schemaLocation="data_types.xsd"/>
-	<xs:element name="result">
+	<xs:element name="procedure">
 		<xs:complexType>
 			<xs:complexContent>
     	  <xs:extension base="gc32:entry">
     	    <xs:sequence>
-      			<xs:element name="effectiveDate" type="xs:dateTime" />
-      			<xs:element name="value" type="gc32:quantity" />
-      			<xs:element name="interpretation" type="gc32:simpleCode" minOccurs="0"/>
-      			<xs:element name="referenceRange" minOccurs="0" />
+    			  <xs:element name="description" type="xs:string" />
+      			<xs:element name="effectiveTime" type="gc32:interval" />
+      			<xs:element name="site" type="gc32:simpleCode" minOccurs="0"/>
+      			<xs:element name="performer" type="gc32:simpleCode" minOccurs="0"/>
       		</xs:sequence>
     	  </xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>
-
