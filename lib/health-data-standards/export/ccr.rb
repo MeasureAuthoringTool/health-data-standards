@@ -36,6 +36,7 @@ module HealthDataStandards
             to_ccr_results(xml, patient) 
             to_ccr_procedures(xml, patient)
             to_ccr_encounters(xml, patient)
+            to_ccr_socialhistory(xml, patient)
             
           end
           to_ccr_actors(xml, patient)
@@ -169,14 +170,15 @@ module HealthDataStandards
            #time
            xml.ExactDateTime(convert_to_ccr_time_string(res.time))
          end
-         xml.Description do
-           xml.Text(res.description)
-           code_section(xml, res.codes)
-         end
-         
+                 
          xml.Source
          xml.Test do
            xml.CCRDataObjectID("#{ccr_id}TestResult")
+           xml.Description do
+              xml.Text(res.description)
+              code_section(xml, res.codes)
+          end
+
            xml.Source
            xml.TestResult do
              xml.Value(res.value["scalar"])
@@ -315,6 +317,29 @@ module HealthDataStandards
                   xml.Text("Current")
                 end
                 xml.Source
+              end
+            end
+          end
+        end
+      end
+      
+      # Builds the XML snippet for the social history section inside the CCR standard
+      #
+      # @return [Builder::XmlMarkup] CCR XML representation of patient data
+      def to_ccr_socialhistory(xml, patient)
+        if patient.social_history.present?
+          xml.SocialHistory do
+            patient.social_history.each_with_index do |history, index|
+              xml.SocialHistoryElement do
+                xml.CCRDataObjectID("SH000#{index + 1}")
+               
+                                    
+                  xml.Description do
+                    xml.Text(history.description)
+                    code_section(xml, history.codes)
+                  end
+                
+               
               end
             end
           end
