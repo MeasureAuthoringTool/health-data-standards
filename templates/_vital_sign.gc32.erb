@@ -8,13 +8,5 @@
     
     <effectiveTime><%= Time.at(vital_sign.time) %></effectiveTime>
 
-
     <value amount="<%= vital_sign.value['scalar']%>" unit="<%= vital_sign.value['units'] %>" />
-    <% if vital_sign.interpretation%>
-      <% code = vital_sign.interpretation.first%>
-      <interpretation code="<%= code.last %>" codeSystem="<%= CodeSystemHelper.oid_for_code_system(code.first) %>">
-    <% end %>
-    <% if vital_sign.reference_range %>
-      <referenceRange><%= vital_sign.reference_range %></referenceRange>
-    <% end %>
 </vitalSign>

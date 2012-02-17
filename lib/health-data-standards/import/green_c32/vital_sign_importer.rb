@@ -1,14 +1,25 @@
 module HealthDataStandards
   module Import
     module GreenC32
-      class VitalSignImporter < ResultImporter
+      class VitalSignImporter < SectionImporter
+
+        include Singleton
         
+        #-------------------------------------------------------------------------------
+
+        def initialize
+          super
+        end
+        
+        #-------------------------------------------------------------------------------
+
         def import(vital_sign_xml)
           vital_sign_xml.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
-          vital_sign_element = vital_sign.xpath("./gc32:vitalSign")
-          vital_sign = VitalSign.new(reference_range: extract_node_text(vital_sign_element.xpath(@range)))
           
-          extract_result(vital_sign_element, vital_sign)
+          vital_sign_element = vital_sign_xml.xpath("./gc32:vitalSign")
+          vital_sign = VitalSign.new
+          
+          extract_vital_sign(vital_sign_element, vital_sign)
               
           vital_sign
         end
@@ -16,12 +27,13 @@ module HealthDataStandards
         #-------------------------------------------------------------------------------
         private
         #-------------------------------------------------------------------------------
-
-        def setup_extraction(vital_sign)
-          vital_sign_element = vital_sign.xpath("./gc32:vitalSign")
-          VitalSign.new(reference_range: extract_node_text(vital_sign_element.xpath(@range)))
-        end
         
+        def extract_vital_sign(vital_sign_element, vital_sign)
+          extract_entry(vital_sign_element, vital_sign)
+          extract_time(vital_sign_element, vital_sign)
+          extract_value(vital_sign_element, vital_sign)
+        end
+
       end
     end
   end

@@ -7,3 +7,7 @@ group :development do
   gem 'pry'
   gem 'cover_me'
 end
+
+group :test do
+  gem 'factory_girl'
+end

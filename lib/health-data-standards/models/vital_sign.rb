@@ -1,2 +1,2 @@
-class VitalSign < LabResult
+class VitalSign < Entry
 end

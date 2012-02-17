@@ -1,7 +1,6 @@
 <procedure xmlns="urn:hl7-org:greencda:c32">
   <id><%= procedure.id %></id>
   <%== code_display procedure, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT'] %>
-  <description><%= procedure.description %></description>
   <effectiveTime>
     <start><%= Time.at(procedure.start_time)%></start>
     <end><%= Time.at(procedure.end_time)%></end>
