@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.email = "talk@projectpophealth.org"
   s.homepage = "http://barrel.mitre.org/health-data-standards"
   s.authors = ["Andy Gregorowicz"]
-  s.version = '0.7.1'
+  s.version = '0.7.2'
   
   s.add_dependency 'erubis', '~> 2.6'
   s.add_dependency 'mongoid', '~> 2.4.2'
