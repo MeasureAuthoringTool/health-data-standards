@@ -21,10 +21,6 @@ module HealthDataStandards
         end
       end
       
-      def self.integer_to_timestamp(integer)
-        return unless integer
-        Time.at(integer).utc.to_formatted_s(:number)
-      end
     end
   end
 end

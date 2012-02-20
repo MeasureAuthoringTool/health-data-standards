@@ -1,6 +1,6 @@
 module HealthDataStandards
   module Export
-    module GreenCda
+    module GreenC32
       # Module that will create objects that can be used to export GreenCDA sections
       module ExportGenerator
         # Creates an object that can be used to export objects into GreenCDA.
@@ -12,7 +12,7 @@ module HealthDataStandards
         def create_exporter_for(section)
           object = Object.new
           object.define_singleton_method(:export) do |section_instance|
-            HealthDataStandards::Export::GreenCda::Entry.export(section_instance, section)
+            HealthDataStandards::Export::GreenC32::Entry.export(section_instance, section)
           end
           object
         end

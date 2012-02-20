@@ -16,7 +16,6 @@ module HealthDataStandards
       end
 
       def render(params)
-        #binding.pry
         erb = nil
         if params[:template]
           erb = template(params[:template])

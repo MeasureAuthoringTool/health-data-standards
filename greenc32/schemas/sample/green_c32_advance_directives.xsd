@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="green_cda_narrative.xsd"/>
+	<xs:include schemaLocation="green_c32_base.xsd"/>
+	<xs:include schemaLocation="green_c32_datatypes.xsd"/>
+	<xs:element name="advanceDirectives">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="advanceDirective" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="type">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:restriction base="gc32:cd">
+											<xs:sequence>
+												<xs:element name="originalText" type="xs:string" minOccurs="0" maxOccurs="0"/>
+												<xs:element ref="gc32:qualifier" minOccurs="0" maxOccurs="unbounded"/>
+											</xs:sequence>
+										</xs:restriction>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="effectiveDate" type="gc32:ivlTs"/>
+							<xs:element name="status" type="gc32:ce"/>
+							<xs:element name="documentCustodian" type="gc32:organizationInformation"/>
+							<xs:element ref="gc32:comment" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

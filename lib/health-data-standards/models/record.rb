@@ -1,11 +1,11 @@
 class Record
-
   include Mongoid::Document
   
   field :first, type: String
   field :last, type: String
   field :gender, type: String
   field :birthdate, type: Integer
+  field :deathdate, type: Integer
   field :effective_time, type: Integer
   field :race, type: Hash
   field :ethnicity, type: Hash
@@ -27,8 +27,27 @@ class Record
 
   Sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
    :medications, :procedures, :results, :social_history, :vital_signs]
+
+  embeds_many :provider_performances
+  
+  scope :by_provider, ->(prov, effective_date) { (effective_date) ? where(provider_queries(prov.id, effective_date)) : where('provider_performances.provider_id'=>prov.id)  }
+  scope :by_patient_id, ->(id) { where(:medical_record_number => id) }
+  
+  def providers
+    provider_performances.map {|pp| pp.provider }
+  end
   
   def over_18?
     Time.at(birthdate) < Time.now.years_ago(18)
   end
+  
+  private 
+  
+  def self.provider_queries(provider_id, effective_date)
+   {'$or' => [provider_query(provider_id, effective_date,effective_date), provider_query(provider_id, nil,effective_date), provider_query(provider_id, effective_date,nil)]}
+  end
+  def self.provider_query(provider_id, start_before, end_after)
+    {'provider_performances' => {'$elemMatch' => {'provider_id' => provider_id, 'start_date'=> {'$lt'=>start_before}, 'end_date'=> {'$gt'=>end_after} } }}
+  end
+  
 end

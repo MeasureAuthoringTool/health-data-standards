@@ -1,6 +1,6 @@
 module HealthDataStandards
   module Import
-    module GreenCda
+    module GreenC32
       class PatientImporter
         include Singleton
             
