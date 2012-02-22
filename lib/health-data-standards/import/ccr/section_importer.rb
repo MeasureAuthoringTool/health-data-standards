@@ -4,6 +4,25 @@ module HealthDataStandards
     # Class that can be used to create an importer for a section of a ASTM CCR document. It usually
     # operates by selecting all CCR entries in a section and then creates entries for them.
       class SectionImporter
+
+        CODE_SYSTEM_MAP = {
+          "lnc"       => "LOINC",
+          "loinc"     => "LOINC",
+          "cpt"       => "CPT",
+          "cpt-4"     => "CPT",
+          "sct"       => "SNOMED-CT",
+          "snomedct"  => "SNOMED-CT",
+          "snomed-ct" => "SNOMED-CT",
+          "rxnorm"    => "RxNorm",
+          "i9cdx"     => "ICD-9-CM",
+          "icd9-cm"   => "ICD-9-CM",
+           "icd9"      => "ICD-9-CM",
+          "icd10-cm"   => "ICD-9-CM",
+          "icd10"      => "ICD-9-CM",
+          "cvx"        => "CVX",
+          "hcpcs"      => "HCPCS"
+
+        }
         attr_accessor :check_for_usable
         # Creates a new SectionImporter
         # @param [String] entry_xpath An XPath expression that can be used to find the desired entries
@@ -19,37 +38,23 @@ module HealthDataStandards
         # in the tree, and the side effect is to edit the CodingSystem subnode.
         # @param [String] code  - Input is a single "Code" node
         def normalize_coding_system(code)
-          lookup = {
-            "lnc"       => "LOINC",
-            "loinc"     => "LOINC",
-            "cpt"       => "CPT",
-            "cpt-4"     => "CPT",
-            "snomedct"  => "SNOMED-CT",
-            "snomed-ct" => "SNOMED-CT",
-            "rxnorm"    => "RxNorm",
-            "icd9-cm"   => "ICD-9-CM",
-            "icd9"      => "ICD-9-CM",
-            "icd10-cm"   => "ICD-9-CM",
-            "icd10"      => "ICD-9-CM",
-            "cvx"        => "CVX",
-            "hcpcs"      => "HCPCS"
-
-          }
-          codingsystem = lookup[code.xpath('./ccr:CodingSystem')[0].content.downcase]
-          if(codingsystem)
-            code.xpath('./ccr:CodingSystem')[0].content = codingsystem
+          coding_system = code.xpath('./ccr:CodingSystem')[0].content.downcase
+          coding_system_value = CODE_SYSTEM_MAP[coding_system]
+          if(coding_system_value)
+            code.xpath('./ccr:CodingSystem')[0].content = coding_system_value
           end
         end
 
         def extract_status(parent_element, entry)
           status_element = parent_element.at_xpath('./ccr:Status')
           if status_element
-            status = parent_element.at_xpath('./ccr:Status/ccr:Text').content.downcase
-            
+            status_text = parent_element.at_xpath('./ccr:Status/ccr:Text')
+            return unless status_text
+            status = status_text.content.downcase
             if %w(active inactive resolved).include?(status)
               entry.status = status.to_sym
             end
-          end
+          end                                          
         end
 
 
@@ -97,8 +102,10 @@ module HealthDataStandards
         def extract_value(parent_element, entry)
           value_element = parent_element.at_xpath('./ccr:TestResult')
           if value_element
-            value = value_element.at_xpath('./ccr:Value').content
-            unit = value_element.at_xpath('./ccr:Units/ccr:Unit').content
+            value_element = value_element.at_xpath('./ccr:Value')
+            value = value_element ? value_element.content : nil
+            unit_element = value_element.at_xpath('./ccr:Units/ccr:Unit')
+            unit = unit_element ? unit_element.content : nil
             if value
               entry.set_value(value, unit)
             end
