@@ -137,7 +137,7 @@ module HealthDataStandards
         def import_actor(actor_element)
           actor_hash = {}
           npi = actor_element.xpath("./cda:assignedEntity/cda:id[@root='2.16.840.1.113883.4.6' or @root='2.16.840.1.113883.3.72.5.2']/@extension")
-          actor_hash[:npi] = npi if npi
+          actor_hash[:npi] = npi.text if npi && Provider.valid_npi?(npi)
           addresses = actor_element.xpath("./cda:assignedEntity/cda:addr").try(:map) {|ae| import_address(ae)}
           telecoms = actor_element.xpath("./cda:assignedEntity/cda:telecom").try(:map) {|te| import_telecom(te)}
           person_element = actor_element.at_xpath("./cda:assignedEntity/cda:assignedPerson")
