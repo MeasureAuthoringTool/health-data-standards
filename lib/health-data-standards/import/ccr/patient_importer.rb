@@ -1,3 +1,5 @@
+require "time"
+
 module HealthDataStandards
   module Import
     module CCR
@@ -187,7 +189,7 @@ module HealthDataStandards
           patient['first'] = patientActor.at_xpath('./ccr:Person/ccr:Name/ccr:CurrentName/ccr:Given').content
           patient['last'] = patientActor.at_xpath('./ccr:Person/ccr:Name/ccr:CurrentName/ccr:Family').content
           birthdate = patientActor.at_xpath('./ccr:Person//ccr:DateOfBirth/ccr:ExactDateTime | ./ccr:Person//ccr:DateOfBirth/ccr:ApproximateDateTime')
-          patient['birthdate'] = Time.iso8601(birthdate).to_i
+          patient['birthdate'] = Time.parse(birthdate.content).to_i if birthdate
           
           gender_string = patientActor.at_xpath('./ccr:Person/ccr:Gender/ccr:Text').content.downcase
           patient['gender'] =  Gender[gender_string.downcase]
