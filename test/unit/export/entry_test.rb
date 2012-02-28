@@ -94,6 +94,16 @@ module GreenC32
       assert_equal procedure.codes,       procedure2.codes
       assert_equal procedure.type,        procedure2.type
     end
+    
+    #-------------------------------------------------------------------------------
+    
+    def test_encounters
+      record = Factory.create(:record)
+      encounter = record.encounters.first
+      refute_nil encounter
+      
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(encounter, :encounter) 
+    end
   
   end
   

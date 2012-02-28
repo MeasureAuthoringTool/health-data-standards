@@ -12,7 +12,8 @@ class Provider
   
   validates_uniqueness_of :npi, allow_blank: true
   
-  
+  embeds_many :addresses, as: :locatable
+  embeds_many :telecoms, as: :contactable
   def records(effective_date=nil)
     Record.by_provider(self, effective_date)
   end

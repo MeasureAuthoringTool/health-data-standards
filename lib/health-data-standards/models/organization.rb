@@ -3,6 +3,6 @@ class Organization
   
   field :name, type: String
   
-  embeds_many :addresses
-  embeds_many :telecoms
+  embeds_many :addresses, as: :locatable
+  embeds_many :telecoms, as: :contactable
 end

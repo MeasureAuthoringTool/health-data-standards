@@ -24,13 +24,14 @@ module GreenC32
       
       refute_nil encounter.facility
       facility = encounter.facility
-      
+      refute_nil facility.start_time
+      refute_nil facility.end_time
       organization = facility.organization
       
       refute_nil organization
       
       assert_equal "Muffin Man Healthcare Associated", facility.organization.name
-    
+      
       
       telecom = organization.telecoms.first
       
