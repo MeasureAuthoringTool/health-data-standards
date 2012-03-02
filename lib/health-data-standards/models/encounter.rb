@@ -4,8 +4,9 @@ class Encounter < Entry
   field :free_text, type: String
   
   embeds_one :facility, class_name: "OrganizationVisit"
-  embeds_one :performer, class_name: "Provider"
   embeds_one :reason, class_name: "Entry"
+  
+  belongs_to :performer, class_name: "Provider"
 
   alias :admit_type :admitType
   alias :admit_type= :admitType=

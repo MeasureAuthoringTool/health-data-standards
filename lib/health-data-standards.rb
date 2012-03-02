@@ -53,6 +53,7 @@ require_relative 'health-data-standards/import/c32/result_importer'
 require_relative 'health-data-standards/import/c32/vital_sign_importer'
 require_relative 'health-data-standards/import/c32/patient_importer'
 require_relative 'health-data-standards/import/c32/provider_importer'
+require_relative 'health-data-standards/import/c32/organization_importer'
 
 require_relative 'health-data-standards/import/ccr/patient_importer'
 require_relative 'health-data-standards/import/ccr/provider_importer'

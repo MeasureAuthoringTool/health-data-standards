@@ -92,7 +92,7 @@ module HealthDataStandards
         
         def extract_telecom(telecom_element)
           telecom = Telecom.new
-          telecom.type = extract_node_attribute(telecom_element, :type)
+          telecom.use = extract_node_attribute(telecom_element, :type)
           telecom.value = extract_node_attribute(telecom_element, :value)
           telecom.preferred = extract_node_attribute(telecom_element, :preferred)
           telecom

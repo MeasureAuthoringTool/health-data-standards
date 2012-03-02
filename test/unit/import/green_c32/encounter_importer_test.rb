@@ -37,7 +37,7 @@ module GreenC32
       
       refute_nil telecom
       
-      assert_equal "fax", telecom.type
+      assert_equal "fax", telecom.use
       refute_nil telecom.value
       assert telecom.preferred
     end

@@ -6,14 +6,15 @@
       <xs:extension base="gc32:entry">
         <xs:sequence>
           <xs:element name="effectiveTime" type="gc32:interval" />
-          <xs:element name="dischargeDisposition" type="xs:string" />
-          <xs:element name="admissionType" type="gc32:simpleCode" />
-          <xs:element name="performers">
-            <xs:sequence>
-              <xs:element name="provider" type="gc32:provider" maxOccurs="unbound" />
-              <xs:element name="organization" type="gc32:organization" maxOccurs="unbound" />
-            </xs:sequence>
+          <xs:element name="dischargeDisposition">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:length value="2"/>
+              </xs:restriction>
+            </xs:simpleType>
           </xs:element>
+          <xs:element name="admissionType" type="gc32:simpleCode" />
+          <xs:element name="performer" type="gc32:provider" />
           <xs:element name="facility">
             <xs:complexContent>
               <xs:extension base="gc32:organization">
