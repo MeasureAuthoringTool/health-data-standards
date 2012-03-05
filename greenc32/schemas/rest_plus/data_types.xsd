@@ -93,6 +93,23 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
+	<xs:complexType name="medicationInformation">
+	  <xs:sequence>
+	    <xs:element name="productName">
+	      <xs:extension base="gc32:code">
+	        <xs:complexContent>
+	          <xs:attribute  name="name" type="xs:string" />
+	        </xs:complexContent>
+	    </xs:element>
+	    <xs:element name="brandName">
+	      <xs:extension base="gc32:code">
+	        <xs:complexContent>
+	          <xs:attribute name="name" type="xs:string" />
+	        </xs:complexContent>
+	    </xs:element>
+	    <xs:element name="manufacturer" type="gc32:organization" />
+	  </xs:sequence>
+	</xs:complexType>
   <!-- We can't handle null flavors at the moment -->
   <!-- <xs:simpleType name="nullFlavorType">
     <xs:restriction base="xs:string">
