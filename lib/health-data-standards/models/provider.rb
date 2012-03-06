@@ -21,6 +21,7 @@ class Provider
   # checksum using the Luhn algorithm with additional special handling as described in
   # https://www.cms.gov/NationalProvIdentStand/Downloads/NPIcheckdigit.pdf 
   def self.valid_npi?(npi)
+    return false if npi.nil?
     return false if npi.length != 10 and npi.length != 15
     return false if npi.gsub(/\d/, '').length > 0 # npi must be all digits
     return false if npi.length == 15 and (npi =~ /^80840/)==nil # 15 digit npi must start with 80840
