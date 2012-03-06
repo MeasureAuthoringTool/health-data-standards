@@ -8,3 +8,7 @@ group :development do
   gem 'pry-nav'
   gem 'cover_me'
 end
+
+group :test do
+  gem 'factory_girl'
+end

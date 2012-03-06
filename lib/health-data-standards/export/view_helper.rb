@@ -3,8 +3,9 @@ module HealthDataStandards
     module ViewHelper
       def code_display(entry, options={})
         options['tag_name'] ||= 'code'
+        options['attribute'] ||= :codes
         code_string = nil
-        preferred_code = entry.preferred_code(options['preferred_code_sets'])
+        preferred_code = entry.preferred_code(options['preferred_code_sets'], options['attribute'])
         if preferred_code
           code_system_oid = HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(preferred_code['code_set'])
           code_string = "<#{options['tag_name']} code=\"#{preferred_code['code']}\" codeSystem=\"#{code_system_oid}\" #{options['extra_content']}>"

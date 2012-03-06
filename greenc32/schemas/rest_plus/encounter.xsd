@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:include schemaLocation="data_types.xsd"/>
+  <xs:complexType name="encounter">
+    <xs:complexContent>
+      <xs:extension base="gc32:entry">
+        <xs:sequence>
+          <xs:element name="effectiveTime" type="gc32:interval" />
+          <xs:element name="dischargeDisposition">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:length value="2"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="admissionType" type="gc32:simpleCode" />
+          <xs:element name="facility">
+            <xs:complexContent>
+              <xs:extension base="gc32:organization">
+                <xs:element name="duration" type="gc32:interval">
+              </xs:extension>
+            </xs:complexContent>
+          </xs:element>
+          <xs:element name="reasonForVisit" type="gc32:code" minOccurs="0" />
+          <xs:element name="freeText" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

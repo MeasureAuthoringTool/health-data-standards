@@ -43,9 +43,9 @@ module HealthDataStandards
           entry.send("#{attribute}=", Time.parse(datetime.inner_text).to_i)
         end
         
-        def extract_interval(element, entry)
-          extract_time(element, entry, "./gc32:effectiveTime/gc32:start", "start_time")
-          extract_time(element, entry, "./gc32:effectiveTime/gc32:end", "end_time")
+        def extract_interval(element, entry, element_name="effectiveTime")
+          extract_time(element, entry, "./gc32:#{element_name}/gc32:start", "start_time")
+          extract_time(element, entry, "./gc32:#{element_name}/gc32:end", "end_time")
         end
         
         def extract_value(element, entry)
@@ -66,6 +66,38 @@ module HealthDataStandards
           extract_description(element, entry)
           extract_status(element, entry)
         end
+        
+        def extract_organization(organization_element)
+          org_id = extract_node_text(organization_element.xpath("./gc32:id"))
+          organization = org_id ? Organization.find_or_create_by(id: org_id) : Organization.new
+          if organization.new_record?
+          else
+            organization.name = extract_node_text(organization_element.xpath("./gc32:name"))
+            organization.addresses = organization_element.xpath("./gc32:address").map { |addr| extract_address(addr)  }
+            organization.telecoms = organization_element.xpath("./gc32:telecom").map { |tele| extract_telecom(tele) }
+            organization.save!
+          end
+          
+          return organization
+        end
+        
+        def extract_address(address_element)
+          address = Address.new
+          address.street = address_element.xpath("./gc32:street").map { |st| extract_node_text(st)  }
+          address.city = extract_node_text(address_element.xpath("./gc32:city"))
+          address.state = extract_node_text(address_element.xpath("./gc32:state"))
+          address.zip = extract_node_text(address_element.xpath("./gc32:postalCode"))
+          address
+        end
+        
+        def extract_telecom(telecom_element)
+          telecom = Telecom.new
+          telecom.use = extract_node_attribute(telecom_element, :type)
+          telecom.value = extract_node_attribute(telecom_element, :value)
+          telecom.preferred = extract_node_attribute(telecom_element, :preferred)
+          telecom
+        end
+        
         
         private
         
