@@ -2,11 +2,11 @@ class MedicationProduct
   include Mongoid::Document
   
   embedded_in :medication
-  embeds_one :organization
+  belongs_to :organization
   
-  field :productName, String
-  field :brandName, String
-  field :codedProductName, Hash
-  field :codedBrandName, Hash
+  field :productName, type: String
+  field :brandName, type: String
+  field :codedProductName, type: Hash
+  field :codedBrandName, type: Hash
   
 end
