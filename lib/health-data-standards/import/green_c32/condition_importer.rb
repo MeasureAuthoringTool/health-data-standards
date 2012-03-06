@@ -10,16 +10,16 @@ module HealthDataStandards
         
         def import(condition_xml)
           condition_xml.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
-          
           condition_element = condition_xml.xpath("./gc32:condition")
           
           condition = Condition.new
-          
+
           extract_entry(condition_element, condition)
           extract_name(condition_element, condition)
           extract_interval(condition_element, condition)
           extract_cause_of_death(condition_element, condition)
           extract_type(condition_element, condition)
+          
           condition
         end
         

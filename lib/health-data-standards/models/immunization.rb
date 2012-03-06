@@ -1,7 +1,8 @@
 class Immunization < Entry
   field :refusalInd, type: Boolean
-  field :performer, type: Hash
   field :refusalReason, type: Hash
+  
+  belongs_to :performer, class_name: "Provider"
   
   alias :refusal_ind :refusalInd
   alias :refusal_ind= :refusalInd=

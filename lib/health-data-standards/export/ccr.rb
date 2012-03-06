@@ -28,16 +28,17 @@ module HealthDataStandards
           end
           to_ccr_purpose(xml)
           xml.Body do
+            
             to_ccr_problems(xml, patient)
+            to_ccr_socialhistory(xml, patient)
             to_ccr_allergies(xml, patient)
+            
             to_ccr_medications(xml, patient)
             to_ccr_immunizations(xml, patient)
             to_ccr_vitals(xml, patient)
             to_ccr_results(xml, patient) 
             to_ccr_procedures(xml, patient)
-            to_ccr_encounters(xml, patient)
-            to_ccr_socialhistory(xml, patient)
-            
+            to_ccr_encounters(xml, patient)   
           end
           to_ccr_actors(xml, patient)
         end
@@ -339,9 +340,38 @@ module HealthDataStandards
                     code_section(xml, history.codes)
                   end
                 
-               
+                xml.Source
               end
             end
+            
+              if patient.race
+                xml.SocialHistoryElement do
+                  xml.CCRDataObjectID("SH000RACE")
+                   xml.Type do 
+                      xml.Text("Race")
+                    end       
+                    xml.Description do
+                   
+                      code_section(xml, {"2.16.840.1.113883.6.238"=>[patient.race["code"]]})
+                    end   
+                  xml.Source
+                end
+             end
+          
+             if patient.ethnicity
+                xml.SocialHistoryElement do
+                  xml.CCRDataObjectID("SH000ETHICITY")   
+                    xml.Type do 
+                      xml.Text("Ethnicity")  
+                    end                          
+                    xml.Description do
+                    
+                      code_section(xml, {"2.16.840.1.113883.6.238" => [patient.ethnicity["code"]]})
+                    end            
+                  xml.Source
+                end
+             end
+             
           end
         end
       end
