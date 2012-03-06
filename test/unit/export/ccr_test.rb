@@ -6,6 +6,7 @@ class CCRTest < MiniTest::Unit::TestCase
     record = Record.find('4dcbecdb431a5f5878000004')
 
     doc = Nokogiri::XML(HealthDataStandards::Export::CCR.export(record))
+
     
     #this will only run if there is an environment variable set to point to the 
     #schema location.  Cant be pushing the schema to github ya know . 
