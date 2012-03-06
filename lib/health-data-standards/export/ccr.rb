@@ -343,6 +343,35 @@ module HealthDataStandards
                 xml.Source
               end
             end
+            
+              if patient.race
+                xml.SocialHistoryElement do
+                  xml.CCRDataObjectID("SH000RACE")
+                   xml.Type do 
+                      xml.Text("Race")
+                    end       
+                    xml.Description do
+                   
+                      code_section(xml, {"2.16.840.1.113883.6.238"=>[patient.race["code"]]})
+                    end   
+                  xml.Source
+                end
+             end
+          
+             if patient.ethnicity
+                xml.SocialHistoryElement do
+                  xml.CCRDataObjectID("SH000ETHICITY")   
+                    xml.Type do 
+                      xml.Text("Ethnicity")  
+                    end                          
+                    xml.Description do
+                    
+                      code_section(xml, {"2.16.840.1.113883.6.238" => [patient.ethnicity["code"]]})
+                    end            
+                  xml.Source
+                end
+             end
+             
           end
         end
       end

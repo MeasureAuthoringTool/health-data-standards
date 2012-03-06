@@ -7,6 +7,7 @@ class CCRTest < MiniTest::Unit::TestCase
 
     doc = Nokogiri::XML(HealthDataStandards::Export::CCR.export(record))
 
+
     doc.root.add_namespace_definition('ccr', 'urn:astm-org:CCR')
     
   # registration information
@@ -31,6 +32,13 @@ class CCRTest < MiniTest::Unit::TestCase
     assert_equal '105075', doc.at_xpath('//ccr:Medications/ccr:Medication/ccr:Product/ccr:BrandName/ccr:Code/ccr:Value').text
     # immunization
     assert_equal '854931', doc.at_xpath('//ccr:Immunizations/ccr:Immunization/ccr:Product/ccr:BrandName/ccr:Code/ccr:Value').text
+    #race
+
+    assert_equal '2110-5', doc.at_xpath('//ccr:SocialHistory/ccr:SocialHistoryElement[./ccr:Type/ccr:Text = "Race"]/ccr:Description/ccr:Code[./ccr:CodingSystem = "2.16.840.1.113883.6.238"]/ccr:Value').text
+    #ethnicity
+    assert_equal '2135-2', doc.at_xpath('//ccr:SocialHistory/ccr:SocialHistoryElement[./ccr:Type/ccr:Text = "Ethnicity"]/ccr:Description/ccr:Code[./ccr:CodingSystem = "2.16.840.1.113883.6.238"]/ccr:Value').text
+      
+      
   end
   
   
@@ -42,6 +50,7 @@ class CCRTest < MiniTest::Unit::TestCase
    collection_fixtures('records', '_id')
     Record.all.each do |record|
       doc = Nokogiri::XML(HealthDataStandards::Export::CCR.export(record))
+      
       xsd = Nokogiri::XML::Schema(open(ENV['CCR_SCHEMA']))
       assert_equal [], xsd.validate(doc) 
     end  
