@@ -47,7 +47,7 @@ class Record
    {'$or' => [provider_query(provider_id, effective_date,effective_date), provider_query(provider_id, nil,effective_date), provider_query(provider_id, effective_date,nil)]}
   end
   def self.provider_query(provider_id, start_before, end_after)
-    {'provider_performances' => {'$elemMatch' => {'provider_id' => provider_id, '$and'=>['$or'=>['start_date'=>nil,'start_date'=>{'$lt'=>start_before}], '$or'=>['end_date'=>nil,'end_date'=> {'$gt'=>end_after}]] } }}
+    {'provider_performances' => {'$elemMatch' => {'provider_id' => provider_id, '$and'=>[{'$or'=>[{'start_date'=>nil},{'start_date'=>{'$lt'=>start_before}}]}, {'$or'=>[{'end_date'=>nil},{'end_date'=> {'$gt'=>end_after}}]}] } }}
   end
   
 end
