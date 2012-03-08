@@ -40,7 +40,6 @@ require_relative 'health-data-standards/models/provider'
 require_relative 'health-data-standards/models/provider_performance'
 require_relative 'health-data-standards/models/vital_sign'
 require_relative 'health-data-standards/models/organization'
-require_relative 'health-data-standards/models/organization_visit'
 require_relative 'health-data-standards/models/address'
 require_relative 'health-data-standards/models/telecom'
 

@@ -19,22 +19,14 @@
   <% facility = encounter.facility %>
   <% if facility %>
   <facility>
-    <% if facility.organization %>
-      <id><%= facility.organization.id%></id>
-      <name><%= facility.organization.name%></name>
-      <% facility.organization.addresses.each do |addr| %>
+      <id><%= facility.id%></id>
+      <name><%= facility.name%></name>
+      <% facility.addresses.each do |addr| %>
         <%= render :partial => "address", locals: {address: addr} %>
       <% end %>
-      <% facility.organization.telecoms.each do |tele| %>
+      <% facility.telecoms.each do |tele| %>
         <%= render :partial => "telecom", locals: {telecom: tele} %>
       <% end %>
     <% end %>
-    <duration>
-      <start><%= Time.at(facility.start_time) %></start>
-      <% if encounter.end_time %>
-        <end><%= Time.at(facility.end_time) %></end>
-      <% end %>
-    </duration>
   </facility>
-  <% end %>
 </encounter>

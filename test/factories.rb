@@ -24,13 +24,7 @@ Factory.define :encounter do |f|
   f.admit_type      {{"SNOMED-CT" => ["12345678"]}}
   f.discharge_disposition {{"SNOMED-CT" => ["23456789"]}}
   f.free_text       "Sample Encounter"
-  f.facility { FactoryGirl.build(:organization_visit) }
-end
-
-Factory.define :organization_visit do |f|
-  f.start_time      1267322232
-  f.end_time        1267323532
-  f.organization  {FactoryGirl.build(:organization)}
+  f.facility { FactoryGirl.build(:organization) }
 end
 
 Factory.define :organization do |f|

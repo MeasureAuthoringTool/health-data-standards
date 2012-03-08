@@ -81,10 +81,10 @@ module HealthDataStandards
         # @param [Nokogiri::XML::Document] doc It is expected that the root node of this document
         #        will have the "ccr" namespace registered to ""urn:astm-org:CCR""
         # @return [Hash] a representation of the patient that can be inserted into MongoDB
-        def parse_ccr(doc)
+        def parse_ccr(doc, patient_id_xpath="//ccr:ContinuityOfCareRecord/ccr:Patient/ccr:ActorID")
           ccr_patient = {}
           entries = create_hash(doc)
-          get_demographics(ccr_patient, doc)
+          get_demographics(ccr_patient, doc, patient_id_xpath)
           process_events(ccr_patient, entries)
           Record.new(ccr_patient)
         end
@@ -183,9 +183,11 @@ module HealthDataStandards
         #
         # @param [Hash] patient A hash that is used to represent the patient
         # @param [Nokogiri::XML::Node] doc The CCR document parsed by Nokogiri
-        def get_demographics(patient, doc)
-          patientID = doc.at_xpath('//ccr:ContinuityOfCareRecord/ccr:Patient/ccr:ActorID').content
-          patientActor = doc.at_xpath("//ccr:ContinuityOfCareRecord/ccr:Actors/ccr:Actor[ccr:ActorObjectID = \"#{patientID}\"]")
+        def get_demographics(patient, doc, patient_id_xpath)
+          patientActorID = doc.at_xpath("//ccr:ContinuityOfCareRecord/ccr:Patient/ccr:ActorID").content
+          patientActor = doc.at_xpath("//ccr:ContinuityOfCareRecord/ccr:Actors/ccr:Actor[ccr:ActorObjectID = \"#{patientActorID}\"]")
+          patientID = patientActor.at_xpath(patient_id_xpath).try(:content)
+          patientID ||= patientActorID
           patient['first'] = patientActor.at_xpath('./ccr:Person/ccr:Name/ccr:CurrentName/ccr:Given').content
           patient['last'] = patientActor.at_xpath('./ccr:Person/ccr:Name/ccr:CurrentName/ccr:Family').content
           birthdate = patientActor.at_xpath('./ccr:Person//ccr:DateOfBirth/ccr:ExactDateTime | ./ccr:Person//ccr:DateOfBirth/ccr:ApproximateDateTime')

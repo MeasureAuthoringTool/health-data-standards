@@ -3,8 +3,8 @@ class Encounter < Entry
   field :dischargeDisposition, type: Hash
   field :free_text, type: String
   
-  embeds_one :facility, class_name: "OrganizationVisit"
   embeds_one :reason, class_name: "Entry"
+  embeds_one :facility, class_name: "Organization"
   
   belongs_to :performer, class_name: "Provider"
 

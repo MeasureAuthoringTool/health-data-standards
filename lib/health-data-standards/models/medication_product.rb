@@ -2,7 +2,7 @@ class MedicationProduct
   include Mongoid::Document
   
   embedded_in :medication
-  belongs_to :organization
+  embeds_one :organization
   
   field :productName, type: String
   field :brandName, type: String

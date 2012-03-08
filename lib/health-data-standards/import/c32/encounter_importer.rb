@@ -51,11 +51,10 @@ module HealthDataStandards
           participant_element = parent_element.at_xpath("./cda:participant[@typeCode='LOC']/cda:participantRole[@classCode='SDLOC']")
           encounter.facility = {}
           if (participant_element)
-            encounter.facility['organizationName'] = participant_element.at_xpath("./cda:playingEntity/cda:name").try(:text)
-            addresses = participant_element.xpath("./cda:addr").try(:map) {|ae| import_address(ae)}
-            encounter.facility['addresses'] = addresses
-            telecoms = participant_element.xpath("./cda:telecom").try(:map) {|te| import_telecom(te)}
-            encounter.facility['telcoms'] = telecoms
+            org = Organization.new(name: participant_element.at_xpath("./cda:playingEntity/cda:name").try(:text))
+            org.addresses = participant_element.xpath("./cda:addr").try(:map) {|ae| import_address(ae)}
+            org.telecoms = participant_element.xpath("./cda:telecom").try(:map) {|te| import_telecom(te)}
+            encounter.facility = org
           end
         end
     

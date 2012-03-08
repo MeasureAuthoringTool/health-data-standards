@@ -14,8 +14,8 @@ class Provider
   
   embeds_many :addresses, as: :locatable
   embeds_many :telecoms, as: :contactable
-  
-  belongs_to :organization
+  embeds_one :organization
+
 
   def records(effective_date=nil)
     Record.by_provider(self, effective_date)

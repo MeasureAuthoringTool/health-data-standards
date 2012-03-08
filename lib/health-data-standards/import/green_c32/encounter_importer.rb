@@ -33,9 +33,7 @@ module HealthDataStandards
           facility_element = encounter_element.xpath("./gc32:facility").first
           if facility_element
             organization = extract_organization(facility_element)
-            organization_visit = OrganizationVisit.new(organization: organization)
-            extract_interval(facility_element, organization_visit, "duration")
-            encounter.facility = organization_visit
+            encounter.facility = organization
           end
         end
         
