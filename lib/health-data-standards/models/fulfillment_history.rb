@@ -8,7 +8,7 @@ class FulfillmentHistory
   field :fillStatus, type: Hash
   
   belongs_to :provider, class_name: "Provider"
-  embeds_one :dispensingPharmacyLocation, as: :locatable
+  embeds_one :dispensingPharmacyLocation, as: :locatable, class_name: "Address"
   
   alias :prescription_number :prescriptionNumber
   alias :prescription_number= :prescriptionNumber=
