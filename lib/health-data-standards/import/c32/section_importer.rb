@@ -135,7 +135,6 @@ module HealthDataStandards
         end
         
         def import_actor(actor_element)
-          # binding.pry
           return ProviderImporter.instance.extract_provider(actor_element)
         end
 

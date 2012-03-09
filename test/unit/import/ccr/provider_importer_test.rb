@@ -4,6 +4,7 @@ module CCR
   class ProviderImporterTest < MiniTest::Unit::TestCase
   
     def setup
+      Provider.all.each(&:destroy)
       @ccr = Nokogiri::XML(File.new('test/fixtures/ccr_fragments/patient_with_providers.xml'))
       @ccr.root.add_namespace_definition('ccr', 'urn:astm-org:CCR')
       @pi = HealthDataStandards::Import::CCR::ProviderImporter.instance
@@ -12,7 +13,7 @@ module CCR
     def test_provider_extraction
      results =  @pi.extract_providers(@ccr)
      
-     npi_provider = results.detect { |pv| pv[:npi] != nil }
+     npi_provider = results.map(&:provider).detect { |pv| pv[:npi] != nil }
      
      refute_nil npi_provider
 

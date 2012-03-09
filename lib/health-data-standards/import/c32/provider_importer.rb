@@ -12,7 +12,7 @@ module HealthDataStandards
         end
         
         include Singleton
-      
+        include ProviderImportUtils
         # Extract Healthcare Providers from C32
         #
         # @param [Nokogiri::XML::Document] doc It is expected that the root node of this document
@@ -20,17 +20,12 @@ module HealthDataStandards
         # @return [Array] an array of providers found in the document
         def extract_providers(doc)
           performers = doc.xpath("//cda:documentationOf/cda:serviceEvent/cda:performer")
-          performers.map do |performer| 
+          performers.map do |performer|
             provider_perf = extract_provider_data(performer, true)
             ProviderPerformance.new(start_date: provider_perf.delete(:start), end_date: provider_perf.delete(:end), provider: find_or_create_provider(provider_perf))
           end
         end
-        
-        def extract_provider(performer)
-          provider_data = extract_provider_data(performer, false)
-          find_or_create_provider(provider_data)
-        end
-      
+
         private
       
         def extract_provider_data(performer, use_dates=true)

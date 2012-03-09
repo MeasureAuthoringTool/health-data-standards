@@ -14,7 +14,6 @@ module HealthDataStandards
           org.name = org_element.at_xpath("./name").try(:text)
           org.addresses = org_element.xpath("./cda:addr").map { |addr| import_address(addr) }
           org.telecoms = org_element.xpath("./cda:telecom").map { |tele| import_telecom(tele) }
-          org.save
           org
         end
         
