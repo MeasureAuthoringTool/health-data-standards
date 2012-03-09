@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="green_cda_narrative.xsd"/>
+	<xs:include schemaLocation="green_c32_base.xsd"/>
+	<xs:include schemaLocation="green_c32_datatypes.xsd"/>
+	<xs:element name="conditions">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="condition" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="diagnosisPriority" type="xs:integer" minOccurs="0"/>
+							<xs:element name="problemDate" type="gc32:ivlTs" minOccurs="0"/>
+							<xs:element name="problemType" type="gc32:cd" minOccurs="0"/>
+							<xs:element name="problemName"/>
+							<xs:element name="problemCode" type="gc32:cd" minOccurs="0"/>
+							<xs:element name="treatingProvider" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="treatingProviderID" type="gc32:ii" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ageAtOnset" type="xs:integer" minOccurs="0"/>
+							<xs:element name="causeOfDeath" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="timeOfDeath" type="gc32:ts" minOccurs="0"/>
+										<xs:element name="ageAtDeath" type="xs:integer" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="problemStatus" type="gc32:ce" minOccurs="0"/>
+							<xs:element ref="gc32:comment" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

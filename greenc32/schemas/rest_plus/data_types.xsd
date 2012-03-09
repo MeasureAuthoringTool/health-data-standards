@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:complexType name="entry">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string" />
+			<xs:element name="code" type="gc32:code" />
+			<xs:element name="status" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="simpleCode">
+    <xs:attribute name="code"/>
+    <xs:attribute name="codeSystem"/>
+    <xs:attribute name="codeSystemName"/>
+		<xs:attribute name="displayName"/>
+  </xs:complexType>
+	<xs:complexType name="code">
+		<xs:complexContent>
+			<xs:extension base="gc32:simpleCode">
+	  	<xs:sequence>
+  		  <xs:element name="originalText" />
+  		  <xs:element name="translation" minOccurs="0" maxOccurs="unbounded" type="gc32:simpleCode" />
+  		</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+ 	</xs:complexType>
+	<xs:complexType name="quantity">
+    <xs:attribute name="amount" type="xs:float" />
+    <xs:attribute name="unit" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="interval">
+	  <xs:sequence>
+	    <xs:element name="start" type="xs:dateTime" />
+			<xs:element name="end" type="xs:dateTime"/>
+	  </xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="address" mixed="true">
+		<xs:annotation>
+			<xs:documentation>Address (US only)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="street" minOccurs="0" maxOccurs="2"/>
+			<xs:element name="city" minOccurs="0"/>
+			<xs:element name="state" minOccurs="0"/>
+			<xs:element name="postalCode" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="nullFlavor" type="gc32:nullFlavorType"/>
+	</xs:complexType>
+	<xs:complexType name="organization">
+		<xs:annotation>
+			<xs:documentation>Reusable organization information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="name" type="xs:string" minOccurs="0"/>
+			<xs:element name="address" type="gc32:addr" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="gc32:telecom" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="provider">
+		<xs:annotation>
+			<xs:documentation>Reusable provider information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id" type="xs:string" />
+			<xs:element name="name" minOccurs="0">
+			  <xs:sequence>
+			    <xs:element name="title" type="xs:string" />
+			    <xs:element name="givenName" type="xs:string" />
+			    <xs:element name="familyName" type="xs:string" />
+			  </xs:sequence>
+			</xs:element>
+			<xs:element name="npi" type="xs:string" minOccurs="0" />
+	    <xs:element name="speciality" type="xs:string" />
+	    <xs:element name="address" type="gc32:addr" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="gc32:telecom" maxOccurs="unbounded"/>
+	    <xs:element name="organization" type="gc32:organization" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="telecom">
+	  <xs:attribute name="use" />
+	  <xs:attribute name="value" />
+	  <xs:attribute name="preferred" type="xs:boolean" />
+	</xs:complexType>
+	<xs:complexType name="result">
+		<xs:complexContent>
+			<xs:extension base="gc32:entry">
+				<xs:sequence>
+					<xs:element name="effectiveTime" type="xs:dateTime" />
+					<xs:element name="value" type="gc32:quantity" />
+					<xs:element name="interpretation" type="gc32:simpleCode" minOccurs="0"/>
+					<xs:element name="referenceRange" minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="medicationInformation">
+	  <xs:sequence>
+	    <xs:element name="productName">
+	      <xs:extension base="gc32:code">
+	        <xs:complexContent>
+	          <xs:attribute  name="name" type="xs:string" />
+	        </xs:complexContent>
+	    </xs:element>
+	    <xs:element name="brandName">
+	      <xs:extension base="gc32:code">
+	        <xs:complexContent>
+	          <xs:attribute name="name" type="xs:string" />
+	        </xs:complexContent>
+	    </xs:element>
+	    <xs:element name="manufacturer" type="gc32:organization" />
+	  </xs:sequence>
+	</xs:complexType>
+  <!-- We can't handle null flavors at the moment -->
+  <!-- <xs:simpleType name="nullFlavorType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NP"/>
+      <xs:enumeration value="NI"/>
+      <xs:enumeration value="MSK"/>
+      <xs:enumeration value="NA"/>
+      <xs:enumeration value="OTH"/>
+      <xs:enumeration value="NINF"/>
+      <xs:enumeration value="PINF"/>
+      <xs:enumeration value="UNK"/>
+      <xs:enumeration value="NASK"/>
+      <xs:enumeration value="TRC"/>
+      <xs:enumeration value="ASKU"/>
+      <xs:enumeration value="NAV"/>
+    </xs:restriction>
+  </xs:simpleType> -->
+</xs:schema>

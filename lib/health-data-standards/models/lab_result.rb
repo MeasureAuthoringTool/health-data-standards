@@ -4,4 +4,5 @@ class LabResult < Entry
   
   alias :reference_range :referenceRange
   alias :reference_range= :referenceRange=
+  
 end

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="green_cda_narrative.xsd"/>
+	<xs:include schemaLocation="green_c32_base.xsd"/>
+	<xs:include schemaLocation="green_c32_datatypes.xsd"/>
+	<xs:element name="allergies">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="allergy" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="adverseEventType" type="gc32:cd"/>
+							<xs:element name="adverseEventDate" type="gc32:ivlTs" minOccurs="0"/>
+							<xs:element name="product" type="gc32:cd" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element name="reaction" type="gc32:cd" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element name="severity" type="gc32:cd" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element ref="gc32:comment" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

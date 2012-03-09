@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="green_cda_narrative.xsd"/>
+	<xs:include schemaLocation="green_c32_base.xsd"/>
+	<xs:include schemaLocation="green_c32_datatypes.xsd"/>
+	<xs:element name="insuranceProviders">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="insuranceProvider" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="resultID" type="gc32:ii"/>
+							<xs:element name="healthInsuranceType" type="gc32:cd" minOccurs="0"/>
+							<xs:element name="payer" type="gc32:organizationInformation"/>
+							<xs:element name="memberInformation">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="healthPlanCoverageDates" type="gc32:ivlTs" minOccurs="0"/>
+										<xs:element name="memberID" type="gc32:ii" minOccurs="0"/>
+										<xs:element name="patientRelationshipToSubscriber" type="gc32:cd" minOccurs="0"/>
+										<xs:element name="patientAddress" type="gc32:addr" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="patientPhone" type="gc32:tele" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="patientName" type="gc32:pnm"/>
+										<xs:element name="patientDateOfBirth" type="gc32:ts"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="financialResponsibilityPartyType" type="gc32:cd" minOccurs="0"/>
+							<xs:element name="subscriberInformation" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="subscriberID" type="gc32:ii"/>
+										<xs:element name="subscriberAddress" type="gc32:addr"/>
+										<xs:element name="subscriberPhone" type="gc32:tele" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="subscriberName" type="gc32:pnm"/>
+										<xs:element name="subscriberDateOfBirth" type="gc32:ts"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="guarantorInformation" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="responsibilityEffectiveDate" type="gc32:ivlTs" minOccurs="0"/>
+										<xs:element name="partyAddress" type="gc32:addr" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="partyPhone" type="gc32:tele" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="partyName" type="gc32:pnm" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="healthPlanName" minOccurs="0"/>
+							<xs:element ref="gc32:comment" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

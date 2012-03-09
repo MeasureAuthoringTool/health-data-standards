@@ -2,8 +2,10 @@ class Entry
 
   include Mongoid::Document
 
-  embedded_in :entry_list, polymorphic: true
-
+  # embedded_in :entry_list, polymorphic: true
+  
+  embedded_in :record
+  
   field :description, type: String
   field :time, type: Integer
   field :start_time, type: Integer
@@ -11,6 +13,11 @@ class Entry
   field :status, type: String
   field :codes, type: Hash, default: {}
   field :value, type: Hash, default: {}
+  
+  attr_protected :version
+  attr_protected :_id
+  attr_protected :created_at
+  attr_protected :updated_at
 
   def single_code_value?
     codes.size == 1 && codes.first[1].size == 1
@@ -22,11 +29,12 @@ class Entry
   
   # Will return a single code and code set if one exists in the code sets that are
   # passed in. Returns a hash with a key of code and code_set if found, nil otherwise
-  def preferred_code(preferred_code_sets)
-    matching_code_sets = preferred_code_sets & codes.keys
+  def preferred_code(preferred_code_sets, codes_attribute=:codes)
+    codes_value = send(codes_attribute)
+    matching_code_sets = preferred_code_sets & codes_value.keys
     if matching_code_sets.present?
       code_set = matching_code_sets.first
-      {'code' => codes[code_set].first, 'code_set' => code_set}
+      {'code' => codes_value[code_set].first, 'code_set' => code_set}
     else
       nil
     end

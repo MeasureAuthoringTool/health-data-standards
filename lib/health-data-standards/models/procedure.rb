@@ -1,4 +1,7 @@
 class Procedure < Entry
-  field :performer, type: Hash
-  field :site, type: Hash
+  field :type,          type: String
+  field :site,          type: Hash
+  field :description,   type: String
+  
+  belongs_to :performer, class_name: "Provider"
 end

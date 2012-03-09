@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="green_cda_narrative.xsd"/>
+	<xs:include schemaLocation="green_c32_base.xsd"/>
+	<xs:include schemaLocation="green_c32_datatypes.xsd"/>
+	<xs:element name="planOfCare">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element name="plannedObservation" type="gc32:plannedEvent"/>
+					<xs:element name="plannedProcedure" type="gc32:plannedEvent"/>
+					<xs:element name="plannedAct" type="gc32:plannedEvent"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
