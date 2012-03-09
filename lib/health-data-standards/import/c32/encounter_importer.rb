@@ -49,7 +49,6 @@ module HealthDataStandards
 
         def extract_facility(parent_element, encounter)
           participant_element = parent_element.at_xpath("./cda:participant[@typeCode='LOC']/cda:participantRole[@classCode='SDLOC']")
-          encounter.facility = {}
           if (participant_element)
             org = Organization.new(name: participant_element.at_xpath("./cda:playingEntity/cda:name").try(:text))
             org.addresses = participant_element.xpath("./cda:addr").try(:map) {|ae| import_address(ae)}
