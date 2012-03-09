@@ -55,7 +55,7 @@ module HealthDataStandards
             addresses = participant_element.xpath("./cda:addr").try(:map) {|ae| import_address(ae)}
             encounter.facility['addresses'] = addresses
             telecoms = participant_element.xpath("./cda:telecom").try(:map) {|te| import_telecom(te)}
-            encounter.facility['telcoms'] = telecoms
+            encounter.facility['telecoms'] = telecoms
           end
         end
     
