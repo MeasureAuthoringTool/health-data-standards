@@ -30,6 +30,10 @@ module HealthDataStandards
           '413322009'
         end
       end
+
+      def time_if_not_nil(*args)
+        args.compact.map {|t| Time.at(t)}.first
+      end
     end
   end
 end
