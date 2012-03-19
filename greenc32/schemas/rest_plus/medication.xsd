@@ -9,12 +9,12 @@
           <xs:element name="medicationStartStop" type="gc32:interval" />
           <xs:element name="route" type="gc32:simpleCode" minOccurs="0"/>
 					<xs:element name="dose" type="gc32:quantity" minOccurs="0"/>
-					<xs:element name="site" type="gc32:simpleCode" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="site" type="gc32:simpleCode" minOccurs="0" />
 					<xs:element name="doseRestriction" minOccurs="0">
 						<xs:complexType>
 							<xs:sequence>
-								<xs:element name="numerator" type="gc32:pq"/>
-								<xs:element name="denominator" type="gc32:pq"/>
+								<xs:element name="numerator" type="gc32:quantity"/>
+								<xs:element name="denominator" type="gc32:quantity"/>
 							</xs:sequence>
 						</xs:complexType>
 					</xs:element>
@@ -41,36 +41,22 @@
 						<xs:complexType>
 							<xs:sequence>
 								<xs:element name="prescriptionNumber" type="xs:string" minOccurs="0"/>
-								<xs:element ref="gc32:provider" minOccurs="0"/>
 								<xs:element name="dispensingPharmacyLocation" type="gc32:address" minOccurs="0"/>
-								<xs:element name="dispenseDate" type="gc32:interval" minOccurs="0"/>
+								<xs:element name="dispenseDate" type="xs:datetime" minOccurs="0"/>
 								<xs:element name="quantityDispensed" type="gc32:quantity" minOccurs="0"/>
-								<xs:element name="fillNumber" minOccurs="0">
-									<xs:complexType>
-										<xs:attribute name="value"/>
-									</xs:complexType>
-								</xs:element>
-								<xs:element name="fillStatus" minOccurs="0">
-									<xs:complexType>
-										<xs:attribute name="value" type="xs:string"/>
-									</xs:complexType>
-								</xs:element>
 							</xs:sequence>
 						</xs:complexType>
 					</xs:element>
 					<xs:element name="orderInformation" minOccurs="0" maxOccurs="unbounded">
 						<xs:complexType>
 							<xs:sequence>
-								<xs:element name="orderNumber" type="xs:string" minOccurs="0"/>
-								<xs:element name="fills" minOccurs="0">
-									<xs:complexType>
-										<xs:attribute name="value"/>
-									</xs:complexType>
-								</xs:element>
 								<xs:element name="quantityOrdered" type="gc32:quantity" minOccurs="0"/>
-								<xs:element name="orderExpirationDateTime" type="xs:dateTime" minOccurs="0"/>
-								<xs:element name="orderDateTime" type="gc32:interval" minOccurs="0"/>
+								<xs:element name="orderedAt" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="expiresAt" type="xs:dateTime" minOccurs="0"/>
+
 							</xs:sequence>
+							<xs:attribute name="orderNumber" type="xs:string"/>
+							<xs:attribute name="fills" type="xs:integer">
 						</xs:complexType>
 					</xs:element>
         </xs:sequence>

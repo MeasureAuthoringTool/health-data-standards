@@ -2,7 +2,6 @@ class Medication < Entry
   field :administrationTiming, type: Hash
   field :freeTextSig, type: String
   field :dose, type: Hash
-  field :brandName, type: String
   field :typeOfMedication, type: Hash
   field :statusOfMedication, type: Hash
   embeds_many :fulfillmentHistory, class_name: 'FulfillmentHistory'
@@ -23,8 +22,6 @@ class Medication < Entry
   alias :administration_timing= :administrationTiming=
   alias :free_text_sig :freeTextSig
   alias :free_text_sig= :freeTextSig=
-  alias :brand_name :brandName
-  alias :brand_name= :brandName=
   alias :type_of_medication :typeOfMedication
   alias :type_of_medication= :typeOfMedication=
   alias :status_of_medication :statusOfMedication

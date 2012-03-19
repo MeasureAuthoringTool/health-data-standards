@@ -104,6 +104,17 @@ module GreenC32
       
       xml = HealthDataStandards::Export::GreenC32::Entry.export(encounter, :encounter) 
     end
+    
+    #-------------------------------------------------------------------------------
+    
+    def test_medications
+      med = Factory.build(:medication)
+
+      refute_nil med
+      
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(med, :medication)
+      binding.pry
+    end
   
   end
   

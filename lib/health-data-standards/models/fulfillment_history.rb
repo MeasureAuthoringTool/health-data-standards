@@ -5,7 +5,7 @@ class FulfillmentHistory
   field :dispenseDate, type: Integer
   field :quantityDispensed, type: Hash
   field :fillNumber, type: Integer
-  field :fillStatus, type: Hash
+  field :fillStatus, type: String
   
   belongs_to :provider, class_name: "Provider"
   embeds_one :dispensingPharmacyLocation, as: :locatable, class_name: "Address"
