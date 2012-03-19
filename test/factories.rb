@@ -84,3 +84,42 @@ Factory.define :vital_sign do |f|
   f.time            1266664414
   f.description     "BMI"
 end
+
+# Metadata factory elements
+Factory.define "metadata/linked_info" do |l|
+  l.href          "http://t1.x.y.com"
+  l.extension     "abc"
+end
+
+Factory.define "metadata/pedigree" do |p|
+  p.author        "John Smith"
+  p.organization  "Health Care Inc"
+end
+
+Factory.define "metadata/record_date" do |r|
+  r.operation           "MODIFIED"
+  r.operation_time      { Time.at(Time.now.to_i - rand(10000000)) }
+  r.pedigree  do
+    FactoryGirl.build("metadata/pedigree")
+  end
+end
+
+Factory.define "metadata/base" do |m|
+  m.pedigree        do
+    FactoryGirl.build("metadata/pedigree")
+  end
+  m.record_dates    do
+    [
+      FactoryGirl.build("metadata/record_date", :operation => 'CREATED'),
+      FactoryGirl.build("metadata/record_date")
+    ]
+  end
+  m.linked_infos    do
+    [
+      FactoryGirl.build("metadata/linked_info")
+    ]
+  end
+  m.confidentiality "<hmd:a>text</hmd:a><hmd:c>embedded element</hmd:c>"
+end
+
+
