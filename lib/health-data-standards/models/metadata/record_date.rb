@@ -13,13 +13,13 @@ module Metadata
 
     def set(time = Time.now, type = MODIFIED, who = nil, organization = nil)
       raise Exception.new("time and type are required") if type.nil? || time.nil?
-      @operation = type.to_s.upcase
+      operation = type.to_s.upcase
 
       raise Exception.new("type must be one of CREATED, MODIFIED or COPIED") if operation != CREATED && operation != MODIFIED && operation == COPIED
-      @operation_time = time
-      @pedigree = Pedigree.new
-      @pedigree.author = who if who
-      @pedigree.organization = organization if organization
+      operation_time = time
+      self.pedigree = Pedigree.new
+      self.pedigree.author = who if who
+      self.pedigree.organization = organization if organization
     end
 
     def to_xml(options)
@@ -27,15 +27,15 @@ module Metadata
       xml = options[:builder] || ::Nokogiri::XML::Builder.new
       hmd = options[:ns_prefix]
       if operation == CREATED
-        xml[hmd].CreatedDateTime operation_time
+        xml[hmd].CreatedDateTime self[:operation_time]
       elsif operation == MODIFIED
         xml[hmd].Modified do
-          xml[hmd].ModifiedDateTime operation_time
-          @pedigree.to_xml(options) if pedigree
+          xml[hmd].ModifiedDateTime self[:operation_time]
+          self.pedigree.to_xml(options) if self[:pedigree]
         end
       elsif operation == COPIED
-        xml[hmd].CopiedDateTime operation_time
-        @pedigree.to_xml(options) if pedigree
+        xml[hmd].CopiedDateTime self[:operation_time]
+        self.pedigree.to_xml(options) if self[:pedigree]
       else
         # ?
       end
@@ -47,19 +47,19 @@ module Metadata
       m = node.at_xpath("./#{hmd}:ModifiedDateTime")
       cp = node.at_xpath("./#{hmd}:CopiedDateTime")
       if node.name == 'CreatedDateTime'
-        @operation = CREATED
-        @operation_time = node.text()
+        self.operation = CREATED
+        self.operation_time = node.text()
       elsif ! m.nil?
-        @operation = MODIFIED
-        @operation_time = m.text()
+        self.operation = MODIFIED
+        self.operation_time = m.text()
       else
-        @operation = COPIED
-        @operation_time = cp.text()
+        self.operation = COPIED
+        self.operation_time = cp.text()
       end
       ped = node.at_xpath("./#{hmd}:PedigreeInfo")
-      unless ped.nil?
-        @pedigree = Pedigree.new
-        @pedigree.from_xml(ped,options)
+      if ped
+        self.pedigree = Pedigree.new
+        self.pedigree.from_xml(ped,options)
       end
     end
   end

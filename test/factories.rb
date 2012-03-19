@@ -114,7 +114,11 @@ Factory.define "metadata/base" do |m|
       FactoryGirl.build("metadata/record_date")
     ]
   end
-  m.linked_infos    { |l| [FactoryGirl.build("metadata/linked_info")]}
+  m.linked_infos    do
+    [
+      FactoryGirl.build("metadata/linked_info")
+    ]
+  end
   m.confidentiality "<hmd:a>text</hmd:a><hmd:c>embedded element</hmd:c>"
 end
 

@@ -17,17 +17,17 @@ module Metadata
 
     def addRecordDate(time = Time.now, type = ::Metadata::RecordDate::MODIFIED, author = nil, organization = nil)
       if type == ::Metadata::RecordDate::CREATED
-        record_dates.each do |rd|
+        self[:record_dates].each do |rd|
           throw Exception.new("Can't have two created record dates on one metadata record") if rd.operation == ::Metadata::RecordDate::CREATED
         end
       end
       rd = RecordDate.new
       rd.set(time, type, author, organization)
-      record_dates << rd
+      self[:record_dates] << rd
       if author || organization
-        pedigree = Pedigree.new
-        pedigree.author = author if author
-        pedigree.organization = organization if organization
+        self[:pedigree] = Pedigree.new
+        self[:pedigree][:author] = author if author
+        self[:pedigree][:organization] = organization if organization
       end
     end
 
@@ -90,6 +90,11 @@ module Metadata
           linked_infos << li
         end if lis
       end
+      pi = xml.at_xpath("./#{hmd}:PedigreeInfo")
+      if pi
+        self.pedigree = Pedigree.new
+        self.pedigree.from_xml(pi,ns_prefix: hmd) if pi
+      end
     end
 
 
@@ -115,7 +120,7 @@ module Metadata
     def to_xml_details(xml,hmd,record,passed_options)
       xml[hmd].DocumentMetaData("xmlns:#{hmd}" => NS) do
         xml[hmd].DocumentId record.medical_record_number
-        @pedigree.to_xml(passed_options) if pedigree
+        self.pedigree.to_xml(passed_options) if pedigree
         xml[hmd].RecordDate do
           record_dates.each do |date|
             date.to_xml(passed_options)

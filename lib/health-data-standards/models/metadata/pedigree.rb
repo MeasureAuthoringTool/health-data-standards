@@ -10,8 +10,8 @@ module Metadata
       xml = options[:builder] || ::Nokogiri::XML::Builder.new
       hmd = options[:ns_prefix]
       xml[hmd].PedigreeInfo do
-        xml[hmd].Author @author if @author
-        xml[hmd].Organization @organization if @organization
+        xml[hmd].Author self.author if self[:author]
+        xml[hmd].Organization self.organization if self.organization
       end
     end
 
@@ -20,8 +20,8 @@ module Metadata
       hmd = options[:ns_prefix]
       a = node.at_xpath("./#{hmd}:Author")
       o = node.at_xpath("./#{hmd}:Organization")
-      @author = a.text() unless a.nil?
-      @organization = o.text() unless o.nil?
+      self.author = a.text() if a
+      self.organization = o.text() if o
     end
   end
 end
