@@ -24,8 +24,9 @@ module Metadata
 
     def to_xml(options)
       require 'builder'
-      xml = options[:builder] || ::Nokogiri::XML::Builder.new
-      hmd = options[:ns_prefix]
+      passed_options = ::Metadata::get_builder(options)
+      xml = passed_options[::Metadata::BUILDER]
+      hmd = passed_options[::Metadata::NS_DECL]
       if operation == CREATED
         xml[hmd].CreatedDateTime self[:operation_time]
       elsif operation == MODIFIED

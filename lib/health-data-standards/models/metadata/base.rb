@@ -1,6 +1,16 @@
 # Represents the metadata associated with a hData section
 module Metadata
   NS = 'http://www.hl7.org/schemas/hdata/2009/11/metadata'
+  NS_DECL = :ns_decl
+  BUILDER = :builder
+
+  def self.get_builder(options)
+    xml = options[::Metadata::BUILDER] || ::Nokogiri::XML::Builder.new
+    passed_options = Hash.new.merge(options)
+    passed_options[::Metadata::BUILDER] = xml
+    passed_options[::Metadata::NS_DECL] = options[:ns_decl] || 'hmd'
+    passed_options
+  end
 
   class Base
     include Mongoid::Document
@@ -40,12 +50,9 @@ module Metadata
       require 'builder'
       record = options[:record]
       throw Exception.new("No record specified, a required option for Metadata") unless record
-      hmd = 'hmd'
-      ns_decl = "xmlns:#{hmd}"
-      xml = options[:builder] || ::Nokogiri::XML::Builder.new
-      passed_options = Hash.new.merge(options)
-      passed_options[:builder] = xml
-      passed_options[:ns_prefix] = hmd
+      passed_options = ::Metadata::get_builder(options)
+      xml = passed_options[::Metadata::BUILDER]
+      hmd = passed_options[::Metadata::NS_DECL]
       @created_root = xml.doc.root.nil?
       if @created_root
         xml.root("xmlns:#{hmd}" => NS) do |xml|

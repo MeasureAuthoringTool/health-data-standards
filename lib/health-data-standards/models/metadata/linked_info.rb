@@ -7,8 +7,9 @@ module Metadata
 
     def to_xml(options)
       require 'builder'
-      xml = options[:builder] || ::Nokogiri::XML::Builder.new
-      hmd = options[:ns_prefix]
+      passed_options = ::Metadata::get_builder(options)
+      xml = passed_options[::Metadata::BUILDER]
+      hmd = passed_options[::Metadata::NS_DECL]
       xml[hmd].LinkedInfo do
         xml[hmd].Target(self.href, extension: self.extension)
       end
