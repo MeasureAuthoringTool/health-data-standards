@@ -17,7 +17,9 @@ class MetaDataTest < MiniTest::Unit::TestCase
   # down fixture information.
 
   def teardown
-    # Do nothing
+    ## Cleanup
+    Metadata::Base.delete_all
+    @record.delete
   end
 
   # Fake test

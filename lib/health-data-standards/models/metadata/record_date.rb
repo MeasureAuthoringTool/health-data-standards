@@ -31,11 +31,11 @@ module Metadata
       elsif operation == MODIFIED
         xml[hmd].Modified do
           xml[hmd].ModifiedDateTime self[:operation_time]
-          self.pedigree.to_xml(options) if self[:pedigree]
+          pedigree.to_xml(options) if pedigree
         end
       elsif operation == COPIED
         xml[hmd].CopiedDateTime self[:operation_time]
-        self.pedigree.to_xml(options) if self[:pedigree]
+        pedigree.to_xml(options) if pedigree
       else
         # ?
       end
@@ -58,8 +58,10 @@ module Metadata
       end
       ped = node.at_xpath("./#{hmd}:PedigreeInfo")
       if ped
-        self.pedigree = Pedigree.new
-        self.pedigree.from_xml(ped,options)
+        # FIXME? It seems like self.pedigree should work here, or even just pedigree
+        # but without setting the instance variable directly the test fails
+        @pedigree = Pedigree.new
+        @pedigree.from_xml(ped,options)
       end
     end
   end
