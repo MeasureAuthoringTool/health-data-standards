@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class VitalSignImporterTest < MiniTest::Unit::TestCase
+  
   def test_vital_sign_importing
     doc = Nokogiri::XML(File.new('test/fixtures/NISTExampleC32.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
@@ -15,4 +16,5 @@ class VitalSignImporterTest < MiniTest::Unit::TestCase
     assert_equal 'HITSP C80 Observation Status', vital_sign.interpretation['codeSystem']
     assert_equal 'completed', vital_sign.status
   end
+
 end

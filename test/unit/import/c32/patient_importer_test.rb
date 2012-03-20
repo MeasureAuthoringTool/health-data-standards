@@ -29,6 +29,7 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     
     patient = HealthDataStandards::Import::C32::PatientImporter.instance.parse_c32(doc)
+    patient.save!
     
     assert_equal 'FirstName', patient.first
     assert_equal 1, patient.encounters.size

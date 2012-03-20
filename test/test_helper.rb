@@ -1,9 +1,12 @@
+require 'factory_girl'
 require 'cover_me'
 require_relative '../lib/health-data-standards'
 
 require 'pry'
 
 require 'minitest/autorun'
+
+FactoryGirl.find_definitions
 
 db_host = ENV['TEST_DB_HOST'] || 'localhost'
 

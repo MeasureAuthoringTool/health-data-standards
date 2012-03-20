@@ -12,7 +12,11 @@ class Provider
   
   validates_uniqueness_of :npi, allow_blank: true
   
-  
+  embeds_many :addresses, as: :locatable
+  embeds_many :telecoms, as: :contactable
+  embeds_one :organization
+
+
   def records(effective_date=nil)
     Record.by_provider(self, effective_date)
   end
@@ -21,6 +25,7 @@ class Provider
   # checksum using the Luhn algorithm with additional special handling as described in
   # https://www.cms.gov/NationalProvIdentStand/Downloads/NPIcheckdigit.pdf 
   def self.valid_npi?(npi)
+    return false unless npi
     return false if npi.length != 10 and npi.length != 15
     return false if npi.gsub(/\d/, '').length > 0 # npi must be all digits
     return false if npi.length == 15 and (npi =~ /^80840/)==nil # 15 digit npi must start with 80840
