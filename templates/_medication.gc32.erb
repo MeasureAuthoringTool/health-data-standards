@@ -1,0 +1,57 @@
+<medication>
+  <id><%= medication.id%></id>
+  <%== code_display medication, "preferred_code_sets" => ["RxNorm", "SNOMED-CT"]%>
+  <status>completed</status>
+  <freeText><%= medication.free_text_sig%></freeText>
+  <%== code_display medication, "tag_name" => "route", "attribute" => "route", "preferred_code_sets" => ["NCI Thesaurus"] %>
+  <%== quantity_display medication.dose, :dose %>
+  <%== code_display medication, "tag_name" => "site", "attribute" => "site" %>
+  <% if medication.dose_restriction %>
+  <doseRestriction>
+    <numerator><%= medication.dose_restriction[:numerator]%></numerator>
+    <denominator><%= medication.dose_restriction[:denominator]%></denominator>
+  </doseRestriction>
+  <% end %>
+  <% if medication.administration_timing %>
+    <administrationTiming institutionSpecified="<%= medication.administration_timing[:insitution_specified] %>">
+      <start><%= Time.at(medication.start_time) %></start>
+      <end><%= Time.at(medication.end_time)%></end>
+      <%== quantity_display medication.administration_timing[:period], :period %>
+    </administrationTiming>
+  <% end %>
+  <%== code_display medication, "tag_name" => "productForm", "attribute" => "product_form", "preferred_code_sets" => ["NCI Thesaurus"]  %>
+  <% if medication.delivery_method %>
+    <%== code_display medication, "tag_name" => "deliveryMethod", "attribute" => "delivery_method", "preferred_code_sets" => medication.delivery_method.keys %>
+  <% end %>
+  <%== code_display medication, "tag_name" => "typeOfMedication", "attribute" => "type_of_medication", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <%== code_display medication, "tag_name" => "statusOfMedication", "attribute" => "status_of_medication", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <%== code_display medication, "tag_name" => "indication", "attribute" => "indication", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <%== code_display medication, "tag_name" => "vehicle", "attribute" => "vehicle", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <%== code_display medication, "tag_name" => "reaction", "attribute" => "reaction", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <% if medication.patient_instructions %>
+    <patientInstructions><%=medication.patient_instructions%></patientInstructions>
+  <% end %>
+  <% if medication.medication_product%>
+    <%= render partial: "medication_information", locals: {medication_information: medication.medication_product} %>
+  <% end %>
+  
+  <% if medication.fulfillment_instructions %>
+    <fulfillmentInstructions><%=medication.fulfillment_instructions%></fulfillmentInstructions>
+  <% end %>
+  <% medication.fulfillment_history.each do |fh| %>
+  <fulfillmentHistory <%if (fh.fill_status) %> fillStatus="<%=fh.fill_status%>" <% end %>
+    <% if fh.fill_number %> fillNumber="<%=fh.fill_number%>" <% end %>>
+    <prescriptionNumber><%=fh.prescription_number%></prescriptionNumber>
+    <%= render partial: 'address', locals: {address: fh.dispensing_pharmacy_location, tag_name: "dispensingPharmacyLocation"} %>
+    <dispenseDate><%= Time.at(fh.dispense_date)%></dispenseDate>
+    <%== quantity_display fh.quantity_dispensed, :quantityDispensed %>
+  </fulfillmentHistory>
+  <% end %>
+  <% medication.order_information.each do |oi| %>
+    <orderInformation <% if oi.order_number %><%= "orderNumber=\"#{oi.order_number}\"" %> <% end %> <% if oi.fills %> <%= "fills=\"#{oi.fills}\"" %> <% end %>>
+      <%== quantity_display oi.quantity_ordered, "quantityOrdered" %>
+      <ordereredAt><%= Time.at(oi.order_date_time)%></orderedAt>
+      <expiresAt><%= Time.at(oi.order_expiration_date_time)%></expiresAt>
+    </orderInformation>
+  <% end %>
+</medication>
