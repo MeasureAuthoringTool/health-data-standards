@@ -48,7 +48,6 @@ Factory.define :fulfillment_history do |f|
   f.quantity_dispensed {{"value" => 200, "unit" => "pills"}}
   f.fill_number 1
   f.fill_status "aborted"
-  f.dispensing_pharmacy_location { FactoryGirl.build(:address)}
 end
 
 Factory.define :organization do |f|

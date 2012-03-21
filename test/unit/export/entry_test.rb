@@ -109,11 +109,11 @@ module GreenC32
     
     def test_medications
       med = Factory.build(:medication)
-
+    
       refute_nil med
       
       xml = HealthDataStandards::Export::GreenC32::Entry.export(med, :medication)
-      binding.pry
+      # binding.pry
     end
   
   end

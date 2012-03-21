@@ -17,6 +17,7 @@ class Medication < Entry
   field :reaction, type: Hash
   field :deliveryMethod, type: Hash
   field :patientInstructions, type: String
+  field :doseIndicator, type: String
   
   alias :administration_timing :administrationTiming
   alias :administration_timing= :administrationTiming=
@@ -40,4 +41,6 @@ class Medication < Entry
   alias :delivery_method= :deliveryMethod=
   alias :patient_instructions :patientInstructions
   alias :patient_instructions= :patientInstructions=
+  alias :dose_indicator :doseIndicator
+  alias :dose_indicator= :doseIndicator=
 end

@@ -22,7 +22,7 @@ class MedicationImporterTest < MiniTest::Unit::TestCase
     assert_equal 'DrugVehicleCode', medication.vehicle['code']
     assert_equal 'eleventeen', medication.fulfillment_history[0].prescription_number
     assert_equal 'Pseudo', medication.fulfillment_history[0].provider.given_name
-    assert_equal '100 Bureau Drive', medication.fulfillment_history[0].dispensing_pharmacy_location.street[0]
+    assert_equal '100 Bureau Drive', medication.fulfillment_history[0].provider.addresses[0].street[0]
     assert_equal 1316476800, medication.fulfillment_history[0].dispense_date
     assert_equal 30, medication.fulfillment_history[0].quantity_dispensed['value']
     assert_equal 4, medication.fulfillment_history[0].fill_number
