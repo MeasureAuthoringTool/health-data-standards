@@ -5,7 +5,7 @@
     <name><%= condition.name %></name>
   <% end %>
   <effectiveTime>
-    <start><%= Time.at(condition.start_time) %></start>
-    <end><%= Time.at(condition.end_time) %></end>
+    <start><%= time_if_not_nil(condition.start_time, condition.time) %></start>
+    <end><%= time_if_not_nil(condition.end_time) %></end>
   </effectiveTime>
 </condition>

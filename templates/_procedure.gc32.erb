@@ -2,7 +2,7 @@
   <id><%= procedure.id %></id>
   <%== code_display procedure, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT'] %>
   <effectiveTime>
-    <start><%= Time.at(procedure.start_time)%></start>
-    <end><%= Time.at(procedure.end_time)%></end>
+    <start><%= time_if_not_nil(procedure.start_time, procedure.time)%></start>
+    <end><%= time_if_not_nil(procedure.end_time)%></end>
   </effectiveTime>
 </procedure>

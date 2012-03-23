@@ -35,10 +35,15 @@ module HealthDataStandards
           '413322009'
         end
       end
+
       
       def quantity_display(value, tag_name)
         return unless value
         "<#{tag_name} value=\"#{value['value']}\" units=\"#{value['unit']}\" />"
+      end
+
+      def time_if_not_nil(*args)
+        args.compact.map {|t| Time.at(t)}.first
       end
     end
   end

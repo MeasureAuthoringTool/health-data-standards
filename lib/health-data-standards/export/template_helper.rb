@@ -22,6 +22,7 @@ module HealthDataStandards
         elsif params[:partial]
           erb = partial(params[:partial])
         end
+        
         locals = params[:locals]
         locals ||= {}
         rendering_context = RenderingContext.new(locals)
