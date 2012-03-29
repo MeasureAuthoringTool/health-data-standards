@@ -12,7 +12,7 @@ module HealthDataStandards
           extract_interval(med_element, medication, "administrationTiming")
           extract_administration_timing(med_element, medication)
           medication.dose = extract_quantity(med_element, "./gc32:dose")
-          extract_med_code_attribute(med_element, medication, :typeOfMedication)
+          extract_med_code_attribute(med_element, medication, :type, :typeOfMedication)
           extract_med_code_attribute(med_element, medication, :statusOfMedication)
           extract_med_code_attribute(med_element, medication, :route)
           extract_med_code_attribute(med_element, medication, :site)
@@ -68,8 +68,9 @@ module HealthDataStandards
           end
         end
         
-        def extract_med_code_attribute(doc, med, attribute)
-          med.send("#{attribute}=", extract_code(doc, med, "./gc32:#{attribute}", attribute))
+        def extract_med_code_attribute(doc, med, attribute, mongo_attribute_name=nil)
+          mongo_attribute_name ||= attribute
+          extract_code(doc, med, "./gc32:#{attribute}", mongo_attribute_name)
         end
         
       end
