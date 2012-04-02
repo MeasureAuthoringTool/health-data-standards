@@ -113,7 +113,16 @@ module GreenC32
       refute_nil med
       
       xml = HealthDataStandards::Export::GreenC32::Entry.export(med, :medication)
-      # binding.pry
+    end
+    
+    #-------------------------------------------------------------------------------
+    
+    def test_allergies
+      allergy = Factory.build(:allergy)
+    
+      refute_nil allergy
+      
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(allergy, :allergy)
     end
   
   end

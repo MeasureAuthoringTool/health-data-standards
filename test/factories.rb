@@ -1,7 +1,9 @@
 Factory.define :allergy do |f|
-  f.codes           { { "RxNorm" => "70618" } }
-  f.time            1271810257
-  f.description     "Penicillin"
+  f.codes {{"RxNorm" => ["70618"]}}
+  f.start_time 1264529050
+  f.type "complete"
+  f.reaction {{"SNOMED-CT" => ["24484000"]}}
+  f.severity {{"SNOMED-CT" => ["39579001"]}}
 end
 
 Factory.define :comment do |f|

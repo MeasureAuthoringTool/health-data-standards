@@ -1,0 +1,13 @@
+<allergy xmlns="urn:hl7-org:greencda:c32">
+  <id><%= allergy.id%></id>
+  <status><%= allergy.status%></status>
+  <%== code_display allergy, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT', "RxNorm", "FDA"] %>
+  <type><%= allergy.type%></type>
+  <effectiveTime>
+    <start><%= time_if_not_nil(allergy.start_time, allergy.time) %></start>
+    <end><%= time_if_not_nil(allergy.end_time) %></end>
+  </effectiveTime>
+  <%== code_display allergy, "tag_name" => "reaction", 'preferred_code_sets' => ['SNOMED-CT'] %>
+  <%== code_display allergy, "tag_name" => "severity", 'preferred_code_sets' => ['SNOMED-CT'] %>
+</allergy>
+
