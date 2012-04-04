@@ -69,6 +69,11 @@ Factory.define :telecom do |f|
   f.preferred { [true, false].sample }
 end
 
+Factory.define :social_history do |f|
+  f.type { { "SNOMED-CT" => ["398705004"]}}
+  f.codes { { "SNOMED-CT" => ["363908000"]}}
+end
+
 Factory.define :immunization do |f|
   f.codes           { { "RxNorm" => ["854931"] } }
   f.time            1264529050

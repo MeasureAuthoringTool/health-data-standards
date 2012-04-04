@@ -124,6 +124,14 @@ module GreenC32
       
       xml = HealthDataStandards::Export::GreenC32::Entry.export(allergy, :allergy)
     end
+    
+    def test_social_history
+      sh = Factory.build(:social_history)
+    
+      refute_nil sh
+      
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(sh, :social_history)
+    end
   
   end
   

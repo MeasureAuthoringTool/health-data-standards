@@ -1,8 +1,12 @@
 class Immunization < Entry
   field :refusalInd, type: Boolean
   field :refusalReason, type: Hash
+  field :seriesNumber, type: Integer
+  field :lotNumber, type: String
   
   belongs_to :performer, class_name: "Provider"
+  
+  embeds_one :medication_product
   
   alias :refusal_ind :refusalInd
   alias :refusal_ind= :refusalInd=

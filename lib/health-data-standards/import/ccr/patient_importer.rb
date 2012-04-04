@@ -188,6 +188,7 @@ module HealthDataStandards
           patientActor = doc.at_xpath("//ccr:ContinuityOfCareRecord/ccr:Actors/ccr:Actor[ccr:ActorObjectID = \"#{patientActorID}\"]")
           patientID = patientActor.at_xpath(patient_id_xpath).try(:content)
           patientID ||= patientActorID
+
           patient['first'] = patientActor.at_xpath('./ccr:Person/ccr:Name/ccr:CurrentName/ccr:Given').content
           patient['last'] = patientActor.at_xpath('./ccr:Person/ccr:Name/ccr:CurrentName/ccr:Family').content
           birthdate = patientActor.at_xpath('./ccr:Person//ccr:DateOfBirth/ccr:ExactDateTime | ./ccr:Person//ccr:DateOfBirth/ccr:ApproximateDateTime')

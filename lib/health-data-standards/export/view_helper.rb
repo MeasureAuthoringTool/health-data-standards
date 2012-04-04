@@ -37,7 +37,7 @@ module HealthDataStandards
       end
 
       
-      def quantity_display(value, tag_name)
+      def quantity_display(value, tag_name="value")
         return unless value
         "<#{tag_name} value=\"#{value['value']}\" units=\"#{value['unit']}\" />"
       end
