@@ -7,6 +7,7 @@ class Entry
   embedded_in :record
   
   field :description, type: String
+  field :specifics, type: String
   field :time, type: Integer
   field :start_time, type: Integer
   field :end_time, type: Integer
@@ -94,6 +95,9 @@ class Entry
     end
     if event['description']
       entry.description = event['description']
+    end
+    if event['specifics']
+      entry.specifics = event['specifics']
     end
     if event['status']
       entry.status = event['status']
@@ -197,6 +201,10 @@ class Entry
     
     if description
       entry_hash['description'] = description
+    end
+
+    if specifics
+      entry_hash['specifics'] = specifics
     end
     
     entry_hash

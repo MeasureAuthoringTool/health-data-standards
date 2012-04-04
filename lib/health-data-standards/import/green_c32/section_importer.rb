@@ -48,17 +48,21 @@ module HealthDataStandards
           extract_time(element, entry, "./gc32:#{element_name}/gc32:end", "end_time")
         end
         
-        def extract_value(element, entry)
-          
-          value_element = element.xpath(@value).first
+        def extract_quantity(element, xpath)
+          value_element = element.at_xpath(xpath)
           
           return unless value_element
           
           node_value = extract_node_attribute(value_element, "amount", true)
           node_units = extract_node_attribute(value_element, "unit")
           
-          entry.value = {'scalar' => node_value, "unit" => node_units} if node_value
-
+          return {} unless node_value
+          
+          {'scalar' => node_value, "unit" => node_units}
+        end
+        
+        def extract_value(element, entry)
+          entry.value = extract_quantity(element, @value)
         end
         
         def extract_entry(element, entry)

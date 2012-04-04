@@ -19,6 +19,7 @@ require_relative 'health-data-standards/export/rendering_context'
 require_relative 'health-data-standards/export/c32'
 require_relative 'health-data-standards/export/ccr'
 require_relative 'health-data-standards/export/csv'
+require_relative 'health-data-standards/export/html'
 
 require_relative 'health-data-standards/export/green_c32/entry'
 require_relative 'health-data-standards/export/green_c32/export_generator'
@@ -70,4 +71,4 @@ require_relative 'health-data-standards/import/green_c32/condition_importer'
 require_relative 'health-data-standards/import/green_c32/vital_sign_importer'
 require_relative 'health-data-standards/import/green_c32/procedure_importer'
 require_relative 'health-data-standards/import/green_c32/encounter_importer'
-
+require_relative 'health-data-standards/import/green_c32/medication_importer'

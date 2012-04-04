@@ -17,11 +17,11 @@ module ProviderImportUtils
 
   # Returns nil if result is an empty string, block allows text munging of result if there is one
   def extract_data(subject, query)
-    result = subject.at_xpath(query).content
-    if result == ""
+    result = subject.at_xpath(query)
+    if result.nil? || result.content.empty?
       nil
     else
-      result
+      result.content
     end
   end
   

@@ -27,6 +27,29 @@ Factory.define :encounter do |f|
   f.facility { FactoryGirl.build(:organization) }
 end
 
+Factory.define :medication_product do |f|
+  f.product_name "Acetaminophen"
+  f.brand_name "Tylenol"
+  f.coded_product_name  {{"RxNorm" => ["12345"]}}
+  f.coded_brand_name {{"RxNorm" => ["12346"]}}
+end
+
+Factory.define :orderInformation do |f|
+  f.order_number "5"
+  f.fills 4
+  f.quantity_ordered {{"value" => "500", "unit" => "mg"}}
+  f.order_date_time 1267332332
+  f.order_expiration_date_time 1267432332
+end
+
+Factory.define :fulfillment_history do |f|
+  f.prescription_number "B324"
+  f.dispense_date 1267332349
+  f.quantity_dispensed {{"value" => 200, "unit" => "pills"}}
+  f.fill_number 1
+  f.fill_status "aborted"
+end
+
 Factory.define :organization do |f|
   f.name "Doctor Worm & Associates"
 end
@@ -44,9 +67,6 @@ Factory.define :telecom do |f|
   f.preferred { [true, false].sample }
 end
 
-Factory.define :fulfillment_history do |f|
-end
-
 Factory.define :immunization do |f|
   f.codes           { { "RxNorm" => ["854931"] } }
   f.time            1264529050
@@ -57,9 +77,28 @@ Factory.define :lab_result do |f|
 end
 
 Factory.define :medication do |f|
-  f.codes           { { "RxNorm" => ["105075"] } }
-  f.time            1271810257
+  f.codes           { { "SNOMED-CT" => ["105075"] } }
   f.description     "Tobacco Cessation Agent"
+  f.start_time 1267332332
+  f.end_time 1267333332
+  f.administrationTiming { {:institution_specified => true, :period => {"value" => 5.0, "unit" => "hours"}} }
+  f.dose { {"RxNorm" => ["12345"]}}
+  f.status "complete"
+  f.typeOfMedication { {"RxNorm" => ["12345"]}}
+  f.statusOfMedication { {"RxNorm" => ["12345"]}}
+  f.route { {"RxNorm" => ["12345"]}}
+  f.site { {"RxNorm" => ["12345"]}}
+  f.doseRestriction { {"RxNorm" => ["12345"]}}
+  f.fulfillmentInstructions "Fulfillment Instructions"
+  f.indication { {"RxNorm" => ["12345"]}}
+  f.vehicle { {"RxNorm" => ["12345"]}}
+  f.reaction { {"RxNorm" => ["12345"]}}
+  f.productForm { {"RxNorm" => ["12345"]}}
+  f.deliveryMethod { {"RxNorm" => ["12345"]}}
+  f.patientInstructions "Take with Water"
+  f.fulfillment_history { [FactoryGirl.build(:fulfillment_history)]}
+  f.medication_product { FactoryGirl.build(:medication_product)}
+  f.order_information { [FactoryGirl.build(:orderInformation)]}
 end
 
 Factory.define :order_information do |f|
@@ -74,9 +113,6 @@ end
 
 Factory.define :record do |f|
   f.encounters { |e| [FactoryGirl.build(:encounter)]}
-end
-
-Factory.define :treating_provider do |f|
 end
 
 Factory.define :vital_sign do |f|
