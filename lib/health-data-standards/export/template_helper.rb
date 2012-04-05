@@ -14,6 +14,8 @@ module HealthDataStandards
       def partial(partial_name)
         template("_#{partial_name}")
       end
+      
+
 
       def render(params)
         erb = nil

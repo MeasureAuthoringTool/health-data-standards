@@ -24,7 +24,7 @@
         <statusCode code="active"/>
         <% end -%>
         <effectiveTime>
-          <low value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
+          <low <%= value_or_null_flavor(entry.as_point_in_time) %>/>
         </effectiveTime>
         <entryRelationship typeCode="SUBJ" inversionInd="false">
           <observation classCode="OBS" moodCode="EVN">
@@ -38,7 +38,7 @@
             </text>
             <statusCode code="completed"/>
             <effectiveTime>
-              <low value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
+              <low <%= value_or_null_flavor(entry.as_point_in_time) %>/>
             </effectiveTime>
             <%== code_display(entry, {'tag_name' => 'value', 'extra_content' => 'xsi:type="CD"', 'preferred_code_sets' => ['SNOMED-CT']}) %>
             <% if entry.status -%>
