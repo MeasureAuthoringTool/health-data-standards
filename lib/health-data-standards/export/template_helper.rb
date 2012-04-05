@@ -15,13 +15,7 @@ module HealthDataStandards
         template("_#{partial_name}")
       end
       
-      def value_or_null_flavor(time)
-        if time 
-          return "value='#{Time.at(time).utc.to_formatted_s(:number)}'"
-        else 
-         return "nullFlavor='UNK'"
-       end
-      end
+
 
       def render(params)
         erb = nil

@@ -26,7 +26,7 @@ module HealthDataStandards
       end
       
       def status_code_for(entry)
-        case entry.status.to_s
+        case entry.status.to_s.downcase
         when 'active'
           '55561003'
         when 'inactive'
@@ -34,6 +34,14 @@ module HealthDataStandards
         when 'resolved'
           '413322009'
         end
+      end
+      
+      def value_or_null_flavor(time)
+        if time 
+          return "value='#{Time.at(time).utc.to_formatted_s(:number)}'"
+        else 
+         return "nullFlavor='UNK'"
+       end
       end
 
       
