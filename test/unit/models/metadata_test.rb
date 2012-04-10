@@ -28,10 +28,6 @@ class MetaDataTest < MiniTest::Unit::TestCase
     @md = Metadata::Base.new
     @md.from_xml(out)
     out2 = @md.to_xml(record: @record)
-    puts "original out"
-    puts out
-    puts "copy out"
-    puts out2
     assert_equal out, out2
   end
 end
