@@ -1,6 +1,5 @@
 <medication>
   <id><%= medication.id%></id>
-  <%== code_display medication, "preferred_code_sets" => ["RxNorm", "SNOMED-CT"]%>
   <status>completed</status>
   <freeTextSig><%= medication.free_text_sig%></freeTextSig>
   <%== code_display medication, "tag_name" => "route", "attribute" => "route", "preferred_code_sets" => ["NCI Thesaurus"] %>
@@ -38,9 +37,6 @@
   
   <% if medication.patient_instructions %>
     <patientInstructions><%=medication.patient_instructions%></patientInstructions>
-  <% end %>
-  <% if medication.medication_product%>
-    <%= render partial: "medication_information", locals: {medication_information: medication.medication_product} %>
   <% end %>
   
   <% if medication.fulfillment_instructions %>

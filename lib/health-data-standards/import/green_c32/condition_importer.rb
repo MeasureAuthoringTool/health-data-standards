@@ -16,7 +16,6 @@ module HealthDataStandards
 
           extract_entry(condition_element, condition)
           extract_name(condition_element, condition)
-          extract_interval(condition_element, condition)
           extract_cause_of_death(condition_element, condition)
           extract_type(condition_element, condition)
           

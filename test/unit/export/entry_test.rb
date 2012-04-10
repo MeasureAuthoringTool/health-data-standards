@@ -132,6 +132,14 @@ module GreenC32
       
       xml = HealthDataStandards::Export::GreenC32::Entry.export(sh, :social_history)
     end
+    
+    def test_immunizations
+      im = Factory.build(:immunization)
+      
+      refute_nil im
+      
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(im, :immunization)
+    end
   
   end
   

@@ -34,8 +34,6 @@ module HealthDataStandards
         
         def extract_result(result_element, lab_result)
           extract_entry(result_element, lab_result)
-          extract_time(result_element, lab_result)
-          extract_value(result_element, lab_result)
           extract_code(result_element, lab_result, @interpretation, :interpretation)
         end
 

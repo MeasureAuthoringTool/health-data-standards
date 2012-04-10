@@ -29,13 +29,6 @@ Factory.define :encounter do |f|
   f.facility { FactoryGirl.build(:organization) }
 end
 
-Factory.define :medication_product do |f|
-  f.product_name "Acetaminophen"
-  f.brand_name "Tylenol"
-  f.coded_product_name  {{"RxNorm" => ["12345"]}}
-  f.coded_brand_name {{"RxNorm" => ["12346"]}}
-end
-
 Factory.define :orderInformation do |f|
   f.order_number "5"
   f.fills 4
@@ -78,6 +71,9 @@ Factory.define :immunization do |f|
   f.codes           { { "RxNorm" => ["854931"] } }
   f.time            1264529050
   f.description     "Pneumonia Vaccine"
+  f.refusal_ind true
+  f.refusal_reason { { "RxNorm" => ["12345"] } }
+  f.series_number 1
 end
 
 Factory.define :lab_result do |f|
@@ -104,7 +100,6 @@ Factory.define :medication do |f|
   f.deliveryMethod { {"RxNorm" => ["12345"]}}
   f.patientInstructions "Take with Water"
   f.fulfillment_history { [FactoryGirl.build(:fulfillment_history)]}
-  f.medication_product { FactoryGirl.build(:medication_product)}
   f.order_information { [FactoryGirl.build(:orderInformation)]}
 end
 

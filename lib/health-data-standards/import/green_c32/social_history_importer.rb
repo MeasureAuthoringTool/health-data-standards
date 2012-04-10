@@ -9,8 +9,8 @@ module HealthDataStandards
           sh_element = sh_xml.at_xpath("./gc32:socialHistory")
           sh = SocialHistory.new
           extract_entry(sh_element, sh)
-          extract_value(sh_element, sh)
           extract_code(sh_element, sh, "./gc32:type", :type)
+          sh
         end
       end
     end
