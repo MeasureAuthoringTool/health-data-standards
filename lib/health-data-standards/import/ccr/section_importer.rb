@@ -100,11 +100,11 @@ module HealthDataStandards
         end
 
         def extract_value(parent_element, entry)
-          value_element = parent_element.at_xpath('./ccr:TestResult')
-          if value_element
-            value_element = value_element.at_xpath('./ccr:Value')
+          result_element = parent_element.at_xpath('./ccr:TestResult')
+          if result_element
+            value_element = result_element.at_xpath('./ccr:Value')
             value = value_element ? value_element.content : nil
-            unit_element = value_element.at_xpath('./ccr:Units/ccr:Unit')
+            unit_element = result_element.at_xpath('./ccr:Units/ccr:Unit')
             unit = unit_element ? unit_element.content : nil
             if value
               entry.set_value(value, unit)
