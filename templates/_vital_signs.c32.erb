@@ -33,7 +33,7 @@
               <reference value="vitals-desc-<%= i %>"/>
             </text>
             <statusCode code="completed"/>
-            <effectiveTime value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
+            <effectiveTime <%= value_or_null_flavor(entry.as_point_in_time) %>/>
             <% if entry.value -%>
             <value xsi:type="PQ" value="<%= entry.value["scalar"] %>" <% if entry.value["units"]-%>unit="<%= entry.value["units"] %>"<% end -%>/>
             <% else -%>
