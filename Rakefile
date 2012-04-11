@@ -1,4 +1,6 @@
 require 'rake/testtask'
+require 'cane/rake_task'
+require "simplecov"
 
 Rake::TestTask.new(:test_unit) do |t|
   t.libs << "test"
@@ -6,7 +8,15 @@ Rake::TestTask.new(:test_unit) do |t|
   t.verbose = true
 end
 
-task :test => [:test_unit] do
-  require 'cover_me'
-  CoverMe.complete!
+Cane::RakeTask.new(:quality) do |cane|
+  cane.abc_max = 45
+  cane.add_threshold 'coverage/covered_percent', :>=, 95
+  # cane.style_measure = 120
+  cane.no_style = true
+  cane.no_doc = true
+end
+
+task :test => [:test_unit, :quality] do
+
+  system("open coverage/index.html")
 end

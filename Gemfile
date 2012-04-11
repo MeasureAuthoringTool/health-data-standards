@@ -11,9 +11,7 @@ end
 
 group :test do
   gem 'factory_girl'
-  gem "reek"
-  gem "flog"
-  gem "flay"
-  gem "heckle"
-  gem 'cover_me'
+  gem "tailor"
+  gem "cane"
+  gem 'simplecov', :require => false
 end
