@@ -30,11 +30,7 @@ module HealthDataStandards
           if npi_ids
             npi_id = npi_ids.at_xpath("./ccr:ID")
             npi = npi_id.content
-            if Provider.valid_npi?(npi)
-              provider[:npi] = npi
-            else
-              puts "Warning: Invalid NPI (#{npi})"
-            end
+            provider[:npi] = npi if Provider.valid_npi?(npi)
           end
           
           # binding.pry
