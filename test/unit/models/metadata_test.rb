@@ -9,8 +9,8 @@ class MetaDataTest < MiniTest::Unit::TestCase
   # Called before every test method runs. Can be used
   # to set up fixture information.
   def setup
-    @record = Factory.create(:record)
-    @md = Factory.create("metadata/base")
+    @record = FactoryGirl.create(:record)
+    @md = FactoryGirl.create("metadata/base")
   end
 
   # Called after every test method runs. Can be used to tear

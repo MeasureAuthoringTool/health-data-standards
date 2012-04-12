@@ -6,9 +6,12 @@ group :development do
   gem 'rake'
   gem 'pry'
   gem 'pry-nav'
-  gem 'cover_me'
+
 end
 
 group :test do
   gem 'factory_girl'
+  gem "tailor"
+  gem "cane"
+  gem 'simplecov', :require => false
 end
