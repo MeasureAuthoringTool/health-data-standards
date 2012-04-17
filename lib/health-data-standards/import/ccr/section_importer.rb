@@ -21,7 +21,9 @@ module HealthDataStandards
           "icd10"      => "ICD-9-CM",
           "cvx"        => "CVX",
           "hcpcs"      => "HCPCS",
-          "cdc"        => "CDC"
+          "cdc"        => "CDC-RE",
+          "CDC"        => "CDC-RE",
+          "cdc-re"     => "CDC-RE"
 
         }
         attr_accessor :check_for_usable
