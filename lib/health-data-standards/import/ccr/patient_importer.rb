@@ -197,16 +197,16 @@ module HealthDataStandards
           gender_string = patientActor.at_xpath('./ccr:Person/ccr:Gender/ccr:Text').content.downcase
           patient['gender'] =  Gender[gender_string.downcase]
           #race_node = doc.at_xpath('/ccr:placeholder')    #how do you find this?
-          ethnicity = doc.at_xpath('//ccr:SocialHistory/ccr:SocialHistoryElement[./ccr:Type/ccr:Text = "Race"]/ccr:Description/ccr:Code[./ccr:CodingSystem = "2.16.840.1.113883.6.238"]/ccr:Value')
-          race = doc.at_xpath('//ccr:SocialHistory/ccr:SocialHistoryElement[./ccr:Type/ccr:Text = "Ethnicity"]/ccr:Description/ccr:Code[./ccr:CodingSystem = "2.16.840.1.113883.6.238"]/ccr:Value')
+          race = doc.at_xpath('//ccr:SocialHistory/ccr:SocialHistoryElement[./ccr:Type/ccr:Text = "Race"]/ccr:Description/ccr:Code[./ccr:CodingSystem = "CDC"]/ccr:Value')
+          ethnicity = doc.at_xpath('//ccr:SocialHistory/ccr:SocialHistoryElement[./ccr:Type/ccr:Text = "Ethnicity"]/ccr:Description/ccr:Code[./ccr:CodingSystem = "CDC"]/ccr:Value')
           
           if ethnicity
-            patient[:ethnicity] = {"code" => ethnicity.text}
+            patient[:ethnicity] = {"code" => ethnicity.text, "codeSystem" => "CDC"}
           end
          
           
           if race
-             patient[:race] = {"code" => race.text}
+             patient[:race] = {"code" => race.text, "codeSystem" => "CDC"}
           end
 
          
