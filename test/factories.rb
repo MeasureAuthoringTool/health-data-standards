@@ -123,40 +123,31 @@ FactoryGirl.define do
     f.description     "BMI"
   end
 
-  # Metadata factory elements
-  factory "metadata/linked_info" do |l|
-    l.href          "http://t1.x.y.com"
-    l.extension     "abc"
-  end
-
-  factory "metadata/pedigree" do |p|
-    p.author        "John Smith"
+  # # Metadata factory elements
+  # factory "metadata/linked_info" do |l|
+  #   l.href          "http://t1.x.y.com"
+  #   l.extension     "abc"
+  # end
+  # 
+  factory "pedigree", class: Metadata::Pedigree do |p|
+    p.author
     p.organization  "Health Care Inc"
   end
-
-  factory "metadata/record_date" do |r|
-    r.operation           "MODIFIED"
-    r.operation_time      { Time.at(Time.now.to_i - rand(10000000)) }
-    r.pedigree  do
-      FactoryGirl.build("metadata/pedigree")
-    end
+  
+  factory "author", class: Metadata::Author do |a|
+    a.name "John Smith"
   end
-
-  factory "metadata/base" do |m|
-    m.pedigree        do
-      FactoryGirl.build("metadata/pedigree")
-    end
-    m.record_dates    do
-      [
-        FactoryGirl.build("metadata/record_date", :operation => 'CREATED'),
-        FactoryGirl.build("metadata/record_date")
-      ]
-    end
-    m.linked_infos    do
-      [
-        FactoryGirl.build("metadata/linked_info")
-      ]
-    end
+  # 
+  # factory "metadata/record_date" do |r|
+  #   r.operation           "MODIFIED"
+  #   r.operation_time      { Time.at(Time.now.to_i - rand(10000000)) }
+  #   r.pedigree  do
+  #     FactoryGirl.build("metadata/pedigree")
+  #   end
+  # end
+  # 
+  factory "metadata", class: Metadata::Base do |m|
+    # m.pedigree
     m.confidentiality "<hmd:a>text</hmd:a><hmd:c>embedded element</hmd:c>"
   end
   

@@ -9,7 +9,7 @@ module CCR
       
       @ccr2 = Nokogiri::XML(File.new('test/fixtures/ccr_fragments/patient_with_providers.xml'))
       @ccr2.root.add_namespace_definition('ccr', 'urn:astm-org:CCR')
-      
+
       @pi = HealthDataStandards::Import::CCR::PatientImporter.instance
     end
     
@@ -42,5 +42,6 @@ module CCR
 
 
     end
+
   end
 end

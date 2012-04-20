@@ -15,6 +15,7 @@ module HealthDataStandards
           "snomed-ct" => "SNOMED-CT",
           "rxnorm"    => "RxNorm",
           "i9cdx"     => "ICD-9-CM",
+          "icd-9-cm"  => "ICD-9-CM",
           "icd9-cm"   => "ICD-9-CM",
            "icd9"      => "ICD-9-CM",
           "icd10-cm"   => "ICD-9-CM",
@@ -80,7 +81,7 @@ module HealthDataStandards
         # Time is supposed to be in iso8601, but seems like we need to handle simple YYYY-MM-DD as well
         def extract_time(datetime)
           return unless datetime
-          Time.parse(datetime).to_i
+          Time.parse(datetime).to_i rescue nil
         end
 
         def extract_dates(parent_element, entry)

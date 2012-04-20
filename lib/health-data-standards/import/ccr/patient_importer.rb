@@ -63,7 +63,7 @@ module HealthDataStandards
           @section_importers[:conditions] = SimpleImporter.new("//ccr:Problems/ccr:Problem",:conditions)
           @section_importers[:social_history] = SimpleImporter.new("//ccr:SocialHistory/ccr:SocialHistoryElement", :social_history)
           @section_importers[:care_goals] = SimpleImporter.new("//ccr:Goals/ccr:Goal",:care_goals)
-          @section_importers[:medical_equipment] = ProductImporter.new("//ccr:Equpment/ccr:EquipmentElement",:medical_equipment)
+          @section_importers[:medical_equipment] = ProductImporter.new("//ccr:Equipment/ccr:EquipmentElement",:medical_equipment)
           @section_importers[:allergies] = SimpleImporter.new("//ccr:Alerts/ccr:Alert",:allergies)
           @section_importers[:immunizations] = ProductImporter.new("//ccr:Immunizations/ccr:Immunization",:immunizations)
         end
