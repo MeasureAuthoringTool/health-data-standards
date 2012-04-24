@@ -273,12 +273,14 @@ module HealthDataStandards
             patient.procedures.each_with_index do |procedure, index|
               xml.Procedure do
                 xml.CCRDataObjectID("PR000#{index + 1}")
-                xml.DateTime do
-                  xml.Type do
-                    xml.Text("Service date")
+                if !procedure.time.nil?
+                  xml.DateTime do
+                    xml.Type do
+                      xml.Text("Service date")
+                    end
+                    #time
+                    xml.ExactDateTime(convert_to_ccr_time_string(procedure.time))
                   end
-                  #time
-                  xml.ExactDateTime(convert_to_ccr_time_string(procedure.time))
                 end
                 xml.Description do
                   xml.Text(procedure.description)
