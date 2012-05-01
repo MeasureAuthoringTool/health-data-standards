@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//XML-DEV//DTD XHTML RDDL 1.0//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:rddl="http://www.rddl.org/">
+<head>
+  <title>hData Extension Description: Allergy</title>
+  <link href="bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <h1>hData Extension Description: Allergy</h1>
+  <p>This documentation describes the hData content payload for the Allergy Extension.</p>
+
+  <h2>1. Identification</h2>
+  <hr/>
+  <table class="table table-striped table-bordered">
+    <tr>
+      <td>Name</td>
+      <td>Allergy Extension Description</td>
+    </tr>
+    <tr>
+      <td>Version Aware URL</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Creation Date</td>
+      <td>26 March 2012</td>
+    </tr>
+    <tr>
+      <td>Summary</td>
+      <td>This Allergy hData Content Profile contains information about the allergies and intolerances associated with a patient.</td>
+    </tr>
+    <tr>
+      <td>Author(s)</td>
+      <td>REST+ Pilot Team</td>
+    </tr>  
+  </table>
+  <h2>2. Change Log</h2>
+  <hr/>
+  <table class="table table-striped table-bordered">
+    <tr><th>Date</th><th>Author(s)</th><th>Version URL</th><th>Major Changes</th><th>Comments</th></tr>
+    <tr>
+      <td>26 March 2012</td>
+      <td>King, Kling, Gregorowicz, et. al.</td>
+      <td></td>
+      <td>First Version</td>
+      <td>Draft - In Progress</td>
+    </tr>
+  </table>
+
+  <h2>3. Extension Background</h2>
+  <hr/>
+  <p>All hData section documents identified by an XML namespace must be declared in the extensions node of the root document.  Extensions are either &quot;mandatory&quot; or &quot;optional.&quot;  Each section document has an address expressed as a Uniform Resource Identifier (URI).  Each URI is registered in the extensions node of the root document.   Sections can contain either single data type documents (e.g., XML, JSON, HTML) or URIs referencing other sections.  Section document content must be expressed in XML and document types must be declared in the extensions node of the root document.</p>
+
+  <h2>4. Description</h2>
+  <hr/>
+  <h3>4.1. Purpose</h3>
+
+  <p>Allergy contains information about the allergies and intolerances associated with a patient.</p>
+
+  <h3>4.2. Description</h3>
+
+  <table class="table table-striped table-bordered">
+    <tr><th>Name</th><th>Type</th><th>Mandatory/Optional</th><th>Notes</th></tr>
+    <tr>
+      <td>id</td>
+      <td>string</td>
+      <td>M</td>
+      <td>Unique id for the allergy entry</td>
+    </tr>
+    <tr>
+      <td>code</td>
+      <td>cd</td>
+      <td>M</td>
+      <td><p>The coded value of the allergy represented</p>
+        <P>Ingredient: Food and non-medicinal allergies/Sensitivities SHALL be coded as specified in http://www.fda.gov/ForIndustry/DataStandards/StructuredProductLabeling/ucm162523.ht</P>
+        <p>Medication Class: Allergies/Drug Sensitivity to a class of medication Shall contain a value descending from the NDF-RT concept types of "Mechanism of Action - N0000000223", "Physiologic Effect - N0000009802" or "Chemical Structure - N0000000002". NUI will be used as the concept code. For more information, please see the Web Site http://www.cancer.gov/cancertopics/terminologyresources/page5</p>
+        <p>Medications: Allergies/Drug Sensitivity to a specific medication Shall contain RxNorm normal forms for concepts type of "Brand Name" or Brand Name Packs. The Brand name concepts can be found in the RxNORM file RXCONSO.RRF selecting all terms where SAB=RXNORM (selecting the normal forms), and TTY=BN (selecting the brand names) or TTY=BPCK (selecting the brand name packs)</P></td>
+    </tr>
+    <tr>
+      <td>status</td>
+      <td>string</td>
+      <td>O</td>
+      <td>
+        <p>Entry component: The status of the Allergy. </p>
+      </td>
+    </tr>
+    <tr>
+      <td>type</td>
+      <td>SimpleCode</td>
+      <td>M</td>
+      <td><p>This describes the type of product and intolerance suffered by the patient</p>
+      <p>Valid Values:</p>
+      <ul>
+        <li>420134006 -- Propensity to adverse reactions</li>
+        <li>418038007 -- Propensity to adverse reactions to substance</li>
+        <li>419511003 -- Propensity to adverse reactions to drug</li>
+        <li>418471000 -- Propensity to adverse reactions to food</li>
+        <li>419199007 -- Allergy to substance</li>
+        <li>416098002 -- Drug allergy</li>
+        <li>414285001 -- Food allergy</li>
+        <li>59037007  -- Drug Intolerance</li>
+        <li>235719002 -- Food Intolerance</li>
+      </ul></td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td>string</td>
+      <td>M</td>
+      <td>This is the name or other description of the product or agent that causes the intolerance.</td>
+    </tr>
+    <tr>
+      <td>eventDate</td>
+      <td>DateTime</td>
+      <td>O</td>
+      <td>This is a date that expresses when this particular allergy or intolerance was known to be active for the patient.</td>
+    </tr>
+    <tr>
+      <td>reactionFreeText</td>
+      <td>string</td>
+      <td>O</td>
+      <td>This is the reaction that may be caused by the product or agent</td>
+    </tr>
+    <tr>
+      <td>codedReaction</td>
+      <td>SimpleCode</td>
+      <td>O</td>
+      <td>
+        <p>This value is a code describing the reaction  Valid values from C80/2.2.3.4.1  are SNOMED CT codes.</p>
+      </td>
+    </tr>
+    <tr>
+      <td>severityFreeText</td>
+      <td>String</td>
+      <td>O</td>
+      <td>This is a description of the level of severity of the allergy or intolerance</td>
+    </tr>
+    <tr>
+      <td>codedSeverity</td>
+      <td>SimpleCode</td>
+      <td>O</td>
+      <td><p>This value is a code describing the level severity of the allergy or intolerance.  Valid values are:</p>
+      <ul>
+        <li>255604002 -- Mild</li>
+        <li>371923003 -- Mild to Moderate</li>
+        <li>6736007   -- Moderate to severe</li>
+        <li>24484000  -- Severe</li>
+        <li>399166001 -- Fatal</li>
+      </ul></td>
+    </tr>
+    
+  </table>
+
+  <h3>4.3. Clinical Requirement</h3>
+
+  <p>Allergy is characterized by:</p>
+  <ul>
+    <li>name of the allergy or intolerance</li>
+    <li>severity of the allergy or intolerance</li>
+    <li>reaction of the allergy or intolerance</li>
+  </ul>
+
+  <rddl:resource
+    xlink:href="https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/condition.xsd"
+    xlink:role="http://www.w3.org/2001/XMLSchema"
+    xlink:title="XML Schema for the hData Allergy Extension"
+    xlink:arcrole="http://www.rddl.org/purposes/#schema-validation">
+    <h3>4.4. XML Schema Definition (XSD)</h3>
+    <p>The XML Schema Definition (XSD) for Allergy specifies how to formally describe the elements in an XML document.  
+       </p>
+    <p>Allergy.xsd is located at the following URI: <a href="https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/condition.xsd">https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/allergy.xsd</a></p>
+    <p>Allergy.xsd extends entry which is defined in the data_types schema at the following URI: <a href="https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/data_types.xsd">https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/data_types.xsd</a></p>     
+  </rddl:resource>
+
+  <h3>4.5. Resource Representations</h3>
+
+  <p>Allergies may be represented in XML and JSON format.</p>
+
+  <h3>4.6 Reference Documents</h3>
+
+  <p>Components of the Allergy Extension Specification have been drawn from authoritative source and reference documents, as follows:
+  </p>
+  <ul>
+    <li>Healthcare Information Technology Standards Panel (HITSP) Continuity of Care Document (CCD) Component (HITSP/C32), v. 2.5, 08 July 2009.</li>
+    <li>Healthcare Information Technology Standards Panel (HITSP) Clinical Document and Message Terminology Component (HITSP/C80), version 2.0.1, 31 January 2010.</li>
+  </ul>
+</div>
+</body>
+</html>
