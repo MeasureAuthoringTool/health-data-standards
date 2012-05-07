@@ -63,7 +63,7 @@ module HealthDataStandards
             if @check_for_usable
               medication_list << medication if medication.usable?
             else
-              medication_list << medication_list
+              medication_list << medication
             end
           end
           medication_list
