@@ -21,8 +21,6 @@ class Medication < Entry
   
   alias :administration_timing :administrationTiming
   alias :administration_timing= :administrationTiming=
-  alias :free_text_sig :freeTextSig
-  alias :free_text_sig= :freeTextSig=
   alias :type_of_medication :typeOfMedication
   alias :type_of_medication= :typeOfMedication=
   alias :status_of_medication :statusOfMedication

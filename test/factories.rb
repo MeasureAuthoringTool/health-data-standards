@@ -26,6 +26,15 @@ FactoryGirl.define do
     f.free_text       "Sample Encounter"
     f.facility { FactoryGirl.build(:organization) }
   end
+  
+  factory :support do |f|
+    f.given_name "Bob"
+    f.family_name "Loblaw"
+    f.relationship "Brother"
+    f.type "Guardian"
+    f.address { FactoryGirl.build(:address) }
+    f.telecom { FactoryGirl.build(:telecom) }
+  end
 
   factory :orderInformation do |f|
     f.order_number "5"
@@ -56,13 +65,20 @@ FactoryGirl.define do
 
   factory :telecom do |f|
     f.sequence(:value) { |n| 18005555555 + n }
-    f.type { %w(fax phone mobile).sample }
+    f.use { %w(fax phone mobile).sample }
     f.preferred { [true, false].sample }
   end
 
   factory :social_history do |f|
     f.type { { "SNOMED-CT" => ["398705004"]}}
     f.codes { { "SNOMED-CT" => ["363908000"]}}
+  end
+  
+  factory :advance_directive, class: Entry do |f|
+    f.codes { { "SNOMED-CT" => ["4234322"]}}
+    f.start_time { 1.month.ago }
+    f.end_time { Time.now }
+    f.free_text "Go insane"
   end
 
   factory :immunization do |f|

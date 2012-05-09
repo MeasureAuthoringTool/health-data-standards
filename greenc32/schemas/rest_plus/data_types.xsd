@@ -56,19 +56,20 @@
 			<xs:element name="telecom" type="gc32:telecom" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="personalName">
+	  <xs:sequence>
+	    <xs:element name="title" type="xs:string" />
+	    <xs:element name="givenName" type="xs:string" />
+	    <xs:element name="familyName" type="xs:string" />
+	  </xs:sequence>
+	</xs:complexType>
 	<xs:complexType name="provider">
 		<xs:annotation>
 			<xs:documentation>Reusable provider information</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="id" type="xs:string" />
-			<xs:element name="name" minOccurs="0">
-			  <xs:sequence>
-			    <xs:element name="title" type="xs:string" />
-			    <xs:element name="givenName" type="xs:string" />
-			    <xs:element name="familyName" type="xs:string" />
-			  </xs:sequence>
-			</xs:element>
+			<xs:element name="name" type="gc32:personalName "minOccurs="0" />
 			<xs:element name="npi" type="xs:string" minOccurs="0" />
 	    <xs:element name="speciality" type="xs:string" />
 	    <xs:element name="address" type="gc32:addr" maxOccurs="unbounded"/>

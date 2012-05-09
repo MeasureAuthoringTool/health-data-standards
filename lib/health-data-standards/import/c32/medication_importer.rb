@@ -36,7 +36,7 @@ module HealthDataStandards
             extract_description(entry_element, medication, id_map)
 
             if medication.description.present?
-              medication.free_text_sig = medication.description
+              medication.free_text = medication.description
             end
 
             extract_administration_timing(entry_element, medication)

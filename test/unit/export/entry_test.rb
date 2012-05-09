@@ -136,9 +136,24 @@ module GreenC32
     def test_immunizations
       im = FactoryGirl.build(:immunization)
       
-      refute_nil im
-      
       xml = HealthDataStandards::Export::GreenC32::Entry.export(im, :immunization)
+    end
+    
+    def test_support
+      s = FactoryGirl.build(:support)
+      
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(s, :support)
+    end
+    
+    def test_support
+      s = FactoryGirl.build(:support)
+      
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(s, :support)
+    end
+    
+    def test_ad
+      ad = FactoryGirl.build(:advance_directive)
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(ad, :advance_directive)
     end
   
   end

@@ -14,6 +14,7 @@ class Entry
   field :status, type: String
   field :codes, type: Hash, default: {}
   field :value, type: Hash, default: {}
+  field :free_text, type: String
   
   attr_protected :version
   attr_protected :_id

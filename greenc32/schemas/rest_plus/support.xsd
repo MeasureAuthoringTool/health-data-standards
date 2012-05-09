@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:include schemaLocation="data_types.xsd"/>
+  <xs:element name="support">
+    <xs:sequence>
+      <xs:element name="name" type="gc32:personalName" />
+      <xs:element name="mothersMaidenName" type="xs:string" />
+      <xs:element name="type" type="xs:string">
+        <xs:simpleType>
+           <xs:restriction base="xs:string">
+             <xs:enumeration value="Guardian"/>
+             <xs:enumeration value="Next of Kin"/>
+             <xs:enumeration value="Caregiver"/>
+             <xs:enumeration value="Emergency Contact"/>
+           </xs:restriction>
+         </xs:simpleType>
+      </xs:element>
+      <xs:element name="relationship" type="xs:string" />
+      <xs:element name="address" type="gc32:address" />
+      <xs:element name="telecom" type="gc32:telecom" />
+    </xs:sequence>
+  </xs:element>
+</xs:schema>

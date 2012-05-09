@@ -22,7 +22,7 @@ module HealthDataStandards
           extract_med_code_attribute(med_element, medication, :vehicle)
           extract_med_code_attribute(med_element, medication, :reaction)
           extract_med_code_attribute(med_element, medication, :deliveryMethod)
-          medication.free_text_sig = extract_node_text(med_element.at_xpath("./gc32:freeTextSig"))
+          extract_free_text(med_element, medication, "freeTextSig")
           medication.fulfillment_instructions = extract_node_text(med_element.at_xpath("./gc32:patientInstructions"))
           medication.dose_indicator = extract_node_text(med_element.at_xpath("./gc32:doseIndicator"))
           medication.fulfillment_history = extract_fulfillment_history(med_element)

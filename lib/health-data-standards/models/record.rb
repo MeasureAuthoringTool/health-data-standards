@@ -24,9 +24,11 @@ class Record
   embeds_many :results, class_name: "LabResult"
   embeds_many :social_history
   embeds_many :vital_signs
+  embeds_many :support
+  embeds_many :advanced_directives, class_name: "Entry"
 
   Sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
-   :medications, :procedures, :results, :social_history, :vital_signs]
+   :medications, :procedures, :results, :social_history, :vital_signs, :support, :advanced_directives]
 
   embeds_many :provider_performances
   
