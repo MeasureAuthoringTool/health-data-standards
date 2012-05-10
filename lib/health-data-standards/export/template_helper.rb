@@ -14,15 +14,17 @@ module HealthDataStandards
       def partial(partial_name)
         template("_#{partial_name}")
       end
+      
+
 
       def render(params)
-        #binding.pry
         erb = nil
         if params[:template]
           erb = template(params[:template])
         elsif params[:partial]
           erb = partial(params[:partial])
         end
+        
         locals = params[:locals]
         locals ||= {}
         rendering_context = RenderingContext.new(locals)

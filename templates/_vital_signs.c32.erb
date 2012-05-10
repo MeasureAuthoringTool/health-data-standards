@@ -8,7 +8,7 @@
     <!--Vital Signs section template-->
     <code code="8716-3" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Vital signs"/>
     <title>Vital Signs</title>
-    <%== render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'vitals'} %>
+    <%== render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'vitals', :value=>true} %>
     <entry typeCode="DRIV">
       <organizer classCode="CLUSTER" moodCode="EVN">
         <templateId root="2.16.840.1.113883.10.20.1.32" assigningAuthorityName="CCD"/>
@@ -33,7 +33,7 @@
               <reference value="vitals-desc-<%= i %>"/>
             </text>
             <statusCode code="completed"/>
-            <effectiveTime value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
+            <effectiveTime <%= value_or_null_flavor(entry.as_point_in_time) %>/>
             <% if entry.value -%>
             <value xsi:type="PQ" value="<%= entry.value["scalar"] %>" <% if entry.value["units"]-%>unit="<%= entry.value["units"] %>"<% end -%>/>
             <% else -%>

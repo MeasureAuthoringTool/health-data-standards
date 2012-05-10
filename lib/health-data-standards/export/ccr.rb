@@ -28,14 +28,17 @@ module HealthDataStandards
           end
           to_ccr_purpose(xml)
           xml.Body do
+            
             to_ccr_problems(xml, patient)
-            to_ccr_vitals(xml, patient)
-            to_ccr_results(xml, patient)
-            to_ccr_encounters(xml, patient)
+            to_ccr_socialhistory(xml, patient)
+            to_ccr_allergies(xml, patient)
+            
             to_ccr_medications(xml, patient)
             to_ccr_immunizations(xml, patient)
+            to_ccr_vitals(xml, patient)
+            to_ccr_results(xml, patient) 
             to_ccr_procedures(xml, patient)
-            to_ccr_allergies(xml, patient)
+            to_ccr_encounters(xml, patient)   
           end
           to_ccr_actors(xml, patient)
         end
@@ -46,10 +49,10 @@ module HealthDataStandards
       private
 
       def code_section(xml, codes)
-        xml.Code do
-          if codes.present?
-            codes.each_pair do |code_set, coded_values|
-              coded_values.each do |coded_value|
+        if codes.present?
+          codes.each_pair do |code_set, coded_values|
+            coded_values.each do |coded_value|
+              xml.Code do
                 xml.Value(coded_value)
                 xml.CodingSystem(code_set)
                 #TODO: Need to fix this and not be a hard-coded value
@@ -71,6 +74,7 @@ module HealthDataStandards
         end
       end
 
+
       # Builds the XML snippet for the problems section inside the CCR standard
       #
       # @return [Builder::XmlMarkup] CCR XML representation of patient data
@@ -80,13 +84,7 @@ module HealthDataStandards
             patient.conditions.each_with_index do |condition, index|
               xml.Problem do
                 xml.CCRDataObjectID("PR000#{index + 1}")
-                xml.DateTime do
-                  xml.Type do
-                    xml.Text("Start date")
-                  end
-                  #time
-                  xml.ExactDateTime(convert_to_ccr_time_string(condition.time))
-                end
+                to_ccr_date(xml, condition.as_point_in_time, "Start date")
                 xml.Type do
                   #TODO: Need to fix this and not be a hard-coded value
                   xml.Text("Diagnosis")
@@ -111,13 +109,7 @@ module HealthDataStandards
             patient.encounters.each_with_index do |encounter, index|
               xml.Encounter do
                 xml.CCRDataObjectID("EN000#{index + 1}")
-                xml.DateTime do
-                  xml.Type do
-                    xml.Text("Encounter Date")
-                  end
-                  #time
-                  xml.ExactDateTime(convert_to_ccr_time_string(encounter.time))
-                end
+                to_ccr_date(xml, encounter.as_point_in_time, "Encounter Date")
                 xml.Description do
                   xml.Text(encounter.description)
                   code_section(xml, encounter.codes)
@@ -136,25 +128,51 @@ module HealthDataStandards
         if patient.vital_signs.present?
           xml.VitalSigns do
             patient.vital_signs.each_with_index do |vital_sign, index|
-              xml.Result do
-                xml.CCRDataObjectID("VT000#{index + 1}")
-                xml.DateTime do
-                  xml.Type do
-                    xml.Text("Start date")
-                  end
-                  #time
-                  xml.ExactDateTime(convert_to_ccr_time_string(vital_sign.time))
-                end
-                xml.Description do
-                  xml.Text(vital_sign.description)
-                  code_section(xml, vital_sign.codes)
-                end
-              end
+              to_result(xml,vital_sign,"VT000#{index + 1}")
             end
           end
         end
       end
 
+
+      # Builds the XML snippet for the lab section inside the CCR standard
+      #
+      # @return [Builder::XmlMarkup] CCR XML representation of patient data
+      def to_ccr_results(xml, patient)
+        if patient.results.present?
+          xml.Results do
+            patient.results.each_with_index do |lab_result, index|
+              to_result(xml,lab_result,"LB000#{index + 1}")
+            end
+          end
+        end
+      end
+      
+
+     def to_result(xml, res, ccr_id )
+       xml.Result do
+         xml.CCRDataObjectID(ccr_id)
+         to_ccr_date(xml, res.as_point_in_time, "Start date")       
+         xml.Source
+         xml.Test do
+           xml.CCRDataObjectID("#{ccr_id}TestResult")
+           xml.Description do
+              xml.Text(res.description)
+              code_section(xml, res.codes)
+          end
+
+           xml.Source
+           xml.TestResult do
+             xml.Value(res.value["scalar"])
+             xml.Units do
+               xml.Unit(res.value["units"])
+             end          
+           end
+        end
+       end
+       
+     end
+     
       # Builds the XML snippet for the medications section inside the CCR standard
       #
       # @return [Builder::XmlMarkup] CCR XML representation of patient data
@@ -164,13 +182,7 @@ module HealthDataStandards
             patient.medications.each_with_index do |medication, index|
               xml.Medication do
                 xml.CCRDataObjectID("MD000#{index + 1}")
-                xml.DateTime do
-                  xml.Type do
-                    xml.Text("Prescription Date")
-                  end
-                  #time
-                  xml.ExactDateTime(convert_to_ccr_time_string(medication.time))
-                end
+                to_ccr_date(xml, medication.as_point_in_time, "Prescription Date")  
                 xml.Type do
                   xml.Text("Medication")
                 end
@@ -199,13 +211,7 @@ module HealthDataStandards
             patient.immunizations.each_with_index do |immunization, index|
               xml.Immunization do
                 xml.CCRDataObjectID("IM000#{index + 1}")
-                xml.DateTime do
-                  xml.Type do
-                    xml.Text("Prescription Date")
-                  end
-                  #time
-                  xml.ExactDateTime(convert_to_ccr_time_string(immunization.time))
-                end
+                to_ccr_date(xml, immunization.as_point_in_time, "Prescription Date")  
                 xml.Type do
                   xml.Text("Immunization")
                 end
@@ -225,31 +231,7 @@ module HealthDataStandards
         end
       end
 
-      # Builds the XML snippet for the lab section inside the CCR standard
-      #
-      # @return [Builder::XmlMarkup] CCR XML representation of patient data
-      def to_ccr_results(xml, patient)
-        if patient.results.present?
-          xml.Results do
-            patient.results.each_with_index do |lab_result, index|
-              xml.Result do
-                xml.CCRDataObjectID("LB000#{index + 1}")
-                xml.DateTime do
-                  xml.Type do
-                    xml.Text("Start date")
-                  end
-                  #time
-                  xml.ExactDateTime(convert_to_ccr_time_string(lab_result.time))
-                end
-                xml.Description do
-                  xml.Text(lab_result.description)
-                  code_section(xml, lab_result.codes)
-                end
-              end
-            end
-          end
-        end
-      end
+      
 
       # Builds the XML snippet for the procedures section inside the CCR standard
       #
@@ -260,13 +242,7 @@ module HealthDataStandards
             patient.procedures.each_with_index do |procedure, index|
               xml.Procedure do
                 xml.CCRDataObjectID("PR000#{index + 1}")
-                xml.DateTime do
-                  xml.Type do
-                    xml.Text("Service date")
-                  end
-                  #time
-                  xml.ExactDateTime(convert_to_ccr_time_string(procedure.time))
-                end
+                to_ccr_date(xml, procedure.as_point_in_time, "Service date")  
                 xml.Description do
                   xml.Text(procedure.description)
                   code_section(xml, procedure.codes)
@@ -274,6 +250,7 @@ module HealthDataStandards
                 xml.Status do
                   xml.Text("Active")
                 end
+                xml.Source
               end
             end
           end
@@ -286,13 +263,7 @@ module HealthDataStandards
             patient.allergies.each_with_index do |allergy, index|
               xml.Alert do
                 xml.CCRDataObjectID("AL000#{index + 1}")
-                xml.DateTime do
-                  xml.Type do
-                    xml.Text("Initial Occurrence")
-                  end
-                  #time
-                  xml.ExactDateTime(convert_to_ccr_time_string(allergy.time))
-                end
+                to_ccr_date(xml, allergy.as_point_in_time, "Initial Occurrence")  
                 xml.Type do
                   xml.Text("Allergy")
                 end
@@ -303,8 +274,61 @@ module HealthDataStandards
                 xml.Status do
                   xml.Text("Current")
                 end
+                xml.Source
               end
             end
+          end
+        end
+      end
+      
+      # Builds the XML snippet for the social history section inside the CCR standard
+      #
+      # @return [Builder::XmlMarkup] CCR XML representation of patient data
+      def to_ccr_socialhistory(xml, patient)
+        if patient.social_history.present?
+          xml.SocialHistory do
+            patient.social_history.each_with_index do |history, index|
+              xml.SocialHistoryElement do
+                xml.CCRDataObjectID("SH000#{index + 1}")
+               
+                                    
+                  xml.Description do
+                    xml.Text(history.description)
+                    code_section(xml, history.codes)
+                  end
+                
+                xml.Source
+              end
+            end
+            
+              if patient.race
+                xml.SocialHistoryElement do
+                  xml.CCRDataObjectID("SH000RACE")
+                   xml.Type do 
+                      xml.Text("Race")
+                    end       
+                    xml.Description do
+                   
+                      code_section(xml, {"2.16.840.1.113883.6.238"=>[patient.race["code"]]})
+                    end   
+                  xml.Source
+                end
+             end
+          
+             if patient.ethnicity
+                xml.SocialHistoryElement do
+                  xml.CCRDataObjectID("SH000ETHICITY")   
+                    xml.Type do 
+                      xml.Text("Ethnicity")  
+                    end                          
+                    xml.Description do
+                    
+                      code_section(xml, {"2.16.840.1.113883.6.238" => [patient.ethnicity["code"]]})
+                    end            
+                  xml.Source
+                end
+             end
+             
           end
         end
       end
@@ -315,7 +339,7 @@ module HealthDataStandards
       def to_ccr_actors(xml, patient)
         xml.Actors do
           xml.Actor do
-            xml.ActorObjectID("AA0001")
+            xml.ActorObjectID(patient.id)
             xml.Person do
               xml.Name do
                 xml.CurrentName do
@@ -326,6 +350,7 @@ module HealthDataStandards
               xml.DateOfBirth do
                 xml.ExactDateTime(convert_to_ccr_time_string(patient.birthdate))  
               end
+
               if (patient.gender)
                 xml.Gender do
                   if (patient.gender.upcase == "M")
@@ -338,6 +363,7 @@ module HealthDataStandards
                 end
              end 
             end
+             xml.Source
           end
         end
       end
@@ -366,8 +392,20 @@ module HealthDataStandards
       end
 
       def convert_to_ccr_time_string(time)
-        converted_time = Time.at(time)
-        converted_time.strftime("%Y-%m-%dT%H:%M:%SZ")
+          converted_time = Time.at(time)
+          converted_time.strftime("%Y-%m-%dT%H:%M:%SZ")
+      end
+
+      def to_ccr_date(xml, time, type)
+        if time
+          xml.DateTime do
+            xml.Type do
+              xml.Text(type)
+            end
+            #time
+            xml.ExactDateTime(convert_to_ccr_time_string(time))
+          end
+        end
       end
 
     end

@@ -1,0 +1,287 @@
+ 
+    <script language="javascript">
+    var cur_view = "section";
+      function toggle(id) {
+        var e = document.getElementById(id);
+        if (cur_view=="section"){
+          document.getElementById("patient_information_by_section").style.display = 'none';
+          document.getElementById("table_by_encounter").style.display = 'block';
+          document.getElementById('toggle_button').innerHTML="View By Section";
+          cur_view = "encounter";
+        }else{
+          document.getElementById("patient_information_by_section").style.display = 'block';
+          document.getElementById("table_by_encounter").style.display = 'none';
+          document.getElementById('toggle_button').innerHTML="View By Encounter";
+          cur_view = "section";
+        }         
+      }
+    </script>
+     <div>
+      <h3><a href="#" onclick="toggle('table_by_encounter');" id='toggle_button'>View By Encounter</a></h3>
+     </div>
+     <div id="table_by_encounter" style="display:none">
+        <% patient.encounters.sort! { |a,b| a.start_time <=> b.start_time } %>
+        <% patient.encounters.each_with_index do |encounter,idx| %>
+
+          <%
+            encounter_allergies=0
+            encounter_care_goals=0
+            encounter_vital_signs=0
+            encounter_results=0
+            encounter_conditions=0
+            encounter_procedures=0
+            encounter_medications=0
+            encounter_social_history=0
+            encounter_immunizations=0
+            encounter_medical_equipment=0
+          %>
+
+            <br/><br/>
+            <h3>Encounter <%= patient.encounters.count - idx %></h3>
+            <table border="1" width="100%" class="narr_table">
+              
+              <tbody>                
+                <tr>
+                  <th class="narr_th">Description</th>
+                  <th class="narr_th">Codes</th>
+                  <th class="narr_th">Time</th>
+                 
+                    <th class="narr_th">Status</th>
+               
+                  
+                  
+                    <th class="narr_th">Value</th>
+                  
+                </tr>        
+                   <tr class="narr_tr">
+                        <td ID="encounters-desc-<%= idx %>"><%= encounter.description %></td>
+                        <td ID="encounters-code-<%= idx %>"><b><%= encounter.codes_to_s %></b><br/><i><%= encounter.specifics %></i></td>
+                        <td><%= encounter.times_to_s %></td>
+                        <td> </td>   
+                        <td> </td>   
+                         
+                      </tr>
+                <!-- Select Allergies for this Encounter -->
+               
+               
+                <% patient.allergies.each_with_index do |entry, i| %>               
+                  <% if encounter.times_to_s == entry.times_to_s -%>
+                    <% if encounter_allergies==0 -%>
+                       <tr class="narr_tr">
+                        <th class="narr_th" colspan="5">Allergies</th>
+                      </tr>
+                      <% encounter_allergies=1 %>
+                    <% end %>
+                      <tr class="narr_tr">
+                        <td ID="allergies-desc-<%= i %>"><%= entry.description %></td>
+                        <td ID="allergies-code-<%= i %>"><b><%= entry.codes_to_s %></b><br/><i><%= entry.specifics %></i></td>
+                        <td><%= entry.times_to_s %></td>  
+                        <td> </td>
+                        <td> </td>                     
+                      </tr>
+                  <% end %>
+                <% end %>
+             
+
+                <!-- Select Car Goals for this Encounter -->
+                
+                
+                 <% patient.care_goals.each_with_index do |entry, i| %>               
+                    <% if encounter.times_to_s == entry.times_to_s -%>
+                       <% if encounter_care_goals==0 -%>
+                        <tr class="narr_tr">
+                          <th class="narr_th" colspan="5">Care Goals</th>
+                        </tr>
+                        <% encounter_care_goals=1 %>
+                      <% end %>
+                      <tr class="narr_tr">
+                        <td ID="care_goals-desc-<%= i %>"><%= entry.description %></td>
+                        <td ID="care_goals-code-<%= i %>"><b><%= entry.codes_to_s %></b><br/><i><%= entry.specifics %></i></td>
+                        <td><%= entry.times_to_s %></td>   
+                        <td> </td>
+                        <td> </td>                     
+                      </tr>
+                    <% end %>
+                <% end %>
+             
+
+               <!-- Select Vitals for this Encounter -->
+                 <% patient.vital_signs.each_with_index do |entry, i| %>               
+                    <% if encounter.times_to_s == entry.times_to_s -%>
+                      <% if encounter_vital_signs==0 -%>
+                        <tr class="narr_tr">
+                          <th class="narr_th" colspan="5">Vital Signs</th>
+                        </tr>
+                        <% encounter_vital_signs=1 %>
+                      <% end %>
+                      <tr class="narr_tr">
+                        <td ID="vitals-desc-<%= i %>"><%= entry.description %></td>
+                        <td ID="vitals-code-<%= i %>"><b><%= entry.codes_to_s %></b><br/><i><%= entry.specifics %></i></td>
+                        <td><%= entry.times_to_s %></td> 
+                        <td> </td>                          
+                        <td><%= entry.value["scalar"] %></td>   
+                                         
+                      </tr>
+                    <% end %>
+                <% end %>
+              
+
+               <!-- Select lab results for this Encounter -->
+               <% patient.results.each_with_index do |entry, i| %>               
+                    <% if encounter.times_to_s == entry.times_to_s -%>
+                      <% if encounter_results==0 -%>
+                          <tr class="narr_tr">
+                          <th class="narr_th" colspan="5">Lab Results</th>
+                        </tr>
+                        <% encounter_results=1 %>
+                      <% end %>
+                      <tr class="narr_tr">
+                        <td ID="results-desc-<%= i %>"><%= entry.description %></td>
+                        <td ID="results-code-<%= i %>"><b><%= entry.codes_to_s %></b><br/><i><%= entry.specifics %></i></td>
+                        <td><%= entry.times_to_s %></td>
+                        <td> </td>   
+                        <td><%= entry.value["scalar"] %></td>  
+                                      
+                      </tr>
+                    <% end %>
+                <% end %>
+             
+
+                 <!-- Select conditions for this Encounter -->
+               
+                
+                 <% patient.conditions.each_with_index do |entry, i| %>               
+                    <% if encounter.times_to_s == entry.times_to_s -%>
+                      <% if encounter_conditions==0 -%>
+                          <tr class="narr_tr">
+                            <th class="narr_th" colspan="5">Problems</th>
+                          </tr>
+                          <% encounter_conditions=1 %>
+                      <% end %>
+                      <tr class="narr_tr">
+                        <td ID="conditions-desc-<%= i %>"><%= entry.description %></td>
+                        <td ID="conditions-code-<%= i %>"><b><%= entry.codes_to_s %></b><br/><i><%= entry.specifics %></i></td>
+                        <td><%= entry.times_to_s %></td>                        
+                        <td><%= entry.status %></td>
+                        <td> </td>   
+                      </tr>
+                    <% end %>              
+                 <% end %>
+
+               <!-- Select procedures for this Encounter -->
+             
+                
+                 <% patient.procedures.each_with_index do |entry, i| %>               
+                    <% if encounter.times_to_s == entry.times_to_s -%>
+                      <% if encounter_procedures==0 -%>
+                        <tr class="narr_tr">
+                          <th class="narr_th" colspan="5">Procedures</th>
+                         </tr>
+                        <% encounter_procedures=1 %>
+                      <% end %>
+                      <tr class="narr_tr">
+                        <td ID="procedures-desc-<%= i %>"><%= entry.description %></td>
+                        <td ID="procedures-code-<%= i %>"><b><%= entry.codes_to_s %></b><br/><i><%= entry.specifics %></i></td>
+                        <td><%= entry.times_to_s %></td>
+                        <td> </td>   
+                        <td> </td>                           
+                      </tr>
+                    <% end %>
+                <% end %>
+              
+
+                <!-- Select Medications for this Encounter -->
+             
+               
+                 <% patient.medications.each_with_index do |entry, i| %>               
+                    <% if encounter.times_to_s == entry.times_to_s -%>
+                      <% if encounter_medications==0 -%>
+                        <tr class="narr_tr">
+                          <th class="narr_th" colspan="5">Medications</th>
+                        </tr>
+                      <% encounter_medications=1 %>
+                      <% end %>
+                      <tr class="narr_tr">
+                        <td ID="medications-desc-<%= i %>"><%= entry.description %></td>
+                        <td ID="medications-code-<%= i %>"><b><%= entry.codes_to_s %></b><br/><i><%= entry.specifics %></i></td>
+                        <td><%= entry.times_to_s %></td>                        
+                        <td><%= entry.status %></td> 
+                        <td> </td>                          
+                      </tr>
+                    <% end %>
+                  <% end %>
+              
+
+                 <!-- Select Social History for this Encounter -->
+                
+               
+                 <% patient.social_history.each_with_index do |entry, i| %>               
+                    <% if encounter.times_to_s == entry.times_to_s -%>
+                      <% if encounter_social_history==0 -%>
+                          <tr class="narr_tr">
+                            <th class="narr_th" colspan="5">Social History</th>
+                          </tr>
+                        <% encounter_social_history=1 %>
+                      <% end %>
+                      <tr class="narr_tr">
+                        <td ID="social_history-desc-<%= i %>"><%= entry.description %></td>
+                        <td ID="social_history-code-<%= i %>"><b><%= entry.codes_to_s %></b><br/><i><%= entry.specifics %></i></td>
+                        <td><%= entry.times_to_s %></td> 
+                        <td> </td>   
+                        <td> </td>                           
+                      </tr>
+                    <% end %>
+                 <% end %>
+              
+
+                 <!-- Select immunizations for this Encounter -->
+                
+                
+                 <% patient.immunizations.each_with_index do |entry, i| %>               
+                    <% if encounter.times_to_s == entry.times_to_s -%>
+                      <% if encounter_immunizations==0 -%>
+                        <tr class="narr_tr">
+                         <th class="narr_th" colspan="5">Immunizations</th>
+                        </tr>
+                        <% encounter_immunizations=1 %>
+                      <% end %>
+                      <tr class="narr_tr">
+                        <td ID="immunizations-desc-<%= i %>"><%= entry.description %></td>
+                        <td ID="immunizations-code-<%= i %>"><b><%= entry.codes_to_s %></b><br/><i><%= entry.specifics %></i></td>
+                        <td><%= entry.times_to_s %></td> 
+                        <td> </td>   
+                        <td> </td>                          
+                      </tr>
+                    <% end %>
+                  <% end %>
+               
+
+                 <!-- Select medical_equipment for this Encounter -->
+               
+               
+                 <% patient.medical_equipment.each_with_index do |entry, i| %>               
+                   <% if encounter.times_to_s == entry.times_to_s -%>
+                       <% if encounter_medical_equipment==0 -%>
+                          <tr class="narr_tr">
+                            <th class="narr_th" colspan="5">Medical Equipment</th>
+                          </tr>
+                        <% encounter_medical_equipment=1 %>
+                      <% end %>
+                      <tr class="narr_tr">
+                        <td ID="medical_equipment-desc-<%= i %>"><%= entry.description %></td>
+                        <td ID="medical_equipment-code-<%= i %>"><b><%= entry.codes_to_s %></b><br/><i><%= entry.specifics %></i></td>
+                        <td><%= entry.times_to_s %></td>  
+                        <td> </td>   
+                        <td> </td>                         
+                      </tr>
+                  <% end %>
+                 <% end %>
+     
+               
+              </tbody>
+            </table>
+       
+   
+      <% end %>
+  </div>
+   

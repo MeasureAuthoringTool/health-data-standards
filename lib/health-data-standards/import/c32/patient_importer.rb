@@ -55,26 +55,17 @@ module HealthDataStandards
         def initialize(check_usable = true)
           @section_importers = {}
           @section_importers[:encounters] = EncounterImporter.new
-          @section_importers[:procedures] = SectionImporter.new("//cda:procedure[cda:templateId/@root='2.16.840.1.113883.10.20.1.29']")
-          @section_importers[:results] = SectionImporter.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.15.1'] | //cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.15']")
-          @section_importers[:vital_signs] = SectionImporter.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.14']")
-          @section_importers[:medications] = SectionImporter.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.112']/cda:entry/cda:substanceAdministration",
-          "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code",
-          nil,
-          "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code/cda:originalText/cda:reference[@value]")
-          @section_importers[:conditions] = SectionImporter.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.103']/cda:entry/cda:act/cda:entryRelationship/cda:observation",
-          "./cda:value",
-          "./cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.1 13883.10.20.1.50']/cda:value",
-          "./cda:text/cda:reference[@value]")
+          @section_importers[:procedures] = ProcedureImporter.new
+          @section_importers[:results] = ResultImporter.new
+          @section_importers[:vital_signs] = VitalSignImporter.new
+          @section_importers[:medications] = MedicationImporter.new
+          @section_importers[:conditions] = ConditionImporter.new
           @section_importers[:social_history] = SectionImporter.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.19']")
           @section_importers[:care_goals] = SectionImporter.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.1.25']")
           @section_importers[:medical_equipment] = SectionImporter.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.128']/cda:entry/cda:supply",
           "./cda:participant/cda:participantRole/cda:playingDevice/cda:code")
           @section_importers[:allergies] = AllergyImporter.new
-          @section_importers[:immunizations] = SectionImporter.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.117']/cda:entry/cda:substanceAdministration",
-          "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code",
-          nil,
-          "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code/cda:originalText/cda:reference[@value]" )
+          @section_importers[:immunizations] = ImmunizationImporter.new
         end
 
         def build_id_map(doc)
@@ -123,11 +114,13 @@ module HealthDataStandards
         end
 
         # Inspects a C32 document and populates the patient Hash with first name, last name
-        # birth date and gender.
+        # birth date, gender and the effectiveTime.
         #
         # @param [Hash] patient A hash that is used to represent the patient
         # @param [Nokogiri::XML::Node] doc The C32 document parsed by Nokogiri
         def get_demographics(patient, doc)
+          effective_date = doc.at_xpath('/cda:ClinicalDocument/cda:effectiveTime')['value']
+          patient.effective_time = HL7Helper.timestamp_to_integer(effective_date)
           patient_element = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient')
           patient.first = patient_element.at_xpath('cda:name/cda:given').text
           patient.last = patient_element.at_xpath('cda:name/cda:family').text
@@ -138,6 +131,16 @@ module HealthDataStandards
           patient.gender = gender_node['code']
           id_node = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:id')
           patient.medical_record_number = id_node['extension']
+          
+          # parse race, ethnicity, and spoken language
+          race_node = patient_element.at_xpath('cda:raceCode')
+          patient.race = { code: race_node['code'], code_set: 'CDC-RE' } if race_node
+          ethnicity_node = patient_element.at_xpath('cda:ethnicGroupCode')
+          patient.ethnicity = {code: ethnicity_node['code'], code_set: 'CDC-RE'} if ethnicity_node
+
+          languages = patient_element.search('languageCommunication').map {|lc| lc.at_xpath('cda:languageCode')['code'] }
+          patient.languages = languages unless languages.empty?
+          
         end
       end
     end

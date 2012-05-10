@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC "-//XML-DEV//DTD XHTML RDDL 1.0//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:rddl="http://www.rddl.org/">
+<head>
+  <title>hData Extension Description: Medication</title>
+  <link href="bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <h1>hData Extension Description: Medication</h1>
+  <p>This documentation describes the hData content payload for the Medication Extension.</p>
+
+  <h2>1. Identification</h2>
+  <hr/>
+  <table class="table table-striped table-bordered">
+    <tr>
+      <td>Name</td>
+      <td>Medication Extension Description</td>
+    </tr>
+    <tr>
+      <td>Version Aware URL</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Creation Date</td>
+      <td>26 March 2012</td>
+    </tr>
+    <tr>
+      <td>Summary</td>
+      <td>This Medication hData Content Profile contains information about the active and inactive medications prescribed to a patient.</td>
+    </tr>
+    <tr>
+      <td>Author(s)</td>
+      <td>REST+ Pilot Team</td>
+    </tr>  
+  </table>
+  <h2>2. Change Log</h2>
+  <hr/>
+  <table class="table table-striped table-bordered">
+    <tr><th>Date</th><th>Author(s)</th><th>Version URL</th><th>Major Changes</th><th>Comments</th></tr>
+    <tr>
+      <td>26 March 2012</td>
+      <td>King, Kling, Gregorowicz, et. al.</td>
+      <td></td>
+      <td>First Version</td>
+      <td>Draft - In Progress</td>
+    </tr>
+  </table>
+
+  <h2>3. Extension Background</h2>
+  <hr/>
+  <p>All hData section documents identified by an XML namespace must be declared in the extensions node of the root document.  Extensions are either &quot;mandatory&quot; or &quot;optional.&quot;  Each section document has an address expressed as a Uniform Resource Identifier (URI).  Each URI is registered in the extensions node of the root document.   Sections can contain either single data type documents (e.g., XML, JSON, HTML) or URIs referencing other sections.  Section document content must be expressed in XML and document types must be declared in the extensions node of the root document.</p>
+
+  <h2>4. Description</h2>
+  <hr/>
+  <h3>4.1. Purpose</h3>
+
+  <p>Medication contains information defining the entry describing relevant medications associated with a patient.  It can include active and non-active, prescription and non-prescription items.  0 to many medications can be associated with a referralConsultRequest .  Medication is also includes the following subclasses: FulfillmentHistory, OrderInformation, and MedicationInformation.</p>
+
+  <h3>4.2. Description</h3>
+
+  <table class="table table-striped table-bordered">
+    <tr><th>Name</th><th>Type</th><th>Mandatory/Optional</th><th>Notes</th></tr>
+    <tr>
+      <td>id</td>
+      <td>string</td>
+      <td>M</td>
+      <td>Unique id for the medication</td>
+    </tr>
+    <tr>
+      <td>code</td>
+      <td>simpleCode</td>
+      <td>O</td>
+      <td>The coded value of the medication represented</td>
+    </tr>
+    <tr>
+      <td>status</td>
+      <td>string</td>
+      <td>O</td>
+      <td>
+        <p>The status of the medication. If the medication is Active, Discharged, Chronic, Acute, etc </p>
+      </td>
+    </tr>
+    <tr>
+      <td>route</td>
+      <td>simpleCode</td>
+      <td>O</td>
+      <td>A Sig Component: indicates how the medication is received by the patient (e.g., by mouth, intravenously, topically, et cetera)</td>
+    </tr>
+    <tr>
+      <td>dose</td>
+      <td>quantity</td>
+      <td>O</td>
+      <td>A Sig Component: the amount of the product to be given. This may be a known, measurable unit (e.g., milliliters), an administration unit (e.g., tablet), or an amount of active ingredient (e.g., 250 mg). May define a variable dose, dose range or dose options based upon identified criteria.</td>
+    </tr>
+    <tr>
+      <td>site</td>
+      <td>simpleCode</td>
+      <td>O</td>
+      <td>A Sig Component: The anatomic site where the medication is administered. Usually applicable to injected or topical products. </td>
+    </tr>
+    <tr>
+      <td>doseRestriction</td>
+      <td>quantity</td>
+      <td>O</td>
+      <td>A Sig Component: defines a maximum or dose limit. This segment can repeat for more than one dose restriction.</td>
+    </tr>
+    <tr>
+      <td>productForm</td>
+      <td>simpleCode</td>
+      <td>O</td>
+      <td>The physical form of the product as presented to the patient. For example: tablet, capsule, liquid or ointment </td>
+    </tr>
+    <tr>
+      <td>deliveryMethod</td>
+      <td>code</td>
+      <td>O</td>
+      <td>A Sig Component: A description of how the product is administered/consumed</td>
+    </tr>
+    <tr>
+      <td>indication</td>
+      <td>simpleCode</td>
+      <td>O</td>
+      <td><p>A Sig Component: The medical condition or problem intended to be addressed by the ordered product. For example: for chest pain, for pain, for high blood pressure.
+        Describes the problem. The SNOMED CT® has been limited by HITSP to terms decending from the Clinical Findings (404684003) or Situation with Explicit Context (243796009) hierarchies.</p>
+      </td>
+    </tr>
+    <tr>
+      <td>vehicle</td>
+      <td>simpleCode</td>
+      <td>O</td>
+      <td><p>Shall contain a concept descending from code 412307009 from the SNOMED CT®</p>
+        <p>A Sig Component: Non-active ingredient(s), or substances not of therapeutic interest, in which the active ingredients are dispersed. Most often applied to liquid products where the major fluid Component is considered the vehicle.</p>
+        <p>For example: Normal Saline is the vehicle in "Ampicillin 150mg in 50ml NS"; Aquaphor is the vehicle in "10% LCD in Aquaphor" </p>
+      </td>
+    </tr>
+    <tr>
+      <td>patientInstructions</td>
+      <td>string</td>
+      <td>O</td>
+      <td>Instructions to the patient that are not traditionally part of the Sig. For example, "keep in the refrigerator." More extensive patient education materials can also be included </td>
+    </tr>
+    <tr>
+      <td>fulfillmentInstructions</td>
+      <td>string</td>
+      <td>O</td>
+      <td>Instructions to the dispensing pharmacist or nurse that are not traditionally part of the Sig. For example, "instruct patient on the use of occlusive dressing" </td>
+    </tr>
+    <tr>
+      <td>adminTiming</td>
+      <td>interval</td>
+      <td>O</td>
+      <td>A Sig Component: defines a specific administration or use time. Can be a text string (Morning, Evening, Before Meals, 1 Hour After Meals, 3 Hours After Meals, Before Bed) or an exact time </td>
+    </tr>
+    <tr>
+      <td>institutionalSpecified</td>
+      <td>boolean</td>
+      <td>O</td>
+      <td>Indicates if the administration is institutional specific</td>
+    </tr>
+    <tr>
+      <td>doseIndicator</td>
+      <td>string</td>
+      <td>O</td>
+      <td>A Sig Component: A criteria that specifies when an action is, or is not, to be taken. For example, "if blood sugar is above 250 mg/dl" </td>
+    </tr>
+    <tr>
+      <td>drugManufacturer</td>
+      <td>string</td>
+      <td>O</td>
+      <td>The manufacturer of the substance or product as ordered or supplied. The distributor may be supplied if the manufacturer is not known </td>
+    </tr>
+    <tr>
+      <td>productConcentration</td>
+      <td>string</td>
+      <td>O</td>
+      <td>The amount of active ingredient, or substance of interest, in a specified product dosage unit, mass or volume. For example 250 mg per 5 ml </td>
+    </tr>
+    <tr>
+      <td>type</td>
+      <td>simpleCode</td>
+      <td>O</td>
+      <td><p>This is a classification based on how the medication is marketed (e.g., prescription, over the counter drug)
+      Constrained to:</p>
+        <ul>
+          <li>329505003 -- Over the counter products(product)</li>
+          <li>73639000  -- Prescription drug(product)</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>medicationInformation</td>
+      <td><a href="https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/data_types.xsd">medicationInformation</a></td>
+      <td>M</td>
+      <td>The amount of active ingredient, or substance of interest, in a specified product dosage unit, mass or volume. For example 250 mg per 5 ml </td>
+    </tr>
+    <tr>
+      <td>prescriptionNumber</td>
+      <td>string</td>
+      <td>O</td>
+      <td>Fulfillment History component:The prescription identifier assigned by the pharmacy</td>
+    </tr>
+    <tr>
+      <td>dispensingPharmacy</td>
+      <td>URL</td>
+      <td>O</td>
+      <td>Fulfillment History component:Link to the provider entry for the pharmacy that performed this dispense</td>
+    </tr>
+    <tr>
+      <td>dispenseDate</td>
+      <td>DateTime</td>
+      <td>O</td>
+      <td>Fulfillment History component:The date of this dispense</td>
+    </tr>
+    <tr>
+      <td>quantityDispensed</td>
+      <td>Quantity</td>
+      <td>O</td>
+      <td>Fulfillment History component:The actual quantity of product supplied in this dispense. Note: this is comprised of both a numeric value and a unit of measure </td>
+    </tr>
+    <tr>
+      <td>fillStatus</td>
+      <td>String</td>
+      <td>O</td>
+      <td>Fulfillment History component:This identifies whether the medication has been fulfilled, such as completed and aborted </td>
+    </tr>
+    <tr>
+      <td>quantityOrdered</td>
+      <td>Quantity</td>
+      <td>O</td>
+      <td>Order Information component:The amount of product indicated by the ordering provider to be dispensed. For example, number of dosage units or volume of a liquid substance. Note: this is comprised of both a numeric value and a unit of measure </td>
+    </tr>
+    <tr>
+      <td>orderedDateTime</td>
+      <td>DateTime</td>
+      <td>O</td>
+      <td>Order Information component:The date, including time if available, when the ordering provider wrote the order/prescription </td>
+    </tr>
+    <tr>
+      <td>expirationDateTime</td>
+      <td>DateTime</td>
+      <td>O</td>
+      <td>Order Information component:The date, including time if applicable, when the order is no longer valid. Dispenses and administrations are not continued past this date for an order instance </td>
+    </tr>
+    <tr>
+      <td>orderNumber</td>
+      <td>String</td>
+      <td>O</td>
+      <td>Order Information component:The order identifier from the perspective of the ordering clinician. Also known as the 'placer number' versus the pharmacies prescription number (or 'filler number') </td>
+    </tr>
+    <tr>
+      <td>fills</td>
+      <td>Integer</td>
+      <td>O</td>
+      <td>Order Information component:The number of times that the ordering provider has authorized the pharmacy to dispense this medication </td>
+    </tr>
+    <tr>
+      <td>orderingProvider</td>
+      <td>URL</td>
+      <td>O</td>
+      <td>Order Informaiton component:Link to Healthcare Provider entry for the provider who ordered the medication</td>
+    </tr>
+    The instructions, typically from the ordering provider, to the patient on the proper means and timing for the use of the product. This information is free-text but can also be represented as a series of Sig Components 
+  </table>
+
+  <h3>4.3. Clinical Requirement</h3>
+
+  <p>Medication is characterized by:</p>
+  
+
+  <rddl:resource
+    xlink:href="https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/medication.xsd"
+    xlink:role="http://www.w3.org/2001/XMLSchema"
+    xlink:title="XML Schema for the hData Medication Extension"
+    xlink:arcrole="http://www.rddl.org/purposes/#schema-validation">
+    <h3>4.4. XML Schema Definition (XSD)</h3>
+    <p>The XML Schema Definition (XSD) for Medication specifies how to formally describe the elements in an XML document.  
+    <p>Medication.xsd is located at the following URI: <a href="https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/medication.xsd">https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/medication.xsd</a></p>
+    <p>Medication.xsd extends entry which is defined in the data_types schema at the following URI: <a href="https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/data_types.xsd">https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/data_types.xsd</a></p>     
+  </rddl:resource>
+
+  <h3>4.5. Resource Representations</h3>
+
+  <p>Medications may be represented in XML and JSON format.</p>
+
+  <h3>4.6 Reference Documents</h3>
+
+  <p>Components of the Medication Extension Specification have been drawn from authoritative source and reference documents, as follows:
+  </p>
+  <ul>
+    <li>Healthcare Information Technology Standards Panel (HITSP) Continuity of Care Document (CCD) Component (HITSP/C32), v. 2.5, 08 July 2009.</li>
+    <li>Healthcare Information Technology Standards Panel (HITSP) Clinical Document and Message Terminology Component (HITSP/C80), version 2.0.1, 31 January 2010.</li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="green_cda_narrative.xsd"/>
+	<xs:element name="comments">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="text" type="gc32:textType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="comment">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="text" type="gc32:textType"/>
+				<xs:element name="reason" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="qualifier">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="name">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:restriction base="gc32:cd">
+								<xs:sequence>
+									<xs:element name="originalText" type="xs:string" minOccurs="0"/>
+									<xs:element ref="gc32:qualifier" minOccurs="0" maxOccurs="0"/>
+								</xs:sequence>
+							</xs:restriction>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="value">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:restriction base="gc32:cd">
+								<xs:sequence>
+									<xs:element name="originalText" type="xs:string" minOccurs="0"/>
+									<xs:element ref="gc32:qualifier" minOccurs="0" maxOccurs="0"/>
+								</xs:sequence>
+							</xs:restriction>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ii">
+		<xs:annotation>
+			<xs:documentation>Id</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="root"/>
+		<xs:attribute name="extension"/>
+		<xs:attribute name="nullFlavor" type="gc32:nullFlavorType"/>
+	</xs:complexType>
+	<xs:complexType name="cd">
+		<xs:annotation>
+			<xs:documentation>Code</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="originalText" minOccurs="0"/>
+			<xs:element ref="gc32:qualifier" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="code"/>
+		<xs:attribute name="displayName"/>
+		<xs:attribute name="codeSystem"/>
+		<xs:attribute name="codeSystemName"/>
+		<xs:attribute name="nullFlavor" type="gc32:nullFlavorType"/>
+	</xs:complexType>
+	<xs:complexType name="ed" mixed="true">
+		<xs:annotation>
+			<xs:documentation>
+            Data that is primarily intended for human interpretation
+            or for further machine processing is outside the scope of
+            HL7. This includes unformatted or formatted written language,
+            multimedia data, or structured information as defined by a
+            different standard (e.g., XML-signatures.)  Instead of the
+            data itself, an ED may contain 
+            only a reference (see TEL.) Note
+            that the ST data type is a
+            specialization of the ED data type
+            when the ED media type is text/plain.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="reference" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+                        A telecommunication address (TEL), such as a URL
+                        for HTTP or FTP, which will resolve to precisely
+                        the same binary data that could as well have been
+                        provided as inline data.
+                     </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="thumbnail" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mediaType" use="optional" default="text/plain">
+			<xs:annotation>
+				<xs:documentation>
+                     Identifies the type of the encapsulated data and
+                     identifies a method to interpret or render the data.
+                  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="language" use="optional">
+			<xs:annotation>
+				<xs:documentation>
+                     For character based information the language property
+                     specifies the human language of the text.
+                  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="compression" use="optional">
+			<xs:annotation>
+				<xs:documentation>
+                     Indicates whether the raw byte data is compressed,
+                     and what compression algorithm was used.
+                  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="integrityCheck" use="optional">
+			<xs:annotation>
+				<xs:documentation>
+                     The integrity check is a short binary value representing
+                     a cryptographically strong checksum that is calculated
+                     over the binary data. The purpose of this property, when
+                     communicated with a reference is for anyone to validate
+                     later whether the reference still resolved to the same
+                     data that the reference resolved to when the encapsulated
+                     data value with reference was created.
+                  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="integrityCheckAlgorithm" use="optional" default="SHA-1">
+			<xs:annotation>
+				<xs:documentation>
+                     Specifies the algorithm used to compute the
+                     integrityCheck value.
+                  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="pq">
+		<xs:annotation>
+			<xs:documentation>Physical Quantity</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="translation" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+                        An alternative representation of the same physical
+                        quantity expressed in a different unit, of a different
+                        unit code system and possibly with a different value.
+                     </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="originalText" type="gc32:ed" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+                        The text or phrase used as the basis for the coding.
+                     </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="translation" minOccurs="0" maxOccurs="0"/>
+					</xs:sequence>
+					<xs:attribute name="nullFlavor" type="gc32:nullFlavorType" use="optional">
+						<xs:annotation>
+							<xs:documentation>
+               An exceptional value expressing missing information
+               and possibly the reason why the information is missing.
+            </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="code" use="optional">
+						<xs:annotation>
+							<xs:documentation>
+                     The plain code symbol defined by the code system.
+                     For example, "784.0" is the code symbol of the ICD-9
+                     code "784.0" for headache.
+                  </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="codeSystem" use="optional">
+						<xs:annotation>
+							<xs:documentation>
+                     Specifies the code system that defines the code.
+                  </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="codeSystemName" use="optional">
+						<xs:annotation>
+							<xs:documentation>
+                     A common name of the coding system.
+                  </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="codeSystemVersion" use="optional">
+						<xs:annotation>
+							<xs:documentation>
+                     If applicable, a version descriptor defined
+                     specifically for the given code system.
+                  </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="displayName" use="optional">
+						<xs:annotation>
+							<xs:documentation>
+                     A name or title for the code, under which the sending
+                     system shows the code value to its users.
+                  </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="value" use="optional">
+						<xs:annotation>
+							<xs:documentation>
+                     The magnitude of the measurement value in terms of
+                     the unit specified in the code.
+                  </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="value"/>
+		<xs:attribute name="unit"/>
+		<xs:attribute name="nullFlavor" type="gc32:nullFlavorType"/>
+	</xs:complexType>
+	<xs:complexType name="mo">
+		<xs:annotation>
+			<xs:documentation>Monetary Amount</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="value" use="required"/>
+		<xs:attribute name="currency" type="gc32:currencyType" use="optional"/>
+		<xs:attribute name="nullFlavor" type="gc32:nullFlavorType"/>
+	</xs:complexType>
+	<xs:complexType name="onm" mixed="true">
+		<xs:annotation>
+			<xs:documentation>Organization name</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="nullFlavor" type="gc32:nullFlavorType"/>
+	</xs:complexType>
+	<xs:complexType name="pnm">
+		<xs:annotation>
+			<xs:documentation>Person Name</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="prefix" minOccurs="0"/>
+			<xs:element name="given" maxOccurs="unbounded"/>
+			<xs:element name="family"/>
+			<xs:element name="suffix" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="nullFlavor" type="gc32:nullFlavorType"/>
+	</xs:complexType>
+	<xs:complexType name="addr" mixed="true">
+		<xs:annotation>
+			<xs:documentation>Address (US only)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="streetAddressLine" minOccurs="0" maxOccurs="2"/>
+			<xs:element name="city" minOccurs="0"/>
+			<xs:element name="state" minOccurs="0"/>
+			<xs:element name="postalCode" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="nullFlavor" type="gc32:nullFlavorType"/>
+	</xs:complexType>
+	<xs:complexType name="tele">
+		<xs:annotation>
+			<xs:documentation>
+            A telephone number (voice or fax), e-mail address, or
+            other locator for a resource (information or service)
+            mediated by telecommunication equipment. The address
+            is specified as a Universal Resource Locator (URL)
+            qualified by time specification and use codes that help
+            in deciding which address to use for a given time and
+            purpose.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="useablePeriod" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+                     Specifies the periods of time during which the
+                     telecommunication address can be used.  For a
+                     telephone number, this can indicate the time of day
+                     in which the party can be reached on that telephone.
+                     For a web address, it may specify a time range in
+                     which the web content is promised to be available
+                     under the given address.
+                  </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="nullFlavor" type="gc32:nullFlavorType" use="optional">
+						<xs:annotation>
+							<xs:documentation>
+               An exceptional value expressing missing information
+               and possibly the reason why the information is missing.
+            </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="value" use="optional"/>
+					<xs:attribute name="operator" use="optional" default="I">
+						<xs:annotation>
+							<xs:documentation>
+                     A code specifying whether the set component is included
+                     (union) or excluded (set-difference) from the set, or
+                     other set operations with the current set component and
+                     the set as constructed from the representation stream
+                     up to the current point.
+                  </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="nullFlavor" type="gc32:nullFlavorType" use="optional">
+			<xs:annotation>
+				<xs:documentation>
+               An exceptional value expressing missing information
+               and possibly the reason why the information is missing.
+            </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="value" use="optional"/>
+		<xs:attribute name="use" use="optional">
+			<xs:annotation>
+				<xs:documentation>
+                     One or more codes advising a system or user which
+                     telecommunication address in a set of like addresses
+                     to select for a given telecommunication need.
+                  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ts">
+		<xs:attribute name="value"/>
+		<xs:attribute name="nullFlavor" type="gc32:nullFlavorType"/>
+	</xs:complexType>
+	<xs:complexType name="ivlTs">
+		<xs:choice minOccurs="0">
+			<xs:sequence>
+				<xs:element name="low" type="gc32:ts">
+					<xs:annotation>
+						<xs:documentation>
+                           The low limit of the interval.
+                        </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:choice minOccurs="0">
+					<xs:element name="width" type="gc32:pq" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+                           The difference between high and low boundary. The
+                           purpose of distinguishing a width property is to
+                           handle all cases of incomplete information
+                           symmetrically. In any interval representation only
+                           two of the three properties high, low, and width need
+                           to be stated and the third can be derived.
+                        </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="high" type="gc32:ts" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+                           The high limit of the interval.
+                        </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
+			</xs:sequence>
+			<xs:element name="high" type="gc32:ts">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="width" type="gc32:pq">
+					<xs:annotation>
+						<xs:documentation>
+                           The difference between high and low boundary. The
+                           purpose of distinguishing a width property is to
+                           handle all cases of incomplete information
+                           symmetrically. In any interval representation only
+                           two of the three properties high, low, and width need
+                           to be stated and the third can be derived.
+                        </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="high" type="gc32:ts" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+                           The high limit of the interval.
+                        </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="center" type="gc32:ts">
+					<xs:annotation>
+						<xs:documentation>
+                           The arithmetic mean of the interval (low plus high
+                           divided by 2). The purpose of distinguishing the center
+                           as a semantic property is for conversions of intervals
+                           from and to point values.
+                        </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="width" type="gc32:pq" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+                           The difference between high and low boundary. The
+                           purpose of distinguishing a width property is to
+                           handle all cases of incomplete information
+                           symmetrically. In any interval representation only
+                           two of the three properties high, low, and width need
+                           to be stated and the third can be derived.
+                        </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="value"/>
+		<xs:attribute name="nullFlavor" type="gc32:nullFlavorType"/>
+		<xs:attribute name="operator"/>
+	</xs:complexType>
+	<xs:complexType name="value">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="integer">
+					<xs:complexType>
+						<xs:attribute name="value"/>
+						<xs:attribute name="nullFlavor" type="gc32:nullFlavorType"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="monetaryAmount" type="gc32:mo"/>
+				<xs:element name="physicalQuantity" type="gc32:pq"/>
+				<xs:element name="simpleCode">
+					<xs:complexType>
+						<xs:attribute name="code"/>
+						<xs:attribute name="codeSystem"/>
+						<xs:attribute name="codeSystemName"/>
+						<xs:attribute name="displayName"/>
+						<xs:attribute name="nullFlavor" type="gc32:nullFlavorType"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="string">
+					<xs:complexType mixed="true">
+						<xs:attribute name="nullFlavor"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="conceptDescriptor" type="gc32:cd"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="result">
+		<xs:annotation>
+			<xs:documentation>Reusable result</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="resultID" type="gc32:ii" maxOccurs="unbounded"/>
+			<!-- required -->
+			<xs:element name="resultDateTime" type="gc32:ivlTs"/>
+			<!-- required -->
+			<xs:element name="resultType" type="gc32:cd"/>
+			<!-- required -->
+			<xs:element name="resultStatus">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:restriction base="gc32:cs">
+							<xs:attribute name="code">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="completed"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:restriction>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<!-- required -->
+			<!-- optional -->
+			<xs:element name="resultValue" type="gc32:value"/>
+			<xs:element name="resultInterpretation" type="gc32:cd" minOccurs="0"/>
+			<!-- optional -->
+			<xs:element name="resultReferenceRange" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Skip reference range, review with Bob Dolin to see what is important to capture. </xs:documentation>
+				</xs:annotation>
+				<!-- optional -->
+			</xs:element>
+			<xs:element ref="gc32:comment" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="medicationInformation">
+		<xs:annotation>
+			<xs:documentation>Reusable medical information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="codedProductName">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:restriction base="gc32:cd">
+							<xs:sequence>
+								<xs:element name="originalText" minOccurs="0" maxOccurs="0"/>
+								<xs:element ref="gc32:qualifier" minOccurs="0" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:restriction>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="freeTextProductName" type="xs:string" minOccurs="0"/>
+			<xs:element name="codedBrandName" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:restriction base="gc32:cd">
+							<xs:sequence>
+								<xs:element name="originalText" minOccurs="0" maxOccurs="0"/>
+							</xs:sequence>
+						</xs:restriction>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="freeTextBrandName" type="xs:string" minOccurs="0"/>
+			<xs:element name="drugManufacturer" type="gc32:organizationInformation" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="providerInformation">
+		<xs:annotation>
+			<xs:documentation>Reusable provider information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="providerType" type="gc32:cd" minOccurs="0"/>
+			<xs:element name="providerID" type="gc32:ii" minOccurs="0"/>
+			<xs:element name="providerAddress" type="gc32:addr" maxOccurs="unbounded"/>
+			<xs:element name="providerTelecom" type="gc32:tele" maxOccurs="unbounded"/>
+			<xs:element name="providerName" type="gc32:pnm" minOccurs="0"/>
+			<xs:element name="providerOrganizationName" type="gc32:onm" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="organizationInformation">
+		<xs:annotation>
+			<xs:documentation>Reusable organization information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="organizationID" type="gc32:ii" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="organizationAddress" type="gc32:addr" maxOccurs="unbounded"/>
+			<xs:element name="organizationTelecom" type="gc32:tele" maxOccurs="unbounded"/>
+			<xs:element name="organizationName" type="gc32:onm" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pivlTs">
+		<xs:annotation>
+			<xs:documentation>
+            Note: because this type is defined as an extension of SXCM_T,
+            all of the attributes and elements accepted for T are also
+            accepted by this definition.  However, they are NOT allowed
+            by the normative description of this type.  Unfortunately,
+            we cannot write a general purpose schematron contraints to
+            provide that extra validation, thus applications must be
+            aware that instance (fragments) that pass validation with
+            this might might still not be legal.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="phase" type="gc32:ivlTs" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+				A prototype of the repeating interval specifying the
+				duration of each occurrence and anchors the periodic
+				interval sequence at a certain point in time.
+			 </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="period" type="gc32:pq" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+				A time duration specifying a reciprocal measure of
+				the frequency at which the periodic interval repeats.
+			 </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="nullFlavor" type="gc32:nullFlavorType" use="optional">
+			<xs:annotation>
+				<xs:documentation>
+               An exceptional value expressing missing information
+               and possibly the reason why the information is missing.
+            </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="value" use="optional"/>
+		<xs:attribute name="operator" use="optional" default="I">
+			<xs:annotation>
+				<xs:documentation>
+                     A code specifying whether the set component is included
+                     (union) or excluded (set-difference) from the set, or
+                     other set operations with the current set component and
+                     the set as constructed from the representation stream
+                     up to the current point.
+                  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="alignment" use="optional">
+			<xs:annotation>
+				<xs:documentation>
+			 Specifies if and how the repetitions are aligned to
+			 the cycles of the underlying calendar (e.g., to
+			 distinguish every 30 days from "the 5th of every
+			 month".) A non-aligned periodic interval recurs
+			 independently from the calendar. An aligned periodic
+			 interval is synchronized with the calendar.
+		  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="institutionSpecified" type="xs:boolean" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>
+			 Indicates whether the exact timing is up to the party
+			 executing the schedule (e.g., to distinguish "every 8
+			 hours" from "3 times a day".)
+		  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="plannedEvent">
+		<xs:sequence>
+			<xs:element name="planId" type="gc32:ii"/>
+			<xs:element name="plannedTime" type="gc32:ivlTs" minOccurs="0"/>
+			<xs:element name="planType" type="gc32:cd"/>
+			<xs:element name="planFreeText" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="cs">
+		<xs:attribute name="code"/>
+	</xs:complexType>
+	<xs:complexType name="ce">
+		<xs:complexContent>
+			<xs:restriction base="gc32:cd">
+				<xs:sequence>
+					<xs:element name="originalText" type="xs:string" minOccurs="0"/>
+					<xs:element ref="gc32:qualifier" minOccurs="0" maxOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="contactType">
+		<xs:sequence>
+			<xs:element name="contactAddress" type="gc32:addr" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="contactTelecom" type="gc32:tele" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="contactName" type="gc32:pnm" maxOccurs="unbounded"/>
+			<xs:element name="contactMothersMaidenName" type="gc32:onm" minOccurs="0"/>
+			<xs:element ref="gc32:comment" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="type" type="gc32:supportType"/>
+		<xs:attribute name="relationship" type="gc32:relationshipType"/>
+	</xs:complexType>
+	<xs:simpleType name="supportType">
+		<xs:annotation>
+			<xs:documentation>Enumeration of the types of providers available</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="GUARD"/>
+			<xs:enumeration value="AGNT"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="currencyType">
+		<xs:annotation>
+			<xs:documentation>Enumeration of the types of currency available</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ARS"/>
+			<xs:enumeration value="AUD"/>
+			<xs:enumeration value="BRL"/>
+			<xs:enumeration value="CAD"/>
+			<xs:enumeration value="CHF"/>
+			<xs:enumeration value="CLF"/>
+			<xs:enumeration value="CNY"/>
+			<xs:enumeration value="DEM"/>
+			<xs:enumeration value="ESP"/>
+			<xs:enumeration value="EUR"/>
+			<xs:enumeration value="FIM"/>
+			<xs:enumeration value="FRF"/>
+			<xs:enumeration value="GBP"/>
+			<xs:enumeration value="ILS"/>
+			<xs:enumeration value="INR"/>
+			<xs:enumeration value="JPY"/>
+			<xs:enumeration value="KRW"/>
+			<xs:enumeration value="MXN"/>
+			<xs:enumeration value="NLG"/>
+			<xs:enumeration value="NZD"/>
+			<xs:enumeration value="PHP"/>
+			<xs:enumeration value="RUR"/>
+			<xs:enumeration value="THB"/>
+			<xs:enumeration value="TRL"/>
+			<xs:enumeration value="TWD"/>
+			<xs:enumeration value="USD"/>
+			<xs:enumeration value="ZAR"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="valueType">
+		<xs:annotation>
+			<xs:documentation>Enumeration of the different xsi:type values available for a VALUE</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CE"/>
+			<xs:enumeration value="BL"/>
+			<xs:enumeration value="BN"/>
+			<xs:enumeration value="BIN"/>
+			<xs:enumeration value="CR"/>
+			<xs:enumeration value="UUID"/>
+			<xs:enumeration value="II"/>
+			<xs:enumeration value="URL"/>
+			<xs:enumeration value="AD"/>
+			<xs:enumeration value="BL"/>
+			<xs:enumeration value="EN"/>
+			<xs:enumeration value="QTY"/>
+			<xs:enumeration value="PQR"/>
+			<xs:enumeration value="RTO"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="relationshipType">
+		<xs:annotation>
+			<xs:documentation>Enumeration of the different relationship types, INCOMPLETE</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CHILD"/>
+			<xs:enumeration value="SON"/>
+			<xs:enumeration value="HUSB"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="statusType">
+		<xs:annotation>
+			<xs:documentation>Enumeration of the different status values available for status codes</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="normal"/>
+			<xs:enumeration value="active"/>
+			<xs:enumeration value="cancelled"/>
+			<xs:enumeration value="pending"/>
+			<xs:enumeration value="suspended"/>
+			<xs:enumeration value="terminated"/>
+			<xs:enumeration value="nullified"/>
+			<xs:enumeration value="completed"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="nullFlavorType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NP"/>
+			<xs:enumeration value="NI"/>
+			<xs:enumeration value="MSK"/>
+			<xs:enumeration value="NA"/>
+			<xs:enumeration value="OTH"/>
+			<xs:enumeration value="NINF"/>
+			<xs:enumeration value="PINF"/>
+			<xs:enumeration value="UNK"/>
+			<xs:enumeration value="NASK"/>
+			<xs:enumeration value="TRC"/>
+			<xs:enumeration value="ASKU"/>
+			<xs:enumeration value="NAV"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="confidentialityType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="N"/>
+			<xs:enumeration value="R"/>
+			<xs:enumeration value="V"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

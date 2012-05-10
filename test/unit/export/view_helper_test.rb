@@ -10,4 +10,14 @@ class ViewHelperTest < MiniTest::Unit::TestCase
     assert ! code_xml.include?('bacon > cheese')
     assert code_xml.include?('bacon &gt; cheese')
   end
+
+  def test_time_if_not_nil
+    assert ! time_if_not_nil(nil)
+    assert ! time_if_not_nil(nil, nil)
+    assert time_if_not_nil(nil, 7)
+    assert time_if_not_nil(7)
+    assert_equal Time.at(7), time_if_not_nil(nil, 7)
+    assert_equal Time.at(7), time_if_not_nil(7)
+    assert_equal Time.at(7), time_if_not_nil(7, 8)
+  end
 end

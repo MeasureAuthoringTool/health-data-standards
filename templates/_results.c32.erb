@@ -6,7 +6,7 @@
     <!--Diagnostic Results section template-->
     <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Results"/>
     <title>Diagnostic Results</title>
-    <%== render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'results'} %>
+    <%== render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'results', :value=>true} %>
     <entry typeCode="DRIV">
       <organizer classCode="BATTERY" moodCode="EVN">
         <templateId root="2.16.840.1.113883.10.20.1.32"/>
@@ -44,7 +44,7 @@
               <reference value="#results-desc-<%= i %>"/>
             </text>
             <statusCode code="completed"/>
-            <effectiveTime value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
+            <effectiveTime <%= value_or_null_flavor(entry.as_point_in_time) %>/>
             <% if entry.value -%>
             <value xsi:type="PQ" value="<%= entry.value["scalar"] %>" <% if entry.value["units"]-%>unit="<%= entry.value["units"] %>"<% end -%>/>
             <% else -%>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:include schemaLocation="data_types.xsd"/>
+  <xs:element name="allergy">
+    <xs:complexType>
+      <xs:complexContent>
+    	  <xs:extension base="gc32:entry">
+    	    <xs:sequence>
+    	      <xs:element name="type" type="xs:string" />
+    	      <xs:element name="effectiveTime" type="gc32:interval" />
+    	      <xs:element name="allergen" type="gc32:code" />
+    	      <xs:element name="reaction" type="gc32:code" />
+    	      <xs:element name="severity" type="gc32:code" />
+    	    </xs:sequence>
+    	  </xs:extension>
+    	</xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
