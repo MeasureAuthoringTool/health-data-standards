@@ -6,7 +6,7 @@ class Medication < Entry
   field :statusOfMedication, type: Hash
   embeds_many :fulfillmentHistory, class_name: 'FulfillmentHistory'
   embeds_many :orderInformation, class_name: 'OrderInformation'
-  embeds_one :medication_product
+
   field :route, type: Hash
   field :site, type: Hash
   field :doseRestriction, type: Hash

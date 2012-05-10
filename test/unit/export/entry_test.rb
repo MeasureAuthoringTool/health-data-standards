@@ -34,7 +34,7 @@ module GreenC32
     #-------------------------------------------------------------------------------
   
     def test_vital_signs
-      vital_sign = Factory.build(:vital_sign)
+      vital_sign = FactoryGirl.build(:vital_sign)
       
       xml = HealthDataStandards::Export::GreenC32::Entry.export(vital_sign, :vital_sign)
       
@@ -54,7 +54,7 @@ module GreenC32
     #-------------------------------------------------------------------------------
   
     def test_conditions
-      condition = Factory.build(:condition)
+      condition = FactoryGirl.build(:condition)
       refute_nil condition
   
       xml = HealthDataStandards::Export::GreenC32::Entry.export(condition, :condition)
@@ -77,7 +77,7 @@ module GreenC32
     #-------------------------------------------------------------------------------
   
     def test_procedures
-      procedure = Factory.build(:procedure)
+      procedure = FactoryGirl.build(:procedure)
       refute_nil procedure
       
       xml = HealthDataStandards::Export::GreenC32::Entry.export(procedure, :procedure)
@@ -98,7 +98,7 @@ module GreenC32
     #-------------------------------------------------------------------------------
     
     def test_encounters
-      record = Factory.create(:record)
+      record = FactoryGirl.create(:record)
       encounter = record.encounters.first
       refute_nil encounter
       
@@ -108,12 +108,37 @@ module GreenC32
     #-------------------------------------------------------------------------------
     
     def test_medications
-      med = Factory.build(:medication)
+      med = FactoryGirl.build(:medication)
     
       refute_nil med
       
       xml = HealthDataStandards::Export::GreenC32::Entry.export(med, :medication)
-      # binding.pry
+    end
+    
+    #-------------------------------------------------------------------------------
+    
+    def test_allergies
+      allergy = FactoryGirl.build(:allergy)
+    
+      refute_nil allergy
+      
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(allergy, :allergy)
+    end
+    
+    def test_social_history
+      sh = FactoryGirl.build(:social_history)
+    
+      refute_nil sh
+      
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(sh, :social_history)
+    end
+    
+    def test_immunizations
+      im = FactoryGirl.build(:immunization)
+      
+      refute_nil im
+      
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(im, :immunization)
     end
   
   end

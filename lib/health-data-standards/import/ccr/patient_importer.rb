@@ -63,7 +63,7 @@ module HealthDataStandards
           @section_importers[:conditions] = SimpleImporter.new("//ccr:Problems/ccr:Problem",:conditions)
           @section_importers[:social_history] = SimpleImporter.new("//ccr:SocialHistory/ccr:SocialHistoryElement", :social_history)
           @section_importers[:care_goals] = SimpleImporter.new("//ccr:Goals/ccr:Goal",:care_goals)
-          @section_importers[:medical_equipment] = ProductImporter.new("//ccr:Equpment/ccr:EquipmentElement",:medical_equipment)
+          @section_importers[:medical_equipment] = ProductImporter.new("//ccr:Equipment/ccr:EquipmentElement",:medical_equipment)
           @section_importers[:allergies] = SimpleImporter.new("//ccr:Alerts/ccr:Alert",:allergies)
           @section_importers[:immunizations] = ProductImporter.new("//ccr:Immunizations/ccr:Immunization",:immunizations)
         end
@@ -188,6 +188,7 @@ module HealthDataStandards
           patientActor = doc.at_xpath("//ccr:ContinuityOfCareRecord/ccr:Actors/ccr:Actor[ccr:ActorObjectID = \"#{patientActorID}\"]")
           patientID = patientActor.at_xpath(patient_id_xpath).try(:content)
           patientID ||= patientActorID
+
           patient['first'] = patientActor.at_xpath('./ccr:Person/ccr:Name/ccr:CurrentName/ccr:Given').content
           patient['last'] = patientActor.at_xpath('./ccr:Person/ccr:Name/ccr:CurrentName/ccr:Family').content
           birthdate = patientActor.at_xpath('./ccr:Person//ccr:DateOfBirth/ccr:ExactDateTime | ./ccr:Person//ccr:DateOfBirth/ccr:ApproximateDateTime')
@@ -196,16 +197,16 @@ module HealthDataStandards
           gender_string = patientActor.at_xpath('./ccr:Person/ccr:Gender/ccr:Text').content.downcase
           patient['gender'] =  Gender[gender_string.downcase]
           #race_node = doc.at_xpath('/ccr:placeholder')    #how do you find this?
-          ethnicity = doc.at_xpath('//ccr:SocialHistory/ccr:SocialHistoryElement[./ccr:Type/ccr:Text = "Race"]/ccr:Description/ccr:Code[./ccr:CodingSystem = "2.16.840.1.113883.6.238"]/ccr:Value')
-          race = doc.at_xpath('//ccr:SocialHistory/ccr:SocialHistoryElement[./ccr:Type/ccr:Text = "Ethnicity"]/ccr:Description/ccr:Code[./ccr:CodingSystem = "2.16.840.1.113883.6.238"]/ccr:Value')
+          race = doc.at_xpath('//ccr:SocialHistory/ccr:SocialHistoryElement[./ccr:Type/ccr:Text = "Race"]/ccr:Description/ccr:Code[./ccr:CodingSystem = "CDC-RE"]/ccr:Value')
+          ethnicity = doc.at_xpath('//ccr:SocialHistory/ccr:SocialHistoryElement[./ccr:Type/ccr:Text = "Ethnicity"]/ccr:Description/ccr:Code[./ccr:CodingSystem = "CDC-RE"]/ccr:Value')
           
           if ethnicity
-            patient[:ethnicity] = {"code" => ethnicity.text}
+            patient[:ethnicity] = {"code" => ethnicity.text, "codeSystem" => 'CDC-RE'}
           end
          
           
           if race
-             patient[:race] = {"code" => race.text}
+             patient[:race] = {"code" => race.text, "codeSystem" => 'CDC-RE'}
           end
 
          

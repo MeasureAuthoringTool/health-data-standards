@@ -37,8 +37,16 @@ module HealthDataStandards
           entry.status = status
         end
         
+        def extract_effective_time(element, entry)
+          if element.at_xpath("./gc32:effectiveTime/gc32:start")
+            extract_interval(element,entry)  
+          else
+            extract_time(element, entry)
+          end
+        end
+        
         def extract_time(element, entry, xpath = "./gc32:effectiveTime", attribute = "time")
-          datetime = element.xpath(xpath).first
+          datetime = element.at_xpath(xpath)
           return unless datetime && !datetime.inner_text.empty?
           entry.send("#{attribute}=", Time.parse(datetime.inner_text).to_i)
         end
@@ -69,6 +77,8 @@ module HealthDataStandards
           extract_code(element, entry)
           extract_description(element, entry)
           extract_status(element, entry)
+          extract_value(element, entry)
+          extract_effective_time(element, entry)
         end
         
         def extract_organization(organization_element)

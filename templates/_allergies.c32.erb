@@ -20,7 +20,7 @@
         <code nullFlavor="NA"/>
         <statusCode code="active"/>
         <effectiveTime>
-          <low value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
+          <low <%= value_or_null_flavor(entry.as_point_in_time) %>/>
         </effectiveTime>
         <entryRelationship typeCode="SUBJ" inversionInd="false">
           <observation classCode="OBS" moodCode="EVN">
@@ -37,7 +37,7 @@
             </text>
             <statusCode code="completed"/>
             <effectiveTime>
-              <low value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
+              <low <%= value_or_null_flavor(entry.as_point_in_time) %>/>
             </effectiveTime>
             <value xsi:type="CD" nullFlavor="UNK"/>
             <participant typeCode="CSM">

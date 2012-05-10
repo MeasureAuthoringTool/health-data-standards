@@ -1,0 +1,24 @@
+<PedigreeInfo>
+  <% unless pedigree.source_documents.empty? && pedigree.source_documents.empty?%>
+  <Source derived="true">
+    <% pedigree.source_documents.each do |source| %>
+    <PedigreeInfo>
+      <Author><%=source.author.name%></Author>
+      <Organization><%= source.organization %></Organization>
+    </PedigreeInfo>
+    <% end %>
+    <% pedigree.source_documents.each do |doc|%>
+    <Document>
+      <Target <% if doc.extension %> targetExtension="<%=doc.extension%>" <% end %>><%= doc.uri %></Target>
+    </Document>
+  </Source>
+  <% end %>
+  <% if pedigree.author %>
+    <Author typeCode="<%= pedigree.author.type %>" role="<%= pedigree.author.role%>">
+      <%= pedigree.author.name %>
+    </Author>
+  <% end %>
+  <% if pedigree.organization %>
+  <Organization><%= pedigree.organization %></Organization>
+  <% end %>
+</PedigreeInfo>

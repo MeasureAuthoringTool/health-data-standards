@@ -17,7 +17,6 @@ module HealthDataStandards
           procedure = Procedure.new
           
           extract_entry(procedure_element, procedure)
-          extract_interval(procedure_element, procedure)
           extract_type(procedure_element, procedure)
           
           procedure

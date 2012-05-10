@@ -6,7 +6,7 @@ module HealthDataStandards
         def initialize
           @entry_xpath = "//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.103']/cda:entry/cda:act/cda:entryRelationship/cda:observation"
           @code_xpath = "./cda:value"
-          @status_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.1 13883.10.20.1.50']/cda:value"
+          @status_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.1.50']/cda:value"
           @description_xpath = "./cda:text/cda:reference[@value]"
         end
         

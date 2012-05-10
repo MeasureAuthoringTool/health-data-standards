@@ -12,7 +12,7 @@ module HealthDataStandards
           extract_interval(med_element, medication, "administrationTiming")
           extract_administration_timing(med_element, medication)
           medication.dose = extract_quantity(med_element, "./gc32:dose")
-          extract_med_code_attribute(med_element, medication, :typeOfMedication)
+          extract_med_code_attribute(med_element, medication, :type, :typeOfMedication)
           extract_med_code_attribute(med_element, medication, :statusOfMedication)
           extract_med_code_attribute(med_element, medication, :route)
           extract_med_code_attribute(med_element, medication, :site)
@@ -25,7 +25,6 @@ module HealthDataStandards
           medication.free_text_sig = extract_node_text(med_element.at_xpath("./gc32:freeTextSig"))
           medication.fulfillment_instructions = extract_node_text(med_element.at_xpath("./gc32:patientInstructions"))
           medication.dose_indicator = extract_node_text(med_element.at_xpath("./gc32:doseIndicator"))
-          medication.medication_product = extract_med_product(med_element)
           medication.fulfillment_history = extract_fulfillment_history(med_element)
           medication.order_information = extract_order_information(med_element)
           medication
@@ -39,15 +38,6 @@ module HealthDataStandards
         def extract_dose_restriction(element, entry)
           dose_element = element.at_xpath("./gc32:doseRestriction")
           entry.dose_restriction = {"numerator" => extract_quantity(dose_element, "./gc32:numerator"), "denominator" => extract_quantity(dose_element,"./gc32:denominator")}
-        end
-        
-        def extract_med_product(med_element)
-          mi = med_element.at_xpath("./gc32:medicationInformation")
-          return unless mi
-          mp = MedicationProduct.new(product_name: extract_node_attribute(mi.at_xpath("./gc32:productName"), :name), brand_name: extract_node_attribute(mi.at_xpath("./gc32:brandName"), :name))
-          extract_code(mi,mp,"./gc32:brandName", :coded_brand_name)
-          extract_code(mi, mp, "./gc32:productName", :coded_product_name)
-          mp
         end
         
         def extract_fulfillment_history(med_element)
@@ -68,8 +58,9 @@ module HealthDataStandards
           end
         end
         
-        def extract_med_code_attribute(doc, med, attribute)
-          med.send("#{attribute}=", extract_code(doc, med, "./gc32:#{attribute}", attribute))
+        def extract_med_code_attribute(doc, med, attribute, mongo_attribute_name=nil)
+          mongo_attribute_name ||= attribute
+          extract_code(doc, med, "./gc32:#{attribute}", mongo_attribute_name)
         end
         
       end
