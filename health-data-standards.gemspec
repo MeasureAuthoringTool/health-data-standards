@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'mongoid', '~> 2.4.2'
   s.add_dependency 'uuid', '~> 2.3.4'
   s.add_dependency 'builder', '~> 3.0.0'
-  s.add_dependency 'nokogiri', '~> 1.4.7'
+  s.add_dependency 'nokogiri', '~> 1.5.0'
 
   s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/*.erb') +
             ["Gemfile", "README.md", "Rakefile", "VERSION"]
