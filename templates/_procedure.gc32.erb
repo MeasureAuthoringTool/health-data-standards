@@ -1,8 +1,17 @@
 <procedure xmlns="urn:hl7-org:greencda:c32">
   <id><%= procedure.id %></id>
   <%== code_display procedure, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT'] %>
+  <status></status>
+  <freeText></freeText>
   <effectiveTime>
-    <start><%= time_if_not_nil(procedure.start_time, procedure.time)%></start>
-    <end><%= time_if_not_nil(procedure.end_time)%></end>
+    <% if procedure.start_time || procedure.end_time %>
+    <start><%= time_if_not_nil(procedure.start_time) %></start>
+    <end><%= time_if_not_nil(procedure.end_time) %></end>
+    <% else %>
+    <%= time_if_not_nil(procedure.time) %>
+    <% end %>
   </effectiveTime>
+  <% if procedure.site %>
+    <%== code_display procedure, "tag_name" => "site", "attribute" => "site", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <% end %>
 </procedure>

@@ -6,7 +6,7 @@ module HealthDataStandards
         
         def export(object, object_type)
           self.template_format = "gc32"
-          render(partial: object_type, locals: {object_type => object})
+          render(partial: object_type, locals: {object_type => object, type: object_type})
         end
         extend self
       end

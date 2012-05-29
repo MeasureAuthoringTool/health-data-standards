@@ -3,17 +3,22 @@
   <xs:complexType name="entry">
     <xs:sequence>
       <xs:element name="id" type="xs:string" />
-			<xs:element name="code" type="gc32:code" />
-			<xs:element name="status" type="xs:string" />
+      <xs:element name="code" type="gc32:code" />
+      <xs:element name="status" type="xs:string" />
+      <xs:element name="freeText" type="xs:string" />
     </xs:sequence>
+    <xs:choice>
+      <xs:element name="effectiveTime" type="xs:datetime" />
+      <xs:element name="effectiveTime" type="gc32:interval" />
+    </xs:choice>
   </xs:complexType>
   <xs:complexType name="simpleCode">
     <xs:attribute name="code"/>
     <xs:attribute name="codeSystem"/>
     <xs:attribute name="codeSystemName"/>
-		<xs:attribute name="displayName"/>
+    <xs:attribute name="displayName"/>
   </xs:complexType>
-	<xs:complexType name="code">
+  <xs:complexType name="code">
 		<xs:complexContent>
 			<xs:extension base="gc32:simpleCode">
 	  	<xs:sequence>
@@ -23,6 +28,15 @@
 			</xs:extension>
 		</xs:complexContent>
  	</xs:complexType>
+  <xs:complexType name="supply">
+    <xs:complexContent>
+      <xs:extension base="gc32:entry">
+        <xs:sequence>
+          <xs:element name="quantity" name="gc32:quantity" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
 	<xs:complexType name="quantity">
     <xs:attribute name="amount" type="xs:float" />
     <xs:attribute name="unit" type="xs:string" />
@@ -63,6 +77,13 @@
 	    <xs:element name="familyName" type="xs:string" />
 	  </xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="person">
+    <xs:sequence>
+      <xs:element name="name" type="gc32:personalName" />
+      <xs:element name="address" type="gc32:address" />          
+      <xs:element name="telecom" type="gc32:telecom" />
+    </xs:sequence>
+  </xs:complexType>
 	<xs:complexType name="provider">
 		<xs:annotation>
 			<xs:documentation>Reusable provider information</xs:documentation>
@@ -86,7 +107,6 @@
 		<xs:complexContent>
 			<xs:extension base="gc32:entry">
 				<xs:sequence>
-					<xs:element name="effectiveTime" type="xs:dateTime" />
 					<xs:element name="value" type="gc32:quantity" />
 					<xs:element name="interpretation" type="gc32:simpleCode" minOccurs="0"/>
 					<xs:element name="referenceRange" minOccurs="0" />

@@ -10,10 +10,10 @@ FactoryGirl.define do
   factory :condition do |f|
     f.codes           { { "SNOMED-CT" => ["16356006"] } }
     f.cause_of_death  false
-    f.name            "Smoker"
     f.start_time      1269776601
     f.end_time        1270776601
     f.description     "Tobacco user"
+    f.type            "404684003"
   end
 
   factory :encounter do |f|
@@ -126,7 +126,7 @@ FactoryGirl.define do
     f.codes           { { "SNOMED-CT" => ["171055003"] } }
     f.start_time      1257901150
     f.end_time        1258901150
-    f.description     "Tobacco Cessation Counseling"
+    f.site {{ "SNOMED-CT" => ["12341234"]}}
   end
 
   factory :record do |f|

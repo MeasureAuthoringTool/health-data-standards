@@ -1,7 +1,8 @@
 <immunization <% if refused %> refused="true" <% end %> xmlns="urn:hl7-org:greencda:c32">
   <id><%= immunization.id %></id>
-  <%== code_display immunization, "preferred_code_sets" => ["RxNorm", "SNOMED-CT"] %>
-  <administeredDate><%= Time.at(immunization.time)%></administeredDate>
+  <%== code_display immunization, "preferred_code_sets" => ["RxNorm", "SNOMED-CT"] %>  
+  <status><%= immunization.status %></status>
+  <effectiveTime><%= Time.at(immunization.time)%></effectiveTime>
   <% if immunization.series_number %>
     <seriesNumber><%= immunization.series_number %></seriesNumber>
   <% end %>

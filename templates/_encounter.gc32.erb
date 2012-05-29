@@ -1,14 +1,15 @@
 <encounter xmlns="urn:hl7-org:greencda:c32">
   <id><%= encounter.id %></id>
-  <code />
   <%== code_display encounter, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT'] %>
   <% if encounter.status %>
     <status code="completed"/>
   <% end %>
   <effectiveTime>
-    <start><%= Time.at(encounter.start_time) %></start>
-    <% if encounter.end_time %>
-      <end><%= Time.at(encounter.end_time) %></end>
+    <% if encounter.start_time || encounter.end_time %>
+    <start><%= time_if_not_nil(encounter.start_time) %></start>
+    <end><%= time_if_not_nil(encounter.end_time) %></end>
+    <% else %>
+    <%= time_if_not_nil(encounter.time) %>
     <% end %>
   </effectiveTime>
   <%== code_display encounter, "tag_name" => "dishcargeDisposition", 'attribute' => "discharge_disposition" %>

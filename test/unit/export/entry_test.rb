@@ -66,7 +66,6 @@ module GreenC32
   
       condition2 = condition_instance.import(doc)
 
-      assert_equal condition.name,            condition2.name
       assert_equal condition.cause_of_death,  condition2.cause_of_death
       assert_equal condition.start_time,      condition2.start_time
       assert_equal condition.end_time,        condition2.end_time
@@ -92,7 +91,7 @@ module GreenC32
       assert_equal procedure.start_time,  procedure2.start_time
       assert_equal procedure.end_time,    procedure2.end_time
       assert_equal procedure.codes,       procedure2.codes
-      assert_equal procedure.type,        procedure2.type
+      assert_equal procedure.site,        procedure2.site
     end
     
     #-------------------------------------------------------------------------------

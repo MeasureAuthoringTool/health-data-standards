@@ -11,6 +11,10 @@ module HealthDataStandards
           @value = "./gc32:value"
         end
         
+        def import(element, entry)
+          extract_entry(element, entry)
+        end
+        
         def extract_code(element, entry, xpath="./gc32:code", attribute=:codes)
           
           code_element = element.xpath(xpath).first

@@ -1,14 +1,18 @@
 <result xmlns="urn:hl7-org:greencda:c32">
     <id><%= result.id %></id>
-    
     <%== code_display result, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT'] %>
     <% if result.status %>
       <status code="completed"/>
     <% end %>
-    
-    <effectiveTime><%= Time.at(result.time) %></effectiveTime>
-
-
+    <freeText><%= result.free_text %></freeText>
+    <effectiveTime>
+      <% if result.start_time || result.end_time %>
+      <start><%= time_if_not_nil(result.start_time) %></start>
+      <end><%= time_if_not_nil(result.end_time) %></end>
+      <% else %>
+      <%= time_if_not_nil(result.time) %>
+      <% end %>
+    </effectiveTime>
     <value amount="<%= result.value['scalar']%>" unit="<%= result.value['units'] %>" />
     <% if result.interpretation%>
       <% code = result.interpretation.first%>
