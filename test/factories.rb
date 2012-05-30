@@ -20,11 +20,23 @@ FactoryGirl.define do
     f.codes           { { "CPT" => ["99201"] } }
     f.start_time      1267322332
     f.end_time        1267323432
-    f.description     "Outpatient encounter"
     f.admit_type      {{"SNOMED-CT" => ["12345678"]}}
     f.discharge_disposition {{"SNOMED-CT" => ["23456789"]}}
     f.free_text       "Sample Encounter"
     f.facility { FactoryGirl.build(:organization) }
+  end
+  
+  factory :entry do |f|
+    f.codes           { { "CPT" => ["99201"] } }
+    f.start_time      1267322332
+    f.end_time        1267323432
+  end
+  
+  factory :medical_equipment, class: "MedicalEquipment" do |f|
+    f.codes           { { "SNOMED" => ["598721"] } }
+    f.start_time      1267322332
+    f.end_time        1267323432
+    f.value {{scalar: 5, unit: "strips"}}
   end
   
   factory :support do |f|

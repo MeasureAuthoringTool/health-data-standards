@@ -1,0 +1,14 @@
+<entry xmlns="urn:hl7-org:greencda:c32">
+  <id><%= entry.id %></id>
+  <%== code_display entry, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT', "LOINC"] %>
+  <status><%= entry.status%></status>
+  <freeText><%=entry.free_text %></freeText>
+  <effectiveTime>
+    <% if entry.start_time || entry.end_time %>
+    <start><%= time_if_not_nil(entry.start_time) %></start>
+    <end><%= time_if_not_nil(entry.end_time) %></end>
+    <% else %>
+    <%= time_if_not_nil(entry.time) %>
+    <% end %>
+  </effectiveTime>
+</entry>

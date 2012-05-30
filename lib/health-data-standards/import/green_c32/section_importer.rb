@@ -11,13 +11,17 @@ module HealthDataStandards
           @value = "./gc32:value"
         end
         
-        def import(element, entry)
+        def import(element_xml, element_name="entry")
+          entry = Entry.new
+          element_xml.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
+          element = element_xml.at_xpath("./gc32:#{element_name}")
           extract_entry(element, entry)
+          entry
         end
         
         def extract_code(element, entry, xpath="./gc32:code", attribute=:codes)
           
-          code_element = element.xpath(xpath).first
+          code_element = element.at_xpath(xpath)
 
           return unless code_element
 
@@ -31,12 +35,12 @@ module HealthDataStandards
         end
         
         def extract_description(element, entry)
-          description = element.xpath(@description).first
+          description = element.at_xpath(@description)
           entry.description = extract_node_text(description)
         end
         
         def extract_status(element, entry)
-          status = extract_node_text(element.xpath(@status).first)
+          status = extract_node_text(element.at_xpath(@status))
           return unless status
           entry.status = status
         end

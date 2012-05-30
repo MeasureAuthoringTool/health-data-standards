@@ -70,7 +70,8 @@ module GreenC32
       assert_equal condition.start_time,      condition2.start_time
       assert_equal condition.end_time,        condition2.end_time
       assert_equal condition.codes,           condition2.codes
-      assert_equal condition.type,            condition2.type
+      assert_equal condition.type,            condition2.type\
+      
     end
   
     #-------------------------------------------------------------------------------
@@ -153,6 +154,17 @@ module GreenC32
     def test_ad
       ad = FactoryGirl.build(:advance_directive)
       xml = HealthDataStandards::Export::GreenC32::Entry.export(ad, :advance_directive)
+    end
+    
+    
+    def test_me
+      ad = FactoryGirl.build(:medical_equipment)
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(ad, :medical_equipment)
+    end
+    
+    def test_entry
+      ad = FactoryGirl.build(:medical_equipment)
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(ad, :entry)
     end
   
   end
