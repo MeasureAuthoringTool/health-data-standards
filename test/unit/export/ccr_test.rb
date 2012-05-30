@@ -7,10 +7,9 @@ class CCRTest < MiniTest::Unit::TestCase
 
     doc = Nokogiri::XML(HealthDataStandards::Export::CCR.export(record))
 
-
     doc.root.add_namespace_definition('ccr', 'urn:astm-org:CCR')
-    
-  # registration information
+    # registration information
+
     assert_equal 'Rosa', doc.at_xpath('//ccr:Actors/ccr:Actor/ccr:Person/ccr:Name/ccr:CurrentName/ccr:Given').text
     assert_equal 'Vasquez', doc.at_xpath('//ccr:Actors/ccr:Actor/ccr:Person/ccr:Name/ccr:CurrentName/ccr:Family').text
     assert_equal 'Female', doc.at_xpath('//ccr:Actors/ccr:Actor/ccr:Person/ccr:Gender/ccr:Text').text

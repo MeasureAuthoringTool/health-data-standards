@@ -346,10 +346,11 @@ module HealthDataStandards
                   xml.Given(patient.first)
                   xml.Family(patient.last)
                 end
-              end
+              end     
               xml.DateOfBirth do
-                xml.ExactDateTime(convert_to_ccr_time_string(patient.birthdate))
+                xml.ExactDateTime(convert_to_ccr_time_string(patient.birthdate))  
               end
+
               if (patient.gender)
                 xml.Gender do
                   if (patient.gender.upcase == "M")
@@ -360,7 +361,7 @@ module HealthDataStandards
                     xml.Text("Undifferentiated")
                   end
                 end
-              end
+             end 
             end
              xml.Source
           end
