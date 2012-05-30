@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:include schemaLocation="data_types.xsd"/>
+  <xs:element name="medication">
+    <xs:complexContent>
+      <xs:extension base="gc32:entry">
+        <xs:sequence>
+          <xs:element name="freeTextSig" type="xs:string" />
+          <xs:element name="effectiveTime" type="gc32:interval" />
+          <xs:element name="route" type="gc32:code" minOccurs="0"/>
+					<xs:element name="dose" type="gc32:quantity" minOccurs="0"/>
+					<xs:element name="doseIndicator" type="xs:string" minOccurs="0" />
+					<xs:element name="site" type="gc32:code" minOccurs="0" />
+					<xs:element name="doseRestriction" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="numerator" type="gc32:quantity"/>
+								<xs:element name="denominator" type="gc32:quantity"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="administrationTiming">
+					  <xs:extension base="gc32:interval">
+					    <xs:complexContent>
+					      <xs:sequence>
+					        <xs:element name="period" type="xs:quantity" />
+					      </xs:sequence>
+					      <xs:attribute name="institutionSpecified" type="xs:boolean" />
+					    </xs:complexContent>
+					  </xs:extension>
+					</xs:element>
+					<xs:element name="productForm" type="gc32:code" minOccurs="0"/>
+					<xs:element name="deliveryMethod" type="gc32:code" minOccurs="0"/>
+					<xs:element name="type" type="gc32:code" minOccurs="0"/>
+					<xs:element name="statusOfMedication" type="gc32:code" minOccurs="0"/>
+					<xs:element name="indication" type="gc32:code" minOccurs="0" />
+					<xs:element name="vehicle" type="gc32:code" minOccurs="0" />
+					<xs:element name="patientInstructions" type="xs:string" minOccurs="0" />
+					<xs:element name="fulfillmentInstructions" type="xs:string" minOccurs="0" />
+					<xs:element name="fulfillmentHistory" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="prescriptionNumber" type="xs:string" minOccurs="0"/>
+								<xs:element name="dispenseDate" type="xs:datetime" minOccurs="0"/>
+								<xs:element name="quantityDispensed" type="gc32:quantity" minOccurs="0"/>
+							</xs:sequence>
+							<xs:attribute name="fillStatus">
+							  <xs:simpleType>
+							    <xs:restriction base="xs:string">
+							      <xs:enumeration value="completed" />
+							      <xs:enumeration value="aborted" />
+							    </xs:restriction>
+							  </xs:simpleType>
+							</xs:attribute>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="orderInformation" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="quantityOrdered" type="gc32:quantity" minOccurs="0"/>
+								<xs:element name="orderedDateTime" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="expirationDateTime" type="xs:dateTime" minOccurs="0"/>
+							</xs:sequence>
+							<xs:attribute name="orderNumber" type="xs:string"/>
+							<xs:attribute name="fills" type="xs:integer">
+						</xs:complexType>
+					</xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:element>
+</xs:schema>

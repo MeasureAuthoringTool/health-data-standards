@@ -21,7 +21,7 @@
                 <reference value="#immunizations-desc-<%= i %>"/>
               </text>
               <statusCode code="completed"/>
-              <effectiveTime value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
+              <effectiveTime <%= value_or_null_flavor(entry.as_point_in_time) %>/>
               <doseQuantity nullFlavor="UNK"/>
               <consumable>
                 <manufacturedProduct>

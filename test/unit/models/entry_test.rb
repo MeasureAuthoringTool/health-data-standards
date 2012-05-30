@@ -31,6 +31,19 @@ class EntryTest < MiniTest::Unit::TestCase
     entry.add_code("314443004", "SNOMED-CT")
     assert entry.usable?
   end
+  
+  def test_from_event_hash
+    hash = {'code' => 123, 'code_set' => "RxNorm", 'value' => 50, 'unit' => "mm", 
+            'description' => "Test", 'specifics' => "Specific", 'status' => "completed"}
+            
+    entry = Entry.from_event_hash(hash)
+    
+    assert_equal [hash['code']], entry.codes[hash['code_set']]
+    assert_equal hash['value'], entry.value[:scalar]
+    assert_equal hash['unit'], entry.value[:units]
+    assert_equal hash['specifics'], entry.specifics
+    assert_equal hash['status'], entry.status
+  end
 
   def test_unusable_without_time
     entry = Entry.new
@@ -81,6 +94,7 @@ class EntryTest < MiniTest::Unit::TestCase
     entry = Entry.new
     entry.add_code("44556699", "RxNorm")
     entry.time = 1270598400
+    entry.specifics = "specific"
     
     h = entry.to_hash
     assert_equal 1270598400, h['time']

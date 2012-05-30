@@ -2,11 +2,11 @@ class Medication < Entry
   field :administrationTiming, type: Hash
   field :freeTextSig, type: String
   field :dose, type: Hash
-  field :brandName, type: String
   field :typeOfMedication, type: Hash
   field :statusOfMedication, type: Hash
   embeds_many :fulfillmentHistory, class_name: 'FulfillmentHistory'
   embeds_many :orderInformation, class_name: 'OrderInformation'
+
   field :route, type: Hash
   field :site, type: Hash
   field :doseRestriction, type: Hash
@@ -17,13 +17,12 @@ class Medication < Entry
   field :reaction, type: Hash
   field :deliveryMethod, type: Hash
   field :patientInstructions, type: String
+  field :doseIndicator, type: String
   
   alias :administration_timing :administrationTiming
   alias :administration_timing= :administrationTiming=
   alias :free_text_sig :freeTextSig
   alias :free_text_sig= :freeTextSig=
-  alias :brand_name :brandName
-  alias :brand_name= :brandName=
   alias :type_of_medication :typeOfMedication
   alias :type_of_medication= :typeOfMedication=
   alias :status_of_medication :statusOfMedication
@@ -42,4 +41,6 @@ class Medication < Entry
   alias :delivery_method= :deliveryMethod=
   alias :patient_instructions :patientInstructions
   alias :patient_instructions= :patientInstructions=
+  alias :dose_indicator :doseIndicator
+  alias :dose_indicator= :doseIndicator=
 end

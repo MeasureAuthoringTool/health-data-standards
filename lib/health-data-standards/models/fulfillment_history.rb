@@ -2,17 +2,15 @@ class FulfillmentHistory
   include Mongoid::Document
   
   field :prescriptionNumber, type: String
-  field :provider, type: Hash
-  field :dispensingPharmacyLocation, type: Hash
   field :dispenseDate, type: Integer
   field :quantityDispensed, type: Hash
   field :fillNumber, type: Integer
-  field :fillStatus, type: Hash
+  field :fillStatus, type: String
   
+  belongs_to :provider, class_name: "Provider"
+
   alias :prescription_number :prescriptionNumber
   alias :prescription_number= :prescriptionNumber=
-  alias :dispensing_pharmacy_location :dispensingPharmacyLocation
-  alias :dispensing_pharmacy_location= :dispensingPharmacyLocation=
   alias :dispense_date :dispenseDate
   alias :dispense_date= :dispenseDate=
   alias :quantity_dispensed :quantityDispensed

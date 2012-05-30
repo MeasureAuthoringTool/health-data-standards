@@ -63,7 +63,7 @@ module HealthDataStandards
             if @check_for_usable
               medication_list << medication if medication.usable?
             else
-              medication_list << medication_list
+              medication_list << medication
             end
           end
           medication_list
@@ -80,10 +80,6 @@ module HealthDataStandards
               actor_element = fh_element.at_xpath('./cda:performer')
               if actor_element
                 fulfillment_history.provider = import_actor(actor_element)
-                addr_element = actor_element.at_xpath("./cda:assignedEntity/cda:addr")
-                if addr_element
-                  fulfillment_history.dispensing_pharmacy_location = import_address(addr_element)
-                end
               end
               hl7_timestamp = fh_element.at_xpath('./cda:effectiveTime').try(:[], 'value')
               fulfillment_history.dispense_date = HL7Helper.timestamp_to_integer(hl7_timestamp) if hl7_timestamp

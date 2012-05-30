@@ -1,0 +1,35 @@
+<Document xmlns="http://www.hl7.org/schemas/hdata/2009/11/metadata">
+  <MediaType>application/xml</MediaType>
+  <MediaType>application/json</MediaType>
+  <% metadata.pedigrees.each do |pedigree| %>
+    <%= render :partial => "pedigree", locals: {pedigree: pedigree}%>
+  <% end %>
+  <Title><%= entry.id %></Title>
+  <LinkedDocuments>
+    <% metadata.linked_documents.each do |link| %>
+    <Link>
+      <Target <% if link.extension %> targetExtension="<%=link.extension%>" <% end %>><%= link.uri %></Target>
+    </Link>
+    <% end %>
+  </LinkedDocuments>
+  <RecordDate>
+    <CreatedDateTime><%= metadata.original_creation_time%></CreatedDateTime>
+    <Modified>
+      <% metadata.modified_dates.each do |md| %>
+        <ModifiedInfo>
+          <ChangeDateTime><%= md.timestamp %></ChangeDateTime>
+          <%= render :partial => "pedigree", locals: {pedigree: md.pedigree}%>
+        </ModifiedInfo>
+      <% end %>
+    </Modified>
+    <Copied>
+      <% metadata.copied_dates.each do |cd| %>
+        <CopiedInfo>
+          <ChangeDateTime><%= cd.timestamp %></ChangeDateTime>
+          <%= render :partial => "pedigree", locals: {pedigree: cd.pedigree}%>
+        </CopiedInfo>
+      <% end %>
+    </Copied>
+  </RecordDate>
+  <Confidentiality><%= metadata.confidentiality%></Confidentiality>
+</Document>

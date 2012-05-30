@@ -1,0 +1,8 @@
+<procedure xmlns="urn:hl7-org:greencda:c32">
+  <id><%= procedure.id %></id>
+  <%== code_display procedure, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT'] %>
+  <effectiveTime>
+    <start><%= time_if_not_nil(procedure.start_time, procedure.time)%></start>
+    <end><%= time_if_not_nil(procedure.end_time)%></end>
+  </effectiveTime>
+</procedure>

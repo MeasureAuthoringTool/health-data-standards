@@ -3,7 +3,7 @@ class Condition < Entry
   field :causeOfDeath,  type: Boolean
   field :name,          type: String
   
-  # embeds_many :treating_provider,  class_name: "Provider"
+  embeds_many :treating_provider,  class_name: "Provider"
   
   alias   :cause_of_death         :causeOfDeath
   alias   :cause_of_death=        :causeOfDeath=

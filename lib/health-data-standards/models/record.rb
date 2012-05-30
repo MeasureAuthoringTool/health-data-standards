@@ -15,15 +15,15 @@ class Record
 
   embeds_many :allergies
   embeds_many :care_goals, class_name: "Entry"
-  embeds_many :conditions, class_name: "Entry"
+  embeds_many :conditions
   embeds_many :encounters
   embeds_many :immunizations
   embeds_many :medical_equipment, class_name: "Entry"
   embeds_many :medications
   embeds_many :procedures
   embeds_many :results, class_name: "LabResult"
-  embeds_many :social_history, class_name: "Entry"
-  embeds_many :vital_signs, class_name: "Entry"
+  embeds_many :social_history
+  embeds_many :vital_signs
 
   Sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
    :medications, :procedures, :results, :social_history, :vital_signs]
@@ -47,7 +47,7 @@ class Record
    {'$or' => [provider_query(provider_id, effective_date,effective_date), provider_query(provider_id, nil,effective_date), provider_query(provider_id, effective_date,nil)]}
   end
   def self.provider_query(provider_id, start_before, end_after)
-    {'provider_performances' => {'$elemMatch' => {'provider_id' => provider_id, 'start_date'=> {'$lt'=>start_before}, 'end_date'=> {'$gt'=>end_after} } }}
+    {'provider_performances' => {'$elemMatch' => {'provider_id' => provider_id, '$and'=>[{'$or'=>[{'start_date'=>nil},{'start_date'=>{'$lt'=>start_before}}]}, {'$or'=>[{'end_date'=>nil},{'end_date'=> {'$gt'=>end_after}}]}] } }}
   end
   
 end

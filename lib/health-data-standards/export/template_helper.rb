@@ -14,6 +14,8 @@ module HealthDataStandards
       def partial(partial_name)
         template("_#{partial_name}")
       end
+      
+
 
       def render(params)
         erb = nil
@@ -22,6 +24,7 @@ module HealthDataStandards
         elsif params[:partial]
           erb = partial(params[:partial])
         end
+        
         locals = params[:locals]
         locals ||= {}
         rendering_context = RenderingContext.new(locals)
