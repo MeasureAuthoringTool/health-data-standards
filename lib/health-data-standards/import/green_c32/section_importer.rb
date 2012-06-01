@@ -11,7 +11,12 @@ module HealthDataStandards
           @value = "./gc32:value"
         end
         
-        def import(element_xml, element_name="entry")
+        
+        def import(entry_xml)
+          generic_import(entry_xml)
+        end
+        
+        def generic_import(element_xml, element_name="entry")
           entry = Entry.new
           element_xml.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
           element = element_xml.at_xpath("./gc32:#{element_name}")
@@ -95,6 +100,8 @@ module HealthDataStandards
           extract_status(element, entry)
           extract_value(element, entry)
           extract_effective_time(element, entry)
+          entry.free_text = element.at_xpath("./gc32:freeText").try(:inner_text)
+          entry
         end
         
         def extract_organization(organization_element)

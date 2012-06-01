@@ -22,7 +22,7 @@ class Record
   embeds_many :medications
   embeds_many :procedures
   embeds_many :results, class_name: "LabResult"
-  embeds_many :social_history
+  embeds_many :social_history, class_name: "Entry"
   embeds_many :vital_signs
   embeds_many :support
   embeds_many :advance_directives, class_name: "Entry"

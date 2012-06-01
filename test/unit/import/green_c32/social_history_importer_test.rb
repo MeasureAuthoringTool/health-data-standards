@@ -9,7 +9,7 @@ module GreenC32
     def test_extraction
       result = @shi.import(@sh)
       refute_nil result
-      assert result.is_a?(SocialHistory)
+      assert result.is_a?(Entry)
     end
   end
 end

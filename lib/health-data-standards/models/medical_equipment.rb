@@ -1,5 +1,5 @@
 class MedicalEquipment < Entry
   
-  embeds_one :manufacturer, class_name: "Organization"
+  field :manufacturer, type: String
    
 end

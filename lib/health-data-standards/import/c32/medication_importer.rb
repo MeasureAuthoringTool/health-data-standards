@@ -30,36 +30,7 @@ module HealthDataStandards
           medication_list = []
           entry_elements = doc.xpath(@entry_xpath)
           entry_elements.each do |entry_element|
-            medication = Medication.new
-            extract_codes(entry_element, medication)
-            extract_dates(entry_element, medication)
-            extract_description(entry_element, medication, id_map)
-
-            if medication.description.present?
-              medication.free_text = medication.description
-            end
-
-            extract_administration_timing(entry_element, medication)
-
-            medication.route = extract_code(entry_element, "./cda:routeCode")
-            medication.dose = extract_scalar(entry_element, "./cda:doseQuantity")
-            medication.site = extract_code(entry_element, "./cda:approachSiteCode", 'SNOMED-CT')
-
-            extract_dose_restriction(entry_element, medication)
-        
-            medication.product_form = extract_code(entry_element, "./cda:administrationUnitCode", 'NCI Thesaurus')
-            medication.delivery_method = extract_code(entry_element, "./cda:code", 'SNOMED-CT')
-            medication.type_of_medication = extract_code(entry_element,
-                "./cda:entryRelationship[@typeCode='SUBJ']/cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.8.1']/cda:code", 'SNOMED-CT')
-            medication.indication = extract_code(entry_element,
-                "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.1.28']/cda:code", 'SNOMED-CT')
-            medication.vehicle = extract_code(entry_element,
-                    "cda:participant/cda:participantRole[cda:code/@code='412307009' and cda:code/@codeSystem='2.16.840.1.113883.6.96']/cda:playingEntity/cda:code", 'SNOMED-CT')
-
-            extract_order_information(entry_element, medication)
-        
-            extract_fulfillment_history(entry_element, medication)
-
+            medication = create_entry(entry_element, id_map)
             if @check_for_usable
               medication_list << medication if medication.usable?
             else
@@ -67,6 +38,40 @@ module HealthDataStandards
             end
           end
           medication_list
+        end
+        
+        def create_entry(entry_element, id_map={})
+          medication = Medication.new
+          extract_codes(entry_element, medication)
+          extract_dates(entry_element, medication)
+          extract_description(entry_element, medication, id_map)
+          
+          if medication.description.present?
+            medication.free_text = medication.description
+          end
+          
+          extract_administration_timing(entry_element, medication)
+          
+          medication.route = extract_code(entry_element, "./cda:routeCode")
+          medication.dose = extract_scalar(entry_element, "./cda:doseQuantity")
+          medication.site = extract_code(entry_element, "./cda:approachSiteCode", 'SNOMED-CT')
+          
+          extract_dose_restriction(entry_element, medication)
+          
+          medication.product_form = extract_code(entry_element, "./cda:administrationUnitCode", 'NCI Thesaurus')
+          medication.delivery_method = extract_code(entry_element, "./cda:code", 'SNOMED-CT')
+          medication.type_of_medication = extract_code(entry_element,
+              "./cda:entryRelationship[@typeCode='SUBJ']/cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.8.1']/cda:code", 'SNOMED-CT')
+          medication.indication = extract_code(entry_element,
+              "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.1.28']/cda:code", 'SNOMED-CT')
+          medication.vehicle = extract_code(entry_element,
+                  "cda:participant/cda:participantRole[cda:code/@code='412307009' and cda:code/@codeSystem='2.16.840.1.113883.6.96']/cda:playingEntity/cda:code", 'SNOMED-CT')
+          
+          extract_order_information(entry_element, medication)
+          
+          extract_fulfillment_history(entry_element, medication)
+          
+          medication
         end
 
         private

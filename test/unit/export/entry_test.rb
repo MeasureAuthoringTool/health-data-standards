@@ -125,24 +125,10 @@ module GreenC32
       xml = HealthDataStandards::Export::GreenC32::Entry.export(allergy, :allergy)
     end
     
-    def test_social_history
-      sh = FactoryGirl.build(:social_history)
-    
-      refute_nil sh
-      
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(sh, :social_history)
-    end
-    
     def test_immunizations
       im = FactoryGirl.build(:immunization)
       
       xml = HealthDataStandards::Export::GreenC32::Entry.export(im, :immunization)
-    end
-    
-    def test_support
-      s = FactoryGirl.build(:support)
-      
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(s, :support)
     end
     
     def test_support
@@ -158,13 +144,20 @@ module GreenC32
     
     
     def test_me
-      ad = FactoryGirl.build(:medical_equipment)
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(ad, :medical_equipment)
+      me = FactoryGirl.build(:medical_equipment)
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(me, :medical_equipment)
     end
     
     def test_entry
-      ad = FactoryGirl.build(:medical_equipment)
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(ad, :entry)
+      e = FactoryGirl.build(:entry)
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(e, :entry)
+    end
+    
+    def test_care_goals
+      pr = FactoryGirl.build(:procedure)
+      r = FactoryGirl.build(:lab_result)
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(pr, :care_goal)
+      xml2 = HealthDataStandards::Export::GreenC32::Entry.export(r, :care_goal)
     end
   
   end

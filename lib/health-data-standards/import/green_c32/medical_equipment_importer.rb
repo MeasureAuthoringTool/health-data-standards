@@ -14,7 +14,7 @@ module HealthDataStandards
           me_element = me_xml.at_xpath("./gc32:medicalEquipment")
           me = MedicalEquipment.new
           extract_entry(me_element, me)
-          me.manufacturer = extract_organization(me_element.at_xpath("./gc32:manufacturer"))
+          me.manufacturer = extract_node_text(me_element.at_xpath("./gc32:manufacturer")).try(:strip)
           me
         end
         

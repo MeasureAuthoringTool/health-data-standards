@@ -48,16 +48,7 @@ module HealthDataStandards
           entry_list = []
           entry_elements = doc.xpath(@entry_xpath)
           entry_elements.each do |entry_element|
-            entry = Entry.new
-            extract_codes(entry_element, entry)
-            extract_dates(entry_element, entry)
-            extract_value(entry_element, entry)
-            if @status_xpath
-              extract_status(entry_element, entry)
-            end
-            if @description_xpath
-              extract_description(entry_element, entry, id_map)
-            end
+            entry = create_entry(entry_element, id_map)
             if @check_for_usable
               entry_list << entry if entry.usable?
             else
@@ -65,6 +56,20 @@ module HealthDataStandards
             end
           end
           entry_list
+        end
+        
+        def create_entry(entry_element, id_map={})
+          entry = Entry.new
+          extract_codes(entry_element, entry)
+          extract_dates(entry_element, entry)
+          extract_value(entry_element, entry)
+          if @status_xpath
+            extract_status(entry_element, entry)
+          end
+          if @description_xpath
+            extract_description(entry_element, entry, id_map)
+          end
+          entry
         end
 
         private

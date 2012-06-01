@@ -13,7 +13,7 @@ module GreenC32
       assert_equal 5.0, me.value["scalar"], me.value
       assert_equal "strips", me.value["unit"], me.value
       refute_nil me.manufacturer
-      assert_equal "Medical Supply Co.", me.manufacturer.name
+      assert_equal "Medical Supply Co.", me.manufacturer
     end
     
   end
