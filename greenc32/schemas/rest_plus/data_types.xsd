@@ -61,6 +61,11 @@
 			<xs:element name="telecom" type="gc32:telecom" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="telecom">
+	  <xs:attribute name="use" />
+	  <xs:attribute name="value" />
+	  <xs:attribute name="preferred" type="xs:boolean" />
+	</xs:complexType>
 	<xs:complexType name="personalName">
 	  <xs:sequence>
 	    <xs:element name="title" type="xs:string" />
@@ -70,30 +75,24 @@
 	</xs:complexType>
 	<xs:complexType name="person">
     <xs:sequence>
-      <xs:element name="name" type="gc32:personalName" />
-      <xs:element name="address" type="gc32:address" />          
-      <xs:element name="telecom" type="gc32:telecom" />
+      <xs:element name="id" type="xs:string" />
+			<xs:element name="name" type="gc32:personalName "minOccurs="0" />
+	    <xs:element name="address" type="gc32:addr" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="gc32:telecom" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 	<xs:complexType name="provider">
-		<xs:annotation>
-			<xs:documentation>Reusable provider information</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="id" type="xs:string" />
-			<xs:element name="name" type="gc32:personalName "minOccurs="0" />
-			<xs:element name="npi" type="xs:string" minOccurs="0" />
-	    <xs:element name="speciality" type="xs:string" />
-	    <xs:element name="address" type="gc32:addr" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="gc32:telecom" maxOccurs="unbounded"/>
-	    <xs:element name="organization" type="gc32:organization" />
-		</xs:sequence>
+	  <xs:complexContent>
+			<xs:extension base="gc32:person">
+	  	  <xs:sequence>
+	  	    <xs:element name="npi" type="xs:string" minOccurs="0" />
+  	      <xs:element name="speciality" type="xs:string" />
+  	      <xs:element name="organization" type="gc32:organization" />
+			  </xs:sequence>
+		  </xs:extension>
+		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="telecom">
-	  <xs:attribute name="use" />
-	  <xs:attribute name="value" />
-	  <xs:attribute name="preferred" type="xs:boolean" />
-	</xs:complexType>
+
 	<xs:complexType name="result">
 		<xs:complexContent>
 			<xs:extension base="gc32:entry">
