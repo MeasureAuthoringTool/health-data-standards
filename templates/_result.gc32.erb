@@ -6,7 +6,7 @@
       <status code="completed"/>
     <% end %>
     
-    <effectiveTime><%= Time.at(result.time) %></effectiveTime>
+    <effectiveTime><%= Time.at(result.time).utc %></effectiveTime>
 
 
     <value amount="<%= result.value['scalar']%>" unit="<%= result.value['units'] %>" />

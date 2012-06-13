@@ -6,9 +6,9 @@
     <status code="completed"/>
   <% end %>
   <effectiveTime>
-    <start><%= Time.at(encounter.start_time) %></start>
+    <start><%= Time.at(encounter.start_time).utc %></start>
     <% if encounter.end_time %>
-      <end><%= Time.at(encounter.end_time) %></end>
+      <end><%= Time.at(encounter.end_time).utc %></end>
     <% end %>
   </effectiveTime>
   <%== code_display encounter, "tag_name" => "dishcargeDisposition", 'attribute' => "discharge_disposition" %>
