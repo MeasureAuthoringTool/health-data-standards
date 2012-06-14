@@ -392,7 +392,7 @@ module HealthDataStandards
       end
 
       def convert_to_ccr_time_string(time)
-          converted_time = Time.at(time)
+          converted_time = Time.at(time).utc
           converted_time.strftime("%Y-%m-%dT%H:%M:%SZ")
       end
 

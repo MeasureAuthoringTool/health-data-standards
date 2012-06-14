@@ -4,15 +4,17 @@
     <% if result.status %>
       <status code="completed"/>
     <% end %>
+
     <freeText><%= result.free_text %></freeText>
     <effectiveTime>
       <% if result.start_time || result.end_time %>
-      <start><%= time_if_not_nil(result.start_time) %></start>
-      <end><%= time_if_not_nil(result.end_time) %></end>
+      <start><%= time_if_not_nil(result.start_time).utc %></start>
+      <end><%= time_if_not_nil(result.end_time).utc %></end>
       <% else %>
       <%= time_if_not_nil(result.time) %>
       <% end %>
     </effectiveTime>
+
     <value amount="<%= result.value['scalar']%>" unit="<%= result.value['units'] %>" />
     <% if result.interpretation%>
       <% code = result.interpretation.first%>
