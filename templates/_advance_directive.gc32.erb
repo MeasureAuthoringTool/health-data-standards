@@ -1,0 +1,8 @@
+<advanceDirective xmlns="urn:hl7-org:greencda:c32">
+  <%== code_display advance_directive, 'preferred_code_sets' => ['SNOMED-CT'] %>
+  <effectiveTime>
+    <start><%= time_if_not_nil(advance_directive.start_time, advance_directive.time) %></start>
+    <end><%= time_if_not_nil(advance_directive.end_time) %></end>
+  </effectiveTime>
+  <freeText><%= advance_directive.free_text %></freeText>
+</advanceDirective>

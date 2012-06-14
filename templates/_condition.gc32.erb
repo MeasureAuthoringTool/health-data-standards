@@ -1,11 +1,16 @@
 <condition <% unless condition.cause_of_death.nil? %>causeOfDeath="<%= condition.cause_of_death %>"<% end %> xmlns="urn:hl7-org:greencda:c32">
   <id><%= condition.id %></id>
   <%== code_display condition, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT'] %>
-  <% if condition.name %>
-    <name><%= condition.name %></name>
-  <% end %>
   <effectiveTime>
-    <start><%= time_if_not_nil(condition.start_time, condition.time) %></start>
+    <% if condition.start_time || condition.end_time %>
+    <start><%= time_if_not_nil(condition.start_time) %></start>
     <end><%= time_if_not_nil(condition.end_time) %></end>
+    <% else %>
+    <%= time_if_not_nil(condition.time) %>
+    <% end %>
   </effectiveTime>
+  <% if condition.priority %>
+    <priority><%= condition.priority %></priority>
+  <% end %>
+  <type><%= condition.type %></type>
 </condition>

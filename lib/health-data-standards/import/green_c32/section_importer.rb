@@ -11,9 +11,22 @@ module HealthDataStandards
           @value = "./gc32:value"
         end
         
+        
+        def import(entry_xml)
+          generic_import(entry_xml)
+        end
+        
+        def generic_import(element_xml, element_name="entry")
+          entry = Entry.new
+          element_xml.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
+          element = element_xml.at_xpath("./gc32:#{element_name}")
+          extract_entry(element, entry)
+          entry
+        end
+        
         def extract_code(element, entry, xpath="./gc32:code", attribute=:codes)
           
-          code_element = element.xpath(xpath).first
+          code_element = element.at_xpath(xpath)
 
           return unless code_element
 
@@ -27,12 +40,12 @@ module HealthDataStandards
         end
         
         def extract_description(element, entry)
-          description = element.xpath(@description).first
+          description = element.at_xpath(@description)
           entry.description = extract_node_text(description)
         end
         
         def extract_status(element, entry)
-          status = extract_node_text(element.xpath(@status).first)
+          status = extract_node_text(element.at_xpath(@status))
           return unless status
           entry.status = status
         end
@@ -43,6 +56,14 @@ module HealthDataStandards
           else
             extract_time(element, entry)
           end
+        end
+        
+        def extract_name(element, entry, name_element="name")
+          name_element = element.at_xpath("./gc32:#{name_element}")
+          return unless name_element
+          entry.title = name_element.at_xpath("./gc32:title").try(:content)
+          entry.given_name = name_element.at_xpath("./gc32:givenName").try(:content)
+          entry.family_name = name_element.at_xpath("./gc32:familyName").try(:content)
         end
         
         def extract_time(element, entry, xpath = "./gc32:effectiveTime", attribute = "time")
@@ -79,6 +100,8 @@ module HealthDataStandards
           extract_status(element, entry)
           extract_value(element, entry)
           extract_effective_time(element, entry)
+          entry.free_text = element.at_xpath("./gc32:freeText").try(:inner_text)
+          entry
         end
         
         def extract_organization(organization_element)
@@ -96,6 +119,7 @@ module HealthDataStandards
         end
         
         def extract_address(address_element)
+          return unless address_element
           address = Address.new
           address.street = address_element.xpath("./gc32:street").map { |st| extract_node_text(st)  }
           address.city = extract_node_text(address_element.xpath("./gc32:city"))
@@ -105,11 +129,16 @@ module HealthDataStandards
         end
         
         def extract_telecom(telecom_element)
+          return unless telecom_element
           telecom = Telecom.new
           telecom.use = extract_node_attribute(telecom_element, :type)
           telecom.value = extract_node_attribute(telecom_element, :value)
           telecom.preferred = extract_node_attribute(telecom_element, :preferred)
           telecom
+        end
+        
+        def extract_free_text(element, entry, free_text_element="freeText")
+          entry.free_text = extract_node_text(element.at_xpath("./gc32:#{free_text_element}"))
         end
         
         

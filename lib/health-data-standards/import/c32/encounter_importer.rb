@@ -23,21 +23,26 @@ module HealthDataStandards
           encounter_list = []
           entry_elements = doc.xpath(@entry_xpath)
           entry_elements.each do |entry_element|
-            encounter = Encounter.new
-            extract_codes(entry_element, encounter)
-            extract_dates(entry_element, encounter)
-            extract_description(entry_element, encounter, id_map)
+            encounter = create_entry(entry_element, id_map={})
             if @check_for_usable
               encounter_list << encounter if encounter.usable?
             else
               encounter_list << encounter
             end
-            extract_performer(entry_element, encounter)
-            extract_facility(entry_element, encounter)
-            extract_reason(entry_element, encounter, id_map)
-            extract_admission(entry_element, encounter)
           end
           encounter_list
+        end
+        
+        def create_entry(entry_element, id_map={})
+          encounter = Encounter.new
+          extract_codes(entry_element, encounter)
+          extract_dates(entry_element, encounter)
+          extract_description(entry_element, encounter, id_map)
+          extract_performer(entry_element, encounter)
+          extract_facility(entry_element, encounter)
+          extract_reason(entry_element, encounter, id_map)
+          extract_admission(entry_element, encounter)
+          encounter
         end
     
         private

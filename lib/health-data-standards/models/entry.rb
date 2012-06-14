@@ -14,6 +14,12 @@ class Entry
   field :status, type: String
   field :codes, type: Hash, default: {}
   field :value, type: Hash, default: {}
+  field :free_text, type: String
+  
+   # This is kind of ugly but we need to know which element this was in the C32
+   # so we can export back to C32
+  field :element_name, type: String
+  field :mood_code, type: String, default: "EVN"
   
   attr_protected :version
   attr_protected :_id

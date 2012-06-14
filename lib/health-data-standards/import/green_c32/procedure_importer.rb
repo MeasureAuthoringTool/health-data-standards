@@ -17,18 +17,10 @@ module HealthDataStandards
           procedure = Procedure.new
           
           extract_entry(procedure_element, procedure)
-          extract_type(procedure_element, procedure)
-          
+          extract_code(procedure_element, procedure, xpath="./gc32:site", attribute=:site)
           procedure
         end
-        
-        private
-        
-        def extract_type(procedure_xml, procedure)
-          type = procedure_xml.xpath("./gc32:type").first
-          procedure.type = extract_node_text(type)
-        end
-        
+
       end
     end
   end

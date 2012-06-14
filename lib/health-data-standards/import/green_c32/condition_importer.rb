@@ -15,7 +15,6 @@ module HealthDataStandards
           condition = Condition.new
 
           extract_entry(condition_element, condition)
-          extract_name(condition_element, condition)
           extract_cause_of_death(condition_element, condition)
           extract_type(condition_element, condition)
           
@@ -27,11 +26,6 @@ module HealthDataStandards
         def extract_type(condition_xml, condition)
           type = condition_xml.xpath("./gc32:type").first
           condition.type = extract_node_text(type)
-        end
-        
-        def extract_name(condition_xml, condition)
-          name = condition_xml.xpath("./gc32:name").first
-          condition.name = extract_node_text(name)
         end
         
         def extract_cause_of_death(condition_xml, condition)

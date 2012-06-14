@@ -18,7 +18,10 @@ module GreenC32
       assert_equal 1327932000, procedure.start_time
       assert_equal 1328018400, procedure.end_time
       assert_equal "completed", procedure.status
-      assert_equal "404684003", procedure.type
+      
+      code_system = procedure.site.keys[0]
+      assert_equal "SNOMED-CT", code_system
+      assert_equal ["1234"],  procedure.site[code_system]
     end
   end 
 end

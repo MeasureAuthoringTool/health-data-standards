@@ -66,12 +66,12 @@ module GreenC32
   
       condition2 = condition_instance.import(doc)
 
-      assert_equal condition.name,            condition2.name
       assert_equal condition.cause_of_death,  condition2.cause_of_death
       assert_equal condition.start_time,      condition2.start_time
       assert_equal condition.end_time,        condition2.end_time
       assert_equal condition.codes,           condition2.codes
-      assert_equal condition.type,            condition2.type
+      assert_equal condition.type,            condition2.type\
+      
     end
   
     #-------------------------------------------------------------------------------
@@ -92,7 +92,7 @@ module GreenC32
       assert_equal procedure.start_time,  procedure2.start_time
       assert_equal procedure.end_time,    procedure2.end_time
       assert_equal procedure.codes,       procedure2.codes
-      assert_equal procedure.type,        procedure2.type
+      assert_equal procedure.site,        procedure2.site
     end
     
     #-------------------------------------------------------------------------------
@@ -125,20 +125,39 @@ module GreenC32
       xml = HealthDataStandards::Export::GreenC32::Entry.export(allergy, :allergy)
     end
     
-    def test_social_history
-      sh = FactoryGirl.build(:social_history)
-    
-      refute_nil sh
-      
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(sh, :social_history)
-    end
-    
     def test_immunizations
       im = FactoryGirl.build(:immunization)
       
-      refute_nil im
-      
       xml = HealthDataStandards::Export::GreenC32::Entry.export(im, :immunization)
+    end
+    
+    def test_support
+      s = FactoryGirl.build(:support)
+      
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(s, :support)
+    end
+    
+    def test_ad
+      ad = FactoryGirl.build(:advance_directive)
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(ad, :advance_directive)
+    end
+    
+    
+    def test_me
+      me = FactoryGirl.build(:medical_equipment)
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(me, :medical_equipment)
+    end
+    
+    def test_entry
+      e = FactoryGirl.build(:entry)
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(e, :entry)
+    end
+    
+    def test_care_goals
+      pr = FactoryGirl.build(:procedure)
+      r = FactoryGirl.build(:lab_result)
+      xml = HealthDataStandards::Export::GreenC32::Entry.export(pr, :care_goal)
+      xml2 = HealthDataStandards::Export::GreenC32::Entry.export(r, :care_goal)
     end
   
   end
