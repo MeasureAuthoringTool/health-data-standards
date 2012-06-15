@@ -4,14 +4,16 @@
     <% if vital_sign.status %>
       <status code="completed"/>
     <% end %>
+
     <freeText><%= vital_sign.free_text %></freeText>
     <effectiveTime>
       <% if vital_sign.start_time || vital_sign.end_time %>
-      <start><%= time_if_not_nil(vital_sign.start_time) %></start>
-      <end><%= time_if_not_nil(vital_sign.end_time) %></end>
+      <start><%= time_if_not_nil(vital_sign.start_time).utc %></start>
+      <end><%= time_if_not_nil(vital_sign.end_time).utc %></end>
       <% else %>
       <%= time_if_not_nil(vital_sign.time) %>
       <% end %>
     </effectiveTime>
+
     <value amount="<%= vital_sign.value['scalar']%>" unit="<%= vital_sign.value['units'] %>" />
 </vitalSign>

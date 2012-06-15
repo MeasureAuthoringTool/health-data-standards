@@ -51,7 +51,7 @@ module HealthDataStandards
       end
 
       def time_if_not_nil(*args)
-        args.compact.map {|t| Time.at(t)}.first
+        args.compact.map {|t| Time.at(t).utc}.first
       end
     end
   end
