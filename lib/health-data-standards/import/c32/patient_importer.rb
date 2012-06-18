@@ -65,6 +65,7 @@ module HealthDataStandards
           @section_importers[:medical_equipment] = MedicalEquipmentImporter.new
           @section_importers[:allergies] = AllergyImporter.new
           @section_importers[:immunizations] = ImmunizationImporter.new
+          @section_importers[:insurance_providers] = InsuranceProviderImporter.new
         end
 
         def build_id_map(doc)

@@ -11,6 +11,7 @@ class Record
   field :ethnicity, type: Hash
   field :languages, type: Array
   field :test_id, type: BSON::ObjectId
+  field :marital_status, type: Hash
   field :medical_record_number, type: String
 
   embeds_many :allergies
@@ -26,6 +27,7 @@ class Record
   embeds_many :vital_signs
   embeds_many :support
   embeds_many :advance_directives, class_name: "Entry"
+  embeds_many :insurance_providers
 
   Sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
    :medications, :procedures, :results, :social_history, :vital_signs, :support, :advanced_directives]

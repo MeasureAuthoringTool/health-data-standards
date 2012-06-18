@@ -1,9 +1,6 @@
 class Provider
-  include Mongoid::Document
+  include Personable
   
-  field :title       , type: String
-  field :given_name  , type: String
-  field :family_name , type: String
   field :npi         , type: String
   field :tin         , type: String
   field :specialty   , type: String
@@ -12,8 +9,6 @@ class Provider
   
   validates_uniqueness_of :npi, allow_blank: true
   
-  embeds_many :addresses, as: :locatable
-  embeds_many :telecoms, as: :contactable
   embeds_one :organization
 
 

@@ -3,9 +3,12 @@
   <xs:include schemaLocation="data_types.xsd"/>
   <xs:complexType name="guarantor">
     <xs:complexContext>
-      <xs:extension base="person">
         <xs:sequence>
           <xs:element name="financialResponsibilityDateRange" type="gc32:interval" />
+          <xs:choice>
+            <xs:element name="organization" type="gc32:organization" />
+            <xs:element name="person" type='gc32:person' />
+          </xs:choice>
         </xs:sequence>
       </xs:extension>
     </xs:complexContext>
@@ -13,9 +16,9 @@
   <xs:element name="insuranceProvider">
     <xs:complextContent>
       <xs:sequence>
+        <xs:element name="id" type="xs:string" />
         <xs:element name="insuranceType" type="gc32:code" minOccurs="0" />
         <xs:element name="payer" type="gc32:organization" />
-        <xs:element name="coverageDates" type="gc32:interval" />
         <xs:element name="memberID" type="xs:string" />
         <xs:element name="subscriber" type="gc32:person" />
         <xs:element name="relationshipToSubscriber" type="gc32:code" />

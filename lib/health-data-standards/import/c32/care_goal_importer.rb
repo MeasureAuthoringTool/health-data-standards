@@ -5,8 +5,6 @@ module HealthDataStandards
 
         def initialize
           @entry_xpath = "//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.124']/cda:entry/cda:*[cda:templateId/@root='2.16.840.1.113883.10.20.1.25']"
-          @status_xpath = "./cda:statusCode"
-          @description_xpath = "./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value] "
         end
         
         def create_entries(doc, id_map = {})
@@ -20,7 +18,7 @@ module HealthDataStandards
                        when "substanceAdministration" then MedicationImporter.new
                        when "encounter" then EncounterImporter.new
                        when "procedure" then ProcedureImporter.new
-                       else SectionImporter.new
+                       else SectionImporter.new(nil) #don't need entry xpath, since we already have the entry
                        end
             
             entry = importer.create_entry(goal_element, id_map={})
