@@ -1,22 +1,19 @@
 <medication>
   <id><%= medication.id%></id>
-  <status>completed</status>
+  <%== code_display medication, "preferred_code_sets" => ["RxNorm", "CVX"] %>
   <freeText><%= medication.free_text%></freeText>
-  <effectiveTime>
-    <% if medication.start_time || medication.end_time %>
-    <start><%= time_if_not_nil(medication.start_time) %></start>
-    <end><%= time_if_not_nil(medication.end_time) %></end>
-    <% else %>
-    <%= time_if_not_nil(medication.time) %>
-    <% end %>
-  </effectiveTime>
+  <%== gc32_effective_time(medication)%>
   <% if medication.administration_timing %>
     <administrationTiming institutionSpecified="<%= medication.administration_timing[:insitution_specified] %>">
       <%== quantity_display medication.administration_timing["period"], :period %>
     </administrationTiming>
   <% end %>
+  <% if medication.route %>
   <%== code_display medication, "tag_name" => "route", "attribute" => "route", "preferred_code_sets" => ["NCI Thesaurus"] %>
+  <% end %> 
+  <% if medication.site %>
   <%== code_display medication, "tag_name" => "site", "attribute" => "site", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <% end %>
   <%== quantity_display medication.dose, :dose %>
   <% if medication.dose_indicator %>
   <doseIndication><%medication.dose_indicator%></doseIndication>
@@ -27,15 +24,24 @@
     <denominator><%= medication.dose_restriction["denominator"]%></denominator>
   </doseRestriction>
   <% end %>
-
+  <% if medication.product_form %>
   <%== code_display medication, "tag_name" => "productForm", "attribute" => "product_form", "preferred_code_sets" => ["NCI Thesaurus"]  %>
+  <% end %>
   <% if medication.delivery_method %>
     <%== code_display medication, "tag_name" => "deliveryMethod", "attribute" => "delivery_method", "preferred_code_sets" => medication.delivery_method.keys %>
   <% end %>
+  <% if medication.type_of_medication%>
   <%== code_display medication, "tag_name" => "type", "attribute" => "type_of_medication", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <% end %>
+  <% if medication.status_of_medication%>
   <%== code_display medication, "tag_name" => "statusOfMedication", "attribute" => "status_of_medication", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <% end %>
+  <%if medication.indication%>
   <%== code_display medication, "tag_name" => "indication", "attribute" => "indication", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <% end %>
+  <% if medication.vehicle %>
   <%== code_display medication, "tag_name" => "vehicle", "attribute" => "vehicle", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <% end%>
   
   <% if medication.dose_indicator %>
     <doseIndicator><%= medication.dose_indicator %></doseIndicator>

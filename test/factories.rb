@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :allergy do |f|
     f.codes {{"RxNorm" => ["70618"]}}
     f.start_time 1264529050
-    f.type "complete"
+    f.type {{"SNOMED-CT" => ["416098002"]}}
     f.reaction {{"SNOMED-CT" => ["24484000"]}}
     f.severity {{"SNOMED-CT" => ["39579001"]}}
   end

@@ -67,24 +67,24 @@ class Entry
     end
   end
   
-  def to_effective_time(xml)
-    if time.present?
-      xml.effectiveTime("value" => Time.at(time).utc.to_formatted_s(:number))
-    else
-      xml.effectiveTime do
-        if start_time.present?
-          xml.low("value" => Time.at(start_time).utc.to_formatted_s(:number))
-        else
-          xml.low("nullFlavor" => "UNK")
-        end
-        if end_time.present?
-          xml.high("value" => Time.at(end_time).utc.to_formatted_s(:number))          
-        else
-          xml.high("nullFlavor" => "UNK")          
-        end
-      end
-    end
-  end
+  # def to_effective_time(xml)
+  #   if time.present?
+  #     xml.effectiveTime("value" => Time.at(time).utc.to_formatted_s(:number))
+  #   else
+  #     xml.effectiveTime do
+  #       if start_time.present?
+  #         xml.low("value" => Time.at(start_time).utc.to_formatted_s(:number))
+  #       else
+  #         xml.low("nullFlavor" => "UNK")
+  #       end
+  #       if end_time.present?
+  #         xml.high("value" => Time.at(end_time).utc.to_formatted_s(:number))          
+  #       else
+  #         xml.high("nullFlavor" => "UNK")          
+  #       end
+  #     end
+  #   end
+  # end
   
   def self.from_event_hash(event)
     entry = Entry.new

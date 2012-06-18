@@ -9,7 +9,7 @@ module HealthDataStandards
           immunization_element = immunization_xml.at_xpath("./gc32:immunization")
           immunization = Immunization.new
           extract_entry(immunization_element, immunization)
-          extract_time(immunization_element, immunization, "./gc32:administeredDate")
+          extract_time(immunization_element, immunization, "./gc32:effectiveTime")
           extract_code(immunization_element, immunization, "./gc32:refusalReason")
           series_number = extract_node_text(immunization_element.at_xpath("./gc32:seriesNumber"))
           immunization.series_number = series_number.to_i if series_number

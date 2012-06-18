@@ -22,6 +22,7 @@ require_relative 'health-data-standards/export/csv'
 require_relative 'health-data-standards/export/html'
 require_relative 'health-data-standards/export/hdata/metadata'
 
+require_relative 'health-data-standards/export/green_c32/record'
 require_relative 'health-data-standards/export/green_c32/entry'
 require_relative 'health-data-standards/export/green_c32/export_generator'
 
