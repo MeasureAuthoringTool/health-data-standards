@@ -188,9 +188,22 @@ module HealthDataStandards
           patientActor = doc.at_xpath("//ccr:ContinuityOfCareRecord/ccr:Actors/ccr:Actor[ccr:ActorObjectID = \"#{patientActorID}\"]")
           patientID = patientActor.at_xpath(patient_id_xpath).try(:content)
           patientID ||= patientActorID
-
-          patient['first'] = patientActor.at_xpath('./ccr:Person/ccr:Name/ccr:CurrentName/ccr:Given').content
-          patient['last'] = patientActor.at_xpath('./ccr:Person/ccr:Name/ccr:CurrentName/ccr:Family').content
+          
+          name_element = patientActor.at_xpath('./ccr:Person/ccr:Name')
+          
+          if name_element
+            if name_element.at_xpath("./ccr:CurrentName")
+              patient['first'] = name_element.at_xpath('./ccr:CurrentName/ccr:Given').try(:content)
+              patient['last'] = name_element.at_xpath('./ccr:CurrentName/ccr:Family').try(:content)
+            elsif name_element.at_xpath("./ccr:DisplayName")
+              # this will not work in all cases, but we're using it as a last resort if no CurrentName is found
+              first, last = name_element.at_xpath("./ccr:DisplayName").content.split(" ")
+              patient['first'] = first.strip
+              patient['last'] = last.strip
+            end
+          end
+              
+          
           birthdate = patientActor.at_xpath('./ccr:Person//ccr:DateOfBirth/ccr:ExactDateTime | ./ccr:Person//ccr:DateOfBirth/ccr:ApproximateDateTime')
           patient['birthdate'] = Time.parse(birthdate.content).to_i if birthdate
           
