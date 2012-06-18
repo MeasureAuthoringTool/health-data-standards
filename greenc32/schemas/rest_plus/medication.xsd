@@ -2,16 +2,17 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:include schemaLocation="data_types.xsd"/>
   <xs:element name="medication">
+  	<xs:complexType>
     <xs:complexContent>
       <xs:extension base="gc32:entry">
         <xs:sequence>
           <xs:element name="administrationTiming">
-            <xs:complexContent>
+            <xs:complexType>
               <xs:sequence>
-                <xs:element name="period" type="xs:quantity" />
+                <xs:element name="period" type="gc32:quantity" />
               </xs:sequence>
               <xs:attribute name="institutionSpecified" type="xs:boolean" />
-            </xs:complexContent>
+            </xs:complexType>
           </xs:element>
           <xs:element name="route" type="gc32:code" minOccurs="0"/>
 					<xs:element name="dose" type="gc32:quantity" minOccurs="0"/>
@@ -58,11 +59,12 @@
 								<xs:element name="expirationDateTime" type="xs:dateTime" minOccurs="0"/>
 							</xs:sequence>
 							<xs:attribute name="orderNumber" type="xs:string"/>
-							<xs:attribute name="fills" type="xs:integer">
+							<xs:attribute name="fills" type="xs:integer" />
 						</xs:complexType>
 					</xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
+  	</xs:complexType>
   </xs:element>
 </xs:schema>
