@@ -46,7 +46,7 @@ module HealthDataStandards
           brandName = product.at_xpath("./ccr:BrandName")
           productNameText = productName.at_xpath("./ccr:Text")
           brandNameText = brandName.at_xpath("./ccr:Text")  if brandName
-          entry.description = productNameText.content
+          entry.description = productNameText.content if productNameText
           process_product_codes(productName, entry) # we throw any codes found within the productName and brandName into the same entry
           process_product_codes(brandName, entry) if brandName
         end
