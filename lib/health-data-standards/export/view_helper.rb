@@ -35,7 +35,8 @@ module HealthDataStandards
           '413322009'
         end
       end
-      
+
+           
       def value_or_null_flavor(time)
         if time 
           return "value='#{Time.at(time).utc.to_formatted_s(:number)}'"

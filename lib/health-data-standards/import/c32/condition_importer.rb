@@ -7,6 +7,7 @@ module HealthDataStandards
           @entry_xpath = "//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.103']/cda:entry/cda:act/cda:entryRelationship/cda:observation"
           @code_xpath = "./cda:value"
           @status_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.1.50']/cda:value"
+          @priority_xpath = "./cda:priorityCode"
           @description_xpath = "./cda:text/cda:reference[@value]"
         end
         
@@ -21,6 +22,7 @@ module HealthDataStandards
             extract_codes(entry_element, condition)
             extract_dates(entry_element, condition)
             extract_status(entry_element, condition)
+            extract_priority(entry_element, condition)
             extract_description(entry_element, condition, id_map)
             extract_cause_of_death(entry_element, condition)
             extract_type(entry_element, condition)
