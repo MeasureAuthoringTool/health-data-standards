@@ -14,6 +14,12 @@ class Entry
   field :status, type: String
   field :codes, type: Hash, default: {}
   field :value, type: Hash, default: {}
+  field :free_text, type: String
+  
+   # This is kind of ugly but we need to know which element this was in the C32
+   # so we can export back to C32
+  field :element_name, type: String
+  field :mood_code, type: String, default: "EVN"
   
   attr_protected :version
   attr_protected :_id
@@ -57,11 +63,11 @@ class Entry
   
   def times_to_s
     if start_time.present? || end_time.present?
-      start_string = start_time ? Time.at(start_time).to_formatted_s(:long_ordinal) : 'UNK'
-      end_string = end_time ? Time.at(end_time).to_formatted_s(:long_ordinal) : 'UNK'
+      start_string = start_time ? Time.at(start_time).utc.to_formatted_s(:long_ordinal) : 'UNK'
+      end_string = end_time ? Time.at(end_time).utc.to_formatted_s(:long_ordinal) : 'UNK'
       "#{start_string} - #{end_string}"
     elsif time.present?
-      Time.at(time).to_formatted_s(:long_ordinal)
+      Time.at(time).utc.to_formatted_s(:long_ordinal)
     end
   end
   

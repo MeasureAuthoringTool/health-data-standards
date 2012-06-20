@@ -1,6 +1,15 @@
 <socialHistory xmlns="urn:hl7-org:greencda:c32">
   <id><%= social_history.id%></id>
-  <status><%= social_history.status %></status>
   <%== code_display social_history, 'preferred_code_sets' => ['SNOMED-CT'] %>
+  <status><%= social_history.status %></status>
+  <freeText><%= social_history.free_text %></freeText>
+  <effectiveTime>
+    <% if condition.start_time || condition.end_time %>
+    <start><%= time_if_not_nil(condition.start_time) %></start>
+    <end><%= time_if_not_nil(condition.end_time) %></end>
+    <% else %>
+    <%= time_if_not_nil(condition.time) %>
+    <% end %>
+  </effectiveTime>
   <%== quantity_display social_history.value %>
 </socialHistory>

@@ -15,10 +15,11 @@ module HealthDataStandards
         # @param [String] status_xpath XPath expression to find the status element as a child of the desired CDA
         #        entry. Defaults to nil. If not provided, a status will not be checked for since it is not applicable
         #        to all enrty types
-        def initialize(entry_xpath, code_xpath="./cda:code", status_xpath=nil, description_xpath="./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value] ")
+        def initialize(entry_xpath, code_xpath="./cda:code", status_xpath=nil,priority_xpath=nil, description_xpath="./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value] ")
           @entry_xpath = entry_xpath
           @code_xpath = code_xpath
           @status_xpath = status_xpath
+          @priority_xpath = priority_xpath
           @description_xpath = description_xpath
           @check_for_usable = true               # Pilot tools will set this to false
         end
@@ -48,16 +49,7 @@ module HealthDataStandards
           entry_list = []
           entry_elements = doc.xpath(@entry_xpath)
           entry_elements.each do |entry_element|
-            entry = Entry.new
-            extract_codes(entry_element, entry)
-            extract_dates(entry_element, entry)
-            extract_value(entry_element, entry)
-            if @status_xpath
-              extract_status(entry_element, entry)
-            end
-            if @description_xpath
-              extract_description(entry_element, entry, id_map)
-            end
+            entry = create_entry(entry_element, id_map)
             if @check_for_usable
               entry_list << entry if entry.usable?
             else
@@ -65,6 +57,23 @@ module HealthDataStandards
             end
           end
           entry_list
+        end
+        
+        def create_entry(entry_element, id_map={})
+          entry = Entry.new
+          extract_codes(entry_element, entry)
+          extract_dates(entry_element, entry)
+          extract_value(entry_element, entry)
+          if @status_xpath
+            extract_status(entry_element, entry)
+          end
+          if @priority_xpath
+              extract_priority(entry_element, entry)
+            end
+          if @description_xpath
+            extract_description(entry_element, entry, id_map)
+          end
+          entry
         end
 
         private
@@ -82,6 +91,19 @@ module HealthDataStandards
             end
           end
         end
+
+        def extract_priority(parent_element, entry)
+          priority_element = parent_element.at_xpath(@priority_xpath)
+          if priority_element
+            case priority_element['code']
+            when '8319008'
+              puts "adding ordinality"
+              entry.ordinality = :principal
+              puts "added ordinality"
+            end
+          end
+        end
+
 
         def extract_description(parent_element, entry, id_map)
           code_elements = parent_element.xpath(@description_xpath)

@@ -25,6 +25,12 @@
             <playingDevice>
               <%== code_display(entry, {:preferred_code_sets => ['SNOMED-CT']}) %>
             </playingDevice>
+            <% if entry.manufacturer %>
+            <scopingEntity>
+              <id root="<%= UUID.generate %>"/>
+              <desc><%= entry.manufacturer %></desc>
+            </scopingEntity>
+            <% end %>
           </participantRole>
         </participant>
       </supply>

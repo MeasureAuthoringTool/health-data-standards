@@ -1,27 +1,33 @@
 <medication>
   <id><%= medication.id%></id>
   <status>completed</status>
-  <freeTextSig><%= medication.free_text_sig%></freeTextSig>
+  <freeText><%= medication.free_text%></freeText>
+  <effectiveTime>
+    <% if medication.start_time || medication.end_time %>
+    <start><%= time_if_not_nil(medication.start_time) %></start>
+    <end><%= time_if_not_nil(medication.end_time) %></end>
+    <% else %>
+    <%= time_if_not_nil(medication.time) %>
+    <% end %>
+  </effectiveTime>
+  <% if medication.administration_timing %>
+    <administrationTiming institutionSpecified="<%= medication.administration_timing[:insitution_specified] %>">
+      <%== quantity_display medication.administration_timing["period"], :period %>
+    </administrationTiming>
+  <% end %>
   <%== code_display medication, "tag_name" => "route", "attribute" => "route", "preferred_code_sets" => ["NCI Thesaurus"] %>
+  <%== code_display medication, "tag_name" => "site", "attribute" => "site", "preferred_code_sets" => ["SNOMED-CT"] %>
   <%== quantity_display medication.dose, :dose %>
   <% if medication.dose_indicator %>
   <doseIndication><%medication.dose_indicator%></doseIndication>
   <% end %>
-  
-  <%== code_display medication, "tag_name" => "site", "attribute" => "site", "preferred_code_sets" => ["SNOMED-CT"] %>
   <% if medication.dose_restriction %>
   <doseRestriction>
     <numerator><%= medication.dose_restriction["numerator"]%></numerator>
     <denominator><%= medication.dose_restriction["denominator"]%></denominator>
   </doseRestriction>
   <% end %>
-  <% if medication.administration_timing %>
-    <administrationTiming institutionSpecified="<%= medication.administration_timing[:insitution_specified] %>">
-      <start><%= Time.at(medication.start_time) %></start>
-      <end><%= Time.at(medication.end_time)%></end>
-      <%== quantity_display medication.administration_timing["period"], :period %>
-    </administrationTiming>
-  <% end %>
+
   <%== code_display medication, "tag_name" => "productForm", "attribute" => "product_form", "preferred_code_sets" => ["NCI Thesaurus"]  %>
   <% if medication.delivery_method %>
     <%== code_display medication, "tag_name" => "deliveryMethod", "attribute" => "delivery_method", "preferred_code_sets" => medication.delivery_method.keys %>
@@ -46,15 +52,15 @@
   <fulfillmentHistory <%if (fh.fill_status) %> fillStatus="<%=fh.fill_status%>" <% end %>
     <% if fh.fill_number %> fillNumber="<%=fh.fill_number%>" <% end %>>
     <prescriptionNumber><%=fh.prescription_number%></prescriptionNumber>
-    <dispenseDate><%= Time.at(fh.dispense_date)%></dispenseDate>
+    <dispenseDate><%= Time.at(fh.dispense_date).utc%></dispenseDate>
     <%== quantity_display fh.quantity_dispensed, :quantityDispensed %>
   </fulfillmentHistory>
   <% end %>
   <% medication.order_information.each do |oi| %>
     <orderInformation <% if oi.order_number %><%= "orderNumber=\"#{oi.order_number}\"" %> <% end %> <% if oi.fills %> <%= "fills=\"#{oi.fills}\"" %> <% end %>>
       <%== quantity_display oi.quantity_ordered, "quantityOrdered" %>
-      <orderDateTime><%= Time.at(oi.order_date_time)%></orderDateTime>
-      <expirationDateTime><%= Time.at(oi.order_expiration_date_time)%></expirationDateTime>
+      <orderDateTime><%= Time.at(oi.order_date_time).utc%></orderDateTime>
+      <expirationDateTime><%= Time.at(oi.order_expiration_date_time).utc%></expirationDateTime>
     </orderInformation>
   <% end %>
 </medication>

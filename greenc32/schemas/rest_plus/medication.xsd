@@ -5,8 +5,14 @@
     <xs:complexContent>
       <xs:extension base="gc32:entry">
         <xs:sequence>
-          <xs:element name="freeTextSig" type="xs:string" />
-          <xs:element name="effectiveTime" type="gc32:interval" />
+          <xs:element name="administrationTiming">
+            <xs:complexContent>
+              <xs:sequence>
+                <xs:element name="period" type="xs:quantity" />
+              </xs:sequence>
+              <xs:attribute name="institutionSpecified" type="xs:boolean" />
+            </xs:complexContent>
+          </xs:element>
           <xs:element name="route" type="gc32:code" minOccurs="0"/>
 					<xs:element name="dose" type="gc32:quantity" minOccurs="0"/>
 					<xs:element name="doseIndicator" type="xs:string" minOccurs="0" />
@@ -18,16 +24,6 @@
 								<xs:element name="denominator" type="gc32:quantity"/>
 							</xs:sequence>
 						</xs:complexType>
-					</xs:element>
-					<xs:element name="administrationTiming">
-					  <xs:extension base="gc32:interval">
-					    <xs:complexContent>
-					      <xs:sequence>
-					        <xs:element name="period" type="xs:quantity" />
-					      </xs:sequence>
-					      <xs:attribute name="institutionSpecified" type="xs:boolean" />
-					    </xs:complexContent>
-					  </xs:extension>
 					</xs:element>
 					<xs:element name="productForm" type="gc32:code" minOccurs="0"/>
 					<xs:element name="deliveryMethod" type="gc32:code" minOccurs="0"/>
