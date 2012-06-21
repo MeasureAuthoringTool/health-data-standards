@@ -58,15 +58,15 @@
   <fulfillmentHistory <%if (fh.fill_status) %> fillStatus="<%=fh.fill_status%>" <% end %>
     <% if fh.fill_number %> fillNumber="<%=fh.fill_number%>" <% end %>>
     <prescriptionNumber><%=fh.prescription_number%></prescriptionNumber>
-    <dispenseDate><%= Time.at(fh.dispense_date)%></dispenseDate>
+    <dispenseDate><%= Time.at(fh.dispense_date).utc%></dispenseDate>
     <%== quantity_display fh.quantity_dispensed, :quantityDispensed %>
   </fulfillmentHistory>
   <% end %>
   <% medication.order_information.each do |oi| %>
     <orderInformation <% if oi.order_number %><%= "orderNumber=\"#{oi.order_number}\"" %> <% end %> <% if oi.fills %> <%= "fills=\"#{oi.fills}\"" %> <% end %>>
       <%== quantity_display oi.quantity_ordered, "quantityOrdered" %>
-      <orderDateTime><%= Time.at(oi.order_date_time)%></orderDateTime>
-      <expirationDateTime><%= Time.at(oi.order_expiration_date_time)%></expirationDateTime>
+      <orderDateTime><%= Time.at(oi.order_date_time).utc%></orderDateTime>
+      <expirationDateTime><%= Time.at(oi.order_expiration_date_time).utc%></expirationDateTime>
     </orderInformation>
   <% end %>
 </medication>
