@@ -133,9 +133,11 @@ module HealthDataStandards
           if value_element
             value = value_element['value']
             unit = value_element['unit']
+            value ||= value_element.text 
             if value
-              entry.set_value(value, unit)
+              entry.set_value(value.strip, unit)
             end
+            
           end
         end
         
