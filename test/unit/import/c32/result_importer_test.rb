@@ -10,6 +10,5 @@ class ResultImporterTest < MiniTest::Unit::TestCase
     result = patient.results[0]
     assert_equal 'N', result.interpretation['code']
     assert_equal 'HITSP C80 Observation Status', result.interpretation['codeSystem']
-    assert_equal 'completed', result.status
   end
 end

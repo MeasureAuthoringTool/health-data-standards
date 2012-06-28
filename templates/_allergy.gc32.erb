@@ -11,8 +11,13 @@
     <%= time_if_not_nil(allergy.time) %>
     <% end %>
   </effectiveTime>
-  <type><%= allergy.type%></type>
-  <%== code_display allergy, "tag_name" => "reaction", 'preferred_code_sets' => ['SNOMED-CT'] %>
-  <%== code_display allergy, "tag_name" => "severity", 'preferred_code_sets' => ['SNOMED-CT'] %>
+  <% if allergy.type %>
+  <%== code_display allergy, "tag_name" => "type", "attribute" => "type", 'preferred_code_sets' => ['RxNorm', 'SNOMED-CT'] %>
+  <% end %>
+  <% if allergy.reaction %>
+  <%== code_display allergy, "tag_name" => "reaction", "attribute" => "reaction", 'preferred_code_sets' => ['RxNorm', 'SNOMED-CT'] %>
+  <% end %>
+  <% if allergy.severity%>
+  <%== code_display allergy, "tag_name" => "severity", "attribute" => "severity", 'preferred_code_sets' => ['RxNorm', 'SNOMED-CT'] %>
+  <% end %>
 </allergy>
-

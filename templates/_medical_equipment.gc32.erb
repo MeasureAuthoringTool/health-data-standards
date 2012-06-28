@@ -3,12 +3,5 @@
   <%== code_display medical_equipment, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT', "LOINC"] %>
   <status><%= medical_equipment.status%></status>
   <freeText><%=medical_equipment.free_text %></freeText>
-  <effectiveTime>
-    <% if medical_equipment.start_time || medical_equipment.end_time %>
-    <start><%= time_if_not_nil(medical_equipment.start_time) %></start>
-    <end><%= time_if_not_nil(medical_equipment.end_time) %></end>
-    <% else %>
-    <%= time_if_not_nil(medical_equipment.time) %>
-    <% end %>
-  </effectiveTime>
+  <%== gc32_effective_time(medical_equipment)%>
 </medicalEquipment>

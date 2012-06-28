@@ -14,7 +14,6 @@ class VitalSignImporterTest < MiniTest::Unit::TestCase
     assert_equal "177", vital_sign.value[:scalar]
     assert_equal "cm", vital_sign.value[:units]
     assert_equal 'HITSP C80 Observation Status', vital_sign.interpretation['codeSystem']
-    assert_equal 'completed', vital_sign.status
   end
 
 end

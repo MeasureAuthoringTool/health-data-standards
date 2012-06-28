@@ -4,15 +4,7 @@
   <% if encounter.status %>
     <status code="completed"/>
   <% end %>
-  <effectiveTime>
-
-    <% if encounter.start_time || encounter.end_time %>
-    <start><%= time_if_not_nil(encounter.start_time).utc %></start>
-    <end><%= time_if_not_nil(encounter.end_time).utc %></end>
-    <% else %>
-    <%= time_if_not_nil(encounter.time) %>
-    <% end %>
-  </effectiveTime>
+  <%== gc32_effective_time(encounter)%>
   <%== code_display encounter, "tag_name" => "dishcargeDisposition", 'attribute' => "discharge_disposition" %>
   <%== code_display encounter, "tag_name" => "admissionType", 'attribute' => "admit_type" %>
   <% if provider %>

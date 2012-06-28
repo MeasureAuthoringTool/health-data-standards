@@ -4,13 +4,10 @@
     <xs:sequence>
       <xs:element name="id" type="xs:string" />
       <xs:element name="code" type="gc32:code" />
-      <xs:element name="status" type="xs:string" />
-      <xs:element name="freeText" type="xs:string" />
-    </xs:sequence>
-    <xs:choice>
-      <xs:element name="effectiveTime" type="xs:datetime" />
+      <xs:element name="status" type="xs:string" minOccurs="0" />
+      <xs:element name="freeText" type="xs:string" minOccurs="0" />
       <xs:element name="effectiveTime" type="gc32:interval" />
-    </xs:choice>
+    </xs:sequence>
   </xs:complexType>
   <xs:complexType name="simpleCode">
     <xs:attribute name="code"/>
@@ -33,10 +30,16 @@
     <xs:attribute name="unit" type="xs:string" />
 	</xs:complexType>
 	<xs:complexType name="interval">
-	  <xs:sequence>
-	    <xs:element name="start" type="xs:dateTime" />
-			<xs:element name="end" type="xs:dateTime"/>
-	  </xs:sequence>
+	  <xs:choice minOccurs="0">
+	    <xs:sequence>
+  	    <xs:element name="start" type="xs:dateTime" />
+  		  <xs:element name="end" type="xs:dateTime"/>
+  	  </xs:sequence>
+	  </xs:choice>
+	  <xs:attribute name="value" type="xs:dateTime" />
+	</xs:complexType>
+	<xs:complexType name="timestamp">
+	  <xs:attribute name="value" type="xs:dateTime" />
 	</xs:complexType>
 	<xs:complexType name="address" mixed="true">
 		<xs:annotation>
@@ -48,7 +51,6 @@
 			<xs:element name="state" minOccurs="0"/>
 			<xs:element name="postalCode" minOccurs="0"/>
 		</xs:sequence>
-		<xs:attribute name="nullFlavor" type="gc32:nullFlavorType"/>
 	</xs:complexType>
 	<xs:complexType name="organization">
 		<xs:annotation>
@@ -57,7 +59,7 @@
 		<xs:sequence>
 			<xs:element name="id" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="name" type="xs:string" minOccurs="0"/>
-			<xs:element name="address" type="gc32:addr" maxOccurs="unbounded"/>
+			<xs:element name="address" type="gc32:address" maxOccurs="unbounded"/>
 			<xs:element name="telecom" type="gc32:telecom" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
@@ -76,8 +78,8 @@
 	<xs:complexType name="person">
     <xs:sequence>
       <xs:element name="id" type="xs:string" />
-			<xs:element name="name" type="gc32:personalName "minOccurs="0" />
-	    <xs:element name="address" type="gc32:addr" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="name" type="gc32:personalName" minOccurs="0" />
+	    <xs:element name="address" type="gc32:address" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="telecom" type="gc32:telecom" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>

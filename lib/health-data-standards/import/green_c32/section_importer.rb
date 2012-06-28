@@ -68,8 +68,10 @@ module HealthDataStandards
         
         def extract_time(element, entry, xpath = "./gc32:effectiveTime", attribute = "time")
           datetime = element.at_xpath(xpath)
-          return unless datetime && !datetime.inner_text.empty?
-          entry.send("#{attribute}=", Time.parse(datetime.inner_text).to_i)
+          
+          return unless datetime && datetime['value']
+          
+          entry.send("#{attribute}=", Time.parse(datetime['value']).to_i)
         end
         
         def extract_interval(element, entry, element_name="effectiveTime")

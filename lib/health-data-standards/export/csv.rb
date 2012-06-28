@@ -17,7 +17,12 @@ module HealthDataStandards
       end
       
       def extract_patient_data(patient)
-       [patient.patient_id, patient.first, patient.last, patient.gender,patient.race,patient.ethnicity,Time.at(patient.birthdate).strftime('%m/%d/%Y')]
+        race = ''
+        ethnicity = ''
+        race = patient.race['name'] || patient.race if !patient.race.nil?
+        ethnicity = patient.ethnicity['name'] || patient.ethnicity if !patient.ethnicity.nil?
+        
+       [patient.patient_id, patient.first, patient.last, patient.gender, race, ethnicity, Time.at(patient.birthdate).strftime('%m/%d/%Y')]
       end
 
       extend self

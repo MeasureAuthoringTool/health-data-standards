@@ -10,7 +10,7 @@ end
 
 Cane::RakeTask.new(:quality) do |cane|
   cane.abc_max = 45
-  cane.add_threshold 'coverage/covered_percent', :>=, 97
+  # cane.add_threshold 'coverage/covered_percent', :>=, 97
   cane.style_measure = 120
   cane.no_style = true
   cane.no_doc = true

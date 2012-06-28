@@ -8,7 +8,8 @@ module HealthDataStandards
           @entry_xpath = "//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.127']/cda:entry/cda:encounter"
           @code_xpath = "./cda:code"
           @status_xpath = "./cda:statusCode"
-          @description_xpath = "./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value] "
+          @description_xpath = "./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value]"
+          @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:act"
           @check_for_usable = true               # Pilot tools will set this to false
           @id_map = {}
         end
@@ -63,7 +64,7 @@ module HealthDataStandards
         end
     
         def extract_reason(parent_element, encounter, id_map)
-          reason_element = parent_element.at_xpath("./cda:entryRelationship[@typeCode='RSON']/cda:act")
+          reason_element = parent_element.at_xpath(@reason_xpath)
           if reason_element
             reason = Entry.new
             extract_codes(reason_element, reason)

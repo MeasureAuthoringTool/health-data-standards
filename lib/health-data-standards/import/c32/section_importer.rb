@@ -113,18 +113,18 @@ module HealthDataStandards
           end
         end
 
-        def extract_dates(parent_element, entry)
-          if parent_element.at_xpath('cda:effectiveTime')
-            entry.time = HL7Helper.timestamp_to_integer(parent_element.at_xpath('cda:effectiveTime')['value'])
+        def extract_dates(parent_element, entry, element_name="effectiveTime")
+          if parent_element.at_xpath("cda:#{element_name}")
+            entry.time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}")['value'])
           end
-          if parent_element.at_xpath('cda:effectiveTime/cda:low')
-            entry.start_time = HL7Helper.timestamp_to_integer(parent_element.at_xpath('cda:effectiveTime/cda:low')['value'])
+          if parent_element.at_xpath("cda:#{element_name}/cda:low")
+            entry.start_time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:low")['value'])
           end
-          if parent_element.at_xpath('cda:effectiveTime/cda:high')
-            entry.end_time = HL7Helper.timestamp_to_integer(parent_element.at_xpath('cda:effectiveTime/cda:high')['value'])
+          if parent_element.at_xpath("cda:#{element_name}/cda:high")
+            entry.end_time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:high")['value'])
           end
-          if parent_element.at_xpath('cda:effectiveTime/cda:center')
-            entry.time = HL7Helper.timestamp_to_integer(parent_element.at_xpath('cda:effectiveTime/cda:center')['value'])
+          if parent_element.at_xpath("cda:#{element_name}/cda:center")
+            entry.time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:center")['value'])
           end
         end
 
@@ -144,15 +144,24 @@ module HealthDataStandards
         def import_actor(actor_element)
           return ProviderImporter.instance.extract_provider(actor_element)
         end
+        
+        def import_organization(organization_element)
+          return OrganizationImporter.instance.extract_organization(organization_element)
+        end
 
-        # def import_person(person_element)
-        #   person_hash = {}
-        #   name_element = person_element.at_xpath("./cda:name")
-        #   person_hash['name'] = name_element.try(:text)
-        #   person_hash['first'] = name_element.at_xpath("./cda:given").try(:text)
-        #   person_hash['last'] = name_element.at_xpath("./cda:family").try(:text)
-        #   person_hash
-        # end
+        def import_person(person_element)
+          return unless person_element
+          person = Person.new
+          name_element = person_element.at_xpath("./cda:name")
+          if name_element
+            person.title = name_element.at_xpath("./cda:title").try(:text)
+            person.given_name = name_element.at_xpath("./cda:given").try(:text)
+            person.family_name = name_element.at_xpath("./cda:family").try(:text)
+          end
+          person.addresses = person_element.xpath("./cda:addr").map { |addr| import_address(addr) }
+          person.telecoms = person_element.xpath("./cda:telecom").map { |tele| import_telecom(tele) } 
+          return person
+        end
 
         def import_address(address_element)
           address = Address.new

@@ -2,6 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:include schemaLocation="data_types.xsd"/>
   <xs:element name="immunization">
+    <xs:complexType>
     <xs:complexContent>
       <xs:extension base="gc32:entry">
         <xs:sequence>
@@ -11,5 +12,6 @@
         <xs:attribute name="refused" type="xs:boolean" />
       </xs:extension>
     </xs:complexContent>
+    </xs:complexType>
   </xs:element>
 </xs:schema>
