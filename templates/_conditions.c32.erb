@@ -40,6 +40,9 @@
             <effectiveTime>
               <low <%= value_or_null_flavor(entry.as_point_in_time) %>/>
             </effectiveTime>
+            <% if entry.ordinality -%>
+              <priorityCode code="8319008" codeSystem="2.16.840.1.113883.6.96" displayName="Principal diagnosis" />
+            <% end -%>
             <%== code_display(entry, {'tag_name' => 'value', 'extra_content' => 'xsi:type="CD"', 'preferred_code_sets' => ['SNOMED-CT']}) %>
             <% if entry.status -%>
             <entryRelationship typeCode="REFR">
