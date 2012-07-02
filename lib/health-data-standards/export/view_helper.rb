@@ -69,7 +69,6 @@ module HealthDataStandards
       end
       
       def is_num?(str)
-        puts str.nil? ? "IS NIL" : "IS NOT NIL"
         Float(str || "")
       rescue ArgumentError
         false
@@ -78,7 +77,6 @@ module HealthDataStandards
       end
       
       def is_bool?(str)
-        puts (["true","false"].include? (str || "").downcase) ? "IS bool " : "IS NOT bool"
         return ["true","false"].include? (str || "").downcase
       end
     end
