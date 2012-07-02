@@ -35,7 +35,13 @@
             <statusCode code="completed"/>
             <effectiveTime <%= value_or_null_flavor(entry.as_point_in_time) %>/>
             <% if entry.value -%>
-            <value xsi:type="PQ" value="<%= entry.value["scalar"] %>" <% if entry.value["units"]-%>unit="<%= entry.value["units"] %>"<% end -%>/>
+			   <% if is_num?(entry.value['scalar']) -%>
+                <value xsi:type="PQ" value="<%= entry.value["scalar"] %>" <% if entry.value["units"]-%>unit="<%= entry.value["units"] %>"<% end -%>/>
+	           <% elsif is_bool?(entry.value['scalar'])%>
+				 <value xsi:type="BL" value="<%= entry.value["scalar"] %>" />
+	         <% else -%>
+	            <value xsi:type="ST" ><%= entry.value["scalar"] %></value> 
+	         <% end -%>
             <% else -%>
             <value xsi:type="PQ" nullFlavor="UNK"/>
             <% end -%>

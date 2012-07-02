@@ -67,6 +67,20 @@ module HealthDataStandards
       def time_if_not_nil(*args)
         args.compact.map {|t| Time.at(t).utc}.first
       end
+      
+      def is_num?(str)
+        puts str.nil? ? "IS NIL" : "IS NOT NIL"
+        Float(str || "")
+      rescue ArgumentError
+        false
+      else
+        true
+      end
+      
+      def is_bool?(str)
+        puts (["true","false"].include? (str || "").downcase) ? "IS bool " : "IS NOT bool"
+        return ["true","false"].include? (str || "").downcase
+      end
     end
   end
 end
