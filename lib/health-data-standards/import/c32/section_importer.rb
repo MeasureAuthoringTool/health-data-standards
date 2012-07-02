@@ -97,9 +97,7 @@ module HealthDataStandards
           if priority_element
             case priority_element['code']
             when '8319008'
-              puts "adding ordinality"
               entry.ordinality = :principal
-              puts "added ordinality"
             end
           end
         end
