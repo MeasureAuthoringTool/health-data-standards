@@ -1,9 +1,11 @@
 <immunization <% if refused %> refused="true" <% end %> xmlns="urn:hl7-org:greencda:c32">
   <id><%= immunization.id %></id>
-  <%== code_display immunization, "preferred_code_sets" => ["RxNorm", "SNOMED-CT"] %>
-  <administeredDate><%= Time.at(immunization.time).utc%></administeredDate>
+  <%== code_display immunization, "preferred_code_sets" => ["RxNorm", "CVX"] %>  
+  <%== gc32_effective_time(immunization)%>
   <% if immunization.series_number %>
     <seriesNumber><%= immunization.series_number %></seriesNumber>
   <% end %>
+  <% if immunization.refusal_reason %>
   <%== code_display immunization, "tag_name" => "refusalReason", "attribute" => "refusal_reason", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <% end %>
 </immunization>

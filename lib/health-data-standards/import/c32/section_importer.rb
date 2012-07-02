@@ -15,10 +15,11 @@ module HealthDataStandards
         # @param [String] status_xpath XPath expression to find the status element as a child of the desired CDA
         #        entry. Defaults to nil. If not provided, a status will not be checked for since it is not applicable
         #        to all enrty types
-        def initialize(entry_xpath, code_xpath="./cda:code", status_xpath=nil, description_xpath="./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value] ")
+        def initialize(entry_xpath, code_xpath="./cda:code", status_xpath=nil,priority_xpath=nil, description_xpath="./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value] ")
           @entry_xpath = entry_xpath
           @code_xpath = code_xpath
           @status_xpath = status_xpath
+          @priority_xpath = priority_xpath
           @description_xpath = description_xpath
           @check_for_usable = true               # Pilot tools will set this to false
         end
@@ -48,16 +49,7 @@ module HealthDataStandards
           entry_list = []
           entry_elements = doc.xpath(@entry_xpath)
           entry_elements.each do |entry_element|
-            entry = Entry.new
-            extract_codes(entry_element, entry)
-            extract_dates(entry_element, entry)
-            extract_value(entry_element, entry)
-            if @status_xpath
-              extract_status(entry_element, entry)
-            end
-            if @description_xpath
-              extract_description(entry_element, entry, id_map)
-            end
+            entry = create_entry(entry_element, id_map)
             if @check_for_usable
               entry_list << entry if entry.usable?
             else
@@ -65,6 +57,23 @@ module HealthDataStandards
             end
           end
           entry_list
+        end
+        
+        def create_entry(entry_element, id_map={})
+          entry = Entry.new
+          extract_codes(entry_element, entry)
+          extract_dates(entry_element, entry)
+          extract_value(entry_element, entry)
+          if @status_xpath
+            extract_status(entry_element, entry)
+          end
+          if @priority_xpath
+              extract_priority(entry_element, entry)
+            end
+          if @description_xpath
+            extract_description(entry_element, entry, id_map)
+          end
+          entry
         end
 
         private
@@ -82,6 +91,17 @@ module HealthDataStandards
             end
           end
         end
+
+        def extract_priority(parent_element, entry)
+          priority_element = parent_element.at_xpath(@priority_xpath)
+          if priority_element
+            case priority_element['code']
+            when '8319008'
+              entry.ordinality = :principal
+            end
+          end
+        end
+
 
         def extract_description(parent_element, entry, id_map)
           code_elements = parent_element.xpath(@description_xpath)
@@ -108,18 +128,18 @@ module HealthDataStandards
           end
         end
 
-        def extract_dates(parent_element, entry)
-          if parent_element.at_xpath('cda:effectiveTime')
-            entry.time = HL7Helper.timestamp_to_integer(parent_element.at_xpath('cda:effectiveTime')['value'])
+        def extract_dates(parent_element, entry, element_name="effectiveTime")
+          if parent_element.at_xpath("cda:#{element_name}")
+            entry.time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}")['value'])
           end
-          if parent_element.at_xpath('cda:effectiveTime/cda:low')
-            entry.start_time = HL7Helper.timestamp_to_integer(parent_element.at_xpath('cda:effectiveTime/cda:low')['value'])
+          if parent_element.at_xpath("cda:#{element_name}/cda:low")
+            entry.start_time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:low")['value'])
           end
-          if parent_element.at_xpath('cda:effectiveTime/cda:high')
-            entry.end_time = HL7Helper.timestamp_to_integer(parent_element.at_xpath('cda:effectiveTime/cda:high')['value'])
+          if parent_element.at_xpath("cda:#{element_name}/cda:high")
+            entry.end_time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:high")['value'])
           end
-          if parent_element.at_xpath('cda:effectiveTime/cda:center')
-            entry.time = HL7Helper.timestamp_to_integer(parent_element.at_xpath('cda:effectiveTime/cda:center')['value'])
+          if parent_element.at_xpath("cda:#{element_name}/cda:center")
+            entry.time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:center")['value'])
           end
         end
 
@@ -128,24 +148,35 @@ module HealthDataStandards
           if value_element
             value = value_element['value']
             unit = value_element['unit']
+            value ||= value_element.text 
             if value
-              entry.set_value(value, unit)
+              entry.set_value(value.strip, unit)
             end
+            
           end
         end
         
         def import_actor(actor_element)
           return ProviderImporter.instance.extract_provider(actor_element)
         end
+        
+        def import_organization(organization_element)
+          return OrganizationImporter.instance.extract_organization(organization_element)
+        end
 
-        # def import_person(person_element)
-        #   person_hash = {}
-        #   name_element = person_element.at_xpath("./cda:name")
-        #   person_hash['name'] = name_element.try(:text)
-        #   person_hash['first'] = name_element.at_xpath("./cda:given").try(:text)
-        #   person_hash['last'] = name_element.at_xpath("./cda:family").try(:text)
-        #   person_hash
-        # end
+        def import_person(person_element)
+          return unless person_element
+          person = Person.new
+          name_element = person_element.at_xpath("./cda:name")
+          if name_element
+            person.title = name_element.at_xpath("./cda:title").try(:text)
+            person.given_name = name_element.at_xpath("./cda:given").try(:text)
+            person.family_name = name_element.at_xpath("./cda:family").try(:text)
+          end
+          person.addresses = person_element.xpath("./cda:addr").map { |addr| import_address(addr) }
+          person.telecoms = person_element.xpath("./cda:telecom").map { |tele| import_telecom(tele) } 
+          return person
+        end
 
         def import_address(address_element)
           address = Address.new

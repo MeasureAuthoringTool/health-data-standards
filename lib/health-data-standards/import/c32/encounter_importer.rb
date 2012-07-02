@@ -8,7 +8,8 @@ module HealthDataStandards
           @entry_xpath = "//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.127']/cda:entry/cda:encounter"
           @code_xpath = "./cda:code"
           @status_xpath = "./cda:statusCode"
-          @description_xpath = "./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value] "
+          @description_xpath = "./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value]"
+          @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:act"
           @check_for_usable = true               # Pilot tools will set this to false
           @id_map = {}
         end
@@ -23,21 +24,26 @@ module HealthDataStandards
           encounter_list = []
           entry_elements = doc.xpath(@entry_xpath)
           entry_elements.each do |entry_element|
-            encounter = Encounter.new
-            extract_codes(entry_element, encounter)
-            extract_dates(entry_element, encounter)
-            extract_description(entry_element, encounter, id_map)
+            encounter = create_entry(entry_element, id_map={})
             if @check_for_usable
               encounter_list << encounter if encounter.usable?
             else
               encounter_list << encounter
             end
-            extract_performer(entry_element, encounter)
-            extract_facility(entry_element, encounter)
-            extract_reason(entry_element, encounter, id_map)
-            extract_admission(entry_element, encounter)
           end
           encounter_list
+        end
+        
+        def create_entry(entry_element, id_map={})
+          encounter = Encounter.new
+          extract_codes(entry_element, encounter)
+          extract_dates(entry_element, encounter)
+          extract_description(entry_element, encounter, id_map)
+          extract_performer(entry_element, encounter)
+          extract_facility(entry_element, encounter)
+          extract_reason(entry_element, encounter, id_map)
+          extract_admission(entry_element, encounter)
+          encounter
         end
     
         private
@@ -58,7 +64,7 @@ module HealthDataStandards
         end
     
         def extract_reason(parent_element, encounter, id_map)
-          reason_element = parent_element.at_xpath("./cda:entryRelationship[@typeCode='RSON']/cda:act")
+          reason_element = parent_element.at_xpath(@reason_xpath)
           if reason_element
             reason = Entry.new
             extract_codes(reason_element, reason)

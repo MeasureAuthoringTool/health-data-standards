@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:include schemaLocation="data_types.xsd"/>
+  <xs:complexType name="guarantor">
+        <xs:sequence>
+          <xs:element name="financialResponsibilityDateRange" type="gc32:interval" />
+          <xs:choice>
+            <xs:element name="organization" type="gc32:organization" />
+            <xs:element name="person" type='gc32:person' />
+          </xs:choice>
+        </xs:sequence>
+  </xs:complexType>
+  <xs:element name="insuranceProvider">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string" />
+        <xs:element name="insuranceType" type="gc32:code" minOccurs="0" />
+        <xs:element name="payer" type="gc32:organization" />
+        <xs:element name="memberID" type="xs:string" />
+        <xs:element name="subscriber" type="gc32:person" />
+        <xs:element name="relationshipToSubscriber" type="gc32:code" />
+        <xs:element name="financialResponsibilityType" type="gc32:code" />
+        <xs:element name="guarantor" minOccurs="0" maxOccurs="unbounded" type="gc32:guarantor" />
+        <xs:element name="healthPlanName" type="xs:string" />
+        <xs:element name="freeText" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

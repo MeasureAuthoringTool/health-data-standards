@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:include schemaLocation="data_types.xsd"/>
+  <xs:include schemaLocation="allergy.xsd"/>
+  <xs:include schemaLocation="condition.xsd"/>
+  <xs:include schemaLocation="encounter.xsd"/>
+  <xs:include schemaLocation="entry.xsd"/>
+  <xs:include schemaLocation="condition.xsd"/>
+  <xs:include schemaLocation="insurance_provider.xsd" />
+  <xs:include schemaLocation="immunization.xsd" />
+  <xs:include schemaLocation="medical_equipment.xsd"/>
+  <xs:include schemaLocation="medication.xsd"/>
+  <xs:include schemaLocation="procedure.xsd"/>
+  <xs:include schemaLocation="result.xsd"/>
+  <xs:include schemaLocation="social_history.xsd"/>
+  <xs:include schemaLocation="support.xsd"/>
+  <xs:include schemaLocation="vital_sign.xsd"/>
+  <xs:element name="record">
+    <xs:complexType>
+        <xs:sequence>
+          <xs:element name="patientInformation">
+            <xs:complexType>
+            <xs:complexContent>
+              <xs:extension base="gc32:person">
+                <xs:sequence>
+                  <xs:element name="gender" type="gc32:code"/>
+  								<xs:element name="dateOfBirth" type="xs:date"/>
+  								<xs:element name="dateOfDeath" type="xs:date" minOccurs="0"/>
+  								<xs:element name="maritalStatus" type="gc32:code" minOccurs="0"/>
+  								<xs:element name="religiousAffiliation" type="gc32:code" minOccurs="0"/>
+  								<xs:element name="race" type="gc32:code" minOccurs="0" />
+  								<xs:element name="ethnicity" type="gc32:code" minOccurs="0"/>
+  								<xs:element name="languagesSpoken" minOccurs="0">
+  								  <xs:complexType>
+  								    <xs:sequence>
+  								      <xs:element name="language" type="xs:string" maxOccurs="unbounded" />
+  								    </xs:sequence>
+  								  </xs:complexType>
+  								</xs:element>
+                </xs:sequence>
+              </xs:extension>
+            </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="allergies">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element ref="gc32:allergy" minOccurs="0" maxOccurs="unbounded" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="conditions">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element ref="gc32:condition" minOccurs="0" maxOccurs="unbounded" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="immunizations">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element ref="gc32:immunization" minOccurs="0" maxOccurs="unbounded" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="insuranceProviders">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element ref="gc32:insuranceProvider" minOccurs="0" maxOccurs="unbounded" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="medicalEquipment">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element ref="gc32:medicalEquipment" minOccurs="0" maxOccurs="unbounded" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="medications">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element ref="gc32:medication" minOccurs="0" maxOccurs="unbounded" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="procedures">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element ref="gc32:procedure" minOccurs="0" maxOccurs="unbounded" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="results">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element ref="gc32:result" minOccurs="0" maxOccurs="unbounded" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="socialHistory">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element ref="gc32:socialHistory" minOccurs="0" maxOccurs="unbounded" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="support">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element ref="gc32:support" minOccurs="0" maxOccurs="unbounded" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="vitalSigns">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element ref="gc32:vitalSign" minOccurs="0" maxOccurs="unbounded" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,7 @@
+<medicalEquipment xmlns="urn:hl7-org:greencda:c32">
+  <id><%= medical_equipment.id %></id>
+  <%== code_display medical_equipment, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT', "LOINC"] %>
+  <status><%= medical_equipment.status%></status>
+  <freeText><%=medical_equipment.free_text %></freeText>
+  <%== gc32_effective_time(medical_equipment)%>
+</medicalEquipment>

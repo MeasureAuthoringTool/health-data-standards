@@ -9,7 +9,7 @@ module HealthDataStandards
           allergy_element = allergy_xml.xpath("./gc32:allergy")
           allergy = Allergy.new
           extract_entry(allergy_element, allergy)
-          allergy.type = extract_node_text(allergy_element.at_xpath("./gc32:type"))
+          extract_code(allergy_element, allergy, "./gc32:type", :type)
           extract_code(allergy_element, allergy, "./gc32:reaction", :reaction)
           extract_code(allergy_element, allergy, "./gc32:severity", :severity)
           allergy

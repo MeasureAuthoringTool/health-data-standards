@@ -3,17 +3,19 @@
   <xs:complexType name="entry">
     <xs:sequence>
       <xs:element name="id" type="xs:string" />
-			<xs:element name="code" type="gc32:code" />
-			<xs:element name="status" type="xs:string" />
+      <xs:element name="code" type="gc32:code" />
+      <xs:element name="status" type="xs:string" minOccurs="0" />
+      <xs:element name="freeText" type="xs:string" minOccurs="0" />
+      <xs:element name="effectiveTime" type="gc32:interval" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="simpleCode">
     <xs:attribute name="code"/>
     <xs:attribute name="codeSystem"/>
     <xs:attribute name="codeSystemName"/>
-		<xs:attribute name="displayName"/>
+    <xs:attribute name="displayName"/>
   </xs:complexType>
-	<xs:complexType name="code">
+  <xs:complexType name="code">
 		<xs:complexContent>
 			<xs:extension base="gc32:simpleCode">
 	  	<xs:sequence>
@@ -28,10 +30,16 @@
     <xs:attribute name="unit" type="xs:string" />
 	</xs:complexType>
 	<xs:complexType name="interval">
-	  <xs:sequence>
-	    <xs:element name="start" type="xs:dateTime" />
-			<xs:element name="end" type="xs:dateTime"/>
-	  </xs:sequence>
+	  <xs:choice minOccurs="0">
+	    <xs:sequence>
+  	    <xs:element name="start" type="xs:dateTime" />
+  		  <xs:element name="end" type="xs:dateTime"/>
+  	  </xs:sequence>
+	  </xs:choice>
+	  <xs:attribute name="value" type="xs:dateTime" />
+	</xs:complexType>
+	<xs:complexType name="timestamp">
+	  <xs:attribute name="value" type="xs:dateTime" />
 	</xs:complexType>
 	<xs:complexType name="address" mixed="true">
 		<xs:annotation>
@@ -43,7 +51,6 @@
 			<xs:element name="state" minOccurs="0"/>
 			<xs:element name="postalCode" minOccurs="0"/>
 		</xs:sequence>
-		<xs:attribute name="nullFlavor" type="gc32:nullFlavorType"/>
 	</xs:complexType>
 	<xs:complexType name="organization">
 		<xs:annotation>
@@ -52,28 +59,8 @@
 		<xs:sequence>
 			<xs:element name="id" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="name" type="xs:string" minOccurs="0"/>
-			<xs:element name="address" type="gc32:addr" maxOccurs="unbounded"/>
+			<xs:element name="address" type="gc32:address" maxOccurs="unbounded"/>
 			<xs:element name="telecom" type="gc32:telecom" maxOccurs="unbounded"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="provider">
-		<xs:annotation>
-			<xs:documentation>Reusable provider information</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="id" type="xs:string" />
-			<xs:element name="name" minOccurs="0">
-			  <xs:sequence>
-			    <xs:element name="title" type="xs:string" />
-			    <xs:element name="givenName" type="xs:string" />
-			    <xs:element name="familyName" type="xs:string" />
-			  </xs:sequence>
-			</xs:element>
-			<xs:element name="npi" type="xs:string" minOccurs="0" />
-	    <xs:element name="speciality" type="xs:string" />
-	    <xs:element name="address" type="gc32:addr" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="gc32:telecom" maxOccurs="unbounded"/>
-	    <xs:element name="organization" type="gc32:organization" />
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="telecom">
@@ -81,11 +68,37 @@
 	  <xs:attribute name="value" />
 	  <xs:attribute name="preferred" type="xs:boolean" />
 	</xs:complexType>
+	<xs:complexType name="personalName">
+	  <xs:sequence>
+	    <xs:element name="title" type="xs:string" />
+	    <xs:element name="givenName" type="xs:string" />
+	    <xs:element name="familyName" type="xs:string" />
+	  </xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="person">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string" />
+			<xs:element name="name" type="gc32:personalName" minOccurs="0" />
+	    <xs:element name="address" type="gc32:address" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="gc32:telecom" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+	<xs:complexType name="provider">
+	  <xs:complexContent>
+			<xs:extension base="gc32:person">
+	  	  <xs:sequence>
+	  	    <xs:element name="npi" type="xs:string" minOccurs="0" />
+  	      <xs:element name="speciality" type="xs:string" />
+  	      <xs:element name="organization" type="gc32:organization" />
+			  </xs:sequence>
+		  </xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="result">
 		<xs:complexContent>
 			<xs:extension base="gc32:entry">
 				<xs:sequence>
-					<xs:element name="effectiveTime" type="xs:dateTime" />
 					<xs:element name="value" type="gc32:quantity" />
 					<xs:element name="interpretation" type="gc32:simpleCode" minOccurs="0"/>
 					<xs:element name="referenceRange" minOccurs="0" />

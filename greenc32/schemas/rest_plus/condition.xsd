@@ -2,25 +2,26 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:include schemaLocation="data_types.xsd"/>
   <xs:element name="condition">
-    <xs:attribute name="causeOfDeath" type="xs:boolean" />
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="gc32:entry">
           <xs:sequence>
-            <xs:element name="name" type="xs:string" />
-            <xs:element name="effectiveTime" type="gc32:interval" />
-            <xs:simpleType name="type">
-              <xs:restriction>
-                <xs:enumeration value="404684003" />
-                <xs:enumeration value="418799008" />
-                <xs:enumeration value="55607006" />
-                <xs:enumeration value="409586006" />
-                <xs:enumeration value="64572001" />
-                <xs:enumeration value="282291009" />
-                <xs:enumeration value="248536006" />
-              </xs:restriction>
-            </xs:simpleType>
+            <xs:element name="priority" type="xs:integer" />
+            <xs:element name="type">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="404684003" />
+                  <xs:enumeration value="418799008" />
+                  <xs:enumeration value="55607006" />
+                  <xs:enumeration value="409586006" />
+                  <xs:enumeration value="64572001" />
+                  <xs:enumeration value="282291009" />
+                  <xs:enumeration value="248536006" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
           </xs:sequence>
+          <xs:attribute name="causeOfDeath" type="xs:boolean" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>

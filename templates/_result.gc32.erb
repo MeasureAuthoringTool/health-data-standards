@@ -1,14 +1,8 @@
 <result xmlns="urn:hl7-org:greencda:c32">
     <id><%= result.id %></id>
-    
     <%== code_display result, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT'] %>
-    <% if result.status %>
-      <status code="completed"/>
-    <% end %>
-    
-    <effectiveTime><%= Time.at(result.time).utc %></effectiveTime>
-
-
+    <freeText><%= result.free_text %></freeText>
+    <%== gc32_effective_time(result)%>
     <value amount="<%= result.value['scalar']%>" unit="<%= result.value['units'] %>" />
     <% if result.interpretation%>
       <% code = result.interpretation.first%>

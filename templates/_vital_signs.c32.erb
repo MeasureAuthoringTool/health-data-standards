@@ -28,14 +28,20 @@
             <templateId root="1.3.6.1.4.1.19376.1.5.3.1.4.13" assigningAuthorityName="IHE PCC"/>
             <!-- Result observation template -->
             <id root="<%= UUID.generate %>"/>
-            <%== code_display(entry, {'preferred_code_sets' => ['LOINC']}) %>
+            <%== code_display(entry, {'preferred_code_sets' => ['LOINC','SNOMED']}) %>
             <text>
               <reference value="vitals-desc-<%= i %>"/>
             </text>
             <statusCode code="completed"/>
             <effectiveTime <%= value_or_null_flavor(entry.as_point_in_time) %>/>
             <% if entry.value -%>
-            <value xsi:type="PQ" value="<%= entry.value["scalar"] %>" <% if entry.value["units"]-%>unit="<%= entry.value["units"] %>"<% end -%>/>
+			   <% if is_num?(entry.value['scalar']) -%>
+                <value xsi:type="PQ" value="<%= entry.value["scalar"] %>" <% if entry.value["units"]-%>unit="<%= entry.value["units"] %>"<% end -%>/>
+	           <% elsif is_bool?(entry.value['scalar'])%>
+				 <value xsi:type="BL" value="<%= entry.value["scalar"] %>" />
+	         <% else -%>
+	            <value xsi:type="ST" ><%= entry.value["scalar"] %></value> 
+	         <% end -%>
             <% else -%>
             <value xsi:type="PQ" nullFlavor="UNK"/>
             <% end -%>

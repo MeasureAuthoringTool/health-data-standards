@@ -1,12 +1,7 @@
 <vitalSign xmlns="urn:hl7-org:greencda:c32">
     <id><%= vital_sign.id %></id>
-    
     <%== code_display vital_sign, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT'] %>
-    <% if vital_sign.status %>
-      <status code="completed"/>
-    <% end %>
-    
-    <effectiveTime><%= Time.at(vital_sign.time).utc %></effectiveTime>
-
+    <freeText><%= vital_sign.free_text %></freeText>
+    <%== gc32_effective_time(vital_sign)%>
     <value amount="<%= vital_sign.value['scalar']%>" unit="<%= vital_sign.value['units'] %>" />
 </vitalSign>

@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :allergy do |f|
     f.codes {{"RxNorm" => ["70618"]}}
     f.start_time 1264529050
-    f.type "complete"
+    f.type {{"SNOMED-CT" => ["416098002"]}}
     f.reaction {{"SNOMED-CT" => ["24484000"]}}
     f.severity {{"SNOMED-CT" => ["39579001"]}}
   end
@@ -10,21 +10,42 @@ FactoryGirl.define do
   factory :condition do |f|
     f.codes           { { "SNOMED-CT" => ["16356006"] } }
     f.cause_of_death  false
-    f.name            "Smoker"
     f.start_time      1269776601
     f.end_time        1270776601
     f.description     "Tobacco user"
+    f.type            "404684003"
   end
 
   factory :encounter do |f|
     f.codes           { { "CPT" => ["99201"] } }
     f.start_time      1267322332
     f.end_time        1267323432
-    f.description     "Outpatient encounter"
     f.admit_type      {{"SNOMED-CT" => ["12345678"]}}
     f.discharge_disposition {{"SNOMED-CT" => ["23456789"]}}
     f.free_text       "Sample Encounter"
     f.facility { FactoryGirl.build(:organization) }
+  end
+  
+  factory :entry do |f|
+    f.codes           { { "CPT" => ["99201"] } }
+    f.start_time      1267322332
+    f.end_time        1267323432
+  end
+  
+  factory :medical_equipment, class: "MedicalEquipment" do |f|
+    f.codes           { { "SNOMED" => ["598721"] } }
+    f.start_time      1267322332
+    f.end_time        1267323432
+    f.value {{scalar: 5, unit: "strips"}}
+  end
+  
+  factory :support do |f|
+    f.given_name "Bob"
+    f.family_name "Loblaw"
+    f.relationship "Brother"
+    f.type "Guardian"
+    f.address { FactoryGirl.build(:address) }
+    f.telecom { FactoryGirl.build(:telecom) }
   end
 
   factory :orderInformation do |f|
@@ -56,13 +77,20 @@ FactoryGirl.define do
 
   factory :telecom do |f|
     f.sequence(:value) { |n| 18005555555 + n }
-    f.type { %w(fax phone mobile).sample }
+    f.use { %w(fax phone mobile).sample }
     f.preferred { [true, false].sample }
   end
 
   factory :social_history do |f|
     f.type { { "SNOMED-CT" => ["398705004"]}}
     f.codes { { "SNOMED-CT" => ["363908000"]}}
+  end
+  
+  factory :advance_directive, class: Entry do |f|
+    f.codes { { "SNOMED-CT" => ["4234322"]}}
+    f.start_time { 1.month.ago }
+    f.end_time { Time.now }
+    f.free_text "Go insane"
   end
 
   factory :immunization do |f|
@@ -110,7 +138,7 @@ FactoryGirl.define do
     f.codes           { { "SNOMED-CT" => ["171055003"] } }
     f.start_time      1257901150
     f.end_time        1258901150
-    f.description     "Tobacco Cessation Counseling"
+    f.site {{ "SNOMED-CT" => ["12341234"]}}
   end
 
   factory :record do |f|

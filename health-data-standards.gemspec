@@ -7,13 +7,13 @@ Gem::Specification.new do |s|
   s.email = "talk@projectpophealth.org"
   s.homepage = "http://barrel.mitre.org/health-data-standards"
   s.authors = ["Andy Gregorowicz"]
-  s.version = '0.8.1'
+  s.version = '1.0.0'
   
   s.add_dependency 'erubis', '~> 2.6'
   s.add_dependency 'mongoid', '~> 2.4.2'
   s.add_dependency 'uuid', '~> 2.3.4'
   s.add_dependency 'builder', '~> 3.0.0'
-  s.add_dependency 'nokogiri', '~> 1.4.7'
+  s.add_dependency 'nokogiri', '>= 1.4.4'
 
   s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/*.erb') +
             ["Gemfile", "README.md", "Rakefile", "VERSION"]

@@ -16,57 +16,42 @@ module HealthDataStandards
           @entry_xpath = "//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.112']/cda:entry/cda:substanceAdministration"
           @code_xpath = "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code"
           @description_xpath = "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code/cda:originalText/cda:reference[@value]"
-
+          @type_of_med_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.8.1']/cda:code"
+          @indication_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.1.28']/cda:code"
+          @vehicle_xpath = "cda:participant/cda:participantRole[cda:code/@code='412307009' and cda:code/@codeSystem='2.16.840.1.113883.6.96']/cda:playingEntity/cda:code"
+          @fill_number_xpath = "./cda:entryRelationship[@typeCode='COMP']/cda:sequenceNumber/@value"
           @check_for_usable = true               # Pilot tools will set this to false
         end
-
-        # Traverses that HITSP C32 document passed in using XPath and creates an Array of Entry
-        # objects based on what it finds
-        # @param [Nokogiri::XML::Document] doc It is expected that the root node of this document
-        #        will have the "cda" namespace registered to "urn:hl7-org:v3"
-        #        measure definition
-        # @return [Array] will be a list of Entry objects
-        def create_entries(doc,id_map = {})
-          medication_list = []
-          entry_elements = doc.xpath(@entry_xpath)
-          entry_elements.each do |entry_element|
-            medication = Medication.new
-            extract_codes(entry_element, medication)
-            extract_dates(entry_element, medication)
-            extract_description(entry_element, medication, id_map)
-
-            if medication.description.present?
-              medication.free_text_sig = medication.description
-            end
-
-            extract_administration_timing(entry_element, medication)
-
-            medication.route = extract_code(entry_element, "./cda:routeCode")
-            medication.dose = extract_scalar(entry_element, "./cda:doseQuantity")
-            medication.site = extract_code(entry_element, "./cda:approachSiteCode", 'SNOMED-CT')
-
-            extract_dose_restriction(entry_element, medication)
         
-            medication.product_form = extract_code(entry_element, "./cda:administrationUnitCode", 'NCI Thesaurus')
-            medication.delivery_method = extract_code(entry_element, "./cda:code", 'SNOMED-CT')
-            medication.type_of_medication = extract_code(entry_element,
-                "./cda:entryRelationship[@typeCode='SUBJ']/cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.8.1']/cda:code", 'SNOMED-CT')
-            medication.indication = extract_code(entry_element,
-                "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.1.28']/cda:code", 'SNOMED-CT')
-            medication.vehicle = extract_code(entry_element,
-                    "cda:participant/cda:participantRole[cda:code/@code='412307009' and cda:code/@codeSystem='2.16.840.1.113883.6.96']/cda:playingEntity/cda:code", 'SNOMED-CT')
-
-            extract_order_information(entry_element, medication)
-        
-            extract_fulfillment_history(entry_element, medication)
-
-            if @check_for_usable
-              medication_list << medication if medication.usable?
-            else
-              medication_list << medication
-            end
+        def create_entry(entry_element, id_map={})
+          medication = Medication.new
+          extract_codes(entry_element, medication)
+          extract_dates(entry_element, medication)
+          extract_description(entry_element, medication, id_map)
+          
+          if medication.description.present?
+            medication.free_text = medication.description
           end
-          medication_list
+          
+          extract_administration_timing(entry_element, medication)
+          
+          medication.route = extract_code(entry_element, "./cda:routeCode")
+          medication.dose = extract_scalar(entry_element, "./cda:doseQuantity")
+          medication.site = extract_code(entry_element, "./cda:approachSiteCode", 'SNOMED-CT')
+          
+          extract_dose_restriction(entry_element, medication)
+          
+          medication.product_form = extract_code(entry_element, "./cda:administrationUnitCode", 'NCI Thesaurus')
+          medication.delivery_method = extract_code(entry_element, "./cda:code", 'SNOMED-CT')
+          medication.type_of_medication = extract_code(entry_element, @type_of_med_xpath, 'SNOMED-CT') if @type_of_med_xpath
+          medication.indication = extract_code(entry_element, @indication_xpath, 'SNOMED-CT')
+          medication.vehicle = extract_code(entry_element, @vehicle_xpath, 'SNOMED-CT')
+          
+          extract_order_information(entry_element, medication)
+          
+          extract_fulfillment_history(entry_element, medication)
+          
+          medication
         end
 
         private
@@ -84,7 +69,8 @@ module HealthDataStandards
               hl7_timestamp = fh_element.at_xpath('./cda:effectiveTime').try(:[], 'value')
               fulfillment_history.dispense_date = HL7Helper.timestamp_to_integer(hl7_timestamp) if hl7_timestamp
               fulfillment_history.quantity_dispensed = extract_scalar(fh_element, "./cda:quantity")
-              fulfillment_history.fill_number = fh_element.at_xpath("./cda:entryRelationship[@typeCode='COMP']/cda:sequenceNumber").try(:[], 'value').to_i
+              fill_number = fh_element.at_xpath(@fill_number_xpath).try(:text)
+              fulfillment_history.fill_number = fill_number.to_i if fill_number
               medication.fulfillmentHistory << fulfillment_history
             end
           end
@@ -128,6 +114,7 @@ module HealthDataStandards
             medication.dose_restriction = dr
           end
         end
+
       end
     end
   end

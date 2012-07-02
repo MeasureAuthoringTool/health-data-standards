@@ -6,9 +6,8 @@ module HealthDataStandards
       class ProcedureImporter < SectionImporter
 
         def initialize
-          @entry_xpath = "//cda:procedure[cda:templateId/@root='2.16.840.1.113883.10.20.1.29']"
+          @entry_xpath = "//cda:section[cda:templateId/@root='2.16.840.1.113883.10.20.1.12']/cda:entry/cda:procedure"
           @code_xpath = "./cda:code"
-          @status_xpath = "./cda:statusCode"
           @description_xpath = "./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value] "
           @check_for_usable = true               # Pilot tools will set this to false
         end
@@ -23,19 +22,24 @@ module HealthDataStandards
           procedure_list = []
           entry_elements = doc.xpath(@entry_xpath)
           entry_elements.each do |entry_element|
-            procedure = Procedure.new
-            extract_codes(entry_element, procedure)
-            extract_dates(entry_element, procedure)
-            extract_description(entry_element, procedure, id_map)
+            procedure = create_entry(entry_element, id_map)
             if @check_for_usable
               procedure_list << procedure if procedure.usable?
             else
               procedure_list << procedure
             end
-            extract_performer(entry_element, procedure)
-            extract_site(entry_element, procedure)
           end
           procedure_list
+        end
+        
+        def create_entry(entry_element, id_map={})
+          procedure = Procedure.new
+          extract_codes(entry_element, procedure)
+          extract_dates(entry_element, procedure)
+          extract_description(entry_element, procedure, id_map)
+          extract_performer(entry_element, procedure)
+          extract_site(entry_element, procedure)
+          procedure
         end
 
         private

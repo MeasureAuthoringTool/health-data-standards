@@ -7,9 +7,9 @@ class C32Test < MiniTest::Unit::TestCase
     @pi = HealthDataStandards::Import::C32::PatientImporter.instance
     @record = Record.find('4dcbecdb431a5f5878000004')
     c32 = HealthDataStandards::Export::C32.export(@record)
-    doc = Nokogiri::XML(c32)
-    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-    @patient = @pi.parse_c32(doc)
+    @doc = Nokogiri::XML(c32)
+    @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+    @patient = @pi.parse_c32(@doc)
   end
   
   def test_demographics
@@ -47,6 +47,17 @@ class C32Test < MiniTest::Unit::TestCase
     assert_equal 1266664414, vital.time
     assert_equal({"SNOMED-CT" => ["225171007"]}, vital.codes)
     assert_equal "26", vital.value[:scalar]
+
+    vital = @patient.vital_signs[1]
+    assert_equal "true", vital.value[:scalar]
+
+    vital = @patient.vital_signs[2]
+    assert_equal "testing", vital.value[:scalar]
+    # Make sure that the paths to string, physical quantity, and boolean type values is valid
+    assert_equal 1, @doc.xpath("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.14']/cda:value[. = 'testing' and @xsi:type = 'ST']").length
+    assert_equal 1, @doc.xpath("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.14']/cda:value[@value = '26'  and @xsi:type = 'PQ']").length
+    assert_equal 1, @doc.xpath("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.14']/cda:value[@value = 'true'  and @xsi:type = 'BL']").length
+
   end
   
   def test_procedures

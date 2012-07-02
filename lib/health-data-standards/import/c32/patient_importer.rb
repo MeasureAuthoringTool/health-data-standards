@@ -61,11 +61,11 @@ module HealthDataStandards
           @section_importers[:medications] = MedicationImporter.new
           @section_importers[:conditions] = ConditionImporter.new
           @section_importers[:social_history] = SectionImporter.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.19']")
-          @section_importers[:care_goals] = SectionImporter.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.1.25']")
-          @section_importers[:medical_equipment] = SectionImporter.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.128']/cda:entry/cda:supply",
-          "./cda:participant/cda:participantRole/cda:playingDevice/cda:code")
+          @section_importers[:care_goals] = CareGoalImporter.new
+          @section_importers[:medical_equipment] = MedicalEquipmentImporter.new
           @section_importers[:allergies] = AllergyImporter.new
           @section_importers[:immunizations] = ImmunizationImporter.new
+          @section_importers[:insurance_providers] = InsuranceProviderImporter.new
         end
 
         def build_id_map(doc)

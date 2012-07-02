@@ -8,7 +8,7 @@ class AllergyImporterTest < MiniTest::Unit::TestCase
     patient = pi.parse_c32(doc)
     
     allergy = patient.allergies[0]
-    
+
     assert_equal '247472004', allergy.reaction['code']
 
     allergy = patient.allergies[2]
