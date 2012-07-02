@@ -48,7 +48,8 @@ module HealthDataStandards
           '413322009'
         end
       end
-      
+
+           
       def value_or_null_flavor(time)
         if time 
           return "value='#{Time.at(time).utc.to_formatted_s(:number)}'"
@@ -68,7 +69,6 @@ module HealthDataStandards
       end
       
       def is_num?(str)
-        puts str.nil? ? "IS NIL" : "IS NOT NIL"
         Float(str || "")
       rescue ArgumentError
         false
@@ -77,7 +77,6 @@ module HealthDataStandards
       end
       
       def is_bool?(str)
-        puts (["true","false"].include? (str || "").downcase) ? "IS bool " : "IS NOT bool"
         return ["true","false"].include? (str || "").downcase
       end
     end
