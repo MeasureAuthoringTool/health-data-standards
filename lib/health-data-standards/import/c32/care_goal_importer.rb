@@ -22,7 +22,8 @@ module HealthDataStandards
                        end
             
             entry = importer.create_entry(goal_element, id_map={})
-            
+            extract_negation(goal_element, entry)
+
             
             
             if @check_for_usable
