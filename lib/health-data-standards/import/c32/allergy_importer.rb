@@ -29,6 +29,7 @@ module HealthDataStandards
             extract_codes(entry_element, allergy)
             extract_dates(entry_element, allergy)
             extract_description(entry_element, allergy, id_map)
+            extract_negation(entry_element, allergy)
             
             allergy.status = extract_status(entry_element, allergy)
             allergy.type = extract_code(entry_element, @type_xpath)

@@ -41,6 +41,7 @@ module HealthDataStandards
           extract_description(entry_element, procedure, id_map)
           extract_performer(entry_element, procedure)
           extract_site(entry_element, procedure)
+          extract_negation(entry_element, procedure)
           procedure
         end
 

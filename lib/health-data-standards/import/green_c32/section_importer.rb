@@ -142,8 +142,7 @@ module HealthDataStandards
         def extract_free_text(element, entry, free_text_element="freeText")
           entry.free_text = extract_node_text(element.at_xpath("./gc32:#{free_text_element}"))
         end
-        
-        
+                
         private
         
         def build_code(code_element)

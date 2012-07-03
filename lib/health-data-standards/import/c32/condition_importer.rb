@@ -28,6 +28,7 @@ module HealthDataStandards
             extract_description(entry_element, condition, id_map)
             extract_cause_of_death(entry_element, condition) if @cod_xpath
             extract_type(entry_element, condition)
+            extract_negation(entry_element, condition)
 
             if @provider_xpath
               entry_element.xpath(@provider_xpath).each do |provider_element|

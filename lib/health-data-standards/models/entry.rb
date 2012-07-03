@@ -16,6 +16,13 @@ class Entry
   field :value, type: Hash, default: {}
   field :free_text, type: String
   field :mood_code, type: String, default: "EVN"
+  field :negationInd, type: Boolean
+  field :negationReason, type: Hash
+  
+  alias :negation_ind :negationInd
+  alias :negation_ind= :negationInd=
+  alias :negation_reason :negationReason
+  alias :negation_reason= :negationReason=
   
   attr_protected :version
   attr_protected :_id

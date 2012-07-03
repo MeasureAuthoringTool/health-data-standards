@@ -36,6 +36,7 @@ module HealthDataStandards
           extract_value(entry_element, result)
           extract_description(entry_element, result, id_map)
           extract_interpretation(entry_element, result)
+          extract_negation(entry_element, result)
           result
         end
     
