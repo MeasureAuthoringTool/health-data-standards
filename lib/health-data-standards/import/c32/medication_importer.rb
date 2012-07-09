@@ -50,6 +50,7 @@ module HealthDataStandards
           extract_order_information(entry_element, medication)
           
           extract_fulfillment_history(entry_element, medication)
+          extract_negation(entry_element, medication)
           
           medication
         end
