@@ -1,0 +1,34 @@
+<text>
+  <table border="1" width="100%">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Codes</th>
+        <th>Time</th>
+        <% if status.present? %>
+          <th>Status</th>
+        <% end %>
+        
+         <% if value.present? %>
+          <th>Value</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% entries.each_with_index do |entry, i| -%>
+        <tr>
+          <td ID="<%= section %>-desc-<%= i %>"><%= entry.description %></td>
+          <td ID="<%= section %>-code-<%= i %>"><%= entry.codes_to_s %><br/><i><%= entry.specifics %></i></td>
+          <td><%= entry.times_to_s %></td>
+           <% if status.present? %>
+            <td><%= entry.status %></td>
+           <% end %>
+           
+            <% if value.present? %>
+              <td><%= entry.value["scalar"] %></td>
+           <% end %>
+        </tr>
+      <%- end -%>
+    </tbody>
+  </table>
+</text>
