@@ -42,6 +42,7 @@ module HealthDataStandards
           extract_performer(entry_element, encounter)
           extract_facility(entry_element, encounter)
           extract_reason(entry_element, encounter, id_map)
+          extract_negation(entry_element, encounter)
           extract_admission(entry_element, encounter)
           encounter
         end

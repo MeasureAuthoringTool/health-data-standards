@@ -17,6 +17,8 @@ class ImmunizationImporterTest < MiniTest::Unit::TestCase
     immunization = patient.immunizations[3]
     assert_equal true, immunization.refusal_ind
     assert_equal 'PATOBJ', immunization.refusal_reason['code']
+    assert_equal true, immunization.negation_ind
+    assert_equal 'PATOBJ', immunization.negation_reason['code']
 
     assert_equal immunization.performer.given_name, 'FirstName'
     assert_equal '100 Bureau Drive', immunization.performer.addresses.first.street.first
