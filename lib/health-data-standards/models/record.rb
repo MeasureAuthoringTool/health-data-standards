@@ -15,6 +15,7 @@ class Record
   field :test_id, type: BSON::ObjectId
   field :marital_status, type: Hash # TODO
   field :medical_record_number, type: String
+  field :expired, type: Boolean
 
   embeds_many :allergies
   embeds_many :care_goals, class_name: "Entry" # This can be any number of different entry types
