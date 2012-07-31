@@ -16,7 +16,7 @@ class Record
   field :marital_status, type: Hash # TODO
   field :medical_record_number, type: String
   field :expired, type: Boolean
-  field :clinical_trial_participant, type: Boolean # Currently not implemented in the C32 importer
+  field :clinicalTrialParticipant, type: Boolean   # Currently not implemented in the C32 importer
                                                    # because it cannot be easily represented in a
                                                    # HITSP C32
 
@@ -50,6 +50,9 @@ class Record
   def over_18?
     Time.at(birthdate) < Time.now.years_ago(18)
   end
+  
+  alias :clinical_trial_participant :clinicalTrialParticipant
+  alias :clinical_trial_participant= :clinicalTrialParticipant=
   
   private 
   
