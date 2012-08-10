@@ -1,10 +1,7 @@
 <component>
   <!--Problems-->
   <section>
-    <templateId root="2.16.840.1.113883.3.88.11.83.103" assigningAuthorityName="HITSP/C83"/>
-    <templateId root="1.3.6.1.4.1.19376.1.5.3.1.3.6" assigningAuthorityName="IHE PCC"/>
-    <templateId root="2.16.840.1.113883.10.20.1.11" assigningAuthorityName="HL7 CCD"/>
-<templateId root="2.16.840.1.113883.10.20.22.4.3"/>
+    <templateId root="2.16.840.1.113883.10.20.22.4.3"/>
 
     <!--Problems section template-->
     <code code="11450-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Problem list"/>
@@ -13,11 +10,7 @@
     <% entries.each_with_index do |entry, i| -%>
     <entry typeCode="DRIV">
       <act classCode="ACT" moodCode="EVN">
-        <templateId root="2.16.840.1.113883.3.88.11.83.7" assigningAuthorityName="HITSP C83"/>
-        <templateId root="2.16.840.1.113883.10.20.1.27"/>
-        <templateId root="1.3.6.1.4.1.19376.1.5.3.1.4.5.1" assigningAuthorityName="IHE PCC"/>
-        <templateId root="1.3.6.1.4.1.19376.1.5.3.1.4.5.2" assigningAuthorityName="IHE PCC"/>
-<templateId root="2.16.840.1.113883.10.20.22.4.3"/>
+        <templateId root="2.16.840.1.113883.10.20.22.4.3"/>
 
         <!-- Problem act template -->
         <id root="<%= UUID.generate %>"/>
@@ -32,9 +25,8 @@
         </effectiveTime>
         <entryRelationship typeCode="SUBJ" inversionInd="false">
           <observation classCode="OBS" moodCode="EVN">
-<templateId root="2.16.840.1.113883.10.20.22.4.4"/>
-            <templateId root="1.3.6.1.4.1.19376.1.5.3.1.4.5" assigningAuthorityName="IHE PCC"/>
-            <templateId root="2.16.840.1.113883.10.20.1.28" assigningAuthorityName="CCD"/>
+            <templateId root="2.16.840.1.113883.10.20.22.4.4"/>
+
             <!--Problem observation template - NOT episode template-->
             <id root="<%= UUID.generate %>"/>
             <code code="64572001" displayName="Condition" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
@@ -52,8 +44,7 @@
             <% if entry.status -%>
             <entryRelationship typeCode="REFR">
               <observation classCode="OBS" moodCode="EVN">
-                <templateId root="2.16.840.1.113883.10.20.1.50"/>
-<templateId root="2.16.840.1.113883.10.20.22.4.6"/>
+                <templateId root="2.16.840.1.113883.10.20.22.4.6"/>
                 <!-- Problem status observation template -->
                 <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
                 <statusCode code="completed"/>
