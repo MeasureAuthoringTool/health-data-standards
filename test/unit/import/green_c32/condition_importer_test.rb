@@ -17,7 +17,7 @@ module GreenC32
       assert_equal ["24930006"],  condition.codes[code_system]
       assert_equal 1327932000, condition.start_time
       assert_equal 1328018400, condition.end_time
-      assert_equal "completed", condition.status
+      assert_equal "active", condition.status
       assert_equal "404684003", condition.type
     end
   end

@@ -34,7 +34,7 @@ class EntryTest < MiniTest::Unit::TestCase
   
   def test_from_event_hash
     hash = {'code' => 123, 'code_set' => "RxNorm", 'value' => 50, 'unit' => "mm", 
-            'description' => "Test", 'specifics' => "Specific", 'status' => "completed"}
+            'description' => "Test", 'specifics' => "Specific", 'status' => "active"}
             
     entry = Entry.from_event_hash(hash)
     

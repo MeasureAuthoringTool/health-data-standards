@@ -11,7 +11,7 @@ class Entry
   field :time, type: Integer
   field :start_time, type: Integer
   field :end_time, type: Integer
-  field :status, type: String
+  field :status_code, type: Hash
   field :codes, type: Hash, default: {}
   field :value, type: Hash, default: {}
   field :free_text, type: String
@@ -71,6 +71,39 @@ class Entry
       "#{start_string} - #{end_string}"
     elsif time.present?
       Time.at(time).utc.to_formatted_s(:long_ordinal)
+    end
+  end
+  
+  # Entry previously had a status field that dropped the code set and converted
+  # the status to a String. Entry now preserves the original code and code set.
+  # This method is here to maintain backwards compatibility.
+  def status
+    if status_code.present?
+      if status_code['HL7 ActStatus']
+        status_code['HL7 ActStatus'].first
+      elsif status_code['SNOMED-CT']
+        case status_code['SNOMED-CT'].first
+        when '55561003'
+          'active'
+        when '73425007'
+          'inactive'
+        when '413322009'      
+          'resolved'
+        end
+      end
+    end
+  end
+  
+  def status=(status_text)
+    case status_text.to_s # makes sure that any Symbols passed in are stringified
+    when 'active'
+      self.status_code = {'SNOMED-CT' => ['55561003'], 'HL7 ActStatus' => ['active']}
+    when 'inactive'
+      self.status_code = {'SNOMED-CT' => ['73425007']}
+    when 'resolved'
+      self.status_code = {'SNOMED-CT' => ['413322009']}
+    when 'completed'
+      self.status_code = {'HL7 ActStatus' => ['completed']}
     end
   end
   

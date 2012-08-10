@@ -81,14 +81,7 @@ module HealthDataStandards
         def extract_status(parent_element, entry)
           status_element = parent_element.at_xpath(@status_xpath)
           if status_element
-            case status_element['code']
-            when '55561003'
-              entry.status = :active
-            when '73425007'
-              entry.status = :inactive
-            when '413322009'      
-              entry.status = :resolved
-            end
+            entry.status_code = {CodeSystemHelper.code_system_for(status_element['codeSystem']) => [status_element['code']]}
           end
         end
 
