@@ -6,12 +6,15 @@
   <templateId root="2.16.840.1.113883.10.20.3" assigningAuthorityName="HL7/CDT Header"/>
   <templateId root="1.3.6.1.4.1.19376.1.5.3.1.1.1" assigningAuthorityName="IHE/PCC"/>
   <templateId root="2.16.840.1.113883.3.88.11.32.1" assigningAuthorityName="HITSP/C32"/>
+  <templateId root="2.16.840.1.113883.10.20.22.1.1" />
+  <templateId root='2.16.840.1.113883.10.20.22.1.2'/> 
+  
   <id root="2.16.840.1.113883.3.72" extension="<%= patient.id %>" assigningAuthorityName="NIST Healthcare Project"/>
   <code code="34133-9" displayName="Summarization of episode note" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
   <title>Cypress C32 Patient Test Record: <%= patient.first %> <%= patient.last %></title>
   <effectiveTime value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
   <confidentialityCode code="N"/>
-  <languageCode code="nn-CC"/>
+  <languageCode code="en-US"/>
   <recordTarget>
     <patientRole>
       <id root="Cypress" extension="<%= patient.id %>"/>
@@ -62,7 +65,7 @@
   <custodian>
     <assignedCustodian>
       <representedCustodianOrganization>
-        <id root="2.16.840.1.113883.3.72"/>
+        <id/>
         <name>Cypress</name>
         <telecom value="tel:+1-781-271-3000"/>
         <addr>
@@ -81,28 +84,41 @@
       <% else %>
         <%== render :partial => 'allergies_no_current', :locals => {:entries => patient.allergies} %>
       <% end -%>
-      <% if patient.medications.present? -%>
+     	
+ 	<% if patient.medications.present? -%>
         <%== render :partial => 'medications', :locals => {:entries => patient.medications} %>
       <% else %>
         <%== render :partial => 'medications_no_current', :locals => {:entries => patient.medications} %>
       <% end -%>
-      <% if patient.encounters.present? -%>
-        <%== render :partial => 'encounters', :locals => {:entries => patient.encounters} %>
-      <% end -%>
+
+      <% if patient.results.present? -%>
+        <%== render :partial => 'results', :locals => {:entries => patient.results} %>
+      <% else -%>
+		 <%== render :partial => 'results_no_current', :locals => {:entries => patient.medications} %>
+		<% end %>
+
       <% if patient.conditions.present? -%>
         <%== render :partial => 'conditions', :locals => {:entries => patient.conditions} %>
       <% else %>
         <%== render :partial => 'conditions_no_current', :locals => {:entries => patient.conditions} %>
       <% end -%>
+
+      <% if patient.procedures.present? -%>
+        <%== render :partial => 'procedures', :locals => {:entries => patient.procedures} %>
+       <% else %>
+        <%== render :partial => 'procedures_no_current', :locals => {:entries => patient.conditions} %>
+      <% end -%>
+	
+
+       
+	  <% if patient.encounters.present? -%>
+         <%== render :partial => 'encounters', :locals => {:entries => patient.encounters} %>
+      <% end -%>
+
       <% if patient.vital_signs.present? -%>
         <%== render :partial => 'vital_signs', :locals => {:entries => patient.vital_signs} %>
       <% end -%>
-      <% if patient.procedures.present? -%>
-        <%== render :partial => 'procedures', :locals => {:entries => patient.procedures} %>
-      <% end -%>
-      <% if patient.results.present? -%>
-        <%== render :partial => 'results', :locals => {:entries => patient.results} %>
-      <% end -%>
+
       <% if patient.immunizations.present? -%>
         <%== render :partial => 'immunizations', :locals => {:entries => patient.immunizations} %>
       <% end -%>
