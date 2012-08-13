@@ -4,6 +4,7 @@ class Condition < Entry
   field :priority,      type: Integer
   field :name,          type: String
   field :ordinality,    type: String
+  field :severity,      type: Hash # Currently unsupported by any importers
 
   embeds_many :treating_provider,  class_name: "Provider"
   
