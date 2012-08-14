@@ -1,0 +1,13 @@
+<% preferred_code = entry.preferred_code(preferred_code_sets)
+  if preferred_code 
+  code_system_oid = HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(preferred_code['code_set'])
+  -%>
+<code code="<%= preferred_code['code'] %>" codeSystem="<%= code_system_oid %>" displayName="<%= entry.description %>">
+<% else -%>
+<code nullFlavor="UNK">
+<% end -%>
+  <originalText><reference value="#<%= section %>-desc-<%= i %>"/></originalText>
+  <% entry.translation_codes(preferred_code_sets).each do |translation| -%>
+  <translation code="<%= translation['code'] %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(translation['code_set']) %>" />
+  <% end -%>
+</code>

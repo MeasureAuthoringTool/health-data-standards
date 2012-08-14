@@ -4,7 +4,10 @@ module HealthDataStandards
       attr_accessor :template_format
 
       def template_root
-        File.join(File.dirname(__FILE__), '..', '..', '..', 'templates')
+        if self.template_format == 'ccda'
+          return File.join(File.dirname(__FILE__), '..', '..', '..', 'templates', 'ccda')
+        end
+          return File.join(File.dirname(__FILE__), '..', '..', '..', 'templates')
       end
 
       def template(template_name)
