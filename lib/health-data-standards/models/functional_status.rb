@@ -18,8 +18,8 @@
 # Stage 2 MU CQMs. If importers are created from C32 or CCDA, the information
 # can be stored here, but it will be a lossy transformation.
 class FunctionalStatus < Entry
-	# Either "condition" or "result"
-	field :type, type: String
-	# A coded value. Like a code for patient supplied.
-	field :source, type: Hash
+  # Either "condition" or "result"
+  field :type, type: String
+  # A coded value. Like a code for patient supplied.
+  field :source, type: Hash
 end
