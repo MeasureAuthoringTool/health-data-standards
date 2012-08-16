@@ -1,0 +1,25 @@
+<component>
+  <!--Encounters-->
+  <section>
+    <templateId root="2.16.840.1.113883.10.20.22.2.22" /> <!-- CCDA Template id -->
+    <!--Encounters section template-->
+    <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="History of encounters"/>
+    <title>Encounters</title>
+    <%== render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'encounters'} %>
+    <% entries.each_with_index do |entry, i| -%>
+    <entry typeCode="DRIV">
+      <encounter classCode="ENC" moodCode="EVN">
+		    <templateId root="2.16.840.1.113883.10.20.22.4.49"/>
+        <!-- Encounter activity template -->
+        <id root="<%= UUID.generate %>"/>
+        <%== render :partial => 'code_with_reference', :locals => {:entry => entry, :i => i, :section => 'encounters',
+                                                                   :preferred_code_sets => ['CPT']} %>
+        <text>
+          <reference value="#encounters-desc-<%= i %>"/>
+        </text>
+        <effectiveTime <%= value_or_null_flavor(entry.as_point_in_time) %>/>
+      </encounter>
+    </entry>
+    <% end -%>
+  </section>
+</component>
