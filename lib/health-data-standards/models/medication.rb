@@ -45,6 +45,6 @@ class Medication < Entry
   alias :patient_instructions= :patientInstructions=
   alias :dose_indicator :doseIndicator
   alias :dose_indicator= :doseIndicator=
-  alias :cumulative_medicatio_duration :cumulativeMedicationDuration
-  alias :cumulative_medicatio_duration= :cumulativeMedicationDuration=
+  alias :cumulative_medication_duration :cumulativeMedicationDuration
+  alias :cumulative_medication_duration= :cumulativeMedicationDuration=
 end
