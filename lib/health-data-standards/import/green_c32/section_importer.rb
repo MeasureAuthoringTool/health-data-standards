@@ -89,11 +89,14 @@ module HealthDataStandards
           
           return {} unless node_value
           
-          {'scalar' => node_value, "unit" => node_units}
+          {"scalar" => node_value, "unit" => node_units}
         end
         
         def extract_value(element, entry)
-          entry.value = extract_quantity(element, @value)
+          pq = extract_quantity(element, @value)
+          if pq.present?
+            entry.values << PhysicalQuantityResultValue.new(pq)
+          end
         end
         
         def extract_entry(element, entry)

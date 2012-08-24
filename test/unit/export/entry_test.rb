@@ -23,7 +23,7 @@ module GreenC32
       
       result2 = result_instance.import(doc)
       
-      assert_equal result.value,            result2.value
+      assert_equal result.values,           result2.values
       assert_equal result.description,      result2.description
       assert_equal result.codes,            result2.codes
       assert_equal result.time,             result2.time
@@ -44,7 +44,7 @@ module GreenC32
       
       vital_sign2 = vital_sign_instance.import(doc)
 
-      assert_equal vital_sign.value,        vital_sign2.value
+      assert_equal vital_sign.values,       vital_sign2.values
       assert_equal vital_sign.description,  vital_sign2.description
       assert_equal vital_sign.codes,        vital_sign2.codes
       assert_equal vital_sign.time,         vital_sign2.time

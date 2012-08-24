@@ -25,7 +25,7 @@
            <% end %>
            
             <% if value.present? %>
-              <td><%= entry.value["scalar"] %></td>
+              <td><%= entry.values.first.try(:scalar) %></td>
            <% end %>
         </tr>
       <%- end -%>

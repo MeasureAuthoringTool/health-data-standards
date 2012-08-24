@@ -46,13 +46,13 @@ class C32Test < MiniTest::Unit::TestCase
     vital = @patient.vital_signs[0]
     assert_equal 1266664414, vital.time
     assert_equal({"SNOMED-CT" => ["225171007"]}, vital.codes)
-    assert_equal "26", vital.value[:scalar]
+    assert_equal "26", vital.values.first.scalar
 
     vital = @patient.vital_signs[1]
-    assert_equal "true", vital.value[:scalar]
+    assert_equal "true", vital.values.first.scalar
 
     vital = @patient.vital_signs[2]
-    assert_equal "testing", vital.value[:scalar]
+    assert_equal "testing", vital.values.first.scalar
     # Make sure that the paths to string, physical quantity, and boolean type values is valid
     assert_equal 1, @doc.xpath("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.14']/cda:value[. = 'testing' and @xsi:type = 'ST']").length
     assert_equal 1, @doc.xpath("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.14']/cda:value[@value = '26'  and @xsi:type = 'PQ']").length

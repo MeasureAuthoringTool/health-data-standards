@@ -19,7 +19,7 @@ class SectionImporterTest < MiniTest::Unit::TestCase
     entry = entries[2]
     assert_equal 1026777600, entry.time
     assert entry.codes['SNOMED-CT'].include?('314443004')
-    assert_equal 'eleventeen', entry.value[:scalar]
+    assert_equal 'eleventeen', entry.values.first.scalar
     assert_equal 'active', entry.status
   end
 

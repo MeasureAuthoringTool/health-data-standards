@@ -61,7 +61,11 @@ module HealthDataStandards
       
       def quantity_display(value, tag_name="value")
         return unless value
-        "<#{tag_name} value=\"#{value['value']}\" units=\"#{value['unit']}\" />"
+        if value.respond_to?(:scalar)
+          "<#{tag_name} value=\"#{value.scalar}\" units=\"#{value.units}\" />"
+        else
+          "<#{tag_name} value=\"#{value['value']}\" units=\"#{value['unit']}\" />"
+        end
       end
 
       def time_if_not_nil(*args)

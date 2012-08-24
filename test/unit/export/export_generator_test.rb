@@ -17,7 +17,7 @@ class ExportGeneratorTest < MiniTest::Unit::TestCase
     
     result2 = ri.import(doc)
     
-    assert_equal result.value, result2.value
+    assert_equal result.values, result2.values
     assert_equal result.description, result2.description
   end
 end
