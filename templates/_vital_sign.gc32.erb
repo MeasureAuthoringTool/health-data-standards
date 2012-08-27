@@ -3,5 +3,5 @@
     <%== code_display vital_sign, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT'] %>
     <freeText><%= vital_sign.free_text %></freeText>
     <%== gc32_effective_time(vital_sign)%>
-    <value amount="<%= vital_sign.value['scalar']%>" unit="<%= vital_sign.value['units'] %>" />
+    <value amount="<%= vital_sign.values.first.try(:scalar) %>" unit="<%= vital_sign.values.first.try(:units) %>" />
 </vitalSign>

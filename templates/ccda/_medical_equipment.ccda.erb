@@ -1,0 +1,38 @@
+<component>
+  <!--Medical Equipment - Not C32-->
+  <section>
+    <templateId root="2.16.840.1.113883.10.20.22.2.23" />
+    <!-- Medical equipment section template -->
+    <code code="46264-8" codeSystem="2.16.840.1.113883.6.1"/>
+    <title>Medical Equipment</title>
+    <%== render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'medical_equipment'} %>
+    <% entries.each_with_index do |entry, i| -%>
+    <entry typeCode="DRIV">
+      <supply classCode="SPLY" moodCode="EVN">
+        <templateId root="2.16.840.1.113883.10.20.22.4.50"/>
+        <!-- Supply activity template -->
+        <id root="<%= UUID.generate %>"/>
+        <statusCode code="completed"/>
+        <effectiveTime <%= value_or_null_flavor(entry.as_point_in_time) %>/>
+        <participant typeCode="DEV">
+          <participantRole classCode="MANU">
+            <templateId root="2.16.840.1.113883.10.20.22.4.37"/>
+            <!-- Product instance template -->
+            <addr/>
+            <telecom/>
+            <playingDevice>
+              <%== code_display(entry, {:preferred_code_sets => ['SNOMED-CT']}) %>
+            </playingDevice>
+            <% if entry.manufacturer %>
+            <scopingEntity>
+              <id root="<%= UUID.generate %>"/>
+              <desc><%= entry.manufacturer %></desc>
+            </scopingEntity>
+            <% end %>
+          </participantRole>
+        </participant>
+      </supply>
+    </entry>
+    <% end -%>
+  </section>
+</component>

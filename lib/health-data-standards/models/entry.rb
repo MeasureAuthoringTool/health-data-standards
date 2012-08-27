@@ -1,61 +1,34 @@
 class Entry
 
   include Mongoid::Document
+  include ThingWithCodes
 
   # embedded_in :entry_list, polymorphic: true
   
   embedded_in :record
+  
+  embeds_many :values, class_name: "ResultValue"
   
   field :description, type: String
   field :specifics, type: String
   field :time, type: Integer
   field :start_time, type: Integer
   field :end_time, type: Integer
-  field :status, type: String
-  field :codes, type: Hash, default: {}
-  field :value, type: Hash, default: {}
+  field :status_code, type: Hash
   field :free_text, type: String
   field :mood_code, type: String, default: "EVN"
+  field :negationInd, type: Boolean
+  field :negationReason, type: Hash
+  
+  alias :negation_ind :negationInd
+  alias :negation_ind= :negationInd=
+  alias :negation_reason :negationReason
+  alias :negation_reason= :negationReason=
   
   attr_protected :version
   attr_protected :_id
   attr_protected :created_at
   attr_protected :updated_at
-
-  def single_code_value?
-    codes.size == 1 && codes.first[1].size == 1
-  end
-
-  def codes_to_s
-    codes.map {|code_set, codes| "#{code_set}: #{codes.join(', ')}"}.join(' ')
-  end
-  
-  # Will return a single code and code set if one exists in the code sets that are
-  # passed in. Returns a hash with a key of code and code_set if found, nil otherwise
-  def preferred_code(preferred_code_sets, codes_attribute=:codes)
-    codes_value = send(codes_attribute)
-    matching_code_sets = preferred_code_sets & codes_value.keys
-    if matching_code_sets.present?
-      code_set = matching_code_sets.first
-      {'code' => codes_value[code_set].first, 'code_set' => code_set}
-    else
-      nil
-    end
-  end
-  
-  # Will return an Array of code and code_set hashes for all codes for this entry
-  # except for the preferred_code. It is intended that these codes would be used in
-  # the translation elements as childern of a CDA code element
-  def translation_codes(preferred_code_sets)
-    tx_codes = []
-    codes.each_pair do |code_set, code_list|
-      code_list.each do |code|
-        tx_codes << {'code' => code, 'code_set' => code_set}
-      end
-    end
-    
-    tx_codes - [preferred_code(preferred_code_sets)]
-  end
   
   def times_to_s
     if start_time.present? || end_time.present?
@@ -67,24 +40,38 @@ class Entry
     end
   end
   
-  # def to_effective_time(xml)
-  #   if time.present?
-  #     xml.effectiveTime("value" => Time.at(time).utc.to_formatted_s(:number))
-  #   else
-  #     xml.effectiveTime do
-  #       if start_time.present?
-  #         xml.low("value" => Time.at(start_time).utc.to_formatted_s(:number))
-  #       else
-  #         xml.low("nullFlavor" => "UNK")
-  #       end
-  #       if end_time.present?
-  #         xml.high("value" => Time.at(end_time).utc.to_formatted_s(:number))          
-  #       else
-  #         xml.high("nullFlavor" => "UNK")          
-  #       end
-  #     end
-  #   end
-  # end
+  # Entry previously had a status field that dropped the code set and converted
+  # the status to a String. Entry now preserves the original code and code set.
+  # This method is here to maintain backwards compatibility.
+  def status
+    if status_code.present?
+      if status_code['HL7 ActStatus']
+        status_code['HL7 ActStatus'].first()
+      elsif status_code['SNOMED-CT']
+        case status_code['SNOMED-CT'].first()
+        when '55561003'
+          'active'
+        when '73425007'
+          'inactive'
+        when '413322009'      
+          'resolved'
+        end
+      end
+    end
+  end
+  
+  def status=(status_text)
+    case status_text.to_s # makes sure that any Symbols passed in are stringified
+    when 'active'
+      self.status_code = {'SNOMED-CT' => ['55561003'], 'HL7 ActStatus' => ['active']}
+    when 'inactive'
+      self.status_code = {'SNOMED-CT' => ['73425007']}
+    when 'resolved'
+      self.status_code = {'SNOMED-CT' => ['413322009']}
+    when 'completed'
+      self.status_code = {'HL7 ActStatus' => ['completed']}
+    end
+  end
   
   def self.from_event_hash(event)
     entry = Entry.new
@@ -107,20 +94,12 @@ class Entry
     entry
   end
 
-  # Add a code into the Entry
-  # @param [String] code the code to add
-  # @param [String] code_system the code system that the code belongs to
-  def add_code(code, code_system)
-    self.codes[code_system] ||= []
-    self.codes[code_system] << code
-  end
-
   # Sets the value for the entry
   # @param [String] scalar the value
   # @param [String] units the units of the scalar value
   def set_value(scalar, units=nil)
-    self.value[:scalar] = scalar
-    self.value[:units] = units
+    pq_value = PhysicalQuantityResultValue.new(scalar: scalar, units: units)
+    self.values << pq_value
   end
 
   # Checks if a code is in the list of possible codes
@@ -186,8 +165,8 @@ class Entry
   def to_hash
     entry_hash = {}
     entry_hash['codes'] = codes
-    unless value.empty?
-      entry_hash['value'] = value
+    unless values.empty?
+      entry_hash['value'] = values
     end
     
     if is_date_range?

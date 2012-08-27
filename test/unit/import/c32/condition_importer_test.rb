@@ -13,6 +13,7 @@ class AllergyImporterTest < MiniTest::Unit::TestCase
     assert ! condition.cause_of_death
     assert condition.codes['SNOMED-CT'].include? '195967001'
     assert_equal Time.gm(1950).to_i, condition.start_time
+    assert_equal 1, condition.priority
 
   end
 end

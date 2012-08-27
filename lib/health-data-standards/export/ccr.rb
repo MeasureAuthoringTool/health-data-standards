@@ -163,10 +163,13 @@ module HealthDataStandards
 
            xml.Source
            xml.TestResult do
-             xml.Value(res.value["scalar"])
-             xml.Units do
-               xml.Unit(res.value["units"])
-             end          
+             rv = res.values.first
+             if rv.present?
+               xml.Value(rv.scalar)
+               xml.Units do
+                 xml.Unit(rv.units)
+               end
+             end
            end
         end
        end

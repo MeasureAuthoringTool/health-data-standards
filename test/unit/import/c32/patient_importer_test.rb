@@ -23,17 +23,30 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert_equal "CDC-RE", patient.ethnicity[:code_set]
     
   end
-  
+
   def test_parse_c32
     doc = Nokogiri::XML(File.new('test/fixtures/c32_fragments/0032/numerator.xml'))
+    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+
+    patient = HealthDataStandards::Import::C32::PatientImporter.instance.parse_c32(doc)
+    patient.save!
+
+    assert_equal 'FirstName', patient.first
+    assert_equal 1, patient.encounters.size
+    assert ! patient.expired
+
+    assert_equal 1270598400, patient.encounters.first.time
+  end
+
+  def test_expired
+    doc = Nokogiri::XML(File.new('test/fixtures/c32_fragments/expired_person.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     
     patient = HealthDataStandards::Import::C32::PatientImporter.instance.parse_c32(doc)
     patient.save!
     
-    assert_equal 'FirstName', patient.first
-    assert_equal 1, patient.encounters.size
+    assert_equal 1, patient.conditions.size
     
-    assert_equal 1270598400, patient.encounters.first.time
+    assert patient.expired
   end
 end

@@ -7,7 +7,6 @@ module HealthDataStandards
         def initialize
           @entry_xpath = "//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.127']/cda:entry/cda:encounter"
           @code_xpath = "./cda:code"
-          @status_xpath = "./cda:statusCode"
           @description_xpath = "./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value]"
           @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:act"
           @check_for_usable = true               # Pilot tools will set this to false
@@ -42,6 +41,7 @@ module HealthDataStandards
           extract_performer(entry_element, encounter)
           extract_facility(entry_element, encounter)
           extract_reason(entry_element, encounter, id_map)
+          extract_negation(entry_element, encounter)
           extract_admission(entry_element, encounter)
           encounter
         end
@@ -56,10 +56,11 @@ module HealthDataStandards
         def extract_facility(parent_element, encounter)
           participant_element = parent_element.at_xpath("./cda:participant[@typeCode='LOC']/cda:participantRole[@classCode='SDLOC']")
           if (participant_element)
-            org = Organization.new(name: participant_element.at_xpath("./cda:playingEntity/cda:name").try(:text))
-            org.addresses = participant_element.xpath("./cda:addr").try(:map) {|ae| import_address(ae)}
-            org.telecoms = participant_element.xpath("./cda:telecom").try(:map) {|te| import_telecom(te)}
-            encounter.facility = org
+            facility = Facility.new(name: participant_element.at_xpath("./cda:playingEntity/cda:name").try(:text))
+            facility.addresses = participant_element.xpath("./cda:addr").try(:map) {|ae| import_address(ae)}
+            facility.telecoms = participant_element.xpath("./cda:telecom").try(:map) {|te| import_telecom(te)}
+            facility.code = extract_code(participant_element, './cda:code')
+            encounter.facility = facility
           end
         end
     

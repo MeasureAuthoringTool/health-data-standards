@@ -97,8 +97,21 @@ module HealthDataStandards
           c32_patient = Record.new
           get_demographics(c32_patient, doc)
           create_c32_hash(c32_patient, doc)
+          check_for_cause_of_death(c32_patient)
           
           c32_patient
+        end
+        
+        # Checks the conditions to see if any of them have a cause of death set. If they do,
+        # it will set the expired field on the Record. This is done here rather than replacing
+        # the expried method on Record because other formats may actully tell you whether
+        # a patient is dead or not.
+        # @param [Record] c32_patient to check the conditions on and set the expired
+        #               property if applicable
+        def check_for_cause_of_death(c32_patient)
+          if c32_patient.conditions.any? {|condition| condition.cause_of_death }
+            c32_patient.expired = true
+          end
         end
 
         # Create a simple representation of the patient from a HITSP C32

@@ -48,7 +48,8 @@ module HealthDataStandards
           '413322009'
         end
       end
-      
+
+           
       def value_or_null_flavor(time)
         if time 
           return "value='#{Time.at(time).utc.to_formatted_s(:number)}'"
@@ -60,11 +61,27 @@ module HealthDataStandards
       
       def quantity_display(value, tag_name="value")
         return unless value
-        "<#{tag_name} value=\"#{value['value']}\" units=\"#{value['unit']}\" />"
+        if value.respond_to?(:scalar)
+          "<#{tag_name} value=\"#{value.scalar}\" units=\"#{value.units}\" />"
+        else
+          "<#{tag_name} value=\"#{value['value']}\" units=\"#{value['unit']}\" />"
+        end
       end
 
       def time_if_not_nil(*args)
         args.compact.map {|t| Time.at(t).utc}.first
+      end
+      
+      def is_num?(str)
+        Float(str || "")
+      rescue ArgumentError
+        false
+      else
+        true
+      end
+      
+      def is_bool?(str)
+        return ["true","false"].include? (str || "").downcase
       end
     end
   end

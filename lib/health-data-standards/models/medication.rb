@@ -18,6 +18,10 @@ class Medication < Entry
   field :deliveryMethod, type: Hash
   field :patientInstructions, type: String
   field :doseIndicator, type: String
+
+  # There are currently no importers that support this field
+  # It is expected to be a scalar and value, such as 7 days
+  field :cumulativeMedicationDuration, type: Hash
   
   alias :administration_timing :administrationTiming
   alias :administration_timing= :administrationTiming=
@@ -41,4 +45,6 @@ class Medication < Entry
   alias :patient_instructions= :patientInstructions=
   alias :dose_indicator :doseIndicator
   alias :dose_indicator= :doseIndicator=
+  alias :cumulative_medication_duration :cumulativeMedicationDuration
+  alias :cumulative_medication_duration= :cumulativeMedicationDuration=
 end

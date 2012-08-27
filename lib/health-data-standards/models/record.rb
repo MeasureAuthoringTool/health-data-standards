@@ -15,6 +15,10 @@ class Record
   field :test_id, type: BSON::ObjectId
   field :marital_status, type: Hash # TODO
   field :medical_record_number, type: String
+  field :expired, type: Boolean
+  field :clinicalTrialParticipant, type: Boolean   # Currently not implemented in the C32 importer
+                                                   # because it cannot be easily represented in a
+                                                   # HITSP C32
 
   embeds_many :allergies
   embeds_many :care_goals, class_name: "Entry" # This can be any number of different entry types
@@ -30,9 +34,11 @@ class Record
   embeds_many :support
   embeds_many :advance_directives, class_name: "Entry"
   embeds_many :insurance_providers
+  embeds_many :functional_statuses
 
   Sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
-   :medications, :procedures, :results, :social_history, :vital_signs, :support, :advanced_directives]
+   :medications, :procedures, :results, :social_history, :vital_signs, :support, :advanced_directives,
+   :functional_statuses]
 
   embeds_many :provider_performances
   
@@ -46,6 +52,9 @@ class Record
   def over_18?
     Time.at(birthdate) < Time.now.years_ago(18)
   end
+  
+  alias :clinical_trial_participant :clinicalTrialParticipant
+  alias :clinical_trial_participant= :clinicalTrialParticipant=
   
   private 
   

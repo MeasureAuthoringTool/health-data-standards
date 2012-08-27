@@ -119,7 +119,7 @@
                         <td ID="vitals-code-<%= i %>"><b><%= entry.codes_to_s %></b><br/><i><%= entry.specifics %></i></td>
                         <td><%= entry.times_to_s %></td> 
                         <td> </td>                          
-                        <td><%= entry.value["scalar"] %></td>   
+                        <td><%= entry.values.first.try(:scalar) %></td>   
                                          
                       </tr>
                     <% end %>
@@ -140,7 +140,7 @@
                         <td ID="results-code-<%= i %>"><b><%= entry.codes_to_s %></b><br/><i><%= entry.specifics %></i></td>
                         <td><%= entry.times_to_s %></td>
                         <td> </td>   
-                        <td><%= entry.value["scalar"] %></td>  
+                        <td><%= entry.values.first.try(:scalar) %></td>  
                                       
                       </tr>
                     <% end %>

@@ -14,8 +14,10 @@ module HealthDataStandards
         '2.16.840.1.113883.6.14' =>   'HCPCS',
         '2.16.840.1.113883.6.59' =>   'CVX',
         '2.16.840.1.113883.5.83' => 'HITSP C80 Observation Status',
-        "2.16.840.1.113883.3.26.1.1" => "NCI Thesaurus",
-        "2.16.840.1.113883.3.88.12.80.20" => "FDA"
+        '2.16.840.1.113883.3.26.1.1' => 'NCI Thesaurus',
+        '2.16.840.1.113883.3.88.12.80.20' => 'FDA',
+        '2.16.840.1.113883.5.14' => 'HL7 ActStatus',
+        '2.16.840.1.113883.6.259' => 'HL7 Healthcare Service Location'
       }
       
       # Returns the name of a code system given an oid
