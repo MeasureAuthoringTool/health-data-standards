@@ -1,8 +1,5 @@
-<medication>
-  <id><%= medication.id%></id>
-  <%== code_display medication, "preferred_code_sets" => ["RxNorm", "CVX"] %>
-  <freeText><%= medication.free_text%></freeText>
-  <%== gc32_effective_time(medication)%>
+<medication xmlns="urn:hl7-org:greencda:c32" id="<%=medication.id%>">
+  <%== render partial: "entry_attributes", locals: {entry: medication, code_sets: ["RxNorm", "CVX", "FDA"]}%>
   <% if medication.administration_timing %>
     <administrationTiming institutionSpecified="<%= medication.administration_timing[:insitution_specified] %>">
       <%== quantity_display medication.administration_timing["period"], :period %>

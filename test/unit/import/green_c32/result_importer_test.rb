@@ -25,7 +25,7 @@ module GreenC32
       assert_equal ["12345"], result.codes[translation]
 
       assert_equal 135, result.values.first.scalar
-      assert_equal "mg/dl", result.values.first.unit
+      assert_equal "mg/dl", result.values.first.units
 
       assert_equal "<200 mg/dl", result.reference_range
       assert_equal "completed", result.status
@@ -56,7 +56,7 @@ module GreenC32
       assert_equal ["12345"], result.codes[translation]
   
       assert_equal 135, result.values.first.scalar
-      assert_equal "mg/dl", result.values.first.unit
+      assert_equal "mg/dl", result.values.first.units
   
       assert_equal "<200 mg/dl", result.reference_range
       assert_equal "completed", result.status

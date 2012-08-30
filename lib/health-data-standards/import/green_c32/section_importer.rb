@@ -89,7 +89,7 @@ module HealthDataStandards
           
           return {} unless node_value
           
-          {"scalar" => node_value, "unit" => node_units}
+          {"scalar" => node_value, "units" => node_units}
         end
         
         def extract_value(element, entry)

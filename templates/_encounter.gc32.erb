@@ -1,11 +1,6 @@
-<encounter xmlns="urn:hl7-org:greencda:c32">
-  <id><%= encounter.id %></id>
-  <%== code_display encounter, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT'] %>
-  <% if encounter.status %>
-    <status code="completed"/>
-  <% end %>
-  <%== gc32_effective_time(encounter)%>
-  <%== code_display encounter, "tag_name" => "dishcargeDisposition", 'attribute' => "discharge_disposition" %>
+<encounter xmlns="urn:hl7-org:greencda:c32" id="<%= encounter.id %>">
+  <%== render partial: "entry_attributes", locals: {entry: encounter, code_sets: ["CPT", "SNOMED-CT"]}%>
+  <%== code_display encounter, "tag_name" => "dischargeDisposition", 'attribute' => "discharge_disposition" %>
   <%== code_display encounter, "tag_name" => "admissionType", 'attribute' => "admit_type" %>
   <% if provider %>
   <%= render partial: 'provider', locals: {provider: encounter.performer, tag_name: 'performer'}%>
@@ -22,5 +17,6 @@
         <%= render :partial => "telecom", locals: {telecom: tele} %>
       <% end %>
     <% end %>
+    
   </facility>
 </encounter>

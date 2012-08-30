@@ -1,10 +1,7 @@
-<result xmlns="urn:hl7-org:greencda:c32">
-    <id><%= result.id %></id>
-    <%== code_display result, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT'] %>
-    <freeText><%= result.free_text %></freeText>
-    <%== gc32_effective_time(result)%>
+<result xmlns="urn:hl7-org:greencda:c32" id="<%= result.id %>">
+    <%== render partial: "entry_attributes", locals: {entry: result, code_sets: ["SNOMED-CT", "LOINC"]}%>
     <% if result.values.first %>
-    <value amount="<%= result.values.first.scalar %>" unit="<%= result.values.first.units %>" />
+      <%== quantity_display result.values.first %>
     <% end %>
     <% if result.interpretation%>
       <% code = result.interpretation.first%>

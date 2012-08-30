@@ -8,27 +8,35 @@ module GreenC32
       collection_fixtures('records', '_id')
       @record = Record.first
     end
+    
+    def assert_schema_validity(name, doc)
+      schema = Nokogiri::XML::Schema(open("greenc32/schemas/rest_plus/#{name}.xsd"))
+      assert_equal [], schema.validate(doc) 
+    end
 
     #-------------------------------------------------------------------------------
 
     def test_results
       result = @record.results.first
       result.reference_range = "< 500ml"
-
+      result.values = [PhysicalQuantityResultValue.new(scalar: 130.0, units: "mm[Hg]")]
       xml = HealthDataStandards::Export::GreenC32::Entry.export(result, :result)
       
       doc = Nokogiri::XML(xml)
-      
+      # binding.pry
       result_instance = HealthDataStandards::Import::GreenC32::ResultImporter.instance
       
-      result2 = result_instance.import(doc)
+      assert_schema_validity "result", doc
       
-      assert_equal result.values,           result2.values
-      assert_equal result.description,      result2.description
-      assert_equal result.codes,            result2.codes
-      assert_equal result.time,             result2.time
-      assert_equal result.status,           result2.status
-      assert_equal result.reference_range,  result2.reference_range
+      result2 = result_instance.import(doc)
+
+      assert_equal result.values.first.scalar,  result2.values.first.scalar
+      assert_equal result.values.first.units,   result2.values.first.units
+      assert_equal result.description,          result2.description
+      assert_equal result.codes,                result2.codes
+      assert_equal result.time,                 result2.time
+      assert_equal result.status,               result2.status
+      assert_equal result.reference_range,      result2.reference_range
     end
 
     #-------------------------------------------------------------------------------
@@ -37,7 +45,7 @@ module GreenC32
       vital_sign = FactoryGirl.build(:vital_sign)
       
       xml = HealthDataStandards::Export::GreenC32::Entry.export(vital_sign, :vital_sign)
-      
+
       doc = Nokogiri::XML(xml)
       
       vital_sign_instance = HealthDataStandards::Import::GreenC32::VitalSignImporter.instance
@@ -58,7 +66,7 @@ module GreenC32
       refute_nil condition
   
       xml = HealthDataStandards::Export::GreenC32::Entry.export(condition, :condition)
-  
+
       doc = Nokogiri::XML(xml)
       doc.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
   
@@ -121,7 +129,7 @@ module GreenC32
       allergy = FactoryGirl.build(:allergy)
     
       refute_nil allergy
-      
+      # binding.pry
       xml = HealthDataStandards::Export::GreenC32::Entry.export(allergy, :allergy)
     end
     

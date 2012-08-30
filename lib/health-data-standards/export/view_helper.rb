@@ -27,11 +27,11 @@ module HealthDataStandards
       
       def gc32_effective_time(entry)
         if entry.time
-          "<effectiveTime value=\"#{Time.at(entry.time)}\" />"
+          "<effectiveTime value=\"#{Time.at(entry.time).xmlschema}\" />"
         elsif entry.start_time || entry.end_time
           time = "<effectiveTime>"
-          time += "<start value=\"#{Time.at(entry.start_time)}\" />"  if entry.start_time
-          time += "<end value=\"#{Time.at(entry.end_time)}\" />" if entry.end_time
+          time += "<start value=\"#{Time.at(entry.start_time).xmlschema}\" />"  if entry.start_time
+          time += "<end value=\"#{Time.at(entry.end_time).xmlschema}\" />" if entry.end_time
           time += "</effectiveTime>"
         else
           "<effectiveTime />"
@@ -62,9 +62,9 @@ module HealthDataStandards
       def quantity_display(value, tag_name="value")
         return unless value
         if value.respond_to?(:scalar)
-          "<#{tag_name} value=\"#{value.scalar}\" units=\"#{value.units}\" />"
+          "<#{tag_name} amount=\"#{value.scalar}\" unit=\"#{value.units}\" />"
         else
-          "<#{tag_name} value=\"#{value['value']}\" units=\"#{value['unit']}\" />"
+          "<#{tag_name} amount=\"#{value['value']}\" unit=\"#{value['unit']}\" />"
         end
       end
 
