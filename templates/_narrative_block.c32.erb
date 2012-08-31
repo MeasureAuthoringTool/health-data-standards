@@ -24,8 +24,20 @@
             <td><%= entry.status %></td>
            <% end %>
            
-            <% if value.present? %>
-              <td><%= entry.values.first.try(:scalar) %></td>
+            <% if value.present?%>
+              <td>
+	            <% entry.values.each do |value| %>
+	              <% if value.respond_to? :scalar %>
+	                <%= value.try(:scalar) %><br/>
+	              <% elsif value.respond_to? :codes %>
+	                <% value.codes.each do |system, vals| %>
+	                  <%= system %>: <%= vals.join(',') %><br/>
+	                <% end %>
+	              <% else %>
+	                UNKNOWN VALUE
+	              <% end %>
+	            <% end %>
+              </td>
            <% end %>
         </tr>
       <%- end -%>

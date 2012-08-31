@@ -118,9 +118,20 @@
                         <td ID="vitals-desc-<%= i %>"><%= entry.description %></td>
                         <td ID="vitals-code-<%= i %>"><b><%= entry.codes_to_s %></b><br/><i><%= entry.specifics %></i></td>
                         <td><%= entry.times_to_s %></td> 
-                        <td> </td>                          
-                        <td><%= entry.values.first.try(:scalar) %></td>   
-                                         
+                        <td> </td>
+                        <td>
+	                        <% entry.values.each do |value| %>
+                            <% if value.respond_to? :scalar %>
+                              <%= value.try(:scalar) %><br/>
+                            <% elsif value.respond_to? :codes %>
+                              <% value.codes.each do |system, vals| %>
+                                <%= system %>: <%= vals.join(',') %><br/>
+                              <% end %>
+                            <% else %>
+                              UNKNOWN VALUE
+                            <% end %>
+	                        <% end %>
+	                      </td>
                       </tr>
                     <% end %>
                 <% end %>
@@ -140,7 +151,19 @@
                         <td ID="results-code-<%= i %>"><b><%= entry.codes_to_s %></b><br/><i><%= entry.specifics %></i></td>
                         <td><%= entry.times_to_s %></td>
                         <td> </td>   
-                        <td><%= entry.values.first.try(:scalar) %></td>  
+                        <td>
+	                        <% entry.values.each do |value| %>
+                            <% if value.respond_to? :scalar %>
+                              <%= value.try(:scalar) %><br/>
+                            <% elsif value.respond_to? :codes %>
+                              <% value.codes.each do |system, vals| %>
+                                <%= system %>: <%= vals.join(',') %><br/>
+                              <% end %>
+                            <% else %>
+                              UNKNOWN VALUE
+                            <% end %>
+	                        <% end %>
+                        </td>  
                                       
                       </tr>
                     <% end %>
