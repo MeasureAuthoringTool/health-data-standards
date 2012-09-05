@@ -11,7 +11,7 @@ class Record
   field :effective_time, type: Integer
   field :race, type: Hash
   field :ethnicity, type: Hash
-  field :languages, type: Array
+  field :languages, type: Array, default: []
   field :test_id, type: BSON::ObjectId
   field :marital_status, type: Hash # TODO
   field :medical_record_number, type: String
