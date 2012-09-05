@@ -1,8 +1,8 @@
 <medication xmlns="urn:hl7-org:greencda:c32" id="<%=medication.id%>">
   <%== render partial: "entry_attributes", locals: {entry: medication, code_sets: ["RxNorm", "CVX", "FDA"]}%>
   <% if medication.administration_timing %>
-    <administrationTiming institutionSpecified="<%= medication.administration_timing[:insitution_specified] %>">
-      <%== quantity_display medication.administration_timing["period"], :period %>
+    <administrationTiming institutionSpecified="<%= medication.administration_timing['institution_specified'] %>">
+      <period amount="<%=medication.administration_timing['period']['value'] %>" unit="<%= medication.administration_timing['period']['unit']%>" />
     </administrationTiming>
   <% end %>
   <% if medication.route %>
@@ -13,7 +13,7 @@
   <% end %>
   <%== quantity_display medication.dose, :dose %>
   <% if medication.dose_indicator %>
-  <doseIndication><%medication.dose_indicator%></doseIndication>
+  <doseIndication><%=medication.dose_indicator%></doseIndication>
   <% end %>
   <% if medication.dose_restriction %>
   <doseRestriction>
@@ -22,7 +22,7 @@
   </doseRestriction>
   <% end %>
   <% if medication.product_form %>
-  <%== code_display medication, "tag_name" => "productForm", "attribute" => "product_form", "preferred_code_sets" => ["NCI Thesaurus"]  %>
+  <%== code_display medication, "tag_name" => "productForm", "attribute" => "product_form", "preferred_code_sets" => ["FDA", "NCI Thesaurus"]  %>
   <% end %>
   <% if medication.delivery_method %>
     <%== code_display medication, "tag_name" => "deliveryMethod", "attribute" => "delivery_method", "preferred_code_sets" => medication.delivery_method.keys %>
@@ -55,15 +55,21 @@
   <fulfillmentHistory <%if (fh.fill_status) %> fillStatus="<%=fh.fill_status%>" <% end %>
     <% if fh.fill_number %> fillNumber="<%=fh.fill_number%>" <% end %>>
     <prescriptionNumber><%=fh.prescription_number%></prescriptionNumber>
-    <dispenseDate><%= Time.at(fh.dispense_date).utc%></dispenseDate>
+    <% if fh.dispense_date %>
+      <dispenseDate value="<%=Time.at(fh.dispense_date).xmlschema%>" />
+    <% end %>
     <%== quantity_display fh.quantity_dispensed, :quantityDispensed %>
   </fulfillmentHistory>
   <% end %>
   <% medication.order_information.each do |oi| %>
-    <orderInformation <% if oi.order_number %><%= "orderNumber=\"#{oi.order_number}\"" %> <% end %> <% if oi.fills %> <%= "fills=\"#{oi.fills}\"" %> <% end %>>
+    <orderInformation <% if oi.order_number %><%== "orderNumber=\"#{oi.order_number}\"" %> <% end %> <% if oi.fills %> <%== "fills=\"#{oi.fills}\"" %> <% end %>>
       <%== quantity_display oi.quantity_ordered, "quantityOrdered" %>
-      <orderDateTime><%= Time.at(oi.order_date_time).utc%></orderDateTime>
-      <expirationDateTime><%= Time.at(oi.order_expiration_date_time).utc%></expirationDateTime>
+      <% if oi.order_date_time %>
+        <orderedDateTime value="<%=Time.at(oi.order_date_time).xmlschema%>" />
+      <% end %>
+      <% if oi.order_expiration_date_time %>
+        <expirationDateTime value="<%=Time.at(oi.order_expiration_date_time).xmlschema%>" />
+      <% end %>
     </orderInformation>
   <% end %>
 </medication>

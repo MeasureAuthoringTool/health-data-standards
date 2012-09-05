@@ -20,20 +20,20 @@ FactoryGirl.define do
     f.codes           { { "CPT" => ["99201"] } }
     f.start_time      1267322332
     f.end_time        1267323432
-    f.admit_type      {{"SNOMED-CT" => ["12345678"]}}
-    f.discharge_disposition {{"SNOMED-CT" => ["23456789"]}}
+    f.admit_type      {{"NUBC" => ["12345678"]}}
+    f.discharge_disposition {{"NUBC" => ["23456789"]}}
     f.free_text       "Sample Encounter"
     f.facility { FactoryGirl.build(:organization) }
   end
   
   factory :entry do |f|
-    f.codes           { { "CPT" => ["99201"] } }
+    f.codes           { { "SNOMED-CT" => ["12341234"] } }
     f.start_time      1267322332
     f.end_time        1267323432
   end
   
   factory :medical_equipment, class: "MedicalEquipment" do |f|
-    f.codes           { { "SNOMED" => ["598721"] } }
+    f.codes           { { "SNOMED-CT" => ["598721"] } }
     f.start_time      1267322332
     f.end_time        1267323432
     f.values  { [FactoryGirl.build(:physical_quantity_result_value)]}
@@ -98,7 +98,7 @@ FactoryGirl.define do
     f.time            1264529050
     f.description     "Pneumonia Vaccine"
     f.refusal_ind true
-    f.refusal_reason { { "RxNorm" => ["12345"] } }
+    f.refusal_reason { { "HL7 ActNoImmunicationReason" => ["RELIG"] } }
     f.series_number 1
   end
   FactoryGirl.define do
@@ -108,23 +108,23 @@ FactoryGirl.define do
   end
 
   factory :medication do |f|
-    f.codes           { { "SNOMED-CT" => ["105075"] } }
+    f.codes           { { "RxNorm" => ["105075"] } }
     f.description     "Tobacco Cessation Agent"
     f.start_time 1267332332
     f.end_time 1267333332
-    f.administrationTiming { {:institution_specified => true, :period => {"value" => 5.0, "unit" => "hours"}} }
+    f.administrationTiming { {'institution_specified' => true, 'period' => {"value" => 5.0, "unit" => "hours"}} }
     f.dose { FactoryGirl.build(:physical_quantity_result_value) }
     f.status "complete"
-    f.typeOfMedication { {"RxNorm" => ["12345"]}}
-    f.statusOfMedication { {"RxNorm" => ["12345"]}}
-    f.route { {"RxNorm" => ["12345"]}}
-    f.site { {"RxNorm" => ["12345"]}}
+    f.typeOfMedication { {"SNOMED-CT" => ["12345"]}}
+    f.statusOfMedication { {"SNOMED-CT" => ["12345"]}}
+    f.route { {"NCI Thesaurus" => ["12345"]}}
+    f.site { {"SNOMED-CT" => ["12345"]}}
     f.doseRestriction { {"RxNorm" => ["12345"]}}
     f.fulfillmentInstructions "Fulfillment Instructions"
-    f.indication { {"RxNorm" => ["12345"]}}
-    f.vehicle { {"RxNorm" => ["12345"]}}
+    f.indication { {"SNOMED-CT" => ["12345"]}}
+    f.vehicle { {"SNOMED-CT" => ["12345"]}}
     f.reaction { {"RxNorm" => ["12345"]}}
-    f.productForm { {"RxNorm" => ["12345"]}}
+    f.productForm { {"FDA" => ["12345"]}}
     f.deliveryMethod { {"RxNorm" => ["12345"]}}
     f.patientInstructions "Take with Water"
     f.fulfillment_history { [FactoryGirl.build(:fulfillment_history)]}

@@ -11,24 +11,22 @@ module GreenC32
     
     def assert_schema_validity(name, doc)
       schema = Nokogiri::XML::Schema(open("greenc32/schemas/rest_plus/#{name}.xsd"))
-      assert_equal [], schema.validate(doc) 
+      errors = schema.validate(doc)
+      assert_equal [], errors, errors.join("\n")
     end
 
     #-------------------------------------------------------------------------------
 
     def test_results
       result = @record.results.first
-      result.reference_range = "< 500ml"
-      result.values = [PhysicalQuantityResultValue.new(scalar: 130.0, units: "mm[Hg]")]
+      result.reference_range = "< 200 mg/dL"
+      result.values = [PhysicalQuantityResultValue.new(scalar: 201, units: "mg/dL")]
       xml = HealthDataStandards::Export::GreenC32::Entry.export(result, :result)
       
       doc = Nokogiri::XML(xml)
-      # binding.pry
-      result_instance = HealthDataStandards::Import::GreenC32::ResultImporter.instance
-      
       assert_schema_validity "result", doc
       
-      result2 = result_instance.import(doc)
+      result2 = HealthDataStandards::Import::GreenC32::ResultImporter.instance.import(doc)
 
       assert_equal result.values.first.scalar,  result2.values.first.scalar
       assert_equal result.values.first.units,   result2.values.first.units
@@ -43,20 +41,23 @@ module GreenC32
   
     def test_vital_signs
       vital_sign = FactoryGirl.build(:vital_sign)
+      vital_sign.values = [PhysicalQuantityResultValue.new(scalar: 130.0, units: "mm[Hg]")]
       
       xml = HealthDataStandards::Export::GreenC32::Entry.export(vital_sign, :vital_sign)
 
       doc = Nokogiri::XML(xml)
+      assert_schema_validity "vital_sign", doc
       
       vital_sign_instance = HealthDataStandards::Import::GreenC32::VitalSignImporter.instance
       
       vital_sign2 = vital_sign_instance.import(doc)
 
-      assert_equal vital_sign.values,       vital_sign2.values
-      assert_equal vital_sign.description,  vital_sign2.description
-      assert_equal vital_sign.codes,        vital_sign2.codes
-      assert_equal vital_sign.time,         vital_sign2.time
-      assert_equal vital_sign.status,       vital_sign2.status
+      assert_equal vital_sign.values.first.scalar,  vital_sign2.values.first.scalar
+      assert_equal vital_sign.values.first.units,   vital_sign2.values.first.units
+      assert_equal vital_sign.description,          vital_sign2.description
+      assert_equal vital_sign.codes,                vital_sign2.codes
+      assert_equal vital_sign.time,                 vital_sign2.time
+      assert_equal vital_sign.status,               vital_sign2.status
     end
     
     #-------------------------------------------------------------------------------
@@ -69,7 +70,7 @@ module GreenC32
 
       doc = Nokogiri::XML(xml)
       doc.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
-  
+      assert_schema_validity "condition", doc
       condition_instance = HealthDataStandards::Import::GreenC32::ConditionImporter.instance
   
       condition2 = condition_instance.import(doc)
@@ -92,7 +93,8 @@ module GreenC32
 
       doc = Nokogiri::XML(xml)
       doc.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
-  
+
+      assert_schema_validity "procedure", doc
       procedure_instance = HealthDataStandards::Import::GreenC32::ProcedureImporter.instance
   
       procedure2 = procedure_instance.import(doc)
@@ -111,6 +113,11 @@ module GreenC32
       refute_nil encounter
       
       xml = HealthDataStandards::Export::GreenC32::Entry.export(encounter, :encounter) 
+      # binding.pry
+      doc = Nokogiri::XML(xml)
+      doc.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
+      assert_schema_validity "encounter", doc
+      
     end
     
     #-------------------------------------------------------------------------------
@@ -121,6 +128,10 @@ module GreenC32
       refute_nil med
       
       xml = HealthDataStandards::Export::GreenC32::Entry.export(med, :medication)
+
+      doc = Nokogiri::XML(xml)
+      doc.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
+      assert_schema_validity "medication", doc
     end
     
     #-------------------------------------------------------------------------------
@@ -137,28 +148,48 @@ module GreenC32
       im = FactoryGirl.build(:immunization)
       
       xml = HealthDataStandards::Export::GreenC32::Entry.export(im, :immunization)
+
+      doc = Nokogiri::XML(xml)
+      doc.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
+      assert_schema_validity "immunization", doc
     end
     
     def test_support
       s = FactoryGirl.build(:support)
       
       xml = HealthDataStandards::Export::GreenC32::Entry.export(s, :support)
+      
+      doc = Nokogiri::XML(xml)
+      doc.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
+      assert_schema_validity "support", doc
     end
     
     def test_ad
       ad = FactoryGirl.build(:advance_directive)
       xml = HealthDataStandards::Export::GreenC32::Entry.export(ad, :advance_directive)
+      
+      doc = Nokogiri::XML(xml)
+      doc.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
+      assert_schema_validity "advance_directive", doc
     end
     
     
     def test_me
       me = FactoryGirl.build(:medical_equipment)
       xml = HealthDataStandards::Export::GreenC32::Entry.export(me, :medical_equipment)
+      
+      doc = Nokogiri::XML(xml)
+      doc.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
+      assert_schema_validity "medical_equipment", doc
     end
     
     def test_entry
       e = FactoryGirl.build(:entry)
       xml = HealthDataStandards::Export::GreenC32::Entry.export(e, :entry)
+      
+      doc = Nokogiri::XML(xml)
+      doc.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
+      assert_schema_validity "entry", doc
     end
     
     def test_care_goals

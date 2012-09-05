@@ -29,13 +29,17 @@ module HealthDataStandards
         if entry.time
           "<effectiveTime value=\"#{Time.at(entry.time).xmlschema}\" />"
         elsif entry.start_time || entry.end_time
-          time = "<effectiveTime>"
-          time += "<start value=\"#{Time.at(entry.start_time).xmlschema}\" />"  if entry.start_time
-          time += "<end value=\"#{Time.at(entry.end_time).xmlschema}\" />" if entry.end_time
-          time += "</effectiveTime>"
+          gc32_interval(entry, "effectiveTime", :start_time, :end_time)
         else
           "<effectiveTime />"
         end
+      end
+      
+      def gc32_interval(entry, tag_name, start_attribute, end_attribute)
+        time = "<#{tag_name}>"
+        time += "<start value=\"#{Time.at(entry.send(start_attribute)).xmlschema}\" />"  if entry.send(start_attribute)
+        time += "<end value=\"#{Time.at(entry.send(end_attribute)).xmlschema}\" />" if entry.send(end_attribute)
+        time += "</#{tag_name}>"
       end
       
       def status_code_for(entry)

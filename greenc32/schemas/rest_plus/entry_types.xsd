@@ -36,13 +36,7 @@
     <xs:complexContent>
       <xs:extension base="gc32:entry">
         <xs:sequence>
-          <xs:element name="dischargeDisposition" minOccurs="0">
-            <xs:simpleType>
-              <xs:restriction base="xs:string">
-                <xs:length value="2"/>
-              </xs:restriction>
-            </xs:simpleType>
-          </xs:element>
+          <xs:element name="dischargeDisposition" type="gc32:simpleCode" minOccurs="0" />
           <xs:element name="admissionType" type="gc32:simpleCode" minOccurs="0" />
           <xs:element name="facility" minOccurs="0">
             <xs:complexType>
@@ -75,7 +69,7 @@
     <xs:complexContent>
        <xs:extension base="gc32:entry">
          <xs:sequence>
-           <xs:element name="priority" type="xs:integer" />
+           <xs:element name="priority" type="xs:integer" minOccurs="0" />
            <xs:element name="type">
              <xs:simpleType>
                <xs:restriction base="xs:string">
@@ -98,8 +92,8 @@
     <xs:complexContent>
       <xs:extension base="gc32:entry">
         <xs:sequence>
-          <xs:element name="quantity" type="gc32:quantity" />
-          <xs:element name="manufacturer" type="gc32:organization" />
+          <xs:element name="quantity" type="gc32:quantity" minOccurs="0" />
+          <xs:element name="manufacturer" type="gc32:organization" minOccurs="0" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -108,7 +102,7 @@
   <xs:complexContent>
     <xs:extension base="gc32:entry">
       <xs:sequence>
-        <xs:element name="administrationTiming">
+        <xs:element name="administrationTiming" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="period" type="gc32:quantity" />
@@ -117,9 +111,9 @@
           </xs:complexType>
         </xs:element>
         <xs:element name="route" type="gc32:code" minOccurs="0"/>
+        <xs:element name="site" type="gc32:code" minOccurs="0" />
 				<xs:element name="dose" type="gc32:quantity" minOccurs="0"/>
 				<xs:element name="doseIndicator" type="xs:string" minOccurs="0" />
-				<xs:element name="site" type="gc32:code" minOccurs="0" />
 				<xs:element name="doseRestriction" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
@@ -173,7 +167,7 @@
 		<xs:complexContent>
   	  <xs:extension base="gc32:entry">
   	    <xs:sequence>
-    			<xs:element name="site" type="gc32:simpleCode" minOccurs="0"/>
+    			<xs:element name="site" type="gc32:code" minOccurs="0"/>
     		</xs:sequence>
   	  </xs:extension>
 		</xs:complexContent>

@@ -1,22 +1,21 @@
 <encounter xmlns="urn:hl7-org:greencda:c32" id="<%= encounter.id %>">
   <%== render partial: "entry_attributes", locals: {entry: encounter, code_sets: ["CPT", "SNOMED-CT"]}%>
-  <%== code_display encounter, "tag_name" => "dischargeDisposition", 'attribute' => "discharge_disposition" %>
-  <%== code_display encounter, "tag_name" => "admissionType", 'attribute' => "admit_type" %>
+  <%== code_display encounter, "tag_name" => "dischargeDisposition", 'attribute' => "discharge_disposition", 'preferred_code_sets' => ["NUBC"] %>
+  <%== code_display encounter, "tag_name" => "admissionType", 'attribute' => "admit_type", 'preferred_code_sets' => ["NUBC"] %>
   <% if provider %>
   <%= render partial: 'provider', locals: {provider: encounter.performer, tag_name: 'performer'}%>
   <% end %>
   <% facility = encounter.facility %>
   <% if facility %>
   <facility>
-      <id><%= facility.id%></id>
       <name><%= facility.name%></name>
       <% facility.addresses.each do |addr| %>
-        <%= render :partial => "address", locals: {address: addr} %>
+        <%== render :partial => "address", locals: {address: addr} %>
       <% end %>
       <% facility.telecoms.each do |tele| %>
-        <%= render :partial => "telecom", locals: {telecom: tele} %>
+        <%== render :partial => "telecom", locals: {telecom: tele} %>
       <% end %>
     <% end %>
-    
+    <%== gc32_interval(encounter, "duration", :admit_time, :discharge_time) %>
   </facility>
 </encounter>
