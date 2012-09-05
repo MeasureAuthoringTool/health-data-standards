@@ -13,9 +13,10 @@ module HealthDataStandards
           code_string = "<#{options['tag_name']} nullFlavor=\"UNK\" #{options['extra_content']}>"
         end
         
-        code_string += "<originalText>#{ERB::Util.html_escape entry.description}</originalText>" if entry.respond_to?(:description)
         
-        if entry.respond_to?(:translation_codes)
+        
+        if options["attribute"] == :codes && entry.respond_to?(:translation_codes)
+          code_string += "<originalText>#{ERB::Util.html_escape entry.description}</originalText>" if entry.respond_to?(:description)
           entry.translation_codes(options['preferred_code_sets']).each do |translation|
             code_string += "<translation code=\"#{translation['code']}\" codeSystem=\"#{HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(translation['code_set'])}\"/>\n"
           end

@@ -33,6 +33,11 @@
       <%== render partial: "condition", locals: {condition: c} %>
     <% end %>
   </conditions>
+  <encounters>
+    <% record.encounters.each do |e| %>
+      <%== render partial: 'encounter', locals: {encounter: e} %>
+    <% end %>
+  </encounters>
   <immunizations>
     <% record.immunizations.each do |i| %>
       <%== render partial: "immunization", locals: {immunization: i} %>
