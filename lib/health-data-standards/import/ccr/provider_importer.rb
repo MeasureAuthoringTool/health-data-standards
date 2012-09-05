@@ -33,7 +33,6 @@ module HealthDataStandards
             provider[:npi] = npi if Provider.valid_npi?(npi)
           end
           
-          # binding.pry
           find_or_create_provider(provider)
         end
         
