@@ -31,7 +31,7 @@ module GreenC32
       assert_equal "completed", result.status
 
 
-      assert_equal 1327932000, result.time
+      assert_equal Time.parse('2012-01-30T09:00:00').utc.to_i, result.time
 
       interpretation_code_system = result.interpretation.keys[0]
       assert_equal "HITSP C80 Observation Status", interpretation_code_system
@@ -61,7 +61,7 @@ module GreenC32
       assert_equal "<200 mg/dl", result.reference_range
       assert_equal "completed", result.status
   
-      assert_equal 1327932000, result.time
+      assert_equal Time.parse('2012-01-30T09:00:00').utc.to_i, result.time
       
       refute_nil result.interpretation
       

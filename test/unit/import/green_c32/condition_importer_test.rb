@@ -15,9 +15,11 @@ module GreenC32
       code_system = condition.codes.keys[0]
       assert_equal "SNOMED-CT", code_system
       assert_equal ["24930006"],  condition.codes[code_system]
+
       assert_equal 1327932000, condition.start_time
       assert_equal 1328018400, condition.end_time
       assert_equal "active", condition.status
+
       assert_equal "404684003", condition.type
     end
   end
