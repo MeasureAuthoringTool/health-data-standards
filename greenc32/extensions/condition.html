@@ -54,6 +54,13 @@
       <td>V1.2</td>
       <td>Draft - In Progress</td>
     </tr>
+    <tr>
+      <td>31 August 2012</td>
+      <td>King, Kling, Gregorowicz, et. al.</td>
+      <td>Update for RHEx</td>
+      <td>V1.3</td>
+      <td></td>
+    </tr>
   </table>
 
   <h2>3. Extension Background</h2>
@@ -79,12 +86,12 @@
     <tr>
       <td>code</td>
       <td>code</td>
-      <td>O</td>
+      <td>M</td>
       <td>Entry Component:  The coded value of the condition represented</td>
     </tr>
     <tr>
       <td>status</td>
-      <td>string</td>
+      <td>simpleCode</td>
       <td>O</td>
       <td>
         <p>Entry Component: The status of the problem. Will contain the strings: active, inactive or resolved.</p>
@@ -99,13 +106,13 @@
     <tr>
       <td>name</td>
       <td>string</td>
-      <td>M</td>
+      <td>O</td>
       <td>Entry Component:  This is a free text description of the problem or condition.</td>
     </tr>
     <tr>
       <td>effectiveTime</td>
       <td>TimeInterval</td>
-      <td>O</td>
+      <td>M</td>
       <td>Entry Component:  This is the range of time of which the condition was active for the patient or subject.</td>
     </tr>
     <tr>
@@ -123,8 +130,8 @@
     </tr>
   <tr>
       <td>type</td>
-      <td>cd</td>
-      <td>O</td>
+      <td>string</td>
+      <td>M</td>
       <td>
         <p>This is a fixed value indicating the level of medical judgment used to determine the existence of a problem. Valid values from C80/2.2.3.1.2 are as follows:</p>
         <ul>
@@ -141,7 +148,7 @@
     <tr>
       <td>causeOfDeath</td>
       <td>boolean</td>
-      <td>O</td>
+      <td>M</td>
       <td>Indicates that this problem was one of the causes of death for the patient or subject of the condition.</td>
     </tr>
    
@@ -151,13 +158,6 @@
       <td>O</td>
       <td>Link for the person or organization performed or hosted the Procedure</td>
     </tr>
-    <tr>
-      <td>dateTimeOfDeath</td>
-      <td>dateTime</td>
-      <td>O</td>
-      <td>The date/time the patient or subject&#x27;s death occurred</td>
-    </tr>
-
   </table>
 
   <h3>4.3. Clinical Requirement</h3>
@@ -179,7 +179,7 @@
     xlink:arcrole="http://www.rddl.org/purposes/#schema-validation">
     <h3>4.4. XML Schema Definition (XSD)</h3>
     <p>The XML Schema Definition (XSD) for Condition specifies how to formally describe the elements in an XML document.
-       For the REST+ Pilot, C32/C80 values that lend themselves to greater accuracy through calculation are calculated, including &quot;AgeAtOnset&quot; and &quot;AgeAtDeath.&quot;.</p>
+       For the REST+ Pilot, C32/C80 values that lend themselves to greater accuracy through calculation are calculated, including &quot;AgeAtOnset&quot; and &quot;AgeAtDeath.&quot;.  Date of death is included as part of demographic information.</p>
     <p>Condition.xsd is located at the following URI: <a href="https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/condition.xsd">https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/condition.xsd</a></p>
     <p>Condition.xsd extends entry which is defined in the data_types schema at the following URI: <a href="https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/data_types.xsd">https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/data_types.xsd</a></p>
   </rddl:resource>
