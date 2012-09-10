@@ -71,7 +71,7 @@ module HealthDataStandards
           
           return unless datetime && datetime['value']
           
-          entry.send("#{attribute}=", Time.parse(datetime['value']).to_i)
+          entry.send("#{attribute}=", Time.parse(datetime['value']).utc.to_i)
         end
         
         def extract_interval(element, entry, element_name="effectiveTime")
