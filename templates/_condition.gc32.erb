@@ -4,4 +4,7 @@
     <priority><%= condition.priority %></priority>
   <% end %>
   <type><%= condition.type %></type>
+  <% condition.treating_provider.each do |tp| %>
+  <%== render partial: 'provider', locals: {provider: tp} %>
+  <% end %>
 </condition>

@@ -3,4 +3,7 @@
   <% if procedure.site %>
     <%== code_display procedure, "tag_name" => "site", "attribute" => "site", "preferred_code_sets" => ["SNOMED-CT"] %>
   <% end %>
+  <% if procedure.performer %>
+  <%== render partial: 'provider', locals: {provider: procedure.performer} %>
+  <% end %>
 </procedure>

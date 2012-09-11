@@ -82,7 +82,10 @@ module HealthDataStandards
           if order_elements
             order_elements.each do |order_element|
               order_information = OrderInformation.new
-          
+              actor_element = order_element.at_xpath('./cda:author')
+              if actor_element
+                order_information.provider = ProviderImporter.instance.extract_provider(actor_element, "assignedAuthor")
+              end
               order_information.order_number = order_element.at_xpath('./cda:id').try(:[], 'root')
               order_information.fills = order_element.at_xpath('./cda:repeatNumber').try(:[], 'value').try(:to_i)
               order_information.quantity_ordered = extract_scalar(order_element, "./cda:quantity")

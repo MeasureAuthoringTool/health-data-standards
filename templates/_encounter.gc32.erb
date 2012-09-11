@@ -20,4 +20,7 @@
     <%== gc32_interval(encounter, "duration", :admit_time, :discharge_time) %>
   </facility>
   <% end %>
+  <% if encounter.performer %>
+  <%== render partial: 'provider', locals: {provider: encounter.performer} %>
+  <% end %>
 </encounter>

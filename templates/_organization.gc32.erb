@@ -1,4 +1,5 @@
-<organization  <id><%= organization.id%></id>>
+<% tag_name ||= "organization"%>
+<<%=tag_name%> id="<%=organization.id%>">
   <name><%= organization.name%></name>
   <% organization.addresses.each do |addr| %>
     <%= render :partial => "address", locals: {address: addr} %>

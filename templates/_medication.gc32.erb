@@ -51,6 +51,7 @@
   <% if medication.fulfillment_instructions %>
     <fulfillmentInstructions><%=medication.fulfillment_instructions%></fulfillmentInstructions>
   <% end %>
+
   <% medication.fulfillment_history.each do |fh| %>
   <fulfillmentHistory <%if (fh.fill_status) %> fillStatus="<%=fh.fill_status%>" <% end %>
     <% if fh.fill_number %> fillNumber="<%=fh.fill_number%>" <% end %>>
@@ -72,4 +73,21 @@
       <% end %>
     </orderInformation>
   <% end %>
+  <% include_providers ||= false %>
+  <% if include_providers %>
+  <prescribers>
+  <% medication.order_information.each do |oi| %>
+    <% if oi.provider %>
+      <%== render partial: 'provider', locals: {provider: oi.provider, tag_name: 'prescriber'} %>
+    <% end %>
+  <% end %>
+  </prescribers>
+  <pharmacists>
+  <% medication.fulfillment_history.each do |fh| %>
+    <% if oi.provider %>
+      <%== render partial: 'provider', locals: {provider: fh.provider, tag_name: 'pharmacist'} %>
+    <% end %>
+  <% end %>
+  </pharmacists>
+  <% end %> 
 </medication>

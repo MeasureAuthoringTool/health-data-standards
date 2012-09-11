@@ -28,9 +28,10 @@ module HealthDataStandards
 
         private
       
-        def extract_provider_data(performer, use_dates=true)
+        def extract_provider_data(performer, use_dates=true, entity_path="./cda:assignedEntity")
           provider = {}
-          entity = performer.xpath("./cda:assignedEntity")
+          entity = performer.xpath(entity_path)
+          
           name = entity.xpath("./cda:assignedPerson/cda:name")
           provider[:title]        = extract_data(name, "./cda:prefix")
           provider[:given_name]   = extract_data(name, "./cda:given[1]")
