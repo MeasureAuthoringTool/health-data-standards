@@ -37,7 +37,7 @@
               <% ev = entry.values.first
                 if ev.present? && ev.respond_to?(:scalar) -%>
                <% if is_num?(ev.scalar) -%>
-                <value xsi:type="PQ" value="<%= ev.scalar %>" <% if ev.units -%>unit="<%= ev.units %>"<% end -%>/>
+                <value xsi:type="PQ" value="<%= ev.scalar %>" <% if ev.unit -%>unit="<%= ev.unit %>"<% end -%>/>
                <% elsif is_bool?(ev.scalar)%>
                 <value xsi:type="BL" value="<%= ev.scalar %>" />
                <% else -%>

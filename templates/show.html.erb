@@ -1,40 +1,47 @@
- 
-    <script language="javascript">
-    var cur_view = "section";
-      function toggle(id) {
-        var e = document.getElementById(id);
-        if (cur_view=="section"){
-          document.getElementById("patient_information_by_section").style.display = 'none';
-          document.getElementById("table_by_encounter").style.display = 'block';
-          document.getElementById('toggle_button').innerHTML="View By Section";
-          cur_view = "encounter";
-        }else{
-          document.getElementById("patient_information_by_section").style.display = 'block';
-          document.getElementById("table_by_encounter").style.display = 'none';
-          document.getElementById('toggle_button').innerHTML="View By Encounter";
-          cur_view = "section";
-        }         
-      }
-    </script>
-     <div>
-      <h3><a href="#" onclick="toggle('table_by_encounter');" id='toggle_button'>View By Encounter</a></h3>
-     </div>
-     <div id="table_by_encounter" style="display:none">
-        <% patient.encounters.sort! { |a,b| a.start_time <=> b.start_time } %>
-        <% patient.encounters.each_with_index do |encounter,idx| %>
+<script language="javascript">
+var cur_view = "section";
+  function toggle(id) {
+    var e = document.getElementById(id);
+    if (cur_view=="section"){
+      document.getElementById("patient_information_by_section").style.display = 'none';
+      document.getElementById("table_by_encounter").style.display = 'block';
+      document.getElementById('toggle_button').innerHTML="View By Section";
+      cur_view = "encounter";
+    } else {
+      document.getElementById("patient_information_by_section").style.display = 'block';
+      document.getElementById("table_by_encounter").style.display = 'none';
+      document.getElementById('toggle_button').innerHTML="View By Encounter";
+      cur_view = "section";
+    }         
+  }
+</script>
+<div>
+  <h3><a href="#" onclick="toggle('table_by_encounter');" id='toggle_button'>View By Encounter</a></h3>
+</div>
+<div id="table_by_encounter" style="display:none">
+  <% patient.encounters.sort! { |a,b| a.start_time <=> b.start_time }
+  patient.encounters.each_with_index do |encounter, idx|
+    sections = {}
+    ["allergies", "care_goals", "vital_signs", "results", "conditions", "procedures", "medications", "social_history", "immunizations", "medical_equipment"].each {|section| sections[section] = 0} %>
 
-          <%
-            encounter_allergies=0
-            encounter_care_goals=0
-            encounter_vital_signs=0
-            encounter_results=0
-            encounter_conditions=0
-            encounter_procedures=0
-            encounter_medications=0
-            encounter_social_history=0
-            encounter_immunizations=0
-            encounter_medical_equipment=0
-          %>
+    <br/><br/>
+    <h3>Encounter <%= idx + 1 %></h3>
+    <table border="1" width="100%" class="narr_table">
+      <tbody>
+        <tr>
+          <th class="narr_th">Description</th>
+          <th class="narr_th">Codes</th>
+          <th class="narr_th">Time</th>
+          <th class="narr_th">Status</th>
+          <th class="narr_th">Value</th>
+        </tr>
+        <tr class="narr_tr">
+          <td ID="encounters-desc-<%= idx %>"><%= encounter.description %></td>
+          <td ID="encounters-code-<%= idx %>"><b><%= encounter.codes_to_s %></b><br/><i><%= encounter.specifics %></i></td>
+          <td><%= encounter.times_to_s %></td>
+          <td> </td>
+          <td> </td>
+        </tr>
 
             <br/><br/>
             <h3>Encounter <%= patient.encounters.count - idx %></h3>
@@ -307,4 +314,3 @@
    
       <% end %>
   </div>
-   

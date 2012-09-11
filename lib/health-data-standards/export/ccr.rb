@@ -149,32 +149,33 @@ module HealthDataStandards
       end
       
 
-     def to_result(xml, res, ccr_id )
-       xml.Result do
-         xml.CCRDataObjectID(ccr_id)
-         to_ccr_date(xml, res.as_point_in_time, "Start date")       
-         xml.Source
-         xml.Test do
-           xml.CCRDataObjectID("#{ccr_id}TestResult")
-           xml.Description do
+      def to_result(xml, res, ccr_id )
+        xml.Result do
+          xml.CCRDataObjectID(ccr_id)
+          to_ccr_date(xml, res.as_point_in_time, "Start date")       
+          xml.Source
+          xml.Test do
+            xml.CCRDataObjectID("#{ccr_id}TestResult")
+            xml.Description do
               xml.Text(res.description)
               code_section(xml, res.codes)
-          end
+            end
 
-           xml.Source
-           xml.TestResult do
-             rv = res.values.first
-             if rv.present?
-               xml.Value(rv.scalar)
-               xml.Units do
-                 xml.Unit(rv.units)
-               end
-             end
-           end
-        end
-       end
-       
-     end
+            xml.Source
+            xml.TestResult do
+              rv = res.values.first
+              if rv.present? && rv.respond_to?(:scalar)
+                xml.Value(rv.scalar)
+                xml.Unit do
+                  xml.Unit(rv.unit)
+                end
+              else
+                
+              end
+            end
+          end
+        end     
+      end
      
       # Builds the XML snippet for the medications section inside the CCR standard
       #
