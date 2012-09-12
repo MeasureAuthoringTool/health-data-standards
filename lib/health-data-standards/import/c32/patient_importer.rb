@@ -109,8 +109,10 @@ module HealthDataStandards
         # @param [Record] c32_patient to check the conditions on and set the expired
         #               property if applicable
         def check_for_cause_of_death(c32_patient)
-          if c32_patient.conditions.any? {|condition| condition.cause_of_death }
+          cause_of_death = c32_patient.conditions.detect {|condition| condition.cause_of_death }
+          if cause_of_death
             c32_patient.expired = true
+            c32_patient.deathdate = cause_of_death.time_of_death
           end
         end
 
@@ -135,11 +137,14 @@ module HealthDataStandards
           effective_date = doc.at_xpath('/cda:ClinicalDocument/cda:effectiveTime')['value']
           patient.effective_time = HL7Helper.timestamp_to_integer(effective_date)
           patient_element = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient')
+          patient.title = patient_element.at_xpath('cda:name/cda:title').try(:text)
           patient.first = patient_element.at_xpath('cda:name/cda:given').text
           patient.last = patient_element.at_xpath('cda:name/cda:family').text
           birthdate_in_hl7ts_node = patient_element.at_xpath('cda:birthTime')
           birthdate_in_hl7ts = birthdate_in_hl7ts_node['value']
           patient.birthdate = HL7Helper.timestamp_to_integer(birthdate_in_hl7ts)
+
+          patient.religious_affiliation = patient_element.at_xpath("./cda:religiousAffiliationCode/@code").try("text")
           gender_node = patient_element.at_xpath('cda:administrativeGenderCode')
           patient.gender = gender_node['code']
           id_node = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:id')
@@ -150,7 +155,10 @@ module HealthDataStandards
           patient.race = { code: race_node['code'], code_set: 'CDC-RE' } if race_node
           ethnicity_node = patient_element.at_xpath('cda:ethnicGroupCode')
           patient.ethnicity = {code: ethnicity_node['code'], code_set: 'CDC-RE'} if ethnicity_node
-
+          marital_status_node = patient_element.at_xpath("./cda:maritalStatus")
+          patient.marital_status = {code: marital_status_node['code'], code_set: "HL7 Marital Status"} if marital_status_node
+          ra_node = patient_element.at_xpath("./cda:religiousAffiliationCode")
+          patient.religious_affiliation = {code: ra_node, code_set: "Religious Affiliation"} if ra_node
           languages = patient_element.search('languageCommunication').map {|lc| lc.at_xpath('cda:languageCode')['code'] }
           patient.languages = languages unless languages.empty?
           

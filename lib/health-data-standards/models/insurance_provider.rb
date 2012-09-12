@@ -13,5 +13,5 @@ class InsuranceProvider
   field :relationship, type: Hash
   field :financial_responsibility_type, type: Hash
   field :name, type: String
-  
+  field :free_text, type: String
 end

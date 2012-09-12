@@ -1,19 +1,19 @@
 class Record
   include Mongoid::Document
   
-  field :title, type: String # TODO
+  field :title, type: String
   field :first, type: String
   field :last, type: String
   field :gender, type: String
   field :birthdate, type: Integer
-  field :deathdate, type: Integer # TODO
-  field :religious_affilication, type: Hash # TODO
+  field :deathdate, type: Integer
+  field :religious_affiliation, type: Hash
   field :effective_time, type: Integer
   field :race, type: Hash
   field :ethnicity, type: Hash
   field :languages, type: Array, default: []
   field :test_id, type: BSON::ObjectId
-  field :marital_status, type: Hash # TODO
+  field :marital_status, type: Hash
   field :medical_record_number, type: String
   field :expired, type: Boolean
   field :clinicalTrialParticipant, type: Boolean   # Currently not implemented in the C32 importer

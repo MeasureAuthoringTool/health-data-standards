@@ -1,6 +1,7 @@
 class Condition < Entry
   field :type,          type: String
   field :causeOfDeath,  type: Boolean
+  field :time_of_death, type: Integer
   field :priority,      type: Integer
   field :name,          type: String
   field :ordinality,    type: String

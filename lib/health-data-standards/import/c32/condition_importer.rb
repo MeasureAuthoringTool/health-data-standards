@@ -10,7 +10,9 @@ module HealthDataStandards
           @ordinality_xpath = "./cda:priorityCode"
           @description_xpath = "./cda:text/cda:reference[@value]"
           @provider_xpath = "./cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:performer"
-          @cod_xpath = "./cda:entryRelationship[@typeCode='CAUS']/cda:observation/cda:code[@code='419620001']"
+          @death_xpath = "./cda:entryRelationship[@typeCode='CAUS']/cda:observation"
+          @cod_xpath = "#{@death_xpath}/cda:code[@code='419620001']"
+          @time_of_death_xpath = "#{@death_xpath}/cda:effectiveTime/@value"
           @priority_xpath = "../cda:sequenceNumber"
         end
         
@@ -59,6 +61,8 @@ module HealthDataStandards
         def extract_cause_of_death(entry_element, condition)
           cod = entry_element.at_xpath(@cod_xpath)
           condition.cause_of_death = cod.present?
+          time_of_death = entry_element.at_xpath(@time_of_death_xpath)
+          condition.time_of_death = HL7Helper.timestamp_to_integer(time_of_death.text) if time_of_death
         end
         
         def extract_priority(entry_element, condition)

@@ -11,7 +11,7 @@
   <% end %>
   <% insurance_provider.guarantors.each do |g| %>
   <guarantor>
-    <%== gc32_interval(insurance_provider, "financialResponsibilityDateRange", "start_time", "end_time") %>
+    <%== gc32_interval(insurance_provider, tag_name, start_attribute, end_attribute) %>
     <% if g.organization %>
       <%== render partial: 'organization', locals: {organization: g.organization}%>
     <% elsif g.person%>

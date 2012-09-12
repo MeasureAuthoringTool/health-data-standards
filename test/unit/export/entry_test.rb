@@ -113,7 +113,7 @@ module GreenC32
       refute_nil encounter
       
       xml = HealthDataStandards::Export::GreenC32::Entry.export(encounter, :encounter) 
-      # binding.pry
+
       doc = Nokogiri::XML(xml)
       doc.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
       assert_schema_validity "encounter", doc
@@ -140,7 +140,7 @@ module GreenC32
       allergy = FactoryGirl.build(:allergy)
     
       refute_nil allergy
-      # binding.pry
+   
       xml = HealthDataStandards::Export::GreenC32::Entry.export(allergy, :allergy)
     end
     
