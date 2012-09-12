@@ -1,6 +1,6 @@
-<!DOCTYPE html PUBLIC "-//XML-DEV//DTD XHTML RDDL 1.0//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<!DOCTYPE html PUBLIC "-//XML-DEV//DTD XHTML RDDL 1.0//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       xmlns:rddl="http://www.rddl.org/">
 <head>
@@ -33,8 +33,8 @@
     </tr>
     <tr>
       <td>Author(s)</td>
-      <td>REST+ Pilot Team</td>
-    </tr>  
+      <td>RHEx Pilot Team</td>
+    </tr>
   </table>
   <h2>2. Change Log</h2>
   <hr/>
@@ -47,17 +47,31 @@
       <td>First Version</td>
       <td>Draft - In Progress</td>
     </tr>
+    <tr>
+      <td>31 July 2012</td>
+      <td>King, Kling, Gregorowicz, et. al.</td>
+      <td>Update for RHEx</td>
+      <td>V1.2</td>
+      <td>Draft - In Progress</td>
+    </tr>
+        <tr>
+      <td>4 Sept 2012</td>
+      <td>King, Kling, Gregorowicz, et. al.</td>
+      <td>Update for RHEx</td>
+      <td>V1.3</td>
+      <td></td>
+    </tr>
   </table>
 
   <h2>3. Extension Background</h2>
   <hr/>
-  <p>All hData section documents identified by an XML namespace must be declared in the extensions node of the root document.  Extensions are either &quot;mandatory&quot; or &quot;optional.&quot;  Each section document has an address expressed as a Uniform Resource Identifier (URI).  Each URI is registered in the extensions node of the root document.   Sections can contain either single data type documents (e.g., XML, JSON, HTML) or URIs referencing other sections.  Section document content must be expressed in XML and document types must be declared in the extensions node of the root document.</p>
+  <p>All hData section documents identified by an XML namespace must be declared in the extensions node of the root document. Extensions are either &quot;mandatory&quot; or &quot;optional.&quot; Each section document has an address expressed as a Uniform Resource Identifier (URI). Each URI is registered in the extensions node of the root document. Sections can contain either single data type documents (e.g., XML, JSON, HTML) or URIs referencing other sections. Section document content must be expressed in XML and document types must be declared in the extensions node of the root document.</p>
 
   <h2>4. Description</h2>
   <hr/>
   <h3>4.1. Purpose</h3>
 
-  <p>Procedure contains information defining the entry describing a procedure performed on a patient.  0 to many procedures can be associated with a patient.</p>
+  <p>Procedure contains information defining the entry describing a procedure performed on a patient. 0 to many procedures can be associated with a patient.</p>
 
   <h3>4.2. Description</h3>
 
@@ -67,20 +81,20 @@
       <td>id</td>
       <td>string</td>
       <td>M</td>
-      <td>Unique id for the procedure</td>
+      <td>Entry Component: Unique id for the procedure</td>
     </tr>
     <tr>
       <td>code</td>
-      <td>cd</td>
-      <td>O</td>
-      <td>The coded value of the procedure represented</td>
+      <td>code</td>
+      <td>M</td>
+      <td>Entry Component: The coded value of the procedure represented</td>
     </tr>
     <tr>
       <td>status</td>
-      <td>string</td>
+      <td>simpleCode</td>
       <td>O</td>
       <td>
-        <p>The status of the procedure. </p>
+        <p>Entry Component: The status of the procedure. </p>
         <p>The status strings map to the following:</p>
         <ul>
           <li>Aborted - Not Completed</li>
@@ -92,22 +106,23 @@
       </td>
     </tr>
     <tr>
-      <td>Description</td>
-      <td>string</td>
-      <td>M</td>
-      <td>Free text describing the Procedure.</td>
-    </tr>
-    <tr>
       <td>effectiveTime</td>
       <td>TimeInterval</td>
-      <td>O</td>
-      <td>The date and time of the Procedure, including duration if pertinent.</td>
+      <td>M</td>
+      <td>Entry Component: The date and time of the Procedure, including duration if pertinent.</td>
     </tr>
+    <tr>
+      <td>Description</td>
+      <td>string</td>
+      <td>O</td>
+      <td>Entry Component: Free text describing the Procedure.</td>
+    </tr>
+
     <tr>
       <td>site</td>
       <td>CodedValue</td>
       <td>O</td>
-      <td>Shall contain a value descending from the SNOMED CTÂ® Anatomical Structure (91723000) hierarchy or Acquired body structure (body structure) (280115004) or Anatomical site notations for tumor staging (body structure) (258331007) or Body structure, altered from its original anatomical structure (morphologic abnormality) (118956008) or Physical anatomical entity (body structure) (91722005) This indicates the anatomical site.</td>
+      <td>Shall contain a value descending from the SNOMED CT® Anatomical Structure (91723000) hierarchy or Acquired body structure (body structure) (280115004) or Anatomical site notations for tumor staging (body structure) (258331007) or Body structure, altered from its original anatomical structure (morphologic abnormality) (118956008) or Physical anatomical entity (body structure) (91722005) This indicates the anatomical site.</td>
     </tr>
     <tr>
       <td>performer</td>
@@ -135,18 +150,19 @@
     <h3>4.4. XML Schema Definition (XSD)</h3>
     <p>The XML Schema Definition (XSD) for Procedure specifies how to formally describe the elements in an XML document.<p>
     <p>Procedure.xsd is located at the following URI: <a href="https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/procedure.xsd">https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/condition.xsd</a></p>
-    <p>Procedure.xsd extends entry which is defined in data_types schema at the following URI: <a href="https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/data_types.xsd">https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/data_types.xsd</a></p>  
+    <p>Procedure.xsd extends entry which is defined in data_types schema at the following URI: <a href="https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/data_types.xsd">https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/data_types.xsd</a></p>
   </rddl:resource>
 
   <h3>4.5. Resource Representations</h3>
 
-  <p>Conditions may be represented in XML and JSON format.</p>
+  <p>Procedure may be represented in XML and JSON format.</p>
 
   <h3>4.6 Reference Documents</h3>
 
-  <p>Components of the Condition Extension Specification have been drawn from authoritative source and reference documents, as follows:
+  <p>Components of the Procedure Extension Specification have been drawn from authoritative source and reference documents, as follows:
   </p>
   <ul>
+    <li>Healthcare Information Technology Standards Panel (HITSP) CDA Content Modules Component (C/83), v.1.1, July 8, 2009.</li>
     <li>Healthcare Information Technology Standards Panel (HITSP) Continuity of Care Document (CCD) Component (HITSP/C32), v. 2.5, 08 July 2009.</li>
     <li>Healthcare Information Technology Standards Panel (HITSP) Clinical Document and Message Terminology Component (HITSP/C80), version 2.0.1, 31 January 2010.</li>
   </ul>
