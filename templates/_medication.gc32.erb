@@ -39,19 +39,15 @@
   <% if medication.vehicle %>
   <%== code_display medication, "tag_name" => "vehicle", "attribute" => "vehicle", "preferred_code_sets" => ["SNOMED-CT"] %>
   <% end%>
-  
   <% if medication.dose_indicator %>
     <doseIndicator><%= medication.dose_indicator %></doseIndicator>
   <% end %>
-  
   <% if medication.patient_instructions %>
     <patientInstructions><%=medication.patient_instructions%></patientInstructions>
   <% end %>
-  
   <% if medication.fulfillment_instructions %>
     <fulfillmentInstructions><%=medication.fulfillment_instructions%></fulfillmentInstructions>
   <% end %>
-
   <% medication.fulfillment_history.each do |fh| %>
   <fulfillmentHistory <%if (fh.fill_status) %> fillStatus="<%=fh.fill_status%>" <% end %>
     <% if fh.fill_number %> fillNumber="<%=fh.fill_number%>" <% end %>>
