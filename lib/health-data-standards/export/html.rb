@@ -3,7 +3,7 @@ module HealthDataStandards
     module HTML
       include TemplateHelper
 
-       def export(patient)
+      def export(patient)
         self.template_format = "html"
         render(:template => 'show', :locals => {:patient => patient})
       end
