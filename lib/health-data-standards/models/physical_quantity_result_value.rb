@@ -1,4 +1,4 @@
 class PhysicalQuantityResultValue < ResultValue
   field :scalar
-  field :unit, type: String
+  field :units, type: String
 end

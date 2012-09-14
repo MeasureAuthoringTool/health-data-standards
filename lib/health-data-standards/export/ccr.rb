@@ -167,7 +167,7 @@ module HealthDataStandards
               if rv.present? && rv.respond_to?(:scalar)
                 xml.Value(rv.scalar)
                 xml.Unit do
-                  xml.Unit(rv.unit)
+                  xml.Unit(rv.units)
                 end
               else
                 
