@@ -53,11 +53,6 @@ module HealthDataStandards
           provider[:npi] = npi if Provider.valid_npi?(npi)
           provider
         end
-        
-        def find_or_create_provider(provider_hash)
-          provider = Provider.first(conditions: {npi: provider_hash[:npi]}) if provider_hash[:npi]
-          provider ||= Provider.create(provider_hash)
-        end
       
         def extract_date(subject,query)
           date = extract_data(subject,query)

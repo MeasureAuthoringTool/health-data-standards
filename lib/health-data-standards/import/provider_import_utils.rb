@@ -7,7 +7,7 @@ module ProviderImportUtils
   
   def find_or_create_provider(provider_hash)
     provider = Provider.first(conditions: {npi: provider_hash[:npi]}) if provider_hash[:npi] && !provider_hash[:npi].empty?
-    provider ||= Provider.create(provider_hash)
+    provider ||= Provider.new(provider_hash)
   end
 
   # Returns nil if result is an empty string, block allows text munging of result if there is one

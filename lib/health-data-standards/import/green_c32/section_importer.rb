@@ -111,14 +111,15 @@ module HealthDataStandards
         
         def extract_organization(organization_element)
           org_id = extract_node_text(organization_element.xpath("./gc32:id"))
-          organization = org_id ? Organization.find_or_create_by(id: org_id) : Organization.new
-          if organization.new_record?
-          else
+          organization = org_id ? Organization.find(org_id) : Organization.new
+          organization ||= Organization.new
+          # if organization.new_record?
+          # else
             organization.name = extract_node_text(organization_element.xpath("./gc32:name"))
             organization.addresses = organization_element.xpath("./gc32:address").map { |addr| extract_address(addr)  }
             organization.telecoms = organization_element.xpath("./gc32:telecom").map { |tele| extract_telecom(tele) }
-            organization.save!
-          end
+            # organization.save!
+          # end
           
           return organization
         end
