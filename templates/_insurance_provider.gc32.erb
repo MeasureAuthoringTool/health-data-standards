@@ -1,5 +1,5 @@
 <insuranceProvider xmlns="urn:hl7-org:greencda:c32" id="<%=insurance_provider.id%>">
-  <%== code_display insurance_provider, "attribute" => "type", "tag_name" => "insuranceType" %>
+  <insuranceType code="<%= insurance_provider.type %>" codeSystem="2.16.840.1.113883.3.88.12.3221.5.2">
   <%== render partial: "organization", locals: {organization: insurance_provider.payer, tag_name: payer} %>
   <% if insurance_provider.subscriber %>
     <subscriber>
@@ -7,7 +7,7 @@
     </subscriber>
   <% end %>
   <% if insurance_provider.relationship %>
-  <%== code_display insurance_provider, "attribute" => "relationshipToSubscriber", "tag_name" => "relationship" %>
+  <%== code_display insurance_provider, "attribute" => "relationship", "tag_name" => "relationshipToSubscriber" %>
   <% end %>
   <% insurance_provider.guarantors.each do |g| %>
   <guarantor>

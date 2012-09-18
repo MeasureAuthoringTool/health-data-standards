@@ -1,5 +1,6 @@
 class InsuranceProvider
   include Mongoid::Document
+  include ThingWithCodes
   
   embeds_one :payer, class_name: "Organization"
   embeds_many :guarantors, class_name: "Guarantor"
@@ -14,4 +15,5 @@ class InsuranceProvider
   field :financial_responsibility_type, type: Hash
   field :name, type: String
   field :free_text, type: String
+  
 end
