@@ -5,7 +5,9 @@
   <% end %>
   <% if allergy.reaction %>
     <% allergy.reaction.each_pair do |system, code| %>
+      <% if code%>
       <reaction code="<%= code.first %>" codeSystem="<%= system %>" />
+      <% end %>
     <% end %>
   <% end %>
   <% if allergy.severity%>
