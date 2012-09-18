@@ -64,6 +64,7 @@ module HealthDataStandards
           extract_codes(entry_element, entry)
           extract_dates(entry_element, entry)
           extract_value(entry_element, entry)
+          entry.free_text = entry_element.at_xpath("./cda:text").try("text")
           if @status_xpath
             extract_status(entry_element, entry)
           end

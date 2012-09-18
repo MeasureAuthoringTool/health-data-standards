@@ -2,7 +2,7 @@
   <MediaType>application/xml</MediaType>
   <MediaType>application/json</MediaType>
   <% metadata.pedigrees.each do |pedigree| %>
-    <%= render :partial => "pedigree", locals: {pedigree: pedigree}%>
+    <%== render :partial => "pedigree", locals: {pedigree: pedigree}%>
   <% end %>
   <Title><%= entry.id %></Title>
   <LinkedDocuments>
@@ -18,7 +18,7 @@
       <% metadata.modified_dates.each do |md| %>
         <ModifiedInfo>
           <ChangeDateTime><%= md.timestamp %></ChangeDateTime>
-          <%= render :partial => "pedigree", locals: {pedigree: md.pedigree}%>
+          <%== render :partial => "pedigree", locals: {pedigree: md.pedigree}%>
         </ModifiedInfo>
       <% end %>
     </Modified>
@@ -26,7 +26,7 @@
       <% metadata.copied_dates.each do |cd| %>
         <CopiedInfo>
           <ChangeDateTime><%= cd.timestamp %></ChangeDateTime>
-          <%= render :partial => "pedigree", locals: {pedigree: cd.pedigree}%>
+          <%== render :partial => "pedigree", locals: {pedigree: cd.pedigree}%>
         </CopiedInfo>
       <% end %>
     </Copied>

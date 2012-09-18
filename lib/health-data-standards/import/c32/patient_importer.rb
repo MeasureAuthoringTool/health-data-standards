@@ -155,10 +155,10 @@ module HealthDataStandards
           patient.race = { code: race_node['code'], code_set: 'CDC-RE' } if race_node
           ethnicity_node = patient_element.at_xpath('cda:ethnicGroupCode')
           patient.ethnicity = {code: ethnicity_node['code'], code_set: 'CDC-RE'} if ethnicity_node
-          marital_status_node = patient_element.at_xpath("./cda:maritalStatus")
+          marital_status_node = patient_element.at_xpath("./cda:maritalStatusCode")
           patient.marital_status = {code: marital_status_node['code'], code_set: "HL7 Marital Status"} if marital_status_node
           ra_node = patient_element.at_xpath("./cda:religiousAffiliationCode")
-          patient.religious_affiliation = {code: ra_node, code_set: "Religious Affiliation"} if ra_node
+          patient.religious_affiliation = {code: ra_node['code'], code_set: "Religious Affiliation"} if ra_node
           languages = patient_element.search('languageCommunication').map {|lc| lc.at_xpath('cda:languageCode')['code'] }
           patient.languages = languages unless languages.empty?
           

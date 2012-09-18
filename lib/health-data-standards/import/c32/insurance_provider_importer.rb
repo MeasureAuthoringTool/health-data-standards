@@ -10,7 +10,8 @@ module HealthDataStandards
         def create_entries(doc, id_map={})
           doc.xpath(@entry_xpath).map do |payer_element|
             ip = InsuranceProvider.new
-            ip.type = extract_code(payer_element, "./cda:code")
+            type = extract_code(payer_element, "./cda:code")
+            ip.type = type['code'] if type
             ip.payer = import_organization(payer_element.at_xpath("./cda:performer/cda:assignedEntity[cda:code[@code='PAYOR']]"))
             ip.guarantors = extract_guarantors(payer_element.xpath("./cda:performer[cda:assignedEntity[cda:code[@code='GUAR']]]"))
             ip.subscriber = import_person(payer_element.at_xpath("./cda:participant[@typeCode='HLD']/cda:participantRole"))

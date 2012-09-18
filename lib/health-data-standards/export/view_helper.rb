@@ -4,13 +4,16 @@ module HealthDataStandards
       def code_display(entry, options={})
         options['tag_name'] ||= 'code'
         options['attribute'] ||= :codes
+        options['exclude_null_flavor'] ||= false
         code_string = nil
         preferred_code = entry.preferred_code(options['preferred_code_sets'], options['attribute'])
         if preferred_code
           code_system_oid = HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(preferred_code['code_set'])
           code_string = "<#{options['tag_name']} code=\"#{preferred_code['code']}\" codeSystem=\"#{code_system_oid}\" #{options['extra_content']}>"
         else
-          code_string = "<#{options['tag_name']} nullFlavor=\"UNK\" #{options['extra_content']}>"
+          code_string = "<#{options['tag_name']} "
+          code_string += "nullFlavor=\"UNK\" " unless options["exclude_null_flavor"]
+          code_string += "#{options['extra_content']}>"
         end
         
         
@@ -24,6 +27,10 @@ module HealthDataStandards
         
         code_string += "</#{options['tag_name']}>"
         code_string
+      end
+      
+      def gc32_code_display(entry, options={})
+        code_display(entry, options.merge("exclude_null_flavor" => true))
       end
       
       def gc32_effective_time(entry)
