@@ -5,6 +5,12 @@
       <givenName><%= record.first %></givenName>
       <familyName><%= record.last %></familyName>
     </name>
+    <% record.addresses.each do |address| %>
+      <%== render partial: "address", locals: {address: address} %>
+    <% end %>
+    <% record.telecoms.each do |tele| %>
+      <%== render partial: "telecom", locals: {telecom: tele} %>
+    <% end %>
     <gender code="<%= record.gender %>" codeSystem="2.16.840.1.113883.5.1" />
     <dateOfBirth><%= time_if_not_nil(record.birthdate) %></dateOfBirth>
     <% if record.deathdate %>

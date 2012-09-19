@@ -136,7 +136,8 @@ module HealthDataStandards
         def get_demographics(patient, doc)
           effective_date = doc.at_xpath('/cda:ClinicalDocument/cda:effectiveTime')['value']
           patient.effective_time = HL7Helper.timestamp_to_integer(effective_date)
-          patient_element = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient')
+          patient_role_element = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole')
+          patient_element = patient_role_element.at_xpath('./cda:patient')
           patient.title = patient_element.at_xpath('cda:name/cda:title').try(:text)
           patient.first = patient_element.at_xpath('cda:name/cda:given').text
           patient.last = patient_element.at_xpath('cda:name/cda:family').text
@@ -147,7 +148,7 @@ module HealthDataStandards
           patient.religious_affiliation = patient_element.at_xpath("./cda:religiousAffiliationCode/@code").try("text")
           gender_node = patient_element.at_xpath('cda:administrativeGenderCode')
           patient.gender = gender_node['code']
-          id_node = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:id')
+          id_node = patient_role_element.at_xpath('./cda:id')
           patient.medical_record_number = id_node['extension']
           
           # parse race, ethnicity, and spoken language
@@ -161,6 +162,9 @@ module HealthDataStandards
           patient.religious_affiliation = {code: ra_node['code'], code_set: "Religious Affiliation"} if ra_node
           languages = patient_element.search('languageCommunication').map {|lc| lc.at_xpath('cda:languageCode')['code'] }
           patient.languages = languages unless languages.empty?
+          
+          patient.addresses = patient_role_element.xpath("./cda:addr").map { |addr| SectionImporter.import_address(addr) }
+          patient.telecoms = patient_role_element.xpath("./cda:telecom").map { |tele| SectionImporter.import_telecom(tele) }
           
         end
       end
