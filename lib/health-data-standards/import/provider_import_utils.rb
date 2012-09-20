@@ -6,7 +6,7 @@ module ProviderImportUtils
   end
   
   def find_or_create_provider(provider_hash)
-    provider = Provider.first(conditions: {npi: provider_hash[:npi]}) if provider_hash[:npi] && !provider_hash[:npi].empty?
+    provider = Provider.where(npi: provider_hash[:npi]).first if provider_hash[:npi] && !provider_hash[:npi].empty?
     provider ||= Provider.create(provider_hash)
   end
 

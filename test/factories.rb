@@ -113,7 +113,7 @@ FactoryGirl.define do
     f.start_time 1267332332
     f.end_time 1267333332
     f.administrationTiming { {:institution_specified => true, :period => {"value" => 5.0, "unit" => "hours"}} }
-    f.dose { FactoryGirl.build(:physical_quantity_result_value) }
+    f.dose { FactoryGirl.build(:physical_quantity_result_value).attributes }
     f.status "complete"
     f.typeOfMedication { {"RxNorm" => ["12345"]}}
     f.statusOfMedication { {"RxNorm" => ["12345"]}}

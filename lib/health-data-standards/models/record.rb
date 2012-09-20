@@ -12,7 +12,7 @@ class Record
   field :race, type: Hash
   field :ethnicity, type: Hash
   field :languages, type: Array
-  field :test_id, type: BSON::ObjectId
+  field :test_id, type: Moped::BSON::ObjectId
   field :marital_status, type: Hash # TODO
   field :medical_record_number, type: String
   field :expired, type: Boolean
