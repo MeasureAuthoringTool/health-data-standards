@@ -19,7 +19,7 @@
 		<xs:complexContent>
 			<xs:extension base="gc32:simpleCode">
 	  	<xs:sequence>
-  		  <xs:element name="originalText" />
+  		  <xs:element name="originalText" minOccurs="0" />
   		  <xs:element name="translation" minOccurs="0" maxOccurs="unbounded" type="gc32:simpleCode" />
   		</xs:sequence>
 			</xs:extension>
@@ -32,8 +32,8 @@
 	<xs:complexType name="interval">
 	  <xs:choice minOccurs="0">
 	    <xs:sequence>
-  	    <xs:element name="start" type="xs:dateTime" />
-  		  <xs:element name="end" type="xs:dateTime"/>
+  	    <xs:element name="start" type="gc32:timestamp" minOccurs="0" />
+  		  <xs:element name="end" type="gc32:timestamp" minOccurs="0" />
   	  </xs:sequence>
 	  </xs:choice>
 	  <xs:attribute name="value" type="xs:dateTime" />
@@ -59,8 +59,8 @@
 		<xs:sequence>
 			<xs:element name="id" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="name" type="xs:string" minOccurs="0"/>
-			<xs:element name="address" type="gc32:address" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="gc32:telecom" maxOccurs="unbounded"/>
+			<xs:element name="address" type="gc32:address" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="gc32:telecom" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="telecom">

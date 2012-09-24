@@ -27,11 +27,11 @@ module HealthDataStandards
       
       def gc32_effective_time(entry)
         if entry.time
-          "<effectiveTime value=\"#{Time.at(entry.time)}\" />"
+          "<effectiveTime value=\"#{Time.at(entry.time).to_formatted_s(:number)}\" />"
         elsif entry.start_time || entry.end_time
           time = "<effectiveTime>"
-          time += "<start value=\"#{Time.at(entry.start_time)}\" />"  if entry.start_time
-          time += "<end value=\"#{Time.at(entry.end_time)}\" />" if entry.end_time
+          time += "<start value=\"#{Time.at(entry.start_time).to_formatted_s(:number)}\" />"  if entry.start_time
+          time += "<end value=\"#{Time.at(entry.end_time).to_formatted_s(:number)}\" />" if entry.end_time
           time += "</effectiveTime>"
         else
           "<effectiveTime />"
@@ -61,7 +61,11 @@ module HealthDataStandards
       
       def quantity_display(value, tag_name="value")
         return unless value
-        "<#{tag_name} value=\"#{value['value']}\" units=\"#{value['unit']}\" />"
+        if value.respond_to?(:scalar)
+          "<#{tag_name} value=\"#{value.scalar}\" units=\"#{value.units}\" />"
+        else
+          "<#{tag_name} value=\"#{value['value']}\" units=\"#{value['unit']}\" />"
+        end
       end
 
       def time_if_not_nil(*args)
@@ -79,6 +83,22 @@ module HealthDataStandards
       def is_bool?(str)
         return ["true","false"].include? (str || "").downcase
       end
+      
+      def decode_qrda_section(section, oid)
+        if oid
+          HealthDataStandards::Util::QRDATemplateHelper.definition_for_template_id(oid)['definition'].pluralize.to_sym
+        else
+          section
+        end
+      end
+      def decode_qrda_status(status, oid)
+        if oid
+          HealthDataStandards::Util::QRDATemplateHelper.definition_for_template_id(oid)['status']
+        else
+          status
+        end
+      end
+      
     end
   end
 end

@@ -1,0 +1,37 @@
+      <component>
+        <!--Immunizations-->
+        <section>
+		      <templateId root="2.16.840.1.113883.10.20.22.2.2" />
+          <!--Immunizations section template-->
+          <code code="11369-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="History of immunizations"/>
+          <title>Immunizations</title>
+          <%== render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'immunizations'} %>
+          <% entries.each_with_index do |entry, i| -%>
+          <entry typeCode="DRIV">
+            <substanceAdministration classCode="SBADM" moodCode="EVN" negationInd="false">
+			        <templateId root="2.16.840.1.113883.10.20.22.4.52"/>
+              <!-- Medication activity template -->
+              <id root="<%= UUID.generate %>"/>
+              <code code='IMMUNIZ' codeSystem='2.16.840.1.113883.5.4' codeSystemName='ActCode'/>
+              <text>
+                <reference value="#immunizations-desc-<%= i %>"/>
+              </text>
+              <statusCode code="completed"/>
+              <effectiveTime <%= value_or_null_flavor(entry.as_point_in_time) %>/>
+              <doseQuantity nullFlavor="UNK"/>
+              <consumable>
+                <manufacturedProduct classCode="MANU">
+                  <templateId root="2.16.840.1.113883.10.20.22.4.54"/>
+                  <!-- Product template -->
+                  <manufacturedMaterial>
+                    <%== render :partial => 'code_with_reference', :locals => {:entry => entry, :i => i, :section => 'immunizations',
+                                                                               :preferred_code_sets => ['CVX']} %>
+                    <name><%= entry.description %></name>
+                  </manufacturedMaterial>
+                </manufacturedProduct>
+              </consumable>
+            </substanceAdministration>
+          </entry>
+          <% end -%>
+        </section>
+      </component>

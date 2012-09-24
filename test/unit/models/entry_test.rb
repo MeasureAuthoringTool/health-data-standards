@@ -34,13 +34,13 @@ class EntryTest < MiniTest::Unit::TestCase
   
   def test_from_event_hash
     hash = {'code' => 123, 'code_set' => "RxNorm", 'value' => 50, 'unit' => "mm", 
-            'description' => "Test", 'specifics' => "Specific", 'status' => "completed"}
+            'description' => "Test", 'specifics' => "Specific", 'status' => "active"}
             
     entry = Entry.from_event_hash(hash)
     
     assert_equal [hash['code']], entry.codes[hash['code_set']]
-    assert_equal hash['value'], entry.value[:scalar]
-    assert_equal hash['unit'], entry.value[:units]
+    assert_equal hash['value'], entry.values.first.scalar
+    assert_equal hash['unit'], entry.values.first.units
     assert_equal hash['specifics'], entry.specifics
     assert_equal hash['status'], entry.status
   end

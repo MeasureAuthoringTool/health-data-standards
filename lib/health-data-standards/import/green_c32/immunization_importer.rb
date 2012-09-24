@@ -13,7 +13,7 @@ module HealthDataStandards
           extract_code(immunization_element, immunization, "./gc32:refusalReason")
           series_number = extract_node_text(immunization_element.at_xpath("./gc32:seriesNumber"))
           immunization.series_number = series_number.to_i if series_number
-          immunization.refusalInd = extract_node_attribute(immunization_element, :refused, true)
+          immunization.refusal_ind = extract_node_attribute(immunization_element, :refused, true)
           immunization
         end
         

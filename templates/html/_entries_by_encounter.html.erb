@@ -1,0 +1,54 @@
+<div id="table_by_encounter" style="display:none">
+
+  <% 
+    patient.encounters.sort! { |left,right| left.as_point_in_time <=> right.as_point_in_time }
+    
+    all_entries = []
+    entry_section = {}
+    Record::Sections.each do |section|
+      if section != :encounters
+        patient.send(section).each do |entry|
+          all_entries << entry
+          entry_section[entry.hash] = section
+        end if patient.respond_to? section
+      end
+    end
+    all_entries.sort! { |left,right| left.as_point_in_time <=> right.as_point_in_time }
+    
+    entries_by_encounter = {}
+    if (patient.encounters.size > 0)
+      encounters_iterator = patient.encounters.each
+      current_encounter = encounters_iterator.next
+      all_entries.each do |entry|
+        next_encounter = encounters_iterator.peek rescue nil
+        while (next_encounter && entry.as_point_in_time >= next_encounter.as_point_in_time)
+	        current_encounter = encounters_iterator.next 
+	        next_encounter = encounters_iterator.peek rescue nil
+	      end
+        entries_by_encounter[current_encounter.hash] ||= []
+        entries_by_encounter[current_encounter.hash] << entry
+      end
+    end
+  %>
+  
+  <% patient.encounters.each_with_index do |encounter, index| %>
+    <% if index > 0 %><br/><% end %>
+    <div style="background: #EEEEEE; width: 92%"><h3>Encounter <%= index+1 %></h3></div>
+    <div style="padding-left: 15px;">
+      <% 
+        entries_by_section = {}
+        entries_by_encounter[encounter.hash].each do |entry|
+          decoded_section = decode_qrda_section(entry_section[entry.hash], entry.oid)
+          entries_by_section[decoded_section] ||= []
+          entries_by_section[decoded_section] << entry
+        end if entries_by_encounter[encounter.hash]
+      %>
+      <%== render :partial => 'section', :locals => {entries: [encounter], section: :encounters} %>
+      <% entries_by_section.each do |section, entries| %>
+        <%== render :partial => 'section', :locals => {entries: entries, section: section} %>
+      <% end %>
+    </div>
+
+  <% end %>
+  
+</div>

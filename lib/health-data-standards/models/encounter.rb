@@ -1,8 +1,11 @@
 class Encounter < Entry
+
   field :admitType, type: Hash
   field :dischargeDisposition, type: Hash
-  
-  embeds_one :facility, class_name: "Organization"
+  field :admit_time, type: Integer
+  field :discharge_time, type: Integer
+
+  embeds_one :facility
   embeds_one :reason, class_name: "Entry"
 
   belongs_to :performer, class_name: "Provider"

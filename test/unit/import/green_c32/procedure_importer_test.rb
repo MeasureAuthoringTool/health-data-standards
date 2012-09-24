@@ -13,15 +13,17 @@ module GreenC32
       refute_nil procedure
 
       code_system = procedure.codes.keys[0]
-      assert_equal "LOINC", code_system
-      assert_equal ["47519-4"],  procedure.codes[code_system]
+
+      assert_equal "CPT", code_system
+      assert_equal ["30400"],  procedure.codes[code_system]
       assert_equal 1327932000, procedure.start_time
       assert_equal 1328018400, procedure.end_time
+
       assert_equal "completed", procedure.status
       
       code_system = procedure.site.keys[0]
       assert_equal "SNOMED-CT", code_system
-      assert_equal ["1234"],  procedure.site[code_system]
+      assert_equal ["42650002"],  procedure.site[code_system]
     end
   end 
 end

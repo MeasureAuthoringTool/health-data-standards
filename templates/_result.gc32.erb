@@ -3,7 +3,9 @@
     <%== code_display result, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT'] %>
     <freeText><%= result.free_text %></freeText>
     <%== gc32_effective_time(result)%>
-    <value amount="<%= result.value['scalar']%>" unit="<%= result.value['units'] %>" />
+    <% if result.values.first %>
+    <value amount="<%= result.values.first.scalar %>" unit="<%= result.values.first.units %>" />
+    <% end %>
     <% if result.interpretation%>
       <% code = result.interpretation.first%>
       <interpretation code="<%= code.last %>" codeSystem="<%= CodeSystemHelper.oid_for_code_system(code.first) %>">

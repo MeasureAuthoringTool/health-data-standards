@@ -1,0 +1,34 @@
+<component>
+  <!--Medications-->
+  <section>
+	<templateId root="2.16.840.1.113883.10.20.22.2.1" />
+    <code code="10160-0" displayName="History of medication use" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+    <title>Medications</title>
+    <%== render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'medications'} %>
+    <% entries.each_with_index do |entry, i| -%>
+    <entry>
+      <!--CCD Medication activity - Required-->
+      <substanceAdministration classCode="SBADM" moodCode="EVN">
+        <templateId root='2.16.840.1.113883.10.20.22.4.16'/>
+        <id root="<%= UUID.generate %>"/>
+        <statusCode code="completed"/>
+        <effectiveTime xsi:type="IVL_TS">
+          <low <%= value_or_null_flavor(entry.as_point_in_time) %>/>
+          <high nullFlavor="UNK"/>
+        </effectiveTime>
+        <consumable>
+          <!--CCD Product - Required-->
+          <manufacturedProduct classCode="MANU">
+			    <templateId root='2.16.840.1.113883.10.20.22.4.23'/>
+            <manufacturedMaterial>
+              <%== render :partial => 'code_with_reference', :locals => {:entry => entry, :i => i, :section => 'medications',
+                                                                         :preferred_code_sets => ['RxNorm']} %>
+              <name><%= entry.description %></name>
+            </manufacturedMaterial>
+          </manufacturedProduct>
+        </consumable>
+      </substanceAdministration>
+    </entry>
+    <% end -%>
+  </section>
+</component>

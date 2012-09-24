@@ -36,7 +36,7 @@ FactoryGirl.define do
     f.codes           { { "SNOMED" => ["598721"] } }
     f.start_time      1267322332
     f.end_time        1267323432
-    f.value {{scalar: 5, unit: "strips"}}
+    f.values  { [FactoryGirl.build(:physical_quantity_result_value)]}
   end
   
   factory :support do |f|
@@ -113,7 +113,7 @@ FactoryGirl.define do
     f.start_time 1267332332
     f.end_time 1267333332
     f.administrationTiming { {:institution_specified => true, :period => {"value" => 5.0, "unit" => "hours"}} }
-    f.dose { {"RxNorm" => ["12345"]}}
+    f.dose { FactoryGirl.build(:physical_quantity_result_value).attributes }
     f.status "complete"
     f.typeOfMedication { {"RxNorm" => ["12345"]}}
     f.statusOfMedication { {"RxNorm" => ["12345"]}}
@@ -132,6 +132,11 @@ FactoryGirl.define do
   end
 
   factory :order_information do |f|
+  end
+  
+  factory :physical_quantity_result_value do |f|
+    f.scalar 5
+    f.units "strips"
   end
 
   factory :procedure do |f|

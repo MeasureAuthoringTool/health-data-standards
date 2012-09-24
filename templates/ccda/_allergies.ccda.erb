@@ -1,0 +1,52 @@
+
+<component>
+  <!--Allergies/Reactions-->
+  <section>
+    <templateId root="2.16.840.1.113883.10.20.22.2.6"/>
+    <!--Allergies/Reactions section template-->
+    <code code="48765-2" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Allergies"/>
+    <title>Allergies and Adverse Reactions</title>
+    <%== render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'allergies'} %>
+    <% entries.each_with_index do |entry, i| -%>
+    <entry typeCode="DRIV">
+      <act classCode="ACT" moodCode="EVN">
+        <templateId root="2.16.840.1.113883.10.20.22.4.30"/>
+        <!--Allergy act template -->
+        <id root="<%= UUID.generate %>"/>
+        <code nullFlavor="NA"/>
+        <statusCode code="active"/>
+        <effectiveTime>
+          <low <%= value_or_null_flavor(entry.as_point_in_time) %>/>
+        </effectiveTime>
+        <entryRelationship typeCode="SUBJ" inversionInd="false">
+          <observation classCode="OBS" moodCode="EVN">
+            <templateId root="2.16.840.1.113883.10.20.22.4.7"/>
+            <id root="<%= UUID.generate %>"/>
+            <code code="416098002" codeSystem="2.16.840.1.113883.6.96" displayName="drug allergy" codeSystemName="SNOMED CT">
+              <originalText><reference value="#allergies-desc-<%= i %>"/></originalText>
+            </code>
+            <text>
+              <reference value="#allergies-desc-<%= i %>"/>
+            </text>
+            <statusCode code="completed"/>
+            <effectiveTime>
+              <low <%= value_or_null_flavor(entry.as_point_in_time) %>/>
+            </effectiveTime>
+            <value xsi:type="CD" nullFlavor="UNK"/>
+            <participant typeCode="CSM">
+              <participantRole classCode="MANU">
+                <playingEntity classCode="MMAT">
+                  <%== render :partial => 'code_with_reference', 
+                              :locals => {:entry => entry, :i => i, :section => 'allergies', 
+                                          :preferred_code_sets => ['RxNorm']} %>
+                  <name><%= entry.description %></name>
+                </playingEntity>
+              </participantRole>
+            </participant>
+          </observation>
+        </entryRelationship>
+      </act>
+    </entry>
+    <% end -%>
+  </section>
+</component>

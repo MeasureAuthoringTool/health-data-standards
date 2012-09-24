@@ -1,0 +1,26 @@
+<component>
+  <!--Surgeries-->
+  <section>
+    <templateId root="2.16.840.1.113883.10.20.22.2.7"/>
+    <!--Surgeries section template-->
+    <code code="47519-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="List of surgeries"/>
+    <title>Surgeries</title>
+    <%== render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'procedures'} %>
+    <% entries.each_with_index do |entry, i| -%>
+    <entry typeCode="DRIV">
+      <procedure classCode="PROC" moodCode="EVN">
+        <templateId root="2.16.840.1.113883.10.20.22.4.14"/>
+        <!-- Procedure activity template -->
+        <id root="<%= UUID.generate %>"/>
+        <%== render :partial => 'code_with_reference', :locals => {:entry => entry, :i => i, :section => 'procedures',
+                                                                   :preferred_code_sets => ['CPT', 'ICD-9-CM', 'ICD-10-CM', 'HCPCS', 'SNOMED-CT']} %>
+        <text>
+          <reference value="#procedures-desc-<%= i %>"/>
+        </text>
+        <statusCode code="completed"/>
+        <effectiveTime <%= value_or_null_flavor(entry.as_point_in_time) %>/>
+      </procedure>
+    </entry>
+    <% end -%>
+  </section>
+</component>

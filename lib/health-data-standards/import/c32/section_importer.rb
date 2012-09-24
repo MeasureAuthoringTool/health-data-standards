@@ -67,9 +67,6 @@ module HealthDataStandards
           if @status_xpath
             extract_status(entry_element, entry)
           end
-          if @priority_xpath
-              extract_priority(entry_element, entry)
-            end
           if @description_xpath
             extract_description(entry_element, entry, id_map)
           end
@@ -81,27 +78,9 @@ module HealthDataStandards
         def extract_status(parent_element, entry)
           status_element = parent_element.at_xpath(@status_xpath)
           if status_element
-            case status_element['code']
-            when '55561003'
-              entry.status = :active
-            when '73425007'
-              entry.status = :inactive
-            when '413322009'      
-              entry.status = :resolved
-            end
+            entry.status_code = {CodeSystemHelper.code_system_for(status_element['codeSystem']) => [status_element['code']]}
           end
         end
-
-        def extract_priority(parent_element, entry)
-          priority_element = parent_element.at_xpath(@priority_xpath)
-          if priority_element
-            case priority_element['code']
-            when '8319008'
-              entry.ordinality = :principal
-            end
-          end
-        end
-
 
         def extract_description(parent_element, entry, id_map)
           code_elements = parent_element.xpath(@description_xpath)
@@ -195,6 +174,22 @@ module HealthDataStandards
           tele
         end
 
+        def extract_negation(parent_element, entry)
+          negation_indicator = parent_element['negationInd']
+          unless negation_indicator.nil?
+            entry.negation_ind = negation_indicator.eql?('true')
+            if entry.negation_ind
+              negation_reason_element = parent_element.at_xpath("./cda:entryRelationship[@typeCode='RSON']/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:code")
+              if negation_reason_element
+                code_system_oid = negation_reason_element['codeSystem']
+                code = negation_reason_element['code']
+                code_system = HealthDataStandards::Util::CodeSystemHelper.code_system_for(code_system_oid)
+                entry.negation_reason = {'code' => code, 'codeSystem' => code_system}
+              end
+            end
+          end
+        end
+    
         def extract_code(parent_element, code_xpath, code_system=nil)
           code_element = parent_element.at_xpath(code_xpath)
           code_hash = nil

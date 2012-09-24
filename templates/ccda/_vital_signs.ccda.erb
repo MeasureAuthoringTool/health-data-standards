@@ -1,0 +1,47 @@
+<component>
+  <!--Vital Signs-->
+  <section>
+    <templateId root="2.16.840.1.113883.10.20.22.2.4"/>
+    <!--Vital Signs section template-->
+    <code code="8716-3" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Vital signs"/>
+    <title>Vital Signs</title>
+    <%== render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'vitals', :value=>true} %>
+    <entry typeCode="DRIV">
+      <organizer classCode="CLUSTER" moodCode="EVN">
+        <templateId root="2.16.840.1.113883.10.20.22.4.26"/>
+        <!-- Vital signs organizer template -->
+        <id root="<%= UUID.generate %>"/>
+        <code code="46680005" codeSystem="2.16.840.1.113883.6.96" displayName="Vital signs" codeSystemName="SNOMED CT"/>
+        <statusCode code="completed"/>
+        <effectiveTime value="19991114"/>
+        <% entries.each_with_index do |entry, i| -%>
+        <component>
+          <observation classCode="OBS" moodCode="EVN">
+            <templateId root="2.16.840.1.113883.10.20.22.4.27"/>
+            <!-- Result observation template -->
+            <id root="<%= UUID.generate %>"/>
+            <%== code_display(entry, {'preferred_code_sets' => ['LOINC','SNOMED']}) %>
+            <text>
+              <reference value="vitals-desc-<%= i %>"/>
+            </text>
+            <statusCode code="completed"/>
+            <effectiveTime <%= value_or_null_flavor(entry.as_point_in_time) %>/>
+              <% ev = entry.values.first
+                if ev.present? && ev.respond_to?(:scalar) -%>
+               <% if is_num?(ev.scalar) -%>
+                <value xsi:type="PQ" value="<%= ev.scalar %>" <% if ev.units -%>unit="<%= ev.units %>"<% end -%>/>
+               <% elsif is_bool?(ev.scalar)%>
+                <value xsi:type="BL" value="<%= ev.scalar %>" />
+               <% else -%>
+                <value xsi:type="ST" ><%= ev.scalar %></value> 
+               <% end -%>
+              <% else -%>
+              <value xsi:type="PQ" nullFlavor="UNK"/>
+              <% end -%>
+          </observation>
+        </component>
+        <% end -%>
+      </organizer>
+    </entry>
+  </section>
+</component>

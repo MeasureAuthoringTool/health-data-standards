@@ -1,0 +1,61 @@
+<component>
+  <!--Diagnostic Results-->
+  <section>
+    <templateId root="2.16.840.1.113883.10.20.22.2.3.1"/>
+    <!--Diagnostic Results section template-->
+    <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Results"/>
+    <title>Diagnostic Results</title>
+    <%== render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'results', :value=>true} %>
+    <entry typeCode="DRIV">
+      <organizer classCode="BATTERY" moodCode="EVN">
+        <templateId root="2.16.840.1.113883.10.20.22.4.1"/>
+        <!--Result organizer template -->
+        <id root="<%= UUID.generate %>"/>
+        <code nullFlavor="NA"/>
+        <statusCode code="completed"/>
+        <effectiveTime value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
+          <component>
+           <observation classCode="OBS" moodCode="EVN">
+            <templateId root="2.16.840.1.113883.10.20.22.4.2"/>
+              <id root="<%= UUID.generate %>"/>
+              <code nullFlavor="UNK">
+                <originalText><reference value="Unknown"/></originalText>
+              </code>
+              <text>
+                <reference value="Unknown"/>
+              </text>
+              <statusCode code="completed"/>
+              <effectiveTime nullFlavor="UNK"/>
+            </observation>
+          </component>
+        <% entries.each_with_index do |entry, i| -%>
+        <component>
+          <observation classCode="OBS" moodCode="EVN">
+            <templateId root="2.16.840.1.113883.10.20.22.4.2"/>
+            <!-- Result observation template -->
+            <id root="<%= UUID.generate %>"/>
+            <%== code_display(entry, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT']) %>
+            <text>
+              <reference value="#results-desc-<%= i %>"/>
+            </text>
+            <statusCode code="completed"/>
+            <effectiveTime <%= value_or_null_flavor(entry.as_point_in_time) %>/>
+              <% ev = entry.values.first
+                if ev.present? && ev.respond_to?(:scalar) -%>
+               <% if is_num?(ev.scalar) -%>
+                <value xsi:type="PQ" value="<%= ev.scalar %>" <% if ev.units -%>unit="<%= ev.units %>"<% end -%>/>
+               <% elsif is_bool?(ev.scalar)%>
+                <value xsi:type="BL" value="<%= ev.scalar %>" />
+               <% else -%>
+                <value xsi:type="ST" ><%= ev.scalar %></value> 
+               <% end -%>
+              <% else -%>
+              <value xsi:type="PQ" nullFlavor="UNK"/>
+              <% end -%>
+          </observation>
+        </component>
+        <% end -%>
+      </organizer>
+    </entry>
+  </section>
+</component>

@@ -1,6 +1,6 @@
-<!DOCTYPE html PUBLIC "-//XML-DEV//DTD XHTML RDDL 1.0//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<!DOCTYPE html PUBLIC "-//XML-DEV//DTD XHTML RDDL 1.0//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       xmlns:rddl="http://www.rddl.org/">
 <head>
@@ -29,12 +29,12 @@
     </tr>
     <tr>
       <td>Summary</td>
-      <td>This Condition hData Content Profile contains information about the problems and conditions associated with a patient.</td>
+      <td>This Condition hData Extension contains information about the problems and conditions associated with a patient.</td>
     </tr>
     <tr>
       <td>Author(s)</td>
-      <td>REST+ Pilot Team</td>
-    </tr>  
+      <td>RHEx Pilot Team</td>
+    </tr>
   </table>
   <h2>2. Change Log</h2>
   <hr/>
@@ -47,17 +47,31 @@
       <td>First Version</td>
       <td>Draft - In Progress</td>
     </tr>
+    <tr>
+      <td>31 July 2012</td>
+      <td>King, Kling, Gregorowicz, et. al.</td>
+      <td>Update for RHEx</td>
+      <td>V1.2</td>
+      <td>Draft - In Progress</td>
+    </tr>
+    <tr>
+      <td>31 August 2012</td>
+      <td>King, Kling, Gregorowicz, et. al.</td>
+      <td>Update for RHEx</td>
+      <td>V1.3</td>
+      <td></td>
+    </tr>
   </table>
 
   <h2>3. Extension Background</h2>
   <hr/>
-  <p>All hData section documents identified by an XML namespace must be declared in the extensions node of the root document.  Extensions are either &quot;mandatory&quot; or &quot;optional.&quot;  Each section document has an address expressed as a Uniform Resource Identifier (URI).  Each URI is registered in the extensions node of the root document.   Sections can contain either single data type documents (e.g., XML, JSON, HTML) or URIs referencing other sections.  Section document content must be expressed in XML and document types must be declared in the extensions node of the root document.</p>
+  <p>All hData section documents identified by an XML namespace must be declared in the extensions node of the root document. Extensions are either &quot;mandatory&quot; or &quot;optional.&quot; Each section document has an address expressed as a Uniform Resource Identifier (URI). Each URI is registered in the extensions node of the root document. Sections can contain either single data type documents (e.g., XML, JSON, HTML) or URIs referencing other sections. Section document content must be expressed in XML and document types must be declared in the extensions node of the root document.</p>
 
   <h2>4. Description</h2>
   <hr/>
   <h3>4.1. Purpose</h3>
 
-  <p>Condition contains information about the problems and conditions associated with a patient.  Condition characterizes the central reason a Provider seeks a Referral Consult Request to another Provider.   As such, Referral Consult Request depends on Condition.  However, Condition is not dependent upon Referral Consult Request and is used in many other subject classes.</p>
+  <p>Condition contains information about the problems and conditions associated with a patient. Condition characterizes the central reason a Provider seeks a Referral Consult Request to another Provider. As such, Referral Consult Request depends on Condition. However, Condition is not dependent upon Referral Consult Request and is used in many other subject classes.</p>
 
   <h3>4.2. Description</h3>
 
@@ -67,20 +81,20 @@
       <td>id</td>
       <td>string</td>
       <td>M</td>
-      <td>Unique id for the condition</td>
+      <td>Entry Component:  Unique id for the condition</td>
     </tr>
     <tr>
       <td>code</td>
-      <td>cd</td>
-      <td>O</td>
-      <td>The coded value of the condition represented</td>
+      <td>code</td>
+      <td>M</td>
+      <td>Entry Component:  The coded value of the condition represented</td>
     </tr>
     <tr>
       <td>status</td>
-      <td>string</td>
+      <td>simpleCode</td>
       <td>O</td>
       <td>
-        <p>The status of the problem. Will contain the strings: active, inactive or resolved.</p>
+        <p>Entry Component: The status of the problem. Will contain the strings: active, inactive or resolved.</p>
         <p>The status strings map to the following SNOMED CT codes:</p>
         <ul>
           <li>55561003 - Active</li>
@@ -92,49 +106,14 @@
     <tr>
       <td>name</td>
       <td>string</td>
-      <td>M</td>
-      <td>This is a text description of the problem or condition.</td>
+      <td>O</td>
+      <td>Entry Component:  This is a free text description of the problem or condition.</td>
     </tr>
     <tr>
       <td>effectiveTime</td>
       <td>TimeInterval</td>
-      <td>O</td>
-      <td>This is the range of time of which the condition was active for the patient or subject.</td>
-    </tr>
-    <tr>
-      <td>causeOfDeath</td>
-      <td>boolean</td>
-      <td>O</td>
-      <td>Indicates that this problem was one of the causes of death for the patient or subject of the condition.</td>
-    </tr>
-    <tr>
-      <td>type</td>
-      <td>cd</td>
-      <td>O</td>
-      <td>
-        <p>This is a fixed value indicating the level of medical judgment used to determine the existence of a problem.  Valid values from C80/2.2.3.1.2 are as follows:</p>
-        <ul>
-          <li>404684003</li>
-          <li>418799008</li>
-          <li>55607006</li>
-          <li>409586006</li>
-          <li>64572001</li>
-          <li>282291009</li>
-          <li>248536006</li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>treatingProvider</td>
-      <td>URL</td>
-      <td>O</td>
-      <td>Link for the person or organization performed or hosted the Procedure</td>
-    </tr>
-    <tr>
-      <td>dateTimeOfDeath</td>
-      <td>dateTime</td>
-      <td>O</td>
-      <td>The date/time the patient or subject&#x27;s death occurred</td>
+      <td>M</td>
+      <td>Entry Component:  This is the range of time of which the condition was active for the patient or subject.</td>
     </tr>
     <tr>
       <td>diagnosisPriority</td>
@@ -148,6 +127,36 @@
           <li>2 - For ranked secondary diagnoses</li>
         </ul>
       </td>
+    </tr>
+  <tr>
+      <td>type</td>
+      <td>string</td>
+      <td>M</td>
+      <td>
+        <p>This is a fixed value indicating the level of medical judgment used to determine the existence of a problem. Valid values from C80/2.2.3.1.2 are as follows:</p>
+        <ul>
+          <li>404684003</li>
+          <li>418799008</li>
+          <li>55607006</li>
+          <li>409586006</li>
+          <li>64572001</li>
+          <li>282291009</li>
+          <li>248536006</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>causeOfDeath</td>
+      <td>boolean</td>
+      <td>M</td>
+      <td>Indicates that this problem was one of the causes of death for the patient or subject of the condition.</td>
+    </tr>
+   
+    <tr>
+      <td>treatingProvider</td>
+      <td>URL</td>
+      <td>O</td>
+      <td>Link for the person or organization performed or hosted the Procedure</td>
     </tr>
   </table>
 
@@ -164,15 +173,15 @@
   </ul>
 
   <rddl:resource
-    xlink:href="https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/condition.xsd"
+    xlink:href="https://github.com/projectcypress/health-data-standards/tree/develop/greenc32/schemas/rest_plus/condition.xsd"
     xlink:role="http://www.w3.org/2001/XMLSchema"
     xlink:title="XML Schema for the hData Condition Extension"
     xlink:arcrole="http://www.rddl.org/purposes/#schema-validation">
     <h3>4.4. XML Schema Definition (XSD)</h3>
-    <p>The XML Schema Definition (XSD) for Condition specifies how to formally describe the elements in an XML document.  
-       For the REST+ Pilot, C32/C80 values that lend themselves to greater accuracy through calculation are calculated, including &quot;AgeAtOnset&quot; and &quot;AgeAtDeath.&quot;.<p>
+    <p>The XML Schema Definition (XSD) for Condition specifies how to formally describe the elements in an XML document.
+       For the RHEx Pilot, C32/C80 values that lend themselves to greater accuracy through calculation are calculated, including &quot;AgeAtOnset&quot; and &quot;AgeAtDeath.&quot;.  Date of death is included as part of demographic information.</p>
     <p>Condition.xsd is located at the following URI: <a href="https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/condition.xsd">https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/condition.xsd</a></p>
-    <p>Condition.xsd extends entry which is defined in the data_types schema at the following URI: <a href="https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/data_types.xsd">https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/data_types.xsd</a></p>     
+    <p>Condition.xsd extends entry which is defined in the data_types schema at the following URI: <a href="https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/data_types.xsd">https://raw.github.com/ssayer/health-data-standards/develop/greenc32/schemas/rest_plus/data_types.xsd</a></p>
   </rddl:resource>
 
   <h3>4.5. Resource Representations</h3>
@@ -184,6 +193,7 @@
   <p>Components of the Condition Extension Specification have been drawn from authoritative source and reference documents, as follows:
   </p>
   <ul>
+    <li>Healthcare Information Technology Standards Panel (HITSP) CDA Content Modules Component (C/83), v.1.1, July 8, 2009.</li>
     <li>Healthcare Information Technology Standards Panel (HITSP) Continuity of Care Document (CCD) Component (HITSP/C32), v. 2.5, 08 July 2009.</li>
     <li>Healthcare Information Technology Standards Panel (HITSP) Clinical Document and Message Terminology Component (HITSP/C80), version 2.0.1, 31 January 2010.</li>
   </ul>
