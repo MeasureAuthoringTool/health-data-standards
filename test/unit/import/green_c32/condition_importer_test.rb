@@ -16,8 +16,8 @@ module GreenC32
       assert_equal "SNOMED-CT", code_system
       assert_equal ["24930006"],  condition.codes[code_system]
 
-      assert_equal 1327932000, condition.start_time
-      assert_equal 1328018400, condition.end_time
+      assert_equal Time.parse('2012-01-30T09:00:00').utc.to_i, condition.start_time
+      assert_equal Time.parse('2012-01-31T09:00:00').utc.to_i, condition.end_time
       assert_equal "active", condition.status
 
       assert_equal "404684003", condition.type

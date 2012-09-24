@@ -16,8 +16,8 @@ module GreenC32
 
       assert_equal "CPT", code_system
       assert_equal ["30400"],  procedure.codes[code_system]
-      assert_equal 1327932000, procedure.start_time
-      assert_equal 1328018400, procedure.end_time
+      assert_equal Time.parse('2012-01-30T09:00:00').utc.to_i, procedure.start_time
+      assert_equal Time.parse('2012-01-31T09:00:00').utc.to_i, procedure.end_time
 
       assert_equal "completed", procedure.status
       
