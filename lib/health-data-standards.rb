@@ -12,6 +12,7 @@ require_relative 'health-data-standards/ext/string'
 
 require_relative 'health-data-standards/util/hl7_helper'
 require_relative 'health-data-standards/util/code_system_helper'
+require_relative 'health-data-standards/util/qrda_template_helper'
 
 require_relative 'health-data-standards/export/template_helper'
 require_relative 'health-data-standards/export/view_helper'

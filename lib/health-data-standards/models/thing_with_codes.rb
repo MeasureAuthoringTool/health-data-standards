@@ -8,6 +8,10 @@ module ThingWithCodes
   end
 
   def codes_to_s
+    ThingWithCodes.convert_codes_to_s(codes)
+  end
+  
+  def self.convert_codes_to_s(codes)
     codes.map {|code_set, codes| "#{code_set}: #{codes.join(', ')}"}.join(' ')
   end
 

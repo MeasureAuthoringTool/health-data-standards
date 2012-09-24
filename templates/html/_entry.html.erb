@@ -1,0 +1,41 @@
+<tr class="narr_tr">
+  
+  <td><%if entry.negationInd %><b>Not Done: </b><% end %><%= entry.description %></td>
+  <td><b><%= entry.codes_to_s %></b></td>
+  <td><%= entry.times_to_s %></td>
+  <td><%= decode_qrda_status(entry.status, entry.oid) %></td>   
+  <td>
+    <% entry.values.each do |value| %>
+      <% if value.respond_to? :scalar %>
+        <% units = value.try(:units) if(value.respond_to?(:units)) %>
+        <%= value.try(:scalar) %> <%= units %><br/>
+      <% elsif value.respond_to? :codes %>
+        <% value.codes.each do |system, vals| %>
+          <%= system %>: <%= vals.join(',') %><br/>
+        <% end %>
+      <% else %>
+        UNKNOWN VALUE
+      <% end %>
+    <% end %>
+  </td>
+  <td>
+	  <% 
+	    (entry.attributes.keys.reject {|key| ['codes', 'time', 'description', 'mood_code', 'values', '_id', '_type', 'start_time', 'end_time', 'status_code', 'negationInd', 'negationReason', 'oid'].include? key}).each do |field|
+	    field_value = ThingWithCodes.convert_codes_to_s(entry.attributes[field]) rescue entry.attributes[field].to_s
+    %>
+        <%= field %>: (<b><%= field_value %></b>)
+    <%
+      end
+      if entry.negationInd 
+	      negation_reason = ''
+	      if entry.negationReason
+          negation_reason = ThingWithCodes.convert_codes_to_s(entry.negationReason) rescue entry.negationReason.to_s
+        end
+	  %>
+        negation: <%= negation_reason %>
+    <%
+      end
+    %>
+	</td>
+
+</tr>

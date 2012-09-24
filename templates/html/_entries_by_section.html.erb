@@ -1,0 +1,16 @@
+<div id="patient_information_by_section" style="display:block">
+  <% 
+    entries_by_section = {}
+    Record::Sections.each do |section|
+      patient.send(section).each do |entry|
+        decoded_section = decode_qrda_section(section, entry.oid)
+        entries_by_section[decoded_section] ||= []
+        entries_by_section[decoded_section] << entry
+      end if patient.respond_to? section
+    end
+  %>
+  <% entries_by_section.each do |section, entries| %>
+    <%== render :partial => 'section', :locals => {entries: entries, section: section} %>
+  <% end %>
+  
+</div>

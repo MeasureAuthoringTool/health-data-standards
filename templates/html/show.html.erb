@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:n1="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Cypress Certification Patient Test Record: <%= patient.first%> <%= patient.last%></title>
+    <style type="text/css">
+      body {
+        color: #003366;
+        background-color: #FFFFFF;
+        font-family: Verdana, Tahoma, sans-serif;
+        font-size: 11px;
+      }
+      a {
+        color: #003366;
+        background-color: #FFFFFF;
+      }
+      h1 {
+        font-size: 12pt;
+        font-weight: bold;
+      }
+      h2 {
+        font-size: 11pt;
+        font-weight: bold;
+      }
+      h3 {
+        font-size: 10pt;
+        font-weight: bold;
+      }
+      h4 {
+        font-size: 8pt;
+        font-weight: bold;
+      }
+      div {
+        width: 95%;
+      }
+      table {
+        line-height: 10pt;
+        width: 90%;
+      }
+      tr {
+        background-color: #ccccff;
+      }
+      td {
+        padding: 0.1cm 0.2cm;
+        vertical-align: top;
+      }
+      .h1center {
+        font-size: 12pt;
+        font-weight: bold;
+        text-align: center;
+        width: 80%;
+      }
+      .header_table{
+        border: 1pt inset #00008b;
+      }
+      .narr_table {
+        width: 100%;
+      }
+      .narr_tr {
+        background-color: #ffffcc;
+      }
+      .narr_th {
+        background-color: #ffd700;
+      }
+      .td_label{
+        font-weight: bold;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="h1center">Cypress Certification Patient Test Record: <%= patient.first%> <%= patient.last%></h1>
+    <%== render :partial => 'header', :locals => {:patient => patient} %>
+    <!--h2><a name="toc">Table of Contents</a></h2>
+    <ul>
+      <li><a href="#idp190080">Allergies and Adverse Reactions</a></li>
+      <li><a href="#idp553808">Medications - Prescription and Non-Prescription</a></li>
+      <li><a href="#idp266352">Encounters</a></li>
+      <li><a href="#idp594640">Problems</a></li>
+    </ul-->
+    <script language="javascript">
+      var cur_view = "section";
+      function toggle(id) {
+        var e = document.getElementById(id);
+        if (cur_view=="section"){
+         document.getElementById("patient_information_by_section").style.display = 'none';
+         document.getElementById("table_by_encounter").style.display = 'block';
+         document.getElementById('toggle_button').innerHTML="View By Section";
+         cur_view = "encounter";
+        }else{
+         document.getElementById("patient_information_by_section").style.display = 'block';
+         document.getElementById("table_by_encounter").style.display = 'none';
+         document.getElementById('toggle_button').innerHTML="View By Encounter";
+         cur_view = "section";
+        }      
+      }
+    </script>
+    <div>
+      <h3><a href="#" onclick="toggle('table_by_encounter');" id="toggle_button">View By Encounter</a></h3>
+    </div>
+    
+    <%== render :partial => 'entries_by_section', :locals => {patient: patient} %>
+    <%== render :partial => 'entries_by_encounter', :locals => {patient: patient} %>
+    
+    <br /><br />
+  </body>
+</html>

@@ -83,6 +83,22 @@ module HealthDataStandards
       def is_bool?(str)
         return ["true","false"].include? (str || "").downcase
       end
+      
+      def decode_qrda_section(section, oid)
+        if oid
+          HealthDataStandards::Util::QRDATemplateHelper.definition_for_template_id(oid)['definition'].pluralize.to_sym
+        else
+          section
+        end
+      end
+      def decode_qrda_status(status, oid)
+        if oid
+          HealthDataStandards::Util::QRDATemplateHelper.definition_for_template_id(oid)['status']
+        else
+          status
+        end
+      end
+      
     end
   end
 end

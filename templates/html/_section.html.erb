@@ -1,0 +1,20 @@
+<h3><a name="<%= "#{title}_link" %>" href="#toc"><%= section.to_s.titleize %></a></h3>
+<div>
+  <table class="narr_table" border="1" width="100%">
+    <thead>
+      <tr class="narr_tr">
+        <th class="narr_th" width="30%">Description</th>
+        <th class="narr_th" width="15%">Codes</th>
+        <th class="narr_th" width="15%">Time</th>
+        <th class="narr_th" width="10%">Status</th>
+        <th class="narr_th" width="15%">Results</th>
+        <th class="narr_th" width="15%">Fields</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% (entries.sort { |left,right| left.as_point_in_time <=> right.as_point_in_time }).each do |entry| %> 
+        <%== render :partial => 'entry', :locals => {:entry => entry} %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
