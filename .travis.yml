@@ -2,6 +2,9 @@ language: ruby
 rvm:
   - 1.9.3
 
+services:
+  - mongodb
+
 script: bundle exec rake test
 
 notifications:
@@ -9,7 +12,7 @@ notifications:
     recipients:
       - healthcare-ci@googlegroups.com
     on_failure: change
- 
+
 branches:
   only:
     - master
