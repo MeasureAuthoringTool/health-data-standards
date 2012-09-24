@@ -19,6 +19,7 @@ class Entry
   field :mood_code, type: String, default: "EVN"
   field :negationInd, type: Boolean
   field :negationReason, type: Hash
+  field :oid, type: String
   
   alias :negation_ind :negationInd
   alias :negation_ind= :negationInd=
