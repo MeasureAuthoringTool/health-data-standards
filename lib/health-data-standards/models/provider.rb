@@ -5,7 +5,6 @@ class Provider
   field :tin         , type: String
   field :specialty   , type: String
   field :phone       , type: String
-  field :organization, type: String
   
   validates_uniqueness_of :npi, allow_blank: true
   
