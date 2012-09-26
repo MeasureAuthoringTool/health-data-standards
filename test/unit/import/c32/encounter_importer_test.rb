@@ -17,6 +17,7 @@ class EncounterImporterTest < MiniTest::Unit::TestCase
     assert_equal encounter.admit_type['code'], 'xyzzy'
     assert_equal encounter.admit_type['codeSystem'], 'CPT'
     assert_equal 'HL7 Healthcare Service Location', encounter.facility.code['codeSystem']
+    assert_equal Time.gm(2000, 4, 7).to_i, encounter.facility.start_time
     assert_equal '1117-1', encounter.facility.code['code']
   end
 end

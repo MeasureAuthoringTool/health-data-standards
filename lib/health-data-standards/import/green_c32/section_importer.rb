@@ -122,6 +122,22 @@ module HealthDataStandards
           
           return organization
         end
+
+        def extract_facility(facility_element)
+          facility = Facility.new
+          facility.name = extract_node_text(facility_element.xpath("./gc32:name"))
+          facility.addresses = facility_element.xpath("./gc32:address").map { |addr| extract_address(addr)  }
+          facility.telecoms = facility_element.xpath("./gc32:telecom").map { |tele| extract_telecom(tele) }
+          start_time = facility_element.at_xpath("./gc32:duration/gc32:start").try(:text)
+          if start_time
+            facility.start_time = Time.parse(start_time).utc.to_i
+          end
+          end_time = facility_element.at_xpath("./gc32:duration/gc32:end").try(:text)
+          if end_time
+            facility.end_time = Time.parse(end_time).utc.to_i
+          end
+          facility
+        end
         
         def extract_address(address_element)
           return unless address_element
