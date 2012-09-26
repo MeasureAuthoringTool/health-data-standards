@@ -108,7 +108,7 @@ module HealthDataStandards
         end
 
         def extract_dates(parent_element, entry, element_name="effectiveTime")
-          if parent_element.at_xpath("cda:#{element_name}")
+          if parent_element.at_xpath("cda:#{element_name}/@value")
             entry.time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}")['value'])
           end
           if parent_element.at_xpath("cda:#{element_name}/cda:low")
