@@ -1,0 +1,31 @@
+<component>
+  <!-- Diagnostic Results: patient has no results -->
+  <section>
+    <templateId root="2.16.840.1.113883.10.20.22.2.3.1"/>
+    <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Results"/>
+    <title>Diagnostic Results</title>
+    <text>There are no current results at the time of this document's creation.</text>
+    <entry typeCode="DRIV">
+      <organizer classCode="BATTERY" moodCode="EVN">
+        <templateId root="2.16.840.1.113883.10.20.22.4.1"/>
+        <id root="<%= UUID.generate %>"/>
+        <code nullFlavor="NA"/>
+        <statusCode code="completed"/>
+        <effectiveTime>
+          <low nullFlavor="UNK"/>
+        </effectiveTime>
+        <component>
+          <observation classCode="OBS" moodCode="EVN" negationInd="true">
+            <templateId root="2.16.840.1.113883.10.20.22.4.2"/>
+            <id root="<%= UUID.generate %>"/>
+            <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+            <statusCode code="completed"/>
+            <effectiveTime>
+              <low nullFlavor="UNK"/>
+            </effectiveTime>
+          </observation>
+        </component>        
+      </organizer>
+    </entry>
+  </section>
+</component>

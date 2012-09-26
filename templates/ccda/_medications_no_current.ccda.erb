@@ -1,46 +1,23 @@
 <component>
-          <!-- Medications: patient has no medications -->
-        <section>
-		      <templateId root="2.16.840.1.113883.10.20.22.2.1" />
-          <code code="10160-0" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="History of medication use"/>
-          <title>Medications</title>                       
-              <text>
-                <table border="1" width="100%">
-                  <thead>
-                    <tr>
-                      <th>Description</th>                      
-                      <th>Code</th>                      
-                      <th>Time</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ID="nomeds_summary">                                           
-                      <td ID="nomeds_kind">Patient not on any medication</td>
-                      <td>182849000</td>                                         
-                      <td><%= Time.now.utc.to_formatted_s(:number) %></td>
-                    </tr>                   
-                 </tbody>
-               </table>                             
-             </text>
-              <entry typeCode="DRIV">
-                <substanceAdministration classCode="SBADM" moodCode="EVN">
-                <templateId root='2.16.840.1.113883.10.20.22.4.16'/>
-                <id root="4edd8de0-66e3-4ca6-b287-f0736022f2b3"/>
-                <code code="182849000" codeSystem="2.16.840.1.113883.6.96" displayName="No Drug Therapy Prescribed" codeSystemName="SNOMED CT" />
-                <statusCode code="completed"/>							
-                  <consumable>
-                    <manufacturedProduct>
-                      <templateId root='2.16.840.1.113883.10.20.22.4.23'/>
-                       <manufacturedMaterial>
-                        <code>
-                         <originalText>
-                           <reference value="#nomeds_kind"/>
-                         </originalText>
-                        </code>						
-                      </manufacturedMaterial>
-                    </manufacturedProduct>
-                  </consumable>
-              </substanceAdministration>
-            </entry>
-         </section>         
+  <!-- Medications: patient has no medications -->
+  <section>
+		<templateId root="2.16.840.1.113883.10.20.22.2.1" />
+    <code code="10160-0" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="History of medication use"/>
+    <title>Medications</title>
+    <text>There are no current medications at the time of this document's creation.</text>
+    <entry>
+      <substanceAdministration moodCode="EVN" classCode="SBADM" negationInd=”true”>
+        <text>No known medications.</text>
+        <consumable>
+          <manufacturedProduct>
+            <manufacturedLabeledDrug>
+              <code code="410942007" displayName="drug or medication"
+                    codeSystem="2.16.840.1.113883.6.96"
+                    codeSystemName="SNOMED CT"/>
+            </manufacturedLabeledDrug>
+          </manufacturedProduct>
+        </consumable>
+      </substanceAdministration>
+    </entry>
+  </section>
 </component>

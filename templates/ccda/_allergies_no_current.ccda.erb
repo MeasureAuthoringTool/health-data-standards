@@ -1,53 +1,33 @@
 <component>
-          <!-- Allergies: patient has no allergies -->
-            <section>
-             <templateId root="2.16.840.1.113883.10.20.22.2.6"/>
-              <code code="11450-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Problem List"/>
-              <title>Allergies and Adverse Reactions</title>                
-               <text>
-                <table border="1" width="100%">
-                  <thead>
-                    <tr>
-                      <th>Description</th>                      
-                      <th>Code</th>                      
-                      <th>Time</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ID="noallergies_summary">                                           
-                      <td ID="noallergies">No Known allergies</td>
-                      <td>160244002</td>                                         
-                      <td><%= Time.now.utc.to_formatted_s(:number) %></td>
-                    </tr>                   
-                 </tbody>
-               </table>                             
-             </text>
-             <entry typeCode="DRIV">
-              <act classCode="ACT" moodCode="EVN">
-                <templateId root="2.16.840.1.113883.10.20.22.4.30"/>
-                <id root="f6fd6f86-4265-4dcb-95cf-7799100b54ad"/>
-                <code nullFlavor="NA"/>
-                  <statusCode code="active"/>
-                    <effectiveTime>
-                      <low nullFlavor="NA"/>
-                    </effectiveTime>					
-                <entryRelationship typeCode="SUBJ" inversionInd="false">
-                  <observation classCode="OBS" moodCode="EVN">
-                    <templateId root="2.16.840.1.113883.10.20.22.4.7"/>
-                    <id root="2b37be6b-9b1c-4069-bbca-1caf5fe1937d"/>
-                    <code code="420134006" codeSystem="2.16.840.1.113883.6.96" displayName="Propensity to adverse reactions (disorder)" codeSystemName="SNOMED CT"/>
-                    <statusCode code="completed"/>
-                    <effectiveTime>
-                      <low nullFlavor="UNK"/>
-                    </effectiveTime>
-                    <value xsi:type="CD" code="160244002" codeSystem="2.16.840.1.113883.6.96" displayName="No Known allergies" codeSystemName="SNOMED CT">
-                      <originalText>
-                        <reference value="#noallergies"/>
-                      </originalText>
-                    </value>
-                  </observation>
-              </entryRelationship>
-            </act>
-          </entry>
-        </section>
-      </component>
+  <!-- Allergies: patient has no allergies -->
+  <section>
+    <templateId root="2.16.840.1.113883.10.20.22.2.6"/>
+    <code code="48765-2" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Allergy List"/>
+    <title>Allergies</title>                
+    <text>There are no current allergies at the time of this document's creation.</text>
+    <entry typeCode="DRIV">
+      <act classCode="ACT" moodCode="EVN">
+        <templateId root="2.16.840.1.113883.10.20.22.4.30"/>
+        <id root="<%= UUID.generate %>"/>
+        <code nullFlavor="NA"/>
+        <statusCode code="active"/>
+        <effectiveTime>
+          <low nullFlavor="NA"/>
+        </effectiveTime>					
+        <entryRelationship typeCode="SUBJ" inversionInd="false">
+          <observation classCode="OBS" moodCode="EVN" negationInd="true">
+            <templateId root="2.16.840.1.113883.10.20.22.4.7"/>
+            <id root="<%= UUID.generate %>"/>
+            <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+            <effectiveTime>
+              <low nullFlavor="UNK"/>
+            </effectiveTime>
+            <statusCode code="completed"/>
+            <value xsi:type="CD" code="419199007"
+              codeSystem="2.16.840.1.113883.6.96" displayName="Allergy to Substance"/>
+          </observation>
+        </entryRelationship>
+      </act>
+    </entry>
+  </section>
+</component>
