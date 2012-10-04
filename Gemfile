@@ -14,4 +14,5 @@ group :test do
   gem "tailor", '~> 1.1.2'
   gem "cane", '~> 2.3.0'
   gem 'simplecov', :require => false
+  gem 'webmock'
 end
