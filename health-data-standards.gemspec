@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.authors = ["Andy Gregorowicz", "Sam Sayer", "Marc Hadley", "Rob Dingwell"]
   s.version = '2.1.0'
   
+  s.add_dependency 'rest-client', '~>1.6.7'
   s.add_dependency 'erubis', '~> 2.7.0'
   s.add_dependency 'mongoid', '~> 3.0.6'
   s.add_dependency 'uuid', '~> 2.3.5'
