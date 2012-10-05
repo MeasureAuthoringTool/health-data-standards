@@ -11,7 +11,7 @@ module HealthDataStandards
       scope :by_oid, ->(oid){where(:oid => oid)}
 
       def self.load_from_xml(doc)
-      	  doc.root.add_namespace_uri("vs","urn:ihe:iti:svs:2008")
+      	  doc.root.add_namespace_definition("vs","urn:ihe:iti:svs:2008")
       	 	vs_element = doc.at_xpath("/vs:RetrieveValueSetResponse/vs:ValueSet")
       	 	if vs_element
       	 		vs = ValueSet.new(oid: vs_element["ID"], display_name: vs_element["displayName"], version: vs_element["version"])
@@ -21,7 +21,6 @@ module HealthDataStandards
       	 					code_system_version: con["code_system_version"],
       	 				  display_name: con["displayName"])
       	 		end
-      	 		vs.save
       	 		return vs
       	 	end
       end
