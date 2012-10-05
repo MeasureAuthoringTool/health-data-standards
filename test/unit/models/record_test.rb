@@ -12,5 +12,7 @@ class RecordTest < MiniTest::Unit::TestCase
     assert @record.conditions.map { |c| c.oid }.include?("1.2.3.3")
     entries = @record.entries_for_oid("1.2.3.3")
     assert_equal 2, entries.size
+    assert entries.find { |entry| entry.description == "Tobacco user" }
+    assert entries.find { |entry| entry.free_text == "Sample Encounter" }
   end
 end
