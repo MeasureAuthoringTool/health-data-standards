@@ -17,11 +17,10 @@ module HealthDataStandards
 				vs
 			end
 
-			def get_valuesets(oids, &block)
-				oids.collect do |oid|
+			def process_valuesets(oids, &block)
+				oids.each do |oid|
 		     		vs = get_valueset(oid)
 		     		yield oid,vs
-		     		vs
 				end
 			end
 
