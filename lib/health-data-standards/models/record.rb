@@ -37,8 +37,8 @@ class Record
   embeds_many :functional_statuses
 
   Sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
-   :medications, :procedures, :results, :social_history, :vital_signs, :support, :advanced_directives,
-   :functional_statuses]
+   :medications, :procedures, :results, :social_history, :vital_signs, :support, :advance_directives,
+   :insurance_providers, :functional_statuses]
 
   embeds_many :provider_performances
   
@@ -51,6 +51,18 @@ class Record
   
   def over_18?
     Time.at(birthdate) < Time.now.years_ago(18)
+  end
+
+  def entries_for_oid(oid)
+    matching_entries_by_section = Sections.map do |section|
+      section_entries = self.send(section)
+      if section_entries.present?
+        section_entries.find_all { |entry| entry.oid == oid }
+      else
+        []
+      end
+    end
+    matching_entries_by_section.flatten
   end
   
   alias :clinical_trial_participant :clinicalTrialParticipant
