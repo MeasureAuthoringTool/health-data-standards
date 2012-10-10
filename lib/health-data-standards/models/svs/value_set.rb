@@ -20,6 +20,8 @@ module HealthDataStandards
       	 					code_system_name: con["codeSystemName"], 
       	 					code_system_version: con["code_system_version"],
       	 				  display_name: con["displayName"])
+            vs.concepts = concepts
+            
       	 		end
       	 		return vs
       	 	end
