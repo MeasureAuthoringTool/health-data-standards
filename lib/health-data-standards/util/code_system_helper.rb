@@ -18,7 +18,9 @@ module HealthDataStandards
         '2.16.840.1.113883.3.88.12.80.20' => 'FDA',
         '2.16.840.1.113883.5.14' => 'HL7 ActStatus',
         '2.16.840.1.113883.6.259' => 'HL7 Healthcare Service Location',
-        '2.16.840.1.113883.5.4' => 'HL7 Act Code'
+        '2.16.840.1.113883.5.4' => 'HL7 Act Code',
+        '2.16.840.1.113883.1.11.18877' => 'HL7 Relationship Code',
+        '2.16.840.1.113883.6.238' => 'CDC Race'
       }
       
       # Returns the name of a code system given an oid
