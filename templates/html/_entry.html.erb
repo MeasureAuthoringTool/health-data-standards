@@ -1,7 +1,31 @@
 <tr class="narr_tr">
   
   <td><%if entry.negationInd %><b>Not Done: </b><% end %><%= entry.description %></td>
-  <td><b><%= entry.codes_to_s %></b></td>
+  <td>
+    <% entry.codes.each do |set, codes| %>
+      <b>
+        <% if concept_map %>
+          <span onmouseover="showConcepts(event,'<%=entry.id%>_<%=set%>')" onmouseout="hideConcepts(event,'<%=entry.id%>_<%=set%>')" style="cursor: pointer;"><%=set %>: <%= codes.join(',') %></span>
+        <% else %>
+          <%=set %>: <%= codes.join(',') %>
+        <% end %>
+      </b>
+      <br/>
+      <% if concept_map %>
+        <%
+          matches = []
+          codes.each do |code| 
+            matches.concat(concept_map[set][code].values)
+          end
+        %>
+        <ul id="<%=entry.id%>_<%=set%>" style="display: none; position: absolute; background: #EEE; padding: 10px; padding-left: 30px; width: 600px; z-index: 3000;">
+          <% matches.each do |concept_match| %>
+            <li><%= concept_match[:concept].titleize %> (<%= concept_match[:oid]%>)</li>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+  </td>
   <td><%= entry.times_to_s %></td>
   <td><%= decode_qrda_status(entry.status, entry.oid) %></td>   
   <td>
