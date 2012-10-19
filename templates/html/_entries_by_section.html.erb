@@ -3,7 +3,7 @@
     entries_by_section = {}
     Record::Sections.each do |section|
       patient.send(section).each do |entry|
-        decoded_section = decode_qrda_section(section, entry.oid)
+        decoded_section = decode_hqmf_section(section, entry.oid)
         entries_by_section[decoded_section] ||= []
         entries_by_section[decoded_section] << entry
       end if patient.respond_to? section

@@ -38,7 +38,7 @@
       <% 
         entries_by_section = {}
         entries_by_encounter[encounter.hash].each do |entry|
-          decoded_section = decode_qrda_section(entry_section[entry.hash], entry.oid)
+          decoded_section = decode_hqmf_section(entry_section[entry.hash], entry.oid)
           entries_by_section[decoded_section] ||= []
           entries_by_section[decoded_section] << entry
         end if entries_by_encounter[encounter.hash]
