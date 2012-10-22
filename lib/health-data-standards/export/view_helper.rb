@@ -84,16 +84,16 @@ module HealthDataStandards
         return ["true","false"].include? (str || "").downcase
       end
       
-      def decode_qrda_section(section, oid)
+      def decode_hqmf_section(section, oid)
         if oid
-          HealthDataStandards::Util::QRDATemplateHelper.definition_for_template_id(oid)['definition'].pluralize.to_sym
+          HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id(oid)['definition'].pluralize.to_sym
         else
           section
         end
       end
-      def decode_qrda_status(status, oid)
+      def decode_hqmf_status(status, oid)
         if oid
-          HealthDataStandards::Util::QRDATemplateHelper.definition_for_template_id(oid)['status']
+          HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id(oid)['status']
         else
           status
         end
