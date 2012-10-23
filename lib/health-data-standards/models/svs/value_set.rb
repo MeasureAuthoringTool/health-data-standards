@@ -19,7 +19,7 @@ module HealthDataStandards
       	 				Concept.new(code: con["code"], 
       	 					code_system_name: con["codeSystemName"], 
       	 					code_system_version: con["code_system_version"],
-      	 				  display_name: con["displayName"])
+      	 				  display_name: con["displayName"],code_system: con["codeSystem"])
       	 		   end
                 vs.concepts = concepts
       	 		return vs
