@@ -10,9 +10,6 @@ module HealthDataStandards
 				@ticket_url = ticket_url
 				@username = username
 				@password = password
-        if !@ticket_url.end_with?("/")
-          @ticket_url = @ticket_url + "/"
-        end
 			end
 
 			def get_valueset(oid,&block)
@@ -39,7 +36,7 @@ module HealthDataStandards
 			end
 			
 			def get_ticket
-			  RestClient.post "#{ticket_url}#{proxy_ticket}", {service: "http://umlsks.nlm.nih.gov"}
+			  RestClient.post "#{ticket_url}/#{proxy_ticket}", {service: "http://umlsks.nlm.nih.gov"}
 		  end
 		end
   end
