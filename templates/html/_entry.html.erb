@@ -14,7 +14,7 @@
       <% if concept_map %>
         <%
           matches = []
-          codes.each do |code| 
+          codes.each do |code|
             matches.concat(concept_map[set][code].values)
           end
         %>
@@ -35,8 +35,10 @@
         <%= value.try(:scalar) %> <%= units %><br/>
       <% elsif value.respond_to? :codes %>
         <% value.codes.each do |system, vals| %>
-          <%= system %>: <%= vals.join(',') %><br/>
+          <%= system %>: <%= vals.join(',') %>
         <% end %>
+        <%= (value.description ? "(#{value.description})" : "(UNKNOWN CODED VALUE)")%>
+        <br/>
       <% else %>
         UNKNOWN VALUE
       <% end %>
