@@ -17,5 +17,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'nokogiri', '~> 1.5.5'
 
   s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/*.erb') +
-            ["Gemfile", "README.md", "Rakefile", "VERSION", './util/hqmf_template_oid_map.json']
+            ["Gemfile", "README.md", "Rakefile", "VERSION", './lib/health-data-standards/util/hqmf_template_oid_map.json']
 end
