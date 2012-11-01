@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.email = "talk@projectpophealth.org"
   s.homepage = "https://github.com/projectcypress/health-data-standards"
   s.authors = ["Andy Gregorowicz", "Sam Sayer", "Marc Hadley", "Rob Dingwell"]
-  s.version = '2.1.0'
+  s.version = '2.1.1'
   
   s.add_dependency 'rest-client', '~>1.6.7'
   s.add_dependency 'erubis', '~> 2.7.0'
@@ -17,5 +17,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'nokogiri', '~> 1.5.5'
 
   s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/*.erb') +
-            ["Gemfile", "README.md", "Rakefile", "VERSION", './util/hqmf_template_oid_map.json']
+            ["Gemfile", "README.md", "Rakefile", "VERSION", './lib/health-data-standards/util/hqmf_template_oid_map.json']
 end
