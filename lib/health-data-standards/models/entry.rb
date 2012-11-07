@@ -31,10 +31,10 @@ class Entry
   attr_protected :created_at
   attr_protected :updated_at
   
-  def times_to_s
+  def times_to_s(nil_string='UNK')
     if start_time.present? || end_time.present?
-      start_string = start_time ? Time.at(start_time).utc.to_formatted_s(:long_ordinal) : 'UNK'
-      end_string = end_time ? Time.at(end_time).utc.to_formatted_s(:long_ordinal) : 'UNK'
+      start_string = start_time ? Time.at(start_time).utc.to_formatted_s(:long_ordinal) : nil_string
+      end_string = end_time ? Time.at(end_time).utc.to_formatted_s(:long_ordinal) : nil_string
       "#{start_string} - #{end_string}"
     elsif time.present?
       Time.at(time).utc.to_formatted_s(:long_ordinal)
