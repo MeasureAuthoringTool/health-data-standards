@@ -26,7 +26,22 @@
     </tr>
     <tr>
       <td bgcolor="#3399ff"><span class="td_label">Contact info</span></td>
-      <td colspan="3"> Pirmary Home: 202 Burlington Rd. Bedford, MA 01730<br />Tel:  +1-781-271-3000</td>
+      <% if patient.addresses && patient.addresses.length >0 %>
+      <% patient.addresses.each do |addr| %>
+      <td colspan="3"> 
+      <% addr.street.each do |street| %>
+        <%= "#{street}," %>
+      <% end %>
+      <%= "#{addr.city}, #{addr.state}, #{addr.zip}." %>
+      <% if addr.use %>
+      (<%= addr.use %>)
+      <% end %>
+      <br />
+      <% end %>
+      </td>
+      <% else %>
+      <td colspan="3">202 Burlington Rd. Bedford, MA 01730 (HP)<br />Tel:  +1-781-271-3000</td>
+      <% end %>
     </tr>
   </tbody>
 </table>
@@ -51,7 +66,7 @@
     <tr>
       <td bgcolor="#3399ff"><span class="td_label">Contact info</span></td>
       <td>
-        <br />Tel:  +1-781-271-3000<br />
+        Tel:  +1-781-271-3000<br />
       </td>
     </tr>
   </tbody>
