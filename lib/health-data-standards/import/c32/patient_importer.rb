@@ -156,7 +156,10 @@ module HealthDataStandards
           
           # parse address information
           patient.addresses = doc.xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:addr').map do |addr_element|
-             import_address(addr_element)
+            import_address(addr_element)
+          end
+          patient.telecoms = doc.xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:telecom').map do |tele|
+            import_telecom(tele)
           end
         end
       end

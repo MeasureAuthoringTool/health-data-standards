@@ -31,6 +31,10 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert_equal '20847', patient.addresses[0].zip
     assert_equal 'US', patient.addresses[0].country
     
+    assert_equal 1, patient.telecoms.length
+    assert_equal 'HP', patient.telecoms[0].use
+    assert_equal 'tel:+1(312)555-1234', patient.telecoms[0].value
+    
   end
 
   def test_parse_c32
