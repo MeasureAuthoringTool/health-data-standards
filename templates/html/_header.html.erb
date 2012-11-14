@@ -26,9 +26,9 @@
     </tr>
     <tr>
       <td bgcolor="#3399ff"><span class="td_label">Contact info</span></td>
-      <% if patient.addresses && patient.addresses.length >0 %>
-      <% patient.addresses.each do |addr| %>
       <td colspan="3"> 
+      <% if patient.addresses %>
+      <% patient.addresses.each do |addr| %>
       <% addr.street.each do |street| %>
         <%= "#{street}," %>
       <% end %>
@@ -38,10 +38,17 @@
       <% end %>
       <br />
       <% end %>
-      </td>
-      <% else %>
-      <td colspan="3">202 Burlington Rd. Bedford, MA 01730 (HP)<br />Tel:  +1-781-271-3000</td>
       <% end %>
+      <% if patient.telecoms %>
+      <% patient.telecoms.each do |telecom| %>
+      <%= telecom.value %>
+      <% if telecom.use %>
+      (<%= telecom.use %>)
+      <% end %>
+      <br />
+      <% end %>
+      <% end %>
+      </td>
     </tr>
   </tbody>
 </table>

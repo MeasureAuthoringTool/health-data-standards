@@ -9,6 +9,11 @@ class HTMLTest < MiniTest::Unit::TestCase
     
     assert !(result.match /Rosa/).nil? # first
     assert !(result.match /Vasquez/).nil? # last
+    assert !(result.match /13 Credibility Street/).nil? # street address
+    assert !(result.match /Notown/).nil? # city
+    assert !(result.match /MD/).nil? # state
+    assert !(result.match /00000/).nil? # zip code
+    assert !(result.match /tel\:\+10000000000/).nil? # telephone number
     assert !(result.match /December 11th, 1980 23:50/).nil? # birthdate
     assert !(result.match /Female/).nil? # gender
     assert !(result.match /Penicillin/).nil? # Penicillin

@@ -22,6 +22,17 @@ class C32Test < MiniTest::Unit::TestCase
     assert_equal 'Vasquez', parsed.last
     assert_equal 'F', parsed.gender
     assert_equal 345426614, parsed.birthdate
+    assert_equal 1, parsed.addresses.length
+    assert_equal 'HP', parsed.addresses[0].use
+    assert_equal 1, parsed.addresses[0].street.length
+    assert_equal "13 Credibility Street", parsed.addresses[0].street[0]
+    assert_equal "Notown", parsed.addresses[0].city
+    assert_equal "MD", parsed.addresses[0].state
+    assert_equal "00000", parsed.addresses[0].zip
+    assert_equal "US", parsed.addresses[0].country
+    assert_equal 1, parsed.telecoms.length
+    assert_equal 'HP', parsed.telecoms[0].use
+    assert_equal 'tel:+10000000000', parsed.telecoms[0].value
   end
   
   def test_encounters

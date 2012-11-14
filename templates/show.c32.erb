@@ -16,20 +16,19 @@
     <patientRole>
       <id root="Cypress" extension="<%= patient.id %>"/>
       <% patient.addresses.each do |address| %>
-      <% if address.use %>
-      <addr use="<%= address.use %>">
-      <% else %>
-      <addr>
-      <% end %>
+      <addr <%= address.use ? "use='#{address.use}'" : "" %>>
         <% address.street.each do |street| %>
         <streetAddressLine><%= street %></streetAddressLine>
         <% end %>
         <city><%= address.city %></city>
         <state><%= address.state %></state>
         <postalCode><%= address.zip %></postalCode>
+        <country><%= address.country %></country>
       </addr>
       <% end %>
-      <telecom value="tel:+1-781-271-3000"/>
+      <% patient.telecoms.each do |telecom| %>
+      <telecom value='<%= telecom.value %>' <%= telecom.use ? "use='#{telecom.use}'" : "" %>/>
+      <% end %>
       <patient>
         <name>
           <given><%= patient.first %></given>
