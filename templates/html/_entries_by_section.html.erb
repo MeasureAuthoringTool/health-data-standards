@@ -2,11 +2,13 @@
   <% 
     entries_by_section = {}
     Record::Sections.each do |section|
-      patient.send(section).each do |entry|
-        decoded_section = decode_hqmf_section(section, entry.oid)
-        entries_by_section[decoded_section] ||= []
-        entries_by_section[decoded_section] << entry
-      end if patient.respond_to? section
+	    if section != :insurance_providers
+	      patient.send(section).each do |entry|
+	        decoded_section = decode_hqmf_section(section, entry.oid)
+	        entries_by_section[decoded_section] ||= []
+	        entries_by_section[decoded_section] << entry
+	      end if patient.respond_to? section
+	    end
     end
   %>
   <% entries_by_section.each do |section, entries| %>
