@@ -22,6 +22,15 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert_equal "2137-8", patient.ethnicity[:code]
     assert_equal "CDC-RE", patient.ethnicity[:code_set]
     
+    assert_equal 1, patient.addresses.length
+    assert_equal 'HP', patient.addresses[0].use
+    assert_equal 1, patient.addresses[0].street.length
+    assert_equal '1600 Rockville Pike', patient.addresses[0].street[0]
+    assert_equal 'Rockville', patient.addresses[0].city
+    assert_equal 'MD', patient.addresses[0].state
+    assert_equal '20847', patient.addresses[0].zip
+    assert_equal 'US', patient.addresses[0].country
+    
   end
 
   def test_parse_c32
