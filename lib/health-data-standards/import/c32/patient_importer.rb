@@ -11,6 +11,7 @@ module HealthDataStandards
 
         include Singleton
         include HealthDataStandards::Util
+        include HealthDataStandards::Import::C32::LocatableImportUtils
 
         # Creates a new PatientImporter with the following XPath expressions used to find content in 
         # a HITSP C32:
@@ -150,10 +151,16 @@ module HealthDataStandards
           patient.race = { code: race_node['code'], code_set: 'CDC-RE' } if race_node
           ethnicity_node = patient_element.at_xpath('cda:ethnicGroupCode')
           patient.ethnicity = {code: ethnicity_node['code'], code_set: 'CDC-RE'} if ethnicity_node
-
           languages = patient_element.search('languageCommunication').map {|lc| lc.at_xpath('cda:languageCode')['code'] }
           patient.languages = languages unless languages.empty?
           
+          # parse address information
+          patient.addresses = doc.xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:addr').map do |addr_element|
+            import_address(addr_element)
+          end
+          patient.telecoms = doc.xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:telecom').map do |tele|
+            import_telecom(tele)
+          end
         end
       end
     end
