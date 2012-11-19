@@ -17,13 +17,20 @@
   <recordTarget>
     <patientRole>
       <id root="Cypress" extension="<%= patient.id %>"/>
-      <addr use="HP">
-        <streetAddressLine>202 Burlington Rd.</streetAddressLine>
-        <city>Bedford</city>
-        <state>MA</state>
-        <postalCode>01730</postalCode>
+      <% patient.addresses.each do |address| %>
+      <addr <%= address.use ? "use='#{address.use}'" : "" %>>
+        <% address.street.each do |street| %>
+        <streetAddressLine><%= street %></streetAddressLine>
+        <% end %>
+        <city><%= address.city %></city>
+        <state><%= address.state %></state>
+        <postalCode><%= address.zip %></postalCode>
+        <country><%= address.country %></country>
       </addr>
-      <telecom value="tel:+1-781-271-3000"/>
+      <% end %>
+      <% patient.telecoms.each do |telecom| %>
+      <telecom value='<%= telecom.value %>' <%= telecom.use ? "use='#{telecom.use}'" : "" %>/>
+      <% end %>
       <patient>
         <name>
           <given><%= patient.first %></given>
