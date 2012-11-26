@@ -28,5 +28,6 @@ class TemplateHelperTest < MiniTest::Unit::TestCase
     assert xml.length > 0
     assert xml.include? 'An allergy'
     assert xml.include? '2.16.840.1.113883.6.12' # Make sure the CPT OID is there
+    assert xml.include? 'CPT' # Make sure the codeSystemName is present
   end
 end

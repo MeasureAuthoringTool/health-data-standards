@@ -20,7 +20,12 @@ module HealthDataStandards
         '2.16.840.1.113883.6.259' => 'HL7 Healthcare Service Location',
         '2.16.840.1.113883.5.4' => 'HL7 Act Code',
         '2.16.840.1.113883.1.11.18877' => 'HL7 Relationship Code',
-        '2.16.840.1.113883.6.238' => 'CDC Race'
+        '2.16.840.1.113883.6.238' => 'CDC Race',
+        '2.16.840.1.113883.6.177' => 'NLM MeSH'
+      }
+      
+      CODE_SYSTEM_ALIASES = {
+        'FDA SPL' => 'NCI Thesaurus'
       }
       
       # Returns the name of a code system given an oid
@@ -34,6 +39,7 @@ module HealthDataStandards
       # @param [String] the name of the code system
       # @return [String] the oid of the code system
       def self.oid_for_code_system(code_system)
+        code_system = CODE_SYSTEM_ALIASES[code_system] if CODE_SYSTEM_ALIASES[code_system]
         CODE_SYSTEMS.invert[code_system]
       end
       
