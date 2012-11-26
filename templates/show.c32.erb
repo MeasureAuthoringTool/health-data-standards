@@ -5,6 +5,8 @@
   <templateId root="2.16.840.1.113883.3.27.1776" assigningAuthorityName="CDA/R2"/>
   <templateId root="2.16.840.1.113883.10.20.3" assigningAuthorityName="HL7/CDT Header"/>
   <templateId root="1.3.6.1.4.1.19376.1.5.3.1.1.1" assigningAuthorityName="IHE/PCC"/>
+  <templateId root="2.16.840.1.113883.3.88.10.20.3" assigningAuthorityName="HITSP/C32"/>
+ 
   <templateId root="2.16.840.1.113883.3.88.11.32.1" assigningAuthorityName="HITSP/C32"/>
   <id root="2.16.840.1.113883.3.72" extension="<%= patient.id %>" assigningAuthorityName="NIST Healthcare Project"/>
   <code code="34133-9" displayName="Summarization of episode note" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
@@ -15,13 +17,20 @@
   <recordTarget>
     <patientRole>
       <id root="Cypress" extension="<%= patient.id %>"/>
-      <addr use="HP">
-        <streetAddressLine>202 Burlington Rd.</streetAddressLine>
-        <city>Bedford</city>
-        <state>MA</state>
-        <postalCode>01730</postalCode>
+      <% patient.addresses.each do |address| %>
+      <addr <%= address.use ? "use='#{address.use}'" : "" %>>
+        <% address.street.each do |street| %>
+        <streetAddressLine><%= street %></streetAddressLine>
+        <% end %>
+        <city><%= address.city %></city>
+        <state><%= address.state %></state>
+        <postalCode><%= address.zip %></postalCode>
+        <country><%= address.country %></country>
       </addr>
-      <telecom value="tel:+1-781-271-3000"/>
+      <% end %>
+      <% patient.telecoms.each do |telecom| %>
+      <telecom value='<%= telecom.value %>' <%= telecom.use ? "use='#{telecom.use}'" : "" %>/>
+      <% end %>
       <patient>
         <name>
           <given><%= patient.first %></given>

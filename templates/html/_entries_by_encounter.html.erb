@@ -6,7 +6,7 @@
     all_entries = []
     entry_section = {}
     Record::Sections.each do |section|
-      if section != :encounters
+      if section != :encounters and section != :insurance_providers
         patient.send(section).each do |entry|
           all_entries << entry
           entry_section[entry.hash] = section

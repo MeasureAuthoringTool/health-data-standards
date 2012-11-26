@@ -4,6 +4,7 @@ module HealthDataStandards
       # Class that can be used to create an importer for a section of a HITSP C32 document. It usually
       # operates by selecting all CDA entries in a section and then creates entries for them.
       class SectionImporter
+        include HealthDataStandards::Import::C32::LocatableImportUtils
         include HealthDataStandards::Util
         
         attr_accessor :check_for_usable
@@ -155,23 +156,6 @@ module HealthDataStandards
           person.addresses = person_element.xpath("./cda:addr").map { |addr| import_address(addr) }
           person.telecoms = person_element.xpath("./cda:telecom").map { |tele| import_telecom(tele) } 
           return person
-        end
-
-        def import_address(address_element)
-          address = Address.new
-          address.street = [address_element.at_xpath("./cda:streetAddressLine").try(:text)]
-          address.city = address_element.at_xpath("./cda:city").try(:text)
-          address.state = address_element.at_xpath("./cda:state").try(:text)
-          address.zip = address_element.at_xpath("./cda:postalCode").try(:text)
-          address.country = address_element.at_xpath("./cda:country").try(:text)
-          address
-        end
-
-        def import_telecom(telecom_element)
-          tele = Telecom.new
-          tele.value = telecom_element['value']
-          tele.use = telecom_element['use']
-          tele
         end
 
         def extract_negation(parent_element, entry)
