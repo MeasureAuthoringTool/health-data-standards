@@ -10,6 +10,16 @@ module HealthDataStandards
       embeds_many :concepts
       scope :by_oid, ->(oid){where(:oid => oid)}
 
+      # Provides a Hash where the key is a code system name and value
+      # is an Array containing the actual codes
+      def code_set_map
+        self.concepts.inject({}) do |memo, concept|
+          memo[concept.code_system_name] ||= []
+          memo[concept.code_system_name] << concept.code
+          memo
+        end
+      end
+
       def self.load_from_xml(doc)
         doc.root.add_namespace_definition("vs","urn:ihe:iti:svs:2008")
         vs_element = doc.at_xpath("/vs:RetrieveValueSetResponse/vs:ValueSet")
