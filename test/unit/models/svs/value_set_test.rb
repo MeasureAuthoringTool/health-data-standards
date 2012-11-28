@@ -13,7 +13,8 @@ class ValueSetTest < MiniTest::Unit::TestCase
     vs = HealthDataStandards::SVS::ValueSet.load_from_xml(doc)
     code_set_map = vs.code_set_map
     assert code_set_map
-    assert_equal 14, code_set_map['SNOMED-CT'].length
-    assert_includes code_set_map['SNOMED-CT'], "103735009"
+    assert_equal 1, code_set_map.length
+    assert_equal code_set_map[0]['set'], 'SNOMED-CT'
+    assert_includes code_set_map[0]['values'], "103735009"
   end
 end

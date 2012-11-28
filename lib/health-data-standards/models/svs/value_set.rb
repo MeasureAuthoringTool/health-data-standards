@@ -10,14 +10,20 @@ module HealthDataStandards
       embeds_many :concepts
       scope :by_oid, ->(oid){where(:oid => oid)}
 
-      # Provides a Hash where the key is a code system name and value
-      # is an Array containing the actual codes
+      # Provides an Array of Hashes. Each code system gets its own Hash
+      # The hash has a key of "set" for the code system name and "values"
+      # for the actual code list
       def code_set_map
+        codes = []
         self.concepts.inject({}) do |memo, concept|
           memo[concept.code_system_name] ||= []
           memo[concept.code_system_name] << concept.code
           memo
+        end.each_pair do |code_set, code_list|
+          codes << {"set" => code_set, "values" => code_list}
         end
+
+        codes
       end
 
       def self.load_from_xml(doc)

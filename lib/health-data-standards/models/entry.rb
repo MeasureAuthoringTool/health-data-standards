@@ -106,6 +106,8 @@ class Entry
 
   # Checks if a code is in the list of possible codes
   # @param [Array] code_set an Array of Hashes that describe the values for code sets
+  #                The hash has a key of "set" for the code system name and "values"
+  #                for the actual code list
   # @return [true, false] whether the code is in the list of desired codes
   def is_in_code_set?(code_set)
     codes.keys.each do |code_system|
