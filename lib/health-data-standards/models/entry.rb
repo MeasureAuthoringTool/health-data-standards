@@ -70,8 +70,8 @@ class Entry
       self.status_code = {'SNOMED-CT' => ['73425007']}
     when 'resolved'
       self.status_code = {'SNOMED-CT' => ['413322009']}
-    when 'completed'
-      self.status_code = {'HL7 ActStatus' => ['completed']}
+    else
+      self.status_code = {'HL7 ActStatus' => [status_text]}
     end
   end
   
