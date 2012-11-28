@@ -20,6 +20,7 @@ class Entry
   field :negationInd, type: Boolean
   field :negationReason, type: Hash
   field :oid, type: String
+  field :reason, type: Hash
   
   alias :negation_ind :negationInd
   alias :negation_ind= :negationInd=
