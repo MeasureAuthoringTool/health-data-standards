@@ -33,12 +33,29 @@ module HealthDataStandards
           vs = ValueSet.new(oid: vs_element["ID"], display_name: vs_element["displayName"], version: vs_element["version"])
           concepts = vs_element.xpath("//vs:Concept").collect do |con|
             Concept.new(code: con["code"], 
-                        code_system_name: con["codeSystemName"], 
+                        code_system_name: normalize_code_set_name(con["codeSystemName"]), 
                         code_system_version: con["code_system_version"],
-                        display_name: con["displayName"],code_system: con["codeSystem"])
+                        display_name: con["displayName"], code_system: con["codeSystem"])
           end
           vs.concepts = concepts
           return vs
+        end
+      end
+
+      def self.normalize_code_set_name(code_set_name)
+        case code_set_name
+        when 'RXNORM'
+          'RxNorm'
+        when 'ICD9CM'
+          'ICD-9-CM'
+        when 'ICD10CM'
+          'ICD-10-CM'
+        when 'SNOMEDCT'
+          'SNOMED-CT'
+        when 'CDCREC'
+          'CDC Race'
+        else
+          code_set_name
         end
       end
     end
