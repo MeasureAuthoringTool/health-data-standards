@@ -3,12 +3,15 @@ module HealthDataStandards
     module TemplateHelper
       attr_accessor :template_format
       attr_accessor :template_subdir
+      attr_accessor :template_directory
 
       def template_root
+        @template_directory ||= File.dirname(__FILE__)
+
         if @template_subdir
-          return File.join(File.dirname(__FILE__), '..', '..', '..', 'templates', @template_subdir)
+          return File.join(@template_directory, '..', '..', '..', 'templates', @template_subdir)
         else
-          return File.join(File.dirname(__FILE__), '..', '..', '..', 'templates')
+          return File.join(@template_directory, '..', '..', '..', 'templates')
         end
       end
 
@@ -33,6 +36,7 @@ module HealthDataStandards
         rendering_context = RenderingContext.new(locals)
         rendering_context.template_format = self.template_format
         rendering_context.template_subdir = self.template_subdir
+        rendering_context.template_directory = self.template_directory
         eruby = Erubis::EscapedEruby.new(erb)
         eruby.result(rendering_context.my_binding)
       end
