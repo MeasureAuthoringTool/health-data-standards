@@ -9,7 +9,8 @@ module HealthDataStandards
         #'2.16.840.1.113883.3.88.12.80.32' => 'CPT', # Encounter Type from C32, a subset of CPT
         '2.16.840.1.113883.6.88' =>   'RxNorm',
         '2.16.840.1.113883.6.103' =>  'ICD-9-CM',
-        '2.16.840.1.113883.6.104' =>  'ICD-9-CM',
+        '2.16.840.1.113883.6.104' =>  'ICD-9-PCS',
+        '2.16.840.1.113883.6.4' =>   'ICD-10-PCS',
         '2.16.840.1.113883.6.90' =>   'ICD-10-CM',
         '2.16.840.1.113883.6.14' =>   'HCPCS',
         '2.16.840.1.113883.6.59' =>   'CVX',
@@ -18,6 +19,7 @@ module HealthDataStandards
         '2.16.840.1.113883.3.88.12.80.20' => 'FDA',
         '2.16.840.1.113883.5.14' => 'HL7 ActStatus',
         '2.16.840.1.113883.6.259' => 'HL7 Healthcare Service Location',
+        '2.16.840.1.113883.12.112' => 'DischargeDisposition',
         '2.16.840.1.113883.5.4' => 'HL7 Act Code',
         '2.16.840.1.113883.1.11.18877' => 'HL7 Relationship Code',
         '2.16.840.1.113883.6.238' => 'CDC Race',
@@ -25,7 +27,8 @@ module HealthDataStandards
       }
       
       CODE_SYSTEM_ALIASES = {
-        'FDA SPL' => 'NCI Thesaurus'
+        'FDA SPL' => 'NCI Thesaurus',
+        'HSLOC' => 'HL7 Healthcare Service Location'
       }
       
       # Returns the name of a code system given an oid
