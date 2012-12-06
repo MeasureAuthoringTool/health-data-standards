@@ -50,6 +50,8 @@ module HealthDataStandards
           'ICD-9-CM'
         when 'ICD10CM'
           'ICD-10-CM'
+        when 'ICD10PCS'
+          'ICD-10-PCS'
         when 'SNOMEDCT'
           'SNOMED-CT'
         when 'CDCREC'
