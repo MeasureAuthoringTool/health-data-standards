@@ -56,6 +56,8 @@ module HealthDataStandards
           'SNOMED-CT'
         when 'CDCREC'
           'CDC Race'
+        when 'HSLOC'
+          'HL7 Healthcare Service Location'
         else
           code_set_name
         end
