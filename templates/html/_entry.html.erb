@@ -15,7 +15,7 @@
         <%
           matches = []
           codes.each do |code|
-            matches.concat(concept_map[set][code].values)
+            matches.concat(concept_map[set][code].values) if concept_map[set][code]
           end
         %>
         <ul id="<%=entry.id%>_<%=set%>" style="display: none; position: absolute; background: #EEE; padding: 10px; padding-left: 30px; width: 600px; z-index: 3000;">
