@@ -12,7 +12,19 @@ module ThingWithCodes
   end
   
   def self.convert_codes_to_s(codes)
-    codes.map {|code_set, codes| "#{code_set}: #{codes.join(', ')}"}.join(' ')
+    clean_hash = {}
+    codes.keys.reject {|key| ['_id'].include? key}.each do |hashkey|
+      if codes[hashkey] == nil
+        clean_hash[hashkey] = 'none'
+      elsif codes[hashkey].class() == Hash
+        clean_hash[hashkey] = codes[hashkey].map {|hashcode_set, hashcodes| "#{hashcode_set}: #{hashcodes.join(', ')}"}.join(' ')
+      elsif codes[hashkey].class() == Array
+        clean_hash[hashkey] = codes[hashkey][0]
+      else
+        clean_hash[hashkey] = codes[hashkey]
+      end
+    end
+    clean_hash
   end
 
   # Will return a single code and code set if one exists in the code sets that are

@@ -47,9 +47,16 @@
   <td>
 	  <% 
 	    (entry.attributes.keys.reject {|key| ['codes', 'time', 'description', 'mood_code', 'values', '_id', '_type', 'start_time', 'end_time', 'status_code', 'negationInd', 'negationReason', 'oid'].include? key}).each do |field|
-	    field_value = ThingWithCodes.convert_codes_to_s(entry.attributes[field]) rescue entry.attributes[field].to_s
+      field_value_hash = ThingWithCodes.convert_codes_to_s(entry.attributes[field]) rescue entry.attributes[field].to_s
     %>
-        <%= field %>: (<b><%= field_value %></b>)
+        <% if !field_value_hash.empty? %> 
+        <dl>
+          <dt><b><%= field %></b></dt> 
+          <% field_value_hash.keys.each do |fieldkey| %>
+            <dd><%= fieldkey %>: <i><%= field_value_hash[fieldkey] %></i></dd>
+          <% end %>
+        <dl>
+        <% end %>
     <%
       end
       if entry.negationInd 
