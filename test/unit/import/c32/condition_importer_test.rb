@@ -14,8 +14,7 @@ class ConditionImporterTest < MiniTest::Unit::TestCase
     assert condition.codes['SNOMED-CT'].include? '195967001'
     assert_equal Time.gm(1950).to_i, condition.start_time
     assert_equal 1, condition.priority
-    assert_equal "principal", condition.ordinality
-    assert condition.ordinality_code.include?('SNOMED-CT')
-    assert condition.ordinality_code['SNOMED-CT'].include?('8319008')
+    assert condition.ordinality.include?('SNOMED-CT')
+    assert condition.ordinality['SNOMED-CT'].include?('8319008')
   end
 end

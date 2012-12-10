@@ -3,8 +3,7 @@ class Condition < Entry
   field :causeOfDeath,        type: Boolean
   field :priority,            type: Integer
   field :name,                type: String
-  field :ordinality,          type: String
-  field :ordinality_code,     type: Hash
+  field :ordinality,          type: Hash
   field :severity,            type: Hash # Currently unsupported by any importers
 
   embeds_many :treating_provider,  class_name: "Provider"
