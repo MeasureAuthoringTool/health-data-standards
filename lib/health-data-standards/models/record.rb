@@ -59,7 +59,7 @@ class Record
     matching_entries_by_section = Sections.map do |section|
       section_entries = self.send(section)
       if section_entries.present?
-        section_entries.find_all { |entry| entry.oid == oid }
+        section_entries.find_all { |entry| (entry.respond_to? :oid) ? entry.oid == oid : false}
       else
         []
       end
