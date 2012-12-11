@@ -99,6 +99,43 @@ module HealthDataStandards
         end
       end
       
+      def convert_field_to_hash(field, codes)
+        binding.pry if field == 'negation'
+        if (codes.is_a? Hash)
+          clean_hash = {}
+          
+          if codes['codeSystem']
+            clean_hash[codes['codeSystem']] = codes['code']
+          elsif codes['_id']
+            codes.keys.reject {|key| ['_id'].include? key}.each do |hashkey|
+              value = codes[hashkey]
+              if value.nil?
+                clean_hash[hashkey.titleize] = 'none'
+              elsif value.is_a? Hash
+                clean_hash[hashkey.titleize] = convert_field_to_hash(hashkey, value)
+              elsif value.is_a? Array
+                clean_hash[hashkey.titleize] = value.join(', ')
+              else
+                clean_hash[hashkey.titleize] = convert_field_to_hash(hashkey, value)
+              end
+            end
+          elsif codes['scalar']
+            return "#{codes['scalar']} #{codes['units']}"
+          else
+            return codes.map {|hashcode_set, hashcodes| "#{hashcode_set}: #{(hashcodes.respond_to? :join) ? hashcodes.join(', ') : hashcodes.to_s}"}.join(' ')
+          end
+            
+          clean_hash
+        else
+          if field.match(/Time$/) || field.match(/\_time$/)
+            Entry.time_to_s(codes)
+          else
+            codes.to_s
+          end
+        end
+      end
+      
+      
     end
   end
 end

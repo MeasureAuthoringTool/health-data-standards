@@ -34,12 +34,16 @@ class Entry
   
   def times_to_s(nil_string='UNK')
     if start_time.present? || end_time.present?
-      start_string = start_time ? Time.at(start_time).utc.to_formatted_s(:long_ordinal) : nil_string
-      end_string = end_time ? Time.at(end_time).utc.to_formatted_s(:long_ordinal) : nil_string
+      start_string = start_time ? Entry.time_to_s(start_time) : nil_string
+      end_string = end_time ? Entry.time_to_s(end_time) : nil_string
       "#{start_string} - #{end_string}"
     elsif time.present?
       Time.at(time).utc.to_formatted_s(:long_ordinal)
     end
+  end
+  
+  def self.time_to_s(time)
+    Time.at(time).utc.to_formatted_s(:long_ordinal)
   end
   
   # Entry previously had a status field that dropped the code set and converted

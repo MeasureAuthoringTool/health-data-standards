@@ -12,21 +12,9 @@ module ThingWithCodes
   end
   
   def self.convert_codes_to_s(codes)
-    clean_hash = {}
-    codes.keys.reject {|key| ['_id'].include? key}.each do |hashkey|
-      if codes[hashkey] == nil
-        clean_hash[hashkey] = 'none'
-      elsif codes[hashkey].class() == Hash
-        clean_hash[hashkey] = codes[hashkey].map {|hashcode_set, hashcodes| "#{hashcode_set}: #{hashcodes.join(', ')}"}.join(' ')
-      elsif codes[hashkey].class() == Array
-        clean_hash[hashkey] = codes[hashkey][0]
-      else
-        clean_hash[hashkey] = codes[hashkey]
-      end
-    end
-    clean_hash
+    codes.map {|code_set, codes| "#{code_set}: #{codes.join(', ')}"}.join(' ')
   end
-
+  
   # Will return a single code and code set if one exists in the code sets that are
   # passed in. Returns a hash with a key of code and code_set if found, nil otherwise
   def preferred_code(preferred_code_sets, codes_attribute=:codes)

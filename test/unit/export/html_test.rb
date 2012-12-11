@@ -25,7 +25,7 @@ class HTMLTest < MiniTest::Unit::TestCase
     assert !(result.match /SNOMED-CT: 225171007/).nil? # BMI
     assert !(result.match /February 20th, 2010 11:13/).nil? # BMI
     assert !(result.match /testing/).nil? # BMI Value
-    assert !(result.match /severity/).nil? # severity on primigravidia
+    assert !(result.match /Severity/).nil? # severity on primigravidia
     assert !(result.match /6736007/).nil? # severity on primigravidia
     
     # require 'fileutils'
