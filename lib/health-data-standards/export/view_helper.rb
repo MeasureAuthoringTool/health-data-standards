@@ -100,7 +100,6 @@ module HealthDataStandards
       end
       
       def convert_field_to_hash(field, codes)
-        binding.pry if field == 'negation'
         if (codes.is_a? Hash)
           clean_hash = {}
           
@@ -112,7 +111,12 @@ module HealthDataStandards
               if value.nil?
                 clean_hash[hashkey.titleize] = 'none'
               elsif value.is_a? Hash
-                clean_hash[hashkey.titleize] = convert_field_to_hash(hashkey, value)
+                hash_result = convert_field_to_hash(hashkey, value)
+                if hash_result.is_a? Hash
+                  clean_hash[hashkey.titleize] = hash_result.map {|key, value| "#{key}: #{value}"}.join(' ')
+                else
+                  clean_hash[hashkey.titleize] = hash_result
+                end
               elsif value.is_a? Array
                 clean_hash[hashkey.titleize] = value.join(', ')
               else
@@ -127,7 +131,7 @@ module HealthDataStandards
             
           clean_hash
         else
-          if field.match(/Time$/) || field.match(/\_time$/)
+          if codes && (field.match(/Time$/) || field.match(/\_time$/)) 
             Entry.time_to_s(codes)
           else
             codes.to_s

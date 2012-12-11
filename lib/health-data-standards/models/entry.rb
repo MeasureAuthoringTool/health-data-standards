@@ -42,8 +42,8 @@ class Entry
     end
   end
   
-  def self.time_to_s(time)
-    Time.at(time).utc.to_formatted_s(:long_ordinal)
+  def self.time_to_s(input_time)
+    Time.at(input_time).utc.to_formatted_s(:long_ordinal)
   end
   
   # Entry previously had a status field that dropped the code set and converted
