@@ -104,7 +104,11 @@ module HealthDataStandards
           clean_hash = {}
           
           if codes['codeSystem']
-            clean_hash[codes['codeSystem']] = codes['code']
+            if codes['title']
+              clean_hash[codes['codeSystem']] = codes['code'] + " (#{codes['title']})"
+            else
+              clean_hash[codes['codeSystem']] = codes['code']
+            end
           elsif codes['_id']
             codes.keys.reject {|key| ['_id'].include? key}.each do |hashkey|
               value = codes[hashkey]
