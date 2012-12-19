@@ -2,13 +2,15 @@
   <tbody>
     <tr>
       <td width="20%" bgcolor="#3399ff"><span class="td_label">Patient</span></td>
-      <td colspan="3"><%= patient.first%> <%= patient.last%></td>
+      <td witdh="30%"><%= patient.first%> <%= patient.last%></td>
+      <td width="15%" bgcolor="#3399ff"><span class="td_label">Sex</span></td>
+      <td><%= (patient.gender == 'M') ? "Male" : (patient.gender == 'F') ? 'Female' : 'Unknown'%></td>
     </tr>
     <tr>
       <td width="20%" bgcolor="#3399ff"><span class="td_label">Date of birth</span></td>
       <td width="30%"><%= Time.at(patient.birthdate).utc.to_formatted_s(:long_ordinal)%></td>
-      <td width="15%" bgcolor="#3399ff"><span class="td_label">Sex</span></td>
-      <td><%= (patient.gender == 'M') ? "Male" : (patient.gender == 'F') ? 'Female' : 'Unknown'%></td>
+      <td width="15%" bgcolor="#3399ff"><span class="td_label">Date of expiration</span></td>
+      <td><%= (patient.expired) ? Time.at(patient.deathdate).utc.to_formatted_s(:long_ordinal) : "" %></td>
     </tr>
     <tr>
       <td width="20%" bgcolor="#3399ff"><span class="td_label">Race</span></td>
