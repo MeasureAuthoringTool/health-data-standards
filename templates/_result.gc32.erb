@@ -4,8 +4,7 @@
       <%== quantity_display result.values.first %>
     <% end %>
     <% if result.interpretation%>
-      <% code = result.interpretation.first%>
-      <interpretation code="<%= code.last %>" codeSystem="<%= CodeSystemHelper.oid_for_code_system(code.first) %>">
+      <%= gc32_code_display(result, "tag_name" => "interpretation", "attribute" => "interpretation", 'preferred_code_sets' => ["HL7 Observation Interpretation"]) %>
     <% end %>
     <% if result.reference_range %>
       <referenceRange><%= result.reference_range %></referenceRange>

@@ -4,7 +4,7 @@ class Condition < Entry
   field :time_of_death, type: Integer
   field :priority,      type: Integer
   field :name,          type: String
-  field :ordinality,    type: String
+  field :ordinality,    type: Hash
   field :severity,      type: Hash # Currently unsupported by any importers
 
   embeds_many :treating_provider,  class_name: "Provider"
