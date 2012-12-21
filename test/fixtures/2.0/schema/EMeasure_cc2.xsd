@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:v3" xmlns:mif="urn:hl7-org:v3/mif2" xmlns:v3="urn:hl7-org:v3" targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified">
+	<xs:include schemaLocation="POQM_MT000001UV.xsd"/>
+	<xs:element name="QualityMeasureDocument" type="POQM_MT000001UV.QualityMeasureDocument">
+		<xs:unique name="UniqueID">
+			<xs:selector xpath=".//v3:actCriteria1|.//v3:encounterCriteria1|.//v3:observationCriteria1|.//v3:procedureCriteria1|.//v3:substanceAdministrationCriteria1|.//v3:supplyCriteria1"/>
+			<xs:field xpath="v3:id/item/@root"/>
+			<xs:field xpath="v3:id/item/@extension"/>
+		</xs:unique>
+		<xs:unique name="ActUniqueID">
+			<xs:selector xpath=".//v3:actCriteria1/id/item"/>
+			<xs:field xpath="@root"/>
+			<xs:field xpath="@extension"/>
+		</xs:unique>
+		<xs:keyref name="ActRefID" refer="ActUniqueID">
+			<xs:selector xpath=".//v3:actReference/id"/>
+			<xs:field xpath="@root"/>
+			<xs:field xpath="@extension"/>
+		</xs:keyref>
+		<xs:unique name="EncounterUniqueID">
+			<xs:selector xpath=".//v3:encounterCriteria1/id/item"/>
+			<xs:field xpath="@root"/>
+			<xs:field xpath="@extension"/>
+		</xs:unique>
+		<xs:keyref name="EncounterRefID" refer="EncounterUniqueID">
+			<xs:selector xpath=".//v3:encounterReference/id"/>
+			<xs:field xpath="@root"/>
+			<xs:field xpath="@extension"/>
+		</xs:keyref>
+		<xs:unique name="ObservationUniqueID">
+			<xs:selector xpath=".//v3:observationCriteria1/id/item"/>
+			<xs:field xpath="@root"/>
+			<xs:field xpath="@extension"/>
+		</xs:unique>
+		<xs:keyref name="ObservationRefID" refer="ObservationUniqueID">
+			<xs:selector xpath=".//v3:observationReference/id"/>
+			<xs:field xpath="@root"/>
+			<xs:field xpath="@extension"/>
+		</xs:keyref>
+		<xs:unique name="ProcedureUniqueID">
+			<xs:selector xpath=".//v3:procedureCriteria1/id/item"/>
+			<xs:field xpath="@root"/>
+			<xs:field xpath="@extension"/>
+		</xs:unique>
+		<xs:keyref name="ProcedureRefID" refer="ProcedureUniqueID">
+			<xs:selector xpath=".//v3:procedureReference/id"/>
+			<xs:field xpath="@root"/>
+			<xs:field xpath="@extension"/>
+		</xs:keyref>
+		<xs:unique name="SubstanceAdministrationUniqueID">
+			<xs:selector xpath=".//v3:substanceAdministrationCriteria1/id/item"/>
+			<xs:field xpath="@root"/>
+			<xs:field xpath="@extension"/>
+		</xs:unique>
+		<xs:keyref name="SubstanceAdministrationRefID" refer="SubstanceAdministrationUniqueID">
+			<xs:selector xpath=".//v3:substanceAdministrationReference/id"/>
+			<xs:field xpath="@root"/>
+			<xs:field xpath="@extension"/>
+		</xs:keyref>
+		<xs:unique name="SupplyUniqueID">
+			<xs:selector xpath=".//v3:supplyCriteria1/id/item"/>
+			<xs:field xpath="@root"/>
+			<xs:field xpath="@extension"/>
+		</xs:unique>
+		<xs:keyref name="SupplyRefID" refer="SupplyUniqueID">
+			<xs:selector xpath=".//v3:supplyReference/id"/>
+			<xs:field xpath="@root"/>
+			<xs:field xpath="@extension"/>
+		</xs:keyref>
+	</xs:element>
+</xs:schema>

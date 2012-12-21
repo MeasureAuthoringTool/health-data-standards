@@ -1,0 +1,21 @@
+      <entry typeCode="DRIV">
+        <encounterCriteria moodCode="EVN" classCode="ENC"<%= " actionNegationInd='true'" if criteria.negation %>>
+          <%= xml_for_template(criteria, is_source_data_criteria) %>
+          <id>
+            <item root="2.16.840.1.113883.3.100.1" extension="<%= criteria.id %>"/>
+          </id>
+          <%= xml_for_code(criteria) %>
+          <%= xml_for_description(criteria) %>
+          <%= xml_for_effective_time(criteria) %>
+          <%= xml_for_reason(criteria) %>
+          <definition>
+            <encounterReference moodCode="EVN" classCode="ENC">
+              <id root="2.16.840.1.113883.3.100.1" extension="<%= section_name(criteria) %>"/>
+            </encounterReference>
+          </definition>
+          <%= xml_for_temporal_references(criteria) %>
+          <%= xml_for_fields(criteria) %>
+          <%= xml_for_derivation(criteria) %>
+          <%= xml_for_subsets(criteria) %>
+        </encounterCriteria>
+      </entry>

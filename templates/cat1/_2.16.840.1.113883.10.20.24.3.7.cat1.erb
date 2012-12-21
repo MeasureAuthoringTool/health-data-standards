@@ -1,0 +1,29 @@
+<entry>
+  <procedure classCode="PROC" moodCode="EVN" <%== negation_indicator(entry) %>>
+    <!-- Procedure Activity Procedure -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.14"/>
+    <!-- Device Applied -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.7"/>
+    <id root="<%= entry.id %>"/>
+    <code code="360030002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="application of device"/>
+    <text>Device, Applied</text>
+    <statusCode code="completed"/>
+    
+    <effectiveTime>
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+    </effectiveTime>
+    
+    <% if entry.respond_to?(:anatomical_structure) && entry.anatomical_structure.present? -%>
+    <targetSiteCode code="<%= entry.anatomical_structure['code'] %>" 
+                    codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.anatomical_structure['codeSystem']) %>"/>
+    <% end -%>
+    <participant typeCode="DEV">
+      <participantRole classCode="MANU">
+        <playingDevice classCode="DEV">
+          <%== code_display(entry, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-PCS', 'ICD-10-PCS', 'CPT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+        </playingDevice>
+      </participantRole>
+    </participant>
+    <%== render(:partial => 'reason', :locals => {:entry => entry}) %>
+  </procedure>
+</entry>

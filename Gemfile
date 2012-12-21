@@ -15,4 +15,9 @@ group :test do
   gem "cane", '~> 2.3.0'
   gem 'simplecov', :require => false
   gem 'webmock'
+
+  gem 'minitest'
+  gem 'turn', :require => false
+  gem 'awesome_print', :require => 'ap'
+
 end

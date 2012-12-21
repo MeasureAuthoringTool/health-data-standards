@@ -1,0 +1,28 @@
+          <outboundRelationship typeCode="SUBJ">
+<%- if details[:code] == 'SDLOC' -%>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+              <%- if details[:templateId] -%>
+              <templateId>
+                <item root="<%= details[:template_id] %>"/>
+              </templateId> 
+              <%- end -%>
+              <participation typeCode="LOC">
+                <role classCode="SDLOC">
+                  <%= xml_for_value(value, 'code') %>
+                </role>
+              </participation>
+            </encounterCriteria>
+<%- else -%>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+              <%- if details[:templateId] -%>
+              <templateId>
+                <item root="<%= details[:template_id] %>"/>
+              </templateId> 
+              <%- end -%>
+              <code code="<%= details[:code] %>" codeSystem="<%= details[:code_system] %>" codeSystemName="<%= details[:code_system_name] %>">
+                <displayName value="<%= details[:title] %>"/> 
+              </code>
+              <%= xml_for_value(value) %>
+            </observationCriteria>
+<%- end -%>
+          </outboundRelationship>

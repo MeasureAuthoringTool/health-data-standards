@@ -1,0 +1,1649 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="xslt/eMeasure.xsl"?>
+<QualityMeasureDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:hl7-org:v3">
+         
+      <!--
+         **************************************************************   
+         Measure Header Section
+         **************************************************************
+      --><typeId root="2.16.840.1.113883.1.3" extension="POQM_HD000001"/>
+   <id root="8a4d92b2-36af-5758-0136-bbd5daa321ee"/>
+   <code code="57024-2" codeSystem="2.16.840.1.113883.6.1" displayName="Health Quality Measure Document"/>
+   <title>Chlamydia Screening for Women</title>
+   <text>The percentage of women 16-24 years of age who were identified as sexually active and who had at least one test for chlamydia during the measurement year.</text>
+   <statusCode code="InProgress"/>
+   <setId root="c9930664-be3d-4ffe-ae4a-5cf4933ecb89"/>
+   <versionNumber value="0"/>
+   <author typeCode="AUT">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="2.16.840.1.113883.3.464"/>
+            <name>National Committee for Quality Assurance</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </author>
+   <custodian>
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="2.16.840.1.113883.3.464"/>
+            <name>National Committee for Quality Assurance</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </custodian>
+   <verifier typeCode="VRF">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <name>National Quality Forum</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </verifier>
+   <subjectOf>
+      <measureAttribute>
+         <code code="COPY" codeSystem="2.16.840.1.113883.5.4" displayName="Copyright"/>
+         <value xsi:type="ED" mediaType="text/plain">Physician Performance Measure (Measures) and related data specifications were developed by the National Committee for Quality Assurance (NCQA). &#xD;
+&#xD;
+The Measures are copyrighted but can be reproduced and distributed, without modification, for noncommercial purposes (e.g., use by healthcare providers in connection with their practices). Commercial use is defined as the sale, licensing, or distribution of the Measures for commercial gain, or incorporation of the Measures into a product or service that is sold, licensed or distributed for commercial gain. Commercial use of the Measures requires a license agreement between the user and NCQA. NCQA is not responsible for any use of the Measures. &#xD;
+&#xD;
+Copyright 2012 National Committee for Quality Assurance. All Rights Reserved. &#xD;
+&#xD;
+Limited proprietary coding is contained in the Measure specifications for user convenience. Users of proprietary code sets should obtain all necessary licenses from the owners of the code sets.  NCQA disclaims all liability for use or accuracy of any CPT or other codes contained in the specifications.&#xD;
+&#xD;
+CPT(R) is a trademark of the American Medical Association. Current Procedural Terminology. (CPT) is copyright 2012 American Medical Association. All rights reserved. No fee schedules, basic units, relative values, or related listings are included in CPT. The AMA assumes no liability for the data contained herein. Applicable FARS/DFARS restrictions apply to government use.&#xD;
+&#xD;
+LOINC(R) is a registered trademark of the Regenstrief Institute.&#xD;
+&#xD;
+This material contains SNOMED Clinical Terms(R) (SNOMED CT(c) ) copyright 2004-–2010 International Health Terminology Standards Development Organization. All rights reserved.&#xD;
+&#xD;
+Due to technical limitations, registered trademarks are indicated by (R) or [R] and unregistered trademarks are indicated by (TM) or [TM].</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRSCORE" codeSystem="2.16.840.1.113883.5.4" displayName="Measure Scoring"/>
+         <value xsi:type="CD" code="PROPOR" codeSystem="2.16.840.1.113883.1.11.20367" displayName="Proportion"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRTYPE" codeSystem="2.16.840.1.113883.5.4" displayName="Measure Type"/>
+         <value xsi:type="CD" code="PROCESS" codeSystem="2.16.840.1.113883.1.11.20368" displayName="Process"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="STRAT" codeSystem="2.16.840.1.113883.5.4" displayName="Stratification"/>
+         <value xsi:type="ED" mediaType="text/plain">Stratum 1: age 16-20 &#xD;
+Stratum 2: age 21-24</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRADJ" codeSystem="2.16.840.1.113883.5.4" displayName="Risk Adjustment"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRAGG" codeSystem="2.16.840.1.113883.5.4" displayName="Rate Aggregation"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="RAT" codeSystem="2.16.840.1.113883.5.4" displayName="Rationale"/>
+         <value xsi:type="ED" mediaType="text/plain">Chlamydia trachomatis is the most common sexually transmitted bacterial infection in the U.S., resulting in over 2.8 million new cases each year (United States Preventive Services Task Force, 2007; Centers for Disease Control and Prevention, 2011 - Chlamydia ; National Chlamydia Coalition, 2010).  It is often known as a “silent” disease because most infected people have no symptoms and therefore are unaware they have an infection (United States Preventive Services Task Force, 2007; Centers for Disease Control and Prevention, 2011). Although Chlamydia symptoms are usually mild or nonexistent, untreated infections can lead to serious and irreversible complications (United States Preventive Services Task Force, 2007).&#xD;
+&#xD;
+Women are particularly vulnerable when infected with Chlamydia. Left untreated, chlamydia can cause pelvic inflammatory disease (PID), permanent damage to a woman's fallopian tubes, uterus and surrounding tissue, or Reiter Syndrome, which includes pink eye (conjunctivitis) and skin lesions affecting the lower extremities. Between 10 and 15 percent of untreated chlamydia infections result in PID, which can lead to ectopic pregnancy and infertility (Centers for Disease Control and Prevention, 2011 – Chlamydia). As many as 15 percent of women with PID will become infertile (Centers for Disease Control and Prevention, 2011 – Pelvic Inflammatory Disease). Additionally, pregnant women might experience premature delivery, miscarriage, low birth weight, infant mortality, or they may pass conjunctivitis or chlamydia pneumonia to their infants (United States Preventive Services Task Force, 2007; Centers for Disease Control and Prevention, 2011).  Thus, Chlamydia is the leading cause of preventable infertility and, among other adverse pregnancy related problems, can cause preterm birth, miscarriages, infant mortality, and neonatal chlamydia infections (infants (United States Preventive Services Task Force, 2007).&#xD;
+&#xD;
+Over 900,000 chlamydia infections were reported to the Centers for Disease Control and Prevention (CDC) from 50 states and the District of Columbia in 2004. Since many cases are not reported or even diagnosed, it is estimated that there are actually 2.8 million new cases of chlamydia each year (Centers for Disease Control and Prevention, 2010). From 1987 through 2004, the reported rate of chlamydia infection in women increased from 78.5 cases to 485 cases per 100,000 people, though a portion of the increase in prevalence is attributed to continued expansion of chlamydia screening programs (Centers for Disease Control and Prevention, 2005).&#xD;
+&#xD;
+A significant proportion of sexually active individuals, both male and female, continue to go undiagnosed due to the disease's asymptomatic nature (Wilson, 2009). Approximately 75 percent of Chlamydia infections in women and 95 percent in men are asymptomatic, resulting in delayed medical care and treatment (Centers for Disease Control and Prevention, 2011 – Pelvic Inflammatory Disease). Women whose sexual partners are not screened and appropriately treated are at high risk for re-infection. Multiple chlamydia infections increases a woman’s risk of serious reproductive health complications (Centers for Disease Control and Prevention, 2010).</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="CRS" codeSystem="2.16.840.1.113883.3.560" displayName="Clinical Recommendation Statement"/>
+         <value xsi:type="ED" mediaType="text/plain">U.S. Preventive Services Task Force (2007):&#xD;
+All sexually active nonpregnant young women age 24 years or younger and older women (pregnant or not) who are at increased risk should be screened for a chlamydial infection. &#xD;
+&#xD;
+The USPSTF found fair evidence that nucleic acid amplification tests (NAATs) can identify chlamydial infection in asymptomatic men and women, including asymptomatic pregnant women, with high test specificity. &#xD;
+&#xD;
+If clinicians have not concurrently screened for chlamydial infection, the CDC recommends presumptive treatment for chlamydia at the time of treatment for gonorrhea. In order to prevent recurrent transmission, partners of infected individuals should be tested and treated if infected, or treated presumptively.  &#xD;
+&#xD;
+American Academy of Family Physicians (2011):&#xD;
+Screening &#xD;
+The AAFP strongly recommends screening for chlamydia infection for all sexually active non-pregnant young women aged 24 and younger and for older non-pregnant women who are at increased risk. &#xD;
+&#xD;
+The AAFP recommends screening for chlamydia infection for all pregnant women aged 24 younger and for older pregnant women who are at increased risk.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IDUR" codeSystem="2.16.840.1.113883.3.560" displayName="Improvement Notation"/>
+         <value xsi:type="ED" mediaType="text/plain">Higher score indicates better quality</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>NQF ID Number</originalText>
+         </code>
+         <value xsi:type="II" root="2.16.840.1.113883.3.560.1" extension="0033"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DISC" codeSystem="2.16.840.1.113883.5.4" displayName="Disclaimer">
+            <originalText>Disclaimer</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">These performance Measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications.&#xD;
+&#xD;
+THE MEASURES AND SPECIFICATIONS ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>eMeasure Identifier</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.74"/>
+         <id root="6b862138-de76-4fdd-95cf-c87a06220e3e"/>
+         <code code="MSRTP" displayName="Measurement period" codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="IVL_TS">
+            <low value="00000101"/>
+            <high value="00001231"/>
+         </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureStartDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="90f5a010-dceb-4311-bda4-b664aad9e492"/>
+         <code code="MSRSD" displayName="Measurement start date" codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00000101"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureEndDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="30950f12-82f3-4b50-82e7-c9709ac4cc6c"/>
+         <code code="MSRED" displayName="Measurement end date" codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00001231"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Centers for Disease Control and Prevention. 2011. Sexually Transmitted Diseases: Chlamydia – CDC Fact Sheet. STD Facts – Chlamydia (June 2, 2011).</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">National Chlamydia Coalition. 2010. Research Briefs: Developments in STD Screening: Chlamydia Testing. 2010 Series, No.1. http://www.prevent.org/data/files/ncc/research%20brief%201%20std%20testing.pdf (June 2, 2011).</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">United States Preventive Services Task Force. 2007. Screening for chlamydia infection: U.S. Preventive Services Task Force recommendation statement. Ann Intern Med 147(2):128-34.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Wilson TE et al. 2009. A Randomized Controlled Trial for Reducing Risks for Sexually Transmitted Infections Through Enhanced Patient-Based Partner Notification. AJPH 99(S1).</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Centers for Disease Control and Prevention. 2011. Sexually Transmitted Diseases: Pelvic Inflammatory Disease (PID) - CDC Fact Sheet. http://www.cdc.gov/std/PID/STDFact-PID.htm (June 27, 2011).</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Centers for Disease Control and Prevention. 2010. Sexually Transmitted Diseases (STDs): Chlamydia Treatment. http://www.cdc.gov/std/chlamydia/treatment.htm (June 6, 2011).</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Centers for Disease Control and Prevention. Sexually Transmitted Disease Surveillance 2004 Supplement, Chlamydia Prevalence Monitoring Project. Atlanta, GA: U.S. Department of Health and Human Services, Centers for Disease Control and Prevention, December 2005.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">American Academy of Family Physicians (AAFP). Summary of recommendations for clinical preventive services. Revision 6.8. Leawood (KS): American Academy of Family Physicians (AAFP); 2009 Apr. 15 p.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DEF" codeSystem="2.16.840.1.113883.3.560" displayName="Definition"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="GUIDE" codeSystem="2.16.840.1.113883.5.4" displayName="Guidance"/>
+         <value xsi:type="ED" mediaType="text/plain">Codes to identify sexually active women include: pregnancy, sexually transmitted infections, contraceptives or contraceptive devices, and infertility treatments.&#xD;
+&#xD;
+Female patients are in the Initial Patient Population only because they received a pregnancy test may be eligible for the denominator exclusion if the pregnancy test was used solely as a safety precaution before ordering an x-ray or specified medications.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Transmission Format</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IPP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Initial Patient Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Women 16 to 24 years of age who are sexually active.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENOM" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Equals Initial Patient Population</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Denominator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Female patients who received a pregnancy test solely as a safety precaution before ordering an x-ray or specified medications</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="NUMER" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Numerator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Women with at least one chlamydia test during the measurement year.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Numerator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator Exceptions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Measure Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Measure Observations</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Supplemental Data Elements</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">For every patient evaluated by this measure also identify payer, race, ethnicity and gender.</value>
+      </measureAttribute>
+   </subjectOf>
+   <componentOf>
+      <qualityMeasureSet classCode="ACT">
+         <id root="a3f1fe7d-701e-4e8a-973a-30ccb3c3886e"/>
+         <title>None</title>
+      </qualityMeasureSet>
+   </componentOf>
+         
+      <!--
+         **************************************************************   
+         Population Criteria Section
+         **************************************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1" displayName="Population criteria"/>
+         <title>Population criteria</title>
+         <text>
+            <list>
+               <item>
+                  <content styleCode="Bold">Initial Patient Population =</content>
+                  <list>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &gt;= 16 year(s) starts before start of "Measurement Period"</item>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &lt;= 24 year(s) starts before start of "Measurement Period"</item>
+                     <item>AND: "Patient Characteristic Gender: Administrative Gender Female" starts before start of "Measurement Period"</item>
+                     <item>AND: <list>
+                           <item>OR: "Diagnosis, Active: Other Female Reproductive Conditions"</item>
+                           <item>OR: "Diagnosis, Active: Genital Herpes"</item>
+                           <item>OR: "Laboratory Test, Performed: Pap Test"</item>
+                           <item>OR: "Diagnostic Study, Performed: Diagnostic Studies During Pregnancy"</item>
+                           <item>OR: "Procedure, Performed: Procedures During Pregnancy"</item>
+                           <item>OR: "Procedure, Performed: Procedures Involving Contraceptive Devices"</item>
+                           <item>OR: "Procedure, Performed: Delivery Live Births"</item>
+                           <item>OR: "Laboratory Test, Performed: Pregnancy Test"</item>
+                           <item>OR: "Medication, Active: Contraceptive Medications"</item>
+                           <item>OR: "Diagnosis, Active: Inflammatory Diseases of Female Reproductive Organs"</item>
+                           <item>OR: "Diagnosis, Active: Chlamydia"</item>
+                           <item>OR: "Diagnosis, Active: Syphilis"</item>
+                           <item>OR: "Diagnosis, Active: Gonococcal Infections and Venereal Diseases"</item>
+                           <item>OR: "Diagnosis, Active: Complications of Pregnancy, Childbirth and the Puerperium"</item>
+                           <item>OR: "Diagnosis, Active: HIV"</item>
+                           <item>OR: "Laboratory Test, Performed: Lab Tests During Pregnancy"</item>
+                           <item>OR: "Laboratory Test, Performed: Lab Tests for Sexually Transmitted Infections"</item>
+                           <item> during "Measurement Period"</item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator =</content>
+                  <list>
+                     <item>AND: "Initial Patient Population"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exclusions =</content>
+                  <list>
+                     <item>AND: "Occurrence A of Laboratory Test, Performed: Pregnancy Test" during "Measurement Period"</item>
+                     <item>AND: <list>
+                           <item>OR: "Medication, Dispensed: Isotretinoin"</item>
+                           <item>OR: "Medication, Order: Isotretinoin"</item>
+                           <item>OR: "Diagnostic Study, Performed: X-Ray Study (all inclusive)"</item>
+                           <item>  &lt;= 7 day(s) starts after end of "Occurrence A of Laboratory Test, Performed: Pregnancy Test"</item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Numerator =</content>
+                  <list>
+                     <item>AND: "Laboratory Test, Result: Chlamydia Screening" during "Measurement Period"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exceptions =</content>
+                  <list>
+                     <item>None</item>
+                  </list>
+               </item>
+            </list>
+         </text><!--
+            **************************************************************   
+            Population Criteria Section: exclusions 
+            **************************************************************
+      -->
+         <entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true" actionNegationInd="true">
+               <id root="7D71EA14-57B4-4976-823D-49B30811871C"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063" codeSystemName="HL7 Observation Value" displayName="Denominator"/><!--  top and/or -->
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Performed pattern -->
+                     <templateId root="2.16.840.1.113883.3.560.1.5"/>
+                     <id root="9f04b7f7-4221-471c-9d61-435e96bab749"/>
+                     <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.464.3.11.2.11" displayName="Pregnancy Test Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence A of Laboratory Test, Performed: Pregnancy Test</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="DURING">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="6b862138-de76-4fdd-95cf-c87a06220e3e"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Dispensed pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.8"/>
+                           <id root="49884065-4691-4eba-8288-76cb944bbfad"/>
+                           <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <supply classCode="SPLY" moodCode="EVN" isCriterionInd="true">
+                                 <title>Medication, Dispensed: Isotretinoin</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.464.0003.96.02.0143" displayName="Isotretinoin Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                              </supply>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.17"/>
+                           <id root="d963b721-4e23-4a47-a1e3-2c246b72a282"/>
+                           <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                 <title>Medication, Order: Isotretinoin</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.464.0003.96.02.0143" displayName="Isotretinoin Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                              </substanceAdministration>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnostic Study, Performed pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.3"/>
+                           <id root="e318b271-6f8d-453f-8311-152efdbefc24"/>
+                           <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.0003.98.02.0034" displayName="X-Ray Study (all inclusive) Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Diagnostic Study, Performed: X-Ray Study (all inclusive)</title>
+                                 <statusCode code="completed"/>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="SAE">
+                        <pauseQuantity xsi:type="URG_PQ">
+                           <high value="7" unit="d" inclusive="true"/>
+                        </pauseQuantity>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Performed pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.5"/>
+                           <id root="9f04b7f7-4221-471c-9d61-435e96bab749"/>
+                           <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.3.11.2.11" displayName="Pregnancy Test Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Occurrence A of Laboratory Test, Performed: Pregnancy Test</title>
+                                 <statusCode code="completed"/>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry><!--
+            **************************************************************   
+            Population Criteria Section: numerator 
+            **************************************************************
+      -->
+         <entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="6DE08B4F-17F5-4EDE-9F35-7008FEDDD7F4"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="NUMER" codeSystem="2.16.840.1.113883.5.1063" codeSystemName="HL7 Observation Value" displayName="Numerator"/><!--  top and/or -->
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Result pattern -->
+                     <templateId root="2.16.840.1.113883.3.560.1.12"/>
+                     <id root="47e3ffb0-3b17-4447-8edc-b0136db8723c"/>
+                     <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.464.0003.10.02.0052" displayName="Chlamydia Screening Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Laboratory Test, Result: Chlamydia Screening</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="DURING">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="6b862138-de76-4fdd-95cf-c87a06220e3e"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry><!--
+            **************************************************************   
+            Population Criteria Section: denominator 
+            **************************************************************
+      -->
+         <entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="EC49CA4B-7FCE-4876-AC03-CB6269E2D87A"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063" codeSystemName="HL7 Observation Value" displayName="Denominator"/><!--  top and/or -->
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="9FDCAF38-6995-405A-97F3-AF531262BCDA"/>
+                     <title>Initial Patient Population</title>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry><!--
+            **************************************************************   
+            Population Criteria Section: population 
+            **************************************************************
+      -->
+         <entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="9FDCAF38-6995-405A-97F3-AF531262BCDA"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="IPP" codeSystem="2.16.840.1.113883.5.1063" codeSystemName="HL7 Observation Value" displayName="Initial Patient Population"/><!--  top and/or -->
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern -->
+                     <templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="fd3c39c0-0f4f-4f0b-91d0-f532653f19b5"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4" codeSystem="2.16.840.1.113883.3.560.101.1" displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <low value="16" unit="a" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="6b862138-de76-4fdd-95cf-c87a06220e3e"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern -->
+                     <templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="fd3c39c0-0f4f-4f0b-91d0-f532653f19b5"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4" codeSystem="2.16.840.1.113883.3.560.101.1" displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <high value="24" unit="a" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="6b862138-de76-4fdd-95cf-c87a06220e3e"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Gender pattern -->
+                     <templateId root="2.16.840.1.113883.3.560.1.402"/>
+                     <id root="7a78a7ce-656a-473e-a5ce-6e46dcc6e5e9"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="263495000" codeSystem="2.16.840.1.113883.6.96" displayName="Gender"/>
+                           <title>Patient Characteristic Gender: Administrative Gender Female</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.2" codeSystem="2.16.840.1.113883.3.560.101.1" displayName="Administrative Gender Female HL7 (2.16.840.1.113883.5.1) Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="6b862138-de76-4fdd-95cf-c87a06220e3e"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.2"/>
+                           <id root="764e2809-1780-41eb-b4e0-59cdd20821e4"/>
+                           <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                 <title>Diagnosis, Active: Other Female Reproductive Conditions</title>
+                                 <value xsi:type="CD" code="2.16.840.1.113883.3.464.0003.11.02.0006" displayName="Other Female Reproductive Conditions Grouping Value Set"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                       <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96"/>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.2"/>
+                           <id root="62108457-6262-4519-b6f7-bf3e3755946f"/>
+                           <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                 <title>Diagnosis, Active: Genital Herpes</title>
+                                 <value xsi:type="CD" code="2.16.840.1.113883.3.464.0003.10.02.0049" displayName="Genital Herpes Grouping Value Set"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                       <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96"/>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Performed pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.5"/>
+                           <id root="8abc7908-9878-420b-9dda-020ffe134306"/>
+                           <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.0003.08.02.0017" displayName="Pap Test Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Laboratory Test, Performed: Pap Test</title>
+                                 <statusCode code="completed"/>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnostic Study, Performed pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.3"/>
+                           <id root="a4b21ca0-f0ba-4496-b2f3-1ce33ba37e54"/>
+                           <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.0003.11.02.0008" displayName="Diagnostic Studies During Pregnancy Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Diagnostic Study, Performed: Diagnostic Studies During Pregnancy</title>
+                                 <statusCode code="completed"/>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Performed pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.6"/>
+                           <id root="3a0dbcf1-9bc2-479a-93f9-4934c8112523"/>
+                           <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.0003.11.02.0009" displayName="Procedures During Pregnancy Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Procedure, Performed: Procedures During Pregnancy</title>
+                              </procedure>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Performed pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.6"/>
+                           <id root="02a87c1c-4090-40d8-bc6f-9d07a0d4e4e0"/>
+                           <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.0003.11.02.0010" displayName="Procedures Involving Contraceptive Devices Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Procedure, Performed: Procedures Involving Contraceptive Devices</title>
+                              </procedure>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Performed pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.6"/>
+                           <id root="37001dd0-5aae-4c53-b6e2-d7d151b289a5"/>
+                           <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.526.03.393" displayName="Delivery Live Births Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Procedure, Performed: Delivery Live Births</title>
+                              </procedure>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Performed pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.5"/>
+                           <id root="e9f9b42c-f529-4028-baea-6ce8154a22e4"/>
+                           <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.3.11.2.11" displayName="Pregnancy Test Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Laboratory Test, Performed: Pregnancy Test</title>
+                                 <statusCode code="completed"/>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Active pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.13"/>
+                           <id root="0393b65f-b8bb-484e-b570-89a747241402"/>
+                           <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                                 <title>Medication, Active: Contraceptive Medications</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.464.0003.96.02.0080" displayName="Contraceptive Medications Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="33999-4" displayName="Status" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <value xsi:type="CD" code="55561003" displayName="Active" codeSystem="2.16.840.1.113883.6.96"/>
+                                    </observation>
+                                 </sourceOf>
+                              </substanceAdministration>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.2"/>
+                           <id root="ce8c36a4-d6d7-400f-8582-56b53cc99040"/>
+                           <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                 <title>Diagnosis, Active: Inflammatory Diseases of Female Reproductive Organs</title>
+                                 <value xsi:type="CD" code="2.16.840.1.113883.3.464.0003.20.02.0004" displayName="Inflammatory Diseases of Female Reproductive Organs Grouping Value Set"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                       <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96"/>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.2"/>
+                           <id root="2cea1d71-028d-415a-ac6a-74e2dccd9d46"/>
+                           <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                 <title>Diagnosis, Active: Chlamydia</title>
+                                 <value xsi:type="CD" code="2.16.840.1.113883.3.464.0003.20.02.0003" displayName="Chlamydia Grouping Value Set"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                       <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96"/>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.2"/>
+                           <id root="79b3e2e8-619c-4976-b454-d1f46c842bef"/>
+                           <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                 <title>Diagnosis, Active: Syphilis</title>
+                                 <value xsi:type="CD" code="2.16.840.1.113883.3.464.0003.20.02.0002" displayName="Syphilis Grouping Value Set"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                       <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96"/>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.2"/>
+                           <id root="a1d96068-22f9-4697-bfc6-f45839678241"/>
+                           <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                 <title>Diagnosis, Active: Gonococcal Infections and Venereal Diseases</title>
+                                 <value xsi:type="CD" code="2.16.840.1.113883.3.464.0003.20.02.0001" displayName="Gonococcal Infections and Venereal Diseases Grouping Value Set"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                       <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96"/>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.2"/>
+                           <id root="5cc76450-08dc-474a-be8e-1529fb06822a"/>
+                           <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                 <title>Diagnosis, Active: Complications of Pregnancy, Childbirth and the Puerperium</title>
+                                 <value xsi:type="CD" code="2.16.840.1.113883.3.464.0003.11.02.0012" displayName="Complications of Pregnancy, Childbirth and the Puerperium Grouping Value Set"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                       <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96"/>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.2"/>
+                           <id root="10d469f5-3a2e-4c98-ad21-a50e1d2b70b5"/>
+                           <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                 <title>Diagnosis, Active: HIV</title>
+                                 <value xsi:type="CD" code="2.16.840.1.113883.3.526.03.465" displayName="HIV Grouping Value Set"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                       <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96"/>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Performed pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.5"/>
+                           <id root="2666ad8d-914f-4a81-831d-92c69aa0beed"/>
+                           <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.0003.11.02.0007" displayName="Lab Tests During Pregnancy Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Laboratory Test, Performed: Lab Tests During Pregnancy</title>
+                                 <statusCode code="completed"/>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Performed pattern -->
+                           <templateId root="2.16.840.1.113883.3.560.1.5"/>
+                           <id root="54e9d63a-22b9-49e6-8897-7b1a9b913b3d"/>
+                           <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.0003.10.02.0051" displayName="Lab Tests for Sexually Transmitted Infections Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Laboratory Test, Performed: Lab Tests for Sexually Transmitted Infections</title>
+                                 <statusCode code="completed"/>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="DURING">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <id root="6b862138-de76-4fdd-95cf-c87a06220e3e"/>
+                           <title>Measurement Period</title>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Data Criteria Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57025-9" codeSystem="2.16.840.1.113883.6.1" displayName="Data criteria (QDM Data Elements)"/>
+         <title>Data criteria (QDM Data Elements)</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Diagnosis, Active: Chlamydia"</content> using "Chlamydia Grouping Value Set (2.16.840.1.113883.3.464.0003.20.02.0003)"</item>
+               <item>
+                  <content>"Diagnosis, Active: Complications of Pregnancy, Childbirth and the Puerperium"</content> using "Complications of Pregnancy, Childbirth and the Puerperium Grouping Value Set (2.16.840.1.113883.3.464.0003.11.02.0012)"</item>
+               <item>
+                  <content>"Diagnosis, Active: Genital Herpes"</content> using "Genital Herpes Grouping Value Set (2.16.840.1.113883.3.464.0003.10.02.0049)"</item>
+               <item>
+                  <content>"Diagnosis, Active: Gonococcal Infections and Venereal Diseases"</content> using "Gonococcal Infections and Venereal Diseases Grouping Value Set (2.16.840.1.113883.3.464.0003.20.02.0001)"</item>
+               <item>
+                  <content>"Diagnosis, Active: HIV"</content> using "HIV Grouping Value Set (2.16.840.1.113883.3.526.03.465)"</item>
+               <item>
+                  <content>"Diagnosis, Active: Inflammatory Diseases of Female Reproductive Organs"</content> using "Inflammatory Diseases of Female Reproductive Organs Grouping Value Set (2.16.840.1.113883.3.464.0003.20.02.0004)"</item>
+               <item>
+                  <content>"Diagnosis, Active: Other Female Reproductive Conditions"</content> using "Other Female Reproductive Conditions Grouping Value Set (2.16.840.1.113883.3.464.0003.11.02.0006)"</item>
+               <item>
+                  <content>"Diagnosis, Active: Syphilis"</content> using "Syphilis Grouping Value Set (2.16.840.1.113883.3.464.0003.20.02.0002)"</item>
+               <item>
+                  <content>"Diagnostic Study, Performed: Diagnostic Studies During Pregnancy"</content> using "Diagnostic Studies During Pregnancy Grouping Value Set (2.16.840.1.113883.3.464.0003.11.02.0008)"</item>
+               <item>
+                  <content>"Diagnostic Study, Performed: X-Ray Study (all inclusive)"</content> using "X-Ray Study (all inclusive) Grouping Value Set (2.16.840.1.113883.3.464.0003.98.02.0034)"</item>
+               <item>
+                  <content>"Laboratory Test, Performed: Lab Tests During Pregnancy"</content> using "Lab Tests During Pregnancy Grouping Value Set (2.16.840.1.113883.3.464.0003.11.02.0007)"</item>
+               <item>
+                  <content>"Laboratory Test, Performed: Lab Tests for Sexually Transmitted Infections"</content> using "Lab Tests for Sexually Transmitted Infections Grouping Value Set (2.16.840.1.113883.3.464.0003.10.02.0051)"</item>
+               <item>
+                  <content>"Laboratory Test, Performed: Pap Test"</content> using "Pap Test Grouping Value Set (2.16.840.1.113883.3.464.0003.08.02.0017)"</item>
+               <item>
+                  <content>"Laboratory Test, Performed: Pregnancy Test"</content> using "Pregnancy Test Grouping Value Set (2.16.840.1.113883.3.464.3.11.2.11)"</item>
+               <item>
+                  <content>"Laboratory Test, Result: Chlamydia Screening"</content> using "Chlamydia Screening Grouping Value Set (2.16.840.1.113883.3.464.0003.10.02.0052)"</item>
+               <item>
+                  <content>"Medication, Active: Contraceptive Medications"</content> using "Contraceptive Medications Grouping Value Set (2.16.840.1.113883.3.464.0003.96.02.0080)"</item>
+               <item>
+                  <content>"Medication, Dispensed: Isotretinoin"</content> using "Isotretinoin Grouping Value Set (2.16.840.1.113883.3.464.0003.96.02.0143)"</item>
+               <item>
+                  <content>"Medication, Order: Isotretinoin"</content> using "Isotretinoin Grouping Value Set (2.16.840.1.113883.3.464.0003.96.02.0143)"</item>
+               <item>
+                  <content>"Patient Characteristic Birthdate: birth date"</content> using "birth date LOINC Value Set (2.16.840.1.113883.3.560.100.4)"</item>
+               <item>
+                  <content>"Patient Characteristic Gender: Administrative Gender Female"</content> using "Administrative Gender Female HL7 (2.16.840.1.113883.5.1) Value Set (2.16.840.1.113883.3.560.100.2)"</item>
+               <item>
+                  <content>"Procedure, Performed: Delivery Live Births"</content> using "Delivery Live Births Grouping Value Set (2.16.840.1.113883.3.526.03.393)"</item>
+               <item>
+                  <content>"Procedure, Performed: Procedures During Pregnancy"</content> using "Procedures During Pregnancy Grouping Value Set (2.16.840.1.113883.3.464.0003.11.02.0009)"</item>
+               <item>
+                  <content>"Procedure, Performed: Procedures Involving Contraceptive Devices"</content> using "Procedures Involving Contraceptive Devices Grouping Value Set (2.16.840.1.113883.3.464.0003.11.02.0010)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.400"/>
+               <id root="fd3c39c0-0f4f-4f0b-91d0-f532653f19b5"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                     <title>Patient Characteristic Birthdate: birth date</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4" codeSystem="2.16.840.1.113883.3.560.101.1" displayName="birth date LOINC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Result pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.12"/>
+               <id root="47e3ffb0-3b17-4447-8edc-b0136db8723c"/>
+               <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.0003.10.02.0052" displayName="Chlamydia Screening Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Laboratory Test, Result: Chlamydia Screening</title>
+                     <statusCode code="completed"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="764e2809-1780-41eb-b4e0-59cdd20821e4"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: Other Female Reproductive Conditions</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.464.0003.11.02.0006" displayName="Other Female Reproductive Conditions Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="62108457-6262-4519-b6f7-bf3e3755946f"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: Genital Herpes</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.464.0003.10.02.0049" displayName="Genital Herpes Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="ce8c36a4-d6d7-400f-8582-56b53cc99040"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: Inflammatory Diseases of Female Reproductive Organs</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.464.0003.20.02.0004" displayName="Inflammatory Diseases of Female Reproductive Organs Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="2cea1d71-028d-415a-ac6a-74e2dccd9d46"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: Chlamydia</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.464.0003.20.02.0003" displayName="Chlamydia Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="79b3e2e8-619c-4976-b454-d1f46c842bef"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: Syphilis</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.464.0003.20.02.0002" displayName="Syphilis Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="a1d96068-22f9-4697-bfc6-f45839678241"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: Gonococcal Infections and Venereal Diseases</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.464.0003.20.02.0001" displayName="Gonococcal Infections and Venereal Diseases Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="5cc76450-08dc-474a-be8e-1529fb06822a"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: Complications of Pregnancy, Childbirth and the Puerperium</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.464.0003.11.02.0012" displayName="Complications of Pregnancy, Childbirth and the Puerperium Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="10d469f5-3a2e-4c98-ad21-a50e1d2b70b5"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: HIV</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.526.03.465" displayName="HIV Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Performed pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.5"/>
+               <id root="2666ad8d-914f-4a81-831d-92c69aa0beed"/>
+               <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.0003.11.02.0007" displayName="Lab Tests During Pregnancy Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Laboratory Test, Performed: Lab Tests During Pregnancy</title>
+                     <statusCode code="completed"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Performed pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.5"/>
+               <id root="54e9d63a-22b9-49e6-8897-7b1a9b913b3d"/>
+               <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.0003.10.02.0051" displayName="Lab Tests for Sexually Transmitted Infections Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Laboratory Test, Performed: Lab Tests for Sexually Transmitted Infections</title>
+                     <statusCode code="completed"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Performed pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.5"/>
+               <id root="8abc7908-9878-420b-9dda-020ffe134306"/>
+               <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.0003.08.02.0017" displayName="Pap Test Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Laboratory Test, Performed: Pap Test</title>
+                     <statusCode code="completed"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnostic Study, Performed pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.3"/>
+               <id root="a4b21ca0-f0ba-4496-b2f3-1ce33ba37e54"/>
+               <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.0003.11.02.0008" displayName="Diagnostic Studies During Pregnancy Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Diagnostic Study, Performed: Diagnostic Studies During Pregnancy</title>
+                     <statusCode code="completed"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Performed pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.6"/>
+               <id root="3a0dbcf1-9bc2-479a-93f9-4934c8112523"/>
+               <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.0003.11.02.0009" displayName="Procedures During Pregnancy Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Procedure, Performed: Procedures During Pregnancy</title>
+                  </procedure>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Performed pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.6"/>
+               <id root="02a87c1c-4090-40d8-bc6f-9d07a0d4e4e0"/>
+               <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.0003.11.02.0010" displayName="Procedures Involving Contraceptive Devices Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Procedure, Performed: Procedures Involving Contraceptive Devices</title>
+                  </procedure>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Performed pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.6"/>
+               <id root="37001dd0-5aae-4c53-b6e2-d7d151b289a5"/>
+               <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.526.03.393" displayName="Delivery Live Births Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Procedure, Performed: Delivery Live Births</title>
+                  </procedure>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Performed pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.5"/>
+               <id root="e9f9b42c-f529-4028-baea-6ce8154a22e4"/>
+               <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.3.11.2.11" displayName="Pregnancy Test Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Laboratory Test, Performed: Pregnancy Test</title>
+                     <statusCode code="completed"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Active pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.13"/>
+               <id root="0393b65f-b8bb-484e-b570-89a747241402"/>
+               <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                     <title>Medication, Active: Contraceptive Medications</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.464.0003.96.02.0080" displayName="Contraceptive Medications Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" displayName="Status" codeSystem="2.16.840.1.113883.6.1"/>
+                           <value xsi:type="CD" code="55561003" displayName="Active" codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Dispensed pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.8"/>
+               <id root="49884065-4691-4eba-8288-76cb944bbfad"/>
+               <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <supply classCode="SPLY" moodCode="EVN" isCriterionInd="true">
+                     <title>Medication, Dispensed: Isotretinoin</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.464.0003.96.02.0143" displayName="Isotretinoin Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </supply>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnostic Study, Performed pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.3"/>
+               <id root="e318b271-6f8d-453f-8311-152efdbefc24"/>
+               <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.0003.98.02.0034" displayName="X-Ray Study (all inclusive) Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Diagnostic Study, Performed: X-Ray Study (all inclusive)</title>
+                     <statusCode code="completed"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Gender pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.402"/>
+               <id root="7a78a7ce-656a-473e-a5ce-6e46dcc6e5e9"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="263495000" codeSystem="2.16.840.1.113883.6.96" displayName="Gender"/>
+                     <title>Patient Characteristic Gender: Administrative Gender Female</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.2" codeSystem="2.16.840.1.113883.3.560.101.1" displayName="Administrative Gender Female HL7 (2.16.840.1.113883.5.1) Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.17"/>
+               <id root="d963b721-4e23-4a47-a1e3-2c246b72a282"/>
+               <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                     <title>Medication, Order: Isotretinoin</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.464.0003.96.02.0143" displayName="Isotretinoin Grouping Value Set" codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.5"/>
+               <id root="9f04b7f7-4221-471c-9d61-435e96bab749"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>Pregnancy Test</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="e9f9b42c-f529-4028-baea-6ce8154a22e4"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+            
+         <!--
+            **************************************************************   
+            Stratification Section
+            **************************************************************
+         --><component typeCode="COMP">
+      <section>
+         <code code="69669-0" codeSystem="2.16.840.1.113883.6.1" displayName="Population stratification description"/>
+         <title>Reporting Stratification</title>
+         <text>
+            <list>
+               <item>
+                  <content styleCode="Bold">Reporting Stratum 1 =</content>
+                  <list>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &gt;= 16 year(s) starts before start of "Measurement Period"</item>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &lt;= 20 year(s) starts before start of "Measurement Period"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Reporting Stratum 2 =</content>
+                  <list>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &gt;= 21 year(s) starts before start of "Measurement Period"</item>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &lt;= 24 year(s) starts before start of "Measurement Period"</item>
+                  </list>
+               </item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true" actionNegationInd="true">
+               <id root="7EE7E584-DA0C-473D-AD60-5B39E22BB218"/>
+               <code nullFlavor="OTH">
+                  <originalText>Stratum</originalText>
+               </code><!--  top and/or -->
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern -->
+                     <templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="fd3c39c0-0f4f-4f0b-91d0-f532653f19b5"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4" codeSystem="2.16.840.1.113883.3.560.101.1" displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <low value="16" unit="a" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="6b862138-de76-4fdd-95cf-c87a06220e3e"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern -->
+                     <templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="fd3c39c0-0f4f-4f0b-91d0-f532653f19b5"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4" codeSystem="2.16.840.1.113883.3.560.101.1" displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <high value="20" unit="a" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="6b862138-de76-4fdd-95cf-c87a06220e3e"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true" actionNegationInd="true">
+               <id root="64300424-0E3F-4FD5-9597-4528CD3D6405"/>
+               <code nullFlavor="OTH">
+                  <originalText>Stratum</originalText>
+               </code><!--  top and/or -->
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern -->
+                     <templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="fd3c39c0-0f4f-4f0b-91d0-f532653f19b5"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4" codeSystem="2.16.840.1.113883.3.560.101.1" displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <low value="21" unit="a" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="6b862138-de76-4fdd-95cf-c87a06220e3e"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern -->
+                     <templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="fd3c39c0-0f4f-4f0b-91d0-f532653f19b5"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4" codeSystem="2.16.840.1.113883.3.560.101.1" displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <high value="24" unit="a" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="6b862138-de76-4fdd-95cf-c87a06220e3e"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Supplemental Data Elements Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="69670-8" codeSystem="2.16.840.1.113883.6.1" displayName="Supplemental Data Elements"/>
+         <title>Supplemental Data Elements</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Patient Characteristic Ethnicity: Ethnicity"</content> using "Ethnicity CDC Value Set (2.16.840.1.114222.4.11.837)"</item>
+               <item>
+                  <content>"Patient Characteristic Gender: Gender"</content> using "Gender HL7 (2.16.840.1.113883.5.1) Value Set (2.16.840.1.113883.1.11.1)"</item>
+               <item>
+                  <content>"Patient Characteristic Payer: Payer"</content> using "Payer Source of Payment Typology Value Set (2.16.840.1.113883.221.5)"</item>
+               <item>
+                  <content>"Patient Characteristic Race: Race"</content> using "Race CDC Value Set (2.16.840.1.114222.4.11.836)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Gender pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.402"/>
+               <id root="89c650e0-0de9-4206-bef4-3c46e073375d"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="263495000" codeSystem="2.16.840.1.113883.6.96" displayName="Gender"/>
+                     <title>Patient Characteristic Gender: Gender</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.1.11.1" codeSystem="2.16.840.1.113883.3.560.101.1" displayName="Gender HL7 (2.16.840.1.113883.5.1) Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Race pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.406"/>
+               <id root="5da57e66-b196-4f75-a2cb-431f0fb16458"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="32624-9" codeSystem="2.16.840.1.113883.6.1" displayName="Race"/>
+                     <title>Patient Characteristic Race: Race</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.836" codeSystem="2.16.840.1.113883.3.560.101.1" displayName="Race CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Ethnicity pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.403"/>
+               <id root="3ad0c675-4876-4f29-8e1c-c67b2394f7ce"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="54133-4" codeSystem="2.16.840.1.113883.6.1" displayName="Ethnicity"/>
+                     <title>Patient Characteristic Ethnicity: Ethnicity</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.837" codeSystem="2.16.840.1.113883.3.560.101.1" displayName="Ethnicity CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Payer pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.405"/>
+               <id root="c1a5c65c-80f8-4326-a2aa-9d183aa10669"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" displayName="Payer"/>
+                     <title>Patient Characteristic Payer: Payer</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.221.5" codeSystem="2.16.840.1.113883.3.560.101.1" displayName="Payer Source of Payment Typology Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+      </section>
+   </component>
+</QualityMeasureDocument>

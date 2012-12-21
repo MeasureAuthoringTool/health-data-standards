@@ -1,0 +1,1145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QualityMeasureDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="urn:hl7-org:v3 schema/EMeasure.xsd"
+ xmlns="urn:hl7-org:v3"
+ classCode="DOC">
+  <typeId root="2.16.840.1.113883.1.3" extension="POQM_HD00001"/>
+  <id root="0" extension="foo"/>
+  <code code="57024-2" codeSystem="2.16.840.1.113883.6.1"/>
+  <title value="Sample Quality Measure Document"/>
+  <text value="This is the measure description."/>
+  <statusCode code="completed"/>
+  <setId root="0"/>
+  <versionNumber value="1"/>
+  <author typeCode="AUT" contextControlCode="OP">
+    <responsibleParty classCode="ASSIGNED"/>
+  </author>
+  <custodian typeCode="CST">
+    <responsibleParty classCode="ASSIGNED"/>
+  </custodian>
+  <controlVariable>
+    <measurePeriod>
+      <code code="MSRTP" codeSystem="2.16.840.1.113883.3.560">
+        <displayName value="Measurement period"/>
+      </code>
+      <value>
+        <low value="20110101"/>
+        <high value="20111231"/>
+      </value>
+    </measurePeriod>
+  </controlVariable>
+	<subjectOf>
+		<measureAttribute>
+			<id root="0" extension="COPYRIGHT"/>
+			<code code="COPY">
+				<displayName value="Copyright"/>
+			</code>
+			<value xsi:type="ED" value="Copyright Statement"/>
+		</measureAttribute>
+	</subjectOf>
+  <component>
+    <measureDescriptionSection>
+      <code code="34089-3" codeSystem="2.16.840.1.113883.6.1"/>
+      <title value="Measure Description Section"/>
+      <text>This is a description of the measure.</text>
+    </measureDescriptionSection>
+  </component>
+  <component>
+    <dataCriteriaSection>
+      <code code="57025-9" codeSystem="2.16.840.1.113883.6.1"/>
+      <title value="Data Criteria Section"/>
+      <text>This section describes the data criteria.</text>
+      <!-- Define the measure parameters as observations in event mood -->
+      <definition> 
+        <observationDefinition moodCode="DEF"> 
+          <id root="0" extension="Derived"/> 
+        </observationDefinition> 
+      </definition> 
+      <definition> 
+        <observationDefinition moodCode="DEF"> 
+          <id root="0" extension="Demographics"/> 
+        </observationDefinition> 
+      </definition> 
+      <definition> 
+        <encounterDefinition moodCode="DEF" classCode="ENC">
+          <id root="0" extension="Encounters"/>
+        </encounterDefinition> 
+      </definition> 
+      <definition> 
+        <observationDefinition moodCode="DEF"> 
+          <id root="0" extension="Problems"/> 
+        </observationDefinition> 
+      </definition> 
+      <definition> 
+        <observationDefinition moodCode="DEF"> 
+          <id root="0" extension="Allergies"/> 
+        </observationDefinition> 
+      </definition> 
+      <definition> 
+        <procedureDefinition moodCode="DEF">  
+          <id root="0" extension="Procedures"/> 
+        </procedureDefinition> 
+      </definition> 
+      <definition> 
+        <observationDefinition moodCode="DEF"> 
+          <id root="0" extension="Results"/> 
+        </observationDefinition> 
+      </definition> 
+      <definition> 
+        <observationDefinition moodCode="DEF"> 
+          <id root="0" extension="Vitals"/>
+        </observationDefinition> 
+      </definition> 
+      <definition> 
+        <substanceAdministrationDefinition moodCode="DEF"> 
+          <id root="0" extension="Medications"/>
+        </substanceAdministrationDefinition> 
+      </definition> 
+      <definition> 
+        <supplyDefinition moodCode="DEF"> 
+          <id root="0" extension="RX"/> 
+        </supplyDefinition> 
+      </definition>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="StartDate"/>
+          </id>
+          <code code="52832-3" codeSystem="2.16.840.1.113883.6.1"/>
+          <value xsi:type="TS" value="20100101"/>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="EndDate"/>
+          </id>
+          <code code="52833-1" codeSystem="2.16.840.1.113883.6.1"/>
+          <value xsi:type="TS" value="20101231"/>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="birthdateFiftyYearsBeforeMeasurementPeriod"/>
+          </id>
+          <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+            <displayName value="Birthdate"/>
+          </code>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Demographics"/>
+            </observationReference>
+          </definition>
+          <temporallyRelatedInformation typeCode="SBS">
+            <pauseQuantity xsi:type='IVL_PQ'>
+              <low value="50" unit="a"/>
+            </pauseQuantity>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="MeasurePeriod"/>
+            </observationReference>
+          </temporallyRelatedInformation>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="ageBetween17and64"/>
+          </id>
+          <code code="424144002" codeSystem="2.16.840.1.113883.6.96"/>
+          <value xsi:type="IVL_PQ">
+            <low value="17" unit="a"/>
+            <high value="64" unit="a"/>
+          </value>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Demographics"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="ageBetween17and21"/>
+          </id>
+          <code code="424144002" codeSystem="2.16.840.1.113883.6.96"/>
+          <value xsi:type="IVL_PQ">
+            <low value="17" unit="a"/>
+            <high value="21" unit="a"/>
+          </value>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Demographics"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="ageBetween22and29"/>
+          </id>
+          <code code="424144002" codeSystem="2.16.840.1.113883.6.96"/>
+          <value xsi:type="IVL_PQ">
+            <low value="22" unit="a"/>
+            <high value="29" unit="a"/>
+          </value>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Demographics"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="ageBetween30and39"/>
+          </id>
+          <code code="424144002" codeSystem="2.16.840.1.113883.6.96"/>
+          <value xsi:type="IVL_PQ">
+            <low value="30" unit="a"/>
+            <high value="39" unit="a"/>
+          </value>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Demographics"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="ageBetween40and49"/>
+          </id>
+          <code code="424144002" codeSystem="2.16.840.1.113883.6.96">
+            <displayName value="Age"></displayName>
+          </code>
+          <value xsi:type="IVL_PQ">
+            <low value="40" unit="a"/>
+            <high value="49" unit="a"/>
+          </value>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Demographics"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="ageBetween50and59"/>
+          </id>
+          <code code="424144002" codeSystem="2.16.840.1.113883.6.96">
+            <displayName value="Age"/>
+          </code>
+          <value xsi:type="IVL_PQ">
+            <low value="50" unit="a"/>
+            <high value="59" unit="a"/>
+          </value>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Demographics"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item  root="0" extension="ageBetween60and64"/>
+          </id>
+          <code code="424144002" codeSystem="2.16.840.1.113883.6.96">
+            <displayName value="Age"></displayName>
+          </code>
+          <value xsi:type="IVL_PQ">
+            <low value="60" unit="a"/>
+            <high value="64" unit="a"/>
+          </value>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Demographics"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="dummyAge1"/>
+          </id>
+          <code code="424144002" codeSystem="2.16.840.1.113883.6.96">
+            <displayName value="Age"/>
+          </code>
+          <effectiveTime xsi:type="IVL_TS">
+            <low value="20100101"/>
+            <high value="20111231"/>
+          </effectiveTime>
+          <value xsi:type="IVL_PQ">
+            <low value="60" unit="a"/>
+            <high value="64" unit="a"/>
+          </value>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Demographics"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="dummyAge2"/>
+          </id>
+          <code code="424144002" codeSystem="2.16.840.1.113883.6.96">
+            <displayName value="Age"/>
+          </code>
+          <effectiveTime xsi:type="IVL_TS">
+            <low value="20100101"/>
+          </effectiveTime>
+          <value xsi:type="IVL_PQ">
+            <low value="60" unit="a"/>
+            <high value="64" unit="a"/>
+          </value>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Demographics"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="genderMale"/>
+          </id>
+          <code code="263495000" codeSystem="2.16.840.1.113883.6.96">
+            <displayName value="Gender"></displayName>
+          </code>
+          <value xsi:type="CD" codeSystem="2.16.840.1.113883.5.1"
+            code="M"/>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Demographics"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="genderFemale"/>
+          </id>
+          <code code="263495000" codeSystem="2.16.840.1.113883.6.96">
+            <displayName value="Gender"></displayName>
+          </code>
+          <value xsi:type="CD" codeSystem="2.16.840.1.113883.5.1"
+            code="F"/>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Demographics"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <encounterCriteria moodCode="EVN" classCode="ENC">
+          <id>
+            <item root="0" extension="EDorInpatientEncounter"/>
+          </id>
+          <code valueSet="2.16.840.1.113883.3.464.1.42"/>
+          <!-- EDorInpatientEncounterValueSet -->
+          <effectiveTime xsi:type="IVL_TS">
+            <high nullFlavor="DER">
+              <expression value="EndDate.add(new PQ(-2,'a'))"/>
+            </high>
+          </effectiveTime>
+          <definition>
+            <encounterReference moodCode="EVN" classCode="ENC">
+              <id root="0" extension="Encounters"/>
+            </encounterReference>
+          </definition>
+        </encounterCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <encounterCriteria moodCode="EVN" classCode="ENC">
+          <id>
+            <item root="0" extension="AmbulatoryEncounter"/>
+          </id>
+          <code valueSet="2.16.840.1.113883.3.464.1.1142"/>
+          <!-- AmbulatoryEncounterValueSet -->
+          <effectiveTime xsi:type="IVL_TS">
+            <high nullFlavor="DER">
+              <expression value="EndDate.add(new PQ(-2,'a'))"/>
+            </high>
+          </effectiveTime>
+          <definition>
+            <encounterReference moodCode="EVN" classCode="ENC">
+              <id root="0" extension="Encounters"/>
+            </encounterReference>
+          </definition>
+        </encounterCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <encounterCriteria moodCode="EVN" classCode="ENC">
+          <id>
+            <item root="0" extension="DummyAmbulatoryEncounterWithSource"/>
+          </id>
+          <code valueSet="2.16.840.1.113883.3.464.1.1142"/>
+          <!-- AmbulatoryEncounterValueSet -->
+          <effectiveTime xsi:type="IVL_TS">
+            <high nullFlavor="DER">
+              <expression value="EndDate.add(new PQ(-2,'a'))"/>
+            </high>
+          </effectiveTime>
+          <definition>
+            <encounterReference moodCode="EVN" classCode="ENC">
+              <id root="0" extension="Encounters"/>
+            </encounterReference>
+          </definition>
+          <outboundRelationship typeCode="SUBJ">
+            <observationCriteria classCode="OBS" moodCode="EVN">
+              <templateId>
+                <item root="2.16.840.1.113883.3.560.1.2001.2"/>
+              </templateId> 
+              <code code="260753009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT">
+                <displayName value="Source"/> 
+              </code>
+              <value xsi:type="CD" valueSet="2.16.840.1.113883.3.464.0003.95.02.0005">
+                <displayName value="Primary Care Practitioner"/>
+              </value>
+            </observationCriteria>
+          </outboundRelationship>
+          <outboundRelationship typeCode="SUBJ">
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+              <templateId>
+                <item  root="2.16.840.1.113883.3.560.1.1034.2"/>
+              </templateId>
+              <participation typeCode="LOC">
+                <role classCode="SDLOC">
+                  <code valueSet="2.16.840.1.113883.3.464.0003.100.02.0003">
+                    <displayName value="Ambulatory"/>
+                  </code>
+                </role>
+              </participation>
+            </encounterCriteria>
+          </outboundRelationship>
+          <outboundRelationship typeCode="SUBJ">
+            <localVariableName controlInformationRoot="ENCOUNTER_AMBULATORY" controlInformationExtension="A"/>
+            <subsetCode code="SPECIFIC"/>
+            <observationReference classCode="OBS" moodCode="EVN">
+              <id root="0" extension="AmbulatoryEncounter"/>
+            </observationReference>
+          </outboundRelationship>
+        </encounterCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item extension="DummyLanguage_Arabic" root="2.16.840.1.113883.3.1619.5148.3.20120403.150314222"/>
+          </id>
+          <code codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96" code="102902016">
+            <displayName value="Language"/>
+          </code>
+          <value xsi:type="CD" code="ar" codeSystem="1.0.639.1" codeSystemName="Language">
+            <displayName value="Arabic"/>
+          </value>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id extension="Demographics" root="0"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item extension="DummyMaritalStatus_Divorced" root="2.16.840.1.113883.3.1619.5148.3.20120403.150314222"/>
+          </id>
+          <code codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96" code="125680007">
+            <displayName value="Marital Status"/>
+          </code>
+          <value xsi:type="CD" code="D" codeSystem="2.16.840.1.113883.5.2" codeSystemName="MaritalStatus">
+            <displayName value="Divorced"/>
+          </value>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id extension="Demographics" root="0"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item extension="DummyRace_Latin_American" root="2.16.840.1.113883.3.1619.5148.3.20120403.150314222"/>
+          </id>
+          <code codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96" code="103579009">
+            <displayName value="Race"></displayName>
+          </code>
+          <value xsi:type="CD" code="2178-2" codeSystem="2.16.840.1.113883.6.238" codeSystemName="Race">
+            <displayName value="Latin American"/>
+          </value>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id extension="Demographics" root="0"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <procedureCriteria moodCode="EVN" classCode="PROC">
+          <id>
+            <item root="0" extension="DummyProcedureAfterHasDiabetes"/>
+          </id>
+          <code codeSystemName="SNOMED-CT" codeSystem="2.16.840.1.113883.6.96"
+            code="127355002"/>
+          <statusCode code="completed"/>
+          <effectiveTime xsi:type="IVL_TS">
+            <low value="20100101"/>
+            <high value="20111231"/>
+          </effectiveTime>
+          <definition>
+            <procedureReference moodCode="EVN" classCode="PROC">
+              <id root="0" extension="Procedures"/>
+            </procedureReference>
+          </definition>
+          <temporallyRelatedInformation typeCode="SAS">
+            <pauseQuantity>
+              <high value="1" unit="a"/>
+            </pauseQuantity>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="HasDiabetes"/>
+            </observationReference>
+          </temporallyRelatedInformation>
+        </procedureCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <procedureCriteria moodCode="EVN" classCode="PROC">
+          <id>
+            <item root="0" extension="DummyProcedureAfterHasDiabetesWithCount"/>
+          </id>
+          <code codeSystemName="SNOMED-CT" codeSystem="2.16.840.1.113883.6.96"
+            code="127355002"/>
+          <statusCode code="completed"/>
+          <effectiveTime xsi:type="IVL_TS">
+            <low value="20100101"/>
+            <high value="20111231"/>
+          </effectiveTime>
+          <definition>
+            <procedureReference moodCode="EVN" classCode="PROC">
+              <id root="0" extension="Procedures"/>
+            </procedureReference>
+          </definition>
+          <temporallyRelatedInformation typeCode="SAS">
+            <pauseQuantity>
+              <high value="1" unit="a"/>
+            </pauseQuantity>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="HasDiabetes"/>
+            </observationReference>
+          </temporallyRelatedInformation>
+          <excerpt typeCode="XCRPT">
+            <subsetCode code="SUMMARY"/>
+            <procedureCriteria  moodCode="EVN" classCode="PROC">
+              <repeatNumber>
+                <low value="2"/>
+              </repeatNumber>
+            </procedureCriteria>
+          </excerpt>
+        </procedureCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="anyDiabetes"/>
+          </id>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Derived"/>
+            </observationReference>
+          </definition>
+          <excerpt typeCode="XCRPT">
+            <subsetCode code="UNION"/>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="HasDiabetes"/>
+            </observationReference>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="HasGestationalDiabetes"/>
+            </observationReference>
+          </excerpt>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="HasDiabetes"/>
+          </id>
+          <statusCode code="completed"/>
+          <value xsi:type="CD" valueSet="2.16.840.1.113883.3.464.1.37"/>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Problems"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="HasGestationalDiabetes"/>
+          </id>
+          <effectiveTime xsi:type="IVL_TS">
+            <low nullFlavor="DER">
+              <expression value="StartDate"/>
+            </low>
+            <high nullFlavor="DER">
+              <expression value="EndDate"/>
+            </high>
+          </effectiveTime>
+          <value xsi:type="CD" valueSet="2.16.840.1.113883.3.464.1.67"/>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Problems"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="HasPolycysticOvaries"/>
+          </id>
+          <effectiveTime xsi:type="IVL_TS">
+            <low nullFlavor="DER">
+              <expression value="StartDate.add(new PQ(-1,'a'))"/>
+            </low>
+            <high nullFlavor="DER">
+              <expression value="EndDate"/>
+            </high>
+          </effectiveTime>
+          <value xsi:type="CD" valueSet="2.16.840.1.113883.3.464.1.98"/>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Problems"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="HasSteroidInducedDiabetes"/>
+          </id>
+          <effectiveTime xsi:type="IVL_TS">
+            <low nullFlavor="DER">
+              <expression value="StartDate"/>
+            </low>
+            <high nullFlavor="DER">
+              <expression value="EndDate"/>
+            </high>
+          </effectiveTime>
+          <value xsi:type="CD" valueSet="2.16.840.1.113883.3.464.1.113"/>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Problems"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="HbA1C"/>
+          </id>
+          <code valueSet="2.16.840.1.113883.3.464.1.72"/>
+          <statusCode code="completed"/>
+          <value xsi:type="IVL_PQ">
+            <low value="9" unit="%"/>
+          </value>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Results"/>
+            </observationReference>
+          </definition>
+          <excerpt typeCode="XCRPT">
+            <subsetCode code="RECENT"/>
+            <observationReference classCode="OBS" moodCode="EVN">
+              <id/>
+            </observationReference>
+          </excerpt>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="DummyInlineCodedResult"/>
+          </id>
+          <code valueSet="2.16.840.1.113883.3.464.1.72"/>
+          <statusCode code="completed"/>
+          <value xsi:type="CD" code="xyzzy" codeSystem="1.2.3.4"/>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Results"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id>
+            <item root="0" extension="DummyExternalCodedResult"/>
+          </id>
+          <code valueSet="2.16.840.1.113883.3.464.1.72"/>
+          <statusCode code="completed"/>
+          <value xsi:type="CD" valueSet="1.2.3.4"/>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="Results"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <substanceAdministrationCriteria moodCode="EVN" classCode="SBADM" actionNegationInd="true">
+          <id>
+            <item root="0" extension="DiabetesMedNotAdministeredForNoStatedReason"/>
+          </id>
+          <effectiveTime xsi:type="IVL_TS">
+            <low nullFlavor="DER">
+              <expression value="StartDate.add(new PQ(-2,'a'))"/>
+            </low>
+          </effectiveTime>
+          <participation typeCode="CSM">
+            <role classCode="THER">
+              <code valueSet="2.16.840.1.113883.3.464.1.94"/>
+            </role>
+          </participation>
+          <definition>
+            <substanceAdministrationReference moodCode="EVN" classCode="SBADM">
+              <id root="0" extension="Medications"/>
+            </substanceAdministrationReference>
+          </definition>
+        </substanceAdministrationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <substanceAdministrationCriteria moodCode="EVN" classCode="SBADM" actionNegationInd="true">
+          <id>
+            <item root="0" extension="DiabetesMedNotAdministeredPatientAllergic"/>
+          </id>
+          <effectiveTime xsi:type="IVL_TS">
+            <low nullFlavor="DER">
+              <expression value="StartDate.add(new PQ(-2,'a'))"/>
+            </low>
+          </effectiveTime>
+          <reasonCode>
+            <item valueSet="1.2.3.4">
+              <displayName value="Allergic code set"/>
+            </item>
+          </reasonCode>
+          <participation typeCode="CSM">
+            <role classCode="THER">
+              <code valueSet="2.16.840.1.113883.3.464.1.94"/>
+            </role>
+          </participation>
+          <definition>
+            <substanceAdministrationReference moodCode="EVN" classCode="SBADM">
+              <id root="0" extension="Medications"/>
+            </substanceAdministrationReference>
+          </definition>
+        </substanceAdministrationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <substanceAdministrationCriteria moodCode="EVN" classCode="SBADM">
+          <id>
+            <item root="0" extension="DiabetesMedAdministered"/>
+          </id>
+          <effectiveTime xsi:type="IVL_TS">
+            <low nullFlavor="DER">
+              <expression value="StartDate.add(new PQ(-2,'a'))"/>
+            </low>
+          </effectiveTime>
+          <participation typeCode="CSM">
+            <role classCode="THER">
+              <code valueSet="2.16.840.1.113883.3.464.1.94"/>
+            </role>
+          </participation>
+          <definition>
+            <substanceAdministrationReference moodCode="EVN" classCode="SBADM">
+              <id root="0" extension="Medications"/>
+            </substanceAdministrationReference>
+          </definition>
+        </substanceAdministrationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <substanceAdministrationCriteria moodCode="INT" classCode="SBADM">
+          <id>
+            <item root="0" extension="DiabetesMedIntended"/>
+          </id>
+          <effectiveTime xsi:type="IVL_TS">
+            <high nullFlavor="DER">
+              <expression value="EndDate.add(new PQ(-2,'a'))"/>
+            </high>
+          </effectiveTime>
+          <participation typeCode="CSM">
+            <role classCode="THER">
+              <code valueSet="2.16.840.1.113883.3.464.1.94"/>
+            </role>
+          </participation>
+          <definition>
+            <substanceAdministrationReference moodCode="EVN" classCode="SBADM">
+              <id root="0" extension="Medications"/>
+            </substanceAdministrationReference>
+          </definition>
+        </substanceAdministrationCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <supplyCriteria moodCode="EVN" classCode="SPLY">
+          <id>
+            <item root="0" extension="DiabetesMedSupplied"/>
+          </id>
+          <effectiveTime xsi:type="IVL_TS">
+            <high nullFlavor="DER">
+              <expression value="EndDate.add(new PQ(-2,'a'))"/>
+            </high>
+          </effectiveTime>
+          <participation typeCode="PRD">
+            <role classCode="THER">
+              <code valueSet="2.16.840.1.113883.3.464.1.94"/>
+            </role>
+          </participation>
+          <definition>
+            <supplyReference moodCode="EVN" classCode="SPLY">
+              <id root="0" extension="RX"/>
+            </supplyReference>
+          </definition>
+        </supplyCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <supplyCriteria moodCode="RQO" classCode="SPLY">
+          <id>
+            <item root="0" extension="DiabetesMedOrdered"/>
+          </id>
+          <effectiveTime xsi:type="IVL_TS">
+            <high nullFlavor="DER">
+              <expression value="EndDate.add(new PQ(-2,'a'))"/>
+            </high>
+          </effectiveTime>
+          <participation typeCode="PRD">
+            <role classCode="THER">
+              <code valueSet="2.16.840.1.113883.3.464.1.94"/>
+            </role>
+          </participation>
+          <definition>
+            <supplyReference moodCode="EVN" classCode="SPLY">
+              <id root="0" extension="RX"/>
+            </supplyReference>
+          </definition>
+        </supplyCriteria>
+      </entry>
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <templateId>
+            <item root="2.16.840.1.113883.3.560.1.21" identifierName="risk category / assessment template"/>
+          </templateId>
+          <id>
+            <item root="2.16.840.1.113883.3.100.1" extension="RiskCategoryAssessment"/>
+          </id>
+          <code xsi:type="CD" valueSet="2.16.840.1.113883.3.526.03.1028">
+            <displayName value="Standardized Pain Assessment Tool"/>
+          </code>
+          <text value="Risk Category Assessment: Standardized Pain Assessment Tool"/>
+          <value xsi:type="ANY" nullFlavor="NI"/>
+          <definition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="2.16.840.1.113883.3.100.1" extension="risk_category_assessment"/>
+            </observationReference>
+          </definition>
+        </observationCriteria>
+      </entry>
+    </dataCriteriaSection>
+  </component>
+  <component>
+    <populationCriteriaSection>
+      <id root="0" extension="Population1"/>
+      <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"/>
+      <title value="Population Criteria Section"/>
+      <text>This section describes the Initial Patient Population,
+        Numerator, Denominator, Denominator Exceptions, and Measure
+        Populations</text>
+      <component typeCode="COMP">
+        <patientPopulationCriteria classCode="OBS" moodCode="EVN">
+          <id root="c75181d0-73eb-11de-8a39-0800200c9a66"
+            extension="IPP"/>
+          <code code="IPP" codeSystem="2.16.840.1.113883.5.1063"
+            codeSystemName="HL7 Observation Value">
+            <displayName value="Initial Patient Population"/>
+          </code>
+          <isCriterionInd value="true"/>
+          <precondition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="ageBetween17and64"/>
+            </observationReference>
+          </precondition>
+        </patientPopulationCriteria>
+      </component>
+      <component typeCode="COMP">
+        <denominatorCriteria moodCode="EVN" classCode="OBS">
+          <id root="c75181d0-73eb-11de-8a39-0800200c9a66"
+            extension="DENOM"/>
+          <code xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+            codeSystemName="HL7 Observation Value">
+            <displayName value="Denominator"/>
+          </code>
+          <isCriterionInd value="true"/>
+          <precondition>
+            <atLeastOneTrue>
+              <id/>
+              <precondition typeCode="PRCN">
+                <allTrue>
+                  <id/>
+                  <precondition typeCode="PRCN">
+                    <observationReference moodCode="EVN" classCode="OBS">
+                      <id root="0" extension="HasDiabetes"/>
+                    </observationReference>
+                  </precondition>
+                  <precondition typeCode="PRCN">
+                    <atLeastOneTrue>
+                      <id/>
+                      <precondition typeCode="PRCN">
+                        <encounterReference moodCode="EVN" classCode="ENC">
+                          <id root="0"
+                            extension="EDorInpatientEncounter"/>
+                        </encounterReference>
+                      </precondition>
+                      <precondition typeCode="PRCN">
+                        <encounterReference moodCode="EVN" classCode="ENC">
+                          <id root="0" extension="AmbulatoryEncounter"/>
+                        </encounterReference>
+                      </precondition>
+                    </atLeastOneTrue>
+                  </precondition>
+                </allTrue>
+              </precondition>
+              <precondition typeCode="PRCN">
+                <substanceAdministrationReference moodCode="EVN" classCode="SBADM">
+                  <id root="0" extension="DiabetesMedAdministered"/>
+                </substanceAdministrationReference>
+              </precondition>
+              <precondition typeCode="PRCN">
+                <substanceAdministrationReference moodCode="INT" classCode="SBADM">
+                  <id root="0" extension="DiabetesMedIntended"/>
+                </substanceAdministrationReference>
+              </precondition>
+              <precondition typeCode="PRCN">
+                <supplyReference moodCode="EVN" classCode="SPLY">
+                  <id root="0" extension="DiabetesMedSupplied"/>
+                </supplyReference>
+              </precondition>
+              <precondition typeCode="PRCN">
+                <supplyReference moodCode="RQO" classCode="SPLY">
+                  <id root="0" extension="DiabetesMedOrdered"/>
+                </supplyReference>
+              </precondition>
+            </atLeastOneTrue>
+          </precondition>
+        </denominatorCriteria>
+      </component>
+      <component typeCode="COMP">
+        <numeratorCriteria moodCode="EVN" classCode="OBS">
+          <id root="c75181d0-73eb-11de-8a39-0800200c9a66"
+            extension="NUMER"/>
+          <code code="NUMER" codeSystem="2.16.840.1.113883.5.1063"
+            codeSystemName="HL7 Observation Value">
+            <displayName value="Numerator"/>
+          </code>
+          <isCriterionInd value="true"/>
+          <precondition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="HbA1C"/>
+            </observationReference>
+          </precondition>
+        </numeratorCriteria>
+      </component>
+      <component typeCode="COMP">
+        <denominatorExceptionCriteria moodCode="EVN" classCode="OBS">
+          <id root="c75181d0-73eb-11de-8a39-0800200c9a66"
+            extension="DENEXCEP"/>
+          <code code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063"
+            codeSystemName="HL7 Observation Value">
+            <displayName value="Denominator exception"/>
+          </code>
+          <isCriterionInd value="true"/>
+          <precondition>
+            <allTrue>
+              <id/>
+              <precondition typeCode="PRCN">
+                <observationReference moodCode="EVN" classCode="OBS">
+                  <id root="0" extension="HasPolycysticOvaries"/>
+                </observationReference>
+              </precondition>
+              <precondition typeCode="PRCN">
+                <observationReference moodCode="EVN" classCode="OBS">
+                  <id root="0" extension="HasDiabetes"/>
+                </observationReference>
+              </precondition>
+            </allTrue>
+          </precondition>
+          <precondition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="HasSteroidInducedDiabetes"/>
+            </observationReference>
+          </precondition>
+          <precondition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="HasGestationalDiabetes"/>
+            </observationReference>
+          </precondition>
+        </denominatorExceptionCriteria>
+      </component>
+    </populationCriteriaSection>
+  </component>
+  <component>
+    <populationCriteriaSection>
+      <id root="0" extension="Population2"/>
+      <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"/>
+      <title value="Population Criteria Section"/>
+      <text>This section describes the Initial Patient Population,
+        Numerator, Denominator, Denominator Exceptions, and Measure
+        Populations</text>
+      <component typeCode="COMP">
+        <patientPopulationCriteria classCode="OBS" moodCode="EVN">
+          <id root="c75181d0-73eb-11de-8a39-0800200c9a66"
+            extension="IPP2"/>
+          <code code="IPP" codeSystem="2.16.840.1.113883.5.1063"
+            codeSystemName="HL7 Observation Value">
+            <displayName value="Initial Patient Population"/>
+          </code>
+          <isCriterionInd value="true"/>
+          <precondition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="ageBetween60and64"/>
+            </observationReference>
+          </precondition>
+        </patientPopulationCriteria>
+      </component>
+      <component typeCode="COMP">
+        <denominatorCriteria moodCode="EVN" classCode="OBS">
+          <id root="c75181d0-73eb-11de-8a39-0800200c9a66"
+            extension="DENOM2"/>
+          <code xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+            codeSystemName="HL7 Observation Value">
+            <displayName value="Denominator"/>
+          </code>
+          <isCriterionInd value="true"/>
+          <precondition>
+            <atLeastOneTrue>
+              <id/>
+              <precondition typeCode="PRCN">
+                <allTrue>
+                  <id/>
+                  <precondition typeCode="PRCN">
+                    <observationReference moodCode="EVN" classCode="OBS">
+                      <id root="0" extension="HasDiabetes"/>
+                    </observationReference>
+                  </precondition>
+                  <precondition typeCode="PRCN">
+                    <atLeastOneTrue>
+                      <id/>
+                      <precondition typeCode="PRCN">
+                        <encounterReference moodCode="EVN" classCode="ENC">
+                          <id root="0"
+                            extension="EDorInpatientEncounter"/>
+                        </encounterReference>
+                      </precondition>
+                      <precondition typeCode="PRCN">
+                        <encounterReference moodCode="EVN" classCode="ENC">
+                          <id root="0" extension="AmbulatoryEncounter"/>
+                        </encounterReference>
+                      </precondition>
+                    </atLeastOneTrue>
+                  </precondition>
+                </allTrue>
+              </precondition>
+              <precondition typeCode="PRCN">
+                <substanceAdministrationReference moodCode="EVN" classCode="SBADM">
+                  <id root="0" extension="DiabetesMedAdministered"/>
+                </substanceAdministrationReference>
+              </precondition>
+              <precondition typeCode="PRCN">
+                <substanceAdministrationReference moodCode="INT" classCode="SBADM">
+                  <id root="0" extension="DiabetesMedIntended"/>
+                </substanceAdministrationReference>
+              </precondition>
+              <precondition typeCode="PRCN">
+                <supplyReference moodCode="EVN" classCode="SPLY">
+                  <id root="0" extension="DiabetesMedSupplied"/>
+                </supplyReference>
+              </precondition>
+              <precondition typeCode="PRCN">
+                <supplyReference moodCode="RQO" classCode="SPLY">
+                  <id root="0" extension="DiabetesMedOrdered"/>
+                </supplyReference>
+              </precondition>
+            </atLeastOneTrue>
+          </precondition>
+        </denominatorCriteria>
+      </component>
+      <component typeCode="COMP">
+        <numeratorCriteria moodCode="EVN" classCode="OBS">
+          <id root="c75181d0-73eb-11de-8a39-0800200c9a66"
+            extension="NUMER2"/>
+          <code code="NUMER" codeSystem="2.16.840.1.113883.5.1063"
+            codeSystemName="HL7 Observation Value">
+            <displayName value="Numerator"/>
+          </code>
+          <isCriterionInd value="true"/>
+          <precondition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="HbA1C"/>
+            </observationReference>
+          </precondition>
+        </numeratorCriteria>
+      </component>
+      <component typeCode="COMP">
+        <denominatorExceptionCriteria moodCode="EVN" classCode="OBS">
+          <id root="c75181d0-73eb-11de-8a39-0800200c9a66"
+            extension="DENEXCEP2"/>
+          <code code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063"
+            codeSystemName="HL7 Observation Value">
+            <displayName value="Denominator exception"/>
+          </code>
+          <isCriterionInd value="true"/>
+          <precondition>
+            <allTrue>
+              <id/>
+              <precondition typeCode="PRCN">
+                <observationReference moodCode="EVN" classCode="OBS">
+                  <id root="0" extension="HasPolycysticOvaries"/>
+                </observationReference>
+              </precondition>
+              <precondition typeCode="PRCN">
+                <observationReference moodCode="EVN" classCode="OBS">
+                  <id root="0" extension="HasDiabetes"/>
+                </observationReference>
+              </precondition>
+            </allTrue>
+          </precondition>
+          <precondition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="HasSteroidInducedDiabetes"/>
+            </observationReference>
+          </precondition>
+          <precondition>
+            <observationReference moodCode="EVN" classCode="OBS">
+              <id root="0" extension="HasGestationalDiabetes"/>
+            </observationReference>
+          </precondition>
+        </denominatorExceptionCriteria>
+      </component>
+    </populationCriteriaSection>
+  </component>
+</QualityMeasureDocument>

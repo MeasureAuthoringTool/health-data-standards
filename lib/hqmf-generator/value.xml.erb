@@ -1,0 +1,24 @@
+<%- if value.class==HQMF::Range -%>
+  <<%= name %> xsi:type="<%= value.type %>">
+    <%= xml_for_value(value.low, 'low', false) if value.low -%>
+    <%= xml_for_value(value.high, 'high', false) if value.high -%>
+  </<%= name %>>
+<%- elsif value.class==HQMF::Coded -%>
+  <%- if value.code_list_id -%>
+  <<%= name %> xsi:type="<%= value.type %>" valueSet="<%= value.code_list_id %>">
+  <%- else -%>
+  <<%= name %> xsi:type="<%= value.type %>" codeSystem="<%= value.system %>" code="<%= value.code %>">
+  <%- end -%>
+     <displayName value="<%= value.title %>"/>
+  </<%= name %>>
+<%- elsif value.class==HQMF::Value -%>
+  <%- if value.derived? -%>
+  <<%= name %> nullFlavor="DER">
+    <expression value="<%= value.expression %>"/>
+  </<%= name %>>
+  <%- else -%>
+  <<%= name %> <%= "xsi:type=\"#{value.type}\"" if include_type %> value="<%= value.value %>"<%= " unit=\"#{value.unit}\"" if value.unit %>/>
+  <%- end -%>
+<%- elsif value.class==HQMF::AnyValue -%>
+  <<%= name %> xsi:type="ANY" nullFlavor="NI"/>
+<%- end -%>

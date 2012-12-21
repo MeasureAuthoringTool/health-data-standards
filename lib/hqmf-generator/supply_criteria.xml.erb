@@ -1,0 +1,26 @@
+      <entry typeCode="DRIV">
+        <supplyCriteria moodCode="EVN" classCode="SPLY"<%= " actionNegationInd='true'" if criteria.negation %>>
+          <%= xml_for_template(criteria, is_source_data_criteria) %>
+          <id>
+            <item root="2.16.840.1.113883.3.100.1" extension="<%= criteria.id %>"/>
+          </id>
+          <%= xml_for_description(criteria) %>
+          <%= "<statusCode code=\"#{criteria.status}\"/>" if criteria.status %>
+          <%= xml_for_effective_time(criteria) %>
+          <%= xml_for_reason(criteria) %>
+          <participation typeCode="PRD">
+            <role classCode="THER">
+              <%= xml_for_code(criteria, 'code', false) %>
+            </role>
+          </participation>
+          <definition>
+            <supplyReference moodCode="EVN" classCode="SPLY">
+              <id root="2.16.840.1.113883.3.100.1" extension="<%= section_name(criteria) %>"/>
+            </supplyReference>
+          </definition>
+          <%= xml_for_temporal_references(criteria) %>
+          <%= xml_for_fields(criteria) %>
+          <%= xml_for_derivation(criteria) %>
+          <%= xml_for_subsets(criteria) %>
+        </supplyCriteria>
+      </entry>
