@@ -15,7 +15,7 @@ module GreenC32
       result = @record.results.first
       result.reference_range = "< 500ml"
 
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(result, :result)
+      xml = HealthDataStandards::Export::GreenC32::Entry.new.export(result, :result)
       
       doc = Nokogiri::XML(xml)
       
@@ -36,7 +36,7 @@ module GreenC32
     def test_vital_signs
       vital_sign = FactoryGirl.build(:vital_sign)
       
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(vital_sign, :vital_sign)
+      xml = HealthDataStandards::Export::GreenC32::Entry.new.export(vital_sign, :vital_sign)
       
       doc = Nokogiri::XML(xml)
       
@@ -57,7 +57,7 @@ module GreenC32
       condition = FactoryGirl.build(:condition)
       refute_nil condition
   
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(condition, :condition)
+      xml = HealthDataStandards::Export::GreenC32::Entry.new.export(condition, :condition)
   
       doc = Nokogiri::XML(xml)
       doc.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
@@ -80,7 +80,7 @@ module GreenC32
       procedure = FactoryGirl.build(:procedure)
       refute_nil procedure
       
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(procedure, :procedure)
+      xml = HealthDataStandards::Export::GreenC32::Entry.new.export(procedure, :procedure)
 
       doc = Nokogiri::XML(xml)
       doc.root.add_namespace_definition('gc32', "urn:hl7-org:greencda:c32")
@@ -102,7 +102,7 @@ module GreenC32
       encounter = record.encounters.first
       refute_nil encounter
       
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(encounter, :encounter) 
+      xml = HealthDataStandards::Export::GreenC32::Entry.new.export(encounter, :encounter) 
     end
     
     #-------------------------------------------------------------------------------
@@ -112,7 +112,7 @@ module GreenC32
     
       refute_nil med
       
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(med, :medication)
+      xml = HealthDataStandards::Export::GreenC32::Entry.new.export(med, :medication)
     end
     
     #-------------------------------------------------------------------------------
@@ -122,42 +122,42 @@ module GreenC32
     
       refute_nil allergy
       
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(allergy, :allergy)
+      xml = HealthDataStandards::Export::GreenC32::Entry.new.export(allergy, :allergy)
     end
     
     def test_immunizations
       im = FactoryGirl.build(:immunization)
       
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(im, :immunization)
+      xml = HealthDataStandards::Export::GreenC32::Entry.new.export(im, :immunization)
     end
     
     def test_support
       s = FactoryGirl.build(:support)
       
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(s, :support)
+      xml = HealthDataStandards::Export::GreenC32::Entry.new.export(s, :support)
     end
     
     def test_ad
       ad = FactoryGirl.build(:advance_directive)
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(ad, :advance_directive)
+      xml = HealthDataStandards::Export::GreenC32::Entry.new.export(ad, :advance_directive)
     end
     
     
     def test_me
       me = FactoryGirl.build(:medical_equipment)
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(me, :medical_equipment)
+      xml = HealthDataStandards::Export::GreenC32::Entry.new.export(me, :medical_equipment)
     end
     
     def test_entry
       e = FactoryGirl.build(:entry)
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(e, :entry)
+      xml = HealthDataStandards::Export::GreenC32::Entry.new.export(e, :entry)
     end
     
     def test_care_goals
       pr = FactoryGirl.build(:procedure)
       r = FactoryGirl.build(:lab_result)
-      xml = HealthDataStandards::Export::GreenC32::Entry.export(pr, :care_goal)
-      xml2 = HealthDataStandards::Export::GreenC32::Entry.export(r, :care_goal)
+      xml = HealthDataStandards::Export::GreenC32::Entry.new.export(pr, :care_goal)
+      xml2 = HealthDataStandards::Export::GreenC32::Entry.new.export(r, :care_goal)
     end
   
   end

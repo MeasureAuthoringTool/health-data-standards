@@ -1,14 +1,15 @@
 module HealthDataStandards
   module Export
-    module C32
-      include TemplateHelper
-
-      def export(patient)
-        self.template_format = "c32"
-        render(:template => 'show', :locals => {:patient => patient})
+    class C32
+      def initialize
+        template_helper = TemplateHelper.new('c32')
+        @rendering_context = RenderingContext.new
+        @rendering_context.template_helper = template_helper
       end
 
-      extend self
+      def export(patient)
+        @rendering_context.render(:template => 'show', :locals => {:patient => patient})
+      end
     end
   end
 end

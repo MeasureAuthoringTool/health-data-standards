@@ -1,17 +1,15 @@
 module HealthDataStandards
   module Export
-    module HTML
-      include TemplateHelper
-
-      def export(patient, concept_map=nil)
-        self.template_format = "html"
-        self.template_subdir = "html"
-        render(:template => 'show', :locals => {:patient => patient, :concept_map=>concept_map})
+    class HTML
+      def initialize
+        template_helper = TemplateHelper.new('html', 'html')
+        @rendering_context = RenderingContext.new
+        @rendering_context.template_helper = template_helper
       end
 
-      extend self
-      
-      
+      def export(patient, concept_map=nil)
+        @rendering_context.render(:template => 'show', :locals => {:patient => patient, :concept_map=>concept_map})
+      end
     end
   end
 end

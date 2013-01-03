@@ -1,14 +1,16 @@
 module HealthDataStandards
   module Export
     module GreenC32
-      module Entry
-        include TemplateHelper
+      class Entry
+        def initialize
+          template_helper = TemplateHelper.new('gc32')
+          @rendering_context = RenderingContext.new
+          @rendering_context.template_helper = template_helper
+        end
         
         def export(object, object_type)
-          self.template_format = "gc32"
-          render(partial: object_type, locals: {object_type => object, type: object_type})
+          @rendering_context.render(partial: object_type, locals: {object_type => object, type: object_type})
         end
-        extend self
       end
     end
   end

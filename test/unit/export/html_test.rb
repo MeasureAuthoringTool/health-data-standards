@@ -5,7 +5,7 @@ class HTMLTest < MiniTest::Unit::TestCase
     collection_fixtures('records', '_id')
     record = Record.find('4dcbecdb431a5f5878000004')
 
-    result = HealthDataStandards::Export::HTML.export(record)
+    result = HealthDataStandards::Export::HTML.new.export(record)
     
     assert !(result.match /Rosa/).nil? # first
     assert !(result.match /Vasquez/).nil? # last

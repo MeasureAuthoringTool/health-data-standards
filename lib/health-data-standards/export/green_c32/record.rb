@@ -1,14 +1,16 @@
 module HealthDataStandards
   module Export
     module GreenC32
-      module Record
-        include TemplateHelper
-        
-        def export(object)
-          self.template_format = "gc32"
-          render(template: "record", locals: {record: object})
+      class Record
+        def initialize
+          template_helper = TemplateHelper.new('gc32')
+          @rendering_context = RenderingContext.new
+          @rendering_context.template_helper = template_helper
         end
-        extend self
+
+        def export(patient)
+          @rendering_context.render(:template => 'record', :locals => {:record => patient})
+        end
       end
     end
   end

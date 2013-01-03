@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class Cat1Test < MiniTest::Unit::TestCase
+  include HealthDataStandards::Export::Cat1::Cat1ViewHelper
+
   def setup
     @patient = Record.where({first: "Barry"}).first
 
@@ -8,7 +10,7 @@ class Cat1Test < MiniTest::Unit::TestCase
     @end_date = Time.now
 
     @measures = MEASURES
-    @qrda_xml = QrdaGenerator::Export::Cat1.export(@patient, @measures, @start_date, @end_date)
+    @qrda_xml = QrdaGenerator::Export::Cat1.new.export(@patient, @measures, @start_date, @end_date)
     @doc = Nokogiri::XML(@qrda_xml)
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
   end
@@ -26,13 +28,13 @@ class Cat1Test < MiniTest::Unit::TestCase
 
   def test_entries_for_data_criteria
     data_criteria = @measures[0].all_data_criteria[0]
-    entries = QrdaGenerator::Export::Cat1.entries_for_data_criteria(data_criteria, @patient)
+    entries = entries_for_data_criteria(data_criteria, @patient)
     assert_equal 1, entries.length
     assert_equal 'Multivitamin', entries[0].description
   end
 
   def test_unique_data_criteria
-    pairs = QrdaGenerator::Export::Cat1.unique_data_criteria(@measures)
+    pairs = unique_data_criteria(@measures)
     assert pairs
     assert pairs.any? do |p|
       p['data_criteria_oid'] == "2.16.840.1.113883.3.560.1.8" &&
@@ -44,7 +46,7 @@ class Cat1Test < MiniTest::Unit::TestCase
     data_criteria = OpenStruct.new(definition: "patient_characteristic_expired", status: "", negation: false)
     deathdate = Time.now.to_i
     patient = OpenStruct.new(expired: true, deathdate: deathdate)
-    entries = QrdaGenerator::Export::Cat1.entries_for_data_criteria(data_criteria, patient)
+    entries = entries_for_data_criteria(data_criteria, patient)
     assert_equal 1, entries.length
     assert_equal deathdate, entries.first.start_date
   end

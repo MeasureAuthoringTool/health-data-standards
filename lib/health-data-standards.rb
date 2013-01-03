@@ -69,6 +69,8 @@ require_relative 'health-data-standards/models/metadata/change_info'
 require_relative 'health-data-standards/models/metadata/link_info'
 require_relative 'health-data-standards/models/metadata/pedigree'
 
+require_relative 'health-data-standards/export/cat1/cat1_view_helper'
+
 require_relative 'health-data-standards/import/c32/locatable_import_utils'
 require_relative 'health-data-standards/import/c32/section_importer'
 require_relative 'health-data-standards/import/c32/allergy_importer'

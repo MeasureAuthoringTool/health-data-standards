@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'pry'
 
 module GreenC32
   class RecordTest < MiniTest::Unit::TestCase
@@ -10,7 +9,7 @@ module GreenC32
     end
     
     def test_export
-      HealthDataStandards::Export::GreenC32::Record.export(@record)
+      HealthDataStandards::Export::GreenC32::Record.new.export(@record)
     end
   end
 end
