@@ -1,7 +1,7 @@
-module QrdaGenerator
+module HealthDataStandards
   class Railtie < Rails::Railtie
     initializer 'Rails logger' do
-      QrdaGenerator.logger = Rails.logger
+      HealthDataStandards.logger = Rails.logger
     end
   end
 end

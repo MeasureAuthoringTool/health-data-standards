@@ -5,6 +5,8 @@ require 'uuid'
 require 'builder'
 require 'csv'
 require 'nokogiri'
+require 'ostruct'
+require 'log4r'
 
 # Freedom patches
 require_relative 'health-data-standards/ext/symbol'
@@ -71,7 +73,9 @@ require_relative 'health-data-standards/models/metadata/change_info'
 require_relative 'health-data-standards/models/metadata/link_info'
 require_relative 'health-data-standards/models/metadata/pedigree'
 
+require_relative 'health-data-standards/export/qrda/entry_template_resolver'
 require_relative 'health-data-standards/export/helper/cat1_view_helper'
+require_relative 'health-data-standards/export/cat_1'
 
 require_relative 'health-data-standards/import/c32/locatable_import_utils'
 require_relative 'health-data-standards/import/c32/section_importer'
@@ -124,3 +128,16 @@ require_relative 'health-data-standards/import/green_c32/support_importer'
 require_relative 'health-data-standards/import/green_c32/advance_directive_importer'
 require_relative 'health-data-standards/import/green_c32/medical_equipment_importer'
 require_relative 'health-data-standards/import/green_c32/care_goal_importer'
+
+module HealthDataStandards
+  class << self
+    attr_accessor :logger
+  end
+end
+
+if defined?(Rails)
+  require_relative 'health-data-standards/railtie' 
+else
+  HealthDataStandards.logger = Log4r::Logger.new("Health Data Standards")
+  HealthDataStandards.logger.outputters = Log4r::Outputter.stdout
+end

@@ -10,7 +10,7 @@ class Cat1Test < MiniTest::Unit::TestCase
     @end_date = Time.now
 
     @measures = MEASURES
-    @qrda_xml = QrdaGenerator::Export::Cat1.new.export(@patient, @measures, @start_date, @end_date)
+    @qrda_xml = HealthDataStandards::Export::Cat1.new.export(@patient, @measures, @start_date, @end_date)
     @doc = Nokogiri::XML(@qrda_xml)
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
   end

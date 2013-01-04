@@ -1,4 +1,4 @@
-module QrdaGenerator
+module HealthDataStandards
   module Export
     class Cat1
       def initialize

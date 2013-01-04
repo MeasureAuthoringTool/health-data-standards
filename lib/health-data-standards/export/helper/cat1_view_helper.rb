@@ -27,7 +27,7 @@ module HealthDataStandards
             if vs
               codes = vs.code_set_map
             else
-              QrdaGenerator.logger.warn("No codes for #{data_criteria.code_list_id}")
+              HealthDataStandards.logger.warn("No codes for #{data_criteria.code_list_id}")
             end
             filtered_entries = entries.find_all do |entry|
               # This special case is for when the code list is a reason
@@ -40,7 +40,7 @@ module HealthDataStandards
             end
           end
           if filtered_entries.empty?
-            QrdaGenerator.logger.debug("No entries for #{data_criteria.title}")
+            HealthDataStandards.logger.debug("No entries for #{data_criteria.title}")
           end
 
           filtered_entries
@@ -78,7 +78,7 @@ module HealthDataStandards
                                                                                    :value_set_oid => vs_oid})
               end
             else
-              render(:partial => QrdaGenerator::Export::EntryTemplateResolver.partial_for(dc_oid), :locals => {:entry => entry,
+              render(:partial => HealthDataStandards::Export::QRDA::EntryTemplateResolver.partial_for(dc_oid), :locals => {:entry => entry,
                                                                                                                :value_set_oid => vs_oid})
             end
           end

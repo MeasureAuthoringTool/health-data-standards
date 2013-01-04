@@ -4,7 +4,6 @@ require 'factory_girl'
 require_relative '../lib/health-data-standards'
 PROJECT_ROOT = File.expand_path("../../", __FILE__)
 require_relative File.join(PROJECT_ROOT, 'lib', 'hqmf-parser')
-require_relative '../lib/qrda_generator'
 
 require 'pry'
 
@@ -91,7 +90,7 @@ class Hash
 end
 
 
-QrdaGenerator.logger.outputters = Log4r::FileOutputter.new('QRDA Generator', filename: 'test.log', trunc: true)
+HealthDataStandards.logger.outputters = Log4r::FileOutputter.new('Health Data Standards', filename: 'test.log', trunc: true)
   
 def collection_fixtures(collection, *id_attributes)
   Mongoid.session(:default)[collection].drop
