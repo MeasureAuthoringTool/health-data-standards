@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TemplateHelperTest < MiniTest::Unit::TestCase
   def test_template_finding
-    @template_helper = HealthDataStandards::Export::TemplateHelper.new('c32')
+    @template_helper = HealthDataStandards::Export::TemplateHelper.new('c32', 'c32')
     erb = @template_helper.template 'show'
     assert erb
     assert erb.length > 0
@@ -10,7 +10,7 @@ class TemplateHelperTest < MiniTest::Unit::TestCase
   end
 
   def test_partial_finding
-    @template_helper = HealthDataStandards::Export::TemplateHelper.new('c32')
+    @template_helper = HealthDataStandards::Export::TemplateHelper.new('c32', 'c32')
     erb = @template_helper.partial 'allergies'
     assert erb
     assert erb.length > 0
@@ -18,7 +18,7 @@ class TemplateHelperTest < MiniTest::Unit::TestCase
   end
 
   def test_render
-    template_helper = HealthDataStandards::Export::TemplateHelper.new('c32')
+    template_helper = HealthDataStandards::Export::TemplateHelper.new('c32', 'c32')
     rendering_context = HealthDataStandards::Export::RenderingContext.new
     rendering_context.template_helper = template_helper
     entry = Entry.new(:description => 'An allergy', :time => 1234,
