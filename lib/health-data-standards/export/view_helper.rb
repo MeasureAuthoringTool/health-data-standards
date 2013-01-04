@@ -24,20 +24,7 @@ module HealthDataStandards
         code_string += "</#{options['tag_name']}>"
         code_string
       end
-      
-      def gc32_effective_time(entry)
-        if entry.time
-          "<effectiveTime value=\"#{Time.at(entry.time).to_formatted_s(:number)}\" />"
-        elsif entry.start_time || entry.end_time
-          time = "<effectiveTime>"
-          time += "<start value=\"#{Time.at(entry.start_time).to_formatted_s(:number)}\" />"  if entry.start_time
-          time += "<end value=\"#{Time.at(entry.end_time).to_formatted_s(:number)}\" />" if entry.end_time
-          time += "</effectiveTime>"
-        else
-          "<effectiveTime />"
-        end
-      end
-      
+            
       def status_code_for(entry)
         case entry.status.to_s.downcase
         when 'active'
@@ -82,21 +69,6 @@ module HealthDataStandards
       
       def is_bool?(str)
         return ["true","false"].include? (str || "").downcase
-      end
-      
-      def decode_hqmf_section(section, oid)
-        if oid
-          HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id(oid)['definition'].pluralize.to_sym
-        else
-          section
-        end
-      end
-      def decode_hqmf_status(status, oid)
-        if oid
-          HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id(oid)['status']
-        else
-          status
-        end
       end
       
       def convert_field_to_hash(field, codes)

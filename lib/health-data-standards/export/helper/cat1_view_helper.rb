@@ -1,6 +1,6 @@
 module HealthDataStandards
   module Export
-    module Cat1
+    module Helper
       module Cat1ViewHelper
         include HealthDataStandards::Util
         include HealthDataStandards::SVS

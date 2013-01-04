@@ -22,6 +22,7 @@ require_relative 'health-data-standards/export/c32'
 require_relative 'health-data-standards/export/ccda'
 require_relative 'health-data-standards/export/ccr'
 require_relative 'health-data-standards/export/csv'
+require_relative 'health-data-standards/export/helper/html_view_helper'
 require_relative 'health-data-standards/export/html'
 require_relative 'health-data-standards/export/hdata/metadata'
 
@@ -69,7 +70,7 @@ require_relative 'health-data-standards/models/metadata/change_info'
 require_relative 'health-data-standards/models/metadata/link_info'
 require_relative 'health-data-standards/models/metadata/pedigree'
 
-require_relative 'health-data-standards/export/cat1/cat1_view_helper'
+require_relative 'health-data-standards/export/helper/cat1_view_helper'
 
 require_relative 'health-data-standards/import/c32/locatable_import_utils'
 require_relative 'health-data-standards/import/c32/section_importer'

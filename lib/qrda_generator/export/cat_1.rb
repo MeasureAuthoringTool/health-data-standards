@@ -5,7 +5,7 @@ module QrdaGenerator
         template_helper = HealthDataStandards::Export::TemplateHelper.new('cat1', 'cat1')
         @rendering_context = HealthDataStandards::Export::RenderingContext.new
         @rendering_context.template_helper = template_helper
-        @rendering_context.extensions = [HealthDataStandards::Export::Cat1::Cat1ViewHelper]
+        @rendering_context.extensions = [HealthDataStandards::Export::Helper::Cat1ViewHelper]
       end
 
       @@vs_map = nil

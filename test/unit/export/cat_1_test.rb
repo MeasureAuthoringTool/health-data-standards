@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class Cat1Test < MiniTest::Unit::TestCase
-  include HealthDataStandards::Export::Cat1::Cat1ViewHelper
+  include HealthDataStandards::Export::Helper::Cat1ViewHelper
 
   def setup
     @patient = Record.where({first: "Barry"}).first
