@@ -1,7 +1,7 @@
 module ProviderImportUtils
   
-  def extract_provider(performer)
-    provider_data = extract_provider_data(performer, false)
+  def extract_provider(performer, element_name="assignedEntity")
+    provider_data = extract_provider_data(performer, false, "./cda:#{element_name}")
     find_or_create_provider(provider_data)
   end
   

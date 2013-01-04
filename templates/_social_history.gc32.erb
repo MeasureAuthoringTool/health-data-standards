@@ -1,8 +1,6 @@
-<socialHistory xmlns="urn:hl7-org:greencda:c32">
-  <id><%= social_history.id%></id>
-  <%== code_display social_history, 'preferred_code_sets' => ['SNOMED-CT'] %>
-  <status><%= social_history.status %></status>
-  <freeText><%= social_history.free_text %></freeText>
-  <%== gc32_effective_time(social_history)%>
-  <%== quantity_display social_history.values.first %>
+<socialHistory xmlns="urn:hl7-org:greencda:c32" id="<%= social_history.id%>">
+  <%== render partial: "entry_attributes", locals: {entry: social_history, code_sets: ["SNOMED-CT"]}%>
+  <% if social_history.values.first %>
+    <%== quantity_display social_history.values.first %>
+  <% end %>
 </socialHistory>

@@ -6,6 +6,7 @@ module HealthDataStandards
           template_helper = TemplateHelper.new('gc32')
           @rendering_context = RenderingContext.new
           @rendering_context.template_helper = template_helper
+          @rendering_context.extensions = [HealthDataStandards::Export::Helper::GC32ViewHelper]
         end
 
         def export(patient)

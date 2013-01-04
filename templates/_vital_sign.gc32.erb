@@ -1,7 +1,4 @@
-<vitalSign xmlns="urn:hl7-org:greencda:c32">
-    <id><%= vital_sign.id %></id>
-    <%== code_display vital_sign, "tag_name" => "code", 'preferred_code_sets' => ['SNOMED-CT'] %>
-    <freeText><%= vital_sign.free_text %></freeText>
-    <%== gc32_effective_time(vital_sign)%>
-    <value amount="<%= vital_sign.values.first.try(:scalar) %>" unit="<%= vital_sign.values.first.try(:units) %>" />
+<vitalSign xmlns="urn:hl7-org:greencda:c32" id="<%= vital_sign.id %>">
+    <%== render partial: "entry_attributes", locals: {entry: vital_sign, code_sets: ["SNOMED-CT", "ICD-9-CM", "ICD-10-CM ","LOINC"]}%>
+    <%== quantity_display vital_sign.values.first %>
 </vitalSign>

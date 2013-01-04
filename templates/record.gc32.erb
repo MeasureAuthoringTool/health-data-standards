@@ -1,21 +1,32 @@
-<record>
-  <patientInformation>
-    <id><%= record.id%></id>
+<record xmlns="urn:hl7-org:greencda:c32">
+  <patientInformation id="<%=record.medical_record_number%>">
     <name>
       <title><%= record.title %></title>
       <givenName><%= record.first %></givenName>
       <familyName><%= record.last %></familyName>
     </name>
+    <% record.addresses.each do |address| %>
+      <%== render partial: "address", locals: {address: address} %>
+    <% end %>
+    <% record.telecoms.each do |tele| %>
+      <%== render partial: "telecom", locals: {telecom: tele} %>
+    <% end %>
     <gender code="<%= record.gender %>" codeSystem="2.16.840.1.113883.5.1" />
     <dateOfBirth><%= time_if_not_nil(record.birthdate) %></dateOfBirth>
+    <% if record.deathdate %>
     <dateOfDeath><%= time_if_not_nil(record.deathdate) %></dateOfDeath>
-    <maritalStatus />
-    <religiousAffiliation />
-    <% if record.race %>
-      <race code="<%=record.race['code']%>" codeSystem="2.16.840.1.113883.6.238" />
     <% end %>
-    <% if record.ethnicity %>
-      <ethnicity code="<%=record.ethnicity['code']%>" codeSystem="2.16.840.1.113883.6.238" />
+    <% if record.marital_status && record.marital_status[:code] %>
+      <maritalStatus code="<%=record.marital_status[:code] %>" codeSystem="2.16.840.1.113883.5.2" />
+     <% end %>
+     <% if record.religious_affiliation && record.religious_affiliation[:code] %>
+        <religiousAffiliation code="<%= record.religious_affiliation[:code] %>" codeSystem="2.16.840.1.113883.5.1076" />
+     <% end %>
+    <% if record.race && record.race[:code] %>
+      <race code="<%=record.race[:code]%>" codeSystem="2.16.840.1.113883.6.238" />
+    <% end %>
+    <% if record.ethnicity && record.race[:code] %>
+      <ethnicity code="<%=record.ethnicity[:code]%>" codeSystem="2.16.840.1.113883.6.238" />
     <% end %>
     <languagesSpoken>
     <% record.languages.each do |l| %>
@@ -33,6 +44,11 @@
       <%== render partial: "condition", locals: {condition: c} %>
     <% end %>
   </conditions>
+  <encounters>
+    <% record.encounters.each do |e| %>
+      <%== render partial: 'encounter', locals: {encounter: e} %>
+    <% end %>
+  </encounters>
   <immunizations>
     <% record.immunizations.each do |i| %>
       <%== render partial: "immunization", locals: {immunization: i} %>
@@ -40,7 +56,7 @@
   </immunizations>
   <insuranceProviders>
     <% record.insurance_providers.each do |ip| %>
-      <%== render partial: "insurance_providers", locals: {insurance_provider: ip} %>
+      <%== render partial: "insurance_provider", locals: {insurance_provider: ip} %>
     <% end %>
   </insuranceProviders>
   <medicalEquipment>

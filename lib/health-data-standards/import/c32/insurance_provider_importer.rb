@@ -10,9 +10,10 @@ module HealthDataStandards
         def create_entries(doc, id_map={})
           doc.xpath(@entry_xpath).map do |payer_element|
             ip = InsuranceProvider.new
-            ip.type = extract_code(payer_element, "./cda:code")
-            ip.payer = import_organization(payer_element.at_xpath("./cda:performer/cda:assignedEntity"))
-            ip.guarantors = extract_guarantors(payer_element.xpath("./cda:performer/cda:assignedEntity"))
+            type = extract_code(payer_element, "./cda:code")
+            ip.type = type['code'] if type
+            ip.payer = import_organization(payer_element.at_xpath("./cda:performer/cda:assignedEntity[cda:code[@code='PAYOR']]"))
+            ip.guarantors = extract_guarantors(payer_element.xpath("./cda:performer[cda:assignedEntity[cda:code[@code='GUAR']]]"))
             ip.subscriber = import_person(payer_element.at_xpath("./cda:participant[@typeCode='HLD']/cda:participantRole"))
             member_info_element = payer_element.at_xpath("cda:participant[@typeCode='COV']")
             extract_dates(member_info_element, ip, "time")
@@ -22,15 +23,17 @@ module HealthDataStandards
             ip.member_id = patient_element.at_xpath("./cda:id")
             ip.relationship = extract_code(patient_element, "./cda:code")
             ip.financial_responsibility_type = extract_code(payer_element, "./cda:performer/cda:assignedEntity/cda:code")
+            ip
           end                  
         end
         
         def extract_guarantors(guarantor_elements)
           guarantor_elements.map do |guarantor_element|
             guarantor = Guarantor.new
-            guarantor.person = import_person(guarantor_element.at_xpath("./cda:assignedPerson"))
-            guarantor.organization = import_organization(guarantor_element.at_xpath("./cda:representedOrganization"))
             extract_dates(guarantor_element, guarantor, element_name="time")
+            guarantor_entity = guarantor_element.at_xpath("./cda:assignedEntity")
+            guarantor.person = import_person(guarantor_entity.at_xpath("./cda:assignedPerson"))
+            guarantor.organization = import_organization(guarantor_entity.at_xpath("./cda:representedOrganization"))
             guarantor
           end
         end

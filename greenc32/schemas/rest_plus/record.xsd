@@ -23,9 +23,7 @@
             <xs:complexContent>
               <xs:extension base="gc32:person">
                 <xs:sequence>
-                  <xs:element name="gender" type="gc32:code"/>
-  								<xs:element name="dateOfBirth" type="xs:date"/>
-  								<xs:element name="dateOfDeath" type="xs:date" minOccurs="0"/>
+  								<xs:element name="gender" type="gc32:code" minOccurs="0" />
   								<xs:element name="maritalStatus" type="gc32:code" minOccurs="0"/>
   								<xs:element name="religiousAffiliation" type="gc32:code" minOccurs="0"/>
   								<xs:element name="race" type="gc32:code" minOccurs="0" />
@@ -45,21 +43,41 @@
           <xs:element name="allergies">
             <xs:complexType>
               <xs:sequence>
-                <xs:element ref="gc32:allergy" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="allergy" type="gc32:allergy" minOccurs="0" maxOccurs="unbounded" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
           <xs:element name="conditions">
             <xs:complexType>
               <xs:sequence>
-                <xs:element ref="gc32:condition" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="condition" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:complexContent>
+                      <xs:extension base="gc32:condition">
+                        <xs:sequence>
+                          <xs:element name="provider" type="gc32:provider" minOccurs="0" maxOccurs="unbounded" />
+                        </xs:sequence>
+                      </xs:extension>
+                    </xs:complexContent>
+                  </xs:complexType>
+                </xs:element>
               </xs:sequence>
             </xs:complexType>
           </xs:element>
           <xs:element name="encounters">
             <xs:complexType>
               <xs:sequence>
-                <xs:element ref="gc32:encounter" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="encounter" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:complexContent>
+                      <xs:extension base="gc32:encounter">
+                        <xs:sequence>
+                          <xs:element name="provider" type="gc32:provider" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:extension>
+                    </xs:complexContent>
+                  </xs:complexType>
+                </xs:element>
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -87,21 +105,64 @@
           <xs:element name="medications">
             <xs:complexType>
               <xs:sequence>
-                <xs:element ref="gc32:medication" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="medication" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:complexContent>
+                      <xs:extension base="gc32:medication">
+                        <xs:sequence>
+                          <xs:element name="prescribers">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="prescriber" type="gc32:provider" minOccurs="0" maxOccurs="unbounded" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="pharmacists">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="pharmacist" type="gc32:provider" minOccurs="0" maxOccurs="unbounded" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:extension>
+                    </xs:complexContent>
+                  </xs:complexType>
+                </xs:element>
               </xs:sequence>
             </xs:complexType>
           </xs:element>
           <xs:element name="procedures">
             <xs:complexType>
               <xs:sequence>
-                <xs:element ref="gc32:procedure" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="procedure" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:complexContent>
+                      <xs:extension base="gc32:procedure">
+                        <xs:sequence>
+                          <xs:element name="provider" type="gc32:provider" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:extension>
+                    </xs:complexContent>
+                  </xs:complexType>
+                </xs:element>
               </xs:sequence>
             </xs:complexType>
           </xs:element>
           <xs:element name="results">
             <xs:complexType>
               <xs:sequence>
-                <xs:element ref="gc32:result" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="result" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:complexContent>
+                      <xs:extension base="gc32:result">
+                        <xs:sequence>
+                          <xs:element name="provider" type="gc32:provider" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:extension>
+                    </xs:complexContent>
+                  </xs:complexType>
+                </xs:element>
               </xs:sequence>
             </xs:complexType>
           </xs:element>

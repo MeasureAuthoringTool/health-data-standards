@@ -4,18 +4,22 @@ module HealthDataStandards
       def code_display(entry, options={})
         options['tag_name'] ||= 'code'
         options['attribute'] ||= :codes
+        options['exclude_null_flavor'] ||= false
         code_string = nil
         preferred_code = entry.preferred_code(options['preferred_code_sets'], options['attribute'])
         if preferred_code
           code_system_oid = HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(preferred_code['code_set'])
           code_string = "<#{options['tag_name']} code=\"#{preferred_code['code']}\" codeSystem=\"#{code_system_oid}\" #{options['extra_content']}>"
         else
-          code_string = "<#{options['tag_name']} nullFlavor=\"UNK\" #{options['extra_content']}>"
+          code_string = "<#{options['tag_name']} "
+          code_string += "nullFlavor=\"UNK\" " unless options["exclude_null_flavor"]
+          code_string += "#{options['extra_content']}>"
         end
         
-        code_string += "<originalText>#{ERB::Util.html_escape entry.description}</originalText>" if entry.respond_to?(:description)
         
-        if entry.respond_to?(:translation_codes)
+        
+        if options["attribute"] == :codes && entry.respond_to?(:translation_codes)
+          code_string += "<originalText>#{ERB::Util.html_escape entry.description}</originalText>" if entry.respond_to?(:description)
           entry.translation_codes(options['preferred_code_sets']).each do |translation|
             code_string += "<translation code=\"#{translation['code']}\" codeSystem=\"#{HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(translation['code_set'])}\"/>\n"
           end
@@ -43,16 +47,6 @@ module HealthDataStandards
         else 
          return "nullFlavor='UNK'"
        end
-      end
-
-      
-      def quantity_display(value, tag_name="value")
-        return unless value
-        if value.respond_to?(:scalar)
-          "<#{tag_name} value=\"#{value.scalar}\" units=\"#{value.units}\" />"
-        else
-          "<#{tag_name} value=\"#{value['value']}\" units=\"#{value['unit']}\" />"
-        end
       end
 
       def time_if_not_nil(*args)

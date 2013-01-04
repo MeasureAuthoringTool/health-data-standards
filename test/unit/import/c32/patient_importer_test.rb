@@ -61,5 +61,6 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert_equal 1, patient.conditions.size
     
     assert patient.expired
+    assert_equal 1241937553, patient.deathdate
   end
 end

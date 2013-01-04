@@ -1,19 +1,9 @@
 <% tag_name ||= "provider" %>
-<<%=tag_name%>>
-  <id><%=provider.id%></id>
-  <name>
-    <title><%=provider.title%></title>
-    <givenName><%= provider.given_name%></givenName>
-    <familyName><%= provider.family_name%></familyName>
-  </name>
+<<%=tag_name%> id="<%= provider.id%>">
+  <%== render :partial => 'person_attributes', locals: {person: provider} %>
   <npi>1234567890</npi>
   <specialty></specialty>
-  <% provider.addresses.each do |addr| %>
-    <%= render :partial => "address", locals: {address: addr} %>
+  <% if provider.organization %> 
+    <%== render :partial => "organization", locals: { organization: provider.organization } %>
   <% end %>
-  <% provider.telecoms.each do |tele| %>
-    <%= render :partial => "telecom", locals: {telecom: tele} %>
-  <% end %>
-  <%= render :partial => "organization", locals: { organization: provider.organization } %>
-  
 </<%=tag_name%>>

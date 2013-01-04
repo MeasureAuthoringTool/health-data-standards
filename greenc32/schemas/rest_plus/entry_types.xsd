@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gc32="urn:hl7-org:greencda:c32" targetNamespace="urn:hl7-org:greencda:c32" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:include schemaLocation="data_types.xsd"/>
+  <xs:complexType name="entry">
+    <xs:sequence>
+      <xs:element name="code" type="gc32:code" />
+      <xs:element name="status" type="gc32:simpleCode" minOccurs="0" />
+      <xs:element name="freeText" type="xs:string" minOccurs="0" />
+      <xs:element name="effectiveTime" type="gc32:interval" />
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="result">
+  	<xs:complexContent>
+  		<xs:extension base="gc32:entry">
+  			<xs:sequence>
+  				<xs:element name="value" type="gc32:quantity" />
+  				<xs:element name="interpretation" type="gc32:simpleCode" minOccurs="0"/>
+  				<xs:element name="referenceRange" minOccurs="0" />
+  			</xs:sequence>
+  		</xs:extension>
+  	</xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="allergy">
+    <xs:complexContent>
+  	  <xs:extension base="gc32:entry">
+  	    <xs:sequence>
+  	      <xs:element name="type" type="gc32:code" minOccurs="0" />
+  	      <xs:element name="reaction" type="gc32:code" minOccurs="0" maxOccurs="unbounded" />
+  	      <xs:element name="severity" type="gc32:code" minOccurs="0" />
+  	    </xs:sequence>
+  	  </xs:extension>
+  	</xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="encounter">
+    <xs:complexContent>
+      <xs:extension base="gc32:entry">
+        <xs:sequence>
+          <xs:element name="dischargeDisposition" type="gc32:simpleCode" minOccurs="0" />
+          <xs:element name="admissionType" type="gc32:simpleCode" minOccurs="0" />
+          <xs:element name="facility" minOccurs="0">
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:extension base="gc32:organization">
+                  <xs:sequence>
+                    <xs:element name="duration" type="gc32:interval" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:extension>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="reasonForVisit" type="gc32:code" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="immunization">
+  <xs:complexContent>
+    <xs:extension base="gc32:entry">
+      <xs:sequence>
+        <xs:element name="seriesNumber" type="xs:integer" />
+        <xs:element name="refusalReason" type="gc32:code" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="refused" type="xs:boolean" />
+    </xs:extension>
+  </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="condition">
+    <xs:complexContent>
+       <xs:extension base="gc32:entry">
+         <xs:sequence>
+           <xs:element name="priority" type="xs:integer" minOccurs="0" />
+           <xs:element name="type">
+             <xs:simpleType>
+               <xs:restriction base="xs:string">
+                 <xs:enumeration value="404684003" />
+                 <xs:enumeration value="418799008" />
+                 <xs:enumeration value="55607006" />
+                 <xs:enumeration value="409586006" />
+                 <xs:enumeration value="64572001" />
+                 <xs:enumeration value="282291009" />
+                 <xs:enumeration value="248536006" />
+               </xs:restriction>
+             </xs:simpleType>
+           </xs:element>
+         </xs:sequence>
+        <xs:attribute name="causeOfDeath" type="xs:boolean" />
+       </xs:extension>
+     </xs:complexContent>
+   </xs:complexType>
+  <xs:complexType name="medicalDevice">
+    <xs:complexContent>
+      <xs:extension base="gc32:entry">
+        <xs:sequence>
+          <xs:element name="quantity" type="gc32:quantity" minOccurs="0" />
+          <xs:element name="manufacturer" type="gc32:organization" minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="medication">
+  <xs:complexContent>
+    <xs:extension base="gc32:entry">
+      <xs:sequence>
+        <xs:element name="administrationTiming" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="period" type="gc32:quantity" />
+            </xs:sequence>
+            <xs:attribute name="institutionSpecified" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="route" type="gc32:code" minOccurs="0"/>
+        <xs:element name="site" type="gc32:code" minOccurs="0" />
+				<xs:element name="dose" type="gc32:quantity" minOccurs="0"/>
+				<xs:element name="doseIndicator" type="xs:string" minOccurs="0" />
+				<xs:element name="doseRestriction" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="numerator" type="gc32:quantity"/>
+							<xs:element name="denominator" type="gc32:quantity"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="productForm" type="gc32:code" minOccurs="0"/>
+				<xs:element name="deliveryMethod" type="gc32:code" minOccurs="0"/>
+				<xs:element name="type" type="gc32:code" minOccurs="0"/>
+				<xs:element name="statusOfMedication" type="gc32:code" minOccurs="0"/>
+				<xs:element name="indication" type="gc32:code" minOccurs="0" />
+				<xs:element name="vehicle" type="gc32:code" minOccurs="0" />
+				<xs:element name="patientInstructions" type="xs:string" minOccurs="0" />
+				<xs:element name="fulfillmentInstructions" type="xs:string" minOccurs="0" />
+				<xs:element name="fulfillmentHistory" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="prescriptionNumber" type="xs:string" minOccurs="0"/>
+							<xs:element name="dispenseDate" type="gc32:timestamp" minOccurs="0"/>
+							<xs:element name="quantityDispensed" type="gc32:quantity" minOccurs="0"/>
+						</xs:sequence>
+						<xs:attribute name="fillNumber" type="xs:integer" />
+						<xs:attribute name="fillStatus">
+						  <xs:simpleType>
+						    <xs:restriction base="xs:string">
+						      <xs:enumeration value="completed" />
+						      <xs:enumeration value="aborted" />
+						    </xs:restriction>
+						  </xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="orderInformation" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="quantityOrdered" type="gc32:quantity" minOccurs="0"/>
+							<xs:element name="orderedDateTime" type="gc32:timestamp" minOccurs="0"/>
+							<xs:element name="expirationDateTime" type="gc32:timestamp" minOccurs="0"/>
+						</xs:sequence>
+						<xs:attribute name="orderNumber" type="xs:string"/>
+						<xs:attribute name="fills" type="xs:integer" />
+					</xs:complexType>
+				</xs:element>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="procedure">
+		<xs:complexContent>
+  	  <xs:extension base="gc32:entry">
+  	    <xs:sequence>
+    			<xs:element name="site" type="gc32:code" minOccurs="0"/>
+    		</xs:sequence>
+  	  </xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="socialHistory">
+    <xs:complexContent>
+      <xs:extension base="gc32:entry">
+        <xs:choice>
+          <xs:element name="value" type="gc32:quantity" minOccurs="0" />
+        </xs:choice>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

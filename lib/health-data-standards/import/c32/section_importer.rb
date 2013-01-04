@@ -65,6 +65,7 @@ module HealthDataStandards
           extract_codes(entry_element, entry)
           extract_dates(entry_element, entry)
           extract_value(entry_element, entry)
+          entry.free_text = entry_element.at_xpath("./cda:text").try("text")
           if @status_xpath
             extract_status(entry_element, entry)
           end
@@ -72,6 +73,24 @@ module HealthDataStandards
             extract_description(entry_element, entry, id_map)
           end
           entry
+        end
+        
+        def self.import_address(address_element)
+          address = Address.new
+          address.use = address_element['use']
+          address.street = [address_element.at_xpath("./cda:streetAddressLine").try(:text)]
+          address.city = address_element.at_xpath("./cda:city").try(:text)
+          address.state = address_element.at_xpath("./cda:state").try(:text)
+          address.zip = address_element.at_xpath("./cda:postalCode").try(:text)
+          address.country = address_element.at_xpath("./cda:country").try(:text)
+          address
+        end
+
+        def self.import_telecom(telecom_element)
+          tele = Telecom.new
+          tele.value = telecom_element['value']
+          tele.use = telecom_element['use']
+          tele
         end
 
         private
@@ -156,6 +175,14 @@ module HealthDataStandards
           person.addresses = person_element.xpath("./cda:addr").map { |addr| import_address(addr) }
           person.telecoms = person_element.xpath("./cda:telecom").map { |tele| import_telecom(tele) } 
           return person
+        end
+
+        def import_address(address_element)
+          SectionImporter.import_address(address_element)
+        end
+
+        def import_telecom(telecom_element)
+          SectionImporter.import_telecom(telecom_element)
         end
 
         def extract_negation(parent_element, entry)
