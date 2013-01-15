@@ -11,7 +11,7 @@ module HealthDataStandards
 
         include Singleton
         include HealthDataStandards::Util
-        include HealthDataStandards::Import::C32::LocatableImportUtils
+        include HealthDataStandards::Import::CDA::LocatableImportUtils
 
         # Creates a new PatientImporter with the following XPath expressions used to find content in 
         # a HITSP C32:
@@ -55,31 +55,18 @@ module HealthDataStandards
         #    ./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code
         def initialize(check_usable = true)
           @section_importers = {}
-          @section_importers[:encounters] = EncounterImporter.new
-          @section_importers[:procedures] = ProcedureImporter.new
-          @section_importers[:results] = ResultImporter.new
-          @section_importers[:vital_signs] = VitalSignImporter.new
-          @section_importers[:medications] = MedicationImporter.new
+          @section_importers[:encounters] = CDA::EncounterImporter.new
+          @section_importers[:procedures] = CDA::ProcedureImporter.new
+          @section_importers[:results] = CDA::ResultImporter.new
+          @section_importers[:vital_signs] = CDA::VitalSignImporter.new
+          @section_importers[:medications] = CDA::MedicationImporter.new
           @section_importers[:conditions] = ConditionImporter.new
-          @section_importers[:social_history] = SectionImporter.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.19']")
+          @section_importers[:social_history] = CDA::SectionImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.19']"))
           @section_importers[:care_goals] = CareGoalImporter.new
-          @section_importers[:medical_equipment] = MedicalEquipmentImporter.new
-          @section_importers[:allergies] = AllergyImporter.new
+          @section_importers[:medical_equipment] = CDA::MedicalEquipmentImporter.new
+          @section_importers[:allergies] = CDA::AllergyImporter.new
           @section_importers[:immunizations] = ImmunizationImporter.new
           @section_importers[:insurance_providers] = InsuranceProviderImporter.new
-        end
-
-        def build_id_map(doc)
-          id_map = {}
-          path = "//*[@ID]"
-          ids = doc.xpath(path)
-          ids.each do |id|
-            tag = id['ID']
-            value = id.content
-            id_map[tag] = value
-          end
-
-          id_map
         end
 
         # @param [boolean] value for check_usable_entries...importer uses true, stats uses false 
@@ -123,9 +110,10 @@ module HealthDataStandards
         #        will have the "cda" namespace registered to "urn:hl7-org:v3"
         # @return [Hash] a represnetation of the patient with symbols as keys for each section
         def create_c32_hash(record, doc)
-          id_map = build_id_map(doc)
+          nrh = CDA::NarrativeReferenceHandler.new
+          nrh.build_id_map(doc)
           @section_importers.each_pair do |section, importer|
-            record.send(section.to_setter, importer.create_entries(doc, id_map))
+            record.send(section.to_setter, importer.create_entries(doc, nrh))
           end
         end
 
@@ -163,8 +151,8 @@ module HealthDataStandards
           languages = patient_element.search('languageCommunication').map {|lc| lc.at_xpath('cda:languageCode')['code'] }
           patient.languages = languages unless languages.empty?
           
-          patient.addresses = patient_role_element.xpath("./cda:addr").map { |addr| SectionImporter.import_address(addr) }
-          patient.telecoms = patient_role_element.xpath("./cda:telecom").map { |tele| SectionImporter.import_telecom(tele) }
+          patient.addresses = patient_role_element.xpath("./cda:addr").map { |addr| import_address(addr) }
+          patient.telecoms = patient_role_element.xpath("./cda:telecom").map { |tele| import_telecom(tele) }
           
         end
       end

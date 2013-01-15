@@ -1,6 +1,6 @@
 module HealthDataStandards
   module Import
-    module C32
+    module CDA
       
       # TODO: Coded Product Name, Free Text Product Name, Coded Brand Name and Free Text Brand name need to be pulled out separatelty
       #       This would mean overriding extract_codes
@@ -11,23 +11,19 @@ module HealthDataStandards
       #       dose indicator is not implemented.
       # TODO: Fill Status is not implemented. Couldn't figure out which entryRelationship it should be nested in
       class MedicationImporter < SectionImporter
-
-        def initialize
-          @entry_xpath = "//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.112']/cda:entry/cda:substanceAdministration"
+        def initialize(entry_finder=EntryFinder.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.112']/cda:entry/cda:substanceAdministration"))
+          super(entry_finder)
           @code_xpath = "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code"
           @description_xpath = "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code/cda:originalText/cda:reference[@value]"
           @type_of_med_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.8.1']/cda:code"
           @indication_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.1.28']/cda:code"
           @vehicle_xpath = "cda:participant/cda:participantRole[cda:code/@code='412307009' and cda:code/@codeSystem='2.16.840.1.113883.6.96']/cda:playingEntity/cda:code"
           @fill_number_xpath = "./cda:entryRelationship[@typeCode='COMP']/cda:sequenceNumber/@value"
-          @check_for_usable = true               # Pilot tools will set this to false
+          @entry_class = Medication
         end
-        
-        def create_entry(entry_element, id_map={})
-          medication = Medication.new
-          extract_codes(entry_element, medication)
-          extract_dates(entry_element, medication)
-          extract_description(entry_element, medication, id_map)
+
+        def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
+          medication = super
           
           if medication.description.present?
             medication.free_text = medication.description
@@ -56,7 +52,7 @@ module HealthDataStandards
         end
 
         private
-    
+
         def extract_fulfillment_history(parent_element, medication)
           fhs = parent_element.xpath("./cda:entryRelationship/cda:supply[@moodCode='EVN']")
           if fhs
@@ -118,7 +114,6 @@ module HealthDataStandards
             medication.dose_restriction = dr
           end
         end
-
       end
     end
   end

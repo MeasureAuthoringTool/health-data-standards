@@ -1,6 +1,6 @@
 module HealthDataStandards
   module Import
-    module C32
+    module CDA
       class OrganizationImporter < SectionImporter
         include Singleton
         

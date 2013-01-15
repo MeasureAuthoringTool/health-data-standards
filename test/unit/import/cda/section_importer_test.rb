@@ -2,7 +2,8 @@ require 'test_helper'
 
 class SectionImporterTest < MiniTest::Unit::TestCase
   def setup
-    @si = HealthDataStandards::Import::C32::SectionImporter.new('/cda:simple/cda:entry', "./cda:code", "./cda:status")
+    @si = HealthDataStandards::Import::CDA::SectionImporter.new(HealthDataStandards::Import::CDA::EntryFinder.new('/cda:simple/cda:entry'))
+    @si.status_xpath = './cda:status'
     @doc = Nokogiri::XML(File.new('test/fixtures/section_importer.xml'))
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
   end

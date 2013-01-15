@@ -3,7 +3,7 @@ require "date"
 
 module HealthDataStandards
   module Import
-    module C32
+    module CDA
       class ProviderImporter < SectionImporter
         
         

@@ -11,7 +11,7 @@ module HealthDataStandards
           @section_importers[:vital_signs] = VitalSignImporter.new
           @section_importers[:medications] = MedicationImporter.new
           @section_importers[:conditions] = ConditionImporter.new
-          @section_importers[:social_history] = C32::SectionImporter.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.38' or cda:templateId/@root='2.16.840.1.113883.10.20.15.3.8']")
+          @section_importers[:social_history] = CDA::SectionImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.38' or cda:templateId/@root='2.16.840.1.113883.10.20.15.3.8']"))
           @section_importers[:care_goals] = CareGoalImporter.new
           @section_importers[:medical_equipment] = MedicalEquipmentImporter.new
           @section_importers[:allergies] = AllergyImporter.new

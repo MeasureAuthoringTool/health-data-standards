@@ -1,6 +1,6 @@
 module HealthDataStandards
   module Import
-    module C32
+    module CDA
       # Helpers for importing C32 addresses and telecoms
       module LocatableImportUtils
         def import_address(address_element)
@@ -24,4 +24,3 @@ module HealthDataStandards
     end
   end
 end
-    

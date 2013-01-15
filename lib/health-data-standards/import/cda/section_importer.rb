@@ -1,56 +1,33 @@
 module HealthDataStandards
   module Import
-    module C32
-      # Class that can be used to create an importer for a section of a HITSP C32 document. It usually
-      # operates by selecting all CDA entries in a section and then creates entries for them.
+    module CDA
       class SectionImporter
-        include HealthDataStandards::Import::C32::LocatableImportUtils
+        attr_accessor :check_for_usable, :status_xpath
+
         include HealthDataStandards::Util
-        
-        attr_accessor :check_for_usable
-        # Creates a new SectionImporter
-        # @param [Hash] id_map A hash of all ID tags to values for the enclosing document.  Used to look up descriptions.
-        # @param [String] entry_xpath An XPath expression that can be used to find the desired entries
-        # @param [String] code_xpath XPath expression to find the code element as a child of the desired CDA entry.
-        #        Defaults to "./cda:code"
-        # @param [String] status_xpath XPath expression to find the status element as a child of the desired CDA
-        #        entry. Defaults to nil. If not provided, a status will not be checked for since it is not applicable
-        #        to all enrty types
-        def initialize(entry_xpath, code_xpath="./cda:code", status_xpath=nil,priority_xpath=nil, description_xpath="./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value] ")
-          @entry_xpath = entry_xpath
-          @code_xpath = code_xpath
-          @status_xpath = status_xpath
-          @priority_xpath = priority_xpath
-          @description_xpath = description_xpath
-          @check_for_usable = true               # Pilot tools will set this to false
+        include LocatableImportUtils
+
+        def initialize(entry_finder)
+          @entry_finder = entry_finder
+          @code_xpath = "./cda:code"
+          @status_xpath = nil
+          @priority_xpath = nil
+          @description_xpath = "./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value]"
+          @check_for_usable = true
+          @entry_class = Entry
         end
 
-        # @param [String] tag
-        # @param [Hash] id_map A map of ids to all tagged text in the narrative portion of a document
-        # @return [String] text description of tag
-        def lookup_tag(tag, id_map)
-           value = id_map[tag]
-           # Not sure why, but sometimes the reference is #<Reference> and the ID value is <Reference>, and 
-           # sometimes it is #<Reference>.  We look for both.
-           if !value and tag[0] == '#'  
-             tag = tag[1,tag.length]
-             value = id_map[tag]
-           end
-
-           value
-         end
-
-        # Traverses that HITSP C32 document passed in using XPath and creates an Array of Entry
+        # Traverses an HL7 CDA document passed in and creates an Array of Entry
         # objects based on what it finds                          
         # @param [Nokogiri::XML::Document] doc It is expected that the root node of this document
         #        will have the "cda" namespace registered to "urn:hl7-org:v3"
         #        measure definition
         # @return [Array] will be a list of Entry objects
-        def create_entries(doc,id_map = {})
+        def create_entries(doc, nrh = NarrativeReferenceHandler.new)
           entry_list = []
-          entry_elements = doc.xpath(@entry_xpath)
+          entry_elements = @entry_finder.entries(doc)
           entry_elements.each do |entry_element|
-            entry = create_entry(entry_element, id_map)
+            entry = create_entry(entry_element)
             if @check_for_usable
               entry_list << entry if entry.usable?
             else
@@ -59,9 +36,9 @@ module HealthDataStandards
           end
           entry_list
         end
-        
-        def create_entry(entry_element, id_map={})
-          entry = Entry.new
+
+        def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
+          entry = @entry_class.new
           extract_codes(entry_element, entry)
           extract_dates(entry_element, entry)
           extract_value(entry_element, entry)
@@ -70,27 +47,9 @@ module HealthDataStandards
             extract_status(entry_element, entry)
           end
           if @description_xpath
-            extract_description(entry_element, entry, id_map)
+            extract_description(entry_element, entry, nrh)
           end
           entry
-        end
-        
-        def self.import_address(address_element)
-          address = Address.new
-          address.use = address_element['use']
-          address.street = [address_element.at_xpath("./cda:streetAddressLine").try(:text)]
-          address.city = address_element.at_xpath("./cda:city").try(:text)
-          address.state = address_element.at_xpath("./cda:state").try(:text)
-          address.zip = address_element.at_xpath("./cda:postalCode").try(:text)
-          address.country = address_element.at_xpath("./cda:country").try(:text)
-          address
-        end
-
-        def self.import_telecom(telecom_element)
-          tele = Telecom.new
-          tele.value = telecom_element['value']
-          tele.use = telecom_element['use']
-          tele
         end
 
         private
@@ -102,11 +61,11 @@ module HealthDataStandards
           end
         end
 
-        def extract_description(parent_element, entry, id_map)
+        def extract_description(parent_element, entry, nrh)
           code_elements = parent_element.xpath(@description_xpath)
           code_elements.each do |code_element|
             tag = code_element['value']
-            entry.description = lookup_tag(tag, id_map)
+            entry.description = nrh.lookup_tag(tag)
           end
         end
 
@@ -177,14 +136,6 @@ module HealthDataStandards
           return person
         end
 
-        def import_address(address_element)
-          SectionImporter.import_address(address_element)
-        end
-
-        def import_telecom(telecom_element)
-          SectionImporter.import_telecom(telecom_element)
-        end
-
         def extract_negation(parent_element, entry)
           negation_indicator = parent_element['negationInd']
           unless negation_indicator.nil?
@@ -225,8 +176,8 @@ module HealthDataStandards
             nil
           end
         end
+
       end
     end
   end
 end
-

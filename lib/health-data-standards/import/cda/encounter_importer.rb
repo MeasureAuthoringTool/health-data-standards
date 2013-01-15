@@ -1,46 +1,20 @@
 module HealthDataStandards
   module Import
-    module C32
+    module CDA
       # TODO Extract Discharge Disposition
       class EncounterImporter < SectionImporter
     
-        def initialize
-          @entry_xpath = "//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.127']/cda:entry/cda:encounter"
-          @code_xpath = "./cda:code"
-          @description_xpath = "./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value]"
+        def initialize(entry_finder=EntryFinder.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.127']/cda:entry/cda:encounter"))
+          super(entry_finder)
           @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:act"
-          @check_for_usable = true               # Pilot tools will set this to false
-          @id_map = {}
-        end
-    
-        # Traverses that HITSP C32 document passed in using XPath and creates an Array of Entry
-        # objects based on what it finds                          
-        # @param [Nokogiri::XML::Document] doc It is expected that the root node of this document
-        #        will have the "cda" namespace registered to "urn:hl7-org:v3"
-        #        measure definition
-        # @return [Array] will be a list of Entry objects
-        def create_entries(doc,id_map = {})
-          encounter_list = []
-          entry_elements = doc.xpath(@entry_xpath)
-          entry_elements.each do |entry_element|
-            encounter = create_entry(entry_element, id_map={})
-            if @check_for_usable
-              encounter_list << encounter if encounter.usable?
-            else
-              encounter_list << encounter
-            end
-          end
-          encounter_list
+          @entry_class = Encounter
         end
         
-        def create_entry(entry_element, id_map={})
-          encounter = Encounter.new
-          extract_codes(entry_element, encounter)
-          extract_dates(entry_element, encounter)
-          extract_description(entry_element, encounter, id_map)
+        def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
+          encounter = super
           extract_performer(entry_element, encounter)
           extract_facility(entry_element, encounter)
-          extract_reason(entry_element, encounter, id_map)
+          extract_reason(entry_element, encounter, nrh)
           extract_negation(entry_element, encounter)
           extract_admission(entry_element, encounter)
           encounter
@@ -65,12 +39,12 @@ module HealthDataStandards
           end
         end
     
-        def extract_reason(parent_element, encounter, id_map)
+        def extract_reason(parent_element, encounter, nrh)
           reason_element = parent_element.at_xpath(@reason_xpath)
           if reason_element
             reason = Entry.new
             extract_codes(reason_element, reason)
-            extract_description(reason_element, reason, id_map)
+            extract_description(reason_element, reason, nrh)
             extract_status(reason_element, reason)
             extract_dates(reason_element, reason)
             encounter.reason = reason
