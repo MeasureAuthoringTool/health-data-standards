@@ -133,6 +133,9 @@ require_relative 'health-data-standards/import/green_c32/advance_directive_impor
 require_relative 'health-data-standards/import/green_c32/medical_equipment_importer'
 require_relative 'health-data-standards/import/green_c32/care_goal_importer'
 
+require_relative 'health-data-standards/import/cat1/gestational_age_importer'
+
+
 module HealthDataStandards
   class << self
     attr_accessor :logger
