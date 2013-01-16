@@ -2,7 +2,7 @@ module HealthDataStandards
   module Import
     module CDA
       class SectionImporter
-        attr_accessor :check_for_usable, :status_xpath
+        attr_accessor :check_for_usable, :status_xpath, :code_xpath
 
         include HealthDataStandards::Util
         include LocatableImportUtils

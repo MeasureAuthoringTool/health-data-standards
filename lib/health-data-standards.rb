@@ -134,6 +134,7 @@ require_relative 'health-data-standards/import/green_c32/medical_equipment_impor
 require_relative 'health-data-standards/import/green_c32/care_goal_importer'
 
 require_relative 'health-data-standards/import/cat1/gestational_age_importer'
+require_relative 'health-data-standards/import/cat1/patient_importer'
 
 
 module HealthDataStandards
