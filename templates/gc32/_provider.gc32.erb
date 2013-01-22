@@ -1,0 +1,9 @@
+<% tag_name ||= "provider" %>
+<<%=tag_name%> id="<%= provider.id%>">
+  <%== render :partial => 'person_attributes', locals: {person: provider} %>
+  <npi>1234567890</npi>
+  <specialty></specialty>
+  <% if provider.organization %> 
+    <%== render :partial => "organization", locals: { organization: provider.organization } %>
+  <% end %>
+</<%=tag_name%>>

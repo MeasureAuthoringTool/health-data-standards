@@ -1,0 +1,15 @@
+<support xmlns="urn:hl7-org:greencda:c32">
+  <%== render partial: 'name', locals: {person: support}%>
+  <%== render partial: 'address', locals: {address: support.address} %>
+  <%== render partial: 'telecom', locals: {telecom: support.telecom} %>
+  <% if support.mothers_maiden_name%>
+  <mothersMaidenName><%= support.mothers_maiden_name %></mothersMaidenName>
+  <% end %>
+  <% if support.type %>
+  <type><%= support.type %></type>
+  <% end %>
+  <% if support.relationship %>
+  <relationship><%= support.relationship %></relationship>
+  <% end %>
+
+</support>

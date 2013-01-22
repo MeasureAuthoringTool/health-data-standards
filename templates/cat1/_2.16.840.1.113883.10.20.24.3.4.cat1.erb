@@ -1,0 +1,27 @@
+<entry>
+  <act classCode="ACT" moodCode="EVN" <%== negation_indicator(entry) %>>
+    <!-- Communication from provider to provider -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.4"/>
+    <id root="<%= entry.id %>"/>
+    <%== code_display(entry, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <text><%= entry.description %></text>
+    <statusCode code="completed"/>
+
+    <effectiveTime>
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+    </effectiveTime>
+
+    <participant typeCode="AUT">
+      <participantRole classCode="ASSIGNED">
+        <code code="158965000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Medical Practitioner"/>
+      </participantRole>
+    </participant>
+
+    <participant typeCode="IRCP">
+      <participantRole classCode="ASSIGNED">
+        <code code="158965000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Medical Practitioner"/>
+      </participantRole>
+    </participant>
+    <%== render(:partial => 'reason', :locals => {:entry => entry}) %>
+  </act>
+</entry>

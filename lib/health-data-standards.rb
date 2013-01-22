@@ -5,6 +5,8 @@ require 'uuid'
 require 'builder'
 require 'csv'
 require 'nokogiri'
+require 'ostruct'
+require 'log4r'
 
 # Freedom patches
 require_relative 'health-data-standards/ext/symbol'
@@ -22,9 +24,11 @@ require_relative 'health-data-standards/export/c32'
 require_relative 'health-data-standards/export/ccda'
 require_relative 'health-data-standards/export/ccr'
 require_relative 'health-data-standards/export/csv'
+require_relative 'health-data-standards/export/helper/html_view_helper'
 require_relative 'health-data-standards/export/html'
 require_relative 'health-data-standards/export/hdata/metadata'
 
+require_relative 'health-data-standards/export/helper/gc32_view_helper'
 require_relative 'health-data-standards/export/green_c32/record'
 require_relative 'health-data-standards/export/green_c32/entry'
 require_relative 'health-data-standards/export/green_c32/export_generator'
@@ -69,20 +73,28 @@ require_relative 'health-data-standards/models/metadata/change_info'
 require_relative 'health-data-standards/models/metadata/link_info'
 require_relative 'health-data-standards/models/metadata/pedigree'
 
-require_relative 'health-data-standards/import/c32/locatable_import_utils'
-require_relative 'health-data-standards/import/c32/section_importer'
-require_relative 'health-data-standards/import/c32/allergy_importer'
-require_relative 'health-data-standards/import/c32/encounter_importer'
+require_relative 'health-data-standards/export/qrda/entry_template_resolver'
+require_relative 'health-data-standards/export/helper/cat1_view_helper'
+require_relative 'health-data-standards/export/cat_1'
+
+require_relative 'health-data-standards/import/cda/narrative_reference_handler'
+require_relative 'health-data-standards/import/cda/entry_finder'
+require_relative 'health-data-standards/import/cda/locatable_import_utils'
+require_relative 'health-data-standards/import/cda/section_importer'
+require_relative 'health-data-standards/import/cda/provider_importer'
+require_relative 'health-data-standards/import/cda/organization_importer'
+require_relative 'health-data-standards/import/cda/allergy_importer'
+require_relative 'health-data-standards/import/cda/condition_importer'
+require_relative 'health-data-standards/import/cda/encounter_importer'
+require_relative 'health-data-standards/import/cda/medical_equipment_importer'
+require_relative 'health-data-standards/import/cda/medication_importer'
+require_relative 'health-data-standards/import/cda/procedure_importer'
+require_relative 'health-data-standards/import/cda/result_importer'
+require_relative 'health-data-standards/import/cda/vital_sign_importer'
+
 require_relative 'health-data-standards/import/c32/condition_importer'
 require_relative 'health-data-standards/import/c32/immunization_importer'
-require_relative 'health-data-standards/import/c32/medication_importer'
-require_relative 'health-data-standards/import/c32/procedure_importer'
-require_relative 'health-data-standards/import/c32/result_importer'
-require_relative 'health-data-standards/import/c32/vital_sign_importer'
 require_relative 'health-data-standards/import/c32/patient_importer'
-require_relative 'health-data-standards/import/c32/provider_importer'
-require_relative 'health-data-standards/import/c32/organization_importer'
-require_relative 'health-data-standards/import/c32/medical_equipment_importer'
 require_relative 'health-data-standards/import/c32/insurance_provider_importer'
 require_relative 'health-data-standards/import/c32/care_goal_importer'
 
@@ -120,3 +132,20 @@ require_relative 'health-data-standards/import/green_c32/support_importer'
 require_relative 'health-data-standards/import/green_c32/advance_directive_importer'
 require_relative 'health-data-standards/import/green_c32/medical_equipment_importer'
 require_relative 'health-data-standards/import/green_c32/care_goal_importer'
+
+require_relative 'health-data-standards/import/cat1/gestational_age_importer'
+require_relative 'health-data-standards/import/cat1/patient_importer'
+
+
+module HealthDataStandards
+  class << self
+    attr_accessor :logger
+  end
+end
+
+if defined?(Rails)
+  require_relative 'health-data-standards/railtie' 
+else
+  HealthDataStandards.logger = Log4r::Logger.new("Health Data Standards")
+  HealthDataStandards.logger.outputters = Log4r::Outputter.stdout
+end

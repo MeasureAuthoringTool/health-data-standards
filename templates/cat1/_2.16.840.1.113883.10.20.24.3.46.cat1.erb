@@ -1,0 +1,30 @@
+<entry>
+  <observation classCode="OBS" moodCode="EVN">
+    <!-- consolidation CDA Allergy Observation template -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.7"/>
+    <templateId root="2.16.840.1.113883.10.20.24.3.46"/>
+    <id root="<%= entry.id %>"/>
+    <code code="ASSERTION" 
+          displayName="Assertion" 
+          codeSystem="2.16.840.1.113883.5.4" 
+          codeSystemName="ActCode"/>
+    <statusCode code="completed"/>
+    <effectiveTime>
+        <low value="<%= entry.start_time %>"/>
+    </effectiveTime>
+    <value xsi:type="CD" 
+           code="59037007" 
+           displayName="Drug intolerance"
+           codeSystem="2.16.840.1.113883.6.96" 
+           codeSystemName="SNOMED CT"/>
+
+    <participant typeCode="CSM">
+      <participantRole classCode="MANU">
+        <playingEntity classCode="MMAT">
+          <%== code_display(entry, 'preferred_code_sets' => ['RxNorm', 'SNOMED-CT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+          <text><%= entry.description %></text>
+        </playingEntity>
+      </participantRole>
+    </participant>
+  </observation>
+</entry>

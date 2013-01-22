@@ -1,0 +1,4 @@
+<vitalSign xmlns="urn:hl7-org:greencda:c32" id="<%= vital_sign.id %>">
+    <%== render partial: "entry_attributes", locals: {entry: vital_sign, code_sets: ["SNOMED-CT", "ICD-9-CM", "ICD-10-CM ","LOINC"]}%>
+    <%== quantity_display vital_sign.values.first %>
+</vitalSign>

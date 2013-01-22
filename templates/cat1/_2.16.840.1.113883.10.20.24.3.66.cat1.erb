@@ -1,0 +1,34 @@
+<entry>
+  <procedure classCode="PROC" moodCode="EVN">
+    <!-- Consolidated Procedure Activity Procedure TemplateId 
+         (Implied Template) -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.14"/>
+    <!-- QRDA Procedure, Result TemplateId -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.66"/>
+    <id root="<%= entry.id %>"/>
+    <%== code_display(entry, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'CPT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <text><%= entry.description %></text>
+    <statusCode code="completed"/>
+    <effectiveTime>
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+      <high <%= value_or_null_flavor(entry.end_time) %>/>
+    </effectiveTime>
+    <% if entry.respond_to?(:ordinality_code) && entry.ordinality_code.present? -%>
+    <!-- Attribute: ordinality -->
+    <priorityCode code="<%= entry.ordinality_code['code'] %>" codeSystem="<%= entry.ordinality_code['code'] %>"/>
+    <% end -%>
+    <entryRelationship typeCode="REFR">
+      <observation classCode="OBS" moodCode="EVN">
+        <!-- Result Observation template (consolidation) -->
+        <templateId root="2.16.840.1.113883.10.20.22.4.2"/>
+        <!-- Result template -->
+        <templateId root="2.16.840.1.113883.10.20.24.3.87"/>
+        <id root="<%= UUID.generate %>"/>
+        <%== code_display(entry, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'CPT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+        <statusCode code="completed"/>
+        <effectiveTime <%= value_or_null_flavor(entry.start_time) %>/>
+        <%== render(:partial => 'result_value', :locals => {:entry => entry}) %>
+      </observation>
+    </entryRelationship>
+  </procedure>
+</entry>

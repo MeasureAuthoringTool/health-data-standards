@@ -1,0 +1,28 @@
+  <insuranceProvider xmlns="urn:hl7-org:greencda:c32" id="<%=insurance_provider.id%>">
+  <insuranceType code="<%== insurance_provider.type %>" codeSystem="2.16.840.1.113883.3.88.12.3221.5.2" />
+  <%== render partial: "organization", locals: {organization: insurance_provider.payer, tag_name: payer} %>
+  <% if insurance_provider.subscriber %>
+    <subscriber>
+      <%== render partial: 'person_attributes', locals: {person: insurance_provider.subscriber} %>
+    </subscriber>
+  <% end %>
+  <% if insurance_provider.relationship %>
+  <%== gc32_code_display insurance_provider, "attribute" => "relationship", "tag_name" => "relationshipToSubscriber" %>
+  <% end %>
+  <% insurance_provider.guarantors.each do |g| %>
+  <guarantor>
+    <%== gc32_interval(insurance_provider, "financialResponsibilityDateRange", :start_time, :end_time) %>
+    <% if g.organization %>
+      <%== render partial: 'organization', locals: {organization: g.organization}%>
+    <% elsif g.person%>
+      <person>
+        <%== render partial: 'person_attributes', locals: {person: g.person} %>
+      </person>
+    <% end %>
+  </guarantor>
+  <% end %>
+  <healthPlanName><%=insurance_provider.name%></healthPlanName>
+  <% if insurance_provider.free_text%>
+    <freeText><%= insurance_provider.free_text%></freeText>
+  <% end %>
+</insuranceProvider>

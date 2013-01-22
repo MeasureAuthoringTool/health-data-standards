@@ -1,0 +1,26 @@
+<entry>
+  <!--Medication dispensed -->
+  <supply classCode="SPLY" moodCode="EVN">
+    <!--  Medication Dispensed template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.45"/>
+    <!-- Medication Dispense template -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.18"/>
+    <id root="<%= entry.id %>"/>
+    <text><%= entry.description %></text>
+    <statusCode code="completed"/>
+    <effectiveTime xsi:type="IVL_TS">
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+      <high <%= value_or_null_flavor(entry.end_time) %>/>
+    </effectiveTime>
+    <product>
+      <manufacturedProduct classCode="MANU">
+        <!-- Medication Information (consolidation) template -->
+        <templateId root="2.16.840.1.113883.10.20.22.4.23"/>
+        <id root="<%= UUID.generate %>"/>
+        <manufacturedMaterial>
+          <%== code_display(entry, :extra_content => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+        </manufacturedMaterial>
+      </manufacturedProduct>
+    </product>
+  </supply>
+</entry>

@@ -1,0 +1,6 @@
+<medicalEquipment xmlns="urn:hl7-org:greencda:c32" id="<%= medical_equipment.id%>">
+  <%== render partial: "entry_attributes", locals: {entry: medical_equipment, code_sets: ["SNOMED-CT", "LOINC"]}%>
+  <% if medical_equipment.values.first %>
+    <%== quantity_display medical_equipment.values.first, "quantity" %>
+  <% end %>
+</medicalEquipment>

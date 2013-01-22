@@ -1,0 +1,10 @@
+<% if entry.codes.empty? %>
+  <code />
+<% else %>  
+  <%== gc32_code_display entry, "tag_name" => "code", 'preferred_code_sets' => code_sets %>
+<% end %>
+<% if entry.status_code && !entry.status_code.empty? %>
+<%== gc32_code_display entry, "tag_name" => "status", "attribute" => "status_code", 'preferred_code_sets' => ['SNOMED-CT', "HL7 ActStatus"] %>
+<% end %>
+<freeText><%=entry.free_text %></freeText>
+<%== gc32_effective_time(entry)%>

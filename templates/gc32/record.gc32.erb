@@ -1,0 +1,97 @@
+<record xmlns="urn:hl7-org:greencda:c32">
+  <patientInformation id="<%=record.medical_record_number%>">
+    <name>
+      <title><%= record.title %></title>
+      <givenName><%= record.first %></givenName>
+      <familyName><%= record.last %></familyName>
+    </name>
+    <% record.addresses.each do |address| %>
+      <%== render partial: "address", locals: {address: address} %>
+    <% end %>
+    <% record.telecoms.each do |tele| %>
+      <%== render partial: "telecom", locals: {telecom: tele} %>
+    <% end %>
+    <gender code="<%= record.gender %>" codeSystem="2.16.840.1.113883.5.1" />
+    <dateOfBirth><%= time_if_not_nil(record.birthdate) %></dateOfBirth>
+    <% if record.deathdate %>
+    <dateOfDeath><%= time_if_not_nil(record.deathdate) %></dateOfDeath>
+    <% end %>
+    <% if record.marital_status && record.marital_status[:code] %>
+      <maritalStatus code="<%=record.marital_status[:code] %>" codeSystem="2.16.840.1.113883.5.2" />
+     <% end %>
+     <% if record.religious_affiliation && record.religious_affiliation[:code] %>
+        <religiousAffiliation code="<%= record.religious_affiliation[:code] %>" codeSystem="2.16.840.1.113883.5.1076" />
+     <% end %>
+    <% if record.race && record.race[:code] %>
+      <race code="<%=record.race[:code]%>" codeSystem="2.16.840.1.113883.6.238" />
+    <% end %>
+    <% if record.ethnicity && record.race[:code] %>
+      <ethnicity code="<%=record.ethnicity[:code]%>" codeSystem="2.16.840.1.113883.6.238" />
+    <% end %>
+    <languagesSpoken>
+    <% record.languages.each do |l| %>
+      <language><%=l%></language>
+    <% end%>
+    </languagesSpoken>
+  </patientInformation>
+  <allergies>
+    <% record.allergies.each do |a| %>
+      <%== render partial: "allergy", locals: {allergy: a} %>
+    <% end %>
+  </allergies>
+  <conditions>
+    <% record.conditions.each do |c| %>
+      <%== render partial: "condition", locals: {condition: c} %>
+    <% end %>
+  </conditions>
+  <encounters>
+    <% record.encounters.each do |e| %>
+      <%== render partial: 'encounter', locals: {encounter: e} %>
+    <% end %>
+  </encounters>
+  <immunizations>
+    <% record.immunizations.each do |i| %>
+      <%== render partial: "immunization", locals: {immunization: i} %>
+    <% end %>
+  </immunizations>
+  <insuranceProviders>
+    <% record.insurance_providers.each do |ip| %>
+      <%== render partial: "insurance_provider", locals: {insurance_provider: ip} %>
+    <% end %>
+  </insuranceProviders>
+  <medicalEquipment>
+    <% record.medical_equipment.each do |me| %>
+      <%== render partial: "medical_equipment", locals: {medical_equipment: me} %>
+    <% end %>
+  </medicalEquipment>
+  <medications>
+    <% record.medications.each do |m| %>
+      <%== render partial: "medication", locals: {medication: m} %>
+    <% end %>
+  </medications>
+  <procedures>
+    <% record.procedures.each do |pr| %>
+      <%== render partial: "procedure", locals: {procedure: pr} %>
+    <% end %>
+  </procedures>
+  <results>
+    <% record.results.each do |r| %>
+      <%== render partial: "result", locals: {result: r} %>
+    <% end %>
+  </results>
+  <socialHistory>
+    <% record.social_history.each do |sh| %>
+      <%== render partial: "social_history", locals: {social_history: sh} %>
+    <% end %>
+  </socialHistory>
+  <support>
+    <% record.support.each do |s| %>
+     <%== render partial: "support", locals: {support: s}%>
+    <% end %>
+  </support>
+  <vitalSigns>
+    <% record.vital_signs.each do |vs| %>
+      <%== render partial: "vital_sign", locals: {vital_sign: vs} %>
+    <% end %>
+  </vitalSigns>
+</record>

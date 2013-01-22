@@ -1,0 +1,9 @@
+<immunization xmlns="urn:hl7-org:greencda:c32" id="<%= immunization.id%>" <% if refused %> refused="true" <% end %>>
+  <%== render partial: "entry_attributes", locals: {entry: immunization, code_sets: ["RxNorm", "CVX", "FDA"]}%>
+  <% if immunization.series_number %>
+    <seriesNumber><%= immunization.series_number %></seriesNumber>
+  <% end %>
+  <% if immunization.refusal_reason %>
+  <%== gc32_code_display immunization, "tag_name" => "refusalReason", "attribute" => "refusal_reason", "preferred_code_sets" => ["HL7 ActNoImmunicationReason"] %>
+  <% end %>
+</immunization>

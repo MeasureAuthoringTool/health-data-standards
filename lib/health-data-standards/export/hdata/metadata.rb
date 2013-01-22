@@ -1,15 +1,16 @@
 module HealthDataStandards
   module Export
     module Hdata
-      module Metadata
-        include TemplateHelper
+      class Metadata
+        def initialize
+          template_helper = TemplateHelper.new('hdata')
+          @rendering_context = RenderingContext.new
+          @rendering_context.template_helper = template_helper
+        end
 
         def export(entry, metadata)
-          self.template_format = "hdata"
-          render(:template => 'metadata', :locals => {entry: entry, metadata: metadata})
+          @rendering_context.render(:template => 'metadata', :locals => {entry: entry, metadata: metadata})
         end
-        
-        extend self
       end
     end
   end

@@ -1,0 +1,12 @@
+<result xmlns="urn:hl7-org:greencda:c32" id="<%= result.id %>">
+    <%== render partial: "entry_attributes", locals: {entry: result, code_sets: ["SNOMED-CT", "LOINC"]}%>
+    <% if result.values.first %>
+      <%== quantity_display result.values.first %>
+    <% end %>
+    <% if result.interpretation%>
+      <%= gc32_code_display(result, "tag_name" => "interpretation", "attribute" => "interpretation", 'preferred_code_sets' => ["HL7 Observation Interpretation"]) %>
+    <% end %>
+    <% if result.reference_range %>
+      <referenceRange><%= result.reference_range %></referenceRange>
+    <% end %>
+</result>

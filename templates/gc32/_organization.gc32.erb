@@ -1,0 +1,10 @@
+<% tag_name ||= "organization"%>
+<<%=tag_name%> id="<%=organization.id%>">
+  <name><%= organization.name%></name>
+  <% organization.addresses.each do |addr| %>
+    <%== render :partial => "address", locals: {address: addr} %>
+  <% end %>
+  <% organization.telecoms.each do |tele| %>
+    <%== render :partial => "telecom", locals: {telecom: tele} %>
+  <% end %>
+</organization>

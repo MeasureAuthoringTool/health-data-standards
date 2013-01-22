@@ -6,7 +6,7 @@ class CCDATest < MiniTest::Unit::TestCase
     collection_fixtures('records', '_id')
     @pi = HealthDataStandards::Import::CCDA::PatientImporter.instance
     @record = Record.find('4dcbecdb431a5f5878000004')
-    ccda = HealthDataStandards::Export::CCDA.export(@record)
+    ccda = HealthDataStandards::Export::CCDA.new.export(@record)
     @doc = Nokogiri::XML(ccda)
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     @patient = @pi.parse_ccda(@doc)

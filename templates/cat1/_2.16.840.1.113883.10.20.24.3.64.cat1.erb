@@ -1,0 +1,29 @@
+<entry>
+  <procedure classCode="PROC" moodCode="EVN" <%== negation_indicator(entry) %>>
+    <!--  Procedure performed template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.64"/>
+    <!-- Procedure Activity Procedure-->
+    <templateId root="2.16.840.1.113883.10.20.22.4.14"/>
+    <id root="<%= entry.id %>"/>
+    <%== code_display(entry, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'CPT', 'ICD-9-PCS', 'ICD-10-PCS'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <text><%= entry.description %></text>
+    <statusCode code="completed"/>
+    <effectiveTime>
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+      <high <%= value_or_null_flavor(entry.end_time) %>/>
+    </effectiveTime>
+    <%== render(:partial => 'reason', :locals => {:entry => entry}) %>
+    <% if entry.respond_to?(:incision_time) && entry.incision_time.present? -%>
+    <entryRelationship typeCode="REFR">
+      <procedure classCode="PROC" moodCode="EVN">
+        <templateId root="2.16.840.1.113883.10.20.24.3.89"/>
+        <code code="34896006" 
+              codeSystem="2.16.840.1.113883.6.96"
+              codeSystemName="SNOMED CT" 
+              displayName="incision"/>
+              <effectiveTime <%= value_or_null_flavor(entry.incision_time) %>/>
+      </procedure>
+    </entryRelationship>
+    <% end -%>
+  </procedure>
+</entry>

@@ -1,0 +1,10 @@
+<condition id="<%= condition.id %>" <% unless condition.cause_of_death.nil? %>causeOfDeath="<%= condition.cause_of_death %>"<% end %> xmlns="urn:hl7-org:greencda:c32">
+  <%== render partial: "entry_attributes", locals: {entry: condition, code_sets: ['SNOMED-CT', "ICD-9-CM", "ICD-10-CM"]}%>
+  <% if condition.priority %>
+    <priority><%= condition.priority %></priority>
+  <% end %>
+  <type><%= condition.type %></type>
+  <% condition.treating_provider.each do |tp| %>
+  <%== render partial: 'provider', locals: {provider: tp} %>
+  <% end %>
+</condition>

@@ -1,0 +1,22 @@
+<entry>
+  <observation classCode="OBS" moodCode="RQO">
+  <!-- Consolidated Plan of Care Activity Observation 
+       templateId (Implied Template) -->
+  <templateId root="2.16.840.1.113883.10.20.22.4.44"/>
+  <!-- Diagnostic Study, Order template -->
+  <templateId root="2.16.840.1.113883.10.20.24.3.17"/>
+  <id root="<%= entry.id %>"/>
+  <%== code_display(entry, 'preferred_code_sets' => ['LOINC'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+  <text><%= entry.description %></text>
+  <statusCode code="new"/>
+
+  <!-- Attribute: datetime -->
+  <author>
+    <time <%= value_or_null_flavor(entry.as_point_in_time) %>/>
+    <assignedAuthor>
+      <id nullFlavor="NA" root="<%= UUID.generate %>"/>
+    </assignedAuthor>
+  </author>
+
+</observation>
+</entry>

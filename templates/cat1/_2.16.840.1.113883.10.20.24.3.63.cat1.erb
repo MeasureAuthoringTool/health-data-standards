@@ -1,0 +1,23 @@
+<entry>
+  <procedure classCode="PROC" moodCode="RQO" <%== negation_indicator(entry) %>>
+    <!-- Consolidated Plan of Care Activity Procedure TemplateId (Implied Template) -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.41"/> 
+    <!-- QRDA Procedure, Order TemplateId --> 
+    <templateId root="2.16.840.1.113883.10.20.24.3.63"/> 
+    <id root="<%= entry.id %>"/>
+    <%== code_display(entry, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-PCS', 'ICD-10-PCS'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <text><%= entry.description %></text>
+    <statusCode code="new"/>
+    <!-- Attribute: method--> 
+    <methodCode nullFlavor="UNK"/>
+    
+    <!-- Attribute: datetime --> 
+    <author>
+      <time <%= value_or_null_flavor(entry.start_time) %>/> 
+      <assignedAuthor>
+        <id nullFlavor="NA"/>
+      </assignedAuthor>
+    </author>
+    <%== render(:partial => 'reason', :locals => {:entry => entry}) %>
+  </procedure>
+</entry>

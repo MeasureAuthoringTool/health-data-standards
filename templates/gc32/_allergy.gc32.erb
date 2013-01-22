@@ -1,0 +1,12 @@
+<allergy xmlns="urn:hl7-org:greencda:c32" id="<%=allergy.id%>">
+  <%== render partial: "entry_attributes", locals: {entry: allergy, code_sets: ['SNOMED-CT', "RxNorm", "FDA"]}%>
+  <% if allergy.type %>
+  <%== gc32_code_display allergy, "tag_name" => "type", "attribute" => "type", 'preferred_code_sets' => ['RxNorm', 'SNOMED-CT'] %>
+  <% end %>
+  <% if allergy.reaction && allergy.reaction['code'] %>
+      <reaction code="<%= allergy.reaction['code'] %>" codeSystem="<%= allergy.reaction['code_system'] %>" />
+  <% end %>
+  <% if allergy.severity && !allergy.severity.empty? %>
+  <%== gc32_code_display allergy, "tag_name" => "severity", "attribute" => "severity", 'preferred_code_sets' => ['SNOMED-CT'] %>
+  <% end %>
+</allergy>
