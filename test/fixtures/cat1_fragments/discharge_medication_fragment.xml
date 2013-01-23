@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:hl7-org:v3" xmlns:voc="urn:hl7-org:v3/voc" xmlns:sdtc="urn:hl7-org:sdtc">
+  <component>
+    <structuredBody>
+      <component>
+        <section>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <!-- Discharge Medication Entry -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.105"/>
+              <id root="50f84dbb7042f9366f000189"/>
+              <code code="10183-2" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Discharge medication"/>
+              <statusCode code="active"/>
+              <effectiveTime>
+                <low value="20050430111813"/>
+              </effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <substanceAdministration moodCode="EVN" classCode="SBADM">
+                  <!-- Medication Activity (consolidation) template -->
+                  <templateId root="2.16.840.1.113883.10.20.22.4.16"/>
+                  <!-- Medication, Active template -->
+                  <templateId root="2.16.840.1.113883.10.20.24.3.41"/>
+                  <id root="21305e00-4308-0130-0ade-680688cbd736"/>
+                  <text>Medication, Discharge: Antithrombotic Therapy (Code List: 2.16.840.1.113883.3.117.1.7.1.201)</text>
+                  <statusCode code="active"/>
+                  <effectiveTime xsi:type="IVL_TS">
+                    <low value="20050430111813"/>
+                    <high value="20050501022146"/>
+                  </effectiveTime>
+                  <!-- Attribute: dose -->
+                  <consumable>
+                    <manufacturedProduct classCode="MANU">
+                      <!-- Medication Information (consolidation) template -->
+                      <templateId root="2.16.840.1.113883.10.20.22.4.23"/>
+                      <id root="21306190-4308-0130-0ade-680688cbd736"/>
+                      <manufacturedMaterial>
+                        <code nullFlavor="UNK">
+                          <originalText>Medication, Discharge: Antithrombotic Therapy (Code List: 2.16.840.1.113883.3.117.1.7.1.201)</originalText>
+                          <translation code="994435" codeSystem="2.16.840.1.113883.6.88"/>
+                        </code>
+                      </manufacturedMaterial>
+                      <manufacturerOrganization>
+                        <name>Medication Factory Inc.</name>
+                      </manufacturerOrganization>
+                    </manufacturedProduct>
+                  </consumable>
+                </substanceAdministration>
+              </entryRelationship>
+            </act>
+          </entry>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>
