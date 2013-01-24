@@ -22,6 +22,12 @@ module HealthDataStandards
           @section_importers[:conditions] << ecog_status_importer
           @section_importers[:medications] = []
           @section_importers[:medications] << CDA::MedicationImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.105']/cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.41']"))
+          # Mike's Code -------
+          # Page 436 of QRDA guide
+          # WORK ON DOCMENTING THIS IN A SCALABLE FASHION
+          @section_importers[:procedures] = []
+          @section_importers[:procedures] << CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.59']"))
+          # Mike's Code end --------
         end
 
         def parse_cat1(doc)
@@ -31,12 +37,17 @@ module HealthDataStandards
           record
         end
 
+        #we go over each importer,
+
         def import_sections(record, doc)
           nrh = CDA::NarrativeReferenceHandler.new
           nrh.build_id_map(doc)
+          #section is ie :procedures, importers is array we built[]
           @section_importers.each_pair do |section, importers|
+            #
             importers.each do |importer|
               entries = importer.create_entries(doc, nrh)
+              #object has send method as public
               record.send(section) << entries
             end
           end
