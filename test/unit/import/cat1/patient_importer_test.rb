@@ -13,14 +13,11 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     discharge.codes['RxNorm'].include?('994435')
   end
 
-  # Mike's code --------
   def test_physical_exam_performed
     patient = build_record_from_xml('test/fixtures/cat1_fragments/physical_exam_performed_fragment.xml')
     physical_exam = patient.procedures.first #mike note: procedure class in model shows all specific params (derived from entry class which has all general ones)
-    physical_exam.codes
+    physical_exam.codes['LOINC'].include?('8462-4')
   end
-
-  # Mike's code end -------
 
   private
 
