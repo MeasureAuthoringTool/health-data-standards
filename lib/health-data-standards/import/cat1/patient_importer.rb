@@ -20,6 +20,8 @@ module HealthDataStandards
           ecog_status_importer = CDA::SectionImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.103']"))
           ecog_status_importer.code_xpath = './cda:value'
           @section_importers[:conditions] << ecog_status_importer
+          @section_importers[:medications] = []
+          @section_importers[:medications] << CDA::MedicationImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.105']/cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.41']"))
         end
 
         def parse_cat1(doc)
