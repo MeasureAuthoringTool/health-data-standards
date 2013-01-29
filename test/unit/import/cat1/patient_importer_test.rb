@@ -15,8 +15,14 @@ class PatientImporterTest < MiniTest::Unit::TestCase
 
   def test_physical_exam_performed
     patient = build_record_from_xml('test/fixtures/cat1_fragments/physical_exam_performed_fragment.xml')
-    physical_exam = patient.procedures.first #mike note: procedure class in model shows all specific params (derived from entry class which has all general ones)
+    physical_exam = patient.procedures.first
     assert physical_exam.codes['LOINC'].include?('8462-4')
+  end
+
+  def test_procedure_intolerance
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/procedure_intolerance_fragment.xml')
+    procedure_intolerance = patient.allergies.first
+    assert procedure_intolerance.codes['CPT'].include?('90668')
   end
 
   private
