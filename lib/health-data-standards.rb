@@ -136,7 +136,7 @@ require_relative 'health-data-standards/import/green_c32/care_goal_importer'
 require_relative 'health-data-standards/import/cat1/gestational_age_importer'
 require_relative 'health-data-standards/import/cat1/procedure_intolerance_importer'
 require_relative 'health-data-standards/import/cat1/patient_importer'
-
+require_relative 'health-data-standards/import/cat1/procedure_order_importer'
 
 module HealthDataStandards
   class << self
