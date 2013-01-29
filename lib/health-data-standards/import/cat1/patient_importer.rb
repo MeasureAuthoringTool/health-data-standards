@@ -26,7 +26,7 @@ module HealthDataStandards
           @section_importers[:procedures] << CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.59']"))
           @section_importers[:allergies] = []
           @section_importers[:allergies] << ProcedureIntoleranceImporter.new()
-
+          @section_importers[:procedures] << ProcedureOrderImporter.new()
         end
 
         def parse_cat1(doc)
