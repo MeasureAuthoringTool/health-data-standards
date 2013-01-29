@@ -39,6 +39,14 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert_equal expected_start, procedure_order.start_time
   end
 
+  def test_procedure_performed
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/procedure_performed_fragment.xml')
+    procedure_performed = patient.procedures.first
+    assert procedure_performed.codes['CPT'].include?('55876')
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19860117151405')
+    assert_equal expected_start, procedure_performed.start_time
+  end
+
   private
 
   def build_record_from_xml(xml_file)
