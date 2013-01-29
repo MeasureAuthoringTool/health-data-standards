@@ -5,12 +5,18 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     patient = build_record_from_xml('test/fixtures/cat1_fragments/ecog_fragment.xml')
     ecog_status = patient.conditions.first
     assert ecog_status.codes['SNOMED-CT'].include?('423237006')
+    expected_timestamp = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20120619085355')
+    assert_equal expected_timestamp, ecog_status.time
   end
 
   def test_discharge_medication_importing
     patient = build_record_from_xml('test/fixtures/cat1_fragments/discharge_medication_fragment.xml')
     discharge = patient.medications.first
     assert discharge.codes['RxNorm'].include?('994435')
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20050430111813')
+    expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20050501022146')
+    assert_equal expected_start, discharge.start_time
+    assert_equal expected_end, discharge.end_time
   end
 
   def test_physical_exam_performed
