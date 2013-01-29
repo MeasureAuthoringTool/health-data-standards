@@ -31,6 +31,12 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert procedure_intolerance.codes['CPT'].include?('90668')
   end
 
+  def test_procedure_order
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/procedure_order_fragment.xml')
+    procedure_order = patient.procedures.first
+    assert procedure_order.codes['CPT'].include?('90870')
+  end
+
   private
 
   def build_record_from_xml(xml_file)
