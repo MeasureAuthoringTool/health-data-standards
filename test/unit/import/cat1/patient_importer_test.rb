@@ -47,6 +47,38 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert_equal expected_start, procedure_performed.start_time
   end
 
+  def test_procedure_result
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/procedure_result_fragment.xml')
+    procedure_result = patient.procedures.first
+    assert procedure_result.codes['SNOMED-CT'].include?('116783008')
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20011202034746')
+    assert_equal expected_start, procedure_result.start_time
+  end
+
+  def test_risk_category_assessment
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/risk_category_assessment_fragment.xml')
+    risk_category_assessment = patient.procedures.first
+    assert risk_category_assessment.codes['LOINC'].include?('72136-5')
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19930805130208')
+    assert_equal expected_start, risk_category_assessment.start_time
+  end
+
+  def test_device_applied
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/device_applied_fragment.xml')
+    device_applied = patient.medical_equipment.first
+    assert device_applied.codes['ICD-9-CM'].include?('37.98')
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19850331043808')
+    assert_equal expected_start, device_applied.start_time
+  end
+
+  def test_symptom_active
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/symptom_active_fragment.xml')
+    symptom_active = patient.conditions.first
+    assert symptom_active.codes['SNOMED-CT'].include?('95815000')
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19930215222215')
+    assert_equal expected_start, symptom_active.start_time
+  end
+
   private
 
   def build_record_from_xml(xml_file)
