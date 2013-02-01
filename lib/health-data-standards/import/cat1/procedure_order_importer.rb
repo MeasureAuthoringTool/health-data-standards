@@ -1,7 +1,7 @@
 module HealthDataStandards
   module Import
     module Cat1
-      class ProcedureOrderImporter < CDA::SectionImporter #< CDA::ProcedureImporter
+      class ProcedureOrderImporter < CDA::SectionImporter
         def initialize
           super(CDA::EntryFinder.new("//cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.63']"))
           @entry_class = Procedure

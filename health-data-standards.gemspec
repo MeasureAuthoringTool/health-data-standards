@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.homepage = "https://github.com/projectcypress/health-data-standards"
   s.authors = ["Andy Gregorowicz", "Sam Sayer", "Marc Hadley", "Rob Dingwell"]
 
-  s.version = '2.3.0'
+  s.version = '3.0.0'
   
   s.add_dependency 'rest-client', '~>1.6.7'
   s.add_dependency 'erubis', '~> 2.7.0'
