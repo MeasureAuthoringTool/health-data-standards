@@ -27,7 +27,17 @@ module HealthDataStandards
           @section_importers[:allergies] = []
           @section_importers[:allergies] << ProcedureIntoleranceImporter.new()
           @section_importers[:procedures] << ProcedureOrderImporter.new()
-        end
+          @section_importers[:procedures] << CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.3']")) #comm from provider to patient
+          @section_importers[:procedures] << CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.31']")) #intervention ordered
+          @section_importers[:procedures] << CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.32']")) #intervention performed
+          @section_importers[:procedures] << CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.34']")) #intervention result
+          @section_importers[:results] = []
+          @section_importers[:results] << CDA::ResultImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.38']")) #lab performed
+          @section_importers[:procedures] << CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.4']")) #comm from provider to provider
+          @section_importers[:medications] << CDA::MedicationImporter.new(CDA::EntryFinder.new("//cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.41']")) #medication active
+          @section_importers[:medications] << CDA::MedicationImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.42']/cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.16']")) #medication administered
+          @section_importers[:allergies] << CDA::AllergyImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.46']"))
+        end 
 
         def parse_cat1(doc)
           record = Record.new
