@@ -115,13 +115,6 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert_equal expected_end, intervention_result.end_time
   end
 
-  # def test_lab_order
-  #   patient = build_record_from_xml('test/fixtures/cat1_fragments/lab_order_fragment.xml')
-  #   lab_order = patient.procedures.first
-  #   binding.pry
-  #   assert lab_order.codes[''].include?('')
-  # end
-
   def test_lab_performed
     patient = build_record_from_xml('test/fixtures/cat1_fragments/lab_performed_fragment.xml')
     lab_performed = patient.results.first
