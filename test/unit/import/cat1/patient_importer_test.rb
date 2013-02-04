@@ -107,13 +107,21 @@ class PatientImporterTest < MiniTest::Unit::TestCase
 
   def test_intervention_result
     patient = build_record_from_xml('test/fixtures/cat1_fragments/intervention_result_fragment.xml')
-    intervention_result = patient.procedures.first
+    intervention_result = patient.results.first
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20041016152724')
     expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20041016204832')
     assert intervention_result.codes['SNOMED-CT'].include?('428181000124104')
     assert_equal expected_start, intervention_result.start_time
     assert_equal expected_end, intervention_result.end_time
   end
+
+   def test_lab_order
+     patient = build_record_from_xml('test/fixtures/cat1_fragments/lab_order_fragment.xml')
+     lab_order = patient.results.first
+     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19910519162436')
+     assert lab_order.codes['SNOMED-CT'].include?('8879006')
+     assert_equal expected_start, lab_order.start_time
+   end
 
   def test_lab_performed
     patient = build_record_from_xml('test/fixtures/cat1_fragments/lab_performed_fragment.xml')
@@ -160,6 +168,28 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert med_intolerance.codes['RxNorm'].include?('998695')
     assert_equal expected_start, med_intolerance.start_time
   end
+
+  def test_medication_order
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/medication_order_fragment.xml')
+    med_order = patient.medications.first
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20000328001401')
+    expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20000328012924')
+    assert med_order.codes['RxNorm'].include?('866439')
+    assert_equal expected_start, med_order.start_time
+    assert_equal expected_end, med_order.end_time
+  end
+
+  def test_physical_exam_finding
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/physical_exam_finding_fragment.xml')
+    pe_finding = patient.results.first
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19910425090834')
+    expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19910426051840')
+    assert pe_finding.codes['LOINC'].include?('8480-6')
+    assert_equal expected_start, pe_finding.start_time
+    assert_equal expected_end, pe_finding.end_time
+  end
+
+
 
   private
 
