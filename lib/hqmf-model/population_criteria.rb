@@ -6,6 +6,7 @@ module HQMF
     include HQMF::Conversion::Utilities
 
     attr_reader :preconditions, :id, :type, :title, :hqmf_id
+    attr_accessor :aggregator
     
     IPP = 'IPP'
     DENOM = 'DENOM'
@@ -22,12 +23,13 @@ module HQMF
     # @param [String] hqmf_id
     # @param [Array#Precondition] preconditions 
     # @param [String] title (optional)
-    def initialize(id, hqmf_id, type, preconditions, title='')
+    def initialize(id, hqmf_id, type, preconditions, title='', aggregator=nil)
       @id = id
       @hqmf_id = hqmf_id
       @preconditions = preconditions
       @type = type
-      @title=title
+      @title = title
+      @aggregator = aggregator
     end
     
     # Create a new population criteria from a JSON hash keyed off symbols
@@ -38,8 +40,9 @@ module HQMF
       type = json["type"]
       title = json['title']
       hqmf_id = json['hqmf_id']
+      aggregator = json['aggregator']
       
-      HQMF::PopulationCriteria.new(id, hqmf_id, type, preconditions, title)
+      HQMF::PopulationCriteria.new(id, hqmf_id, type, preconditions, title, aggregator)
     end
     
     def to_json
@@ -48,15 +51,16 @@ module HQMF
     
     def base_json
       x = nil
-      json = build_hash(self, [:conjunction?, :type, :title, :hqmf_id])
+      json = build_hash(self, [:conjunction?, :type, :title, :hqmf_id, :aggregator])
       json[:preconditions] = x if x = json_array(@preconditions)
       json
     end
     
     # Return true of this precondition represents a conjunction with nested preconditions
     # or false of this precondition is a reference to a data criteria
+    # if it is an observation population criteria, then it is not a conjunction, it is instead doing a calculation
     def conjunction?
-      true
+      type != HQMF::PopulationCriteria::OBSERV
     end
 
     # Get the conjunction code, e.g. allTrue, atLeastOneTrue

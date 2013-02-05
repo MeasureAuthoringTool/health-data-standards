@@ -274,7 +274,8 @@ module HQMF
     
     def self.from_json(json)
       type = json["type"] if json["type"]
-      value = HQMF::Range.from_json(json["value"]) if json["value"]
+
+      value = HQMF::DataCriteria.convert_value(json["value"]) if json["value"]
       
       HQMF::SubsetOperator.new(type,value)
     end

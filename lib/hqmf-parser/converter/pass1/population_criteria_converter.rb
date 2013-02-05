@@ -132,7 +132,7 @@ module HQMF
       found
     end
 
-    def parse()
+    def parse
       @doc[:logic].each do |key,criteria|
         @population_criteria_by_key[key] = convert(key.to_s, criteria)
       end
@@ -149,7 +149,7 @@ module HQMF
       type = population_criteria[:code]
       reference = population_criteria[:reference]
       title = population_criteria[:title]
-      
+
       criteria = HQMF::Converter::SimplePopulationCriteria.new(key, hqmf_id, type, preconditions, title)
       # mark the 2.0 simple population criteria as a stratification... this allows us to create the cartesian product for this in the populations
       criteria.stratification_id = population_criteria[:stratification_id]
