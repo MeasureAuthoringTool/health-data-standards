@@ -169,6 +169,22 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert_equal expected_start, med_intolerance.start_time
   end
 
+  def test_medication_allergy
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/medication_allergy_fragment.xml')
+    med_allergy = patient.allergies.first
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19790809140056')
+    assert med_allergy.codes['RxNorm'].include?('996994')
+    assert_equal expected_start, med_allergy.start_time
+  end
+
+    def test_medication_adverse
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/medication_adverse_fragment.xml')
+    med_adverse = patient.allergies.first
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20070520173120')
+    assert med_adverse.codes['RxNorm'].include?('998695')
+    assert_equal expected_start, med_adverse.start_time
+  end
+
   def test_medication_order
     patient = build_record_from_xml('test/fixtures/cat1_fragments/medication_order_fragment.xml')
     med_order = patient.medications.first
@@ -189,7 +205,19 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert_equal expected_end, pe_finding.end_time
   end
 
+  def test_condition_expired
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/condition_expired_fragment.xml')
+    cond_exp = patient.conditions.first
+    assert cond_exp.codes['SNOMED-CT'].include?('419099009')
+  end
 
+  def test_clinical_trial_participant
+    patient = Record.new
+    doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/clinical_trial_participant_fragment.xml'))
+    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+    HealthDataStandards::Import::Cat1::PatientImporter.instance.get_clinical_trial_participant(patient, doc)
+    assert patient.clinicalTrialParticipant
+  end
 
   private
 
