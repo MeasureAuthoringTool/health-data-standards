@@ -26,7 +26,9 @@ module HealthDataStandards
           @section_importers[:conditions] << symptom_active_importer
           @section_importers[:conditions] << DiagnosisActiveImporter.new
           @section_importers[:conditions] << CDA::ConditionImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.54']"))
-
+          @section_importers[:conditions] << CDA::ConditionImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.14']")) #diagnosis resolved
+          @section_importers[:conditions] << DiagnosisInactiveImporter.new #diagnosis inactive
+  
           @section_importers[:medications] = []
           @section_importers[:medications] << CDA::MedicationImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.105']/cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.41']"))
           @section_importers[:medications] << CDA::MedicationImporter.new(CDA::EntryFinder.new("//cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.41']")) #medication active
@@ -41,10 +43,13 @@ module HealthDataStandards
           @section_importers[:procedures] << CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.32']")) #intervention performed
           @section_importers[:procedures] << CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.34']")) #intervention result
           @section_importers[:procedures] << CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.4']")) #comm from provider to provider
+          @section_importers[:procedures] << CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.2']")) #comm from patient to provider
           @section_importers[:procedures] << ProcedureOrderImporter.new
           @section_importers[:procedures] << CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.64']"))
           @section_importers[:procedures] << CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.66']"))
           @section_importers[:procedures] << CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.69']"))
+          @section_importers[:procedures] << CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.18']")) #diagnostic study performed
+          @section_importers[:procedures] << DiagnosticStudyOrderImporter.new
 
           @section_importers[:allergies] = []
           @section_importers[:allergies] << ProcedureIntoleranceImporter.new
@@ -58,8 +63,16 @@ module HealthDataStandards
           @section_importers[:results] = []
           @section_importers[:results] << LabOrderImporter.new #lab ordered
           @section_importers[:results] << CDA::ResultImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.38']")) #lab performed
-          @section_importers[:results] << CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.34']")) #intervention result
+          @section_importers[:results] << CDA::ResultImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.34']")) #intervention result
           @section_importers[:results] << CDA::ResultImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.57']")) #physical exam finding
+          @section_importers[:results] << CDA::ResultImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.28']")) #functional status result    
+          @section_importers[:results] << CDA::ResultImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.20']")) #diagnostic study result
+
+          @section_importers[:encounters] = []
+          @section_importers[:encounters] << CDA::EncounterImporter.new(CDA::EntryFinder.new("//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']")) #encounter performed
+          @section_importers[:encounters] << EncounterOrderImporter.new
+
+
         end 
 
         def parse_cat1(doc)

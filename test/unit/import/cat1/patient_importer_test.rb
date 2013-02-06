@@ -87,6 +87,14 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert_equal expected_start, communication.start_time
   end
 
+  def test_comm_patient_to_prov
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/comm_patient_to_provider_fragment.xml')
+    communication = patient.procedures.first
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20101027165345')
+    assert communication.codes['SNOMED-CT'].include?('315640000')
+    assert_equal expected_start, communication.start_time
+  end
+
   def test_intervention_order
     patient = build_record_from_xml('test/fixtures/cat1_fragments/intervention_order_fragment.xml')
     intervention_order = patient.procedures.first
@@ -114,14 +122,6 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert_equal expected_start, intervention_result.start_time
     assert_equal expected_end, intervention_result.end_time
   end
-
-   def test_lab_order
-     patient = build_record_from_xml('test/fixtures/cat1_fragments/lab_order_fragment.xml')
-     lab_order = patient.results.first
-     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19910519162436')
-     assert lab_order.codes['SNOMED-CT'].include?('8879006')
-     assert_equal expected_start, lab_order.start_time
-   end
 
   def test_lab_performed
     patient = build_record_from_xml('test/fixtures/cat1_fragments/lab_performed_fragment.xml')
@@ -211,12 +211,62 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert cond_exp.codes['SNOMED-CT'].include?('419099009')
   end
 
+  def test_functional_status_result
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/functional_status_result_fragment.xml')
+    func_stat_result = patient.results.first
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19881027090442')
+    expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19881028024912')
+    assert func_stat_result.codes['LOINC'].include?('72102-7')
+    assert_equal expected_start, func_stat_result.start_time
+    assert_equal expected_end, func_stat_result.end_time
+  end
+
+  def test_encounter_performed
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/encounter_performed_fragment.xml')
+    enc_perf = patient.encounters.first
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19920316013628')
+    expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19920316141356')
+    assert enc_perf.codes['CPT'].include?('99337')
+    assert_equal expected_start, enc_perf.start_time
+    assert_equal expected_end, enc_perf.end_time
+  end
+
   def test_clinical_trial_participant
     patient = Record.new
     doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/clinical_trial_participant_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     HealthDataStandards::Import::Cat1::PatientImporter.instance.get_clinical_trial_participant(patient, doc)
     assert patient.clinicalTrialParticipant
+  end
+
+  def test_diagnostic_study_result
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/diagnostic_study_result_fragment.xml')
+    diag_study_result = patient.results.first
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19890923063243')
+    expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19890923101231')
+    assert diag_study_result.codes['LOINC'].include?('71485-7')
+    assert_equal expected_start, diag_study_result.start_time
+    assert_equal expected_end, diag_study_result.end_time
+  end
+
+  def test_diagnostic_study_performed
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/diagnostic_study_performed_fragment.xml')
+    diag_study_performed = patient.procedures.first
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20081029211606')
+    expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20081029230540')
+    assert diag_study_performed.codes['LOINC'].include?('69399-4')
+    assert_equal expected_start, diag_study_performed.start_time
+    assert_equal expected_end, diag_study_performed.end_time
+  end
+
+  def test_diagnosis_resolved
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/diagnosis_resolved_fragment.xml')
+    diag_resolved = patient.conditions.first
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20030403010254')
+    expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20030403121452')
+    assert diag_resolved.codes['SNOMED-CT'].include?('94643001')
+    assert_equal expected_start, diag_resolved.start_time
+    assert_equal expected_end, diag_resolved.end_time
   end
 
   private
