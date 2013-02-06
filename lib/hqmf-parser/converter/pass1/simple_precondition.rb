@@ -7,7 +7,7 @@ module HQMF
       COMPARISON = "COMPARISON"
       PRECONDITION = "PRECONDITION"
 
-      attr_accessor :klass, :processed, :subset_comparison
+      attr_accessor :klass, :processed, :subset_comparison, :conjunction_code
 
       def initialize(id, preconditions,reference,conjunction_code,negation)
         super(id, preconditions,reference,conjunction_code,negation)

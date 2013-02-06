@@ -33,7 +33,8 @@ module HQMF
       def parse(file, options={})
         sheet_array = file_to_array(file, options)
         by_oid_ungrouped = cells_to_hashs_by_oid(sheet_array)
-        collapse_groups(by_oid_ungrouped)
+        value_sets = collapse_groups(by_oid_ungrouped)
+        translate_json(value_sets)
       end
   
       def collapse_groups(by_oid_ungrouped)
@@ -198,6 +199,36 @@ module HQMF
           raise "File does not end in .xls or .xlsx"
         end
         book
+      end
+
+      def translate_json(value_sets)
+        value_set_models = []
+
+        value_sets.each do |value_set|
+          hds_value_set = HealthDataStandards::SVS::ValueSet.new() 
+          hds_value_set['oid'] = value_set['oid']
+          hds_value_set['display_name'] = value_set['key']
+          hds_value_set['version'] = value_set['version']
+          hds_value_set['concepts'] = []
+
+          value_set['code_sets'].each do |code_set|
+            code_set['codes'].map{ |code| 
+              concept = HealthDataStandards::SVS::Concept.new()
+              concept['code'] = code
+              concept['code_system'] = nil
+              concept['code_system_name'] = code_set['code_set']
+              concept['code_system_version'] = code_set['version']
+              concept['display_name'] = nil
+              hds_value_set['concepts'].concat([concept])
+            }
+          end
+          if hds_value_set['concepts'].include? nil
+            puts "Value Set has a bad code set (code set is null)"
+            hds_value_set['concepts'].compact!
+          end
+          value_set_models << hds_value_set
+        end
+        value_set_models
       end
   
   
