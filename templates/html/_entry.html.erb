@@ -15,7 +15,7 @@
       </b>
       <% if code_map %>
         <% codes.each do |code| %>
-          <span id="<%=entry.id%>_<%=set%>_<%=code.to_s%>" style="display: none; position: absolute; background: #EEE; padding: 10px; paddint-left: 30px; width: 200px; overflow: auto; z-index: 3000;"> <%= code_map[set][code] %> </span>
+          <span id="<%=entry.id%>_<%=set%>_<%=code.to_s%>" style="display: none; position: absolute; background: #EEE; padding: 10px; paddint-left: 30px; width: 200px; overflow: auto; z-index: 3000;"> <% description = code_map[set][code] if (code_map && code_map[set]) %><%= description %> </span>
         <% end %>
       <% end %>
       <br/>
