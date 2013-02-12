@@ -30,7 +30,8 @@ module HealthDataStandards
         '2.16.840.1.113883.5.1076' => "Religious Affiliation",
         '2.16.840.1.113883.1.11.19717' => "HL7 ActNoImmunicationReason",
         '2.16.840.1.113883.3.88.12.80.33' => "NUBC",
-        '2.16.840.1.113883.1.11.78' => "HL7 Observation Interpretation"
+        '2.16.840.1.113883.1.11.78' => "HL7 Observation Interpretation",
+        '2.16.840.1.114222.4.11.3591' => "Source of Payment Typology"
       }
       
       CODE_SYSTEM_ALIASES = {

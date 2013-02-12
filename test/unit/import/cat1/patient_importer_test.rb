@@ -206,9 +206,11 @@ class PatientImporterTest < MiniTest::Unit::TestCase
   end
 
   def test_condition_expired
-    patient = build_record_from_xml('test/fixtures/cat1_fragments/condition_expired_fragment.xml')
-    cond_exp = patient.conditions.first
-    assert cond_exp.codes['SNOMED-CT'].include?('419099009')
+    patient = Record.new
+    doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/condition_expired_fragment.xml'))
+    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+    HealthDataStandards::Import::Cat1::PatientImporter.instance.get_patient_expired(patient, doc)
+    assert patient.expired
   end
 
   def test_functional_status_result
