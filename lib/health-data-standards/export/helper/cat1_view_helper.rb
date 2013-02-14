@@ -20,6 +20,8 @@ module HealthDataStandards
             filtered_entries = handle_patient_expired(patient)
           when '2.16.840.1.113883.3.560.1.401'
             filtered_entries = handle_clinical_trial_participant(patient)
+          when '2.16.840.1.113883.3.560.1.405'
+            filtered_entries = handle_payer_information(patient)
           else
             entries = patient.entries_for_oid(data_criteria_oid)
             codes = []
@@ -120,6 +122,10 @@ module HealthDataStandards
           else
             []
           end
+        end
+
+        def handle_payer_information(patient)
+          patient.insurance_providers
         end
       end
     end

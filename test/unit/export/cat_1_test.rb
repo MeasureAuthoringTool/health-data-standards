@@ -33,6 +33,15 @@ class Cat1Test < MiniTest::Unit::TestCase
     assert_equal 'Multivitamin', entries[0].description
   end
 
+  def test_payer_information
+    data_criteria = OpenStruct.new(definition: "patient_characteristic_payer",
+                                   status: "",
+                                   negation: false)
+    entries = entries_for_data_criteria(data_criteria, @patient)
+    assert_equal 1, entries.length
+    assert entries.first.codes['Source of Payment Typology'].include?('6')
+  end
+
   def test_unique_data_criteria
     pairs = unique_data_criteria(@measures)
     assert pairs
