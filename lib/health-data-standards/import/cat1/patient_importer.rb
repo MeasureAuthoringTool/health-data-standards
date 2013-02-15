@@ -79,9 +79,9 @@ module HealthDataStandards
         def import_sections(record, doc)
           nrh = CDA::NarrativeReferenceHandler.new
           nrh.build_id_map(doc)
-          @section_importers.each do |section, entries|
-            entries.each do |entry|
-              record.send(section) << entry.package_entries(doc, nrh)
+          @section_importers.each do |section, entry_packages|
+            entry_packages.each do |entry_package|
+              record.send(section) << entry_package.package_entries(doc, nrh)
             end
           end
         end

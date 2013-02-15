@@ -5,7 +5,7 @@ module HealthDataStandards
 
         attr_accessor :importer_type, :hqmf_oid, :status
 
-        def initialize (type = nil, oid = nil, stat = nil)
+        def initialize (type, oid, stat = nil)
           self.importer_type = type
           self.hqmf_oid = oid
           self.status = stat
@@ -13,11 +13,8 @@ module HealthDataStandards
 
         def package_entries (doc, nrh)
           entries = self.importer_type.create_entries(doc, nrh)
-          if entries.present?
-            entries.map {|entry| entry.oid = self.hqmf_oid}
-            entries.map {|entry| entry.status = self.status}
-            entries
-          end
+          entries.map {|entry| entry.oid = self.hqmf_oid, entry.status = self.status}
+          entries
         end
         
       end
