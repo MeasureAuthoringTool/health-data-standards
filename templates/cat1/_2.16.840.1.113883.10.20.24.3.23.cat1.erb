@@ -43,5 +43,9 @@
       </participantRole>
     </participant>
     <% end -%>
+    <% if entry.discharge_disposition.present? -%>
+    <sdtc:dischargeDispositionCode code="<%= entry.discharge_disposition['code'] %>" 
+            codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.discharge_disposition['codeSystem']) %>"/>
+    <% end -%>
   </encounter>
 </entry>
