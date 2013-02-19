@@ -1,6 +1,16 @@
 require 'test_helper'
 
 class PatientImporterTest < MiniTest::Unit::TestCase
+
+  def test_care_goal
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/care_goal_fragment.xml')
+    care_goal = patient.care_goals.first
+    assert care_goal.codes['SNOMED-CT'].include?('252465000')
+    assert care_goal.oid
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('201101011400')
+    assert_equal expected_start, care_goal.start_time
+  end
+
   def test_ecog_status_importing
     patient = build_record_from_xml('test/fixtures/cat1_fragments/ecog_fragment.xml')
     ecog_status = patient.conditions.first
@@ -23,20 +33,8 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     patient = build_record_from_xml('test/fixtures/cat1_fragments/physical_exam_performed_fragment.xml')
     physical_exam = patient.procedures.first
     assert physical_exam.codes['LOINC'].include?('8462-4')
-  end
-
-  def test_procedure_intolerance
-    patient = build_record_from_xml('test/fixtures/cat1_fragments/procedure_intolerance_fragment.xml')
-    procedure_intolerance = patient.allergies.first
-    assert procedure_intolerance.codes['CPT'].include?('90668')
-  end
-
-  def test_procedure_order
-    patient = build_record_from_xml('test/fixtures/cat1_fragments/procedure_order_fragment.xml')
-    procedure_order = patient.procedures.first
-    assert procedure_order.codes['CPT'].include?('90870')
-    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20110524094323')
-    assert_equal expected_start, procedure_order.start_time
+    assert physical_exam.oid
+    assert physical_exam.status
   end
 
   def test_procedure_performed
@@ -201,14 +199,17 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19910425090834')
     expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19910426051840')
     assert pe_finding.codes['LOINC'].include?('8480-6')
+    assert pe_finding.oid
     assert_equal expected_start, pe_finding.start_time
     assert_equal expected_end, pe_finding.end_time
   end
 
   def test_condition_expired
-    patient = build_record_from_xml('test/fixtures/cat1_fragments/condition_expired_fragment.xml')
-    cond_exp = patient.conditions.first
-    assert cond_exp.codes['SNOMED-CT'].include?('419099009')
+    patient = Record.new
+    doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/condition_expired_fragment.xml'))
+    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+    HealthDataStandards::Import::Cat1::PatientImporter.instance.get_patient_expired(patient, doc)
+    assert patient.expired
   end
 
   def test_functional_status_result
@@ -274,7 +275,6 @@ class PatientImporterTest < MiniTest::Unit::TestCase
   def build_record_from_xml(xml_file)
     doc = Nokogiri::XML(File.new(xml_file))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-    
     patient = Record.new
     HealthDataStandards::Import::Cat1::PatientImporter.instance.import_sections(patient, doc)
     patient
