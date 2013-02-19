@@ -143,6 +143,7 @@ require_relative 'health-data-standards/import/cat1/lab_order_importer'
 require_relative 'health-data-standards/import/cat1/medication_dispensed_importer'
 require_relative 'health-data-standards/import/cat1/encounter_order_importer'
 require_relative 'health-data-standards/import/cat1/diagnostic_study_order_importer'
+require_relative 'health-data-standards/import/cat1/tobacco_use_importer'
 require_relative 'health-data-standards/import/cat1/entry_package'
 
 
