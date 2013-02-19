@@ -27,6 +27,7 @@ class HTMLTest < MiniTest::Unit::TestCase
     assert !(result.match /testing/).nil? # BMI Value
     assert !(result.match /Severity/).nil? # severity on primigravidia
     assert !(result.match /6736007/).nil? # severity on primigravidia
+    assert !(result.match /Blue\ Cross\/Blue\ Shield/).nil? #insurance provider
     
     # require 'fileutils'
     # FileUtils.mkdir_p File.join(".","tmp")
