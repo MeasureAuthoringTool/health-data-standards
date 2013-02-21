@@ -7,6 +7,8 @@ require 'iconv'
 module HQMF
   module ValueSet
     class Parser
+
+      attr_accessor :child_oids
   
       GROUP_CODE_SET = "GROUPING"
   
@@ -27,6 +29,7 @@ module HQMF
       IGNORED_CODE_SYSTEM_NAMES = ['Grouping', 'GROUPING' ,'HL7', "Administrative Sex"]
   
       def initialize()
+        @child_oids = []
       end
   
       # import an excel matrix array into mongo
@@ -51,6 +54,7 @@ module HQMF
 #            codes << by_oid_ungrouped.delete(child_oid)
             # do not delete the children of a group.  These may be referenced by other groups or directly by the measure
             code = by_oid_ungrouped[child_oid]
+            @child_oids << child_oid
             puts "\tcode could not be found: #{child_oid}" unless code
             codes << code if code
             # for hierarchies we need to probably have codes be a hash that we select from if we don't find the
