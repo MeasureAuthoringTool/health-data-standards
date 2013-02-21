@@ -139,6 +139,10 @@ require_relative 'health-data-standards/import/cat1/procedure_order_importer'
 require_relative 'health-data-standards/import/cat1/diagnosis_active_importer'
 require_relative 'health-data-standards/import/cat1/patient_importer'
 
+require_relative 'health-data-standards/models/bundle'
+require_relative 'health-data-standards/models/measure'
+require_relative 'health-data-standards/import/bundle/importer'
+
 
 module HealthDataStandards
   class << self
