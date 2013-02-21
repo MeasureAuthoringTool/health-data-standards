@@ -27,7 +27,7 @@ module HealthDataStandards
           entry_list = []
           entry_elements = @entry_finder.entries(doc)
           entry_elements.each do |entry_element|
-            entry = create_entry(entry_element)
+            entry = create_entry(entry_element, nrh)
             if @check_for_usable
               entry_list << entry if entry.usable?
             else

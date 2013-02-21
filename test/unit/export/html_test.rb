@@ -17,12 +17,12 @@ class HTMLTest < MiniTest::Unit::TestCase
     assert !(result.match /December 11th, 1980 23:50/).nil? # birthdate
     assert !(result.match /Female/).nil? # gender
     assert !(result.match /Penicillin/).nil? # Penicillin
-    assert !(result.match /RxNorm: 70618/).nil? # Penicillin
+    assert !(result.match /RxNorm: .*\n.*70618/).nil? # Penicillin
     assert !(result.match /April 21st, 2010 00:37/).nil? # Penicillin
     assert !(result.match /Live birth/).nil? # Live birth
     assert !(result.match /July 20th, 2010 19:47/).nil? # live birth
     assert !(result.match /BMI/).nil? # BMI
-    assert !(result.match /SNOMED-CT: 225171007/).nil? # BMI
+    assert !(result.match /SNOMED-CT: .*\n.*225171007/).nil? # BMI
     assert !(result.match /February 20th, 2010 11:13/).nil? # BMI
     assert !(result.match /testing/).nil? # BMI Value
     assert !(result.match /Severity/).nil? # severity on primigravidia

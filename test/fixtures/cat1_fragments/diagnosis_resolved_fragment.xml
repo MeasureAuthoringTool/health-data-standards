@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="cda.xsl"?>
+<ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:hl7-org:v3" xmlns:voc="urn:hl7-org:v3/voc" xmlns:sdtc="urn:hl7-org:sdtc">
+  <component>
+    <structuredBody>
+      <component>
+        <section>
+          <entry>
+            <observation classCode="OBS" moodCode="EVN">
+              <!--  Problem observation template -->
+              <templateId root="2.16.840.1.113883.10.20.22.4.4"/>
+              <!-- Diagnosis, resolved template -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.14"/>
+              <id root="50f84c187042f98775000089"/>
+              <code code="282291009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="diagnosis"/>
+              
+              <statusCode code="completed"/>
+              <effectiveTime>
+                <!-- Attribute: Start Datetime -->
+                <low value='20030403010254'/>
+                <!-- Attribute: Stop Datetime -->
+                <high value='20030403121452'/>
+              </effectiveTime>
+              
+
+              <value code="94643001" codeSystem="2.16.840.1.113883.6.96" xsi:type="CD" sdtc:valueSet="2.16.840.1.113883.3.464.1003.108.12.1001"><originalText>Diagnosis, Resolved: Malignant Neoplasm of Colon (Code List: 2.16.840.1.113883.3.464.1003.108.12.1001)</originalText><translation code="197.5" codeSystem="2.16.840.1.113883.6.103"/>
+          <translation code="C21.8" codeSystem="2.16.840.1.113883.6.90"/>
+          </value>
+              <!-- Status -->
+              <entryRelationship typeCode="REFR">
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Problem Status (consolidation) template -->
+                  <templateId root="2.16.840.1.113883.10.20.22.4.6"/>
+                  <!-- Problem Status, Resolved template -->
+                  <templateId root="2.16.840.1.113883.10.20.24.3.96"/>
+                  <id root="272e2b20-4307-0130-0add-680688cbd736"/>
+                  <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="status"/>
+                  <statusCode code="completed"/>
+                  <value code="413322009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="resolved" xsi:type="CD"/>
+                </observation>
+              </entryRelationship>
+            </observation>
+          </entry>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>

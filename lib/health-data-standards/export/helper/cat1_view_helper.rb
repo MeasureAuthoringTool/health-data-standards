@@ -20,6 +20,8 @@ module HealthDataStandards
             filtered_entries = handle_patient_expired(patient)
           when '2.16.840.1.113883.3.560.1.401'
             filtered_entries = handle_clinical_trial_participant(patient)
+          when '2.16.840.1.113883.3.560.1.405'
+            filtered_entries = handle_payer_information(patient)
           else
             entries = patient.entries_for_oid(data_criteria_oid)
             codes = []
@@ -76,6 +78,10 @@ module HealthDataStandards
                 # Patient Charasteristic Gestational Age
                 render(:partial => '2.16.840.1.113883.10.20.24.3.101', :locals => {:entry => entry,
                                                                                    :value_set_oid => vs_oid})
+              elsif vs_oid == "2.16.840.1.113883.3.526.3.1189" || vs_oid == "2.16.840.1.113883.3.526.3.1170"
+                # Patient Characteristic Tobacco User/Non-User
+                render(:partial => '2.16.840.1.113883.10.20.22.4.85', :locals => {:entry => entry,
+                                                                                   :value_set_oid => vs_oid})  
               end
             else
               render(:partial => HealthDataStandards::Export::QRDA::EntryTemplateResolver.partial_for(dc_oid), :locals => {:entry => entry,
@@ -116,6 +122,10 @@ module HealthDataStandards
           else
             []
           end
+        end
+
+        def handle_payer_information(patient)
+          patient.insurance_providers
         end
       end
     end

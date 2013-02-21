@@ -11,7 +11,6 @@ module HealthDataStandards
 
         def create_entry(entry_element, nrh = CDA::NarrativeReferenceHandler.new)
           condition = super
-          condition.status = {'SNOMED-CT' => '55561003'}
           condition
         end
       end
