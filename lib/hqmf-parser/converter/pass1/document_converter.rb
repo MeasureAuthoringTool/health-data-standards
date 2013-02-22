@@ -13,10 +13,12 @@ module HQMF
       metadata.keys.each {|key| metadata[key.to_s] = metadata[key]; metadata.delete(key.to_sym)}
       
       id = metadata["NQF_ID_NUMBER"][:value] if metadata["NQF_ID_NUMBER"]
+      emeasure_id = metadata['EMEASURE_IDENTIFIER'][:value] if metadata['EMEASURE_IDENTIFIER']
       attributes = parse_attributes(metadata)
       hqmf_id = json[:hqmf_id]
       hqmf_set_id = json[:hqmf_set_id]
       hqmf_version_number = json[:hqmf_version_number]
+      cms_id = "CMS#{emeasure_id}v#{hqmf_version_number}"
       
       measure_period = parse_measure_period(json)
       @data_criteria_converter = DataCriteriaConverter.new(json, measure_period)
@@ -41,7 +43,7 @@ module HQMF
       
       populations = @population_criteria_converter.sub_measures
       
-      doc = HQMF::Document.new(id, hqmf_id, hqmf_set_id, hqmf_version_number, title, description, population_criteria, data_criteria, source_data_criteria, attributes, measure_period, populations)
+      doc = HQMF::Document.new(id, hqmf_id, hqmf_set_id, hqmf_version_number, cms_id, title, description, population_criteria, data_criteria, source_data_criteria, attributes, measure_period, populations)
        
       backfill_patient_characteristics_with_codes(doc, codes)
       
