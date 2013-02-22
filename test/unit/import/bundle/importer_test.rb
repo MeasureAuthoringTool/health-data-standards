@@ -48,11 +48,11 @@ class ImporterTest< MiniTest::Unit::TestCase
     loader = HealthDataStandards::Import::Bundle::Importer
     begin
       bundle = loader.import(File.new(@b_2_0_1), {delete_existing: true})
-      m_count = Measure.count
+      m_count = HealthDataStandards::CQM::Measure.count
       r_count = Record.count
 
       bundle = loader.import(File.new(@b_2_0_1), {delete_existing: true})
-      assert_equal 1, Bundle.count, "Should only be 1 bundle in the db "
+      assert_equal 1, HealthDataStandards::CQM::Bundle.count, "Should only be 1 bundle in the db "
 
       assert_equal m_count, bundle.measures.count, "Only the measures loaded in the last bundle should be available"
       assert_equal r_count, bundle.records.count, "Only the records loaded in the last bundle should be available"
@@ -69,11 +69,11 @@ class ImporterTest< MiniTest::Unit::TestCase
     loader = HealthDataStandards::Import::Bundle::Importer
     begin
       bundle = loader.import(File.new(@b_2_0_1), {clear_db: true})
-      m_count = Measure.count
+      m_count = HealthDataStandards::CQM::Measure.count
       r_count = Record.count
 
       bundle = loader.import(File.new(@b_2_0_1), {clear_db: true})
-      assert_equal 1, Bundle.count, "Should only be 1 bundle in the db "
+      assert_equal 1, HealthDataStandards::CQM::Bundle.count, "Should only be 1 bundle in the db "
 
       assert_equal m_count, bundle.measures.count, "Only the measures loaded in the last bundle should be available"
       assert_equal r_count, bundle.records.count, "Only the records loaded in the last bundle should be available"
@@ -117,9 +117,9 @@ class ImporterTest< MiniTest::Unit::TestCase
   	assert_clean_db
   	loader = HealthDataStandards::Import::Bundle::Importer
   	bundle = loader.import(File.new(@b_2_0_1), {delete_existing: false})
-  	assert_equal  1, Bundle.count , "Should be 1 bundle in the db"
-  	assert_equal  2, Measure.count ,  "Should be 12 measure in the db"
-    assert_equal  Measure.count, bundle.measures.count, "Number of measures total measures should equal number of measures in the db"
+  	assert_equal  1,  HealthDataStandards::CQM::Bundle.count , "Should be 1 bundle in the db"
+  	assert_equal  2,  HealthDataStandards::CQM::Measure.count ,  "Should be 12 measure in the db"
+    assert_equal   HealthDataStandards::CQM::Measure.count, bundle.measures.count, "Number of measures total measures should equal number of measures in the db"
   	assert_equal  57 ,Record.count , "Should be 0 records in the db"
   	assert_equal  4780, @db["patient_cache"].where({}).count , "Should be 0 entries in the patient_cache "
   	#assert_equal  0, @db["query_cache"].where({}).count ,"Should be 0 entries in the query_cache "
@@ -127,18 +127,18 @@ class ImporterTest< MiniTest::Unit::TestCase
 
 
   	bundle2 = loader.import(File.new(@b_2_0_2),{delete_existing: false})
-  	assert_equal 2 ,Bundle.count ,  "Should be 2 bundle in the db"
-  	assert_equal 5, Measure.count , "Should be 4 measure in the db"
+  	assert_equal 2 , HealthDataStandards::CQM::Bundle.count ,  "Should be 2 bundle in the db"
+  	assert_equal 5,  HealthDataStandards::CQM::Measure.count , "Should be 4 measure in the db"
   	assert_equal 114, Record.count ,  "Should be 114 records in the db"
   	assert_equal  4780*2 , @db["patient_cache"].where({}).count , "Should be 0 entries in the patient_cache "
   	assert  @db["query_cache"].where({}).count > 0 ,"Should be 0 more than  entries in the query_cache "
 
   
-  	measure_0002 =Measure.where({"nqf_id" => "0002"})
+  	measure_0002 = HealthDataStandards::CQM::Measure.where({"nqf_id" => "0002"})
     assert_equal 2, measure_0002.count, "There should be 2 instances of measure 0002 in the db. One for each bundle"
-  	measure_0003 = Measure.where({"nqf_id" => "0003"})
+  	measure_0003 =  HealthDataStandards::CQM::Measure.where({"nqf_id" => "0003"})
   	assert_equal 2,measure_0003.count ,  "There should only be 2 measure 0003 in the db"
-    measure_0004 = Measure.where({"nqf_id" => "0004"})
+    measure_0004 =  HealthDataStandards::CQM::Measure.where({"nqf_id" => "0004"})
     assert_equal 1,measure_0004.count ,  "There should only be 1 measure 0004 in the db"
     assert_equal bundle2.id, measure_0004.first["bundle_id"], "Measure 0003 bundle should equal the bundle it was loaded from"
   	

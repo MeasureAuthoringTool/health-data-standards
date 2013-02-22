@@ -11,17 +11,17 @@ module HealthDataStandards
 		  # @param [Boolean] keep_existing If true, delete all current collections related to patients and measures.
 		  def self.import(zip,  options={})
 		    
-		    bundle_versions = Hash[*::Bundle.where({}).collect{|b| [b._id, b.version]}.flatten]
+		    bundle_versions = Hash[* HealthDataStandards::CQM::Bundle.where({}).collect{|b| [b._id, b.version]}.flatten]
 		    # Unpack content from the bundle.
 		    bundle_contents = unpack_bundle_contents(zip, options[:type])
-		    bundle = ::Bundle.new( JSON.parse(bundle_contents[:bundle]))
+		    bundle =  HealthDataStandards::CQM::Bundle.new( JSON.parse(bundle_contents[:bundle]))
 		    
 		    if bundle_versions.invert[bundle.version]  && !(options[:delete_existing] || options[:clear_db])
 		      raise "A bundle with version #{bundle.version} already exists in the database. "
 		    end
 
 		    drop_collections(COLLECTION_NAMES+(options[:clear_collections]||[])) if options[:clear_db]
-		    ::Bundle.where({:version => bundle.version}).each {|b| b.delete}
+		     HealthDataStandards::CQM::Bundle.where({:version => bundle.version}).each {|b| b.delete}
 		    # Store all JS libraries.
 		    bundle_contents[:extensions].each do |key, contents|
 		      save_system_js_fn(key, contents)
@@ -40,13 +40,13 @@ module HealthDataStandards
 		    # Store all measures.
 		    bundle_contents[:measures].each do |key, contents|
 		      json = JSON.parse(contents, {:max_nesting => 100})
-		      measure = Measure.new(json)      
+		      measure =  HealthDataStandards::CQM::Measure.new(json)      
 		      measure['bundle_id'] = bundle_id
 		      measure.save
 
 		      if options[:update_measures]
-		      	Measure.where({hqmf_id: measure["hqmf_id"], sub_id: measure["sub_id"]}).each do |m|
-		      		b = ::Bundle.find(m["bundle_id"])
+		      	 HealthDataStandards::CQM::Measure.where({hqmf_id: measure["hqmf_id"], sub_id: measure["sub_id"]}).each do |m|
+		      		b = HealthDataStandards::CQM::Bundle.find(m["bundle_id"])
 		      		if b.version < bundle.version
 		      			m.update_attributes!(json)
 		      		end
