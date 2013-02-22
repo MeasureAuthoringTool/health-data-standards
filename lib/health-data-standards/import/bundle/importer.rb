@@ -127,6 +127,7 @@ module HealthDataStandards
 		      end
 		      bundle_contents[:extensions][entry_key(entry.name,"js")] = zipfile.read(entry.name) if entry.name.match /^library_functions.*\.js/
 
+		      bundle_contents[:valuesets][entry_key(entry.name,"json")] = zipfile.read(entry.name) if entry.name.match /^value_sets.*\.json/
 		    end
 		  end
 		  bundle_contents

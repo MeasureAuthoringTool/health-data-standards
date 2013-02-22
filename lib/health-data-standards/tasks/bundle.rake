@@ -29,7 +29,7 @@ namespace :bundle do
     raise "Two bundle zip file paths to be merged must be specified" unless args.bundle_one && args.bundle_two
     
     tmpdir = Dir.mktmpdir
-    ['measures','patients','library_functions','results', 'sources'].each do |dir|
+    ['measures','patients','library_functions','results', 'sources', 'value_sets'].each do |dir|
       
       FileUtils.mkdir_p(File.join(tmpdir, 'output', dir))
       
@@ -51,6 +51,16 @@ namespace :bundle do
       ['measures','patients','library_functions', 'sources'].each do |dir|
         ['one','two'].each do |key|
           FileUtils.mv(Dir.glob(File.join(tmpdir,key,dir,'*')), File.join(tmpdir,'output',dir))
+        end
+      end
+
+      ['value_sets'].each do |dir|
+        FileUtils.mkdir_p(File.join(tmpdir,'output',dir,'json'))
+        FileUtils.mkdir_p(File.join(tmpdir,'output',dir,'xml'))
+        ['one','two'].each do |key|
+          ['json', 'xml'].each do |type|
+            FileUtils.mv(Dir.glob(File.join(tmpdir,key,dir,type,'*')), File.join(tmpdir,'output',dir,type))
+          end
         end
       end
       
