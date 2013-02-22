@@ -19,6 +19,8 @@ class Record
   field :clinicalTrialParticipant, type: Boolean   # Currently not implemented in the C32 importer
                                                    # because it cannot be easily represented in a
                                                    # HITSP C32
+
+  index "last" => 1                                                   
   embeds_many :allergies
   embeds_many :care_goals, class_name: "Entry" # This can be any number of different entry types
   embeds_many :conditions

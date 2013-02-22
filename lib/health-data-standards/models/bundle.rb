@@ -29,9 +29,9 @@ class Bundle
   end
 
   def delete
-    self.measures.delete
-    records.delete
-    value_sets.delete
+    self.measures.destroy
+    self.records.destroy
+    self.value_sets.destroy
     super
   end
 

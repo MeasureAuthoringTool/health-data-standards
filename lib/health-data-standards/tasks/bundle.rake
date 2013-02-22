@@ -4,20 +4,22 @@ db_name = ENV['DB_NAME'] || 'test'
 
 namespace :bundle do
   desc 'Import a quality bundle into the database.'
-  task :import, [:bundle_path,  :delete_existing, :type, :update_measures] => [:environment] do |task, args|
+  task :import, [:bundle_path,  :delete_existing,  :update_measures, :type] => [:environment] do |task, args|
     raise "The path to the measures zip file must be specified" unless args.bundle_path
-    options = {:clear_db => args.delete_existing == "true",
-    					 :type => args.type,
-    					 :update_measures => args.update_measures == "true"}
+    options = {:clear_db => (args.delete_existing == "true"),
+    					 :type => args.type ,
+    					 :update_measures => (args.update_measures == "true")
+    					}
+
     bundle = File.open(args.bundle_path)    
     importer = HealthDataStandards::Import::Bundle::Importer
     bundle_contents = importer.import(bundle, options)
     
     puts "Successfully imported bundle at: #{args.bundle_path}"
     puts "\t Imported into environment: #{Rails.env.upcase}" if defined? Rails 
-    puts "\t Loaded #{args.type || "all} measures"
-    puts "\t Measures Loaded: #{bundle_contents[:measures].count}"
-    puts "\t Test Patients Loaded: #{bundle_contents[:patients].count}"
+    puts "\t Loaded #{args.type || 'all'} measures"
+    puts "\t Measures Loaded: #{bundle_contents.measures.count}"
+    puts "\t Test Patients Loaded: #{bundle_contents.records.count}"
     puts "\t Extensions Loaded: #{bundle_contents[:extensions].count}"
   end
   
