@@ -41,7 +41,7 @@
   </td>
   <td>
 	  <% 
-	    (entry.attributes.keys.reject {|key| ['codes', 'time', 'description', 'mood_code', 'values', '_id', '_type', 'start_time', 'end_time', 'status_code', 'negationInd', 'oid'].include? key}).each do |field|
+	    (entry.attributes.keys.reject {|key| ['codes', 'time', 'description', 'mood_code', 'values', '_id', '_type', 'start_time', 'end_time', 'status_code', 'negationInd', 'oid'].include? key}).sort.each do |field|
       field_value = convert_field_to_hash(field, entry.attributes[field])
 
     %>
@@ -49,7 +49,7 @@
         <dl>
           <% if field_value.is_a? Hash %>
             <dt><b><%= field.titleize %>:</b></dt>
-	          <% field_value.keys.each do |fieldkey| %>
+	          <% field_value.keys.sort.reverse.each do |fieldkey| %>
 	            <dd><%= fieldkey %>: <i><%= field_value[fieldkey] %></i></dd>
 	          <% end %>
           <% else %>
