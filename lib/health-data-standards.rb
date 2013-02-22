@@ -145,6 +145,10 @@ require_relative 'health-data-standards/import/cat1/encounter_order_importer'
 require_relative 'health-data-standards/import/cat1/diagnostic_study_order_importer'
 require_relative 'health-data-standards/import/cat1/entry_package'
 
+require_relative 'health-data-standards/models/cqm/bundle'
+require_relative 'health-data-standards/models/cqm/measure'
+require_relative 'health-data-standards/import/bundle/importer'
+
 
 module HealthDataStandards
   class << self
