@@ -66,6 +66,8 @@ module HealthDataStandards
           @section_importers[:encounters] = [EntryPackage.new(CDA::EncounterImporter.new(CDA::EntryFinder.new("//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']")), '2.16.840.1.113883.3.560.1.79', 'performed'), #encounter performed
                                              EntryPackage.new(EncounterOrderImporter.new, '2.16.840.1.113883.3.560.1.83', 'ordered')].compact
 
+          @section_importers[:social_history] = [EntryPackage.new(TobaccoUseImporter.new, '2.16.840.1.113883.3.560.1.1001', 'completed')].compact
+
         end 
 
         def parse_cat1(doc)
