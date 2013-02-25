@@ -4,13 +4,19 @@ module HealthDataStandards
 			
 			class Importer
 			COLLECTION_NAMES = ["bundles", "records", "measures", "selected_measures", "patient_cache", "query_cache", "system.js"]
+			DEFAULTS = {clear_db: false, 
+									type: nil,
+							    delete_existing: false,
+								  update_measures: true,
+								  clear_collections: COLLECTION_NAMES
+								}
 			# Import a quality bundle into the database. This includes metadata, measures, test patients, supporting JS libraries, and expected results.
 		  #
 		  # @param [File] zip The bundle zip file.
 		  # @param [String] Type of measures to import, either 'ep', 'eh' or nil for all
 		  # @param [Boolean] keep_existing If true, delete all current collections related to patients and measures.
 		  def self.import(zip,  options={})
-		    
+		    options = DEFAULTS.merge(options)
 		    bundle_versions = Hash[* HealthDataStandards::CQM::Bundle.where({}).collect{|b| [b._id, b.version]}.flatten]
 		    # Unpack content from the bundle.
 		    bundle_contents = unpack_bundle_contents(zip, options[:type])
