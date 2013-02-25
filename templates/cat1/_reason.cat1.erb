@@ -10,7 +10,7 @@
     <effectiveTime <%= value_or_null_flavor(entry.start_time) %>/>
     <value xsi:type="CD" 
          code="<%= entry.negation_reason['code'] %>" 
-         codeSystem="<%= entry.negation_reason['codeSystem'] %>"/>
+         codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.negation_reason['codeSystem'] || entry.negation_reason['code_system']) %>"/>
   </observation>
 </entryRelationship>
 <% end -%>
