@@ -11,6 +11,7 @@
     
     <effectiveTime>
       <low <%= value_or_null_flavor(entry.start_time) %>/>
+      <high <%= value_or_null_flavor(entry.removal_time || entry.end_time) %>/>
     </effectiveTime>
     
     <% if entry.respond_to?(:anatomical_structure) && entry.anatomical_structure.present? -%>
