@@ -65,9 +65,7 @@ namespace :bundle do
       json_two = JSON.parse(File.new(File.join(tmpdir,'two','bundle.json')).read)
       json_out = {}
 
-      ['title','effective_date','version','license','exported'].each do |key|
-        json_out[key] = json_one[key]
-      end
+      json_out.merge! json_one
 
       ['measures','patients','extensions'].each do |key|
         json_out[key] = (json_one[key] + json_two[key]).uniq
