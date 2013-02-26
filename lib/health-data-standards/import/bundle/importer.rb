@@ -46,15 +46,18 @@ module HealthDataStandards
 		    # Store all measures.
 		    bundle_contents[:measures].each do |key, contents|
 		      json = JSON.parse(contents, {:max_nesting => 100})
-		      measure =  HealthDataStandards::CQM::Measure.new(json)      
+		      measure = json.clone
+		      # measure =  HealthDataStandards::CQM::Measure.new(json)
 		      measure['bundle_id'] = bundle_id
-		      measure.save
+		      Mongoid.default_session["measures"].insert(measure)
+	
 
 		      if options[:update_measures]
-		      	 HealthDataStandards::CQM::Measure.where({hqmf_id: measure["hqmf_id"], sub_id: measure["sub_id"]}).each do |m|
+		      	  Mongoid.default_session["measures"].where({hqmf_id: measure["hqmf_id"], sub_id: measure["sub_id"]}).each do |m|
 		      		b = HealthDataStandards::CQM::Bundle.find(m["bundle_id"])
 		      		if b.version < bundle.version
-		      			m.update_attributes!(json)
+		      			m.merge!(json)
+		      			Mongoid.default_session["measures"].where({"_id" => m["_id"]}).update(m)
 		      		end
 
 		      	end
