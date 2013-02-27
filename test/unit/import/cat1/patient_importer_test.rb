@@ -222,16 +222,6 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert_equal expected_end, func_stat_result.end_time
   end
 
-  def test_encounter_performed
-    patient = build_record_from_xml('test/fixtures/cat1_fragments/encounter_performed_fragment.xml')
-    enc_perf = patient.encounters.first
-    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19920316013628')
-    expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19920316141356')
-    assert enc_perf.codes['CPT'].include?('99337')
-    assert_equal expected_start, enc_perf.start_time
-    assert_equal expected_end, enc_perf.end_time
-  end
-
   def test_clinical_trial_participant
     patient = Record.new
     doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/clinical_trial_participant_fragment.xml'))
@@ -270,11 +260,23 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert_equal expected_end, diag_resolved.end_time
   end
 
+  def test_encounter_performed
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/encounter_performed_fragment.xml')
+    encounter = patient.encounters.first
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20061121075239')
+    expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20061122012933')
+    assert encounter.codes['SNOMED-CT'].include?('112689000')
+    assert encounter.discharge_disposition["code"].include?('306699001')
+    assert_equal expected_start, encounter.start_time
+    assert_equal expected_end, encounter.end_time
+  end
+
   private
 
   def build_record_from_xml(xml_file)
     doc = Nokogiri::XML(File.new(xml_file))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+    doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
     patient = Record.new
     HealthDataStandards::Import::Cat1::PatientImporter.instance.import_sections(patient, doc)
     patient

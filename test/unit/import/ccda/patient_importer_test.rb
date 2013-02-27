@@ -5,6 +5,7 @@ module CCDA
     def setup
       @doc = Nokogiri::XML(File.new('test/fixtures/sample_ccda.xml'))
       @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+      @doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
     end
 
     def test_parse_ccda
