@@ -1,0 +1,14 @@
+<precondition typeCode="PRCN">
+  <%- if precondition.conjunction? -%>
+  <<%= precondition.conjunction_code_with_negation %>>
+    <id/>
+    <%- precondition.preconditions.each do |child| -%>
+    <%= xml_for_precondition(child) %>
+    <%- end -%>
+  </<%= precondition.conjunction_code_with_negation %>>
+  <%- else -%>
+    <<%= reference_element_name(precondition.reference.id) %>Reference moodCode="EVN" classCode="<%= reference_type_name(precondition.reference.id) %>">
+      <id root="2.16.840.1.113883.3.100.1" extension="<%= precondition.reference.id %>"/>
+    </<%= reference_element_name(precondition.reference.id) %>Reference>
+  <%- end -%>
+</precondition>

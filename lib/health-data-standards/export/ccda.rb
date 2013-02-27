@@ -1,15 +1,15 @@
 module HealthDataStandards
   module Export
-    module CCDA
-      include TemplateHelper
-      
-      def export(patient)
-        self.template_format = "ccda"
-        self.template_subdir = "ccda"
-        render(:template => 'show', :locals => {:patient => patient})
+    class CCDA
+      def initialize
+        template_helper = TemplateHelper.new('ccda', 'ccda')
+        @rendering_context = RenderingContext.new
+        @rendering_context.template_helper = template_helper
       end
 
-      extend self
+      def export(patient)
+        @rendering_context.render(:template => 'show', :locals => {:patient => patient})
+      end      
     end
   end
 end

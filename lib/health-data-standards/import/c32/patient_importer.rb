@@ -11,7 +11,7 @@ module HealthDataStandards
 
         include Singleton
         include HealthDataStandards::Util
-        include HealthDataStandards::Import::C32::LocatableImportUtils
+        include HealthDataStandards::Import::CDA::LocatableImportUtils
 
         # Creates a new PatientImporter with the following XPath expressions used to find content in 
         # a HITSP C32:
@@ -55,31 +55,18 @@ module HealthDataStandards
         #    ./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code
         def initialize(check_usable = true)
           @section_importers = {}
-          @section_importers[:encounters] = EncounterImporter.new
-          @section_importers[:procedures] = ProcedureImporter.new
-          @section_importers[:results] = ResultImporter.new
-          @section_importers[:vital_signs] = VitalSignImporter.new
-          @section_importers[:medications] = MedicationImporter.new
+          @section_importers[:encounters] = CDA::EncounterImporter.new
+          @section_importers[:procedures] = CDA::ProcedureImporter.new
+          @section_importers[:results] = CDA::ResultImporter.new
+          @section_importers[:vital_signs] = CDA::VitalSignImporter.new
+          @section_importers[:medications] = CDA::MedicationImporter.new
           @section_importers[:conditions] = ConditionImporter.new
-          @section_importers[:social_history] = SectionImporter.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.19']")
+          @section_importers[:social_history] = CDA::SectionImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.19']"))
           @section_importers[:care_goals] = CareGoalImporter.new
-          @section_importers[:medical_equipment] = MedicalEquipmentImporter.new
-          @section_importers[:allergies] = AllergyImporter.new
+          @section_importers[:medical_equipment] = CDA::MedicalEquipmentImporter.new
+          @section_importers[:allergies] = CDA::AllergyImporter.new
           @section_importers[:immunizations] = ImmunizationImporter.new
           @section_importers[:insurance_providers] = InsuranceProviderImporter.new
-        end
-
-        def build_id_map(doc)
-          id_map = {}
-          path = "//*[@ID]"
-          ids = doc.xpath(path)
-          ids.each do |id|
-            tag = id['ID']
-            value = id.content
-            id_map[tag] = value
-          end
-
-          id_map
         end
 
         # @param [boolean] value for check_usable_entries...importer uses true, stats uses false 
@@ -110,8 +97,10 @@ module HealthDataStandards
         # @param [Record] c32_patient to check the conditions on and set the expired
         #               property if applicable
         def check_for_cause_of_death(c32_patient)
-          if c32_patient.conditions.any? {|condition| condition.cause_of_death }
+          cause_of_death = c32_patient.conditions.detect {|condition| condition.cause_of_death }
+          if cause_of_death
             c32_patient.expired = true
+            c32_patient.deathdate = cause_of_death.time_of_death
           end
         end
 
@@ -121,9 +110,10 @@ module HealthDataStandards
         #        will have the "cda" namespace registered to "urn:hl7-org:v3"
         # @return [Hash] a represnetation of the patient with symbols as keys for each section
         def create_c32_hash(record, doc)
-          id_map = build_id_map(doc)
+          nrh = CDA::NarrativeReferenceHandler.new
+          nrh.build_id_map(doc)
           @section_importers.each_pair do |section, importer|
-            record.send(section.to_setter, importer.create_entries(doc, id_map))
+            record.send(section.to_setter, importer.create_entries(doc, nrh))
           end
         end
 
@@ -135,15 +125,18 @@ module HealthDataStandards
         def get_demographics(patient, doc)
           effective_date = doc.at_xpath('/cda:ClinicalDocument/cda:effectiveTime')['value']
           patient.effective_time = HL7Helper.timestamp_to_integer(effective_date)
-          patient_element = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient')
+          patient_role_element = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole')
+          patient_element = patient_role_element.at_xpath('./cda:patient')
+          patient.title = patient_element.at_xpath('cda:name/cda:title').try(:text)
           patient.first = patient_element.at_xpath('cda:name/cda:given').text
           patient.last = patient_element.at_xpath('cda:name/cda:family').text
           birthdate_in_hl7ts_node = patient_element.at_xpath('cda:birthTime')
           birthdate_in_hl7ts = birthdate_in_hl7ts_node['value']
           patient.birthdate = HL7Helper.timestamp_to_integer(birthdate_in_hl7ts)
+
           gender_node = patient_element.at_xpath('cda:administrativeGenderCode')
           patient.gender = gender_node['code']
-          id_node = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:id')
+          id_node = patient_role_element.at_xpath('./cda:id')
           patient.medical_record_number = id_node['extension']
           
           # parse race, ethnicity, and spoken language
@@ -151,16 +144,16 @@ module HealthDataStandards
           patient.race = { code: race_node['code'], code_set: 'CDC-RE' } if race_node
           ethnicity_node = patient_element.at_xpath('cda:ethnicGroupCode')
           patient.ethnicity = {code: ethnicity_node['code'], code_set: 'CDC-RE'} if ethnicity_node
+          marital_status_node = patient_element.at_xpath("./cda:maritalStatusCode")
+          patient.marital_status = {code: marital_status_node['code'], code_set: "HL7 Marital Status"} if marital_status_node
+          ra_node = patient_element.at_xpath("./cda:religiousAffiliationCode")
+          patient.religious_affiliation = {code: ra_node['code'], code_set: "Religious Affiliation"} if ra_node
           languages = patient_element.search('languageCommunication').map {|lc| lc.at_xpath('cda:languageCode')['code'] }
           patient.languages = languages unless languages.empty?
           
-          # parse address information
-          patient.addresses = doc.xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:addr').map do |addr_element|
-            import_address(addr_element)
-          end
-          patient.telecoms = doc.xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:telecom').map do |tele|
-            import_telecom(tele)
-          end
+          patient.addresses = patient_role_element.xpath("./cda:addr").map { |addr| import_address(addr) }
+          patient.telecoms = patient_role_element.xpath("./cda:telecom").map { |tele| import_telecom(tele) }
+          
         end
       end
     end

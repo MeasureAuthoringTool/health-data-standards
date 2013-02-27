@@ -11,7 +11,7 @@ module GreenC32
     def test_extraction
       me = @importer.import(@equipment)
       assert_equal 5.0, me.values.first.scalar
-      assert_equal "strips", me.values.first.unit
+      assert_equal "strips", me.values.first.units
       refute_nil me.manufacturer
       assert_equal "Medical Supply Co.", me.manufacturer
     end

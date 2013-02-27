@@ -1,0 +1,60 @@
+<entry>
+  <act classCode="ACT" moodCode="EVN">
+    <!-- Discharge Medication Entry -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.105"/>
+    <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
+    <code code="10183-2"
+          codeSystem="2.16.840.1.113883.6.1" 
+          codeSystemName="LOINC" 
+          displayName="Discharge medication"/> 
+    <statusCode code="active"/>
+    <effectiveTime>
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+    </effectiveTime>
+    <entryRelationship typeCode="SUBJ">
+      <substanceAdministration moodCode="EVN" classCode="SBADM">
+        <!-- Medication Activity (consolidation) template -->
+        <templateId root="2.16.840.1.113883.10.20.22.4.16"/> 
+        <!-- Medication, Active template -->
+        <templateId root="2.16.840.1.113883.10.20.24.3.41"/>
+        
+        <id root="<%= UUID.generate %>"/>
+        <text><%= entry.description %></text>
+        <statusCode code="active"/> 
+        <effectiveTime xsi:type="IVL_TS">
+            <low <%= value_or_null_flavor(entry.start_time) %>/>
+            <high <%= value_or_null_flavor(entry.end_time) %>/>
+        </effectiveTime>
+        
+        <% if entry.route.present? -%>
+        <!-- Attribute: route -->
+        <routeCode code="<%= entry.route['code'] %>" codeSystem="<%= entry.route['codeSystem'] %>"/>
+        <% end -%>
+        
+        <!-- Attribute: dose -->
+        <% if entry.dose.present? -%>
+        <doseQuantity value="<%= entry.dose['value']%>"/>
+        <% end -%>
+
+
+        <% if entry.product_form.present? -%>
+        <administrationUnitCode code="<%= entry.product_form['code'] %>" codeSystem="<%= entry.product_form['codeSystem'] %>"/>
+        <% end -%>
+
+        <consumable>
+          <manufacturedProduct classCode="MANU">
+            <!-- Medication Information (consolidation) template --> 
+            <templateId root="2.16.840.1.113883.10.20.22.4.23"/>
+            <id root="<%= UUID.generate %>"/>
+            <manufacturedMaterial>
+              <%== code_display(entry, :extra_content => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+            </manufacturedMaterial>
+            <manufacturerOrganization>
+              <name>Medication Factory Inc.</name>
+            </manufacturerOrganization>
+          </manufacturedProduct>
+        </consumable>
+      </substanceAdministration>
+    </entryRelationship>
+  </act>
+</entry>

@@ -1,0 +1,9 @@
+<procedure xmlns="urn:hl7-org:greencda:c32" id="<%=procedure.id%>">
+  <%== render partial: "entry_attributes", locals: {entry: procedure, code_sets: ['CPT', 'ICD-9-CM', 'ICD-10-CM', 'HCPCS', 'SNOMED-CT']}%>
+  <% if procedure.site %>
+    <%== gc32_code_display procedure, "tag_name" => "site", "attribute" => "site", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <% end %>
+  <% if procedure.performer %>
+  <%== render partial: 'provider', locals: {provider: procedure.performer} %>
+  <% end %>
+</procedure>

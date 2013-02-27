@@ -4,26 +4,21 @@
   <td>
     <% entry.codes.each do |set, codes| %>
       <b>
-        <% if concept_map %>
-          <span onmouseover="showConcepts(event,'<%=entry.id%>_<%=set%>')" onmouseout="hideConcepts(event,'<%=entry.id%>_<%=set%>')" style="cursor: pointer;"><%=set %>: <%= codes.join(',') %></span>
+        <% if code_map %>
+          <%= set %>: <i><% codes.each do |code| %>
+                              <span onmouseover="showCodes(event,'<%=entry.id%>_<%=set%>_<%=code.to_s%>')" onmouseout="hideCodes(event,'<%=entry.id%>_<%=set%>_<%=code.to_s%>')" style="cursor:pointer;"><%=code.to_s%></span>
+                          <% end %>
+                      </i>
         <% else %>
-          <%=set %>: <%= codes.join(',') %>
+          <%= set %>: <%= codes.join(',') %>
         <% end %>
       </b>
-      <br/>
-      <% if concept_map %>
-        <%
-          matches = []
-          codes.each do |code|
-            matches.concat(concept_map[set][code].values) if concept_map[set][code]
-          end
-        %>
-        <ul id="<%=entry.id%>_<%=set%>" style="display: none; position: absolute; background: #EEE; padding: 10px; padding-left: 30px; width: 600px; z-index: 3000;">
-          <% matches.each do |concept_match| %>
-            <li><%= concept_match[:concept].titleize %> (<%= concept_match[:oid]%>)</li>
-          <% end %>
-        </ul>
+      <% if code_map %>
+        <% codes.each do |code| %>
+          <span id="<%=entry.id%>_<%=set%>_<%=code.to_s%>" style="display: none; position: absolute; background: #EEE; padding: 10px; paddint-left: 30px; width: 200px; overflow: auto; z-index: 3000;"> <% description = code_map[set][code] if (code_map && code_map[set]) %><%= description %> </span>
+        <% end %>
       <% end %>
+      <br/>
     <% end %>
   </td>
   <td><%= entry.times_to_s('present') %></td>
@@ -34,9 +29,9 @@
         <% units = value.try(:units) if(value.respond_to?(:units)) %>
         <%= value.try(:scalar) %> <%= units %><br/>
       <% elsif value.respond_to? :codes %>
-        <% value.codes.each do |system, vals| %>
-          <%= system %>: <%= vals.join(',') %>
-        <% end %>
+        <% value.codes.each do |system, vals| %>         
+            <%= system %>: <%= vals.join(',') %>                
+      <% end %>
         <%= (value.description ? "(#{value.description})" : '')%>
         <br/>
       <% else %>
@@ -46,7 +41,7 @@
   </td>
   <td>
 	  <% 
-	    (entry.attributes.keys.reject {|key| ['codes', 'time', 'description', 'mood_code', 'values', '_id', '_type', 'start_time', 'end_time', 'status_code', 'negationInd', 'oid'].include? key}).each do |field|
+	    (entry.attributes.keys.reject {|key| ['codes', 'time', 'description', 'mood_code', 'values', '_id', '_type', 'start_time', 'end_time', 'status_code', 'negationInd', 'oid'].include? key}).sort.each do |field|
       field_value = convert_field_to_hash(field, entry.attributes[field])
 
     %>
@@ -54,7 +49,7 @@
         <dl>
           <% if field_value.is_a? Hash %>
             <dt><b><%= field.titleize %>:</b></dt>
-	          <% field_value.keys.each do |fieldkey| %>
+	          <% field_value.keys.sort.reverse.each do |fieldkey| %>
 	            <dd><%= fieldkey %>: <i><%= field_value[fieldkey] %></i></dd>
 	          <% end %>
           <% else %>

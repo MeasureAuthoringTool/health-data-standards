@@ -13,17 +13,25 @@ module HealthDataStandards
         '2.16.840.1.113883.6.4' =>   'ICD-10-PCS',
         '2.16.840.1.113883.6.90' =>   'ICD-10-CM',
         '2.16.840.1.113883.6.14' =>   'HCPCS',
+        '2.16.840.1.113883.5.2' => "HL7 Marital Status",
         '2.16.840.1.113883.6.59' =>   'CVX',
         '2.16.840.1.113883.5.83' => 'HITSP C80 Observation Status',
         '2.16.840.1.113883.3.26.1.1' => 'NCI Thesaurus',
         '2.16.840.1.113883.3.88.12.80.20' => 'FDA',
+        "2.16.840.1.113883.4.9" => "UNII",
+        "2.16.840.1.113883.6.69" => "NDC",
         '2.16.840.1.113883.5.14' => 'HL7 ActStatus',
         '2.16.840.1.113883.6.259' => 'HL7 Healthcare Service Location',
         '2.16.840.1.113883.12.112' => 'DischargeDisposition',
         '2.16.840.1.113883.5.4' => 'HL7 Act Code',
         '2.16.840.1.113883.1.11.18877' => 'HL7 Relationship Code',
         '2.16.840.1.113883.6.238' => 'CDC Race',
-        '2.16.840.1.113883.6.177' => 'NLM MeSH'
+        '2.16.840.1.113883.6.177' => 'NLM MeSH',
+        '2.16.840.1.113883.5.1076' => "Religious Affiliation",
+        '2.16.840.1.113883.1.11.19717' => "HL7 ActNoImmunicationReason",
+        '2.16.840.1.113883.3.88.12.80.33' => "NUBC",
+        '2.16.840.1.113883.1.11.78' => "HL7 Observation Interpretation",
+        '2.16.840.1.114222.4.11.3591' => "Source of Payment Typology"
       }
       
       CODE_SYSTEM_ALIASES = {

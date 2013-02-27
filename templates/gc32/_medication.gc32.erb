@@ -1,0 +1,91 @@
+<medication xmlns="urn:hl7-org:greencda:c32" id="<%=medication.id%>">
+  <%== render partial: "entry_attributes", locals: {entry: medication, code_sets: ["RxNorm", "CVX", "FDA"]}%>
+  <% if medication.administration_timing %>
+    <administrationTiming institutionSpecified="<%= medication.administration_timing['institution_specified'] %>">
+      <period amount="<%=medication.administration_timing['period']['value'] %>" unit="<%= medication.administration_timing['period']['unit']%>" />
+    </administrationTiming>
+  <% end %>
+  <% if medication.route %>
+  <%== gc32_code_display medication, "tag_name" => "route", "attribute" => "route", "preferred_code_sets" => ["NCI Thesaurus"] %>
+  <% end %> 
+  <% if medication.site %>
+  <%== gc32_code_display medication, "tag_name" => "site", "attribute" => "site", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <% end %>
+  <%== quantity_display medication.dose, :dose %>
+  <% if medication.dose_indicator %>
+  <doseIndication><%=medication.dose_indicator%></doseIndication>
+  <% end %>
+  <% if medication.dose_restriction %>
+  <doseRestriction>
+    <numerator><%= medication.dose_restriction["numerator"]%></numerator>
+    <denominator><%= medication.dose_restriction["denominator"]%></denominator>
+  </doseRestriction>
+  <% end %>
+  <% if medication.product_form %>
+  <%== gc32_code_display medication, "tag_name" => "productForm", "attribute" => "product_form", "preferred_code_sets" => ["FDA", "NCI Thesaurus"]  %>
+  <% end %>
+  <% if medication.delivery_method %>
+    <%== gc32_code_display medication, "tag_name" => "deliveryMethod", "attribute" => "delivery_method", "preferred_code_sets" => medication.delivery_method.keys %>
+  <% end %>
+  <% if medication.type_of_medication%>
+  <%== gc32_code_display medication, "tag_name" => "type", "attribute" => "type_of_medication", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <% end %>
+  <% if medication.status_of_medication%>
+  <%== gc32_code_display medication, "tag_name" => "statusOfMedication", "attribute" => "status_of_medication", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <% end %>
+  <%if medication.indication%>
+  <%== gc32_code_display medication, "tag_name" => "indication", "attribute" => "indication", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <% end %>
+  <% if medication.vehicle %>
+  <%== gc32_code_display medication, "tag_name" => "vehicle", "attribute" => "vehicle", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <% end%>
+  <% if medication.dose_indicator %>
+    <doseIndicator><%= medication.dose_indicator %></doseIndicator>
+  <% end %>
+  <% if medication.patient_instructions %>
+    <patientInstructions><%=medication.patient_instructions%></patientInstructions>
+  <% end %>
+  <% if medication.fulfillment_instructions %>
+    <fulfillmentInstructions><%=medication.fulfillment_instructions%></fulfillmentInstructions>
+  <% end %>
+  <% medication.fulfillment_history.each do |fh| %>
+  <fulfillmentHistory <%if (fh.fill_status) %> fillStatus="<%=fh.fill_status%>" <% end %>
+    <% if fh.fill_number %> fillNumber="<%=fh.fill_number%>" <% end %>>
+    <prescriptionNumber><%=fh.prescription_number%></prescriptionNumber>
+    <% if fh.dispense_date %>
+      <dispenseDate value="<%=Time.at(fh.dispense_date).xmlschema%>" />
+    <% end %>
+    <%== quantity_display fh.quantity_dispensed, :quantityDispensed %>
+  </fulfillmentHistory>
+  <% end %>
+  <% medication.order_information.each do |oi| %>
+    <orderInformation <% if oi.order_number %><%== "orderNumber=\"#{oi.order_number}\"" %> <% end %> <% if oi.fills %><%== "fills=\"#{oi.fills}\"" %><% end %>>
+      <% if oi.quantity_ordered %>
+      <%== quantity_display oi.quantity_ordered, "quantityOrdered" %>
+      <% end %>
+      <% if oi.order_date_time %>
+        <orderedDateTime value="<%=Time.at(oi.order_date_time).xmlschema%>" />
+      <% end %>
+      <% if oi.order_expiration_date_time %>
+        <expirationDateTime value="<%=Time.at(oi.order_expiration_date_time).xmlschema%>" />
+      <% end %>
+    </orderInformation>
+  <% end %>
+  <% include_providers ||= false %>
+  <% if include_providers %>
+  <prescribers>
+  <% medication.order_information.each do |oi| %>
+    <% if oi.provider %>
+      <%== render partial: 'provider', locals: {provider: oi.provider, tag_name: 'prescriber'} %>
+    <% end %>
+  <% end %>
+  </prescribers>
+  <pharmacists>
+  <% medication.fulfillment_history.each do |fh| %>
+    <% if oi.provider %>
+      <%== render partial: 'provider', locals: {provider: fh.provider, tag_name: 'pharmacist'} %>
+    <% end %>
+  <% end %>
+  </pharmacists>
+  <% end %> 
+</medication>

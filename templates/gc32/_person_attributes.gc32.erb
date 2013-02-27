@@ -1,0 +1,7 @@
+<%== render partial: 'name', locals: {person: person} %>
+<% person.addresses.each do |addr| %>
+  <%== render :partial => "address", locals: {address: addr} %>
+<% end %>
+<% person.telecoms.each do |tele| %>
+  <%== render :partial => "telecom", locals: {telecom: tele} %>
+<% end %>

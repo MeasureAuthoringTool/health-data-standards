@@ -1,0 +1,98 @@
+ <sourceOf typeCode="PRCN" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:hl7-org:v3">
+    <conjunctionCode code="AND"/>
+    <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+       <sourceOf typeCode="PRCN">
+          <conjunctionCode code="OR"/>
+          <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- encounter pattern -->
+             <templateId root="2.16.840.1.113883.3.560.1.4"/>
+             <id root="CA71325F-084A-4F5A-9214-229D925F836D"/>
+             <code code="46240-8" displayName="Encounter list" codeSystem="2.16.840.1.113883.6.1"/>
+             <sourceOf typeCode="COMP">
+                <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                   <code code="2.16.840.1.113883.3.464.0001.231" displayName="encounter ambulatory including pediatrics Code List GROUPING"/>
+                   <title>Encounter: encounter ambulatory including pediatrics</title>
+                   <sourceOf typeCode="DURING">
+                      <observation classCode="OBS" moodCode="EVN">
+                         <id root="D578142D-F78F-4BF4-8194-82015DE21A7F"/>
+                         <title>Measurement period</title>
+                      </observation>
+                   </sourceOf>
+                </encounter>
+             </sourceOf>
+          </act>
+       </sourceOf>
+       <sourceOf typeCode="SBS">
+          <pauseQuantity xsi:type="URG_PQ">
+             <high value="3" unit="days" inclusive="true"/>
+          </pauseQuantity>
+          <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+             <sourceOf typeCode="PRCN">
+                <conjunctionCode code="OR"/>
+                <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- medication dispensed pattern -->
+                   <templateId root="2.16.840.1.113883.3.560.1.8"/>
+                   <id root="C5239EC0-B769-476F-B79E-6927ED720A03"/>
+                   <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                   <sourceOf typeCode="COMP">
+                      <supply classCode="SPLY" moodCode="EVN" isCriterionInd="true">
+                         <title>Medication dispensed: pharyngitis antibiotics</title>
+                         <participant typeCode="CSM">
+                            <roleParticipant classCode="MANU">
+                               <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                  <code code="2.16.840.1.113883.3.464.0001.373" displayName="pharyngitis antibiotics Code List GROUPING"/>
+                               </playingMaterial>
+                            </roleParticipant>
+                         </participant>
+                      </supply>
+                   </sourceOf>
+                </act>
+             </sourceOf>
+             <sourceOf typeCode="PRCN">
+                <conjunctionCode code="OR"/>
+                <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- medication order pattern -->
+                   <templateId root="2.16.840.1.113883.3.560.1.17"/>
+                   <id root="B2EC949E-E9FD-4184-941E-F1F73470CB21"/>
+                   <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                   <sourceOf typeCode="COMP">
+                      <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                         <title>Medication order: pharyngitis antibiotics</title>
+                         <participant typeCode="CSM">
+                            <roleParticipant classCode="MANU">
+                               <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                  <code code="2.16.840.1.113883.3.464.0001.373" displayName="pharyngitis antibiotics Code List GROUPING"/>
+                               </playingMaterial>
+                            </roleParticipant>
+                         </participant>
+                      </substanceAdministration>
+                   </sourceOf>
+                </act>
+             </sourceOf>
+             <sourceOf typeCode="PRCN">
+                <conjunctionCode code="OR"/>
+                <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- medication active pattern -->
+                   <templateId root="2.16.840.1.113883.3.560.1.13"/>
+                   <id root="6A3F288D-B565-4BE9-B6DD-DCDEAB2E6DD4"/>
+                   <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                   <sourceOf typeCode="COMP">
+                      <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                         <title>Medication active: pharyngitis antibiotics</title>
+                         <participant typeCode="CSM">
+                            <roleParticipant classCode="MANU">
+                               <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                  <code code="2.16.840.1.113883.3.464.0001.373" displayName="pharyngitis antibiotics Code List GROUPING"/>
+                               </playingMaterial>
+                            </roleParticipant>
+                         </participant>
+                         <sourceOf typeCode="REFR">
+                            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                               <code code="33999-4" displayName="Status" codeSystem="2.16.840.1.113883.6.1"/>
+                               <value xsi:type="CD" code="55561003" displayName="Active" codeSystem="2.16.840.1.113883.6.96"/>
+                            </observation>
+                         </sourceOf>
+                      </substanceAdministration>
+                   </sourceOf>
+                </act>
+             </sourceOf>
+          </act>
+       </sourceOf>
+    </act>
+ </sourceOf>

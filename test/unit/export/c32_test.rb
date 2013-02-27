@@ -6,14 +6,14 @@ class C32Test < MiniTest::Unit::TestCase
     collection_fixtures('records', '_id')
     @pi = HealthDataStandards::Import::C32::PatientImporter.instance
     @record = Record.find('4dcbecdb431a5f5878000004')
-    c32 = HealthDataStandards::Export::C32.export(@record)
+    c32 = HealthDataStandards::Export::C32.new.export(@record)
     @doc = Nokogiri::XML(c32)
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     @patient = @pi.parse_c32(@doc)
   end
   
   def test_demographics
-    doc = Nokogiri::XML(HealthDataStandards::Export::C32.export(@record))
+    doc = Nokogiri::XML(HealthDataStandards::Export::C32.new.export(@record))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     parsed = Record.new
     @pi.get_demographics(parsed, doc)

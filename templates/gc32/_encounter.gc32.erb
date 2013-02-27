@@ -1,0 +1,28 @@
+<encounter xmlns="urn:hl7-org:greencda:c32" id="<%= encounter.id %>">
+  <%== render partial: "entry_attributes", locals: {entry: encounter, code_sets: ["CPT", "SNOMED-CT"]}%>
+  <% if encounter.discharge_disposition %>
+  <%== gc32_code_display encounter, "tag_name" => "dischargeDisposition", 'attribute' => "discharge_disposition", 'preferred_code_sets' => ["NUBC"] %>
+  <% end %>
+  <% if encounter.admit_type%>
+  <%== gc32_code_display encounter, "tag_name" => "admissionType", 'attribute' => "admit_type", 'preferred_code_sets' => ["NUBC"] %>
+  <% end %>
+  <% if provider %>
+  <%== render partial: 'provider', locals: {provider: encounter.performer, tag_name: 'performer'}%>
+  <% end %>
+  <% facility = encounter.facility %>
+  <% if facility %>
+  <facility>
+      <name><%= facility.name%></name>
+      <% facility.addresses.each do |addr| %>
+        <%== render :partial => "address", locals: {address: addr} %>
+      <% end %>
+      <% facility.telecoms.each do |tele| %>
+        <%== render :partial => "telecom", locals: {telecom: tele} %>
+      <% end %>
+    <%== gc32_interval(encounter, "duration", :admit_time, :discharge_time) %>
+  </facility>
+  <% end %>
+  <% if encounter.performer %>
+  <%== render partial: 'provider', locals: {provider: encounter.performer} %>
+  <% end %>
+</encounter>

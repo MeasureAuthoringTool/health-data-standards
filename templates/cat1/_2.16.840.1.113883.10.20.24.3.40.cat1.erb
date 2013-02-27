@@ -1,0 +1,17 @@
+<entry>
+  <!--Laboratory test, result -->
+  <observation classCode="OBS" moodCode="EVN">
+    <!--  Result Observation (consolidation) template  -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.2"/>
+    <!-- Laboratory Test, Result template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.40"/>
+    <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
+    <%== code_display(entry, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <text><%= entry.description %></text>
+    <statusCode code="completed"/>
+    <effectiveTime>
+      <low value="<%= entry.start_time %>"/>
+    </effectiveTime>
+    <%== render(:partial => 'result_value', :locals => {:entry => entry}) %>
+  </observation>
+</entry>

@@ -1,7 +1,7 @@
 class Address
   include Mongoid::Document
   
-  field :street, type: Array
+  field :street, type: Array, default: []
   field :city, type: String
   field :state, type: String
   field :zip, type: String

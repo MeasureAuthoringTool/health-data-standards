@@ -9,7 +9,7 @@ class ProviderImporterTest < MiniTest::Unit::TestCase
     
     @nist_doc = Nokogiri::XML(File.new("test/fixtures/NISTExampleC32.xml"))
     @nist_doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-    @importer = HealthDataStandards::Import::C32::ProviderImporter.instance
+    @importer = HealthDataStandards::Import::CDA::ProviderImporter.instance
   end
   
   def test_document_provider_extraction

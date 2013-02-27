@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:hl7-org:v3" xmlns:voc="urn:hl7-org:v3/voc" xmlns:sdtc="urn:hl7-org:sdtc">
+  <component>
+    <structuredBody>
+      <component>
+        <section>
+          <entry>
+            <observation classCode="OBS" moodCode="EVN">
+              <!--  Problem observation template -->
+              <templateId root="2.16.840.1.113883.10.20.22.4.4"/>
+              <!--  Diagnosis active template -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.11"/>
+              <id root="50f84db97042f9366f00001b"/>
+              <code code="282291009" displayName="diagnosis" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+              <text>Diagnosis, Active: Hospital Measures - Any infection (Code List: 2.16.840.1.113883.3.666.5.696)</text>
+              <statusCode code="completed"/>
+              <effectiveTime>
+                <!-- Attribute: admission datetime -->
+                <low value="19890903081502"/>
+                <!-- Attribute: discharge datetime -->
+                <high value="19890904034509"/>
+              </effectiveTime>
+              <value code="999.34" codeSystem="2.16.840.1.113883.6.103" xsi:type="CD" sdtc:valueSet="2.16.840.1.113883.3.666.5.696">
+                <originalText>Diagnosis, Active: Hospital Measures - Any infection (Code List: 2.16.840.1.113883.3.666.5.696)</originalText>
+                <translation code="T86.842" codeSystem="2.16.840.1.113883.6.90"/>
+              </value>
+              <entryRelationship typeCode="REFR">
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Problem Status (consolidation) template -->
+                  <templateId root="2.16.840.1.113883.10.20.22.4.6"/>
+                  <!-- Problem Status, Active template -->
+                  <templateId root="2.16.840.1.113883.10.20.24.3.94"/>
+                  <id root="1fddfe00-4308-0130-0ade-680688cbd736"/>
+                  <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="status"/>
+                  <statusCode code="completed"/>
+                  <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"/>
+                </observation>
+              </entryRelationship>
+            </observation>
+          </entry>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>

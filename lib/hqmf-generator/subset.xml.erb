@@ -1,0 +1,8 @@
+          <excerpt typeCode="XCRPT">
+            <subsetCode code="<%= subset.type %>"/>
+            <<%= element_name_prefix(criteria) %>Criteria moodCode="EVN" classCode="<%= reference_type_name(criteria.id) %>">
+            <%- if subset.value -%>
+              <%= xml_for_value(subset.value, 'repeatNumber') %>
+            <%- end -%>
+            </<%= element_name_prefix(criteria) %>Criteria>
+          </excerpt>

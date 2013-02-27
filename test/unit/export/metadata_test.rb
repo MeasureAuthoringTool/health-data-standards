@@ -7,7 +7,7 @@ module Export
     end
 
     def test_export
-      HealthDataStandards::Export::Hdata::Metadata.export(@entry, @md)
+      HealthDataStandards::Export::Hdata::Metadata.new.export(@entry, @md)
     end
   end
 end

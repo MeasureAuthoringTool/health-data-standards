@@ -7,6 +7,8 @@ class OrderInformation
   field :orderExpirationDateTime, type: Integer
   field :orderDateTime, type: Integer
   
+  belongs_to :provider
+  
   alias :order_number :orderNumber
   alias :order_number= :orderNumber=
   alias :quantity_ordered :quantityOrdered

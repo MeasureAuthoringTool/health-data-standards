@@ -1,0 +1,66 @@
+      <component>
+        <section>
+          <!-- 
+            *****************************************************************
+            Measure Section
+            *****************************************************************
+          -->
+          <!-- This is the templateId for Measure Section -->
+          <templateId root="2.16.840.1.113883.10.20.24.2.2"/>
+          <!-- This is the templateId for Measure Section QDM -->
+          <templateId root="2.16.840.1.113883.10.20.24.2.3"/>
+          <!-- This is the LOINC code for "Measure document". This stays the same for all measure section required by QRDA standard -->
+          <code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Measure Section</title>
+          <text>
+            <table border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>eMeasure Title</th>
+                  <th>Version neutral identifier</th>
+                  <th>eMeasure Version Number</th>
+                  <th>NQF eMeasure Number</th>
+                  <th>Version specific identifier</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% measures.each do |measure| -%>
+                <tr>
+                  <td><%= measure.title %></td>
+                  <td><%= measure.hqmf_set_id %></td>
+                  <td><%= measure.hqmf_version_number %></td>
+                  <td><%= measure.id %></td>
+                  <td><%= measure.hqmf_id %></td>
+                  <td></td>
+                </tr>
+                <% end -%>
+              </tbody>
+            </table>
+          </text>
+          <!-- 1..* Organizers, each containing a reference to an eMeasure -->
+          <% measures.each do |measure| -%>
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- This is the templateId for Measure Reference -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- This is the templateId for eMeasure Reference QDM -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.97"/>
+              <statusCode code="completed"/>
+              <!-- Containing isBranch external references -->
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: This is the version specific identifier for eMeasure: QualityMeasureDocument/id it is a GUID-->
+                  <id root="<%= measure.hqmf_id %>"/>
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text><%= measure.title %></text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root="<%= measure.hqmf_set_id %>"/>
+                  <!-- This is the sequential eMeasure Version number -->
+                  <versionNumber value="<%= measure.hqmf_version_number %>"/>                  
+                </externalDocument>
+              </reference>
+            </organizer>
+          </entry>
+          <% end -%>
+        </section>
+      </component>

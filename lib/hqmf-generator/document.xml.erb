@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<QualityMeasureDocument xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <id root="2.16.840.1.113883.3.100.1" extension="<%= doc.hqmf_id %>" />
+  <code code="57024-2" codeSystem="2.16.840.1.113883.6.1"/>
+  <title value="<%= doc.title %>"/>
+  <text value="<%= doc.description %>"/>
+  <statusCode code="completed" />
+  <setId root="2.16.840.1.113883.3.100.1" extension="<%= doc.hqmf_set_id %>" />
+  <versionNumber value="<%= doc.hqmf_version_number %>"/>
+  <author typeCode="AUT" contextControlCode="OP">
+    <responsibleParty classCode="ASSIGNED" />
+  </author>
+  <custodian typeCode="CST">
+    <responsibleParty classCode="ASSIGNED" />
+  </custodian>
+  <controlVariable>
+    <measurePeriod>
+      <code code="MSRTP" codeSystem="2.16.840.1.113883.3.560">
+        <displayName value="Measurement period"/>
+      </code>
+      <value>
+        <low value="<%= doc.measure_period.low.value %>" />
+        <high value="<%= doc.measure_period.high.value %>" />
+      </value>
+    </measurePeriod>
+  </controlVariable>
+  <%- doc.attributes.each do |attribute| -%>
+  <%= xml_for_attribute(attribute) %>
+  <%- end -%>
+  <component>
+    <dataCriteriaSection>
+      <code code="57025-9" codeSystem="2.16.840.1.113883.6.1"/>
+      <title value="Data Criteria Section"/>
+      <text>This section describes the data criteria.</text>
+      <%- doc.all_data_criteria.each do |data_criteria| -%>
+      <%= xml_for_data_criteria(data_criteria, false) %>
+      <%- end -%>
+      <%- doc.source_data_criteria.each do |data_criteria| -%>
+      <%= xml_for_data_criteria(data_criteria, true) %>
+      <%- end -%>
+    </dataCriteriaSection>
+  </component>
+  <%- doc.populations.each_with_index do |population, population_index| -%>
+  <component>
+    <populationCriteriaSection>
+      <%- if population['stratification'] -%>
+		  <templateId>
+		    <item root="<%= HQMF::Document::STRATIFIED_POPULATION_TEMPLATE_ID %>" identifierName="<%= HQMF::Document::STRATIFIED_POPULATION_TEMPLATE_TITLE %>" controlInformationRoot="<%= population['stratification'] %>"/>
+		  </templateId>
+      <%- end -%>
+      <id root="2.16.840.1.113883.3.100.1" extension="<%= population['id'] || "Population#{population_index}" %>"/>
+      <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"/>
+      <title value="<%= population['title'] %>"/>
+      <text>This section describes the Initial Patient Population,
+        Numerator, Denominator, Denominator Exceptions, and Measure
+        Populations</text>
+      <%- population.keys.each do |criteria_id| -%>
+      <%= xml_for_population_criteria(population, criteria_id) %>
+      <%- end -%>
+    </populationCriteriaSection>
+  </component>
+  <%- end -%>
+</QualityMeasureDocument>
