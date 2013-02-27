@@ -26,6 +26,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'log4r', '~> 1.1.10'
 
 
-  s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/**/*.erb') + Dir.glob('lib/**/*.json')
+  s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/**/*.erb') + Dir.glob('lib/**/*.json') + Dir.glob('lib/**/*.erb')
             ["Gemfile", "README.md", "Rakefile", "VERSION"]
 end
