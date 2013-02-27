@@ -6,9 +6,9 @@ Gem::Specification.new do |s|
   s.description = "A library for generating and consuming various healthcare related formats. This includes HITSP C32, ASTM CCR and PQRI."
   s.email = "talk@projectpophealth.org"
   s.homepage = "https://github.com/projectcypress/health-data-standards"
-  s.authors = ["Andy Gregorowicz", "Sam Sayer", "Marc Hadley", "Rob Dingwell"]
+  s.authors = ["Andy Gregorowicz", "Sam Sayer", "Marc Hadley", "Rob Dingwell", "Andre Quina"]
 
-  s.version = '3.0.0'
+  s.version = '3.0.1'
   
   s.add_dependency 'rest-client', '~>1.6.7'
   s.add_dependency 'erubis', '~> 2.7.0'
@@ -26,6 +26,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'log4r', '~> 1.1.10'
 
 
-  s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/**/*.erb') +
-            ["Gemfile", "README.md", "Rakefile", "VERSION", './lib/health-data-standards/util/hqmf_template_oid_map.json']
+  s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/**/*.erb') + Dir.glob('lib/**/*.json') + Dir.glob('lib/**/*.erb')
+            ["Gemfile", "README.md", "Rakefile", "VERSION"]
 end

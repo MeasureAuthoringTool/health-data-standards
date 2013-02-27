@@ -64,7 +64,6 @@ class Cat1Test < MiniTest::Unit::TestCase
     measure_entries = @doc.xpath('//cda:section[cda:templateId/@root="2.16.840.1.113883.10.20.24.2.3"]/cda:entry')
     assert_equal MEASURES.length, measure_entries.size
     measure = measure_entries.find do |measure_entry|
-      measure_entry.at_xpath('./cda:organizer/cda:reference/cda:externalDocument/cda:id[@extension="0002"]').present? &&
       measure_entry.at_xpath('./cda:organizer/cda:reference/cda:externalDocument/cda:setId[@root="B5FEE67F-F5C4-4C73-9D58-1941F9729539"]').present?
     end
     assert measure

@@ -27,7 +27,7 @@
       <participantRole classCode="SDLOC">
         <% if entry.facility.code.present? -%>
         <code code="<%= entry.facility.code['code'] %>" 
-            codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.facility.code['codeSystem']) %>"/>
+            codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.facility.code['codeSystem'] || entry.facility.code['code_system']) %>"/>
         <% else -%>
         <code nullFlavor="UNK"/>
         <% end -%>
@@ -49,7 +49,7 @@
     <% end -%>
     <% if entry.discharge_disposition.present? -%>
     <sdtc:dischargeDispositionCode code="<%= entry.discharge_disposition['code'] %>" 
-            codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.discharge_disposition['codeSystem']) %>"/>
+            codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.discharge_disposition['codeSystem'] || entry.discharge_disposition['code_system']) %>"/>
     <% end -%>
     <% if entry.reason.present? -%>
     <entryRelationship typeCode="RSON">

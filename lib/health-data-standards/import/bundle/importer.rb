@@ -4,13 +4,19 @@ module HealthDataStandards
 			
 			class Importer
 			COLLECTION_NAMES = ["bundles", "records", "measures", "selected_measures", "patient_cache", "query_cache", "system.js"]
+			DEFAULTS = {clear_db: false, 
+									type: nil,
+							    delete_existing: false,
+								  update_measures: true,
+								  clear_collections: COLLECTION_NAMES
+								}
 			# Import a quality bundle into the database. This includes metadata, measures, test patients, supporting JS libraries, and expected results.
 		  #
 		  # @param [File] zip The bundle zip file.
 		  # @param [String] Type of measures to import, either 'ep', 'eh' or nil for all
 		  # @param [Boolean] keep_existing If true, delete all current collections related to patients and measures.
 		  def self.import(zip,  options={})
-		    
+		    options = DEFAULTS.merge(options)
 		    bundle_versions = Hash[* HealthDataStandards::CQM::Bundle.where({}).collect{|b| [b._id, b.version]}.flatten]
 		    # Unpack content from the bundle.
 		    bundle_contents = unpack_bundle_contents(zip, options[:type])
@@ -40,15 +46,18 @@ module HealthDataStandards
 		    # Store all measures.
 		    bundle_contents[:measures].each do |key, contents|
 		      json = JSON.parse(contents, {:max_nesting => 100})
-		      measure =  HealthDataStandards::CQM::Measure.new(json)      
+		      measure = json.clone
+		      # measure =  HealthDataStandards::CQM::Measure.new(json)
 		      measure['bundle_id'] = bundle_id
-		      measure.save
+		      Mongoid.default_session["measures"].insert(measure)
+	
 
 		      if options[:update_measures]
-		      	 HealthDataStandards::CQM::Measure.where({hqmf_id: measure["hqmf_id"], sub_id: measure["sub_id"]}).each do |m|
+		      	  Mongoid.default_session["measures"].where({hqmf_id: measure["hqmf_id"], sub_id: measure["sub_id"]}).each do |m|
 		      		b = HealthDataStandards::CQM::Bundle.find(m["bundle_id"])
 		      		if b.version < bundle.version
-		      			m.update_attributes!(json)
+		      			m.merge!(json)
+		      			Mongoid.default_session["measures"].where({"_id" => m["_id"]}).update(m)
 		      		end
 
 		      	end
@@ -127,6 +136,7 @@ module HealthDataStandards
 		      end
 		      bundle_contents[:extensions][entry_key(entry.name,"js")] = zipfile.read(entry.name) if entry.name.match /^library_functions.*\.js/
 
+		      bundle_contents[:valuesets][entry_key(entry.name,"json")] = zipfile.read(entry.name) if entry.name.match /^value_sets.*\.json/
 		    end
 		  end
 		  bundle_contents

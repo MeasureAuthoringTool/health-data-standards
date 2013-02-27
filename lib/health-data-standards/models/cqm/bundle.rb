@@ -9,6 +9,7 @@ module HealthDataStandards
       field :license, type: String
       field :extensions, type: Array
       field :effective_date
+      field :measure_period_start
       field :records, type: Array
       field :active, type: Boolean
 
