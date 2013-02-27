@@ -26,6 +26,10 @@ class HQMFV1V2RoundtripTest < Test::Unit::TestCase
       end
     end
 
+    # drop the CMS ID since it does not go into the HQMF v2
+    puts "\t CMS ID ingnored in hqmf v2"
+    v1_json['cms_id'] = nil
+
     diff = v1_json.diff_hash(v2_json, true, true)
 
 #     outfile = File.join(".","tmp","v1_v2_diffs.json")

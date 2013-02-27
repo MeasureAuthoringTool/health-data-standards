@@ -14,7 +14,7 @@
       <low <%= value_or_null_flavor(entry.admit_time || entry.start_time) %>/>
       <high <%= value_or_null_flavor(entry.discharge_time || entry.end_time) %>/>
     </effectiveTime>
-    <% if entry.respond_to?(:facility) && entry.facility.present? && entry.facility.code.present? -%>
+    <% if entry.respond_to?(:facility) && entry.facility.present? -%>
     <participant typeCode="LOC">
       <!-- Facility Location template -->
       <templateId root="2.16.840.1.113883.10.20.24.3.100"/>
@@ -25,8 +25,12 @@
         <high <%= value_or_null_flavor(entry.facility.end_time) %>/>
       </time>
       <participantRole classCode="SDLOC">
+        <% if entry.facility.code.present? -%>
         <code code="<%= entry.facility.code['code'] %>" 
             codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.facility.code['codeSystem']) %>"/>
+        <% else -%>
+        <code nullFlavor="UNK"/>
+        <% end -%>
         <% if entry.facility.addresses.present? -%>
         <addr>
           <streetAddressLine><%= entry.facility.addresses.first.street %></streetAddressLine>
@@ -46,6 +50,22 @@
     <% if entry.discharge_disposition.present? -%>
     <sdtc:dischargeDispositionCode code="<%= entry.discharge_disposition['code'] %>" 
             codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.discharge_disposition['codeSystem']) %>"/>
+    <% end -%>
+    <% if entry.reason.present? -%>
+    <entryRelationship typeCode="RSON">
+      <observation classCode="OBS" moodCode="EVN">
+        <templateId root="2.16.840.1.113883.10.20.24.3.88"/>  
+        <code code="410666004" 
+              codeSystem="2.16.840.1.113883.6.96"
+              displayName="reason" 
+              codeSystemName="SNOMED CT"/>
+        <statusCode code="completed"/>
+        <effectiveTime <%= value_or_null_flavor(entry.start_time) %>/>
+        <value xsi:type="CD" 
+             code="<%= entry.reason['code'] %>" 
+             codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.reason['codeSystem'] ||  entry.reason['code_system']) %>"/>
+      </observation>
+    </entryRelationship>
     <% end -%>
   </encounter>
 </entry>
