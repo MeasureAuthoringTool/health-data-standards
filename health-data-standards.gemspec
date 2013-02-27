@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.homepage = "https://github.com/projectcypress/health-data-standards"
   s.authors = ["Andy Gregorowicz", "Sam Sayer", "Marc Hadley", "Rob Dingwell", "Andre Quina"]
 
-  s.version = '3.0.1'
+  s.version = '3.0.2'
   
   s.add_dependency 'rest-client', '~>1.6.7'
   s.add_dependency 'erubis', '~> 2.7.0'
@@ -26,6 +26,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'log4r', '~> 1.1.10'
 
 
-  s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/**/*.erb') + Dir.glob('lib/**/*.json') + Dir.glob('lib/**/*.erb')
+  s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/**/*.erb') + Dir.glob('lib/**/*.json') + Dir.glob('lib/**/*.erb') + Dir.glob('lib/health-data-standards/tasks/*.rake') +
             ["Gemfile", "README.md", "Rakefile", "VERSION"]
 end
