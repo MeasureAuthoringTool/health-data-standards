@@ -43,9 +43,9 @@
           entries_by_section[decoded_section] << entry
         end if entries_by_encounter[encounter.hash]
       %>
-      <%== render :partial => 'section', :locals => {entries: [encounter], section: :encounters, code_map: code_map} %>
+      <%== render :partial => 'section', :locals => {entries: [encounter], section: :encounters, code_map: code_map, by_encounter: true} %>
       <% entries_by_section.each do |section, entries| %>
-        <%== render :partial => 'section', :locals => {entries: entries, section: section, code_map: code_map} %>
+        <%== render :partial => 'section', :locals => {entries: entries, section: section, code_map: code_map, by_encounter: true} %>
       <% end %>
     </div>
 
