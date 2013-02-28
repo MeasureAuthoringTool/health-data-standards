@@ -6,7 +6,7 @@ namespace :bundle do
   desc 'Import a quality bundle into the database.'
   task :import, [:bundle_path,  :delete_existing,  :update_measures, :type] => [:environment] do |task, args|
     raise "The path to the measures zip file must be specified" unless args.bundle_path
-    options = {:clear_db => (args.delete_existing == "true"),
+    options = {:delete_existing => (args.delete_existing == "true"),
     					 :type => args.type ,
     					 :update_measures => (args.update_measures == "true")
     					}
@@ -15,6 +15,9 @@ namespace :bundle do
     importer = HealthDataStandards::Import::Bundle::Importer
     bundle_contents = importer.import(bundle, options)
     
+    ::Rails.application.eager_load!
+    ::Rails::Mongoid.create_indexes
+
     puts "Successfully imported bundle at: #{args.bundle_path}"
     puts "\t Imported into environment: #{Rails.env.upcase}" if defined? Rails 
     puts "\t Loaded #{args.type || 'all'} measures"
