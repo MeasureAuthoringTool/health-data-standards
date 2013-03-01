@@ -17,6 +17,7 @@ module HealthDataStandards
           extract_reason(entry_element, encounter, nrh)
           extract_negation(entry_element, encounter)
           extract_admission(entry_element, encounter)
+          extract_discharge_disposition(entry_element, encounter)
           encounter
         end
     
@@ -53,6 +54,10 @@ module HealthDataStandards
     
         def extract_admission(parent_element, encounter)
           encounter.admit_type = extract_code(parent_element, "./cda:priorityCode")
+        end
+
+        def extract_discharge_disposition(parent_element, encounter)
+          encounter.discharge_disposition = extract_code(parent_element, "./sdtc:dischargeDispositionCode")
         end
       end
     end
