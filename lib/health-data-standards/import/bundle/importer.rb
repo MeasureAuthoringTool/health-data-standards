@@ -98,7 +98,14 @@ module HealthDataStandards
     # @param [Array] collection_names Optionally, an array of collection names to be dropped.
     def self.drop_collections(collection_names=[])
       collection_names = COLLECTION_NAMES if collection_names.empty?
-      collection_names.each {|collection| Mongoid.default_session[collection].drop}
+      collection_names.each do |collection|
+        if collection == 'system.js'
+          # We can't drop system.js, so get rid of everything
+          Mongoid.default_session[collection].find.remove_all
+        else
+          Mongoid.default_session[collection].drop 
+        end
+      end
     end  
 
     # Save a javascript function into Mongo's system.js collection for measure execution.
