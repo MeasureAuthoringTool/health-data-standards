@@ -75,13 +75,14 @@ class Record
   # lose information because it does not compare entries based on clinical
   # content
   def dedup_section!(section)
-    self.send(section).uniq! do |entry|
+    unique_entries = self.send(section).uniq do |entry|
       if entry.respond_to?(:cda_identifier) && entry.cda_identifier.present?
         entry.cda_identifier
       else
         entry.id
       end
     end
+    self.send("#{section}=", unique_entries)
   end
 
   def dedup_record!
