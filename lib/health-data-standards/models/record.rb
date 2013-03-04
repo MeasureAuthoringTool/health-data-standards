@@ -70,7 +70,24 @@ class Record
   
   alias :clinical_trial_participant :clinicalTrialParticipant
   alias :clinical_trial_participant= :clinicalTrialParticipant=
-  
+
+  # Removed duplicate entries from a section based on id. This method may
+  # lose information because it does not compare entries based on clinical
+  # content
+  def dedup_section!(section)
+    self.send(section).uniq! do |entry|
+      if entry.respond_to?(:cda_identifier) && entry.cda_identifier.present?
+        entry.cda_identifier
+      else
+        entry.id
+      end
+    end
+  end
+
+  def dedup_record!
+    Record::Sections.each {|section| self.dedup_section!(section)}
+  end
+
   private 
   
   def self.provider_queries(provider_id, effective_date)
