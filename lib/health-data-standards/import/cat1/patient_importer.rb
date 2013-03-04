@@ -76,6 +76,7 @@ module HealthDataStandards
           import_sections(record, doc)
           get_clinical_trial_participant(record, doc)
           get_patient_expired(record, doc)
+          record.dedup_record!
           record
         end
 
