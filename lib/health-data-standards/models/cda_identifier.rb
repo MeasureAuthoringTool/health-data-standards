@@ -10,4 +10,8 @@ class CDAIdentifier
       self.root == comparison_object.root && self.extension == comparison_object.extension
     end
   end
+
+  def hash
+    "#{root}#{extension}".hash
+  end
 end
