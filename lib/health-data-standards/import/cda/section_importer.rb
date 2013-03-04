@@ -10,6 +10,7 @@ module HealthDataStandards
         def initialize(entry_finder)
           @entry_finder = entry_finder
           @code_xpath = "./cda:code"
+          @id_xpath = "./cda:id"
           @status_xpath = nil
           @priority_xpath = nil
           @description_xpath = "./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value]"
@@ -39,6 +40,7 @@ module HealthDataStandards
 
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
           entry = @entry_class.new
+          extract_id(entry_element, entry)
           extract_codes(entry_element, entry)
           extract_dates(entry_element, entry)
           extract_value(entry_element, entry)
@@ -58,6 +60,16 @@ module HealthDataStandards
           status_element = parent_element.at_xpath(@status_xpath)
           if status_element
             entry.status_code = {CodeSystemHelper.code_system_for(status_element['codeSystem']) => [status_element['code']]}
+          end
+        end
+
+        def extract_id(parent_element, entry)
+          id_element = parent_element.at_xpath(@id_xpath)
+          if id_element
+            identifier = CDAIdentifier.new
+            identifier.root = id_element['root']
+            identifier.extension = id_element['extension']
+            entry.cda_identifier = identifier
           end
         end
 

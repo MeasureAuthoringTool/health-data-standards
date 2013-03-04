@@ -44,4 +44,11 @@ class SectionImporterTest < MiniTest::Unit::TestCase
     entry = entries[3]
     assert_equal 1026777600, entry.time
   end
+
+  def test_extracting_identifiers
+    entries = @si.create_entries(@doc)
+    entry = entries[0]
+    assert_equal "1.2.3.4", entry.cda_identifier.root
+    assert_equal "abcdef", entry.cda_identifier.extension
+  end
 end
