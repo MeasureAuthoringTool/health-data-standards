@@ -61,7 +61,8 @@ module HealthDataStandards
                                           EntryPackage.new(CDA::ResultImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.34']")), '2.16.840.1.113883.3.560.1.47'), #intervention result
                                           EntryPackage.new(CDA::ResultImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.57']")), '2.16.840.1.113883.3.560.1.18'), #physical exam finding
                                           EntryPackage.new(CDA::ResultImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.28']")), '2.16.840.1.113883.3.560.1.88'), #functional status result    
-                                          EntryPackage.new(CDA::ResultImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.20']")), '2.16.840.1.113883.3.560.1.111')].compact #diagnostic study result not done
+                                          EntryPackage.new(CDA::ResultImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.20']")), '2.16.840.1.113883.3.560.1.111'), #diagnostic study result not done
+                                          EntryPackage.new(LabResultImporter.new, '2.16.840.1.113883.3.560.1.12')].compact #lab result
 
           @section_importers[:encounters] = [EntryPackage.new(CDA::EncounterImporter.new(CDA::EntryFinder.new("//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']")), '2.16.840.1.113883.3.560.1.79', 'performed'), #encounter performed
                                              EntryPackage.new(EncounterOrderImporter.new, '2.16.840.1.113883.3.560.1.83', 'ordered')]

@@ -147,6 +147,7 @@ require_relative 'health-data-standards/import/cat1/encounter_order_importer'
 require_relative 'health-data-standards/import/cat1/diagnostic_study_order_importer'
 require_relative 'health-data-standards/import/cat1/tobacco_use_importer'
 require_relative 'health-data-standards/import/cat1/entry_package'
+require_relative 'health-data-standards/import/cat1/lab_result_importer'
 
 require_relative 'health-data-standards/models/cqm/bundle'
 require_relative 'health-data-standards/models/cqm/measure'
