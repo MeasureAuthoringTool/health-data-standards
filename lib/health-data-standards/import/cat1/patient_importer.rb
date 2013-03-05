@@ -13,7 +13,7 @@ module HealthDataStandards
         def initialize
           # This differs from other HDS patient importers in that sections can have multiple importers
           @section_importers = {}
-          @section_importers[:care_goals] = [EntryPackage.new(CDA::SectionImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.1']")), '2.16.840.1.113883.3.560.1.9')].compact #care goal
+          @section_importers[:care_goals] = [EntryPackage.new(CDA::SectionImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.1']")), '2.16.840.1.113883.3.560.1.9')] #care goal
 
           ecog_status_importer = CDA::SectionImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.103']"))
           ecog_status_importer.code_xpath = './cda:value'
@@ -52,9 +52,9 @@ module HealthDataStandards
           @section_importers[:allergies] = [EntryPackage.new(ProcedureIntoleranceImporter.new, '2.16.840.1.113883.3.560.1.61'),
                                             EntryPackage.new(CDA::AllergyImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.46']")), '2.16.840.1.113883.3.560.1.67'), #medication intolerance
                                             EntryPackage.new(CDA::AllergyImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.43']")), '2.16.840.1.113883.3.560.1.7'), #medication adverse effect
-                                            EntryPackage.new(CDA::AllergyImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.44']")), '2.16.840.1.113883.3.560.1.1')].compact #medication allergy
+                                            EntryPackage.new(CDA::AllergyImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.44']")), '2.16.840.1.113883.3.560.1.1')] #medication allergy
 
-          @section_importers[:medical_equipment] = [EntryPackage.new(CDA::MedicalEquipmentImporter.new(CDA::EntryFinder.new("//cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.7']")), '2.16.840.1.113883.3.560.1.110', 'applied')].compact
+          @section_importers[:medical_equipment] = [EntryPackage.new(CDA::MedicalEquipmentImporter.new(CDA::EntryFinder.new("//cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.7']")), '2.16.840.1.113883.3.560.1.110', 'applied')]
 
           @section_importers[:results] = [EntryPackage.new(LabOrderImporter.new, '2.16.840.1.113883.3.560.1.50', 'ordered'), #lab ordered
                                           EntryPackage.new(CDA::ResultImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.38']")), '2.16.840.1.113883.3.560.1.5', 'performed'), #lab performed
@@ -62,7 +62,7 @@ module HealthDataStandards
                                           EntryPackage.new(CDA::ResultImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.57']")), '2.16.840.1.113883.3.560.1.18'), #physical exam finding
                                           EntryPackage.new(CDA::ResultImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.28']")), '2.16.840.1.113883.3.560.1.88'), #functional status result    
                                           EntryPackage.new(CDA::ResultImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.20']")), '2.16.840.1.113883.3.560.1.111'), #diagnostic study result not done
-                                          EntryPackage.new(LabResultImporter.new, '2.16.840.1.113883.3.560.1.12')].compact #lab result
+                                          EntryPackage.new(LabResultImporter.new, '2.16.840.1.113883.3.560.1.12')] #lab result
 
           @section_importers[:encounters] = [EntryPackage.new(CDA::EncounterImporter.new(CDA::EntryFinder.new("//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']")), '2.16.840.1.113883.3.560.1.79', 'performed'), #encounter performed
                                              EntryPackage.new(EncounterOrderImporter.new, '2.16.840.1.113883.3.560.1.83', 'ordered')]
