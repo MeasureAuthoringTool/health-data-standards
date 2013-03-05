@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class LabOrderImporterTest < MiniTest::Unit::TestCase
-  def test_encounter_order_importing
+  def test_lab_order_importing
     doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/lab_order_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     nrh = HealthDataStandards::Import::CDA::NarrativeReferenceHandler.new
