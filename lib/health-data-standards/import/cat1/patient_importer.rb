@@ -26,14 +26,14 @@ module HealthDataStandards
                                              EntryPackage.new(DiagnosisActiveImporter.new, '2.16.840.1.113883.3.560.1.2', 'active'),
                                              EntryPackage.new(CDA::ConditionImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.54']")), '2.16.840.1.113883.3.560.1.404'), # patient characteristic age
                                              EntryPackage.new(CDA::ConditionImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.14']")), '2.16.840.1.113883.3.560.1.24', 'resolved'), #diagnosis resolved
-                                             EntryPackage.new(DiagnosisInactiveImporter.new, '2.16.840.1.113883.3.560.1.23', 'inactive')].compact #diagnosis inactive
+                                             EntryPackage.new(DiagnosisInactiveImporter.new, '2.16.840.1.113883.3.560.1.23', 'inactive')] #diagnosis inactive
   
           
           @section_importers[:medications] = [EntryPackage.new(CDA::MedicationImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.105']/cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.41']")), '2.16.840.1.113883.3.560.1.199', 'discharge'), #discharge medication active
                                               EntryPackage.new(CDA::MedicationImporter.new(CDA::EntryFinder.new("//cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.41']")), '2.16.840.1.113883.3.560.1.13', 'active'), #medication active
                                               EntryPackage.new(CDA::MedicationImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.42']/cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.16']")), '2.16.840.1.113883.3.560.1.14', 'administered'), #medication administered
                                               EntryPackage.new(CDA::MedicationImporter.new(CDA::EntryFinder.new("//cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.47']")), '2.16.840.1.113883.3.560.1.17', 'ordered'), #medication order TODO: ADD NEGATON REASON HANDLING SOMEHOW
-                                              EntryPackage.new(MedicationDispensedImporter.new, '2.16.840.1.113883.3.560.1.8', 'dispensed')].compact
+                                              EntryPackage.new(MedicationDispensedImporter.new, '2.16.840.1.113883.3.560.1.8', 'dispensed')]
 
           @section_importers[:procedures] = [EntryPackage.new(CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.59']")), '2.16.840.1.113883.3.560.1.57', 'performed'), #physical exam performed
                                              EntryPackage.new(CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.3']")), '2.16.840.1.113883.3.560.1.131'), #comm from provider to patient
@@ -47,7 +47,7 @@ module HealthDataStandards
                                              EntryPackage.new(CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.66']")), '2.16.840.1.113883.3.560.1.63'),
                                              EntryPackage.new(CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.69']")), '2.16.840.1.113883.3.560.1.21'),
                                              EntryPackage.new(CDA::ProcedureImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.18']")), '2.16.840.1.113883.3.560.1.103', 'performed'), #diagnostic study performed
-                                             EntryPackage.new(DiagnosticStudyOrderImporter.new, '2.16.840.1.113883.3.560.1.40', 'ordered')].compact
+                                             EntryPackage.new(DiagnosticStudyOrderImporter.new, '2.16.840.1.113883.3.560.1.40', 'ordered')]
 
           @section_importers[:allergies] = [EntryPackage.new(ProcedureIntoleranceImporter.new, '2.16.840.1.113883.3.560.1.61'),
                                             EntryPackage.new(CDA::AllergyImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.46']")), '2.16.840.1.113883.3.560.1.67'), #medication intolerance
@@ -65,9 +65,9 @@ module HealthDataStandards
                                           EntryPackage.new(LabResultImporter.new, '2.16.840.1.113883.3.560.1.12')].compact #lab result
 
           @section_importers[:encounters] = [EntryPackage.new(CDA::EncounterImporter.new(CDA::EntryFinder.new("//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']")), '2.16.840.1.113883.3.560.1.79', 'performed'), #encounter performed
-                                             EntryPackage.new(EncounterOrderImporter.new, '2.16.840.1.113883.3.560.1.83', 'ordered')].compact
+                                             EntryPackage.new(EncounterOrderImporter.new, '2.16.840.1.113883.3.560.1.83', 'ordered')]
 
-          @section_importers[:social_history] = [EntryPackage.new(TobaccoUseImporter.new, '2.16.840.1.113883.3.560.1.1001', 'completed')].compact
+          @section_importers[:social_history] = [EntryPackage.new(TobaccoUseImporter.new, '2.16.840.1.113883.3.560.1.1001', 'completed')]
 
         end 
 
@@ -77,6 +77,7 @@ module HealthDataStandards
           import_sections(record, doc)
           get_clinical_trial_participant(record, doc)
           get_patient_expired(record, doc)
+          record.dedup_record!
           record
         end
 

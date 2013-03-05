@@ -6,10 +6,11 @@ module HealthDataStandards
         @rendering_context = RenderingContext.new
         @rendering_context.template_helper = template_helper
         @rendering_context.extensions = [HealthDataStandards::Export::Helper::HTMLViewHelper]
-        @code_map ||= self.build_code_map
+        @code_map = nil
       end
 
       def export(patient)
+        @code_map ||= self.build_code_map
         @rendering_context.render(:template => 'show', :locals => {:patient => patient, :code_map => @code_map})
       end
       
