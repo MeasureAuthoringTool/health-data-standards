@@ -3,10 +3,11 @@
   <td><%if entry.negationInd %><b>Not Done: </b><% end %><%= entry.description %></td>
   <td>
     <% entry.codes.each do |set, codes| %>
+      <% entry_key = "#{entry.id}_#{by_encounter}" %>
       <b>
         <% if code_map %>
           <%= set %>: <i><% codes.each do |code| %>
-                              <span onmouseover="showCodes(event,'<%=entry.id%>_<%=set%>_<%=code.to_s%>')" onmouseout="hideCodes(event,'<%=entry.id%>_<%=set%>_<%=code.to_s%>')" style="cursor:pointer;"><%=code.to_s%></span>
+                              <span onmouseover="showCodes(event,'<%=entry_key%>_<%=set%>_<%=code.to_s%>')" onmouseout="hideCodes(event,'<%=entry_key%>_<%=set%>_<%=code.to_s%>')" style="cursor:pointer;"><%=code.to_s%></span>
                           <% end %>
                       </i>
         <% else %>
@@ -15,7 +16,7 @@
       </b>
       <% if code_map %>
         <% codes.each do |code| %>
-          <span id="<%=entry.id%>_<%=set%>_<%=code.to_s%>" style="display: none; position: absolute; background: #EEE; padding: 10px; paddint-left: 30px; width: 200px; overflow: auto; z-index: 3000;"> <% description = code_map[set][code] if (code_map && code_map[set]) %><%= description %> </span>
+          <span id="<%=entry_key%>_<%=set%>_<%=code.to_s%>" style="display: none; position: absolute; background: #EEE; padding: 10px; paddint-left: 30px; width: 200px; overflow: auto; z-index: 3000;"> <% description = code_map[set][code] if (code_map && code_map[set]) %><%= description %> </span>
         <% end %>
       <% end %>
       <br/>

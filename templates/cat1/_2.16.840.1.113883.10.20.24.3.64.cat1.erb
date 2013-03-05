@@ -12,6 +12,7 @@
       <low <%= value_or_null_flavor(entry.start_time) %>/>
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
+    <%== render(:partial => 'ordinality', :locals => {:entry => entry}) %>
     <%== render(:partial => 'reason', :locals => {:entry => entry}) %>
     <% if entry.respond_to?(:incision_time) && entry.incision_time.present? -%>
     <entryRelationship typeCode="REFR">
