@@ -57,6 +57,7 @@ module HealthDataStandards
         end
 
         def extract_discharge_disposition(parent_element, encounter)
+          encounter.discharge_time = encounter.end_time
           encounter.discharge_disposition = extract_code(parent_element, "./sdtc:dischargeDispositionCode")
         end
       end
