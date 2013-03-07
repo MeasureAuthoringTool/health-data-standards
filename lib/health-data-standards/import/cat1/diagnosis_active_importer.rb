@@ -8,11 +8,6 @@ module HealthDataStandards
           @status_xpath = nil # We'll hardcode this to active in create entry because this is from the 
                               # diagnosis active template
         end
-
-        def create_entry(entry_element, nrh = CDA::NarrativeReferenceHandler.new)
-          condition = super
-          condition
-        end
       end
     end
   end
