@@ -30,7 +30,11 @@ class Record
   embeds_many :medications
   embeds_many :procedures
   embeds_many :results, class_name: "LabResult"
-  embeds_many :social_history, class_name: "Entry"
+  embeds_many :socialhistories, class_name: "Entry"
+
+  alias :social_history :socialhistories
+  alias :social_history= :socialhistories=
+
   embeds_many :vital_signs
   embeds_many :support
   embeds_many :advance_directives, class_name: "Entry"
@@ -47,7 +51,7 @@ class Record
   
   scope :by_provider, ->(prov, effective_date) { (effective_date) ? where(provider_queries(prov.id, effective_date)) : where('provider_performances.provider_id'=>prov.id)  }
   scope :by_patient_id, ->(id) { where(:medical_record_number => id) }
-  
+
   def providers
     provider_performances.map {|pp| pp.provider }
   end
