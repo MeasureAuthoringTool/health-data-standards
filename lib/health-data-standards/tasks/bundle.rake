@@ -4,26 +4,36 @@ db_name = ENV['DB_NAME'] || 'test'
 
 namespace :bundle do
   desc 'Import a quality bundle into the database.'
-  task :import, [:bundle_path,  :delete_existing,  :update_measures, :type] => [:environment] do |task, args|
+  task :import, [:bundle_path,  :delete_existing,  :update_measures, :type, :create_indexes] => [:environment] do |task, args|
     raise "The path to the measures zip file must be specified" unless args.bundle_path
     options = {:delete_existing => (args.delete_existing == "true"),
-    					 :type => args.type ,
+    					 :type => args.type,
     					 :update_measures => (args.update_measures == "true")
     					}
 
     bundle = File.open(args.bundle_path)    
     importer = HealthDataStandards::Import::Bundle::Importer
     bundle_contents = importer.import(bundle, options)
-    
-    ::Rails.application.eager_load!
-    ::Rails::Mongoid.create_indexes
+
+    counts = {measures: bundle_contents.measures.count,
+              records: bundle_contents.records.count,
+              extensions: bundle_contents[:extensions].count,
+              value_sets: bundle_contents.value_sets.count}
+
+    if (args.create_indexes != 'false')
+      ::Rails.application.eager_load!
+      ::Rails::Mongoid.create_indexes
+    end
 
     puts "Successfully imported bundle at: #{args.bundle_path}"
     puts "\t Imported into environment: #{Rails.env.upcase}" if defined? Rails 
     puts "\t Loaded #{args.type || 'all'} measures"
-    puts "\t Measures Loaded: #{bundle_contents.measures.count}"
-    puts "\t Test Patients Loaded: #{bundle_contents.records.count}"
-    puts "\t Extensions Loaded: #{bundle_contents[:extensions].count}"
+    puts "\t Sub-Measures Loaded: #{counts[:measures]}"
+    puts "\t Test Patients Loaded: #{counts[:records]}"
+    puts "\t Extensions Loaded: #{counts[:extensions]}"
+    puts "\t Value Sets Loaded: #{counts[:value_sets]}"
+    
+
   end
   
   # this task is most likely temporary.  Once Bonnie can handle both EP and EH measures together, this would no longer be required.

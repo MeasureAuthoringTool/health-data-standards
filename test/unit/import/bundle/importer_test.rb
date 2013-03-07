@@ -62,28 +62,6 @@ class ImporterTest< MiniTest::Unit::TestCase
     end
   end
 
-
-
-  def test_load_same_version_with_clear_db
-    assert_clean_db
-    loader = HealthDataStandards::Import::Bundle::Importer
-    begin
-      bundle = loader.import(File.new(@b_2_0_1), {clear_db: true})
-      m_count = HealthDataStandards::CQM::Measure.count
-      r_count = Record.count
-
-      bundle = loader.import(File.new(@b_2_0_1), {clear_db: true})
-      assert_equal 1, HealthDataStandards::CQM::Bundle.count, "Should only be 1 bundle in the db "
-
-      assert_equal m_count, bundle.measures.count, "Only the measures loaded in the last bundle should be available"
-      assert_equal r_count, bundle.records.count, "Only the records loaded in the last bundle should be available"
-    rescue
-       puts $!
-       assert false, "Should not have errored attempting to load db with same version of bundle with delete existing"
-    end
-  end
-
-
   def test_load_with_update
     assert_clean_db
     loader = HealthDataStandards::Import::Bundle::Importer
