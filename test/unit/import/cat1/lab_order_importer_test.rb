@@ -11,6 +11,6 @@ class LabOrderImporterTest < MiniTest::Unit::TestCase
     lab_order = lab_orders[0]
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19910519162436')
     assert lab_order.codes['SNOMED-CT'].include?('8879006')
-    assert_equal expected_start, lab_order.start_time
+    assert_equal expected_start, lab_order.time
   end
 end
