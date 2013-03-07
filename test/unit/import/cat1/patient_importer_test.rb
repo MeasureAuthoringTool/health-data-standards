@@ -205,11 +205,17 @@ class PatientImporterTest < MiniTest::Unit::TestCase
   end
 
   def test_condition_expired
-    patient = Record.new
+    dead_patient = Record.new
     doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/condition_expired_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-    HealthDataStandards::Import::Cat1::PatientImporter.instance.get_patient_expired(patient, doc)
-    assert patient.expired
+    HealthDataStandards::Import::Cat1::PatientImporter.instance.get_patient_expired(dead_patient, doc)
+    assert dead_patient.expired
+
+    alive_patient = Record.new
+    doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/functional_status_result_fragment.xml'))
+    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+    HealthDataStandards::Import::Cat1::PatientImporter.instance.get_patient_expired(alive_patient, doc)
+    refute alive_patient.expired
   end
 
   def test_functional_status_result

@@ -98,7 +98,7 @@ module HealthDataStandards
 
         def get_patient_expired(record, doc)
           entry_elements = doc.xpath("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.54']")
-          record.expired = true unless entry_elements.nil?
+          record.expired = true unless entry_elements.empty?
         end
       end
     end
