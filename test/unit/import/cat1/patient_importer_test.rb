@@ -139,16 +139,6 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert_equal expected_start, communication.start_time
   end
 
-  def test_medication_active
-    patient = build_record_from_xml('test/fixtures/cat1_fragments/medication_active_fragment.xml')
-    med_active = patient.medications.first
-    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19890509170647')
-    expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19890509173724')
-    assert med_active.codes['RxNorm'].include?('866439')
-    assert_equal expected_start, med_active.start_time
-    assert_equal expected_end, med_active.end_time
-  end
-
   def test_medication_administered
     patient = build_record_from_xml('test/fixtures/cat1_fragments/medication_admin_fragment.xml')
     med_admin = patient.medications.first
