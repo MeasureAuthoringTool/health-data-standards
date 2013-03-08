@@ -4,11 +4,6 @@ module HealthDataStandards
       class EncounterOrderImporter < CDA::EncounterImporter
         def initialize(entry_finder=CDA::EntryFinder.new("//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.22']"))
           super(entry_finder)
-          @entry_class = Encounter
-        end
-        
-        def create_entry(entry_element, nrh = CDA::NarrativeReferenceHandler.new)
-          super
         end
 
         private

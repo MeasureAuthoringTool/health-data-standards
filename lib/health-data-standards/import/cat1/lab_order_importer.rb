@@ -7,10 +7,6 @@ module HealthDataStandards
           @entry_class = LabResult
         end
         
-        def create_entry(entry_element, nrh = CDA::NarrativeReferenceHandler.new)
-          super
-        end
-
         private
 
         def extract_dates(parent_element, entry, element_name="author")
