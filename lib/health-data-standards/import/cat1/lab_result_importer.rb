@@ -6,10 +6,6 @@ module HealthDataStandards
           super(entry_finder)
           @entry_class = LabResult
         end
-        
-        def create_entry(entry_element, nrh = CDA::NarrativeReferenceHandler.new)
-          super
-        end
       end
     end
   end
