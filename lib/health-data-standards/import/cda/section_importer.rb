@@ -117,9 +117,16 @@ module HealthDataStandards
           value_element = parent_element.at_xpath('cda:value')
           if value_element
             value = value_element['value']
-            unit = value_element['unit']
-            value ||= value_element.text 
-            if value
+            if value.present?
+              unit = value_element['unit']
+              entry.set_value(value.strip, unit)
+            elsif value_element['code'].present?
+              crv = CodedResultValue.new
+              add_code_if_present(value_element, crv)
+              entry.values << crv
+            else
+              value = value_element.text
+              unit = value_element['unit']
               entry.set_value(value.strip, unit)
             end
             
