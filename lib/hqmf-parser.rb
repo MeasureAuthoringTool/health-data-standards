@@ -49,8 +49,6 @@ require_relative 'hqmf-parser/converter/pass1/simple_population_criteria'
 require_relative 'hqmf-parser/converter/pass2/comparison_converter'
 require_relative 'hqmf-parser/converter/pass2/operator_converter'
 
-require_relative 'hqmf-parser/value_sets/value_set_parser'
-
 require_relative 'hqmf-parser/parser'
 
 require_relative 'hqmf-generator/hqmf-generator'
