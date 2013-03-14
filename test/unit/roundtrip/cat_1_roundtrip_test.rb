@@ -11,12 +11,6 @@ class Cat1RoundtripTest < MiniTest::Unit::TestCase
 
 
 
-  
-  #TODO: where does exporter dump the xml? need to have importer pick it up automatically
-
-
-
-
   #export cat 1 - from Cat1Test
 
   def setup
@@ -29,6 +23,13 @@ class Cat1RoundtripTest < MiniTest::Unit::TestCase
     @qrda_xml = HealthDataStandards::Export::Cat1.new.export(@patient, @measures, @start_date, @end_date)
     @doc = Nokogiri::XML(@qrda_xml)
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+
+    File.open('temp.xml', 'w') { |file| file.write(@doc) }
+#Need to identify which measures I want to test for in the export statement (looks like constant MEASURES has them all - it is huge)
+#TODO - medication makes it thorugh becaues it has an OID (hqmf) and the code is in the correct valueset - if OID isn't present or if code(snowmed, loinc, etc) isn't from the appropriate valueset then the entry will not be exported
+#TODO-NEXT need to go through the entries in the record object and compare content from exported record to imported record using assertion statements
+#DOn't compare on the record level because the order of elements could screw it up as well as the fact that they will probably have different mongoid IDs
+
   end
 
 
