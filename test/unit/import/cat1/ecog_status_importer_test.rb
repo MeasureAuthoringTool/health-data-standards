@@ -9,7 +9,6 @@ class EcogStatusImporterTest < MiniTest::Unit::TestCase
     ecog = HealthDataStandards::Import::Cat1::EntryPackage.new(HealthDataStandards::Import::Cat1::EcogStatusImporter.new, '2.16.840.1.113883.3.560.1.1001')
     ecog_statuses = ecog.package_entries(doc, nrh)
     ecog_status = ecog_statuses[0]
-    binding.pry
     assert ecog_status.codes['SNOMED-CT'].include?('423237006')
     expected_timestamp = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20120619085355')
     assert_equal expected_timestamp, ecog_status.time
