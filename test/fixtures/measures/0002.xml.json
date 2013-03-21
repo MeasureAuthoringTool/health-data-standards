@@ -1,870 +1,1212 @@
 {
-    "id": "0002",
-    "hqmf_id": "2E679CD2-3FEC-4A75-A75A-61403E5EFEE8",
-    "hqmf_set_id": "B5FEE67F-F5C4-4C73-9D58-1941F9729539",
-    "hqmf_version_number": 1,
-    "title": "Appropriate Testing for Children with Pharyngitis",
-    "description": "The percentage of children 2–18 years of age who were diagnosed with Pharyngitis, dispensed an antibiotic and received a group A streptococcus (strep) test for the episode.",
-    "population_criteria": {
-        "EXCL": {
-            "conjunction?": true,
-            "type": "EXCL",
-            "title": "Denominator",
-            "hqmf_id": "A6105EE3-7F9E-4311-825E-9FAC4D2FE0CF"
-        },
-        "NUMER": {
-            "conjunction?": true,
-            "type": "NUMER",
-            "title": "Numerator",
-            "hqmf_id": "1E223193-25A4-4464-9D7E-89B5DCBFC513",
-            "preconditions": [
-                {
-                    "id": 25,
-                    "preconditions": [
-                        {
-                            "id": 11,
-                            "reference": "LaboratoryTestPerformedGroupAStreptococcusTest_precondition_11"
-                        },
-                        {
-                            "id": 23,
-                            "reference": "LaboratoryTestPerformedGroupAStreptococcusTest_precondition_23"
-                        }
-                    ],
-                    "conjunction_code": "allTrue"
-                }
-            ]
-        },
-        "DENOM": {
-            "conjunction?": true,
-            "type": "DENOM",
-            "title": "Denominator",
-            "hqmf_id": "66D82442-4198-44A1-A489-EE9F819F1636",
-            "preconditions": [
-                {
-                    "id": 52,
-                    "preconditions": [
-                        {
-                            "id": 26,
-                            "reference": "EncounterEncounterAmbulatoryIncludingPediatrics_precondition_26"
-                        },
-                        {
-                            "id": 29,
-                            "reference": "DiagnosisActivePharyngitis_precondition_29"
-                        },
-                        {
-                            "id": 33,
-                            "preconditions": [
-                                {
-                                    "id": 31,
-                                    "reference": "EncounterEncounterAmbulatoryIncludingPediatrics_precondition_31"
-                                }
-                            ],
-                            "conjunction_code": "atLeastOneTrue"
-                        },
-                        {
-                            "id": 51,
-                            "preconditions": [
-                                {
-                                    "id": 48,
-                                    "preconditions": [
-                                        {
-                                            "id": 42,
-                                            "reference": "MedicationDispensedPharyngitisAntibiotics_precondition_42"
-                                        },
-                                        {
-                                            "id": 44,
-                                            "reference": "MedicationOrderPharyngitisAntibiotics_precondition_44"
-                                        },
-                                        {
-                                            "id": 46,
-                                            "reference": "MedicationActivePharyngitisAntibiotics_precondition_46"
-                                        }
-                                    ],
-                                    "conjunction_code": "atLeastOneTrue"
-                                }
-                            ],
-                            "conjunction_code": "allTrue",
-                            "negation": true
-                        }
-                    ],
-                    "conjunction_code": "allTrue"
-                }
-            ]
-        },
-        "IPP": {
-            "conjunction?": true,
-            "type": "IPP",
-            "title": "Initial Patient Population",
-            "hqmf_id": "45A1DEFB-0271-4277-B84C-F6DED6B6FD8E",
-            "preconditions": [
-                {
-                    "id": 57,
-                    "preconditions": [
-                        {
-                            "id": 53,
-                            "reference": "PatientCharacteristicBirthDate_precondition_53"
-                        },
-                        {
-                            "id": 55,
-                            "reference": "PatientCharacteristicBirthDate_precondition_55"
-                        }
-                    ],
-                    "conjunction_code": "allTrue"
-                }
-            ]
+  "id": "0002",
+  "hqmf_id": "8A4D92B2-3946-CDAE-0139-77F580AE6690",
+  "hqmf_set_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+  "hqmf_version_number": 1,
+  "title": "Appropriate Testing for Children with Pharyngitis",
+  "description": "Percentage of children 2-18 years of age who were diagnosed with pharyngitis, ordered an antibiotic and received a group A streptococcus (strep) test for the episode.",
+  "cms_id": "CMS146v1",
+  "population_criteria": {
+    "DENEX": {
+      "conjunction?": true,
+      "type": "DENEX",
+      "title": "Denominator",
+      "hqmf_id": "7966CC65-62B4-493E-8188-1E393BC900B1",
+      "preconditions": [
+        {
+          "id": 12,
+          "preconditions": [
+            {
+              "id": 10,
+              "reference": "MedicationActiveAntibioticMedications_precondition_10"
+            }
+          ],
+          "conjunction_code": "allTrue"
         }
+      ]
     },
-    "data_criteria": {
-        "MedicationDispensedPharyngitisAntibiotics_precondition_4": {
-            "title": "pharyngitis antibiotics",
-            "description": "Medication, Dispensed: pharyngitis antibiotics",
-            "standard_category": "medication",
-            "qds_data_type": "medication_dispensed",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.373",
-            "type": "medications",
-            "definition": "medication",
-            "status": "dispensed",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "MedicationDispensedPharyngitisAntibiotics"
-        },
-        "MedicationOrderPharyngitisAntibiotics_precondition_6": {
-            "title": "pharyngitis antibiotics",
-            "description": "Medication, Order: pharyngitis antibiotics",
-            "standard_category": "medication",
-            "qds_data_type": "medication_order",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.373",
-            "type": "medications",
-            "definition": "medication",
-            "status": "ordered",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "MedicationOrderPharyngitisAntibiotics"
-        },
-        "MedicationActivePharyngitisAntibiotics_precondition_8": {
-            "title": "pharyngitis antibiotics",
-            "description": "Medication, Active: pharyngitis antibiotics",
-            "standard_category": "medication",
-            "qds_data_type": "medication_active",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.373",
-            "type": "medications",
-            "definition": "medication",
-            "status": "active",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "MedicationActivePharyngitisAntibiotics"
-        },
-        "EncounterEncounterAmbulatoryIncludingPediatrics_precondition_1": {
-            "title": "Encounter ambulatory including pediatrics",
-            "description": "Encounter: Encounter ambulatory including pediatrics",
-            "standard_category": "encounter",
-            "qds_data_type": "encounter",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.231",
-            "type": "encounters",
-            "definition": "encounter",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "EncounterEncounterAmbulatoryIncludingPediatrics",
-            "temporal_references": [
+    "NUMER": {
+      "conjunction?": true,
+      "type": "NUMER",
+      "title": "Numerator",
+      "hqmf_id": "035CCE7F-1141-4636-9168-B9D530E980F5",
+      "preconditions": [
+        {
+          "id": 19,
+          "preconditions": [
+            {
+              "id": 17,
+              "preconditions": [
                 {
-                    "type": "DURING",
-                    "reference": "MeasurePeriod"
+                  "id": 13,
+                  "reference": "LaboratoryTestResultGroupAStreptococcusTest_precondition_13"
                 },
                 {
-                    "type": "SBS",
-                    "reference": "GROUP_SBS_CHILDREN_1",
-                    "range": {
-                        "type": "IVL_PQ",
-                        "high": {
-                            "type": "PQ",
-                            "unit": "d",
-                            "value": "3",
-                            "inclusive?": true,
-                            "derived?": false
-                        }
-                    }
+                  "id": 15,
+                  "reference": "LaboratoryTestResultGroupAStreptococcusTest_precondition_15"
                 }
-            ]
-        },
-        "GROUP_SBS_CHILDREN_1": {
-            "title": "GROUP_SBS_CHILDREN_1",
-            "description": "",
-            "standard_category": "",
-            "qds_data_type": "",
-            "children_criteria": [
-                "MedicationDispensedPharyngitisAntibiotics_precondition_4",
-                "MedicationOrderPharyngitisAntibiotics_precondition_6",
-                "MedicationActivePharyngitisAntibiotics_precondition_8"
-            ],
-            "derivation_operator": "UNION",
-            "type": "derived",
-            "definition": "derived",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "GROUP_SBS_CHILDREN_1"
-        },
-        "LaboratoryTestPerformedGroupAStreptococcusTest_precondition_11": {
-            "title": "Group A Streptococcus Test",
-            "description": "Laboratory Test, Performed: Group A Streptococcus Test",
-            "standard_category": "laboratory_test",
-            "qds_data_type": "laboratory_test",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.250",
-            "type": "laboratory_tests",
-            "definition": "laboratory_test",
-            "status": "performed",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "LaboratoryTestPerformedGroupAStreptococcusTest",
-            "temporal_references": [
+              ],
+              "conjunction_code": "atLeastOneTrue"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "DENOM": {
+      "conjunction?": true,
+      "type": "DENOM",
+      "title": "Denominator",
+      "hqmf_id": "0002BEB6-F5E8-4755-A95C-1CA6E66BF321"
+    },
+    "IPP": {
+      "conjunction?": true,
+      "type": "IPP",
+      "title": "Initial Patient Population",
+      "hqmf_id": "14A38107-50A1-4DD9-A6AB-BC9E5DEDCEB9",
+      "preconditions": [
+        {
+          "id": 79,
+          "preconditions": [
+            {
+              "id": 48,
+              "reference": "PatientCharacteristicBirthdateBirthDate_precondition_48"
+            },
+            {
+              "id": 50,
+              "reference": "PatientCharacteristicBirthdateBirthDate_precondition_50"
+            },
+            {
+              "id": 76,
+              "preconditions": [
                 {
-                    "type": "SBE",
-                    "reference": "EncounterEncounterAmbulatoryIncludingPediatrics_precondition_1",
-                    "range": {
-                        "type": "IVL_PQ",
-                        "high": {
-                            "type": "PQ",
-                            "unit": "d",
-                            "value": "3",
-                            "inclusive?": true,
-                            "derived?": false
-                        }
-                    }
-                }
-            ]
-        },
-        "MedicationDispensedPharyngitisAntibiotics_precondition_16": {
-            "title": "pharyngitis antibiotics",
-            "description": "Medication, Dispensed: pharyngitis antibiotics",
-            "standard_category": "medication",
-            "qds_data_type": "medication_dispensed",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.373",
-            "type": "medications",
-            "definition": "medication",
-            "status": "dispensed",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "MedicationDispensedPharyngitisAntibiotics"
-        },
-        "MedicationOrderPharyngitisAntibiotics_precondition_18": {
-            "title": "pharyngitis antibiotics",
-            "description": "Medication, Order: pharyngitis antibiotics",
-            "standard_category": "medication",
-            "qds_data_type": "medication_order",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.373",
-            "type": "medications",
-            "definition": "medication",
-            "status": "ordered",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "MedicationOrderPharyngitisAntibiotics"
-        },
-        "MedicationActivePharyngitisAntibiotics_precondition_20": {
-            "title": "pharyngitis antibiotics",
-            "description": "Medication, Active: pharyngitis antibiotics",
-            "standard_category": "medication",
-            "qds_data_type": "medication_active",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.373",
-            "type": "medications",
-            "definition": "medication",
-            "status": "active",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "MedicationActivePharyngitisAntibiotics"
-        },
-        "EncounterEncounterAmbulatoryIncludingPediatrics_precondition_13": {
-            "title": "Encounter ambulatory including pediatrics",
-            "description": "Encounter: Encounter ambulatory including pediatrics",
-            "standard_category": "encounter",
-            "qds_data_type": "encounter",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.231",
-            "type": "encounters",
-            "definition": "encounter",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "EncounterEncounterAmbulatoryIncludingPediatrics",
-            "temporal_references": [
-                {
-                    "type": "DURING",
-                    "reference": "MeasurePeriod"
+                  "id": 52,
+                  "reference": "OccurrenceAAmbulatoryEdVisit3_precondition_52"
                 },
                 {
-                    "type": "SBS",
-                    "reference": "GROUP_SBS_CHILDREN_2",
-                    "range": {
-                        "type": "IVL_PQ",
-                        "high": {
-                            "type": "PQ",
-                            "unit": "d",
-                            "value": "3",
-                            "inclusive?": true,
-                            "derived?": false
-                        }
+                  "id": 58,
+                  "preconditions": [
+                    {
+                      "id": 54,
+                      "reference": "MedicationOrderAntibioticMedications_precondition_54"
+                    },
+                    {
+                      "id": 56,
+                      "reference": "MedicationOrderAntibioticMedications_precondition_56"
                     }
-                }
-            ]
-        },
-        "GROUP_SBS_CHILDREN_2": {
-            "title": "GROUP_SBS_CHILDREN_2",
-            "description": "",
-            "standard_category": "",
-            "qds_data_type": "",
-            "children_criteria": [
-                "MedicationDispensedPharyngitisAntibiotics_precondition_16",
-                "MedicationOrderPharyngitisAntibiotics_precondition_18",
-                "MedicationActivePharyngitisAntibiotics_precondition_20"
-            ],
-            "derivation_operator": "UNION",
-            "type": "derived",
-            "definition": "derived",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "GROUP_SBS_CHILDREN_2"
-        },
-        "LaboratoryTestPerformedGroupAStreptococcusTest_precondition_23": {
-            "title": "Group A Streptococcus Test",
-            "description": "Laboratory Test, Performed: Group A Streptococcus Test",
-            "standard_category": "laboratory_test",
-            "qds_data_type": "laboratory_test",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.250",
-            "type": "laboratory_tests",
-            "definition": "laboratory_test",
-            "status": "performed",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "LaboratoryTestPerformedGroupAStreptococcusTest",
-            "temporal_references": [
-                {
-                    "type": "SAE",
-                    "reference": "EncounterEncounterAmbulatoryIncludingPediatrics_precondition_13",
-                    "range": {
-                        "type": "IVL_PQ",
-                        "high": {
-                            "type": "PQ",
-                            "unit": "d",
-                            "value": "3",
-                            "inclusive?": true,
-                            "derived?": false
-                        }
-                    }
-                }
-            ]
-        },
-        "EncounterEncounterAmbulatoryIncludingPediatrics_precondition_26": {
-            "title": "Encounter ambulatory including pediatrics",
-            "description": "Encounter: Encounter ambulatory including pediatrics",
-            "standard_category": "encounter",
-            "qds_data_type": "encounter",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.231",
-            "type": "encounters",
-            "definition": "encounter",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "EncounterEncounterAmbulatoryIncludingPediatrics",
-            "temporal_references": [
-                {
-                    "type": "DURING",
-                    "reference": "MeasurePeriod"
-                }
-            ]
-        },
-        "EncounterEncounterAmbulatoryIncludingPediatrics_precondition_28": {
-            "title": "Encounter ambulatory including pediatrics",
-            "description": "Encounter: Encounter ambulatory including pediatrics",
-            "standard_category": "encounter",
-            "qds_data_type": "encounter",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.231",
-            "type": "encounters",
-            "definition": "encounter",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "EncounterEncounterAmbulatoryIncludingPediatrics",
-            "temporal_references": [
-                {
-                    "type": "DURING",
-                    "reference": "MeasurePeriod"
-                }
-            ]
-        },
-        "DiagnosisActivePharyngitis_precondition_29": {
-            "title": "pharyngitis",
-            "description": "Diagnosis, Active: pharyngitis",
-            "standard_category": "diagnosis_condition_problem",
-            "qds_data_type": "diagnosis_active",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.369",
-            "type": "conditions",
-            "definition": "diagnosis",
-            "status": "active",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "DiagnosisActivePharyngitis",
-            "temporal_references": [
-                {
-                    "type": "DURING",
-                    "reference": "EncounterEncounterAmbulatoryIncludingPediatrics_precondition_28"
-                }
-            ]
-        },
-        "MedicationDispensedPharyngitisAntibiotics_precondition_34": {
-            "title": "pharyngitis antibiotics",
-            "description": "Medication, Dispensed: pharyngitis antibiotics",
-            "standard_category": "medication",
-            "qds_data_type": "medication_dispensed",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.373",
-            "type": "medications",
-            "definition": "medication",
-            "status": "dispensed",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "MedicationDispensedPharyngitisAntibiotics"
-        },
-        "MedicationOrderPharyngitisAntibiotics_precondition_36": {
-            "title": "pharyngitis antibiotics",
-            "description": "Medication, Order: pharyngitis antibiotics",
-            "standard_category": "medication",
-            "qds_data_type": "medication_order",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.373",
-            "type": "medications",
-            "definition": "medication",
-            "status": "ordered",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "MedicationOrderPharyngitisAntibiotics"
-        },
-        "MedicationActivePharyngitisAntibiotics_precondition_38": {
-            "title": "pharyngitis antibiotics",
-            "description": "Medication, Active: pharyngitis antibiotics",
-            "standard_category": "medication",
-            "qds_data_type": "medication_active",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.373",
-            "type": "medications",
-            "definition": "medication",
-            "status": "active",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "MedicationActivePharyngitisAntibiotics"
-        },
-        "EncounterEncounterAmbulatoryIncludingPediatrics_precondition_31": {
-            "title": "Encounter ambulatory including pediatrics",
-            "description": "Encounter: Encounter ambulatory including pediatrics",
-            "standard_category": "encounter",
-            "qds_data_type": "encounter",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.231",
-            "type": "encounters",
-            "definition": "encounter",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "EncounterEncounterAmbulatoryIncludingPediatrics",
-            "temporal_references": [
-                {
-                    "type": "DURING",
-                    "reference": "MeasurePeriod"
+                  ],
+                  "conjunction_code": "atLeastOneTrue"
                 },
                 {
-                    "type": "SBS",
-                    "reference": "GROUP_SBS_CHILDREN_3",
-                    "range": {
-                        "type": "IVL_PQ",
-                        "high": {
-                            "type": "PQ",
-                            "unit": "d",
-                            "value": "3",
-                            "inclusive?": true,
-                            "derived?": false
+                  "id": 74,
+                  "preconditions": [
+                    {
+                      "id": 65,
+                      "reference": "OccurrenceAAmbulatoryEdVisit3_precondition_65"
+                    },
+                    {
+                      "id": 71,
+                      "preconditions": [
+                        {
+                          "id": 67,
+                          "reference": "OccurrenceAAcutePharyngitis1_precondition_67"
+                        },
+                        {
+                          "id": 69,
+                          "reference": "OccurrenceAAcuteTonsillitis2_precondition_69"
                         }
+                      ],
+                      "conjunction_code": "atLeastOneTrue"
                     }
+                  ],
+                  "conjunction_code": "atLeastOneTrue"
                 }
-            ]
-        },
-        "GROUP_SBS_CHILDREN_3": {
-            "title": "GROUP_SBS_CHILDREN_3",
-            "description": "",
-            "standard_category": "",
-            "qds_data_type": "",
-            "children_criteria": [
-                "MedicationDispensedPharyngitisAntibiotics_precondition_34",
-                "MedicationOrderPharyngitisAntibiotics_precondition_36",
-                "MedicationActivePharyngitisAntibiotics_precondition_38"
-            ],
-            "derivation_operator": "UNION",
-            "type": "derived",
-            "definition": "derived",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "GROUP_SBS_CHILDREN_3"
-        },
-        "EncounterEncounterAmbulatoryIncludingPediatrics_precondition_49": {
-            "title": "Encounter ambulatory including pediatrics",
-            "description": "Encounter: Encounter ambulatory including pediatrics",
-            "standard_category": "encounter",
-            "qds_data_type": "encounter",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.231",
-            "type": "encounters",
-            "definition": "encounter",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "EncounterEncounterAmbulatoryIncludingPediatrics",
-            "temporal_references": [
+              ],
+              "conjunction_code": "allTrue"
+            },
+            {
+              "id": 78,
+              "preconditions": [
                 {
-                    "type": "DURING",
-                    "reference": "MeasurePeriod"
-                }
-            ]
-        },
-        "MedicationDispensedPharyngitisAntibiotics_precondition_42": {
-            "title": "pharyngitis antibiotics",
-            "description": "Medication, Dispensed: pharyngitis antibiotics",
-            "standard_category": "medication",
-            "qds_data_type": "medication_dispensed",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.373",
-            "type": "medications",
-            "definition": "medication",
-            "status": "dispensed",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "MedicationDispensedPharyngitisAntibiotics",
-            "temporal_references": [
-                {
-                    "type": "SBS",
-                    "reference": "EncounterEncounterAmbulatoryIncludingPediatrics_precondition_49",
-                    "range": {
-                        "type": "IVL_PQ",
-                        "high": {
-                            "type": "PQ",
-                            "unit": "d",
-                            "value": "30",
-                            "inclusive?": true,
-                            "derived?": false
+                  "id": 46,
+                  "preconditions": [
+                    {
+                      "id": 20,
+                      "reference": "OccurrenceBAmbulatoryEdVisit4_precondition_20"
+                    },
+                    {
+                      "id": 22,
+                      "reference": "OccurrenceBAmbulatoryEdVisit4_precondition_22"
+                    },
+                    {
+                      "id": 28,
+                      "preconditions": [
+                        {
+                          "id": 24,
+                          "reference": "MedicationOrderAntibioticMedications_precondition_24"
+                        },
+                        {
+                          "id": 26,
+                          "reference": "MedicationOrderAntibioticMedications_precondition_26"
                         }
-                    }
-                }
-            ]
-        },
-        "MedicationOrderPharyngitisAntibiotics_precondition_44": {
-            "title": "pharyngitis antibiotics",
-            "description": "Medication, Order: pharyngitis antibiotics",
-            "standard_category": "medication",
-            "qds_data_type": "medication_order",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.373",
-            "type": "medications",
-            "definition": "medication",
-            "status": "ordered",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "MedicationOrderPharyngitisAntibiotics",
-            "temporal_references": [
-                {
-                    "type": "SBS",
-                    "reference": "EncounterEncounterAmbulatoryIncludingPediatrics_precondition_49",
-                    "range": {
-                        "type": "IVL_PQ",
-                        "high": {
-                            "type": "PQ",
-                            "unit": "d",
-                            "value": "30",
-                            "inclusive?": true,
-                            "derived?": false
+                      ],
+                      "conjunction_code": "atLeastOneTrue"
+                    },
+                    {
+                      "id": 44,
+                      "preconditions": [
+                        {
+                          "id": 35,
+                          "reference": "OccurrenceBAmbulatoryEdVisit4_precondition_35"
+                        },
+                        {
+                          "id": 41,
+                          "preconditions": [
+                            {
+                              "id": 37,
+                              "reference": "OccurrenceAAcutePharyngitis1_precondition_37"
+                            },
+                            {
+                              "id": 39,
+                              "reference": "OccurrenceAAcuteTonsillitis2_precondition_39"
+                            }
+                          ],
+                          "conjunction_code": "atLeastOneTrue"
                         }
+                      ],
+                      "conjunction_code": "atLeastOneTrue"
                     }
+                  ],
+                  "conjunction_code": "allTrue"
                 }
-            ]
-        },
-        "MedicationActivePharyngitisAntibiotics_precondition_46": {
-            "title": "pharyngitis antibiotics",
-            "description": "Medication, Active: pharyngitis antibiotics",
-            "standard_category": "medication",
-            "qds_data_type": "medication_active",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.373",
-            "type": "medications",
-            "definition": "medication",
-            "status": "active",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "MedicationActivePharyngitisAntibiotics",
-            "temporal_references": [
-                {
-                    "type": "SBS",
-                    "reference": "EncounterEncounterAmbulatoryIncludingPediatrics_precondition_49",
-                    "range": {
-                        "type": "IVL_PQ",
-                        "high": {
-                            "type": "PQ",
-                            "unit": "d",
-                            "value": "30",
-                            "inclusive?": true,
-                            "derived?": false
-                        }
-                    }
-                }
-            ]
-        },
-        "PatientCharacteristicBirthDate_precondition_53": {
-            "title": "birth date",
-            "description": "Patient Characteristic: birth date",
-            "standard_category": "individual_characteristic",
-            "qds_data_type": "individual_characteristic",
-            "code_list_id": "2.16.840.1.113883.3.560.100.4",
-            "property": "birthtime",
-            "type": "characteristic",
-            "definition": "patient_characteristic_birthdate",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "PatientCharacteristicBirthDate",
-            "temporal_references": [
-                {
-                    "type": "SBS",
-                    "reference": "MeasurePeriod",
-                    "range": {
-                        "type": "IVL_PQ",
-                        "low": {
-                            "type": "PQ",
-                            "unit": "a",
-                            "value": "2",
-                            "inclusive?": true,
-                            "derived?": false
-                        }
-                    }
-                }
-            ]
-        },
-        "PatientCharacteristicBirthDate_precondition_55": {
-            "title": "birth date",
-            "description": "Patient Characteristic: birth date",
-            "standard_category": "individual_characteristic",
-            "qds_data_type": "individual_characteristic",
-            "code_list_id": "2.16.840.1.113883.3.560.100.4",
-            "property": "birthtime",
-            "type": "characteristic",
-            "definition": "patient_characteristic_birthdate",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "PatientCharacteristicBirthDate",
-            "temporal_references": [
-                {
-                    "type": "SBS",
-                    "reference": "MeasurePeriod",
-                    "range": {
-                        "type": "IVL_PQ",
-                        "high": {
-                            "type": "PQ",
-                            "unit": "a",
-                            "value": "17",
-                            "inclusive?": true,
-                            "derived?": false
-                        }
-                    }
-                }
-            ]
+              ],
+              "conjunction_code": "atLeastOneTrue",
+              "negation": true
+            }
+          ],
+          "conjunction_code": "allTrue"
         }
-    },
-    "source_data_criteria": {
-        "PatientCharacteristicBirthDate": {
-            "title": "birth date",
-            "description": "Patient Characteristic: birth date",
-            "standard_category": "individual_characteristic",
-            "qds_data_type": "individual_characteristic",
-            "code_list_id": "2.16.840.1.113883.3.560.100.4",
-            "property": "birthtime",
-            "type": "characteristic",
-            "definition": "patient_characteristic_birthdate",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "PatientCharacteristicBirthDate"
-        },
-        "EncounterEncounterAmbulatoryIncludingPediatrics": {
-            "title": "Encounter ambulatory including pediatrics",
-            "description": "Encounter: Encounter ambulatory including pediatrics",
-            "standard_category": "encounter",
-            "qds_data_type": "encounter",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.231",
-            "type": "encounters",
-            "definition": "encounter",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "EncounterEncounterAmbulatoryIncludingPediatrics"
-        },
-        "LaboratoryTestPerformedGroupAStreptococcusTest": {
-            "title": "Group A Streptococcus Test",
-            "description": "Laboratory Test, Performed: Group A Streptococcus Test",
-            "standard_category": "laboratory_test",
-            "qds_data_type": "laboratory_test",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.250",
-            "type": "laboratory_tests",
-            "definition": "laboratory_test",
-            "status": "performed",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "LaboratoryTestPerformedGroupAStreptococcusTest"
-        },
-        "DiagnosisActivePharyngitis": {
-            "title": "pharyngitis",
-            "description": "Diagnosis, Active: pharyngitis",
-            "standard_category": "diagnosis_condition_problem",
-            "qds_data_type": "diagnosis_active",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.369",
-            "type": "conditions",
-            "definition": "diagnosis",
-            "status": "active",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "DiagnosisActivePharyngitis"
-        },
-        "MedicationActivePharyngitisAntibiotics": {
-            "title": "pharyngitis antibiotics",
-            "description": "Medication, Active: pharyngitis antibiotics",
-            "standard_category": "medication",
-            "qds_data_type": "medication_active",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.373",
-            "type": "medications",
-            "definition": "medication",
-            "status": "active",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "MedicationActivePharyngitisAntibiotics"
-        },
-        "MedicationDispensedPharyngitisAntibiotics": {
-            "title": "pharyngitis antibiotics",
-            "description": "Medication, Dispensed: pharyngitis antibiotics",
-            "standard_category": "medication",
-            "qds_data_type": "medication_dispensed",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.373",
-            "type": "medications",
-            "definition": "medication",
-            "status": "dispensed",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "MedicationDispensedPharyngitisAntibiotics"
-        },
-        "MedicationOrderPharyngitisAntibiotics": {
-            "title": "pharyngitis antibiotics",
-            "description": "Medication, Order: pharyngitis antibiotics",
-            "standard_category": "medication",
-            "qds_data_type": "medication_order",
-            "code_list_id": "2.16.840.1.113883.3.464.0001.373",
-            "type": "medications",
-            "definition": "medication",
-            "status": "ordered",
-            "hard_status": false,
-            "negation": false,
-            "source_data_criteria": "MedicationOrderPharyngitisAntibiotics"
-        }
-    },
-    "attributes": [
-        {
-            "id": "COPYRIGHT",
-            "code": "COPY",
-            "value": "© National Committee for Quality Assurance. All Rights Reserved",
-            "name": "Copyright"
-        },
-        {
-            "id": "MEASURE_SCORING",
-            "code": "MSRSCORE",
-            "name": "Measure scoring"
-        },
-        {
-            "id": "MEASURE_TYPE",
-            "code": "MSRTYPE",
-            "name": "Measure type"
-        },
-        {
-            "id": "STRATIFICATION",
-            "code": "STRAT",
-            "value": "None",
-            "name": "Stratification"
-        },
-        {
-            "id": "RISK_ADJUSTMENT",
-            "code": "MSRADJ",
-            "value": "None",
-            "name": "Risk Adjustment"
-        },
-        {
-            "id": "DATA_AGGREGATION",
-            "code": "MSRAGG",
-            "name": "Data Aggregation"
-        },
-        {
-            "id": "RATIONALE",
-            "code": "RAT",
-            "value": "This measure assesses the proportion of age-appropriate children diagnosed with pharyngitis who were prescribed an antibiotic at an outpatient visit and who received a group A streptococcus (group A strep) test. Pharyngitis occurs in all age groups, but those aged 5-18 years have the highest incidence of streptococcal infections. A physician's clinical diagnosis can be validated with an objective diagnostic (group A strep) test. This test, which is widely available to practitioners, can result in a reduction of two-thirds of antibiotic consumption of pharyngitis while maintaining significant benefits for patients. In a recent nationwide physician survey, however, 42% of physicians reported that they would start antibiotic treatment for children with pharyngitis before knowing the results of a group A strep test, and would continue treatment regardless. This measure is important because it requires initial antigen screening to ensure accurate diagnosis and promotes judicious use of antibiotics and reduction of antibiotic overuse.",
-            "name": "Rationale"
-        },
-        {
-            "id": "CLINICAL_RECOMMENDATION_STATEMENT",
-            "code": "CRS",
-            "value": "Clinical practice guidelines recommend group A streptococcus pharyngitis be treated with antibiotics. \n\nSpecifically, the guidelines set out 3 principles:\n1. Diagnosis of group A strep. pharyngitis is based on appropriate lab tests and clinical/epidemiological findings\n2. Antibiotics are only given with a diagnosis of group A strep. pharyngitis or other bacterial infection\n3. Penicillin is the drug of choice for group A strep. pharyngitis\n\nThe group A strep. test (rapid assay or throat culture) is the definitive test of group A strep. pharyngitis. Pharyngitis is the only respiratory tract infection with an objective diagnostic test that can be validated with administrative data, and not medical records. A process measure that requires the performance of a group A strep. test for children given antibiotics for pharyngitis is supported by the guidelines.",
-            "name": "Clinical Recommendation Statement"
-        },
-        {
-            "id": "IMPROVEMENT_NOTATION",
-            "code": "IDUR",
-            "value": "Higher scores indicate better quality",
-            "name": "Improvement notation"
-        },
-        {
-            "id": "NQF_ID_NUMBER",
-            "code": "OTH",
-            "value": "0002",
-            "name": "NQF ID Number"
-        },
-        {
-            "id": "MEASUREMENT_DURATION",
-            "code": "MSRMD",
-            "value": "12 month(s)",
-            "name": "Measurement duration"
-        },
-        {
-            "id": "REFERENCE",
-            "code": "REF",
-            "value": "Schwartz B, Marcy SM, Phillips WR, Gerber MA, Dowell SF. Pharyngitis - principles of judicious use of antimicrobial agents. Pediatrics 1998; 101(1):171-174.",
-            "name": "Reference"
-        },
-        {
-            "id": "DEFINITION",
-            "code": "DEF",
-            "value": "Denominator Exception(s): N/A",
-            "name": "Definition"
-        },
-        {
-            "id": "GUIDANCE",
-            "code": "GUIDE",
-            "name": "Guidance"
-        },
-        {
-            "id": "SUPPLEMENTAL_DATA_ELEMENTS",
-            "code": "OTH",
-            "value": "Report \"Patient Characteristic: Gender\" using \"Gender HL7 Value Set (2.16.840.1.113883.1.11.1)\"; Report \"Patient Characteristic: Race\" using \"Race CDC Value Set (2.16.840.1.114222.4.11.836)\"; Report \"Patient Characteristic: Ethnicity\" using \"Ethnicity CDC Value Set (2.16.840.1.114222.4.11.837)\"; Report \"Patient Characteristic: Payer\" using \"Payer Source of Payment Typology Value Set (2.16.840.1.113883.3.221.5)\".",
-            "name": "Supplemental Data Elements"
-        }
-    ],
-    "populations": [
-        {
-            "IPP": "IPP",
-            "DENOM": "DENOM",
-            "NUMER": "NUMER",
-            "EXCL": "EXCL",
-            "DENEXCEP": "DENEXCEP"
-        }
-    ],
-    "measure_period": {
-        "type": "IVL_TS",
-        "low": {
-            "type": "TS",
-            "value": "20100101",
-            "inclusive?": true,
-            "derived?": false
-        },
-        "high": {
-            "type": "TS",
-            "value": "20110101",
-            "inclusive?": true,
-            "derived?": false
-        },
-        "width": {
-            "type": "PQ",
-            "unit": "a",
-            "value": "1",
-            "inclusive?": true,
-            "derived?": false
-        }
+      ]
     }
+  },
+  "data_criteria": {
+    "DiagnosisActiveAcutePharyngitis": {
+      "title": "Acute Pharyngitis",
+      "description": "Diagnosis, Active: Acute Pharyngitis",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1011",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "DiagnosisActiveAcutePharyngitis"
+    },
+    "DiagnosisActiveAcuteTonsillitis": {
+      "title": "Acute Tonsillitis",
+      "description": "Diagnosis, Active: Acute Tonsillitis",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1012",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "DiagnosisActiveAcuteTonsillitis"
+    },
+    "EncounterPerformedAmbulatoryEdVisit": {
+      "title": "Ambulatory/ED Visit",
+      "description": "Encounter, Performed: Ambulatory/ED Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedAmbulatoryEdVisit"
+    },
+    "OccurrenceAAmbulatoryEdVisit3": {
+      "title": "Ambulatory/ED Visit",
+      "description": "Encounter, Performed: Ambulatory/ED Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "ENCOUNTER_PERFORMED_AMBULATORY_ED_VISIT",
+      "source_data_criteria": "OccurrenceAAmbulatoryEdVisit3"
+    },
+    "OccurrenceBAmbulatoryEdVisit4": {
+      "title": "Ambulatory/ED Visit",
+      "description": "Encounter, Performed: Ambulatory/ED Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "B",
+      "specific_occurrence_const": "ENCOUNTER_PERFORMED_AMBULATORY_ED_VISIT",
+      "source_data_criteria": "OccurrenceBAmbulatoryEdVisit4"
+    },
+    "OccurrenceAAcutePharyngitis1_precondition_5": {
+      "title": "Acute Pharyngitis",
+      "description": "Diagnosis, Active: Acute Pharyngitis",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1011",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "DIAGNOSIS_ACTIVE_ACUTE_PHARYNGITIS",
+      "source_data_criteria": "OccurrenceAAcutePharyngitis1"
+    },
+    "OccurrenceAAcuteTonsillitis2_precondition_7": {
+      "title": "Acute Tonsillitis",
+      "description": "Diagnosis, Active: Acute Tonsillitis",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1012",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "DIAGNOSIS_ACTIVE_ACUTE_TONSILLITIS",
+      "source_data_criteria": "OccurrenceAAcuteTonsillitis2"
+    },
+    "MedicationActiveAntibioticMedications_precondition_10": {
+      "title": "Antibiotic Medications",
+      "description": "Medication, Active: Antibiotic Medications",
+      "standard_category": "medication",
+      "qds_data_type": "medication_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1001",
+      "type": "medications",
+      "definition": "medication",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "MedicationActiveAntibioticMedications",
+      "temporal_references": [
+        {
+          "type": "SBS",
+          "reference": "GROUP_SBS_CHILDREN_81",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "30",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "GROUP_SBS_CHILDREN_81": {
+      "title": "GROUP_SBS_CHILDREN_81",
+      "description": "",
+      "standard_category": "",
+      "qds_data_type": "",
+      "children_criteria": [
+        "OccurrenceAAcutePharyngitis1_precondition_5",
+        "OccurrenceAAcuteTonsillitis2_precondition_7"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "GROUP_SBS_CHILDREN_81"
+    },
+    "LaboratoryTestResultGroupAStreptococcusTest_precondition_13": {
+      "title": "Group A Streptococcus Test",
+      "description": "Laboratory Test, Result: Group A Streptococcus Test",
+      "standard_category": "laboratory_test",
+      "qds_data_type": "laboratory_test",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.198.12.1012",
+      "type": "laboratory_tests",
+      "definition": "laboratory_test",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "LaboratoryTestResultGroupAStreptococcusTest",
+      "value": {
+        "type": "ANYNonNull"
+      },
+      "temporal_references": [
+        {
+          "type": "SBE",
+          "reference": "OccurrenceAAmbulatoryEdVisit3",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "3",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "LaboratoryTestResultGroupAStreptococcusTest_precondition_15": {
+      "title": "Group A Streptococcus Test",
+      "description": "Laboratory Test, Result: Group A Streptococcus Test",
+      "standard_category": "laboratory_test",
+      "qds_data_type": "laboratory_test",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.198.12.1012",
+      "type": "laboratory_tests",
+      "definition": "laboratory_test",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "LaboratoryTestResultGroupAStreptococcusTest",
+      "value": {
+        "type": "ANYNonNull"
+      },
+      "temporal_references": [
+        {
+          "type": "SAE",
+          "reference": "OccurrenceAAmbulatoryEdVisit3",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "3",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "PatientCharacteristicBirthdateBirthDate_precondition_48": {
+      "title": "birth date",
+      "description": "Patient Characteristic Birthdate: birth date",
+      "standard_category": "individual_characteristic",
+      "qds_data_type": "individual_characteristic",
+      "code_list_id": "2.16.840.1.113883.3.560.100.4",
+      "property": "birthtime",
+      "type": "characteristic",
+      "definition": "patient_characteristic_birthdate",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "PatientCharacteristicBirthdateBirthDate",
+      "inline_code_list": {
+        "LOINC": [
+          "21112-8"
+        ]
+      },
+      "temporal_references": [
+        {
+          "type": "SBS",
+          "reference": "MeasurePeriod",
+          "range": {
+            "type": "IVL_PQ",
+            "low": {
+              "type": "PQ",
+              "unit": "a",
+              "value": "2",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "PatientCharacteristicBirthdateBirthDate_precondition_50": {
+      "title": "birth date",
+      "description": "Patient Characteristic Birthdate: birth date",
+      "standard_category": "individual_characteristic",
+      "qds_data_type": "individual_characteristic",
+      "code_list_id": "2.16.840.1.113883.3.560.100.4",
+      "property": "birthtime",
+      "type": "characteristic",
+      "definition": "patient_characteristic_birthdate",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "PatientCharacteristicBirthdateBirthDate",
+      "inline_code_list": {
+        "LOINC": [
+          "21112-8"
+        ]
+      },
+      "temporal_references": [
+        {
+          "type": "SBS",
+          "reference": "MeasurePeriod",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "a",
+              "value": "18",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "OccurrenceAAmbulatoryEdVisit3_precondition_52": {
+      "title": "Ambulatory/ED Visit",
+      "description": "Encounter, Performed: Ambulatory/ED Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "ENCOUNTER_PERFORMED_AMBULATORY_ED_VISIT",
+      "source_data_criteria": "OccurrenceAAmbulatoryEdVisit3",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "MedicationOrderAntibioticMedications_precondition_54": {
+      "title": "Antibiotic Medications",
+      "description": "Medication, Order: Antibiotic Medications",
+      "standard_category": "medication",
+      "qds_data_type": "medication_order",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1001",
+      "type": "medications",
+      "definition": "medication",
+      "status": "ordered",
+      "hard_status": true,
+      "negation": false,
+      "source_data_criteria": "MedicationOrderAntibioticMedications",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "OccurrenceAAmbulatoryEdVisit3"
+        }
+      ]
+    },
+    "MedicationOrderAntibioticMedications_precondition_56": {
+      "title": "Antibiotic Medications",
+      "description": "Medication, Order: Antibiotic Medications",
+      "standard_category": "medication",
+      "qds_data_type": "medication_order",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1001",
+      "type": "medications",
+      "definition": "medication",
+      "status": "ordered",
+      "hard_status": true,
+      "negation": false,
+      "source_data_criteria": "MedicationOrderAntibioticMedications",
+      "temporal_references": [
+        {
+          "type": "SAS",
+          "reference": "OccurrenceAAmbulatoryEdVisit3",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "3",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "OccurrenceAAcutePharyngitis1_precondition_60": {
+      "title": "Acute Pharyngitis",
+      "description": "Diagnosis, Active: Acute Pharyngitis",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1011",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "DIAGNOSIS_ACTIVE_ACUTE_PHARYNGITIS",
+      "source_data_criteria": "OccurrenceAAcutePharyngitis1"
+    },
+    "OccurrenceAAcuteTonsillitis2_precondition_62": {
+      "title": "Acute Tonsillitis",
+      "description": "Diagnosis, Active: Acute Tonsillitis",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1012",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "DIAGNOSIS_ACTIVE_ACUTE_TONSILLITIS",
+      "source_data_criteria": "OccurrenceAAcuteTonsillitis2"
+    },
+    "OccurrenceAAmbulatoryEdVisit3_precondition_65": {
+      "title": "Ambulatory/ED Visit",
+      "description": "Encounter, Performed: Ambulatory/ED Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "ENCOUNTER_PERFORMED_AMBULATORY_ED_VISIT",
+      "source_data_criteria": "OccurrenceAAmbulatoryEdVisit3",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "GROUP_DURING_CHILDREN_83"
+        }
+      ]
+    },
+    "GROUP_DURING_CHILDREN_83": {
+      "title": "GROUP_DURING_CHILDREN_83",
+      "description": "",
+      "standard_category": "",
+      "qds_data_type": "",
+      "children_criteria": [
+        "OccurrenceAAcutePharyngitis1_precondition_60",
+        "OccurrenceAAcuteTonsillitis2_precondition_62"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "GROUP_DURING_CHILDREN_83"
+    },
+    "OccurrenceAAmbulatoryEdVisit3_precondition_72": {
+      "title": "Ambulatory/ED Visit",
+      "description": "Encounter, Performed: Ambulatory/ED Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "ENCOUNTER_PERFORMED_AMBULATORY_ED_VISIT",
+      "source_data_criteria": "OccurrenceAAmbulatoryEdVisit3"
+    },
+    "OccurrenceAAcutePharyngitis1_precondition_67": {
+      "title": "Acute Pharyngitis",
+      "description": "Diagnosis, Active: Acute Pharyngitis",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1011",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "DIAGNOSIS_ACTIVE_ACUTE_PHARYNGITIS",
+      "source_data_criteria": "OccurrenceAAcutePharyngitis1",
+      "temporal_references": [
+        {
+          "type": "SDU",
+          "reference": "OccurrenceAAmbulatoryEdVisit3_precondition_72"
+        }
+      ]
+    },
+    "OccurrenceAAcuteTonsillitis2_precondition_69": {
+      "title": "Acute Tonsillitis",
+      "description": "Diagnosis, Active: Acute Tonsillitis",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1012",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "DIAGNOSIS_ACTIVE_ACUTE_TONSILLITIS",
+      "source_data_criteria": "OccurrenceAAcuteTonsillitis2",
+      "temporal_references": [
+        {
+          "type": "SDU",
+          "reference": "OccurrenceAAmbulatoryEdVisit3_precondition_72"
+        }
+      ]
+    },
+    "OccurrenceBAmbulatoryEdVisit4_precondition_20": {
+      "title": "Ambulatory/ED Visit",
+      "description": "Encounter, Performed: Ambulatory/ED Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "B",
+      "specific_occurrence_const": "ENCOUNTER_PERFORMED_AMBULATORY_ED_VISIT",
+      "source_data_criteria": "OccurrenceBAmbulatoryEdVisit4",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "OccurrenceBAmbulatoryEdVisit4_precondition_22": {
+      "title": "Ambulatory/ED Visit",
+      "description": "Encounter, Performed: Ambulatory/ED Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "B",
+      "specific_occurrence_const": "ENCOUNTER_PERFORMED_AMBULATORY_ED_VISIT",
+      "source_data_criteria": "OccurrenceBAmbulatoryEdVisit4",
+      "temporal_references": [
+        {
+          "type": "SBS",
+          "reference": "OccurrenceAAmbulatoryEdVisit3"
+        }
+      ]
+    },
+    "MedicationOrderAntibioticMedications_precondition_24": {
+      "title": "Antibiotic Medications",
+      "description": "Medication, Order: Antibiotic Medications",
+      "standard_category": "medication",
+      "qds_data_type": "medication_order",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1001",
+      "type": "medications",
+      "definition": "medication",
+      "status": "ordered",
+      "hard_status": true,
+      "negation": false,
+      "source_data_criteria": "MedicationOrderAntibioticMedications",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "OccurrenceBAmbulatoryEdVisit4"
+        }
+      ]
+    },
+    "MedicationOrderAntibioticMedications_precondition_26": {
+      "title": "Antibiotic Medications",
+      "description": "Medication, Order: Antibiotic Medications",
+      "standard_category": "medication",
+      "qds_data_type": "medication_order",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1001",
+      "type": "medications",
+      "definition": "medication",
+      "status": "ordered",
+      "hard_status": true,
+      "negation": false,
+      "source_data_criteria": "MedicationOrderAntibioticMedications",
+      "temporal_references": [
+        {
+          "type": "SAS",
+          "reference": "OccurrenceBAmbulatoryEdVisit4",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "3",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "OccurrenceAAcutePharyngitis1_precondition_30": {
+      "title": "Acute Pharyngitis",
+      "description": "Diagnosis, Active: Acute Pharyngitis",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1011",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "DIAGNOSIS_ACTIVE_ACUTE_PHARYNGITIS",
+      "source_data_criteria": "OccurrenceAAcutePharyngitis1"
+    },
+    "OccurrenceAAcuteTonsillitis2_precondition_32": {
+      "title": "Acute Tonsillitis",
+      "description": "Diagnosis, Active: Acute Tonsillitis",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1012",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "DIAGNOSIS_ACTIVE_ACUTE_TONSILLITIS",
+      "source_data_criteria": "OccurrenceAAcuteTonsillitis2"
+    },
+    "OccurrenceBAmbulatoryEdVisit4_precondition_35": {
+      "title": "Ambulatory/ED Visit",
+      "description": "Encounter, Performed: Ambulatory/ED Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "B",
+      "specific_occurrence_const": "ENCOUNTER_PERFORMED_AMBULATORY_ED_VISIT",
+      "source_data_criteria": "OccurrenceBAmbulatoryEdVisit4",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "GROUP_DURING_CHILDREN_85"
+        }
+      ]
+    },
+    "GROUP_DURING_CHILDREN_85": {
+      "title": "GROUP_DURING_CHILDREN_85",
+      "description": "",
+      "standard_category": "",
+      "qds_data_type": "",
+      "children_criteria": [
+        "OccurrenceAAcutePharyngitis1_precondition_30",
+        "OccurrenceAAcuteTonsillitis2_precondition_32"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "GROUP_DURING_CHILDREN_85"
+    },
+    "OccurrenceBAmbulatoryEdVisit4_precondition_42": {
+      "title": "Ambulatory/ED Visit",
+      "description": "Encounter, Performed: Ambulatory/ED Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "B",
+      "specific_occurrence_const": "ENCOUNTER_PERFORMED_AMBULATORY_ED_VISIT",
+      "source_data_criteria": "OccurrenceBAmbulatoryEdVisit4"
+    },
+    "OccurrenceAAcutePharyngitis1_precondition_37": {
+      "title": "Acute Pharyngitis",
+      "description": "Diagnosis, Active: Acute Pharyngitis",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1011",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "DIAGNOSIS_ACTIVE_ACUTE_PHARYNGITIS",
+      "source_data_criteria": "OccurrenceAAcutePharyngitis1",
+      "temporal_references": [
+        {
+          "type": "SDU",
+          "reference": "OccurrenceBAmbulatoryEdVisit4_precondition_42"
+        }
+      ]
+    },
+    "OccurrenceAAcuteTonsillitis2_precondition_39": {
+      "title": "Acute Tonsillitis",
+      "description": "Diagnosis, Active: Acute Tonsillitis",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1012",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "DIAGNOSIS_ACTIVE_ACUTE_TONSILLITIS",
+      "source_data_criteria": "OccurrenceAAcuteTonsillitis2",
+      "temporal_references": [
+        {
+          "type": "SDU",
+          "reference": "OccurrenceBAmbulatoryEdVisit4_precondition_42"
+        }
+      ]
+    }
+  },
+  "source_data_criteria": {
+    "PatientCharacteristicBirthdateBirthDate": {
+      "title": "birth date",
+      "description": "Patient Characteristic Birthdate: birth date",
+      "standard_category": "individual_characteristic",
+      "qds_data_type": "individual_characteristic",
+      "code_list_id": "2.16.840.1.113883.3.560.100.4",
+      "property": "birthtime",
+      "type": "characteristic",
+      "definition": "patient_characteristic_birthdate",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "PatientCharacteristicBirthdateBirthDate",
+      "inline_code_list": {
+        "LOINC": [
+          "21112-8"
+        ]
+      }
+    },
+    "DiagnosisActiveAcutePharyngitis": {
+      "title": "Acute Pharyngitis",
+      "description": "Diagnosis, Active: Acute Pharyngitis",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1011",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "DiagnosisActiveAcutePharyngitis"
+    },
+    "DiagnosisActiveAcuteTonsillitis": {
+      "title": "Acute Tonsillitis",
+      "description": "Diagnosis, Active: Acute Tonsillitis",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1012",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "DiagnosisActiveAcuteTonsillitis"
+    },
+    "MedicationOrderAntibioticMedications": {
+      "title": "Antibiotic Medications",
+      "description": "Medication, Order: Antibiotic Medications",
+      "standard_category": "medication",
+      "qds_data_type": "medication_order",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1001",
+      "type": "medications",
+      "definition": "medication",
+      "status": "ordered",
+      "hard_status": true,
+      "negation": false,
+      "source_data_criteria": "MedicationOrderAntibioticMedications"
+    },
+    "MedicationActiveAntibioticMedications": {
+      "title": "Antibiotic Medications",
+      "description": "Medication, Active: Antibiotic Medications",
+      "standard_category": "medication",
+      "qds_data_type": "medication_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1001",
+      "type": "medications",
+      "definition": "medication",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "MedicationActiveAntibioticMedications"
+    },
+    "LaboratoryTestResultGroupAStreptococcusTest": {
+      "title": "Group A Streptococcus Test",
+      "description": "Laboratory Test, Result: Group A Streptococcus Test",
+      "standard_category": "laboratory_test",
+      "qds_data_type": "laboratory_test",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.198.12.1012",
+      "type": "laboratory_tests",
+      "definition": "laboratory_test",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "LaboratoryTestResultGroupAStreptococcusTest"
+    },
+    "EncounterPerformedAmbulatoryEdVisit": {
+      "title": "Ambulatory/ED Visit",
+      "description": "Encounter, Performed: Ambulatory/ED Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedAmbulatoryEdVisit"
+    },
+    "OccurrenceAAcutePharyngitis1": {
+      "title": "Acute Pharyngitis",
+      "description": "Diagnosis, Active: Acute Pharyngitis",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1011",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "DIAGNOSIS_ACTIVE_ACUTE_PHARYNGITIS",
+      "source_data_criteria": "OccurrenceAAcutePharyngitis1"
+    },
+    "OccurrenceAAcuteTonsillitis2": {
+      "title": "Acute Tonsillitis",
+      "description": "Diagnosis, Active: Acute Tonsillitis",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1012",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "DIAGNOSIS_ACTIVE_ACUTE_TONSILLITIS",
+      "source_data_criteria": "OccurrenceAAcuteTonsillitis2"
+    },
+    "OccurrenceAAmbulatoryEdVisit3": {
+      "title": "Ambulatory/ED Visit",
+      "description": "Encounter, Performed: Ambulatory/ED Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "ENCOUNTER_PERFORMED_AMBULATORY_ED_VISIT",
+      "source_data_criteria": "OccurrenceAAmbulatoryEdVisit3"
+    },
+    "OccurrenceBAmbulatoryEdVisit4": {
+      "title": "Ambulatory/ED Visit",
+      "description": "Encounter, Performed: Ambulatory/ED Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "B",
+      "specific_occurrence_const": "ENCOUNTER_PERFORMED_AMBULATORY_ED_VISIT",
+      "source_data_criteria": "OccurrenceBAmbulatoryEdVisit4"
+    }
+  },
+  "attributes": [
+    {
+      "id": "COPYRIGHT",
+      "code": "COPY",
+      "value": "Physician Performance Measure (Measures) and related data specifications were developed by the National Committee for Quality Assurance (NCQA). \r\n\r\nThe Measures are copyrighted but can be reproduced and distributed, without modification, for noncommercial purposes (e.g., use by healthcare providers in connection with their practices). Commercial use is defined as the sale, licensing, or distribution of the Measures for commercial gain, or incorporation of the Measures into a product or service that is sold, licensed or distributed for commercial gain. Commercial use of the Measures requires a license agreement between the user and NCQA. NCQA is not responsible for any use of the Measures. \r\n\r\nCopyright 2012 National Committee for Quality Assurance. All Rights Reserved. \r\n\r\nLimited proprietary coding is contained in the Measure specifications for user convenience. Users of proprietary code sets should obtain all necessary licenses from the owners of the code sets. NCQA disclaims all liability for use or accuracy of any CPT or other codes contained in the specifications.\r\n\r\nCPT(R) contained in the Measure specifications is copyright 2004-2011 American Medical Association. LOINC(R) copyright 2004-2011 Regenstrief Institute, Inc. \r\nThis material contains SNOMED Clinical Terms(R) (SNOMED CT[R]) copyright 2004-2011 International Health Terminology Standards Development Organisation. ICD-10 copyright 2011 World Health Organization. All Rights Reserved.\r\n\r\nDue to technical limitations, registered trademarks are indicated by (R) or [R] and unregistered trademarks are indicated by (TM) or [TM].",
+      "name": "Copyright"
+    },
+    {
+      "id": "MEASURE_SCORING",
+      "code": "MSRSCORE",
+      "name": "Measure Scoring"
+    },
+    {
+      "id": "MEASURE_TYPE",
+      "code": "MSRTYPE",
+      "name": "Measure Type"
+    },
+    {
+      "id": "STRATIFICATION",
+      "code": "STRAT",
+      "value": "None",
+      "name": "Stratification"
+    },
+    {
+      "id": "RISK_ADJUSTMENT",
+      "code": "MSRADJ",
+      "value": "None",
+      "name": "Risk Adjustment"
+    },
+    {
+      "id": "RATE_AGGREGATION",
+      "code": "MSRAGG",
+      "value": "None",
+      "name": "Rate Aggregation"
+    },
+    {
+      "id": "RATIONALE",
+      "code": "RAT",
+      "value": "Group A streptococcal bacterial infections and other infections that cause pharyngitis (which are most often viral) often produce the same signs and symptoms (IDSA 2002). The American Academy of Pediatrics, the Centers for Disease Control and Prevention, and the Infectious Diseases Society of America all recommend a diagnostic test for Strep A to improve diagnostic accuracy and avoid unnecessary antibiotic treatment (Linder et al. 2005).  A study on antibiotic treatment of children with sore throat found that although only 15 to 36 percent of children with sore throat have Strep A pharyngitis, physicians prescribed antibiotics to 53 percent of children with a chief complaint of sore throat between 1995 and 2003 (Linder et al. 2005).",
+      "name": "Rationale"
+    },
+    {
+      "id": "CLINICAL_RECOMMENDATION_STATEMENT",
+      "code": "CRS",
+      "value": "Institute for Clinical Systems Improvement (ICSI) (2007) \r\n\r\nReduce unnecessary use of antibiotics. Antibiotic treatment should be reserved for a bacterial illness. Diagnosis of group A beta streptococcal Pharyngitis should be made by laboratory testing rather than clinically. \r\n\r\nInfectious Disease Society of America (Bisno et al. 2002) \r\n\r\nThe signs and symptoms of group A streptococcal and other (most frequently viral) pharyngitides overlap broadly. Therefore, unless the physician is able with confidence to exclude the diagnosis of streptococcal pharyngitis on epidemiological and clinical grounds alone, a laboratory test should be done to determine whether group A streptococci are present in the pharynx. \r\n\r\nWith the exception of very rare infections by certain other pharyngeal bacterial pathogens (e.g., Corynebacterium diphtheriae and Neisseria gonorrhoeae), antimicrobial therapy is of no proven benefit as treatment for acute pharyngitis due to bacteria other than group A streptococci. Therefore, it is extremely important that physicians exclude the diagnosis of group A streptococcal pharyngitis to prevent inappropriate administration of antimicrobials to large numbers of patients with pharyngitis. \r\n\r\nMichigan Quality Improvement Consortium (2007)\r\n\r\nProbability of group A beta hemolytic streptococci (GABHS): Low; Testing: None; Treatment: Symptomatic treatment only. Avoid antibiotics. Probability of GABHS: Intermediate or High; Testing: Throat Culture (TC) OR Rapid Screen; Treatment: If TC is positive, use antibiotics. If TC is negative, use symptomatic treatment only. Avoid antibiotics. If treatment is started and culture result is negative, stop antibiotics. If Rapid Screen is positive, use antibiotics. If Rapid Screen is negative, culture (Culture is optional for age 16 and over) and only use antibiotics if throat culture is positive. (Michigan, 2007)",
+      "name": "Clinical Recommendation Statement"
+    },
+    {
+      "id": "IMPROVEMENT_NOTATION",
+      "code": "IDUR",
+      "value": "Higher score indicates better quality",
+      "name": "Improvement Notation"
+    },
+    {
+      "id": "NQF_ID_NUMBER",
+      "code": "OTH",
+      "value": "0002",
+      "name": "NQF ID Number"
+    },
+    {
+      "id": "DISCLAIMER",
+      "code": "DISC",
+      "value": "These performance Measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications.\r\n\r\nTHE MEASURES AND SPECIFICATIONS ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND.",
+      "name": "Disclaimer"
+    },
+    {
+      "id": "EMEASURE_IDENTIFIER",
+      "code": "OTH",
+      "value": "146",
+      "name": "eMeasure Identifier"
+    },
+    {
+      "id": "REFERENCE",
+      "code": "REF",
+      "value": "Michigan Quality Improvement Consortium. 2007. Acute pharyngitis in children. Southfield: Michigan Quality Improvement Consortium.",
+      "name": "Reference"
+    },
+    {
+      "id": "DEFINITION",
+      "code": "DEF",
+      "value": "None",
+      "name": "Definition"
+    },
+    {
+      "id": "GUIDANCE",
+      "code": "GUIDE",
+      "value": "None",
+      "name": "Guidance"
+    },
+    {
+      "id": "TRANSMISSION_FORMAT",
+      "code": "OTH",
+      "value": "TBD",
+      "name": "Transmission Format"
+    },
+    {
+      "id": "INITIAL_PATIENT_POPULATION",
+      "code": "IPP",
+      "value": "Children 2-18 years of age who had an outpatient or emergency department (ED) visit with a diagnosis of pharyngitis during the measurement period and an antibiotic ordered on or three days after the visit",
+      "name": "Initial Patient Population"
+    },
+    {
+      "id": "DENOMINATOR",
+      "code": "DENOM",
+      "value": "Equals Initial Patient Population",
+      "name": "Denominator"
+    },
+    {
+      "id": "DENOMINATOR_EXCLUSIONS",
+      "code": "OTH",
+      "value": "Children who are taking antibiotics in the 30 days prior to the diagnosis of pharyngitis",
+      "name": "Denominator Exclusions"
+    },
+    {
+      "id": "NUMERATOR",
+      "code": "NUMER",
+      "value": "Children with a group A streptococcus test in the 7-day period from 3 days prior through 3 days after the diagnosis of pharyngitis",
+      "name": "Numerator"
+    },
+    {
+      "id": "NUMERATOR_EXCLUSIONS",
+      "code": "OTH",
+      "value": "Not Applicable",
+      "name": "Numerator Exclusions"
+    },
+    {
+      "id": "DENOMINATOR_EXCEPTIONS",
+      "code": "DENEXCEP",
+      "value": "None",
+      "name": "Denominator Exceptions"
+    },
+    {
+      "id": "MEASURE_POPULATION",
+      "code": "MSRPOPL",
+      "value": "Not Applicable",
+      "name": "Measure Population"
+    },
+    {
+      "id": "MEASURE_OBSERVATIONS",
+      "code": "OTH",
+      "value": "Not Applicable",
+      "name": "Measure Observations"
+    },
+    {
+      "id": "SUPPLEMENTAL_DATA_ELEMENTS",
+      "code": "OTH",
+      "value": "For every patient evaluated by this measure also identify payer, race, ethnicity and sex.",
+      "name": "Supplemental Data Elements"
+    }
+  ],
+  "populations": [
+    {
+      "IPP": "IPP",
+      "DENOM": "DENOM",
+      "NUMER": "NUMER",
+      "DENEX": "DENEX"
+    }
+  ],
+  "measure_period": {
+    "type": "IVL_TS",
+    "low": {
+      "type": "TS",
+      "value": "201201010000",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "high": {
+      "type": "TS",
+      "value": "201212312359",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "width": {
+      "type": "PQ",
+      "unit": "a",
+      "value": "1",
+      "inclusive?": true,
+      "derived?": false
+    }
+  }
 }

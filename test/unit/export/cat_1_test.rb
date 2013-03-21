@@ -22,6 +22,7 @@ class Cat1Test < MiniTest::Unit::TestCase
 
   def test_patient_data_section_export
     med_dispensed = @doc.at_xpath('//cda:supply[cda:templateId/@root="2.16.840.1.113883.10.20.24.3.45"]')
+    binding.pry
     assert med_dispensed
     assert_equal "Multivitamin", med_dispensed.at_xpath('./cda:text').text
   end
@@ -29,6 +30,7 @@ class Cat1Test < MiniTest::Unit::TestCase
   def test_entries_for_data_criteria
     data_criteria = @measures[0].all_data_criteria[0]
     entries = entries_for_data_criteria(data_criteria, @patient)
+    binding.pry
     assert_equal 1, entries.length
     assert_equal 'Multivitamin', entries[0].description
   end
@@ -62,6 +64,7 @@ class Cat1Test < MiniTest::Unit::TestCase
 
   def test_measure_section_export
     measure_entries = @doc.xpath('//cda:section[cda:templateId/@root="2.16.840.1.113883.10.20.24.2.3"]/cda:entry')
+    binding.pry
     assert_equal MEASURES.length, measure_entries.size
     measure = measure_entries.find do |measure_entry|
       measure_entry.at_xpath('./cda:organizer/cda:reference/cda:externalDocument/cda:setId[@root="B5FEE67F-F5C4-4C73-9D58-1941F9729539"]').present?

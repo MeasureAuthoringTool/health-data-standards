@@ -25,12 +25,16 @@ class Cat1RoundtripTest < MiniTest::Unit::TestCase
   def test_round_trip
     @barry = Record.where({first: "Barry"}).first #TODO: compare this record to the one I'm creating from scratch below to get syntax correct
     @brandy = Record.with(database: "cypress_development").where({first: "Brandy"}).first
+    @maxine = Record.with(database: "cypress_development").where({first: "Maxine"}).first
+    @dorothy = Record.with(database: "cypress_development").where({first: "Dorothy"}).first
+
     #$BREAK = true
-    @patient = Record.new
+    #@patient = Record.new
     #@patient.encounters << Encounter.new({codes: {:CPT => ["99201"]}, description: "Outpatient encounter", time: 1268042997, mood_code: "EVN", reason: {"codes"=>{"CPT"=>["99201"]}, "description"=>"PCP referred"}, admitType: {"code"=>"04", "codeSystem"=>"regular"}, dischargeDisp: "Home", low: 1124956803, hi: 1314259203})
     #@patient.encounters << Encounter.new({root: '2.16.840.1.113883.10.20.24.3.23', codes: {:SNOMED => ["112689000"]}, description: "Encounter, Performed: Hospital Measures-Encounter Inpatient (Code List: 2.16.840.1.113883.3.666.5.625)", status: "completed", mood_code: "EVN", start_time: 20061121075239, end_time: 20061122012933})
     
-    @patient = @brandy
+    @patient = @maxine
+    #@patient = @dorothy
     # @patient.encounters << Encounter.new({oid: '2.16.840.1.113883.3.560.1.79', codes: {"CPT"=>["99201"]}})
     # @patient.first = "He"
     # @patient.last = "Man"
@@ -42,13 +46,17 @@ class Cat1RoundtripTest < MiniTest::Unit::TestCase
     @start_date = Time.now.years_ago(1)
     @end_date = Time.now
 
+    #@measures_tmp = MEASURES.first
+    #@measures = [@measures_tmp]
     @measures = MEASURES
+    #binding.pry
     @qrda_xml = HealthDataStandards::Export::Cat1.new.export(@patient, @measures, @start_date, @end_date)
+
     @doc = Nokogiri::XML(@qrda_xml)
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
 
-    File.open('brandy-nqf0421.xml', 'w') { |file| file.write(@doc) }
-
+    File.open('maxine-nqf0002-NEW-fixture.xml', 'w') { |file| file.write(@doc) }
+    #File.open('dorothy-nqf0002.xml', 'w') { |file| file.write(@doc) }
 
 #Need to identify which measures I want to test for in the export statement (looks like constant MEASURES has them all - it is huge)
 #TODO - medication makes it thorugh becaues it has an OID (hqmf) and the code is in the correct valueset - if OID isn't present or if code(snowmed, loinc, etc) isn't from the appropriate valueset then the entry will not be exported
