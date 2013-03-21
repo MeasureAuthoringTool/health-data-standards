@@ -8,7 +8,7 @@ class MedicationActiveImporterTest < MiniTest::Unit::TestCase
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     nrh = CDA::NarrativeReferenceHandler.new
     nrh.build_id_map(doc)
-    packager = Cat1::EntryPackage.new(Cat1::MedicationActiveImporter.new(CDA::EntryFinder.new("//cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.41']")), '2.16.840.1.113883.3.560.1.13', 'active')
+    packager = Cat1::EntryPackage.new(Cat1::MedicationActiveImporter.new, '2.16.840.1.113883.3.560.1.13', 'active')
     medication = packager.package_entries(doc, nrh).first
     
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19890509170647')
