@@ -8,13 +8,14 @@
     <code code="418799008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Symptom"/>
     <text><%= entry.description %></text>
     <statusCode code="completed"/> 
-    <%== code_display(entry, 'preferred_code_sets' => ['SNOMED-CT'], 'tag_name' => 'value', 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
+   
     
     <effectiveTime>
       <low <%= value_or_null_flavor(entry.start_time) %>/>
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
     
+     <%== code_display(entry, 'preferred_code_sets' => ['SNOMED-CT'], 'tag_name' => 'value', 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
     <!-- Status -->
     <entryRelationship typeCode="REFR">
       <observation classCode="OBS" moodCode="EVN">
