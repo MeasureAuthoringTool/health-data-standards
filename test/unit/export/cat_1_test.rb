@@ -15,6 +15,15 @@ class Cat1Test < MiniTest::Unit::TestCase
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
   end
 
+
+  def test_schema_validation
+     xsd = Nokogiri::XML::Schema(open("./resources/schema/infrastructure/cda/CDA_SDTC.xsd"))
+     Record.all.each do |record|
+      doc = Nokogiri::XML(HealthDataStandards::Export::Cat1.new.export(record,@measures,@start_date,@end_date))
+      assert_equal [], xsd.validate(doc) 
+    end  
+  end
+
   def test_cda_header_export
     first_name = @doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:given').text
     assert_equal 'Barry', first_name
