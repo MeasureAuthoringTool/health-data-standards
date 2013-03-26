@@ -13,6 +13,7 @@ module HealthDataStandards
           @provider_xpath = "./cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:performer"
           @priority_xpath = "../cda:sequenceNumber"
           @entry_class = Condition
+          @value_xpath = nil
         end
 
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)

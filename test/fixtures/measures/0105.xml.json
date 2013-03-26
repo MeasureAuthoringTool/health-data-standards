@@ -1,0 +1,1113 @@
+{
+  "id": "0105",
+  "hqmf_id": "8A4D92B2-39CA-AF4B-0139-CAF11E27054E",
+  "hqmf_set_id": "8924F2B3-EC06-4650-B634-D70A53DEE577",
+  "hqmf_version_number": 1,
+  "title": "Anti-depressant Medication Management",
+  "description": "Percentage of patients 18 years of age and older who were diagnosed with major depression and treated with antidepressant medication, and who remained on antidepressant medication treatment. Two rates are reported. \r\na. Percentage of patients who remained on an antidepressant medication for at least 84 days (12 weeks). \r\nb. Percentage of patients who remained on an antidepressant medication for at least 180 days (6 months).",
+  "cms_id": "CMS128v1",
+  "population_criteria": {
+    "DENEX": {
+      "conjunction?": true,
+      "type": "DENEX",
+      "title": "Denominator",
+      "hqmf_id": "0DBE6CE8-44D0-4C46-A557-B0943C3536C7",
+      "preconditions": [
+        {
+          "id": 5,
+          "preconditions": [
+            {
+              "id": 3,
+              "reference": "MedicationActiveAntidepressantMedication_precondition_3"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "NUMER": {
+      "conjunction?": true,
+      "type": "NUMER",
+      "title": "Numerator",
+      "hqmf_id": "68F31733-A3E6-47DD-862C-B941FA56E5BE",
+      "preconditions": [
+        {
+          "id": 8,
+          "preconditions": [
+            {
+              "id": 6,
+              "reference": "MedicationActiveAntidepressantMedication_precondition_6"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "NUMER_1": {
+      "conjunction?": true,
+      "type": "NUMER",
+      "title": "Numerator",
+      "hqmf_id": "36E0210E-15C6-4644-B1C6-E80F698AF357",
+      "preconditions": [
+        {
+          "id": 11,
+          "preconditions": [
+            {
+              "id": 9,
+              "reference": "MedicationActiveAntidepressantMedication_precondition_9"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "DENOM": {
+      "conjunction?": true,
+      "type": "DENOM",
+      "title": "Denominator",
+      "hqmf_id": "EB3797F5-0F4E-49A2-8F7E-F06ED1DEC955"
+    },
+    "IPP": {
+      "conjunction?": true,
+      "type": "IPP",
+      "title": "Initial Patient Population",
+      "hqmf_id": "7CED17BD-A1A8-4491-917B-52C1F4F88AC4",
+      "preconditions": [
+        {
+          "id": 50,
+          "preconditions": [
+            {
+              "id": 17,
+              "reference": "GROUP_FIRST_52",
+              "conjunction_code": "allTrue"
+            },
+            {
+              "id": 24,
+              "reference": "GROUP_FIRST_54",
+              "conjunction_code": "allTrue"
+            },
+            {
+              "id": 26,
+              "reference": "PatientCharacteristicBirthdateBirthDate_precondition_26"
+            },
+            {
+              "id": 48,
+              "preconditions": [
+                {
+                  "id": 28,
+                  "reference": "EncounterPerformedOfficeVisit_precondition_28"
+                },
+                {
+                  "id": 30,
+                  "reference": "EncounterPerformedFaceToFaceInteraction_precondition_30"
+                },
+                {
+                  "id": 32,
+                  "reference": "EncounterPerformedPreventiveCareServicesEstablishedOfficeVisit18AndUp_precondition_32"
+                },
+                {
+                  "id": 34,
+                  "reference": "EncounterPerformedPreventiveCareServicesInitialOfficeVisit18AndUp_precondition_34"
+                },
+                {
+                  "id": 36,
+                  "reference": "EncounterPerformedHomeHealthcareServices_precondition_36"
+                },
+                {
+                  "id": 38,
+                  "reference": "EncounterPerformedAnnualWellnessVisit_precondition_38"
+                },
+                {
+                  "id": 40,
+                  "reference": "EncounterPerformedPsychVisitDiagnosticOrEvaluativeInterview_precondition_40"
+                },
+                {
+                  "id": 42,
+                  "reference": "EncounterPerformedPsychVisitIndividualOutpatientInteractivePsychotherapy_precondition_42"
+                },
+                {
+                  "id": 44,
+                  "reference": "EncounterPerformedPsychVisitIndividualOutpatientPsychotherapy_precondition_44"
+                },
+                {
+                  "id": 46,
+                  "reference": "EncounterPerformedPsychVisitMedicationManagement_precondition_46"
+                }
+              ],
+              "conjunction_code": "atLeastOneTrue"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    }
+  },
+  "data_criteria": {
+    "DiagnosisActiveMajorDepression": {
+      "title": "Major Depression",
+      "description": "Diagnosis, Active: Major Depression",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.105.12.1007",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "DiagnosisActiveMajorDepression"
+    },
+    "MedicationDispensedAntidepressantMedication": {
+      "title": "Antidepressant Medication",
+      "description": "Medication, Dispensed: Antidepressant Medication",
+      "standard_category": "medication",
+      "qds_data_type": "medication_dispensed",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1213",
+      "type": "medications",
+      "definition": "medication",
+      "status": "dispensed",
+      "hard_status": true,
+      "negation": false,
+      "source_data_criteria": "MedicationDispensedAntidepressantMedication"
+    },
+    "OccurrenceAMajorDepression1": {
+      "title": "Major Depression",
+      "description": "Diagnosis, Active: Major Depression",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.105.12.1007",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "DIAGNOSIS_ACTIVE_MAJOR_DEPRESSION",
+      "source_data_criteria": "OccurrenceAMajorDepression1"
+    },
+    "OccurrenceAAntidepressantMedication2": {
+      "title": "Antidepressant Medication",
+      "description": "Medication, Dispensed: Antidepressant Medication",
+      "standard_category": "medication",
+      "qds_data_type": "medication_dispensed",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1213",
+      "type": "medications",
+      "definition": "medication",
+      "status": "dispensed",
+      "hard_status": true,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "MEDICATION_DISPENSED_ANTIDEPRESSANT_MEDICATION",
+      "source_data_criteria": "OccurrenceAAntidepressantMedication2"
+    },
+    "MedicationActiveAntidepressantMedication_precondition_3": {
+      "title": "Antidepressant Medication",
+      "description": "Medication, Active: Antidepressant Medication",
+      "standard_category": "medication",
+      "qds_data_type": "medication_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1213",
+      "type": "medications",
+      "definition": "medication",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "MedicationActiveAntidepressantMedication",
+      "temporal_references": [
+        {
+          "type": "SBS",
+          "reference": "OccurrenceAAntidepressantMedication2",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "90",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "MedicationActiveAntidepressantMedication_precondition_6": {
+      "title": "Antidepressant Medication",
+      "description": "Medication, Active: Antidepressant Medication",
+      "standard_category": "medication",
+      "qds_data_type": "medication_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1213",
+      "type": "medications",
+      "definition": "medication",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "MedicationActiveAntidepressantMedication",
+      "field_values": {
+        "CUMULATIVE_MEDICATION_DURATION": {
+          "type": "IVL_PQ",
+          "low": {
+            "type": "PQ",
+            "unit": "d",
+            "value": "84",
+            "inclusive?": true,
+            "derived?": false
+          }
+        }
+      },
+      "temporal_references": [
+        {
+          "type": "EAS",
+          "reference": "OccurrenceAAntidepressantMedication2",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "114",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "MedicationActiveAntidepressantMedication_precondition_9": {
+      "title": "Antidepressant Medication",
+      "description": "Medication, Active: Antidepressant Medication",
+      "standard_category": "medication",
+      "qds_data_type": "medication_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1213",
+      "type": "medications",
+      "definition": "medication",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "MedicationActiveAntidepressantMedication",
+      "field_values": {
+        "CUMULATIVE_MEDICATION_DURATION": {
+          "type": "IVL_PQ",
+          "low": {
+            "type": "PQ",
+            "unit": "d",
+            "value": "180",
+            "inclusive?": true,
+            "derived?": false
+          }
+        }
+      },
+      "temporal_references": [
+        {
+          "type": "EAS",
+          "reference": "OccurrenceAAntidepressantMedication2",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "231",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "OccurrenceAMajorDepression1_precondition_12": {
+      "title": "Major Depression",
+      "description": "Diagnosis, Active: Major Depression",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.105.12.1007",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "DIAGNOSIS_ACTIVE_MAJOR_DEPRESSION",
+      "source_data_criteria": "OccurrenceAMajorDepression1",
+      "temporal_references": [
+        {
+          "type": "SAS",
+          "reference": "MeasurePeriod",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "180",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "OccurrenceAMajorDepression1_precondition_14": {
+      "title": "Major Depression",
+      "description": "Diagnosis, Active: Major Depression",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.105.12.1007",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "DIAGNOSIS_ACTIVE_MAJOR_DEPRESSION",
+      "source_data_criteria": "OccurrenceAMajorDepression1",
+      "temporal_references": [
+        {
+          "type": "SBS",
+          "reference": "MeasurePeriod",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "180",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "GROUP_FIRST_52": {
+      "title": "GROUP_FIRST_52",
+      "description": "",
+      "standard_category": "",
+      "qds_data_type": "",
+      "children_criteria": [
+        "OccurrenceAMajorDepression1_precondition_12",
+        "OccurrenceAMajorDepression1_precondition_14"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "GROUP_FIRST_52",
+      "subset_operators": [
+        {
+          "type": "FIRST"
+        }
+      ]
+    },
+    "OccurrenceAAntidepressantMedication2_precondition_19": {
+      "title": "Antidepressant Medication",
+      "description": "Medication, Dispensed: Antidepressant Medication",
+      "standard_category": "medication",
+      "qds_data_type": "medication_dispensed",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1213",
+      "type": "medications",
+      "definition": "medication",
+      "status": "dispensed",
+      "hard_status": true,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "MEDICATION_DISPENSED_ANTIDEPRESSANT_MEDICATION",
+      "source_data_criteria": "OccurrenceAAntidepressantMedication2",
+      "temporal_references": [
+        {
+          "type": "SAS",
+          "reference": "OccurrenceAMajorDepression1",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "14",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "OccurrenceAAntidepressantMedication2_precondition_21": {
+      "title": "Antidepressant Medication",
+      "description": "Medication, Dispensed: Antidepressant Medication",
+      "standard_category": "medication",
+      "qds_data_type": "medication_dispensed",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1213",
+      "type": "medications",
+      "definition": "medication",
+      "status": "dispensed",
+      "hard_status": true,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "MEDICATION_DISPENSED_ANTIDEPRESSANT_MEDICATION",
+      "source_data_criteria": "OccurrenceAAntidepressantMedication2",
+      "temporal_references": [
+        {
+          "type": "SBS",
+          "reference": "OccurrenceAMajorDepression1",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "30",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "GROUP_FIRST_54": {
+      "title": "GROUP_FIRST_54",
+      "description": "",
+      "standard_category": "",
+      "qds_data_type": "",
+      "children_criteria": [
+        "OccurrenceAAntidepressantMedication2_precondition_19",
+        "OccurrenceAAntidepressantMedication2_precondition_21"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "GROUP_FIRST_54",
+      "subset_operators": [
+        {
+          "type": "FIRST"
+        }
+      ]
+    },
+    "PatientCharacteristicBirthdateBirthDate_precondition_26": {
+      "title": "birth date",
+      "description": "Patient Characteristic Birthdate: birth date",
+      "standard_category": "individual_characteristic",
+      "qds_data_type": "individual_characteristic",
+      "code_list_id": "2.16.840.1.113883.3.560.100.4",
+      "property": "birthtime",
+      "type": "characteristic",
+      "definition": "patient_characteristic_birthdate",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "PatientCharacteristicBirthdateBirthDate",
+      "inline_code_list": {
+        "LOINC": [
+          "21112-8"
+        ]
+      },
+      "temporal_references": [
+        {
+          "type": "SBS",
+          "reference": "MeasurePeriod",
+          "range": {
+            "type": "IVL_PQ",
+            "low": {
+              "type": "PQ",
+              "unit": "a",
+              "value": "18",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "EncounterPerformedOfficeVisit_precondition_28": {
+      "title": "Office Visit",
+      "description": "Encounter, Performed: Office Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedOfficeVisit",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedFaceToFaceInteraction_precondition_30": {
+      "title": "Face-to-Face Interaction",
+      "description": "Encounter, Performed: Face-to-Face Interaction",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1048",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedFaceToFaceInteraction",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedPreventiveCareServicesEstablishedOfficeVisit18AndUp_precondition_32": {
+      "title": "Preventive Care Services - Established Office Visit, 18 and Up",
+      "description": "Encounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1025",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareServicesEstablishedOfficeVisit18AndUp",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedPreventiveCareServicesInitialOfficeVisit18AndUp_precondition_34": {
+      "title": "Preventive Care Services-Initial Office Visit, 18 and Up",
+      "description": "Encounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1023",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareServicesInitialOfficeVisit18AndUp",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedHomeHealthcareServices_precondition_36": {
+      "title": "Home Healthcare Services",
+      "description": "Encounter, Performed: Home Healthcare Services",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1016",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedHomeHealthcareServices",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedAnnualWellnessVisit_precondition_38": {
+      "title": "Annual Wellness Visit",
+      "description": "Encounter, Performed: Annual Wellness Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1240",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedAnnualWellnessVisit",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedPsychVisitDiagnosticOrEvaluativeInterview_precondition_40": {
+      "title": "Psych Visit - Diagnostic or Evaluative Interview",
+      "description": "Encounter, Performed: Psych Visit - Diagnostic or Evaluative Interview",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1013",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPsychVisitDiagnosticOrEvaluativeInterview",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedPsychVisitIndividualOutpatientInteractivePsychotherapy_precondition_42": {
+      "title": "Psych Visit - Individual Outpatient Interactive Psychotherapy",
+      "description": "Encounter, Performed: Psych Visit - Individual Outpatient Interactive Psychotherapy",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1015",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPsychVisitIndividualOutpatientInteractivePsychotherapy",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedPsychVisitIndividualOutpatientPsychotherapy_precondition_44": {
+      "title": "Psych Visit - Individual Outpatient Psychotherapy",
+      "description": "Encounter, Performed: Psych Visit - Individual Outpatient Psychotherapy",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1014",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPsychVisitIndividualOutpatientPsychotherapy",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedPsychVisitMedicationManagement_precondition_46": {
+      "title": "Psych Visit - Medication Management",
+      "description": "Encounter, Performed: Psych Visit - Medication Management",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1019",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPsychVisitMedicationManagement",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    }
+  },
+  "source_data_criteria": {
+    "PatientCharacteristicBirthdateBirthDate": {
+      "title": "birth date",
+      "description": "Patient Characteristic Birthdate: birth date",
+      "standard_category": "individual_characteristic",
+      "qds_data_type": "individual_characteristic",
+      "code_list_id": "2.16.840.1.113883.3.560.100.4",
+      "property": "birthtime",
+      "type": "characteristic",
+      "definition": "patient_characteristic_birthdate",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "PatientCharacteristicBirthdateBirthDate",
+      "inline_code_list": {
+        "LOINC": [
+          "21112-8"
+        ]
+      }
+    },
+    "MedicationActiveAntidepressantMedication": {
+      "title": "Antidepressant Medication",
+      "description": "Medication, Active: Antidepressant Medication",
+      "standard_category": "medication",
+      "qds_data_type": "medication_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1213",
+      "type": "medications",
+      "definition": "medication",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "MedicationActiveAntidepressantMedication"
+    },
+    "EncounterPerformedOfficeVisit": {
+      "title": "Office Visit",
+      "description": "Encounter, Performed: Office Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedOfficeVisit"
+    },
+    "EncounterPerformedPreventiveCareServicesEstablishedOfficeVisit18AndUp": {
+      "title": "Preventive Care Services - Established Office Visit, 18 and Up",
+      "description": "Encounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1025",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareServicesEstablishedOfficeVisit18AndUp"
+    },
+    "EncounterPerformedPreventiveCareServicesInitialOfficeVisit18AndUp": {
+      "title": "Preventive Care Services-Initial Office Visit, 18 and Up",
+      "description": "Encounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1023",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareServicesInitialOfficeVisit18AndUp"
+    },
+    "EncounterPerformedAnnualWellnessVisit": {
+      "title": "Annual Wellness Visit",
+      "description": "Encounter, Performed: Annual Wellness Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1240",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedAnnualWellnessVisit"
+    },
+    "EncounterPerformedFaceToFaceInteraction": {
+      "title": "Face-to-Face Interaction",
+      "description": "Encounter, Performed: Face-to-Face Interaction",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1048",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedFaceToFaceInteraction"
+    },
+    "EncounterPerformedHomeHealthcareServices": {
+      "title": "Home Healthcare Services",
+      "description": "Encounter, Performed: Home Healthcare Services",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1016",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedHomeHealthcareServices"
+    },
+    "EncounterPerformedPsychVisitDiagnosticOrEvaluativeInterview": {
+      "title": "Psych Visit - Diagnostic or Evaluative Interview",
+      "description": "Encounter, Performed: Psych Visit - Diagnostic or Evaluative Interview",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1013",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPsychVisitDiagnosticOrEvaluativeInterview"
+    },
+    "EncounterPerformedPsychVisitIndividualOutpatientInteractivePsychotherapy": {
+      "title": "Psych Visit - Individual Outpatient Interactive Psychotherapy",
+      "description": "Encounter, Performed: Psych Visit - Individual Outpatient Interactive Psychotherapy",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1015",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPsychVisitIndividualOutpatientInteractivePsychotherapy"
+    },
+    "EncounterPerformedPsychVisitIndividualOutpatientPsychotherapy": {
+      "title": "Psych Visit - Individual Outpatient Psychotherapy",
+      "description": "Encounter, Performed: Psych Visit - Individual Outpatient Psychotherapy",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1014",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPsychVisitIndividualOutpatientPsychotherapy"
+    },
+    "EncounterPerformedPsychVisitMedicationManagement": {
+      "title": "Psych Visit - Medication Management",
+      "description": "Encounter, Performed: Psych Visit - Medication Management",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1019",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPsychVisitMedicationManagement"
+    },
+    "DiagnosisActiveMajorDepression": {
+      "title": "Major Depression",
+      "description": "Diagnosis, Active: Major Depression",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.105.12.1007",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "DiagnosisActiveMajorDepression"
+    },
+    "MedicationDispensedAntidepressantMedication": {
+      "title": "Antidepressant Medication",
+      "description": "Medication, Dispensed: Antidepressant Medication",
+      "standard_category": "medication",
+      "qds_data_type": "medication_dispensed",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1213",
+      "type": "medications",
+      "definition": "medication",
+      "status": "dispensed",
+      "hard_status": true,
+      "negation": false,
+      "source_data_criteria": "MedicationDispensedAntidepressantMedication"
+    },
+    "OccurrenceAMajorDepression1": {
+      "title": "Major Depression",
+      "description": "Diagnosis, Active: Major Depression",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.105.12.1007",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "DIAGNOSIS_ACTIVE_MAJOR_DEPRESSION",
+      "source_data_criteria": "OccurrenceAMajorDepression1"
+    },
+    "OccurrenceAAntidepressantMedication2": {
+      "title": "Antidepressant Medication",
+      "description": "Medication, Dispensed: Antidepressant Medication",
+      "standard_category": "medication",
+      "qds_data_type": "medication_dispensed",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1213",
+      "type": "medications",
+      "definition": "medication",
+      "status": "dispensed",
+      "hard_status": true,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "MEDICATION_DISPENSED_ANTIDEPRESSANT_MEDICATION",
+      "source_data_criteria": "OccurrenceAAntidepressantMedication2"
+    }
+  },
+  "attributes": [
+    {
+      "id": "COPYRIGHT",
+      "code": "COPY",
+      "value": "Physician Performance Measure (Measures) and related data specifications were developed by the National Committee for Quality Assurance (NCQA). \r\n\r\nThe Measures are copyrighted but can be reproduced and distributed, without modification, for noncommercial purposes (e.g., use by healthcare providers in connection with their practices). Commercial use is defined as the sale, licensing, or distribution of the Measures for commercial gain, or incorporation of the Measures into a product or service that is sold, licensed or distributed for commercial gain. Commercial use of the Measures requires a license agreement between the user and NCQA. NCQA is not responsible for any use of the Measures. \r\n\r\nCopyright 2012 National Committee for Quality Assurance. All Rights Reserved. \r\n\r\nLimited proprietary coding is contained in the Measure specifications for user convenience. Users of proprietary code sets should obtain all necessary licenses from the owners of the code sets. NCQA disclaims all liability for use or accuracy of any CPT or other codes contained in the specifications.\r\n\r\nCPT(R) contained in the Measure specifications is copyright 2004-2011 American Medical Association. LOINC(R) copyright 2004-2011 Regenstrief Institute, Inc. \r\nThis material contains SNOMED Clinical Terms(R) (SNOMED CT[R]) copyright 2004-2011 International Health Terminology Standards Development Organisation. ICD-10 copyright 2011 World Health Organization. All Rights Reserved.\r\n\r\nDue to technical limitations, registered trademarks are indicated by (R) or [R] and unregistered trademarks are indicated by (TM) or [TM].",
+      "name": "Copyright"
+    },
+    {
+      "id": "MEASURE_SCORING",
+      "code": "MSRSCORE",
+      "name": "Measure Scoring"
+    },
+    {
+      "id": "MEASURE_TYPE",
+      "code": "MSRTYPE",
+      "name": "Measure Type"
+    },
+    {
+      "id": "STRATIFICATION",
+      "code": "STRAT",
+      "value": "None",
+      "name": "Stratification"
+    },
+    {
+      "id": "RISK_ADJUSTMENT",
+      "code": "MSRADJ",
+      "value": "None",
+      "name": "Risk Adjustment"
+    },
+    {
+      "id": "RATE_AGGREGATION",
+      "code": "MSRAGG",
+      "value": "None",
+      "name": "Rate Aggregation"
+    },
+    {
+      "id": "RATIONALE",
+      "code": "RAT",
+      "value": "Depression affects nearly 15 million adults in the U.S. (National Alliance on Mental Illness 2009) and is estimated to affect nearly a quarter of adults in their lifetime (Burcusa and Iacono 2007). Symptoms of depression include appetite and sleep disturbances, anxiety, irritability and decreased concentration (Charbonneau et al. 2005). The American Psychiatric Association recommends use of antidepressant medication and behavioral therapies, such as psychotherapy, to treat depression (American Psychiatric Association 2010).\r\n\r\nFor the past 50 years, antidepressant medication has proven to be effective especially for patients with more severe symptoms (Fournier et al. 2010). Among patients who initiate antidepressant treatment, one in three discontinues treatment within one month, before the effect of medication can be assessed, and nearly one in two discontinues treatment within three months (Simon 2002).\r\n\r\nDue to increased risky behaviors for chronic disease (e.g., physical inactivity, smoking, excessive drinking and insufficient sleep), evidence has shown that depressive disorders are strongly related to the occurrence of many chronic diseases including diabetes, cancer, cardiovascular disease and asthma (Centers for Disease Control and Prevention 2011).\r\n\r\nAligning depression quality improvement with methods used in managing other chronic illnesses has been an important step in depression care. Depression management systems have demonstrated improved short- and long-term outcomes of depression severity and persistence, employment retention, functional status and patient satisfaction (Katon et al. 2002; Rost et al. 2001).",
+      "name": "Rationale"
+    },
+    {
+      "id": "CLINICAL_RECOMMENDATION_STATEMENT",
+      "code": "CRS",
+      "value": "American Psychiatric Association (APA 2010): \r\nSuccessful treatment of patients with major depressive disorder is promoted by a thorough assessment of the patient and close adherence to treatment plans. Treatment consists of an acute phase, during which remission is induced; a continuation phase, during which remission is preserved; and a maintenance phase, during which the susceptible patient is protected against the recurrence of a subsequent major depressive episode.\r\n\r\nAcute Phase: An antidepressant medication is recommended as an initial treatment choice for patients with mild to moderate major depressive disorder [I: Recommended with substantial clinical confidence] and definitely should be provided for those with severe major depressive disorder unless electroconvulsive therapy (ECT) is planned [I: Recommended with substantial clinical confidence]. For most patients, a selective serotonin reuptake inhibitor (SSRI), serotonin norepinephrine reuptake inhibitor (SNRI), mirtazapine, or bupropion is optimal [I: Recommended with substantial clinical confidence]. In general, the use of nonselective monoamine oxidase inhibitors (MAOIs) (e.g., phenelzine, tranylcypromine, isocarboxazid) should be restricted to patients who do not respond to other treatments [I: Recommended with substantial clinical confidence], given the necessity for dietary restrictions with these medications and the potential for deleterious drug-drug interactions. \r\n\r\nDuring the acute phase of treatment, patients should be carefully and systematically monitored on a regular basis to assess their response to pharmacotherapy, identify the emergence of side effects (e.g., gastrointestinal symptoms, sedation, insomnia, activation, changes in weight, and cardiovascular, neurological, anticholinergic, or sexual side effects), and assess patient safety [I: Recommended with substantial clinical confidence]. If antidepressant side effects do occur, an initial strategy is to lower the dose of the antidepressant or to change to an antidepressant that is not associated with that side effect [I: Recommended with substantial clinical confidence].\r\n\r\nContinuation Phase: During the continuation phase of treatment, the patient should be carefully monitored for signs of possible relapse [I: Recommended with substantial clinical confidence]. Systematic assessment of symptoms, side effects, adherence, and functional status is essential [I: Recommended with substantial clinical confidence], and may be facilitated through the use of clinician- and/or patient-administered rating scales [II: Recommended with moderate clinical confidence]. To reduce the risk of relapse, patients who have been treated successfully with antidepressant medications in the acute phase should continue treatment with these agents for 4–9 months [I: Recommended with substantial clinical confidence]. In general, the dose used in the acute phase should be used in the continuation phase [II: Recommended with moderate clinical confidence]. To prevent a relapse of depression in the continuation phase, depression-focused psychotherapy is recommended [I: Recommended with substantial clinical confidence], with the best evidence available for cognitive-behavioral therapy.\r\n\r\nMaintenance Phase: During the maintenance phase, an antidepressant medication that produced symptom remission during the acute phase and maintained remission during the continuation phase should be continued at a full therapeutic dose [II: Recommended with moderate clinical confidence].",
+      "name": "Clinical Recommendation Statement"
+    },
+    {
+      "id": "IMPROVEMENT_NOTATION",
+      "code": "IDUR",
+      "value": "Higher score indicates better quality.",
+      "name": "Improvement Notation"
+    },
+    {
+      "id": "NQF_ID_NUMBER",
+      "code": "OTH",
+      "value": "0105",
+      "name": "NQF ID Number"
+    },
+    {
+      "id": "DISCLAIMER",
+      "code": "DISC",
+      "value": "These performance Measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications.\r\n\r\nTHE MEASURES AND SPECIFICATIONS ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND.",
+      "name": "Disclaimer"
+    },
+    {
+      "id": "EMEASURE_IDENTIFIER",
+      "code": "OTH",
+      "value": "128",
+      "name": "eMeasure Identifier"
+    },
+    {
+      "id": "REFERENCE",
+      "code": "REF",
+      "value": "Centers for Disease Control and Prevention (CDC). 2011. “Mental Health: Mental Health Basics.” http://www.cdc.gov/mentalhealth/basics.htm (July 27, 2011)",
+      "name": "Reference"
+    },
+    {
+      "id": "DEFINITION",
+      "code": "DEF",
+      "value": "Index Episode Start Date (IESD): The earliest diagnosis of major depression during the period beginning 180 days prior to the measurement period through 180 days after the start of the measurement period.\r\nIndex Prescription Start Date (IPSD): The earliest prescription dispensing event for an antidepressant medication during the period of 30 days prior to the IESD through 14 days after the IESD.",
+      "name": "Definition"
+    },
+    {
+      "id": "GUIDANCE",
+      "code": "GUIDE",
+      "value": "To identify new treatment episodes for major depression, there must be a 90-day negative medication history (a period during which the patient was not taking antidepressant medication) prior to the first dispensing event associated with the Index Episode Start Date (Index Prescription Start Date).\r\n\r\nCUMULATIVE MEDICATION DURATION is the total number of days of a medication for an individual. Days of medication can be derived from number of doses per day divided by the frequency. The cumulative duration can be calculated as the sum of the number of medication dispensed days x number of medication refills over a set period of time, excluding any gaps during which a medication was not dispensed. For example, if a medication was prescribed for 30 days with 3 refills, then a gap of 3 month, then prescribed again for 60 days with 2 refills, the cumulative medication duration for would be (30 x 3) + (60 x 2) = 210 days over the 10 month period.",
+      "name": "Guidance"
+    },
+    {
+      "id": "TRANSMISSION_FORMAT",
+      "code": "OTH",
+      "value": "TBD",
+      "name": "Transmission Format"
+    },
+    {
+      "id": "INITIAL_PATIENT_POPULATION",
+      "code": "IPP",
+      "value": "Patients 18 years of age and older with a diagnosis of major depression in the 180 days (6 months) prior to the measurement period or the first 180 days (6 months) of the measurement period, who were treated with antidepressant medication, and with a visit during the measurement period",
+      "name": "Initial Patient Population"
+    },
+    {
+      "id": "DENOMINATOR",
+      "code": "DENOM",
+      "value": "Equals Initial Patient Population",
+      "name": "Denominator"
+    },
+    {
+      "id": "DENOMINATOR_EXCLUSIONS",
+      "code": "OTH",
+      "value": "Patients who were actively on an antidepressant medication in the 90 days prior to the Index Prescription Start Date",
+      "name": "Denominator Exclusions"
+    },
+    {
+      "id": "NUMERATOR",
+      "code": "NUMER",
+      "value": "Numerator 1: Patients who have received antidepressant medication for at least 84 days (12 weeks) of continuous treatment during the 114-day period following the Index Prescription Start Date\r\n\r\nNumerator 2: Patients who have received antidepressant medications for at least 180 days (6 months) of continuous treatment during the 231-day period following the Index Prescription Start Date",
+      "name": "Numerator"
+    },
+    {
+      "id": "NUMERATOR_EXCLUSIONS",
+      "code": "OTH",
+      "value": "Not Applicable",
+      "name": "Numerator Exclusions"
+    },
+    {
+      "id": "DENOMINATOR_EXCEPTIONS",
+      "code": "DENEXCEP",
+      "value": "None",
+      "name": "Denominator Exceptions"
+    },
+    {
+      "id": "MEASURE_POPULATION",
+      "code": "MSRPOPL",
+      "value": "Not Applicable",
+      "name": "Measure Population"
+    },
+    {
+      "id": "MEASURE_OBSERVATIONS",
+      "code": "OTH",
+      "value": "Not Applicable",
+      "name": "Measure Observations"
+    },
+    {
+      "id": "SUPPLEMENTAL_DATA_ELEMENTS",
+      "code": "OTH",
+      "value": "For every patient evaluated by this measure also identify payer, race, ethnicity and sex.",
+      "name": "Supplemental Data Elements"
+    }
+  ],
+  "populations": [
+    {
+      "NUMER": "NUMER",
+      "DENOM": "DENOM",
+      "IPP": "IPP",
+      "DENEX": "DENEX",
+      "title": "84 days",
+      "id": "Population1"
+    },
+    {
+      "NUMER": "NUMER_1",
+      "DENOM": "DENOM",
+      "IPP": "IPP",
+      "DENEX": "DENEX",
+      "title": "180 days",
+      "id": "Population2"
+    }
+  ],
+  "measure_period": {
+    "type": "IVL_TS",
+    "low": {
+      "type": "TS",
+      "value": "201201010000",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "high": {
+      "type": "TS",
+      "value": "201212312359",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "width": {
+      "type": "PQ",
+      "unit": "a",
+      "value": "1",
+      "inclusive?": true,
+      "derived?": false
+    }
+  }
+}
