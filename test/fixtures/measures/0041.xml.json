@@ -1,0 +1,2111 @@
+{
+  "id": "0041",
+  "hqmf_id": "8A4D92B2-3946-CDAE-0139-78797547731A",
+  "hqmf_set_id": "A244AA29-7D11-4616-888A-86E376BFCC6F",
+  "hqmf_version_number": 1,
+  "title": "Preventive Care and Screening: Influenza Immunization",
+  "description": "Percentage of patients aged 6 months and older seen for a visit between October 1 and March 31 who received an influenza immunization OR who reported previous receipt of an influenza immunization",
+  "cms_id": "CMS147v1",
+  "population_criteria": {
+    "DENEXCEP": {
+      "conjunction?": true,
+      "type": "DENEXCEP",
+      "title": "Denominator Exception",
+      "hqmf_id": "6DEB5872-3188-4228-AE48-F8F3A19414A1",
+      "preconditions": [
+        {
+          "id": 54,
+          "preconditions": [
+            {
+              "id": 52,
+              "preconditions": [
+                {
+                  "id": 22,
+                  "preconditions": [
+                    {
+                      "id": 4,
+                      "reference": "CommunicationFromPatientToProviderInfluenzaVaccinationDeclined_precondition_4"
+                    },
+                    {
+                      "id": 12,
+                      "preconditions": [
+                        {
+                          "id": 6,
+                          "reference": "ProcedurePerformedInfluenzaVaccination_precondition_6"
+                        },
+                        {
+                          "id": 8,
+                          "reference": "ProcedurePerformedInfluenzaVaccination_precondition_8"
+                        },
+                        {
+                          "id": 10,
+                          "reference": "ProcedurePerformedInfluenzaVaccination_precondition_10"
+                        }
+                      ],
+                      "conjunction_code": "atLeastOneTrue"
+                    },
+                    {
+                      "id": 20,
+                      "preconditions": [
+                        {
+                          "id": 14,
+                          "reference": "MedicationAdministeredInfluenzaVaccine_precondition_14"
+                        },
+                        {
+                          "id": 16,
+                          "reference": "MedicationAdministeredInfluenzaVaccine_precondition_16"
+                        },
+                        {
+                          "id": 18,
+                          "reference": "MedicationAdministeredInfluenzaVaccine_precondition_18"
+                        }
+                      ],
+                      "conjunction_code": "atLeastOneTrue"
+                    }
+                  ],
+                  "conjunction_code": "atLeastOneTrue"
+                },
+                {
+                  "id": 43,
+                  "preconditions": [
+                    {
+                      "id": 31,
+                      "reference": "DiagnosisActiveAllergyToEggs_precondition_31"
+                    },
+                    {
+                      "id": 33,
+                      "reference": "ProcedureIntoleranceInfluenzaVaccination_precondition_33"
+                    },
+                    {
+                      "id": 35,
+                      "reference": "MedicationIntoleranceInfluenzaVaccine_precondition_35"
+                    },
+                    {
+                      "id": 37,
+                      "reference": "MedicationAllergyInfluenzaVaccine_precondition_37"
+                    },
+                    {
+                      "id": 39,
+                      "reference": "DiagnosisActiveAllergyToInfluenzaVaccine_precondition_39"
+                    },
+                    {
+                      "id": 41,
+                      "reference": "DiagnosisActiveIntoleranceToInfluenzaVaccine_precondition_41"
+                    }
+                  ],
+                  "conjunction_code": "atLeastOneTrue"
+                }
+              ],
+              "conjunction_code": "atLeastOneTrue"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "NUMER": {
+      "conjunction?": true,
+      "type": "NUMER",
+      "title": "Numerator",
+      "hqmf_id": "9417D2B3-1DF7-4B45-9FBD-537D14553421",
+      "preconditions": [
+        {
+          "id": 70,
+          "preconditions": [
+            {
+              "id": 61,
+              "preconditions": [
+                {
+                  "id": 55,
+                  "reference": "ProcedurePerformedInfluenzaVaccination_precondition_55"
+                },
+                {
+                  "id": 57,
+                  "reference": "MedicationAdministeredInfluenzaVaccine_precondition_57"
+                },
+                {
+                  "id": 59,
+                  "reference": "CommunicationFromPatientToProviderPreviousReceiptOfInfluenzaVaccine_precondition_59"
+                }
+              ],
+              "conjunction_code": "atLeastOneTrue"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "DENOM": {
+      "conjunction?": true,
+      "type": "DENOM",
+      "title": "Denominator",
+      "hqmf_id": "B082C06E-5D39-4561-8B3C-524D9D249F1B",
+      "preconditions": [
+        {
+          "id": 89,
+          "preconditions": [
+            {
+              "id": 87,
+              "preconditions": [
+                {
+                  "id": 77,
+                  "preconditions": [
+                    {
+                      "id": 71,
+                      "reference": "OccurrenceAEncounterInfluenza1_precondition_71"
+                    },
+                    {
+                      "id": 73,
+                      "reference": "OccurrenceAHemodialysis2_precondition_73"
+                    },
+                    {
+                      "id": 75,
+                      "reference": "OccurrenceAPeritonealDialysis3_precondition_75"
+                    }
+                  ],
+                  "conjunction_code": "atLeastOneTrue"
+                },
+                {
+                  "id": 85,
+                  "preconditions": [
+                    {
+                      "id": 79,
+                      "reference": "OccurrenceAEncounterInfluenza1_precondition_79"
+                    },
+                    {
+                      "id": 81,
+                      "reference": "OccurrenceAHemodialysis2_precondition_81"
+                    },
+                    {
+                      "id": 83,
+                      "reference": "OccurrenceAPeritonealDialysis3_precondition_83"
+                    }
+                  ],
+                  "conjunction_code": "atLeastOneTrue"
+                }
+              ],
+              "conjunction_code": "atLeastOneTrue"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "IPP": {
+      "conjunction?": true,
+      "type": "IPP",
+      "title": "Initial Patient Population",
+      "hqmf_id": "88B677A2-1CDF-43EE-9078-A4651253CBB7",
+      "preconditions": [
+        {
+          "id": 134,
+          "preconditions": [
+            {
+              "id": 90,
+              "reference": "PatientCharacteristicBirthdateBirthDate_precondition_90"
+            },
+            {
+              "id": 132,
+              "preconditions": [
+                {
+                  "id": 103,
+                  "reference": "GROUP_COUNT_142",
+                  "conjunction_code": "atLeastOneTrue"
+                },
+                {
+                  "id": 130,
+                  "reference": "GROUP_COUNT_144",
+                  "conjunction_code": "atLeastOneTrue"
+                }
+              ],
+              "conjunction_code": "atLeastOneTrue"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    }
+  },
+  "data_criteria": {
+    "EncounterPerformedEncounterInfluenza": {
+      "title": "Encounter-Influenza",
+      "description": "Encounter, Performed: Encounter-Influenza",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1252",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedEncounterInfluenza"
+    },
+    "ProcedurePerformedNotDoneMedicalReason": {
+      "title": "Medical Reason",
+      "description": "Procedure, Performed not done: Medical Reason",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1007",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": true,
+      "source_data_criteria": "ProcedurePerformedNotDoneMedicalReason"
+    },
+    "ProcedurePerformedNotDonePatientReason": {
+      "title": "Patient Reason",
+      "description": "Procedure, Performed not done: Patient Reason",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1008",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": true,
+      "source_data_criteria": "ProcedurePerformedNotDonePatientReason"
+    },
+    "ProcedurePerformedNotDoneSystemReason": {
+      "title": "System Reason",
+      "description": "Procedure, Performed not done: System Reason",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1009",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": true,
+      "source_data_criteria": "ProcedurePerformedNotDoneSystemReason"
+    },
+    "MedicationAdministeredNotDoneMedicalReason": {
+      "title": "Medical Reason",
+      "description": "Medication, Administered not done: Medical Reason",
+      "standard_category": "medication",
+      "qds_data_type": "medication_administered",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1007",
+      "type": "medications",
+      "definition": "medication",
+      "status": "administered",
+      "hard_status": true,
+      "negation": true,
+      "source_data_criteria": "MedicationAdministeredNotDoneMedicalReason"
+    },
+    "MedicationAdministeredNotDonePatientReason": {
+      "title": "Patient Reason",
+      "description": "Medication, Administered not done: Patient Reason",
+      "standard_category": "medication",
+      "qds_data_type": "medication_administered",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1008",
+      "type": "medications",
+      "definition": "medication",
+      "status": "administered",
+      "hard_status": true,
+      "negation": true,
+      "source_data_criteria": "MedicationAdministeredNotDonePatientReason"
+    },
+    "MedicationAdministeredNotDoneSystemReason": {
+      "title": "System Reason",
+      "description": "Medication, Administered not done: System Reason",
+      "standard_category": "medication",
+      "qds_data_type": "medication_administered",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1009",
+      "type": "medications",
+      "definition": "medication",
+      "status": "administered",
+      "hard_status": true,
+      "negation": true,
+      "source_data_criteria": "MedicationAdministeredNotDoneSystemReason"
+    },
+    "OccurrenceAEncounterInfluenza1_precondition_23": {
+      "title": "Encounter-Influenza",
+      "description": "Encounter, Performed: Encounter-Influenza",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1252",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "ENCOUNTER_PERFORMED_ENCOUNTER_INFLUENZA",
+      "source_data_criteria": "OccurrenceAEncounterInfluenza1"
+    },
+    "OccurrenceAHemodialysis2_precondition_25": {
+      "title": "Hemodialysis",
+      "description": "Procedure, Performed: Hemodialysis",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1083",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "PROCEDURE_PERFORMED_HEMODIALYSIS",
+      "source_data_criteria": "OccurrenceAHemodialysis2"
+    },
+    "OccurrenceAPeritonealDialysis3_precondition_27": {
+      "title": "Peritoneal Dialysis",
+      "description": "Procedure, Performed: Peritoneal Dialysis",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1084",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "PROCEDURE_PERFORMED_PERITONEAL_DIALYSIS",
+      "source_data_criteria": "OccurrenceAPeritonealDialysis3"
+    },
+    "CommunicationFromPatientToProviderInfluenzaVaccinationDeclined_precondition_4": {
+      "title": "Influenza Vaccination Declined",
+      "description": "Communication: From Patient to Provider: Influenza Vaccination Declined",
+      "standard_category": "communication",
+      "qds_data_type": "communication",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1255",
+      "type": "communications",
+      "definition": "communication_from_patient_to_provider",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "CommunicationFromPatientToProviderInfluenzaVaccinationDeclined",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "GROUP_DURING_CHILDREN_136"
+        }
+      ]
+    },
+    "GROUP_DURING_CHILDREN_136": {
+      "title": "GROUP_DURING_CHILDREN_136",
+      "description": "",
+      "standard_category": "",
+      "qds_data_type": "",
+      "children_criteria": [
+        "OccurrenceAEncounterInfluenza1_precondition_23",
+        "OccurrenceAHemodialysis2_precondition_25",
+        "OccurrenceAPeritonealDialysis3_precondition_27"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "GROUP_DURING_CHILDREN_136"
+    },
+    "ProcedurePerformedInfluenzaVaccination_precondition_6": {
+      "title": "Influenza Vaccination",
+      "description": "Procedure, Performed: Influenza Vaccination",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.402",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": true,
+      "negation_code_list_id": "2.16.840.1.113883.3.526.3.1007",
+      "source_data_criteria": "ProcedurePerformedInfluenzaVaccination",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "GROUP_DURING_CHILDREN_136"
+        }
+      ]
+    },
+    "ProcedurePerformedInfluenzaVaccination_precondition_8": {
+      "title": "Influenza Vaccination",
+      "description": "Procedure, Performed: Influenza Vaccination",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.402",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": true,
+      "negation_code_list_id": "2.16.840.1.113883.3.526.3.1008",
+      "source_data_criteria": "ProcedurePerformedInfluenzaVaccination",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "GROUP_DURING_CHILDREN_136"
+        }
+      ]
+    },
+    "ProcedurePerformedInfluenzaVaccination_precondition_10": {
+      "title": "Influenza Vaccination",
+      "description": "Procedure, Performed: Influenza Vaccination",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.402",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": true,
+      "negation_code_list_id": "2.16.840.1.113883.3.526.3.1009",
+      "source_data_criteria": "ProcedurePerformedInfluenzaVaccination",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "GROUP_DURING_CHILDREN_136"
+        }
+      ]
+    },
+    "MedicationAdministeredInfluenzaVaccine_precondition_14": {
+      "title": "Influenza Vaccine",
+      "description": "Medication, Administered: Influenza Vaccine",
+      "standard_category": "medication",
+      "qds_data_type": "medication_administered",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1254",
+      "type": "medications",
+      "definition": "medication",
+      "status": "administered",
+      "hard_status": true,
+      "negation": true,
+      "negation_code_list_id": "2.16.840.1.113883.3.526.3.1007",
+      "source_data_criteria": "MedicationAdministeredInfluenzaVaccine",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "GROUP_DURING_CHILDREN_136"
+        }
+      ]
+    },
+    "MedicationAdministeredInfluenzaVaccine_precondition_16": {
+      "title": "Influenza Vaccine",
+      "description": "Medication, Administered: Influenza Vaccine",
+      "standard_category": "medication",
+      "qds_data_type": "medication_administered",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1254",
+      "type": "medications",
+      "definition": "medication",
+      "status": "administered",
+      "hard_status": true,
+      "negation": true,
+      "negation_code_list_id": "2.16.840.1.113883.3.526.3.1008",
+      "source_data_criteria": "MedicationAdministeredInfluenzaVaccine",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "GROUP_DURING_CHILDREN_136"
+        }
+      ]
+    },
+    "MedicationAdministeredInfluenzaVaccine_precondition_18": {
+      "title": "Influenza Vaccine",
+      "description": "Medication, Administered: Influenza Vaccine",
+      "standard_category": "medication",
+      "qds_data_type": "medication_administered",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1254",
+      "type": "medications",
+      "definition": "medication",
+      "status": "administered",
+      "hard_status": true,
+      "negation": true,
+      "negation_code_list_id": "2.16.840.1.113883.3.526.3.1009",
+      "source_data_criteria": "MedicationAdministeredInfluenzaVaccine",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "GROUP_DURING_CHILDREN_136"
+        }
+      ]
+    },
+    "OccurrenceAEncounterInfluenza1_precondition_44": {
+      "title": "Encounter-Influenza",
+      "description": "Encounter, Performed: Encounter-Influenza",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1252",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "ENCOUNTER_PERFORMED_ENCOUNTER_INFLUENZA",
+      "source_data_criteria": "OccurrenceAEncounterInfluenza1"
+    },
+    "OccurrenceAHemodialysis2_precondition_46": {
+      "title": "Hemodialysis",
+      "description": "Procedure, Performed: Hemodialysis",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1083",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "PROCEDURE_PERFORMED_HEMODIALYSIS",
+      "source_data_criteria": "OccurrenceAHemodialysis2"
+    },
+    "OccurrenceAPeritonealDialysis3_precondition_48": {
+      "title": "Peritoneal Dialysis",
+      "description": "Procedure, Performed: Peritoneal Dialysis",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1084",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "PROCEDURE_PERFORMED_PERITONEAL_DIALYSIS",
+      "source_data_criteria": "OccurrenceAPeritonealDialysis3"
+    },
+    "DiagnosisActiveAllergyToEggs_precondition_31": {
+      "title": "Allergy to eggs",
+      "description": "Diagnosis, Active: Allergy to eggs",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1253",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "DiagnosisActiveAllergyToEggs",
+      "temporal_references": [
+        {
+          "type": "SBE",
+          "reference": "GROUP_SBE_CHILDREN_138"
+        }
+      ]
+    },
+    "GROUP_SBE_CHILDREN_138": {
+      "title": "GROUP_SBE_CHILDREN_138",
+      "description": "",
+      "standard_category": "",
+      "qds_data_type": "",
+      "children_criteria": [
+        "OccurrenceAEncounterInfluenza1_precondition_44",
+        "OccurrenceAHemodialysis2_precondition_46",
+        "OccurrenceAPeritonealDialysis3_precondition_48"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "GROUP_SBE_CHILDREN_138"
+    },
+    "ProcedureIntoleranceInfluenzaVaccination_precondition_33": {
+      "title": "Influenza Vaccination",
+      "description": "Procedure, Intolerance: Influenza Vaccination",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_intolerance",
+      "code_list_id": "2.16.840.1.113883.3.526.3.402",
+      "type": "procedures",
+      "definition": "procedure_intolerance",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ProcedureIntoleranceInfluenzaVaccination",
+      "temporal_references": [
+        {
+          "type": "SBE",
+          "reference": "GROUP_SBE_CHILDREN_138"
+        }
+      ]
+    },
+    "MedicationIntoleranceInfluenzaVaccine_precondition_35": {
+      "title": "Influenza Vaccine",
+      "description": "Medication, Intolerance: Influenza Vaccine",
+      "standard_category": "allergy",
+      "qds_data_type": "allergy",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1254",
+      "type": "medications",
+      "definition": "medication_intolerance",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "MedicationIntoleranceInfluenzaVaccine",
+      "temporal_references": [
+        {
+          "type": "SBE",
+          "reference": "GROUP_SBE_CHILDREN_138"
+        }
+      ]
+    },
+    "MedicationAllergyInfluenzaVaccine_precondition_37": {
+      "title": "Influenza Vaccine",
+      "description": "Medication, Allergy: Influenza Vaccine",
+      "standard_category": "allergy",
+      "qds_data_type": "allergy",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1254",
+      "type": "medications",
+      "definition": "medication_allergy",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "MedicationAllergyInfluenzaVaccine",
+      "temporal_references": [
+        {
+          "type": "SBE",
+          "reference": "GROUP_SBE_CHILDREN_138"
+        }
+      ]
+    },
+    "DiagnosisActiveAllergyToInfluenzaVaccine_precondition_39": {
+      "title": "Allergy to Influenza Vaccine",
+      "description": "Diagnosis, Active: Allergy to Influenza Vaccine",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1256",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "DiagnosisActiveAllergyToInfluenzaVaccine",
+      "temporal_references": [
+        {
+          "type": "SBE",
+          "reference": "GROUP_SBE_CHILDREN_138"
+        }
+      ]
+    },
+    "DiagnosisActiveIntoleranceToInfluenzaVaccine_precondition_41": {
+      "title": "Intolerance to Influenza Vaccine",
+      "description": "Diagnosis, Active: Intolerance to Influenza Vaccine",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1257",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "DiagnosisActiveIntoleranceToInfluenzaVaccine",
+      "temporal_references": [
+        {
+          "type": "SBE",
+          "reference": "GROUP_SBE_CHILDREN_138"
+        }
+      ]
+    },
+    "OccurrenceAEncounterInfluenza1_precondition_62": {
+      "title": "Encounter-Influenza",
+      "description": "Encounter, Performed: Encounter-Influenza",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1252",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "ENCOUNTER_PERFORMED_ENCOUNTER_INFLUENZA",
+      "source_data_criteria": "OccurrenceAEncounterInfluenza1"
+    },
+    "OccurrenceAHemodialysis2_precondition_64": {
+      "title": "Hemodialysis",
+      "description": "Procedure, Performed: Hemodialysis",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1083",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "PROCEDURE_PERFORMED_HEMODIALYSIS",
+      "source_data_criteria": "OccurrenceAHemodialysis2"
+    },
+    "OccurrenceAPeritonealDialysis3_precondition_66": {
+      "title": "Peritoneal Dialysis",
+      "description": "Procedure, Performed: Peritoneal Dialysis",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1084",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "PROCEDURE_PERFORMED_PERITONEAL_DIALYSIS",
+      "source_data_criteria": "OccurrenceAPeritonealDialysis3"
+    },
+    "ProcedurePerformedInfluenzaVaccination_precondition_55": {
+      "title": "Influenza Vaccination",
+      "description": "Procedure, Performed: Influenza Vaccination",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.402",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ProcedurePerformedInfluenzaVaccination",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "GROUP_DURING_CHILDREN_140"
+        }
+      ]
+    },
+    "GROUP_DURING_CHILDREN_140": {
+      "title": "GROUP_DURING_CHILDREN_140",
+      "description": "",
+      "standard_category": "",
+      "qds_data_type": "",
+      "children_criteria": [
+        "OccurrenceAEncounterInfluenza1_precondition_62",
+        "OccurrenceAHemodialysis2_precondition_64",
+        "OccurrenceAPeritonealDialysis3_precondition_66"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "GROUP_DURING_CHILDREN_140"
+    },
+    "MedicationAdministeredInfluenzaVaccine_precondition_57": {
+      "title": "Influenza Vaccine",
+      "description": "Medication, Administered: Influenza Vaccine",
+      "standard_category": "medication",
+      "qds_data_type": "medication_administered",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1254",
+      "type": "medications",
+      "definition": "medication",
+      "status": "administered",
+      "hard_status": true,
+      "negation": false,
+      "source_data_criteria": "MedicationAdministeredInfluenzaVaccine",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "GROUP_DURING_CHILDREN_140"
+        }
+      ]
+    },
+    "CommunicationFromPatientToProviderPreviousReceiptOfInfluenzaVaccine_precondition_59": {
+      "title": "Previous Receipt of Influenza Vaccine",
+      "description": "Communication: From Patient to Provider: Previous Receipt of Influenza Vaccine",
+      "standard_category": "communication",
+      "qds_data_type": "communication",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1185",
+      "type": "communications",
+      "definition": "communication_from_patient_to_provider",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "CommunicationFromPatientToProviderPreviousReceiptOfInfluenzaVaccine",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "GROUP_DURING_CHILDREN_140"
+        }
+      ]
+    },
+    "OccurrenceAEncounterInfluenza1_precondition_71": {
+      "title": "Encounter-Influenza",
+      "description": "Encounter, Performed: Encounter-Influenza",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1252",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "ENCOUNTER_PERFORMED_ENCOUNTER_INFLUENZA",
+      "source_data_criteria": "OccurrenceAEncounterInfluenza1",
+      "temporal_references": [
+        {
+          "type": "SBS",
+          "reference": "MeasurePeriod",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "92",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "OccurrenceAHemodialysis2_precondition_73": {
+      "title": "Hemodialysis",
+      "description": "Procedure, Performed: Hemodialysis",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1083",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "PROCEDURE_PERFORMED_HEMODIALYSIS",
+      "source_data_criteria": "OccurrenceAHemodialysis2",
+      "temporal_references": [
+        {
+          "type": "SBS",
+          "reference": "MeasurePeriod",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "92",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "OccurrenceAPeritonealDialysis3_precondition_75": {
+      "title": "Peritoneal Dialysis",
+      "description": "Procedure, Performed: Peritoneal Dialysis",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1084",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "PROCEDURE_PERFORMED_PERITONEAL_DIALYSIS",
+      "source_data_criteria": "OccurrenceAPeritonealDialysis3",
+      "temporal_references": [
+        {
+          "type": "SBS",
+          "reference": "MeasurePeriod",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "92",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "OccurrenceAEncounterInfluenza1_precondition_79": {
+      "title": "Encounter-Influenza",
+      "description": "Encounter, Performed: Encounter-Influenza",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1252",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "ENCOUNTER_PERFORMED_ENCOUNTER_INFLUENZA",
+      "source_data_criteria": "OccurrenceAEncounterInfluenza1",
+      "temporal_references": [
+        {
+          "type": "SAS",
+          "reference": "MeasurePeriod",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "91",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "OccurrenceAHemodialysis2_precondition_81": {
+      "title": "Hemodialysis",
+      "description": "Procedure, Performed: Hemodialysis",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1083",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "PROCEDURE_PERFORMED_HEMODIALYSIS",
+      "source_data_criteria": "OccurrenceAHemodialysis2",
+      "temporal_references": [
+        {
+          "type": "SAS",
+          "reference": "MeasurePeriod",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "91",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "OccurrenceAPeritonealDialysis3_precondition_83": {
+      "title": "Peritoneal Dialysis",
+      "description": "Procedure, Performed: Peritoneal Dialysis",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1084",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "PROCEDURE_PERFORMED_PERITONEAL_DIALYSIS",
+      "source_data_criteria": "OccurrenceAPeritonealDialysis3",
+      "temporal_references": [
+        {
+          "type": "SAS",
+          "reference": "MeasurePeriod",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "91",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "PatientCharacteristicBirthdateBirthDate_precondition_90": {
+      "title": "birth date",
+      "description": "Patient Characteristic Birthdate: birth date",
+      "standard_category": "individual_characteristic",
+      "qds_data_type": "individual_characteristic",
+      "code_list_id": "2.16.840.1.113883.3.560.100.4",
+      "property": "birthtime",
+      "type": "characteristic",
+      "definition": "patient_characteristic_birthdate",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "PatientCharacteristicBirthdateBirthDate",
+      "inline_code_list": {
+        "LOINC": [
+          "21112-8"
+        ]
+      },
+      "temporal_references": [
+        {
+          "type": "SBS",
+          "reference": "MeasurePeriod",
+          "range": {
+            "type": "IVL_PQ",
+            "low": {
+              "type": "PQ",
+              "unit": "mo",
+              "value": "6",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "EncounterPerformedOfficeVisit_precondition_92": {
+      "title": "Office Visit",
+      "description": "Encounter, Performed: Office Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedOfficeVisit",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedOutpatientConsultation_precondition_94": {
+      "title": "Outpatient Consultation",
+      "description": "Encounter, Performed: Outpatient Consultation",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1008",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedOutpatientConsultation",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedCareServicesInLongTermResidentialFacility_precondition_96": {
+      "title": "Care Services in Long-Term Residential Facility",
+      "description": "Encounter, Performed: Care Services in Long-Term Residential Facility",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1014",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedCareServicesInLongTermResidentialFacility",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedHomeHealthcareServices_precondition_98": {
+      "title": "Home Healthcare Services",
+      "description": "Encounter, Performed: Home Healthcare Services",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1016",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedHomeHealthcareServices",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedPatientProviderInteraction_precondition_100": {
+      "title": "Patient Provider Interaction",
+      "description": "Encounter, Performed: Patient Provider Interaction",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1012",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPatientProviderInteraction",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "GROUP_COUNT_142": {
+      "title": "GROUP_COUNT_142",
+      "description": "",
+      "standard_category": "",
+      "qds_data_type": "",
+      "children_criteria": [
+        "EncounterPerformedOfficeVisit_precondition_92",
+        "EncounterPerformedOutpatientConsultation_precondition_94",
+        "EncounterPerformedCareServicesInLongTermResidentialFacility_precondition_96",
+        "EncounterPerformedHomeHealthcareServices_precondition_98",
+        "EncounterPerformedPatientProviderInteraction_precondition_100"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "GROUP_COUNT_142",
+      "subset_operators": [
+        {
+          "type": "COUNT",
+          "value": {
+            "type": "IVL_PQ",
+            "low": {
+              "type": "PQ",
+              "value": "2",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    },
+    "EncounterPerformedPreventiveCareInitialOfficeVisit0To17_precondition_105": {
+      "title": "Preventive Care- Initial Office Visit, 0 to 17",
+      "description": "Encounter, Performed: Preventive Care- Initial Office Visit, 0 to 17",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1022",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareInitialOfficeVisit0To17",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedPreventiveCareServicesInitialOfficeVisit18AndUp_precondition_107": {
+      "title": "Preventive Care Services-Initial Office Visit, 18 and Up",
+      "description": "Encounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1023",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareServicesInitialOfficeVisit18AndUp",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedPreventiveCareServicesOther_precondition_109": {
+      "title": "Preventive Care Services - Other",
+      "description": "Encounter, Performed: Preventive Care Services - Other",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1030",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareServicesOther",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedDischargeServicesNursingFacility_precondition_111": {
+      "title": "Discharge Services - Nursing Facility",
+      "description": "Encounter, Performed: Discharge Services - Nursing Facility",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1013",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedDischargeServicesNursingFacility",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedNursingFacilityVisit_precondition_113": {
+      "title": "Nursing Facility Visit",
+      "description": "Encounter, Performed: Nursing Facility Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1012",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedNursingFacilityVisit",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedAnnualWellnessVisit_precondition_115": {
+      "title": "Annual Wellness Visit",
+      "description": "Encounter, Performed: Annual Wellness Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1240",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedAnnualWellnessVisit",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "ProcedurePerformedPeritonealDialysis_precondition_117": {
+      "title": "Peritoneal Dialysis",
+      "description": "Procedure, Performed: Peritoneal Dialysis",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1084",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ProcedurePerformedPeritonealDialysis",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "ProcedurePerformedHemodialysis_precondition_119": {
+      "title": "Hemodialysis",
+      "description": "Procedure, Performed: Hemodialysis",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1083",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ProcedurePerformedHemodialysis",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17_precondition_121": {
+      "title": "Preventive Care - Established Office Visit, 0 to 17",
+      "description": "Encounter, Performed: Preventive Care - Established Office Visit, 0 to 17",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1024",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedPreventiveCareServicesEstablishedOfficeVisit18AndUp_precondition_123": {
+      "title": "Preventive Care Services - Established Office Visit, 18 and Up",
+      "description": "Encounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1025",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareServicesEstablishedOfficeVisit18AndUp",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedPreventiveCareServicesIndividualCounseling_precondition_125": {
+      "title": "Preventive Care Services-Individual Counseling",
+      "description": "Encounter, Performed: Preventive Care Services-Individual Counseling",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1026",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareServicesIndividualCounseling",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "EncounterPerformedPreventiveCareServicesGroupCounseling_precondition_127": {
+      "title": "Preventive Care Services - Group Counseling",
+      "description": "Encounter, Performed: Preventive Care Services - Group Counseling",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1027",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareServicesGroupCounseling",
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ]
+    },
+    "GROUP_COUNT_144": {
+      "title": "GROUP_COUNT_144",
+      "description": "",
+      "standard_category": "",
+      "qds_data_type": "",
+      "children_criteria": [
+        "EncounterPerformedPreventiveCareInitialOfficeVisit0To17_precondition_105",
+        "EncounterPerformedPreventiveCareServicesInitialOfficeVisit18AndUp_precondition_107",
+        "EncounterPerformedPreventiveCareServicesOther_precondition_109",
+        "EncounterPerformedDischargeServicesNursingFacility_precondition_111",
+        "EncounterPerformedNursingFacilityVisit_precondition_113",
+        "EncounterPerformedAnnualWellnessVisit_precondition_115",
+        "ProcedurePerformedPeritonealDialysis_precondition_117",
+        "ProcedurePerformedHemodialysis_precondition_119",
+        "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17_precondition_121",
+        "EncounterPerformedPreventiveCareServicesEstablishedOfficeVisit18AndUp_precondition_123",
+        "EncounterPerformedPreventiveCareServicesIndividualCounseling_precondition_125",
+        "EncounterPerformedPreventiveCareServicesGroupCounseling_precondition_127"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "GROUP_COUNT_144",
+      "subset_operators": [
+        {
+          "type": "COUNT",
+          "value": {
+            "type": "IVL_PQ",
+            "low": {
+              "type": "PQ",
+              "value": "1",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ]
+    }
+  },
+  "source_data_criteria": {
+    "PatientCharacteristicBirthdateBirthDate": {
+      "title": "birth date",
+      "description": "Patient Characteristic Birthdate: birth date",
+      "standard_category": "individual_characteristic",
+      "qds_data_type": "individual_characteristic",
+      "code_list_id": "2.16.840.1.113883.3.560.100.4",
+      "property": "birthtime",
+      "type": "characteristic",
+      "definition": "patient_characteristic_birthdate",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "PatientCharacteristicBirthdateBirthDate",
+      "inline_code_list": {
+        "LOINC": [
+          "21112-8"
+        ]
+      }
+    },
+    "EncounterPerformedPatientProviderInteraction": {
+      "title": "Patient Provider Interaction",
+      "description": "Encounter, Performed: Patient Provider Interaction",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1012",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPatientProviderInteraction"
+    },
+    "EncounterPerformedOfficeVisit": {
+      "title": "Office Visit",
+      "description": "Encounter, Performed: Office Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedOfficeVisit"
+    },
+    "EncounterPerformedPreventiveCareServicesGroupCounseling": {
+      "title": "Preventive Care Services - Group Counseling",
+      "description": "Encounter, Performed: Preventive Care Services - Group Counseling",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1027",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareServicesGroupCounseling"
+    },
+    "EncounterPerformedPreventiveCareServicesOther": {
+      "title": "Preventive Care Services - Other",
+      "description": "Encounter, Performed: Preventive Care Services - Other",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1030",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareServicesOther"
+    },
+    "EncounterPerformedPreventiveCareServicesInitialOfficeVisit18AndUp": {
+      "title": "Preventive Care Services-Initial Office Visit, 18 and Up",
+      "description": "Encounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1023",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareServicesInitialOfficeVisit18AndUp"
+    },
+    "EncounterPerformedPreventiveCareServicesEstablishedOfficeVisit18AndUp": {
+      "title": "Preventive Care Services - Established Office Visit, 18 and Up",
+      "description": "Encounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1025",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareServicesEstablishedOfficeVisit18AndUp"
+    },
+    "EncounterPerformedPreventiveCareServicesIndividualCounseling": {
+      "title": "Preventive Care Services-Individual Counseling",
+      "description": "Encounter, Performed: Preventive Care Services-Individual Counseling",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1026",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareServicesIndividualCounseling"
+    },
+    "EncounterPerformedOutpatientConsultation": {
+      "title": "Outpatient Consultation",
+      "description": "Encounter, Performed: Outpatient Consultation",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1008",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedOutpatientConsultation"
+    },
+    "EncounterPerformedCareServicesInLongTermResidentialFacility": {
+      "title": "Care Services in Long-Term Residential Facility",
+      "description": "Encounter, Performed: Care Services in Long-Term Residential Facility",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1014",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedCareServicesInLongTermResidentialFacility"
+    },
+    "EncounterPerformedHomeHealthcareServices": {
+      "title": "Home Healthcare Services",
+      "description": "Encounter, Performed: Home Healthcare Services",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1016",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedHomeHealthcareServices"
+    },
+    "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17": {
+      "title": "Preventive Care - Established Office Visit, 0 to 17",
+      "description": "Encounter, Performed: Preventive Care - Established Office Visit, 0 to 17",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1024",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17"
+    },
+    "EncounterPerformedPreventiveCareInitialOfficeVisit0To17": {
+      "title": "Preventive Care- Initial Office Visit, 0 to 17",
+      "description": "Encounter, Performed: Preventive Care- Initial Office Visit, 0 to 17",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1022",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedPreventiveCareInitialOfficeVisit0To17"
+    },
+    "EncounterPerformedDischargeServicesNursingFacility": {
+      "title": "Discharge Services - Nursing Facility",
+      "description": "Encounter, Performed: Discharge Services - Nursing Facility",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1013",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedDischargeServicesNursingFacility"
+    },
+    "EncounterPerformedNursingFacilityVisit": {
+      "title": "Nursing Facility Visit",
+      "description": "Encounter, Performed: Nursing Facility Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1012",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedNursingFacilityVisit"
+    },
+    "ProcedurePerformedInfluenzaVaccination": {
+      "title": "Influenza Vaccination",
+      "description": "Procedure, Performed: Influenza Vaccination",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.402",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ProcedurePerformedInfluenzaVaccination"
+    },
+    "MedicationAdministeredInfluenzaVaccine": {
+      "title": "Influenza Vaccine",
+      "description": "Medication, Administered: Influenza Vaccine",
+      "standard_category": "medication",
+      "qds_data_type": "medication_administered",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1254",
+      "type": "medications",
+      "definition": "medication",
+      "status": "administered",
+      "hard_status": true,
+      "negation": false,
+      "source_data_criteria": "MedicationAdministeredInfluenzaVaccine"
+    },
+    "CommunicationFromPatientToProviderPreviousReceiptOfInfluenzaVaccine": {
+      "title": "Previous Receipt of Influenza Vaccine",
+      "description": "Communication: From Patient to Provider: Previous Receipt of Influenza Vaccine",
+      "standard_category": "communication",
+      "qds_data_type": "communication",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1185",
+      "type": "communications",
+      "definition": "communication_from_patient_to_provider",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "CommunicationFromPatientToProviderPreviousReceiptOfInfluenzaVaccine"
+    },
+    "CommunicationFromPatientToProviderInfluenzaVaccinationDeclined": {
+      "title": "Influenza Vaccination Declined",
+      "description": "Communication: From Patient to Provider: Influenza Vaccination Declined",
+      "standard_category": "communication",
+      "qds_data_type": "communication",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1255",
+      "type": "communications",
+      "definition": "communication_from_patient_to_provider",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "CommunicationFromPatientToProviderInfluenzaVaccinationDeclined"
+    },
+    "DiagnosisActiveAllergyToEggs": {
+      "title": "Allergy to eggs",
+      "description": "Diagnosis, Active: Allergy to eggs",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1253",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "DiagnosisActiveAllergyToEggs"
+    },
+    "ProcedureIntoleranceInfluenzaVaccination": {
+      "title": "Influenza Vaccination",
+      "description": "Procedure, Intolerance: Influenza Vaccination",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_intolerance",
+      "code_list_id": "2.16.840.1.113883.3.526.3.402",
+      "type": "procedures",
+      "definition": "procedure_intolerance",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ProcedureIntoleranceInfluenzaVaccination"
+    },
+    "MedicationAllergyInfluenzaVaccine": {
+      "title": "Influenza Vaccine",
+      "description": "Medication, Allergy: Influenza Vaccine",
+      "standard_category": "allergy",
+      "qds_data_type": "allergy",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1254",
+      "type": "medications",
+      "definition": "medication_allergy",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "MedicationAllergyInfluenzaVaccine"
+    },
+    "MedicationIntoleranceInfluenzaVaccine": {
+      "title": "Influenza Vaccine",
+      "description": "Medication, Intolerance: Influenza Vaccine",
+      "standard_category": "allergy",
+      "qds_data_type": "allergy",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1254",
+      "type": "medications",
+      "definition": "medication_intolerance",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "MedicationIntoleranceInfluenzaVaccine"
+    },
+    "DiagnosisActiveAllergyToInfluenzaVaccine": {
+      "title": "Allergy to Influenza Vaccine",
+      "description": "Diagnosis, Active: Allergy to Influenza Vaccine",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1256",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "DiagnosisActiveAllergyToInfluenzaVaccine"
+    },
+    "DiagnosisActiveIntoleranceToInfluenzaVaccine": {
+      "title": "Intolerance to Influenza Vaccine",
+      "description": "Diagnosis, Active: Intolerance to Influenza Vaccine",
+      "standard_category": "diagnosis_condition_problem",
+      "qds_data_type": "diagnosis_active",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1257",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "status": "active",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "DiagnosisActiveIntoleranceToInfluenzaVaccine"
+    },
+    "EncounterPerformedAnnualWellnessVisit": {
+      "title": "Annual Wellness Visit",
+      "description": "Encounter, Performed: Annual Wellness Visit",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1240",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedAnnualWellnessVisit"
+    },
+    "ProcedurePerformedPeritonealDialysis": {
+      "title": "Peritoneal Dialysis",
+      "description": "Procedure, Performed: Peritoneal Dialysis",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1084",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ProcedurePerformedPeritonealDialysis"
+    },
+    "ProcedurePerformedHemodialysis": {
+      "title": "Hemodialysis",
+      "description": "Procedure, Performed: Hemodialysis",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1083",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ProcedurePerformedHemodialysis"
+    },
+    "EncounterPerformedEncounterInfluenza": {
+      "title": "Encounter-Influenza",
+      "description": "Encounter, Performed: Encounter-Influenza",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1252",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterPerformedEncounterInfluenza"
+    },
+    "ProcedurePerformedNotDoneMedicalReason": {
+      "title": "Medical Reason",
+      "description": "Procedure, Performed not done: Medical Reason",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1007",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": true,
+      "source_data_criteria": "ProcedurePerformedNotDoneMedicalReason"
+    },
+    "ProcedurePerformedNotDonePatientReason": {
+      "title": "Patient Reason",
+      "description": "Procedure, Performed not done: Patient Reason",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1008",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": true,
+      "source_data_criteria": "ProcedurePerformedNotDonePatientReason"
+    },
+    "ProcedurePerformedNotDoneSystemReason": {
+      "title": "System Reason",
+      "description": "Procedure, Performed not done: System Reason",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1009",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": true,
+      "source_data_criteria": "ProcedurePerformedNotDoneSystemReason"
+    },
+    "MedicationAdministeredNotDoneMedicalReason": {
+      "title": "Medical Reason",
+      "description": "Medication, Administered not done: Medical Reason",
+      "standard_category": "medication",
+      "qds_data_type": "medication_administered",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1007",
+      "type": "medications",
+      "definition": "medication",
+      "status": "administered",
+      "hard_status": true,
+      "negation": true,
+      "source_data_criteria": "MedicationAdministeredNotDoneMedicalReason"
+    },
+    "MedicationAdministeredNotDonePatientReason": {
+      "title": "Patient Reason",
+      "description": "Medication, Administered not done: Patient Reason",
+      "standard_category": "medication",
+      "qds_data_type": "medication_administered",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1008",
+      "type": "medications",
+      "definition": "medication",
+      "status": "administered",
+      "hard_status": true,
+      "negation": true,
+      "source_data_criteria": "MedicationAdministeredNotDonePatientReason"
+    },
+    "MedicationAdministeredNotDoneSystemReason": {
+      "title": "System Reason",
+      "description": "Medication, Administered not done: System Reason",
+      "standard_category": "medication",
+      "qds_data_type": "medication_administered",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1009",
+      "type": "medications",
+      "definition": "medication",
+      "status": "administered",
+      "hard_status": true,
+      "negation": true,
+      "source_data_criteria": "MedicationAdministeredNotDoneSystemReason"
+    },
+    "OccurrenceAEncounterInfluenza1": {
+      "title": "Encounter-Influenza",
+      "description": "Encounter, Performed: Encounter-Influenza",
+      "standard_category": "encounter",
+      "qds_data_type": "encounter",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1252",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "ENCOUNTER_PERFORMED_ENCOUNTER_INFLUENZA",
+      "source_data_criteria": "OccurrenceAEncounterInfluenza1"
+    },
+    "OccurrenceAHemodialysis2": {
+      "title": "Hemodialysis",
+      "description": "Procedure, Performed: Hemodialysis",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1083",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "PROCEDURE_PERFORMED_HEMODIALYSIS",
+      "source_data_criteria": "OccurrenceAHemodialysis2"
+    },
+    "OccurrenceAPeritonealDialysis3": {
+      "title": "Peritoneal Dialysis",
+      "description": "Procedure, Performed: Peritoneal Dialysis",
+      "standard_category": "procedure",
+      "qds_data_type": "procedure_performed",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1084",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "PROCEDURE_PERFORMED_PERITONEAL_DIALYSIS",
+      "source_data_criteria": "OccurrenceAPeritonealDialysis3"
+    }
+  },
+  "attributes": [
+    {
+      "id": "COPYRIGHT",
+      "code": "COPY",
+      "value": "Copyright 2012 American Medical Association.  All Rights Reserved.",
+      "name": "Copyright"
+    },
+    {
+      "id": "MEASURE_SCORING",
+      "code": "MSRSCORE",
+      "name": "Measure Scoring"
+    },
+    {
+      "id": "MEASURE_TYPE",
+      "code": "MSRTYPE",
+      "name": "Measure Type"
+    },
+    {
+      "id": "STRATIFICATION",
+      "code": "STRAT",
+      "value": "None",
+      "name": "Stratification"
+    },
+    {
+      "id": "RISK_ADJUSTMENT",
+      "code": "MSRADJ",
+      "value": "None",
+      "name": "Risk Adjustment"
+    },
+    {
+      "id": "RATE_AGGREGATION",
+      "code": "MSRAGG",
+      "value": "None",
+      "name": "Rate Aggregation"
+    },
+    {
+      "id": "RATIONALE",
+      "code": "RAT",
+      "value": "Annual influenza vaccination is the most effective method for preventing influenza virus infection and its complications. Influenza vaccine is recommended for all persons aged >=6 months who do not have contraindications to vaccination.",
+      "name": "Rationale"
+    },
+    {
+      "id": "CLINICAL_RECOMMENDATION_STATEMENT",
+      "code": "CRS",
+      "value": "Routine annual influenza vaccination is recommended for all persons aged >=6 months (CDC/ACIP 2011)",
+      "name": "Clinical Recommendation Statement"
+    },
+    {
+      "id": "IMPROVEMENT_NOTATION",
+      "code": "IDUR",
+      "value": "Higher score indicates better quality",
+      "name": "Improvement Notation"
+    },
+    {
+      "id": "NQF_ID_NUMBER",
+      "code": "OTH",
+      "value": "0041",
+      "name": "NQF ID Number"
+    },
+    {
+      "id": "DISCLAIMER",
+      "code": "DISC",
+      "value": "Physician Performance Measures (Measures) and related data specifications have been developed by the American Medical Association (AMA) - convened Physician Consortium for Performance Improvement(R) (the PCPI[TM]). These Measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications. The Measures, while copyrighted, can be reproduced and distributed, without modification, for noncommercial purposes, e.g., use by health care providers in connection with their practices. Commercial use is defined as the sale, license, or distribution of the Measures for commercial gain, or incorporation of the Measures into a product or service that is sold, licensed or distributed for commercial gain. Commercial uses of the Measures require a license agreement between the user and the AMA, (on behalf of the PCPI). Neither the AMA, PCPI nor its members shall be responsible for any use of the Measures. \r\n\r\nTHE MEASURES AND SPECIFICATIONS ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND. \r\n\r\nLimited proprietary coding is contained in the Measure specifications for convenience. Users of the proprietary code sets should obtain all necessary licenses from the owners of these code sets. The AMA, the PCPI and its members disclaim all liability for use or accuracy of any Current Procedural Terminology (CPT[R]) or other coding contained in the specifications. \r\n\r\nCPT(R) contained in the Measure specifications is copyright 2004-2011 American Medical Association. LOINC(R) copyright 2004-2011 Regenstrief Institute, Inc.  This material contains SNOMED Clinical Terms(R) (SNOMED CT[R]) copyright 2004-2011 International Health Terminology Standards Development Organisation. ICD-10 copyright 2011 World Health Organization. All Rights Reserved.\r\n\r\nDue to technical limitations, registered trademarks are indicated by (R) or [R] and unregistered trademarks are indicated by (TM) or [TM].",
+      "name": "Disclaimer"
+    },
+    {
+      "id": "EMEASURE_IDENTIFIER",
+      "code": "OTH",
+      "value": "147",
+      "name": "eMeasure Identifier"
+    },
+    {
+      "id": "REFERENCE",
+      "code": "REF",
+      "value": "Centers for Disease Control and Prevention (CDC). Prevention and control of influenza with vaccines. Recommendations of the Advisory Committee on Immunization Practices (ACIP), 2011. MMWR 2011;60(33);1128-1132. Available at http://www.cdc.gov/mmwr/preview/mmwrhtml/mm6033a3.htm Accessed August 2011.",
+      "name": "Reference"
+    },
+    {
+      "id": "DEFINITION",
+      "code": "DEF",
+      "value": "Previous Receipt – May include: receipt of influenza immunization from another provider OR from same provider prior to the visit to which the measure is applied (typically, prior vaccination would include influenza vaccine given since August 1st).",
+      "name": "Definition"
+    },
+    {
+      "id": "GUIDANCE",
+      "code": "GUIDE",
+      "value": "The timeframe for the visit during the \"Encounter, Performed: Encounter-Influenza\" or “Procedure, Performed: Peritoneal Dialysis” or “Procedure, Performed: Hemodialysis” in the Population Criteria-Denominator, refers to the influenza season defined by the measure: October through March (October 1 for the year prior to the start of the reporting period through March 31 during the reporting period).  The “Encounter-Influenza” Grouping OID detailed in the data criteria section below is comprised of several individual OIDs of different encounter types.  The individual OIDs are included in the value set and should be reviewed to determine that an applicable visit occurred during the timeframe for \"Encounter, Performed: Encounter-Influenza” as specified in the denominator.  \r\nTo enable reporting of this measure at the close of the reporting period, this measure will only assess the influenza season that ends in March of the reporting period. The subsequent influenza season (ending March of the following year) will be measured and reported in the following year.",
+      "name": "Guidance"
+    },
+    {
+      "id": "TRANSMISSION_FORMAT",
+      "code": "OTH",
+      "value": "TBD",
+      "name": "Transmission Format"
+    },
+    {
+      "id": "INITIAL_PATIENT_POPULATION",
+      "code": "IPP",
+      "value": "All patients aged 6 months and older",
+      "name": "Initial Patient Population"
+    },
+    {
+      "id": "DENOMINATOR",
+      "code": "DENOM",
+      "value": "Equals Initial Patient Population and seen for a visit between October 1 and March 31",
+      "name": "Denominator"
+    },
+    {
+      "id": "DENOMINATOR_EXCLUSIONS",
+      "code": "OTH",
+      "value": "None",
+      "name": "Denominator Exclusions"
+    },
+    {
+      "id": "NUMERATOR",
+      "code": "NUMER",
+      "value": "Patients who received an influenza immunization OR who reported previous receipt of an influenza immunization",
+      "name": "Numerator"
+    },
+    {
+      "id": "NUMERATOR_EXCLUSIONS",
+      "code": "OTH",
+      "value": "Not Applicable",
+      "name": "Numerator Exclusions"
+    },
+    {
+      "id": "DENOMINATOR_EXCEPTIONS",
+      "code": "DENEXCEP",
+      "value": "Documentation of medical reason(s) for not receiving influenza immunization (eg, patient allergy, other medical reasons)\r\n\r\nDocumentation of patient reason(s) for not receiving influenza immunization (eg, patient declined, other patient reasons)\r\n\r\nDocumentation of system reason(s) for not receiving influenza immunization (eg, vaccine not available, other system reasons)",
+      "name": "Denominator Exceptions"
+    },
+    {
+      "id": "MEASURE_POPULATION",
+      "code": "MSRPOPL",
+      "value": "Not Applicable",
+      "name": "Measure Population"
+    },
+    {
+      "id": "MEASURE_OBSERVATIONS",
+      "code": "OTH",
+      "value": "Not Applicable",
+      "name": "Measure Observations"
+    },
+    {
+      "id": "SUPPLEMENTAL_DATA_ELEMENTS",
+      "code": "OTH",
+      "value": "For every patient evaluated by this measure also identify payer, race, ethnicity and sex.",
+      "name": "Supplemental Data Elements"
+    }
+  ],
+  "populations": [
+    {
+      "IPP": "IPP",
+      "DENOM": "DENOM",
+      "NUMER": "NUMER",
+      "DENEXCEP": "DENEXCEP"
+    }
+  ],
+  "measure_period": {
+    "type": "IVL_TS",
+    "low": {
+      "type": "TS",
+      "value": "201201010000",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "high": {
+      "type": "TS",
+      "value": "201212312359",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "width": {
+      "type": "PQ",
+      "unit": "a",
+      "value": "1",
+      "inclusive?": true,
+      "derived?": false
+    }
+  }
+}

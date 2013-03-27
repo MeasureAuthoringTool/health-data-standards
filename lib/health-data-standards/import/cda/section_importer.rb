@@ -16,6 +16,7 @@ module HealthDataStandards
           @description_xpath = "./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value]"
           @check_for_usable = true
           @entry_class = Entry
+          @value_xpath = 'cda:value'
         end
 
         # Traverses an HL7 CDA document passed in and creates an Array of Entry
@@ -43,7 +44,9 @@ module HealthDataStandards
           extract_id(entry_element, entry)
           extract_codes(entry_element, entry)
           extract_dates(entry_element, entry)
-          extract_value(entry_element, entry)
+          if @value_xpath
+            extract_value(entry_element, entry)
+          end
           entry.free_text = entry_element.at_xpath("./cda:text").try("text")
           if @status_xpath
             extract_status(entry_element, entry)
@@ -114,7 +117,7 @@ module HealthDataStandards
         end
 
         def extract_value(parent_element, entry)
-          value_element = parent_element.at_xpath('cda:value')
+          value_element = parent_element.at_xpath(@value_xpath)
           if value_element
             value = value_element['value']
             if value.present?
