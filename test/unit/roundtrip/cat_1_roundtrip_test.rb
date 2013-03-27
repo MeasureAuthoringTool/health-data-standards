@@ -34,6 +34,12 @@ class Cat1RoundtripTest < MiniTest::Unit::TestCase
     medication_import = patient_import.medications.first
     condition = patient.conditions.first
     condition_import = patient_import.conditions.first
+    procedure = patient.procedures.first
+    procedure_import = patient_import.procedures.first
+    allergy = patient.allergies.first
+    allergy_import = patient_import.allergies.first
+    medical_equipment = patient.medical_equipment.first
+    medical_equipment_import = patient_import.medical_equipment.first
 
     # Compare Encounter Attributes
     assert_equal encounter.codes, encounter_import.codes
@@ -54,6 +60,24 @@ class Cat1RoundtripTest < MiniTest::Unit::TestCase
 
     # Compare Entire Conditions Section
     assert_equal patient.conditions, patient_import.conditions
+
+    # Compare Procedure Attributes
+    assert_equal procedure.codes, procedure_import.codes
+
+    # Compare Entire Procedures Section
+    assert_equal patient.procedures, patient_import.procedures
+
+    # Compare Allergy Attributes
+    assert_equal allergy.codes, allergy_import.codes
+
+    # Compare Entire Allergy Section
+    assert_equal patient.allergies, patient_import.allergies
+
+    # Compare Medical Equipment Attributes
+    assert_equal medical_equipment.codes, medical_equipment_import.codes
+
+    # Compare Entire Medical Equipment Section
+    assert_equal patient.medical_equipment, patient_import.medical_equipment
 
     
 
