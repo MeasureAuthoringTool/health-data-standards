@@ -1,3 +1,4 @@
+require 'zip/zipfilesystem'
 module HealthDataStandards
   module Import
     module Bundle

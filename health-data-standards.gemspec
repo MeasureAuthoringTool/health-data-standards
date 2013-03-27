@@ -19,9 +19,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'nokogiri', '~> 1.5.5'
 
   s.add_dependency 'rubyzip'
-  s.add_dependency 'spreadsheet', '0.6.8'
-  s.add_dependency 'google-spreadsheet-ruby', '0.1.8'
-  s.add_dependency 'roo', '1.10.1'
 
   s.add_dependency 'log4r', '~> 1.1.10'
 

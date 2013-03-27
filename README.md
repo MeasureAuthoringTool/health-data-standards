@@ -1,4 +1,6 @@
-This is a project to generate and consume HITSP C32, ASTM CCR and PQRI
+This is a project to generate and consume HITSP C32, ASTM CCR, QRDA Category I and PQRI.
+
+In addition this project also contains libaries for parsing hqmf documents and for dealing with NLM valuesets.
 
 Environment
 ===========

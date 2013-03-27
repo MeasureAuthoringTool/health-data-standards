@@ -11,14 +11,6 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert_equal expected_start, care_goal.start_time
   end
 
-  def test_ecog_status_importing
-    patient = build_record_from_xml('test/fixtures/cat1_fragments/ecog_fragment.xml')
-    ecog_status = patient.conditions.first
-    assert ecog_status.codes['SNOMED-CT'].include?('423237006')
-    expected_timestamp = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20120619085355')
-    assert_equal expected_timestamp, ecog_status.time
-  end
-
   def test_discharge_medication_importing
     patient = build_record_from_xml('test/fixtures/cat1_fragments/discharge_medication_fragment.xml')
     discharge = patient.medications.first
@@ -67,14 +59,6 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert device_applied.codes['ICD-9-CM'].include?('37.98')
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19850331043808')
     assert_equal expected_start, device_applied.start_time
-  end
-
-  def test_symptom_active
-    patient = build_record_from_xml('test/fixtures/cat1_fragments/symptom_active_fragment.xml')
-    symptom_active = patient.conditions.first
-    assert symptom_active.codes['SNOMED-CT'].include?('95815000')
-    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19930215222215')
-    assert_equal expected_start, symptom_active.start_time
   end
 
   def test_comm_prov_to_patient
