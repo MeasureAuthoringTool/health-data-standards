@@ -18,10 +18,6 @@ class Cat1RoundtripTest < MiniTest::Unit::TestCase
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')    
     mary_xml = StringIO.new(doc.to_s)
 
-    # File out for fun
-    File.open('mary.xml', 'w') { |file| file.write(doc) }
-
-
     # Import 
     doc_import = Nokogiri::XML(mary_xml.string)
     doc_import.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
