@@ -7,6 +7,7 @@ require 'csv'
 require 'nokogiri'
 require 'ostruct'
 require 'log4r'
+require 'memoist'
 
 # Freedom patches
 require_relative 'health-data-standards/ext/symbol'
