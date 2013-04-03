@@ -3,7 +3,7 @@ require 'uri'
 module HealthDataStandards
   module Util
 		class VSApi			
-			attr_accessor :api_url, :ticket_url,  :username, :password
+			attr_accessor :api_url, :ticket_url, :username, :password
 
 			def initialize(ticket_url, api_url, username, password, effective_date=nil)
 				@api_url = api_url
