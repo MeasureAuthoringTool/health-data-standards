@@ -1,5 +1,6 @@
 class Record
   include Mongoid::Document
+  extend Memoist
   
   field :title, type: String
   field :first, type: String
@@ -71,6 +72,8 @@ class Record
     end
     matching_entries_by_section.flatten
   end
+
+  memoize :entries_for_oid
   
   alias :clinical_trial_participant :clinicalTrialParticipant
   alias :clinical_trial_participant= :clinicalTrialParticipant=
