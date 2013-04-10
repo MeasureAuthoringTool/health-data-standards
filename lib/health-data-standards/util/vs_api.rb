@@ -3,17 +3,19 @@ require 'uri'
 module HealthDataStandards
   module Util
 		class VSApi			
-			attr_accessor :api_url, :ticket_url,  :username, :password
+			attr_accessor :api_url, :ticket_url, :username, :password
 
-			def initialize(ticket_url, api_url,username,password)
+			def initialize(ticket_url, api_url, username, password)
 				@api_url = api_url
 				@ticket_url = ticket_url
 				@username = username
 				@password = password
 			end
 
-			def get_valueset(oid,&block)
-				vs = RestClient.get api_url, {:params=>{id: oid, ticket: get_ticket}}
+			def get_valueset(oid, effective_date=nil, &block)
+				params = {id: oid, ticket: get_ticket}
+				params[:effectiveDate] = effective_date if effective_date
+				vs = RestClient.get api_url, {:params=>params}
 				yield oid,vs if block_given?
 				vs
 			end
