@@ -1,18 +1,9 @@
 require 'pathname'
 require 'fileutils'
 require 'json'
+require 'hqmf-parser'
 
 namespace :hqmf do
-
-  desc 'Open a console for interacting with parsed HQMF'
-  task :console do
-    
-    def load_hqmf(id)
-      HQMF1::Document.new(File.expand_path(File.join(".","test","fixtures","NQF_Retooled_Measure_#{id}.xml")))
-    end
-    
-    Pry.start
-  end
 
   desc 'Parse all xml files to JSON and save them to ./tmp'
   task :parse_all, [:path, :version] do |t, args|
@@ -49,7 +40,7 @@ namespace :hqmf do
     
     doc = HQMF::Parser.parse(File.open(file).read, version)
     outfile = File.join(".","tmp",'json',"#{filename}.json")
-    File.open(outfile, 'w') {|f| f.write(doc.to_json.to_json(max_nesting: 100).gsub(/",/,"\",\n")) }
+    File.open(outfile, 'w') {|f| f.write(JSON.pretty_generate(doc.to_json, max_nesting: 100)) }
     
     puts "wrote result to: #{outfile}"
     
@@ -66,7 +57,7 @@ namespace :hqmf do
     
     doc = HQMF1::Document.new(File.open(file).read).to_json
     outfile = File.join(".","tmp",'json',"#{filename}_v1.json")
-    File.open(outfile, 'w') {|f| f.write(doc.to_json(max_nesting: 100).gsub(/",/,"\",\n")) }
+    File.open(outfile, 'w') {|f| f.write(JSON.pretty_generate(doc.to_json, max_nesting: 100)) }
     puts "wrote result to: #{outfile}"
     
   end
@@ -83,7 +74,8 @@ namespace :hqmf do
     converted = HQMF::DocumentConverter.convert(JSON.parse(File.open(file).read,:symbolize_names => true))
     
     outfile = File.join(".","tmp",'json',"#{filename}_v2.json")
-    File.open(outfile, 'w') {|f| f.write(converted.to_json.to_json.gsub(/",/,"\",\n")) }
+
+    File.open(outfile, 'w') {|f| f.write(JSON.pretty_generate(converted.to_json, max_nesting: 100)) }
     puts "wrote result to: #{outfile}"
     
   end

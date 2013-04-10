@@ -4,8 +4,20 @@ module HQMF1
   class Value
     include HQMF1::Utilities
     
-    def initialize(entry)
+    def initialize(entry, inclusive=nil)
       @entry = entry
+  
+      if (inclusive.nil?)
+        case attr_val('./@inclusive')
+        when 'true'
+          @inclusive = true
+        else
+          @inclusive = false
+        end
+      else
+        @inclusive = inclusive
+      end
+
     end
     
     def value
@@ -17,12 +29,7 @@ module HQMF1
     end
     
     def inclusive?
-      case attr_val('./@inclusive')
-      when 'true'
-        true
-      else
-        false
-      end
+      @inclusive
     end
     
     def to_json
@@ -40,6 +47,11 @@ module HQMF1
       if @entry
         @low = optional_value('./cda:low')
         @high = optional_value('./cda:high')
+        if (@low == nil && @high == nil)
+          @low = optional_value('.',true)
+          @high = optional_value('.',true)
+          puts "\tfound = relationship parsing temporal reference (bugfix)"
+        end
       end
     end
    
@@ -52,10 +64,10 @@ module HQMF1
     
     private
     
-    def optional_value(xpath)
+    def optional_value(xpath, inclusive=nil)
       value_def = @entry.at_xpath(xpath)
       if value_def
-        Value.new(value_def)
+        Value.new(value_def, inclusive)
       else
         nil
       end
