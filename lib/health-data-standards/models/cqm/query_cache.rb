@@ -15,6 +15,7 @@ module HealthDataStandards
       field :DENEX, type: Integer
       field :DENEXCEP, type: Integer
       field :MSRPOPL, type: Integer
+      field :OBSERV, type: Float
 
       def self.aggregate_measure(measure_id, effective_date, test_id=nil)
         cache_entries = self.where(effective_date: effective_date, measure_id: measure_id, test_id: test_id)
@@ -35,6 +36,10 @@ module HealthDataStandards
 
       def is_stratification?
         population_ids.has_key?('stratification')
+      end
+
+      def is_cv?
+        population_ids.has_key?('MSRPOPL')
       end
 
       def build_populations
