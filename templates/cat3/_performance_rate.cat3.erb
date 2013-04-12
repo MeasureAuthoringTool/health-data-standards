@@ -1,0 +1,16 @@
+<observation classCode="OBS" moodCode="EVN">
+  <templateId root="2.16.840.1.113883.10.20.27.3.14"/>
+  <code code="72510-1" codeSystem="2.16.840.1.113883.6.1"
+    displayName="Performance Rate" 
+    codeSystemName="2.16.840.1.113883.6.1"/>
+  <statusCode code="completed"/>
+  <value xsi:type="REAL" value="<%= aggregate_count.performance_rate %>"/>
+  <reference typeCode="REFR">
+     <externalObservation classCode="OBS" moodCode="EVN">
+       <id root="<%= aggregate_count.numerator.id %>"/>
+       <code code="NUMER" displayName="Numerator"
+        codeSystem="2.16.840.1.113883.5.1063"
+        codeSystemName="ObservationValue"/>
+    </externalObservation>
+  </reference>
+</observation>

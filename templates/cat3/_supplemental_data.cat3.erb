@@ -1,0 +1,27 @@
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <!-- <%= template_name %> -->
+      <templateId root="<%= template_id %>"/>
+      <code code="<%= supplemental_data_code %>" 
+            codeSystem="<%= supplemental_data_code_system %>"/>
+      <statusCode code="completed"/>
+      <value xsi:type="CD" 
+             code="<%= supplemental_data_value_code %>"
+             codeSystem="<%= supplemental_data_value_code_system %>"/>
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <!-- Aggregate Count template -->
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="<%= count %>"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+    </observation>
+  </entryRelationship> 
