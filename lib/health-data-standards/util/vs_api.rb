@@ -12,6 +12,7 @@ module HealthDataStandards
 				@password = password
 			end
 
+
 			def get_valueset(oid, effective_date=nil, &block)
 				params = {id: oid, ticket: get_ticket}
 				params[:effectiveDate] = effective_date if effective_date
@@ -20,9 +21,9 @@ module HealthDataStandards
 				vs
 			end
 
-			def process_valuesets(oids, &block)
+			def process_valuesets(oids, effective_date=nil, &block)
 				oids.each do |oid|
-		     		vs = get_valueset(oid)
+		     		vs = get_valueset(oid,effective_date)
 		     		yield oid,vs
 				end
 			end
