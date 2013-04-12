@@ -37,7 +37,7 @@ module HealthDataStandards
     end
 
     class AggregateCount
-      attr_accessor :measure_id, :stratifications, :top_level_populations
+      attr_accessor :measure_id, :stratifications, :top_level_populations, :supplemental_data
       alias :populations :top_level_populations
       include PopulationSelectors
 
@@ -52,6 +52,10 @@ module HealthDataStandards
 
       def performance_rate
         numerator.value.to_f / (denominator.value - denominator_exclusions.value - denominator_exceptions.value)
+      end
+
+      def supplemental_data_for(population_type, supplemental_data_type)
+        supplemental_data[population_type][supplemental_data_type]
       end
     end
   end

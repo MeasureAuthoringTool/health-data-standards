@@ -16,6 +16,7 @@ module HealthDataStandards
       field :DENEXCEP, type: Integer
       field :MSRPOPL, type: Integer
       field :OBSERV, type: Float
+      field :supplemental_data, type: Hash
 
       def self.aggregate_measure(measure_id, effective_date, test_id=nil)
         cache_entries = self.where(effective_date: effective_date, measure_id: measure_id, test_id: test_id)
@@ -29,6 +30,9 @@ module HealthDataStandards
             aggregate_count.stratifications << stratification
           else
             aggregate_count.top_level_populations = cache_entry.build_populations
+            if cache_entry.supplemental_data.present?
+              aggregate_count.supplemental_data = cache_entry.supplemental_data
+            end
           end
         end
         aggregate_count
