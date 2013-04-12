@@ -16,8 +16,8 @@ module HealthDataStandards
       field :DENEXCEP, type: Integer
       field :MSRPOPL, type: Integer
 
-      def self.aggregate_measure(measure_id, effective_date)
-        cache_entries = self.where(effective_date: effective_date, measure_id: measure_id)
+      def self.aggregate_measure(measure_id, effective_date, test_id=nil)
+        cache_entries = self.where(effective_date: effective_date, measure_id: measure_id, test_id: test_id)
         aggregate_count = AggregateCount.new
         aggregate_count.measure_id = measure_id
         cache_entries.each do |cache_entry|
