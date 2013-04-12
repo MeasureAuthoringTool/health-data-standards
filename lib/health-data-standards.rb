@@ -7,6 +7,7 @@ require 'csv'
 require 'nokogiri'
 require 'ostruct'
 require 'log4r'
+require 'memoist'
 
 # Freedom patches
 require_relative 'health-data-standards/ext/symbol'
@@ -152,6 +153,8 @@ require_relative 'health-data-standards/import/cat1/lab_result_importer'
 require_relative 'health-data-standards/import/cat1/ecog_status_importer'
 require_relative 'health-data-standards/import/cat1/symptom_active_importer'
 
+require_relative 'health-data-standards/models/cqm/aggregate_objects'
+require_relative 'health-data-standards/models/cqm/query_cache'
 require_relative 'health-data-standards/models/cqm/bundle'
 require_relative 'health-data-standards/models/cqm/measure'
 require_relative 'health-data-standards/import/bundle/importer'

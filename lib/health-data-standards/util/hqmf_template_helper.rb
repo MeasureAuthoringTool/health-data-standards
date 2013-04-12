@@ -16,10 +16,14 @@ module HealthDataStandards
       end
 
       def self.template_id_by_definition_and_status(definition, status, negation=false)
-        pairs = template_id_map.select {|k, v| v['definition'] == definition && 
+        kv_pair = template_id_map.find {|k, v| v['definition'] == definition && 
                                                v['status'] == status && 
                                                v['negation'] == negation}
-        pairs.keys.first if pairs.present?
+        if kv_pair
+          kv_pair.first
+        else
+          nil
+        end
       end
     end
   end

@@ -69,6 +69,26 @@ module HealthDataStandards
           code_set_name
         end
       end
+      def self.denormalize_code_set_name(code_set_name)
+        case code_set_name
+        when'RxNorm'
+          'RXNORM'
+        when'ICD-9-CM'
+          'ICD9CM'
+        when'ICD-10-CM'
+          'ICD10CM'
+        when'ICD-10-PCS'
+          'ICD10PCS'
+        when'SNOMED-CT'
+          'SNOMEDCT'
+        when'CDC Race'
+          'CDCREC'
+        when'HL7 Healthcare Service Location'
+          'HSLOC'
+        else
+          code_set_name
+        end
+      end
     end
   end
 end
