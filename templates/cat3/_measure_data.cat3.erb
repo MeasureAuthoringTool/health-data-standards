@@ -50,6 +50,9 @@
                       codeSystemName="ObservationMethod"/>
         </observation>
       </entryRelationship>
+      <% if population_type == 'MSRPOPL' -%>
+      <%== render :partial => 'continuous_variable_value', :locals => {:population => strat} %>
+      <% end -%>
       <reference typeCode="REFR">
         <externalObservation classCode="OBS" moodCode="EVN">
           <id root="<%= strat.id %>"/>
@@ -96,4 +99,12 @@
       <% end -%>
     <% end -%>
   <% end -%>
+  <% if population_type == 'MSRPOPL' -%>
+  <%== render :partial => 'continuous_variable_value', :locals => {:population => aggregate_count} %>
+  <% end -%>
+  <reference typeCode="REFR">
+     <externalObservation classCode="OBS" moodCode="EVN">
+        <id root="<%= aggregate_count.population_id(population_type) %>"/>
+     </externalObservation>
+  </reference>
 </observation>

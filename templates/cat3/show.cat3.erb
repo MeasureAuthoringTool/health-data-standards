@@ -140,9 +140,11 @@ Measure Section
               -%>
               <%== render :partial => 'performance_rate', :locals => {:aggregate_count => result} %>
               <% end -%>
-              <% result.top_level_populations.each do |pop| -%>
+              <% result.top_level_populations.each do |pop| 
+                   unless pop.type == 'OBSERV' -%>
               <%== render :partial => 'measure_data', :locals => {:aggregate_count => result, :population_type => pop.type} %>
-              <% end -%>
+              <%   end
+                 end -%>
             </organizer>
           </entry>
           <% end %>

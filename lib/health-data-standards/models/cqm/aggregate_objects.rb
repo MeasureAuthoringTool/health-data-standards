@@ -3,23 +3,32 @@ module HealthDataStandards
 
     module PopulationSelectors
       def numerator
-        populations.find {|pop| pop.type = 'NUMER'}
+        populations.find {|pop| pop.type == 'NUMER'}
       end
 
       def denominator
-        populations.find {|pop| pop.type = 'DENOM'}
+        populations.find {|pop| pop.type == 'DENOM'}
       end
 
       def denominator_exceptions
-        populations.find {|pop| pop.type = 'DENEXCEP'}
+        populations.find {|pop| pop.type == 'DENEXCEP'}
       end
 
       def denominator_exclusions
-        populations.find {|pop| pop.type = 'DENEX'}
+        populations.find {|pop| pop.type == 'DENEX'}
       end
 
       def population_count(population_type)
-        populations.find {|pop| pop.type = population_type}.value
+        population = populations.find {|pop| pop.type == population_type}
+        if population
+          population.value
+        else
+          0
+        end
+      end
+
+      def population_id(population_type)
+        populations.find {|pop| pop.type == population_type}.id
       end
     end
 
@@ -47,11 +56,12 @@ module HealthDataStandards
       end
 
       def is_cv?
-        top_level_populations.any? {|pop| pop.type = 'MSRPOPL'}
+        top_level_populations.any? {|pop| pop.type == 'MSRPOPL'}
       end
 
       def performance_rate
-        numerator.value.to_f / (denominator.value - denominator_exclusions.value - denominator_exceptions.value)
+        population_count('NUMER').to_f / 
+          (population_count('DENOM') - population_count('DENEX') - population_count('DENEXCEP'))
       end
 
       def supplemental_data_for(population_type, supplemental_data_type)
