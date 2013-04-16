@@ -145,6 +145,7 @@ Measure Section
               <% result.top_level_populations.each do |pop| 
                    unless pop.type == 'OBSERV' -%>
               <component>   
+                <!--     POPULATION ENTRY for Population   <%= pop.type %> with ID <%= pop.id  %>  -->
               <%== render :partial => 'measure_data', :locals => {:aggregate_count => result, :population_type => pop.type} %>
               </component>
               <%   end 
