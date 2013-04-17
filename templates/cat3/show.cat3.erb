@@ -138,7 +138,9 @@ Measure Section
               <% result = results[measure['hqmf_id']]
                  unless result.is_cv? || result.multiple_population_types?
               -%>
+              <component>
               <%== render :partial => 'performance_rate', :locals => {:aggregate_count => result} %>
+              </component>
               <% end -%>
               <% result.top_level_populations.each do |pop| 
                    unless pop.type == 'OBSERV' -%>

@@ -1,13 +1,22 @@
+  <!--                            Supplemental Date Template                                                  -->
+
   <entryRelationship typeCode="COMP">
     <observation classCode="OBS" moodCode="EVN">
       <!-- <%= template_name %> -->
       <templateId root="<%= template_id %>"/>
+        <id nullFlavor="NA" />
       <code code="<%= supplemental_data_code %>" 
             codeSystem="<%= supplemental_data_code_system %>"/>
       <statusCode code="completed"/>
+      <% if supplemental_data_value_code == "" || supplemental_data_value_code == "UNK" -%>
+      <value xsi:type="CD" 
+             nullFlavor="UNK" />
+      <% else -%>
+      
       <value xsi:type="CD" 
              code="<%= supplemental_data_value_code %>"
              codeSystem="<%= supplemental_data_value_code_system %>"/>
+      <% end %>       
       <entryRelationship typeCode="SUBJ" inversionInd="true">
         <!-- Aggregate Count template -->
         <observation classCode="OBS" moodCode="EVN">

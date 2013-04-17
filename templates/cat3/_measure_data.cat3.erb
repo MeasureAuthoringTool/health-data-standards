@@ -1,3 +1,5 @@
+
+<!--   MEASURE DATA REPORTING FOR    <%= population_type %>  <%= aggregate_count.population_id(population_type) %>  -->
 <observation classCode="OBS" moodCode="EVN">
   <!-- Measure Data template -->
   <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
@@ -25,6 +27,9 @@
     </observation>
   </entryRelationship>
   <% aggregate_count.stratifications.each do |strat| -%>
+
+  <!--  Startification Reporting Template for <%= population_type %>  <%= aggregate_count.population_id(population_type) %>  Stratification <%= strat.id %>   -->
+
   <entryRelationship typeCode="COMP">
     <observation classCode="OBS" moodCode="EVN">
       <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
@@ -65,6 +70,9 @@
   <%   sex_supplimental_data = aggregate_count.supplemental_data_for(population_type, "SEX")
        if sex_supplimental_data.present?
          sex_supplimental_data.each do |sex, count| -%>
+   
+   <!--    SEX Supplemental Data Reporting for <%= population_type %> <%= aggregate_count.population_id(population_type) %>       --> 
+         
   <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Sex Supplemental Data', 
                 :template_id => '2.16.840.1.113883.10.20.27.3.6', :supplemental_data_code => '184100006',
                 :supplemental_data_code_system => '2.16.840.1.113883.6.96', :supplemental_data_value_code => sex,
@@ -74,6 +82,9 @@
   <%   ethnicity_supplimental_data = aggregate_count.supplemental_data_for(population_type, "ETHNICITY")
        if ethnicity_supplimental_data.present?
          ethnicity_supplimental_data.each do |ethnicity, count| -%>
+
+    <!--     ETHNICITY Supplemental Data Reporting  for <%= population_type %> <%= aggregate_count.population_id(population_type) %>     --> 
+
   <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Ethnicity Supplemental Data', 
                 :template_id => '2.16.840.1.113883.10.20.27.3.7', :supplemental_data_code => '364699009',
                 :supplemental_data_code_system => '2.16.840.1.113883.6.96', :supplemental_data_value_code => ethnicity,
@@ -83,6 +94,9 @@
   <%   race_supplimental_data = aggregate_count.supplemental_data_for(population_type, "RACE")
        if race_supplimental_data.present?
          race_supplimental_data.each do |race, count| -%>
+
+   <!--      RACE Supplemental Data Reporting  for <%= population_type %> <%= aggregate_count.population_id(population_type) %>    --> 
+
   <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Race Supplemental Data', 
                 :template_id => '2.16.840.1.113883.10.20.27.3.8', :supplemental_data_code => '103579009',
                 :supplemental_data_code_system => '2.16.840.1.113883.6.96', :supplemental_data_value_code => race,
@@ -92,6 +106,8 @@
   <%   payer_supplimental_data = aggregate_count.supplemental_data_for(population_type, "PAYER")
        if payer_supplimental_data.present?
          payer_supplimental_data.each do |payer, count| -%>
+
+ <!--         PAYER Supplemental Data Reporting   for <%= population_type %> <%= aggregate_count.population_id(population_type) %>     -->        
   <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Payer Supplemental Data', 
                 :template_id => '2.16.840.1.113883.10.20.27.3.9', :supplemental_data_code => '48768-6',
                 :supplemental_data_code_system => '2.16.840.1.113883.6.1', :supplemental_data_value_code => payer,

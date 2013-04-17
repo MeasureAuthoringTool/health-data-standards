@@ -9,10 +9,10 @@ module HealthDataStandards
         @cat1_renderer.template_helper = HealthDataStandards::Export::TemplateHelper.new('cat1', 'cat1')
       end
 
-      def export(measures, effective_date, start_date, end_date)
+      def export(measures, effective_date, start_date, end_date, test_id=nil)
         results = {}
         measures.each do |measure|
-          results[measure['hqmf_id']] = HealthDataStandards::CQM::QueryCache.aggregate_measure(measure['hqmf_id'], effective_date)
+          results[measure['hqmf_id']] = HealthDataStandards::CQM::QueryCache.aggregate_measure(measure['hqmf_id'], effective_date, test_id)
         end
         @rendering_context.render(:template => 'show', 
                                   :locals => {:measures => measures, :start_date => start_date, 
