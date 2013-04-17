@@ -18,8 +18,8 @@ module HealthDataStandards
         populations.find {|pop| pop.type == 'DENEX'}
       end
 
-      def population_count(population_type)
-        population = populations.find {|pop| pop.type == population_type}
+      def population_count(population_type, population_id)
+        population = populations.find {|pop| pop.type == population_type && pop.id == population_id}
         if population
           population.value
         else
@@ -29,6 +29,26 @@ module HealthDataStandards
 
       def population_id(population_type)
         populations.find {|pop| pop.type == population_type}.id
+      end
+
+      def method_missing(method, *args, &block)
+        match_data = method.to_s.match(/^(.+)_count$/)
+        if match_data
+          population = self.send(match_data[1])
+          if population
+            population.value
+          else
+            0
+          end
+        else
+          super
+        end
+      end
+
+      # Returns true if there is more than one IPP or DENOM, etc.
+      def multiple_population_types?
+        population_groups = populations.group_by {|pop| pop.type}
+        population_groups.values.any? { |pops| pops.size > 1 }
       end
     end
 
@@ -60,8 +80,8 @@ module HealthDataStandards
       end
 
       def performance_rate
-        population_count('NUMER').to_f / 
-          (population_count('DENOM') - population_count('DENEX') - population_count('DENEXCEP'))
+        numerator_count.to_f / 
+          (denominator_count - denominator_exclusions_count - denominator_exceptions_count)
       end
 
       def supplemental_data_for(population_type, supplemental_data_type)
