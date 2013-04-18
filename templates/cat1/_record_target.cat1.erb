@@ -1,6 +1,6 @@
   <recordTarget>
     <patientRole>
-      <id root="Cypress" extension="<%= patient.id %>"/>
+      <!-- id root="Cypress" extension="<%= patient.id %>"/ -->
       <!-- Fake Medicare HIC number -->
       <id extension="12345" root="2.16.840.1.113883.4.572"/>
       <addr use="HP">
@@ -26,7 +26,7 @@
         <% end %>
         <%
           languages = patient.languages 
-          languages = ["en-US"] if languages.nil? or languages.empty?
+          languages = ["eng"] if languages.nil? or languages.empty?
           languages.each do |language|%>
           <languageCommunication>
             <templateId root="2.16.840.1.113883.3.88.11.83.2" assigningAuthorityName="HITSP/C83"/>

@@ -21,14 +21,14 @@
   <!-- This is the document creation time -->
   <effectiveTime value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
   <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
-  <languageCode code="en-US"/>
+  <languageCode code="eng"/>
   <!-- reported patient -->
   <%== render :partial => 'record_target', :locals => {:patient => patient} %>
   <!-- Example of an author who is a device -->
   <author>
     <time value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
     <assignedAuthor>
-      <id extension="Cypress" root="2.16.840.1.113883.19.5"/>
+      <!-- id extension="Cypress" root="2.16.840.1.113883.19.5"/ -->
       <!-- NPI -->
       <id extension="FakeNPI" root="2.16.840.1.113883.4.6"/>
       <addr>
