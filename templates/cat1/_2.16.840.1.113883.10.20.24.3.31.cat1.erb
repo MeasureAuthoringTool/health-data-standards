@@ -7,14 +7,15 @@
     <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
     <%== code_display(entry, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
     <statusCode code="completed"/>
+     <effectiveTime>
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+    </effectiveTime>
     <author>
       <time <%= value_or_null_flavor(entry.as_point_in_time) %>/>
       <assignedAuthor>
         <id root="<%= UUID.generate %>"/>
       </assignedAuthor>
     </author>
-    <effectiveTime>
-      <low <%= value_or_null_flavor(entry.start_time) %>/>
-    </effectiveTime>
+   
   </act>
 </entry>
