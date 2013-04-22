@@ -16,7 +16,7 @@
     
     <% if entry.respond_to?(:anatomical_structure) && entry.anatomical_structure.present? -%>
     <targetSiteCode code="<%= entry.anatomical_structure['code'] %>" 
-                    codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.anatomical_structure['codeSystem']) %>"/>
+                    codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.anatomical_structure['code_system']) %>"/>
     <% end -%>
     <participant typeCode="DEV">
       <participantRole classCode="MANU">
