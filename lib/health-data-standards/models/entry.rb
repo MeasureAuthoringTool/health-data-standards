@@ -198,4 +198,12 @@ class Entry
     
     entry_hash
   end
+
+
+  def shift_dates(date_diff)
+    self.start_time = self.start_time.nil? ? nil : (self.start_time + date_diff)
+    self.end_time = self.end_time.nil? ? nil : (self.end_time + date_diff)
+    self.time = self.time.nil? ? nil : (self.time + date_diff)
+  end
+
 end

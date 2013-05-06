@@ -47,4 +47,15 @@ class Medication < Entry
   alias :dose_indicator= :doseIndicator=
   alias :cumulative_medication_duration :cumulativeMedicationDuration
   alias :cumulative_medication_duration= :cumulativeMedicationDuration=
+
+  def shift_dates(date_diff)
+    super
+    self.fulfillmentHistory.each do |fh|
+      fh.shift_dates(date_diff)
+    end
+    self.orderInformation.each do |oi|
+      oi.shift_dates(date_diff)
+    end
+  end
+
 end

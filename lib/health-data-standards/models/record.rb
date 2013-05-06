@@ -96,6 +96,19 @@ class Record
     Record::Sections.each {|section| self.dedup_section!(section)}
   end
 
+  def shift_dates(date_diff)
+    self.birthdate = (self.birthdate.nil?) ? nil : self.birthdate + date_diff
+    self.deathdate = (self.deathdate.nil?) ? nil : self.deathdate + date_diff
+    self.provider_performances.each {|pp| pp.shift_dates(date_diff)}
+    Sections.each do |sec|
+      (self[sec] || []).each do |ent|
+        ent.shift_dates(date_diff)
+      end
+
+    end
+
+  end
+
   private 
   
   def self.provider_queries(provider_id, effective_date)
@@ -105,4 +118,7 @@ class Record
     {'provider_performances' => {'$elemMatch' => {'provider_id' => provider_id, '$and'=>[{'$or'=>[{'start_date'=>nil},{'start_date'=>{'$lt'=>start_before}}]}, {'$or'=>[{'end_date'=>nil},{'end_date'=> {'$gt'=>end_after}}]}] } }}
   end
   
+
+  
+
 end
