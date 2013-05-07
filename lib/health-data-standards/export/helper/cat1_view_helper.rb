@@ -65,28 +65,8 @@ module HealthDataStandards
 
         def render_data_criteria(dc_oid, vs_oid, entries)
           html_array = entries.map do |entry|
-            if dc_oid == '2.16.840.1.113883.3.560.1.1001'
-              # This is a special case. This HQMF OID maps to more than one QRDA OID.
-              # So we need to try to figure out what template we should use based on the
-              # content of the entry
-              if vs_oid == '2.16.840.1.113883.3.526.3.1279'
-                # Patient Characteristic Observation Assertion template for
-                # Patient Characteristic: ECOG Performance Status-Poor
-                render(:partial => '2.16.840.1.113883.10.20.24.3.103', :locals => {:entry => entry,
-                                                                                   :value_set_oid => vs_oid})
-              elsif vs_oid == "2.16.840.1.113883.3.117.1.7.1.402" || vs_oid == "2.16.840.1.113883.3.117.1.7.1.403" 
-                # Patient Charasteristic Gestational Age
-                render(:partial => '2.16.840.1.113883.10.20.24.3.101', :locals => {:entry => entry,
-                                                                                   :value_set_oid => vs_oid})
-              elsif vs_oid == "2.16.840.1.113883.3.526.3.1189" || vs_oid == "2.16.840.1.113883.3.526.3.1170"
-                # Patient Characteristic Tobacco User/Non-User
-                render(:partial => '2.16.840.1.113883.10.20.22.4.85', :locals => {:entry => entry,
-                                                                                   :value_set_oid => vs_oid})  
-              end
-            else
-              render(:partial => HealthDataStandards::Export::QRDA::EntryTemplateResolver.partial_for(dc_oid), :locals => {:entry => entry,
-                                                                                                               :value_set_oid => vs_oid})
-            end
+              render(:partial => HealthDataStandards::Export::QRDA::EntryTemplateResolver.partial_for(dc_oid, vs_oid), :locals => {:entry => entry,
+                                                                                                                                   :value_set_oid => vs_oid})
           end
           html_array.join("\n")
         end
