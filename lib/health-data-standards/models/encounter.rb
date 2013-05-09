@@ -23,4 +23,15 @@ class Encounter < Entry
   alias :transfer_to= :transferTo=
   alias :transfer_from :transferFrom
   alias :transfer_from= :transferFrom=
+
+  def shift_dates(date_diff)
+    super
+    if self.facility
+      self.facility.shift_dates(date_diff)
+    end
+    
+    self.admitTime = (self.admitTime.nil?) ? nil : self.admitTime + date_diff
+    self.dischargeTime = (self.dischargeTime.nil?) ? nil : self.dischargeTime + date_diff
+  end
+
 end

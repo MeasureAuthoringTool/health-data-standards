@@ -17,4 +17,10 @@ class OrderInformation
   alias :order_expiration_date_time= :orderExpirationDateTime=
   alias :order_date_time :orderDateTime
   alias :order_date_time= :orderDateTime=
+
+
+  def shift_dates(date_diff)
+    self.orderDateTime = self.orderDateTime.nil? ? nil : self.orderDateTime + date_diff
+    self.orderExpirationDateTime = self.orderExpirationDateTime.nil? ? nil : self.orderExpirationDateTime + date_diff
+  end
 end

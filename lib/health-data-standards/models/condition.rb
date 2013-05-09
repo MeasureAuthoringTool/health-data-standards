@@ -11,4 +11,9 @@ class Condition < Entry
   
   alias   :cause_of_death         :causeOfDeath
   alias   :cause_of_death=        :causeOfDeath=
+
+  def shift_dates(date_diff)
+    super
+    self.time_of_death = self.time_of_death.nil? ? nil : self.time_of_death + date_diff
+  end
 end

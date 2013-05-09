@@ -21,4 +21,8 @@ class FulfillmentHistory
   alias :fill_status= :fillStatus=
   alias :prescription_number :prescriptionNumber
   alias :prescription_number= :prescriptionNumber=
+
+  def shift_dates(date_diff)
+    self.dispenseDate = (self.dispenseDate.nil?) ? nil : self.dispenseDate + date_diff
+  end
 end
