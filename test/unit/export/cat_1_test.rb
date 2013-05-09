@@ -36,7 +36,7 @@ class Cat1Test < MiniTest::Unit::TestCase
   end
 
   def test_entries_for_data_criteria
-    data_criteria = @measures[0].all_data_criteria[0]
+    data_criteria = @measures.find{|m| m.hqmf_id == '2E679CD2-3FEC-4A75-A75A-61403E5EFEE8'}.all_data_criteria.find{|dc| dc.id == 'MedicationDispensedPharyngitisAntibiotics_precondition_4'}
     entries = entries_for_data_criteria(data_criteria, @patient)
     assert_equal 1, entries.length
     assert_equal 'Multivitamin', entries[0].description
