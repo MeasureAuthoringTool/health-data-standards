@@ -6,7 +6,7 @@ module HealthDataStandards
         
         def import(meta_xml)
           meta_xml.root.add_namespace_definition("hrf-md", Metadata::NS)
-          meta_element = meta_xml.at_xpath("./hrf-md:DocumentMetadata")
+          meta_element = meta_xml.at_xpath("./hrf-md:DocumentMetaData")
           return unless meta_element
           
           meta = Metadata::Base.new

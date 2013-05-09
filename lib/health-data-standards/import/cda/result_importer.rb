@@ -11,6 +11,7 @@ module HealthDataStandards
           result = super
           extract_value(entry_element, result)
           extract_interpretation(entry_element, result)
+          extract_reference_range(entry_element, result)
           extract_negation(entry_element, result)
           result
         end
@@ -23,6 +24,10 @@ module HealthDataStandards
             code_system = CodeSystemHelper.code_system_for(interpretation_element['codeSystem'])
             result.interpretation = {'code' => code, 'codeSystem' => code_system}
           end
+        end
+
+        def extract_reference_range(parent_element, result)
+          result.reference_range = parent_element.at_xpath("./cda:referenceRange/cda:observationRange/cda:text").try(:text)
         end
     
       end
