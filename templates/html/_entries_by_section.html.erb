@@ -1,13 +1,21 @@
 <div id="patient_information_by_section" style="display:block">
   <% 
     entries_by_section = {}
+    udcs = nil
+    if measures.length > 0
+      udcs = unique_data_criteria(measures) 
+    end
     Record::Sections.each do |section|
 	    if section != :insurance_providers
-	      patient.send(section).each do |entry|
-	        decoded_section = decode_hqmf_section(section, entry.oid)
-	        entries_by_section[decoded_section] ||= []
-	        entries_by_section[decoded_section] << entry
-	      end if patient.respond_to? section
+	       if patient.respond_to? section
+           patient.send(section).each do |entry|
+            if udcs.nil? || entry_matches_criteria(entry, udcs)
+              decoded_section = decode_hqmf_section(section, entry.oid)
+              entries_by_section[decoded_section] ||= []
+              entries_by_section[decoded_section] << entry
+            end
+          end
+        end
 	    end
     end
   %>
