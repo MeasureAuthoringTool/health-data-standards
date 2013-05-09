@@ -2,6 +2,8 @@ module HealthDataStandards
   module Export
     module Helper
       module HTMLViewHelper
+        include HealthDataStandards::Export::Helper::ScoopedViewHelper
+
         def decode_hqmf_section(section, oid)
           if oid
             HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id(oid)['definition'].pluralize.to_sym

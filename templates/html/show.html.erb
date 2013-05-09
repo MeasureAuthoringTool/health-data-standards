@@ -133,8 +133,10 @@
     <div>
       <h3><a href="#" onclick="toggle('table_by_encounter');" id="toggle_button">View By Encounter</a></h3>
     </div>
-    <%== render :partial => 'entries_by_section', :locals => {patient: patient, code_map: code_map} %>
-    <%== render :partial => 'entries_by_encounter', :locals => {patient: patient, code_map: code_map} %>
+    <%== render :partial => 'entries_by_section', :locals => {patient: patient, code_map: code_map, measures: measures} %>
+    <% if measures.length==0 %>
+    <%== render :partial => 'entries_by_encounter', :locals => {patient: patient, code_map: code_map, measures: measures} %>
+    <% end %>
     
     <br /><br />
     <br /><br />

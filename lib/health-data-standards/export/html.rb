@@ -9,9 +9,9 @@ module HealthDataStandards
         @code_map = nil
       end
 
-      def export(patient)
+      def export(patient, measures=[])
         @code_map ||= self.build_code_map
-        @rendering_context.render(:template => 'show', :locals => {:patient => patient, :code_map => @code_map})
+        @rendering_context.render(:template => 'show', :locals => {:patient => patient, :code_map => @code_map, :measures => measures})
       end
       
       def build_code_map
