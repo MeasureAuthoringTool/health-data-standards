@@ -10,15 +10,9 @@ Rake::TestTask.new(:test_unit) do |t|
   t.verbose = true
 end
 
-Cane::RakeTask.new(:quality) do |cane|
-  cane.abc_max = 45
-  # cane.add_threshold 'coverage/covered_percent', :>=, 97
-  cane.style_measure = 120
-  cane.no_style = true
-  cane.no_doc = true
-end
 
-task :test => [:test_unit, :quality] do
+
+task :test => [:test_unit] do
 
   system("open coverage/index.html")
 end
