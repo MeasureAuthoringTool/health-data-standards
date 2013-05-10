@@ -101,7 +101,7 @@ class Record
     self.deathdate = (self.deathdate.nil?) ? nil : self.deathdate + date_diff
     self.provider_performances.each {|pp| pp.shift_dates(date_diff)}
     Sections.each do |sec|
-      (self[sec] || []).each do |ent|
+      (self.send sec || []).each do |ent|
         ent.shift_dates(date_diff)
       end
 
