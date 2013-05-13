@@ -135,9 +135,16 @@ module HQMF
     
     # Get the source data criteria that are specific occurrences
     # @return [Array] an array of HQMF::DataCriteria describing the data elements used by the measure that are specific occurrences
-    def specific_occurrence_source_data_criteria
+    def specific_occurrence_source_data_criteria(force_sources=nil)
       return [] if @source_data_criteria.nil?
-      @source_data_criteria.select {|dc| !dc.specific_occurrence.nil?}
+      matching = @source_data_criteria.select {|dc| !dc.specific_occurrence.nil?}
+
+      if force_sources
+        existing = matching.map(&:id)
+        matching.concat @source_data_criteria.select {|dc| !existing.include?(dc.id) && force_sources.include?(dc.id)} 
+      end
+
+      matching
     end
     
 
