@@ -1,35 +1,38 @@
-<DocumentMetaData xmlns="http://www.hl7.org/schemas/hdata/2009/11/metadata">
-  <MediaType>application/xml</MediaType>
-  <MediaType>application/json</MediaType>
+<hrf-md:DocumentMetaData <% if namespace %>xmlns:hrf-md="http://www.hl7.org/schemas/hdata/2009/11/metadata"<%end%>>
+  <% if metadata.mime_types %> 
+    <% metadata.mime_types.each do |mt| %>
+      <hrf-md:MediaType>mt</hrf-md:MediaType>
+    <% end %>
+  <% end %>
   <% metadata.pedigrees.each do |pedigree| %>
     <%== render :partial => "pedigree", locals: {pedigree: pedigree}%>
   <% end %>
-  <Title><%= entry.id %></Title>
-  <LinkedDocuments>
+  <hrf-md:Title><%= entry.id %></hrf-md:Title>
+  <hrf-md:LinkedDocuments>
     <% metadata.linked_documents.each do |link| %>
-    <Link>
-      <Target <% if link.extension %> targetExtension="<%=link.extension%>" <% end %>><%= link.uri %></Target>
-    </Link>
+    <hrf-md:Link>
+      <hrf-md:Target <% if link.extension %> targetExtension="<%=link.extension%>" <% end %>><%= link.uri %></hrf-md:Target>
+    </hrf-md:Link>
     <% end %>
-  </LinkedDocuments>
-  <RecordDate>
-    <CreatedDateTime><%= metadata.original_creation_time%></CreatedDateTime>
-    <Modified>
+  </hrf-md:LinkedDocuments>
+  <hrf-md:RecordDate>
+    <hrf-md:CreatedDateTime><%= metadata.original_creation_time%></hrf-md:CreatedDateTime>
+    <hrf-md:Modified>
       <% metadata.modified_dates.each do |md| %>
-        <ModifiedInfo>
-          <ChangeDateTime><%= md.timestamp %></ChangeDateTime>
+        <hrf-md:ModifiedInfo>
+          <hrf-md:ChangeDateTime><%= md.timestamp %></hrf-md:ChangeDateTime>
           <%== render :partial => "pedigree", locals: {pedigree: md.pedigree}%>
-        </ModifiedInfo>
+        </hrf-md:ModifiedInfo>
       <% end %>
-    </Modified>
-    <Copied>
+    </hrf-md:Modified>
+    <hrf-md:Copied>
       <% metadata.copied_dates.each do |cd| %>
-        <CopiedInfo>
-          <ChangeDateTime><%= cd.timestamp %></ChangeDateTime>
+        <hrf-md:CopiedInfo>
+          <hrf-md:ChangeDateTime><%= cd.timestamp %></hrf-md:ChangeDateTime>
           <%== render :partial => "pedigree", locals: {pedigree: cd.pedigree}%>
-        </CopiedInfo>
+        </hrf-md:CopiedInfo>
       <% end %>
-    </Copied>
-  </RecordDate>
-  <Confidentiality><%= metadata.confidentiality%></Confidentiality>
-</DocumentMetaData>
+    </hrf-md:Copied>
+  </hrf-md:RecordDate>
+  <hrf-md:Confidentiality><%= metadata.confidentiality%></hrf-md:Confidentiality>
+</hrf-md:DocumentMetaData>
