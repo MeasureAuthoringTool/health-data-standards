@@ -167,12 +167,12 @@ FactoryGirl.define do
     f.description     "BMI"
   end
 
-  # # Metadata factory elements
-  # factory "metadata/linked_info" do |l|
-  #   l.href          "http://t1.x.y.com"
-  #   l.extension     "abc"
-  # end
-  # 
+  # Metadata factory elements
+  factory "metadata/link_info" do |l|
+    l.href          "http://t1.x.y.com"
+    l.extension     "abc"
+  end
+  
   factory "pedigree", class: Metadata::Pedigree do |p|
     p.author { FactoryGirl.build(:author) }
     p.organization  "Health Care Inc"
@@ -193,6 +193,7 @@ FactoryGirl.define do
   factory "metadata", class: Metadata::Base do |m|
     m.original_creation_time Time.now
     m.pedigrees { [FactoryGirl.build(:pedigree)] }
+    m.linked_documents { [FactoryGirl.build("metadata/link_info")] }
     m.confidentiality "<hmd:a>text</hmd:a><hmd:c>embedded element</hmd:c>"
   end
   
