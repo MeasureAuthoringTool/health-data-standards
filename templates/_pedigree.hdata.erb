@@ -1,24 +1,25 @@
-<PedigreeInfo>
+<hrf-md:PedigreeInfo>
   <% unless pedigree.source_documents.empty? && pedigree.source_documents.empty?%>
-  <Source derived="true">
+  <hrf-md:Source derived="true">
     <% pedigree.source_documents.each do |source| %>
-    <PedigreeInfo>
-      <Author><%=source.author.name%></Author>
-      <Organization><%= source.organization %></Organization>
-    </PedigreeInfo>
+    <hrf-md:PedigreeInfo>
+      <% if source.author %>
+        <%== render :partial => "author", locals: {author: source.author }%>
+      <% end %>
+      <hrf-md:Organization><%= source.organization %></hrf-md:Organization>
+    </hrf-md:PedigreeInfo>
     <% end %>
     <% pedigree.source_documents.each do |doc|%>
-    <Document>
-      <Target <% if doc.extension %> targetExtension="<%=doc.extension%>" <% end %>><%= doc.uri %></Target>
-    </Document>
-  </Source>
+    <hrf-md:Document>
+      <hrf-md:Target <% if doc.extension %> targetExtension="<%=doc.extension%>" <% end %>><%= doc.uri %></hrf-md:Target>
+    </hrf-md:Document>
+    <% end %>
+  </hrf-md:Source>
   <% end %>
   <% if pedigree.author %>
-    <Author typeCode="<%= pedigree.author.type %>" role="<%= pedigree.author.role%>">
-      <%= pedigree.author.name %>
-    </Author>
+      <%== render :partial => "author", locals: {author: pedigree.author }%>
   <% end %>
   <% if pedigree.organization %>
-  <Organization><%= pedigree.organization %></Organization>
+  <hrf-md:Organization><%= pedigree.organization %></hrf-md:Organization>
   <% end %>
-</PedigreeInfo>
+</hrf-md:PedigreeInfo>

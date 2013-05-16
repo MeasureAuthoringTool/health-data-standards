@@ -8,8 +8,8 @@ module HealthDataStandards
           @rendering_context.template_helper = template_helper
         end
 
-        def export(entry, metadata)
-          @rendering_context.render(:template => 'metadata', :locals => {entry: entry, metadata: metadata})
+        def export(entry, metadata, include_namespace=false)
+          @rendering_context.render(:template => 'metadata', :locals => {entry: entry, metadata: metadata, namespace: include_namespace})
         end
       end
     end
