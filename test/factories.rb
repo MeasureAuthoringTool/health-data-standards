@@ -174,7 +174,7 @@ FactoryGirl.define do
   # end
   # 
   factory "pedigree", class: Metadata::Pedigree do |p|
-    p.author
+    p.author { FactoryGirl.build(:author) }
     p.organization  "Health Care Inc"
   end
   
@@ -191,7 +191,8 @@ FactoryGirl.define do
   # end
   # 
   factory "metadata", class: Metadata::Base do |m|
-    # m.pedigree
+    m.original_creation_time Time.now
+    m.pedigrees { [FactoryGirl.build(:pedigree)] }
     m.confidentiality "<hmd:a>text</hmd:a><hmd:c>embedded element</hmd:c>"
   end
   
