@@ -159,6 +159,7 @@ require_relative 'health-data-standards/models/cqm/aggregate_objects'
 require_relative 'health-data-standards/models/cqm/query_cache'
 require_relative 'health-data-standards/models/cqm/bundle'
 require_relative 'health-data-standards/models/cqm/measure'
+require_relative 'health-data-standards/models/cqm/patient_cache'
 require_relative 'health-data-standards/import/bundle/importer'
 
 

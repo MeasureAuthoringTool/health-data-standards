@@ -16,8 +16,15 @@ module HealthDataStandards
       field :category, type: String
       field :population_ids , type: Hash
       field :oids, type: Array 
-      field :data_criteria, type: Array
 
+      field :population_criteria, type: Hash
+      field :data_criteria, type: Hash, default: {}
+      field :source_data_criteria, type: Hash, default: {}
+      field :measure_period, type: Hash
+      field :measure_attributes, type: Hash
+      field :populations, type: Array
+      field :preconditions, type: Hash
+      field :hqmf_document, type: Hash
       scope :top_level_by_type , ->(type){where({"type"=> type}).any_of({"sub_id" => nil}, {"sub_id" => "a"})}
       scope :top_level , any_of({"sub_id" => nil}, {"sub_id" => "a"})
       scope :order_by_id_sub_id, order_by([["id", :asc],["sub_id", :asc]])
@@ -52,6 +59,108 @@ module HealthDataStandards
         pipeline << {'$sort' => {"category" => 1}}
         Mongoid.default_session.command(aggregate: 'measures', pipeline: pipeline)['result']
       end
+
+
+      # Returns the hqmf-parser's ruby implementation of an HQMF document.
+      # Rebuild from population_criteria, data_criteria, and measure_period JSON
+      def as_hqmf_model
+        @hqmf ||=  HQMF::Document.from_json(self.hqmf_document)
+      end
+
+
+      # Calculate the smoking gun data for the given hqmf_id with the given patient_cache_filter
+      # The  filter will allow us to segment the cache by things like test_id required for Cypress.
+
+      def self.calculate_smoking_gun_data(hqmf_id, patient_cache_filter={})
+            binding.pry
+        population_keys = ('a'..'zz').to_a
+        values = {}
+        measure = Measure.top_level.where({hqmf_id: hqmf_id}).first
+        sub_ids = []
+        hqmf_measure = measure.as_hqmf_model
+        population_codes = []
+        #Do not bother with populaions that contain stratifications
+        hqmf_measure.populations.each_with_index do |population,index|
+          if population["stratification"].nil?
+            sub_ids << population_keys[index] 
+            HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |code|
+              population_codes <<  population[code] if population[code]
+            end
+          end
+        end
+        population_codes.uniq!
+
+        rationals = PatientCache.smoking_gun_rational(measure.hqmf_id,sub_ids,patient_cache_filter)
+ binding.pry
+        rationals.each_pair do |mrn,rash|
+          values[mrn] = []
+          population_codes.each do |pop_code|
+           # if (population[pop_code])
+              population_criteria = hqmf_measure.population_criteria(pop_code)
+              if population_criteria.preconditions
+                array = []
+               
+                parent = population_criteria.preconditions[0]
+                values[mrn].concat self.loop_preconditions(hqmf_measure, parent, rash)
+              end # end  population_criteria.preconditions
+            #end # end (population[pop_code])
+          end # population_codes
+          values[mrn].uniq!
+        end
+        values
+      end
+
+      private
+
+
+      def self.loop_data_criteria(hqmf, data_criteria, rationale)
+        result = []
+        if (rationale[data_criteria.id])
+
+          if data_criteria.type != :derived
+            template = HQMF::DataCriteria.template_id_for_definition(data_criteria.definition, data_criteria.status, data_criteria.negation)
+            value_set_oid = data_criteria.code_list_id
+            begin
+              qrda_template = HealthDataStandards::Export::QRDA::EntryTemplateResolver.qrda_oid_for_hqmf_oid(template,value_set_oid)
+            rescue
+              value_set_oid = 'In QRDA Header (Non Null Value)'
+              qrda_template = 'N/A'
+            end # end begin recue
+            result << {description: data_criteria.description, oid: value_set_oid, template: qrda_template}
+
+            if data_criteria.temporal_references
+              data_criteria.temporal_references.each do |temporal_reference|
+                if temporal_reference.reference.id != 'MeasurePeriod'
+                  result.concat loop_data_criteria(hqmf, hqmf.data_criteria(temporal_reference.reference.id), rationale)
+                end  #if temporal_reference.reference.id
+              end # end  data_criteria.temporal_references.each do |temporal_reference|
+            end# end if data_criteria.temporal_references
+          else #data_criteria.type != :derived
+            (data_criteria.children_criteria || []).each do |child_id|
+              result.concat loop_data_criteria(hqmf, hqmf.data_criteria(child_id), rationale)
+            end
+          end
+        end
+        result
+      end
+
+      def self.loop_preconditions(hqmf, parent, rationale)
+        result = []
+        parent.preconditions.each do |precondition|
+          parent_key = "precondition_#{parent.id}"
+          key = "precondition_#{precondition.id}"
+          if precondition.preconditions.empty?
+            data_criteria = hqmf.data_criteria(precondition.reference.id)
+            result.concat loop_data_criteria(hqmf, data_criteria, rationale)
+          else
+            if (rationale[parent_key] && rationale[key]) 
+              result.concat  loop_preconditions(hqmf, precondition, rationale)
+            end
+          end
+        end
+        result
+      end
+
     end
   end
 end
