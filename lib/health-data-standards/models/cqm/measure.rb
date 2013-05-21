@@ -72,7 +72,6 @@ module HealthDataStandards
       # The  filter will allow us to segment the cache by things like test_id required for Cypress.
 
       def self.calculate_smoking_gun_data(hqmf_id, patient_cache_filter={})
-            binding.pry
         population_keys = ('a'..'zz').to_a
         values = {}
         measure = Measure.top_level.where({hqmf_id: hqmf_id}).first
@@ -91,7 +90,6 @@ module HealthDataStandards
         population_codes.uniq!
 
         rationals = PatientCache.smoking_gun_rational(measure.hqmf_id,sub_ids,patient_cache_filter)
- binding.pry
         rationals.each_pair do |mrn,rash|
           values[mrn] = []
           population_codes.each do |pop_code|
