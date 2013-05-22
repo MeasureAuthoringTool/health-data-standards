@@ -67,7 +67,9 @@ module HealthDataStandards
         @hqmf ||=  HQMF::Document.from_json(self.hqmf_document)
       end
 
-
+      def smoking_gun_data(patient_cache_filter={})
+        ::Measure.calculate_smoking_gun_data(self.hqmf_id, patient_cache_filter)
+      end
       # Calculate the smoking gun data for the given hqmf_id with the given patient_cache_filter
       # The  filter will allow us to segment the cache by things like test_id required for Cypress.
 
