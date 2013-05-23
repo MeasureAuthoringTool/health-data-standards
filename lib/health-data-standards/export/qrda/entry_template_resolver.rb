@@ -37,7 +37,7 @@ module HealthDataStandards
             # Patient Characteristic Observation Assertion template for
             # Patient Characteristic: ECOG Performance Status-Poor
             '2.16.840.1.113883.10.20.24.3.103'
-          elsif vs_oid == "2.16.840.1.113883.3.117.1.7.1.402" || vs_oid == "2.16.840.1.113883.3.117.1.7.1.403" 
+          elsif ["2.16.840.1.113883.3.117.1.7.1.402" , "2.16.840.1.113883.3.117.1.7.1.403" , "2.16.840.1.113883.3.117.1.7.1.287" ,"2.16.840.1.113883.3.117.1.7.1.307"].index(vs_oid)
             # Patient Charasteristic Gestational Age
             '2.16.840.1.113883.10.20.24.3.101'
           elsif vs_oid == "2.16.840.1.113883.3.526.3.1189" || vs_oid == "2.16.840.1.113883.3.526.3.1170"
