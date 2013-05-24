@@ -14,7 +14,7 @@ module HealthDataStandards
         '2.16.840.1.113883.6.90' =>   'ICD-10-CM',
         '2.16.840.1.113883.6.14' =>   'HCPCS',
         '2.16.840.1.113883.5.2' => "HL7 Marital Status",
-        '2.16.840.1.113883.6.59' =>   'CVX',
+        '2.16.840.1.113883.12.292' => 'CVX',
         '2.16.840.1.113883.5.83' => 'HITSP C80 Observation Status',
         '2.16.840.1.113883.3.26.1.1' => 'NCI Thesaurus',
         '2.16.840.1.113883.3.88.12.80.20' => 'FDA',
@@ -39,10 +39,17 @@ module HealthDataStandards
         'HSLOC' => 'HL7 Healthcare Service Location'
       }
       
+      # Some old OID are still around in data, this hash maps retired OID values to 
+      # the new value
+      OID_ALIASES = {
+        '2.16.840.1.113883.6.59' => '2.16.840.1.113883.12.292' # CVX
+      }
+      
       # Returns the name of a code system given an oid
       # @param [String] oid of a code system
       # @return [String] the name of the code system as described in the measure definition JSON
       def self.code_system_for(oid)
+        oid = OID_ALIASES[oid] if OID_ALIASES[oid]
         CODE_SYSTEMS[oid] || "Unknown"
       end
       
