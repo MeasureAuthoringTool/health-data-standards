@@ -32,6 +32,9 @@ module HealthDataStandards
       index({oids: 1})
       index({hqmf_id: 1})
       index({category: 1})
+      index({sub_id: 1})
+      index({_id: 1, sub_id: 1})
+
       index "bundle_id" => 1
       
       validates_presence_of :id
@@ -80,15 +83,20 @@ module HealthDataStandards
         sub_ids = []
         hqmf_measure = measure.as_hqmf_model
         population_codes = []
-        #Do not bother with populaions that contain stratifications
-        hqmf_measure.populations.each_with_index do |population,index|
-          if population["stratification"].nil?
-            sub_ids << population_keys[index] 
-            HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |code|
-              population_codes <<  population[code] if population[code]
+        if  hqmf_measure.populations.length == 1
+          sub_ids = nil
+        else 
+          #Do not bother with populaions that contain stratifications
+          hqmf_measure.populations.each_with_index do |population,index|
+            if population["stratification"].nil?
+              sub_ids << population_keys[index] 
+              HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |code|
+                population_codes <<  population[code] if population[code]
+              end
             end
           end
         end
+
         population_codes.uniq!
 
         rationals = PatientCache.smoking_gun_rational(measure.hqmf_id,sub_ids,patient_cache_filter)
