@@ -28,7 +28,7 @@ module HQMFModel
             
       all_criteria = json[:data_criteria]
       refute_nil all_criteria
-      all_criteria.length.must_equal 26
+      all_criteria.length.must_equal 30
       all_criteria.length.must_equal hqmf.all_data_criteria.length
 
       [:PatientCharacteristicBirthDate, :EncounterEncounterAmbulatoryIncludingPediatrics, :LaboratoryTestPerformedGroupAStreptococcusTest,
@@ -163,14 +163,17 @@ module HQMFModel
         key = key.to_s.gsub(/_precondition_\d+.*/, '').to_sym
         key = key.to_s.gsub(/_CHILDREN_\d+.*/, '').to_sym
         found_matching = false
-        expected_dc[key].each do |expected|
-          data_criteria = all_criteria[orig_key]
-          
-          model = hqmf.data_criteria(orig_key.to_s)
-          data_criteria.merge! ({:standard_category=>model.standard_category,:qds_data_type=>model.qds_data_type,:type=>model.type, :patient_api_function=>model.patient_api_function,:status=>model.status})
-          data_criteria[:property] = model.property unless model.property.nil?
-          
-          found_matching ||= data_criteria_matches(expected, data_criteria)
+
+        if expected_dc[key]
+          expected_dc[key].each do |expected|
+            data_criteria = all_criteria[orig_key]
+            
+            model = hqmf.data_criteria(orig_key.to_s)
+            data_criteria.merge! ({:standard_category=>model.standard_category,:qds_data_type=>model.qds_data_type,:type=>model.type, :patient_api_function=>model.patient_api_function,:status=>model.status})
+            data_criteria[:property] = model.property unless model.property.nil?
+            
+            found_matching ||= data_criteria_matches(expected, data_criteria)
+          end
         end
         assert found_matching, "could not find matching expected criteria for #{orig_key}"
       end
@@ -279,7 +282,7 @@ module HQMFModel
                 
       model = HQMF::Parser.parse(@hqmf_contents, HQMF::Parser::HQMF_VERSION_1, codes)
       
-      model.all_data_criteria.size.must_equal 26
+      model.all_data_criteria.size.must_equal 30
       
       model.all_data_criteria.map(&:id).each do |key|
         
@@ -355,7 +358,7 @@ module HQMFModel
     def test_all_code_set_oids
       hqmf = HQMF::Parser.parse(@hqmf_contents, HQMF::Parser::HQMF_VERSION_1, nil)
       oids = hqmf.all_code_set_oids
-      oids.length.must_equal 5
+      oids.length.must_equal 9
     end
     
   end

@@ -15,7 +15,12 @@ module HQMF1
       @data_criteria = @doc.xpath('//cda:section[cda:code/@code="57025-9"]/cda:entry').collect do |entry|
         DataCriteria.new(entry, occurrence_counters)
       end
-      
+
+      @supplemental= @doc.xpath('//cda:section[cda:code/@code="69670-8"]/cda:entry').collect do |entry|
+        DataCriteria.new(entry, occurrence_counters)
+      end
+
+      @data_criteria.concat @supplemental
       backfill_derived_code_lists
       
       @attributes = @doc.xpath('//cda:subjectOf/cda:measureAttribute').collect do |attr|

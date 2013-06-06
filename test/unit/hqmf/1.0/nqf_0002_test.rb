@@ -14,7 +14,7 @@ module HQMF1
       
       all_criteria = json[:data_criteria]
       refute_nil all_criteria
-      all_criteria.length.must_equal 7
+      all_criteria.length.must_equal 11
       all_criteria.length.must_equal hqmf.all_data_criteria.length
       
       ["PATIENT_CHARACTERISTIC_BIRTH_DATE","ENCOUNTER_ENCOUNTER_AMBULATORY_INCLUDING_PEDIATRICS","LABORATORY_TEST_PERFORMED_GROUP_A_STREPTOCOCCUS_TEST",
