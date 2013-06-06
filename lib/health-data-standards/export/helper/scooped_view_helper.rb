@@ -4,9 +4,10 @@ module HealthDataStandards
       module ScoopedViewHelper
         include HealthDataStandards::Util
         include HealthDataStandards::SVS
-
-        def value_set_map
-          @@vs_map ||= Hash[*ValueSet.all.map{ |p| [p.oid, p] }.flatten]
+        VS_MAP = {}
+        def value_set_map(bundle_id=nil)
+      
+          VS_MAP[bundle_id] ||= Hash[ValueSet.where({bundle_id: bundle_id}).map{ |p| [p.oid, p.code_set_map] }]
         end
 
         # Given a set of measures, find the data criteria/value set pairs that are unique across all of them
@@ -32,11 +33,8 @@ module HealthDataStandards
                                                                                         data_criteria.status || '',
                                                                                         data_criteria.negation)
             if entry.respond_to?(:oid) && (entry.oid == data_criteria_oid)
-              codes = []
-              vs = value_set_map[data_criteria_info['value_set_oid']]
-              if vs
-                codes = vs.code_set_map
-              else
+              codes = *(value_set_map(entry.record["bundle_id"])[data_criteria_info['value_set_oid']] || [])
+              if codes.empty?
                 HealthDataStandards.logger.warn("No codes for #{data_criteria_info['value_set_oid']}")
               end
               if entry.is_in_code_set?(codes) && !!entry.negation_ind == data_criteria.negation
@@ -64,11 +62,8 @@ module HealthDataStandards
             filtered_entries = handle_payer_information(patient)
           else
             entries = patient.entries_for_oid(data_criteria_oid)
-            codes = []
-            vs = value_set_map[data_criteria.code_list_id]
-            if vs
-              codes = vs.code_set_map
-            else
+            codes = (value_set_map(patient["bundle_id"])[data_criteria.code_list_id] || [])
+            if codes.empty?
               HealthDataStandards.logger.warn("No codes for #{data_criteria.code_list_id}")
             end
             filtered_entries = entries.find_all do |entry|
