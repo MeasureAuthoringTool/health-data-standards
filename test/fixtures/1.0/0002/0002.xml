@@ -1017,68 +1017,72 @@ The number of patients who had a group A streptococcus test in the seven-day per
    </component>
    <component typeCode="COMP">
       <section>
-         <code code="69670-8" codeSystem="2.16.840.1.113883.6.1" displayName="Health quality measure supplemental data"/>
+         <code code="69670-8" codeSystem="2.16.840.1.113883.6.1" displayName="Supplemental Data Elements"/>
          <title>Supplemental Data Elements</title>
          <text>
             <list>
-               <item>"Patient Characteristic: Gender" using "Gender HL7 Value Set (2.16.840.1.113883.1.11.1)"</item>
-               <item>"Patient Characteristic: Race" using "Race CDC Value Set (2.16.840.1.114222.4.11.836)"</item>
-               <item>"Patient Characteristic: Ethnicity" using "Ethnicity CDC Value Set (2.16.840.1.114222.4.11.837)"</item>
-               <item>"Patient Characteristic: Payer" using "Payer Source of Payment Typology Value Set (2.16.840.1.113883.3.221.5)"</item>
+               <item>
+                  <content>"Patient Characteristic Ethnicity: Ethnicity"</content> using "Ethnicity CDC Value Set (2.16.840.1.114222.4.11.837)"</item>
+               <item>
+                  <content>"Patient Characteristic Gender: Gender"</content> using "Gender HL7 (2.16.840.1.113883.5.1) Value Set (2.16.840.1.113883.1.11.1)"</item>
+               <item>
+                  <content>"Patient Characteristic Payer: Payer"</content> using "Payer Source of Payment Typology Value Set (2.16.840.1.113883.221.5)"</item>
+               <item>
+                  <content>"Patient Characteristic Race: Race"</content> using "Race CDC Value Set (2.16.840.1.114222.4.11.836)"</item>
             </list>
          </text>
          <entry typeCode="DRIV">
-            <act classCode="ACT" moodCode="DEF">
-               <templateId root="2.16.840.1.113883.3.560.1.1001"/>
-               <id root="E95864C7-C036-403C-9A4E-80F9D1BEB0BD"/>
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Gender pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.402"/>
+               <id root="89c650e0-0de9-4206-bef4-3c46e073375d"/>
                <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
                <sourceOf typeCode="COMP">
                   <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
-                     <code code="21840-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Gender"/>
-                     <title>Patient Characteristic: Gender</title>
-                     <value xsi:type="CD" code="2.16.840.1.113883.1.11.1" displayName="HL7 Administrative Gender Value Set"/>
+                     <code code="263495000" codeSystem="2.16.840.1.113883.6.96" displayName="Gender"/>
+                     <title>Patient Characteristic Gender: Gender</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.1.11.1" codeSystem="2.16.840.1.113883.3.560.101.1" displayName="Gender HL7 (2.16.840.1.113883.5.1) Value Set"/>
                   </observation>
                </sourceOf>
             </act>
          </entry>
          <entry typeCode="DRIV">
-            <act classCode="ACT" moodCode="DEF">
-               <templateId root="2.16.840.1.113883.3.560.1.1001"/>
-               <id root="6EF71336-1E79-4E82-8BCF-D45D9DD96F78"/>
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Race pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.406"/>
+               <id root="5da57e66-b196-4f75-a2cb-431f0fb16458"/>
                <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
                <sourceOf typeCode="COMP">
                   <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
-                     <code code="32624-9" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Race"/>
-                     <title>Patient Characteristic: Race</title>
-                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.836" displayName="CDC Race Value Set"/>
+                     <code code="32624-9" codeSystem="2.16.840.1.113883.6.1" displayName="Race"/>
+                     <title>Patient Characteristic Race: Race</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.836" codeSystem="2.16.840.1.113883.3.560.101.1" displayName="Race CDC Value Set"/>
                   </observation>
                </sourceOf>
             </act>
          </entry>
          <entry typeCode="DRIV">
-            <act classCode="ACT" moodCode="DEF">
-               <templateId root="2.16.840.1.113883.3.560.1.1001"/>
-               <id root="BA487998-EBE0-4E19-AFD1-E8D9159791E4"/>
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Ethnicity pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.403"/>
+               <id root="3ad0c675-4876-4f29-8e1c-c67b2394f7ce"/>
                <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
                <sourceOf typeCode="COMP">
                   <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
-                     <code code="54133-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Ethnicity"/>
-                     <title>Patient Characteristic: Ethnicity</title>
-                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.837" displayName="CDC Ethnicity Value Set"/>
+                     <code code="54133-4" codeSystem="2.16.840.1.113883.6.1" displayName="Ethnicity"/>
+                     <title>Patient Characteristic Ethnicity: Ethnicity</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.837" codeSystem="2.16.840.1.113883.3.560.101.1" displayName="Ethnicity CDC Value Set"/>
                   </observation>
                </sourceOf>
             </act>
          </entry>
          <entry typeCode="DRIV">
-            <act classCode="ACT" moodCode="DEF">
-               <templateId root="2.16.840.1.113883.3.560.1.1001"/>
-               <id root="B0C8DEAB-6A89-407F-8A5B-4522B5420079"/>
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Payer pattern -->
+               <templateId root="2.16.840.1.113883.3.560.1.405"/>
+               <id root="c1a5c65c-80f8-4326-a2aa-9d183aa10669"/>
                <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
                <sourceOf typeCode="COMP">
                   <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
-                     <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Payer"/>
-                     <title>Patient Characteristic: Payer</title>
-                     <value xsi:type="CD" code="2.16.840.1.113883.3.221.5" displayName="Source of Payment Typology Health Insurance Type Value Set"/>
+                     <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" displayName="Payer"/>
+                     <title>Patient Characteristic Payer: Payer</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.221.5" codeSystem="2.16.840.1.113883.3.560.101.1" displayName="Payer Source of Payment Typology Value Set"/>
                   </observation>
                </sourceOf>
             </act>

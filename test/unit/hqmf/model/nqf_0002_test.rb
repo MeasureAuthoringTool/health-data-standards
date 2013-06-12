@@ -11,11 +11,15 @@ module HQMFModel
       
       codes = {
         "2.16.840.1.113883.3.560.100.2" => {"HL7"=>["F"]},
+        "2.16.840.1.113883.1.11.1" => {"HL7" => ["M","F","UN"]},
         "2.16.840.1.113883.3.560.100.4" => {'LOINC'=>['21112-8']},
         '2.16.840.1.113883.3.464.0001.373' => {},
         '2.16.840.1.113883.3.464.0001.231' => {},
         '2.16.840.1.113883.3.464.0001.250' => {},
-        '2.16.840.1.113883.3.464.0001.369' => {}
+        '2.16.840.1.113883.3.464.0001.369' => {},
+        '2.16.840.1.114222.4.11.836' => {},
+        '2.16.840.1.114222.4.11.837' => {},
+        '2.16.840.1.113883.221.5' => {}
       }
       
       hqmf = HQMF::Parser.parse(@hqmf_contents, HQMF::Parser::HQMF_VERSION_1, codes)
@@ -158,6 +162,69 @@ module HQMFModel
             :standard_category=>"individual_characteristic",:qds_data_type=>"individual_characteristic",:code_list_id=>"2.16.840.1.113883.3.560.100.4",:property=>:birthtime,:inline_code_list=>age_codes,:type=>:characteristic, :patient_api_function=>nil,
             :temporal_references=>[{:type=>"SBS",:reference=>"MeasurePeriod",:range=>{:type=>'IVL_PQ', :high=>{:type=>'PQ', :unit=>"a", :value=>"17", inclusive?:true, derived?:false}}}]}
        
+      
+expected_dc[:PatientCharacteristicGenderGender] =[
+  {:title=>"Gender",
+   :description=>"Patient Characteristic Gender: Gender",
+   :standard_category=>"individual_characteristic",
+   :qds_data_type=>"individual_characteristic",
+   :code_list_id=>"2.16.840.1.113883.1.11.1",
+   :property=>:gender,
+   :type=>:characteristic,
+   :definition=>"patient_characteristic_gender",
+   :hard_status=>false,
+   :negation=>false,
+   :source_data_criteria=>"PatientCharacteristicGenderGender",
+   :value=>{:type=>"CD", :system=>"Administrative Sex", :code=>"M"}}]
+
+expected_dc[:PatientCharacteristicRaceRace] = [
+  {:title=>"Race",
+   :description=>"Patient Characteristic Race: Race",
+   :standard_category=>"individual_characteristic",
+   :qds_data_type=>"individual_characteristic",
+   :code_list_id=>"2.16.840.1.114222.4.11.836",
+   :property=>:race,
+   :type=>:characteristic,
+   :definition=>"patient_characteristic_race",
+   :hard_status=>false,
+   :negation=>false,
+   :inline_code_list=>{},
+   :source_data_criteria=>"PatientCharacteristicRaceRace"}]
+
+expected_dc[:PatientCharacteristicEthnicityEthnicity] = [
+  {:title=>"Ethnicity",
+   :description=>"Patient Characteristic Ethnicity: Ethnicity",
+   :standard_category=>"individual_characteristic",
+   :qds_data_type=>"individual_characteristic",
+   :code_list_id=>"2.16.840.1.114222.4.11.837",
+   :property=>:ethnicity,
+   :type=>:characteristic,
+   :definition=>"patient_characteristic_ethnicity",
+   :hard_status=>false,
+   :negation=>false,
+   :inline_code_list=>{},
+   :source_data_criteria=>"PatientCharacteristicEthnicityEthnicity"}]
+
+expected_dc[:PatientCharacteristicPayerPayer] = [
+  {:title=>"Payer",
+   :description=>"Patient Characteristic Payer: Payer",
+   :standard_category=>"individual_characteristic",
+   :qds_data_type=>"individual_characteristic",
+   :code_list_id=>"2.16.840.1.113883.221.5",
+   :property=>:payer,
+   :type=>:characteristic,
+   :definition=>"patient_characteristic_payer",
+   :hard_status=>false,
+   :negation=>false,
+   :inline_code_list=>{},
+   :source_data_criteria=>"PatientCharacteristicPayerPayer"}]
+
+
+
+
+
+
+
       all_criteria.keys.each do |key|
         orig_key = key
         key = key.to_s.gsub(/_precondition_\d+.*/, '').to_sym
@@ -248,14 +315,20 @@ module HQMFModel
     end
     
     def test_json_round_trip
+       
       codes = {
         "2.16.840.1.113883.3.560.100.2" => {"HL7"=>["F"]},
+        "2.16.840.1.113883.1.11.1" => {"HL7" => ["M","F","UN"]},
         "2.16.840.1.113883.3.560.100.4" => {'LOINC'=>['21112-8']},
         '2.16.840.1.113883.3.464.0001.373' => {},
         '2.16.840.1.113883.3.464.0001.231' => {},
         '2.16.840.1.113883.3.464.0001.250' => {},
-        '2.16.840.1.113883.3.464.0001.369' => {}
+        '2.16.840.1.113883.3.464.0001.369' => {},
+        '2.16.840.1.114222.4.11.836' => {},
+        '2.16.840.1.114222.4.11.837' => {},
+        '2.16.840.1.113883.221.5' => {}
       }
+      
                 
       hqmf = HQMF::Parser.parse(@hqmf_contents, HQMF::Parser::HQMF_VERSION_1, codes)
       
@@ -271,14 +344,20 @@ module HQMFModel
 
     def test_finders
       
+      
       codes = {
         "2.16.840.1.113883.3.560.100.2" => {"HL7"=>["F"]},
+        "2.16.840.1.113883.1.11.1" => {"HL7" => ["M","F","UN"]},
         "2.16.840.1.113883.3.560.100.4" => {'LOINC'=>['21112-8']},
         '2.16.840.1.113883.3.464.0001.373' => {},
         '2.16.840.1.113883.3.464.0001.231' => {},
         '2.16.840.1.113883.3.464.0001.250' => {},
-        '2.16.840.1.113883.3.464.0001.369' => {}
+        '2.16.840.1.113883.3.464.0001.369' => {},
+        '2.16.840.1.114222.4.11.836' => {},
+        '2.16.840.1.114222.4.11.837' => {},
+        '2.16.840.1.113883.221.5' => {}
       }
+      
                 
       model = HQMF::Parser.parse(@hqmf_contents, HQMF::Parser::HQMF_VERSION_1, codes)
       
