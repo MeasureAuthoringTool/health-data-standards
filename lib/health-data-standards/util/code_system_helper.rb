@@ -37,7 +37,8 @@ module HealthDataStandards
       
       CODE_SYSTEM_ALIASES = {
         'FDA SPL' => 'NCI Thesaurus',
-        'HSLOC' => 'HL7 Healthcare Service Location'
+        'HSLOC' => 'HL7 Healthcare Service Location',
+        'SOP' => "Source of Payment Typology"
       }
       
       # Some old OID are still around in data, this hash maps retired OID values to 
