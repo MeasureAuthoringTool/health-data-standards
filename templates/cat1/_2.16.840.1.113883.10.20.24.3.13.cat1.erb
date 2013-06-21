@@ -17,7 +17,7 @@
   </effectiveTime>
   <%== render(:partial => 'ordinality', :locals => {:entry => entry}) %>
 
-  <%== code_display(entry, 'tag_name' => 'value', 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'LOINC'], 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
+  <%== code_display(entry, 'value_set_map' => value_set_map,'tag_name' => 'value', 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'LOINC'], 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
   <!-- Status -->
   <entryRelationship typeCode="REFR">
     <observation classCode="OBS" moodCode="EVN">

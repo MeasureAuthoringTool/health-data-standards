@@ -6,7 +6,7 @@ module HealthDataStandards
         options['attribute'] ||= :codes
         options['exclude_null_flavor'] ||= false
         code_string = nil
-        preferred_code = entry.preferred_code(options['preferred_code_sets'], options['attribute'])
+        preferred_code = entry.preferred_code(options['preferred_code_sets'], options['attribute'], options['value_set_map'])
         if preferred_code
           code_system_oid = HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(preferred_code['code_set'])
           code_string = "<#{options['tag_name']} code=\"#{preferred_code['code']}\" codeSystem=\"#{code_system_oid}\" #{options['extra_content']}>"
@@ -20,7 +20,7 @@ module HealthDataStandards
         
         if options["attribute"] == :codes && entry.respond_to?(:translation_codes)
           code_string += "<originalText>#{ERB::Util.html_escape entry.description}</originalText>" if entry.respond_to?(:description)
-          entry.translation_codes(options['preferred_code_sets']).each do |translation|
+          entry.translation_codes(options['preferred_code_sets'], options['value_set_map']).each do |translation|
             code_string += "<translation code=\"#{translation['code']}\" codeSystem=\"#{HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(translation['code_set'])}\"/>\n"
           end
         end
