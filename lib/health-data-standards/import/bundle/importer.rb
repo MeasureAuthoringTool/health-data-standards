@@ -41,8 +41,14 @@ module HealthDataStandards
               b.delete
             end if options[:delete_existing]
 
-            unpack_and_store_system_js(zip_file)
-
+            #find the highest bundle version and see if one is installed that is greater than the one
+            # we are currently installing.  Do not load the libs other wise 
+            vers = bundle_versions.values.sort.reverse[0]
+            if (vers.nil? || vers <= bundle.version || options["force_js_install"])
+              unpack_and_store_system_js(zip_file) 
+            else
+              puts "javascript libraries will not being updated as a more recent bundle version is already installed"
+            end  
             # Store the bundle metadata.
             unless bundle.save
               raise bundle.errors.full_messages.join(",")
