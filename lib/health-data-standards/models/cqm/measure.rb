@@ -85,6 +85,10 @@ module HealthDataStandards
         population_codes = []
         if  hqmf_measure.populations.length == 1
           sub_ids = nil
+          population = hqmf_measure.populations[0]
+          HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |code|
+                population_codes <<  population[code] if population[code]
+          end
         else 
           #Do not bother with populaions that contain stratifications
           hqmf_measure.populations.each_with_index do |population,index|
