@@ -94,24 +94,24 @@ module HQMF1
     
       assert_equal 'Patient characteristic: birth date', data_criteria[0].title
       assert_equal '52A541D7-9C22-4633-8AEC-389611894672', data_criteria[0].id
-      assert_equal '2.16.840.1.113883.3.464.0001.14', data_criteria[0].code_list_id
+      assert_equal '2.16.840.1.113883.3.464.10001.14', data_criteria[0].code_list_id
     
       assert_equal 'Encounter: encounter outpatient', data_criteria[1].title
       assert_equal '3CF573A8-34AE-408E-88D7-26A1016A140D', data_criteria[1].id
-      assert_equal '2.16.840.1.113883.3.464.0001.49', data_criteria[1].code_list_id
+      assert_equal '2.16.840.1.113883.3.464.10001.49', data_criteria[1].code_list_id
     
       assert_equal 'Procedure performed: Pneumococcal Vaccination all ages', data_criteria[2].title
       assert_equal '482902EC-E214-4FB4-8C5A-85A41250573C', data_criteria[2].id
-      assert_equal '2.16.840.1.113883.3.464.0001.143', data_criteria[2].code_list_id
+      assert_equal '2.16.840.1.113883.3.464.10001.143', data_criteria[2].code_list_id
     
       assert_equal 'Medication administered: Pneumococcal Vaccine all ages', data_criteria[3].title
       assert_equal '10165EC8-53EE-4242-A20D-B1D21CE0DC73', data_criteria[3].id
-      assert_equal '2.16.840.1.113883.3.464.0001.430', data_criteria[3].code_list_id
+      assert_equal '2.16.840.1.113883.3.464.10001.430', data_criteria[3].code_list_id
     
       criteria = @doc.data_criteria('10165EC8-53EE-4242-A20D-B1D21CE0DC73')
       assert_equal 'Medication administered: Pneumococcal Vaccine all ages', criteria.title
       assert_equal '10165EC8-53EE-4242-A20D-B1D21CE0DC73', criteria.id
-      assert_equal '2.16.840.1.113883.3.464.0001.430', criteria.code_list_id
+      assert_equal '2.16.840.1.113883.3.464.10001.430', criteria.code_list_id
 
       begin
         criteria = @doc.data_criteria('foo')

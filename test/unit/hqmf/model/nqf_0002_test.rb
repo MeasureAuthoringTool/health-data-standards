@@ -13,10 +13,10 @@ module HQMFModel
         "2.16.840.1.113883.3.560.100.2" => {"HL7"=>["F"]},
         "2.16.840.1.113883.1.11.1" => {"HL7" => ["M","F","UN"]},
         "2.16.840.1.113883.3.560.100.4" => {'LOINC'=>['21112-8']},
-        '2.16.840.1.113883.3.464.0001.373' => {},
-        '2.16.840.1.113883.3.464.0001.231' => {},
-        '2.16.840.1.113883.3.464.0001.250' => {},
-        '2.16.840.1.113883.3.464.0001.369' => {},
+        '2.16.840.1.113883.3.464.10001.373' => {},
+        '2.16.840.1.113883.3.464.10001.231' => {},
+        '2.16.840.1.113883.3.464.10001.250' => {},
+        '2.16.840.1.113883.3.464.10001.369' => {},
         '2.16.840.1.114222.4.11.836' => {},
         '2.16.840.1.114222.4.11.837' => {},
         '2.16.840.1.113883.221.5' => {}
@@ -53,16 +53,16 @@ module HQMFModel
       
       
       expected_dc[:MedicationDispensedPharyngitisAntibiotics] << {:title=>"pharyngitis antibiotics",:description=>"Medication, Dispensed: pharyngitis antibiotics",
-         :standard_category=>"medication",:qds_data_type=>"medication_dispensed",:code_list_id=>"2.16.840.1.113883.3.464.0001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"dispensed", :negation=>false}
+         :standard_category=>"medication",:qds_data_type=>"medication_dispensed",:code_list_id=>"2.16.840.1.113883.3.464.10001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"dispensed", :negation=>false}
          
       expected_dc[:MedicationOrderPharyngitisAntibiotics] << {:title=>"pharyngitis antibiotics",:description=>"Medication, Order: pharyngitis antibiotics",
-         :standard_category=>"medication",:qds_data_type=>"medication_order",:code_list_id=>"2.16.840.1.113883.3.464.0001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"ordered", :negation=>false}
+         :standard_category=>"medication",:qds_data_type=>"medication_order",:code_list_id=>"2.16.840.1.113883.3.464.10001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"ordered", :negation=>false}
          
       expected_dc[:MedicationActivePharyngitisAntibiotics] << {:title=>"pharyngitis antibiotics",:description=>"Medication, Active: pharyngitis antibiotics",
-         :standard_category=>"medication",:qds_data_type=>"medication_active",:code_list_id=>"2.16.840.1.113883.3.464.0001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"active", :negation=>false}
+         :standard_category=>"medication",:qds_data_type=>"medication_active",:code_list_id=>"2.16.840.1.113883.3.464.10001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"active", :negation=>false}
          
       expected_dc[:EncounterEncounterAmbulatoryIncludingPediatrics] << {:title=>"Encounter ambulatory including pediatrics",:description=>"Encounter: Encounter ambulatory including pediatrics", :negation=>false,
-         :standard_category=>"encounter",:qds_data_type=>"encounter",:code_list_id=>"2.16.840.1.113883.3.464.0001.231",:type=>:encounters,:patient_api_function=>:encounters,
+         :standard_category=>"encounter",:qds_data_type=>"encounter",:code_list_id=>"2.16.840.1.113883.3.464.10001.231",:type=>:encounters,:patient_api_function=>:encounters,
          :temporal_references=>
           [{:type=>"DURING", :reference=>"MeasurePeriod"},
            {:type=>"SBS",:reference=>"GROUP_SBS",:range=>{:type=>'IVL_PQ', :high=>{:type=>'PQ', :unit=>"d", :value=>"3", inclusive?:true, derived?:false}}}]}
@@ -74,20 +74,20 @@ module HQMFModel
          :type=>:derived, :patient_api_function=>nil}
          
       expected_dc[:LaboratoryTestPerformedGroupAStreptococcusTest] << {:title=>"Group A Streptococcus Test",:description=>"Laboratory Test, Performed: Group A Streptococcus Test", :negation=>false,
-         :standard_category=>"laboratory_test",:qds_data_type=>"laboratory_test",:code_list_id=>"2.16.840.1.113883.3.464.0001.250",:type=>:laboratory_tests, :patient_api_function=>:laboratoryTests,:status=>"performed",
+         :standard_category=>"laboratory_test",:qds_data_type=>"laboratory_test",:code_list_id=>"2.16.840.1.113883.3.464.10001.250",:type=>:laboratory_tests, :patient_api_function=>:laboratoryTests,:status=>"performed",
          :temporal_references=>[{:type=>"SBE",:reference=>"EncounterEncounterAmbulatoryIncludingPediatrics",:range=>{:type=>'IVL_PQ', :high=>{:type=>'PQ', :unit=>"d", :value=>"3", inclusive?:true, derived?:false}}}]}
           
       expected_dc[:MedicationDispensedPharyngitisAntibiotics] << {:title=>"pharyngitis antibiotics",:description=>"Medication, Dispensed: pharyngitis antibiotics", :negation=>false,
-         :standard_category=>"medication",:qds_data_type=>"medication_dispensed",:code_list_id=>"2.16.840.1.113883.3.464.0001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"dispensed"}
+         :standard_category=>"medication",:qds_data_type=>"medication_dispensed",:code_list_id=>"2.16.840.1.113883.3.464.10001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"dispensed"}
          
       expected_dc[:MedicationOrderPharyngitisAntibiotics] << {:title=>"pharyngitis antibiotics",:description=>"Medication, Order: pharyngitis antibiotics", :negation=>false,
-          :standard_category=>"medication",:qds_data_type=>"medication_order",:code_list_id=>"2.16.840.1.113883.3.464.0001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"ordered"}
+          :standard_category=>"medication",:qds_data_type=>"medication_order",:code_list_id=>"2.16.840.1.113883.3.464.10001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"ordered"}
           
       expected_dc[:MedicationActivePharyngitisAntibiotics] << {:title=>"pharyngitis antibiotics",:description=>"Medication, Active: pharyngitis antibiotics", :negation=>false,
-          :standard_category=>"medication",:qds_data_type=>"medication_active",:code_list_id=>"2.16.840.1.113883.3.464.0001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"active"}
+          :standard_category=>"medication",:qds_data_type=>"medication_active",:code_list_id=>"2.16.840.1.113883.3.464.10001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"active"}
           
       expected_dc[:EncounterEncounterAmbulatoryIncludingPediatrics] << {:title=>"Encounter ambulatory including pediatrics",:description=>"Encounter: Encounter ambulatory including pediatrics", :negation=>false,
-          :standard_category=>"encounter",:qds_data_type=>"encounter",:code_list_id=>"2.16.840.1.113883.3.464.0001.231",:type=>:encounters,:patient_api_function=>:encounters,
+          :standard_category=>"encounter",:qds_data_type=>"encounter",:code_list_id=>"2.16.840.1.113883.3.464.10001.231",:type=>:encounters,:patient_api_function=>:encounters,
           :temporal_references=>
            [{:type=>"DURING", :reference=>"MeasurePeriod"},
             {:type=>"SBS",:reference=>"GROUP_SBS",:range=>{:type=>'IVL_PQ', :high=>{:type=>'PQ', :unit=>"d", :value=>"3", inclusive?:true, derived?:false}}}]}
@@ -99,34 +99,34 @@ module HQMFModel
           :type=>:derived, :patient_api_function=>nil}
           
       expected_dc[:LaboratoryTestPerformedGroupAStreptococcusTest] << {:title=>"Group A Streptococcus Test",:description=>"Laboratory Test, Performed: Group A Streptococcus Test", :negation=>false,
-          :standard_category=>"laboratory_test",:qds_data_type=>"laboratory_test",:code_list_id=>"2.16.840.1.113883.3.464.0001.250",:type=>:laboratory_tests, :patient_api_function=>:laboratoryTests,:status=>"performed",
+          :standard_category=>"laboratory_test",:qds_data_type=>"laboratory_test",:code_list_id=>"2.16.840.1.113883.3.464.10001.250",:type=>:laboratory_tests, :patient_api_function=>:laboratoryTests,:status=>"performed",
           :temporal_references=>
            [{:type=>"SAE",:reference=>"EncounterEncounterAmbulatoryIncludingPediatrics",:range=>{:type=>'IVL_PQ', :high=>{:type=>'PQ', :unit=>"d", :value=>"3", inclusive?:true, derived?:false}}}]}
            
       expected_dc[:EncounterEncounterAmbulatoryIncludingPediatrics] << {:title=>"Encounter ambulatory including pediatrics",:description=>"Encounter: Encounter ambulatory including pediatrics", :negation=>false,
-          :standard_category=>"encounter",:qds_data_type=>"encounter",:code_list_id=>"2.16.840.1.113883.3.464.0001.231",:type=>:encounters,:patient_api_function=>:encounters,
+          :standard_category=>"encounter",:qds_data_type=>"encounter",:code_list_id=>"2.16.840.1.113883.3.464.10001.231",:type=>:encounters,:patient_api_function=>:encounters,
           :temporal_references=>[{:type=>"DURING", :reference=>"MeasurePeriod"}]}
           
       expected_dc[:EncounterEncounterAmbulatoryIncludingPediatrics] << {:title=>"Encounter ambulatory including pediatrics",:description=>"Encounter: Encounter ambulatory including pediatrics", :negation=>false,
-          :standard_category=>"encounter",:qds_data_type=>"encounter",:code_list_id=>"2.16.840.1.113883.3.464.0001.231",:type=>:encounters,:patient_api_function=>:encounters,
+          :standard_category=>"encounter",:qds_data_type=>"encounter",:code_list_id=>"2.16.840.1.113883.3.464.10001.231",:type=>:encounters,:patient_api_function=>:encounters,
           :temporal_references=>[{:type=>"DURING", :reference=>"MeasurePeriod"}]}
           
       expected_dc[:DiagnosisActivePharyngitis] << {:title=>"pharyngitis",:description=>"Diagnosis, Active: pharyngitis", :negation=>false,
-           :standard_category=>"diagnosis_condition_problem",:qds_data_type=>"diagnosis_active",:code_list_id=>"2.16.840.1.113883.3.464.0001.369",:type=>:conditions, :patient_api_function=>:allProblems,:status=>"active",
+           :standard_category=>"diagnosis_condition_problem",:qds_data_type=>"diagnosis_active",:code_list_id=>"2.16.840.1.113883.3.464.10001.369",:type=>:conditions, :patient_api_function=>:allProblems,:status=>"active",
            :temporal_references=>
             [{:type=>"DURING",:reference=>"EncounterEncounterAmbulatoryIncludingPediatrics"}]}
             
       expected_dc[:MedicationDispensedPharyngitisAntibiotics] << {:title=>"pharyngitis antibiotics",:description=>"Medication, Dispensed: pharyngitis antibiotics", :negation=>false,
-           :standard_category=>"medication",:qds_data_type=>"medication_dispensed",:code_list_id=>"2.16.840.1.113883.3.464.0001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"dispensed"}
+           :standard_category=>"medication",:qds_data_type=>"medication_dispensed",:code_list_id=>"2.16.840.1.113883.3.464.10001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"dispensed"}
            
       expected_dc[:MedicationOrderPharyngitisAntibiotics] << {:title=>"pharyngitis antibiotics",:description=>"Medication, Order: pharyngitis antibiotics", :negation=>false,
-           :standard_category=>"medication",:qds_data_type=>"medication_order",:code_list_id=>"2.16.840.1.113883.3.464.0001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"ordered"}
+           :standard_category=>"medication",:qds_data_type=>"medication_order",:code_list_id=>"2.16.840.1.113883.3.464.10001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"ordered"}
            
       expected_dc[:MedicationActivePharyngitisAntibiotics] << {:title=>"pharyngitis antibiotics",:description=>"Medication, Active: pharyngitis antibiotics", :negation=>false,
-           :standard_category=>"medication",:qds_data_type=>"medication_active",:code_list_id=>"2.16.840.1.113883.3.464.0001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"active"}
+           :standard_category=>"medication",:qds_data_type=>"medication_active",:code_list_id=>"2.16.840.1.113883.3.464.10001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"active"}
            
       expected_dc[:EncounterEncounterAmbulatoryIncludingPediatrics] << {:title=>"Encounter ambulatory including pediatrics",:description=>"Encounter: Encounter ambulatory including pediatrics",
-           :standard_category=>"encounter",:qds_data_type=>"encounter",:code_list_id=>"2.16.840.1.113883.3.464.0001.231",:type=>:encounters,:patient_api_function=>:encounters, :negation=>false,
+           :standard_category=>"encounter",:qds_data_type=>"encounter",:code_list_id=>"2.16.840.1.113883.3.464.10001.231",:type=>:encounters,:patient_api_function=>:encounters, :negation=>false,
            :temporal_references=>
             [{:type=>"DURING", :reference=>"MeasurePeriod"},
              {:type=>"SBS",:reference=>"GROUP_SBS",:range=>{:type=>'IVL_PQ', :high=>{:type=>'PQ', :unit=>"d", :value=>"3", inclusive?:true, derived?:false}}}]}
@@ -138,19 +138,19 @@ module HQMFModel
            :type=>:derived, :patient_api_function=>nil}
            
       expected_dc[:EncounterEncounterAmbulatoryIncludingPediatrics] << {:title=>"Encounter ambulatory including pediatrics",:description=>"Encounter: Encounter ambulatory including pediatrics", :negation=>false,
-           :standard_category=>"encounter",:qds_data_type=>"encounter",:code_list_id=>"2.16.840.1.113883.3.464.0001.231",:type=>:encounters,:patient_api_function=>:encounters,
+           :standard_category=>"encounter",:qds_data_type=>"encounter",:code_list_id=>"2.16.840.1.113883.3.464.10001.231",:type=>:encounters,:patient_api_function=>:encounters,
            :temporal_references=>[{:type=>"DURING", :reference=>"MeasurePeriod"}]}
            
       expected_dc[:MedicationDispensedPharyngitisAntibiotics] << {:title=>"pharyngitis antibiotics",:description=>"Medication, Dispensed: pharyngitis antibiotics", :negation=>false,
-            :standard_category=>"medication",:qds_data_type=>"medication_dispensed",:code_list_id=>"2.16.840.1.113883.3.464.0001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"dispensed",
+            :standard_category=>"medication",:qds_data_type=>"medication_dispensed",:code_list_id=>"2.16.840.1.113883.3.464.10001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"dispensed",
             :temporal_references=>[{:type=>"SBS",:reference=>"EncounterEncounterAmbulatoryIncludingPediatrics",:range=>{:type=>'IVL_PQ', :high=>{:type=>'PQ', :unit=>"d", :value=>"30", inclusive?:true, derived?:false}}}]}
             
       expected_dc[:MedicationOrderPharyngitisAntibiotics] << {:title=>"pharyngitis antibiotics",:description=>"Medication, Order: pharyngitis antibiotics", :negation=>false,
-            :standard_category=>"medication",:qds_data_type=>"medication_order",:code_list_id=>"2.16.840.1.113883.3.464.0001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"ordered",
+            :standard_category=>"medication",:qds_data_type=>"medication_order",:code_list_id=>"2.16.840.1.113883.3.464.10001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"ordered",
             :temporal_references=>[{:type=>"SBS",:reference=>"EncounterEncounterAmbulatoryIncludingPediatrics",:range=>{:type=>'IVL_PQ', :high=>{:type=>'PQ', :unit=>"d", :value=>"30", inclusive?:true, derived?:false}}}]}
             
       expected_dc[:MedicationActivePharyngitisAntibiotics] << {:title=>"pharyngitis antibiotics",:description=>"Medication, Active: pharyngitis antibiotics", :negation=>false,
-            :standard_category=>"medication",:qds_data_type=>"medication_active",:code_list_id=>"2.16.840.1.113883.3.464.0001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"active",
+            :standard_category=>"medication",:qds_data_type=>"medication_active",:code_list_id=>"2.16.840.1.113883.3.464.10001.373",:type=>:medications,:patient_api_function=>:allMedications,:status=>"active",
             :temporal_references=>[{:type=>"SBS",:reference=>"EncounterEncounterAmbulatoryIncludingPediatrics",:range=>{:type=>'IVL_PQ', :high=>{:type=>'PQ', :unit=>"d", :value=>"30", inclusive?:true, derived?:false}}}]}
             
       age_codes = {'LOINC'=>['21112-8']}      
@@ -320,10 +320,10 @@ expected_dc[:PatientCharacteristicPayerPayer] = [
         "2.16.840.1.113883.3.560.100.2" => {"HL7"=>["F"]},
         "2.16.840.1.113883.1.11.1" => {"HL7" => ["M","F","UN"]},
         "2.16.840.1.113883.3.560.100.4" => {'LOINC'=>['21112-8']},
-        '2.16.840.1.113883.3.464.0001.373' => {},
-        '2.16.840.1.113883.3.464.0001.231' => {},
-        '2.16.840.1.113883.3.464.0001.250' => {},
-        '2.16.840.1.113883.3.464.0001.369' => {},
+        '2.16.840.1.113883.3.464.10001.373' => {},
+        '2.16.840.1.113883.3.464.10001.231' => {},
+        '2.16.840.1.113883.3.464.10001.250' => {},
+        '2.16.840.1.113883.3.464.10001.369' => {},
         '2.16.840.1.114222.4.11.836' => {},
         '2.16.840.1.114222.4.11.837' => {},
         '2.16.840.1.113883.221.5' => {}
@@ -349,10 +349,10 @@ expected_dc[:PatientCharacteristicPayerPayer] = [
         "2.16.840.1.113883.3.560.100.2" => {"HL7"=>["F"]},
         "2.16.840.1.113883.1.11.1" => {"HL7" => ["M","F","UN"]},
         "2.16.840.1.113883.3.560.100.4" => {'LOINC'=>['21112-8']},
-        '2.16.840.1.113883.3.464.0001.373' => {},
-        '2.16.840.1.113883.3.464.0001.231' => {},
-        '2.16.840.1.113883.3.464.0001.250' => {},
-        '2.16.840.1.113883.3.464.0001.369' => {},
+        '2.16.840.1.113883.3.464.10001.373' => {},
+        '2.16.840.1.113883.3.464.10001.231' => {},
+        '2.16.840.1.113883.3.464.10001.250' => {},
+        '2.16.840.1.113883.3.464.10001.369' => {},
         '2.16.840.1.114222.4.11.836' => {},
         '2.16.840.1.114222.4.11.837' => {},
         '2.16.840.1.113883.221.5' => {}
