@@ -1,7 +1,7 @@
 <% if entry.respond_to?(:route) && entry.route.present? 
       # hard coded to NCI Thesaurus for the code system since Cat I mandates that
 -%>
-<routeCode code="<%= entry.route['code'] %>" codeSystem="<%= entry.route['codeSystem'] %>"/>
+<routeCode code="<%= entry.route['code'] %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.route['code_system']) %>"/>
 <% end -%>
 
 <% if entry.respond_to?(:dose) && entry.dose.present? -%>
