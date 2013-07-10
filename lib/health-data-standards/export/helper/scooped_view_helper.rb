@@ -51,7 +51,8 @@ module HealthDataStandards
         def entries_for_data_criteria(data_criteria, patient)
           data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition, 
                                                                                       data_criteria.status || '',
-                                                                                      data_criteria.negation)
+                                                                                       data_criteria.negation)
+          HealthDataStandards.logger.warn("Looking for dc [#{data_criteria_oid}]")
           filtered_entries = []
           case data_criteria_oid
           when '2.16.840.1.113883.3.560.1.404'
@@ -62,10 +63,19 @@ module HealthDataStandards
             filtered_entries = handle_payer_information(patient)
           else
             entries = patient.entries_for_oid(data_criteria_oid)
-            if data_criteria_oid == '2.16.840.1.113883.3.560.1.5' && entries.empty?
-              #special case handling for Lab Test: Performed being implicitly available through a Lab Test: Result
-              entries = patient.entries_for_oid('2.16.840.1.113883.3.560.1.12')
-            end
+
+              case data_criteria_oid
+              when '2.16.840.1.113883.3.560.1.5' 
+                #special case handling for Lab Test: Performed being implicitly available through a Lab Test: Result
+                entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.12')
+              when '2.16.840.1.113883.3.560.1.12'
+                entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.5')  
+              when '2.16.840.1.113883.3.560.1.6' 
+                 entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.63')
+              when  '2.16.840.1.113883.3.560.1.63' 
+                 entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.6')
+              end
+ 
             codes = (value_set_map(patient["bundle_id"])[data_criteria.code_list_id] || [])
             if codes.empty?
               HealthDataStandards.logger.warn("No codes for #{data_criteria.code_list_id}")

@@ -17,6 +17,7 @@ module HealthDataStandards
         end
 
         def render_patient_data(patient, measures)
+          HealthDataStandards.logger.warn("Generating CAT I for #{patient.first} #{patient.last}")
           udcs = unique_data_criteria(measures)
           data_criteria_html = udcs.map do |udc|
             entries = entries_for_data_criteria(udc['data_criteria'], patient)
