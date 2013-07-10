@@ -5,7 +5,7 @@
       <% 
       # get the pateint id , treate it as a hex number, turn it to a string and strip the last 9 characters off of it
         hic = patient.id.to_s.hex.to_s
-        hic.slice!(hic.length-9,9)
+        hic = hic.slice(hic.length-9,9)
       %>
       <id extension="<%= hic %>A" root="2.16.840.1.113883.4.572"/>
       <addr use="HP">
