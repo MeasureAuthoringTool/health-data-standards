@@ -31,10 +31,6 @@ module HealthDataStandards
         populations.find {|pop| pop.type == population_type}.id
       end
 
-      def population_id(population_type, dummy_id)
-        populations.find {|pop| pop.type == population_type}.id
-      end
-
       def method_missing(method, *args, &block)
         match_data = method.to_s.match(/^(.+)_count$/)
         if match_data
