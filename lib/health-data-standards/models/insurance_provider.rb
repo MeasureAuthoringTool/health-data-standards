@@ -1,4 +1,4 @@
-class InsuranceProvider
+class InsuranceProvider < Entry
   include Mongoid::Document
   include ThingWithCodes
   

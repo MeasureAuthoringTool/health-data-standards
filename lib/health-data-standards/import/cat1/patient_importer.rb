@@ -64,6 +64,8 @@ module HealthDataStandards
 
           @section_importers[:social_history] = [generate_importer(TobaccoUseImporter, nil, '2.16.840.1.113883.3.560.1.1001', 'completed')]
 
+          @section_importers[:insurance_providers] = [generate_importer(InsuranceProviderImporter, nil, '2.16.840.1.113883.3.560.1.405')]
+
         end 
 
         def parse_cat1(doc)
