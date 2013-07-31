@@ -27,7 +27,7 @@ module HealthDataStandards
         end
       end
 
-      def population_id(population_type)
+      def population_id(population_type, dummy_id)
         populations.find {|pop| pop.type == population_type}.id
       end
 
