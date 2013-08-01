@@ -2,14 +2,19 @@
   <% 
     entries_by_section = {}
     udcs = nil
+    udcs_entries = nil
     if measures.length > 0
       udcs = unique_data_criteria(measures) 
+      udcs_entries = udcs.collect{|dc|  entries_for_data_criteria(dc['data_criteria'],patient)}
+      udcs_entries.flatten!
+      udcs_entries.uniq!
     end
+
     Record::Sections.each do |section|
 	    if section != :insurance_providers
 	       if patient.respond_to? section
            patient.send(section).each do |entry|
-            if udcs.nil? || entry_matches_criteria(entry, udcs)
+            if udcs.nil? || udcs_entries.index(entry)
               decoded_section = decode_hqmf_section(section, entry.oid)
               entries_by_section[decoded_section] ||= []
               entries_by_section[decoded_section] << entry
