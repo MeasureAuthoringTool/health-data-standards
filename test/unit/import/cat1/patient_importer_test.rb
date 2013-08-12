@@ -251,6 +251,12 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert_equal expected_end, encounter.end_time
   end
 
+  def test_insurance_provider
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/insurance_provider_fragment.xml')
+    ip = patient.insurance_providers.first
+    assert_equal({ 'SOP' => ['349'] }, ip.codes)
+  end
+
   private
 
   def build_record_from_xml(xml_file)
