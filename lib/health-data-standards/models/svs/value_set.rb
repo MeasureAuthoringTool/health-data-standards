@@ -39,54 +39,14 @@ module HealthDataStandards
         if vs_element
           vs = ValueSet.new(oid: vs_element["ID"], display_name: vs_element["displayName"], version: vs_element["version"])
           concepts = vs_element.xpath("//vs:Concept").collect do |con|
+            code_system_name = HealthDataStandards::Util::CodeSystemHelper::CODE_SYSTEMS[con["codeSystem"]] || con["codeSystemName"]
             Concept.new(code: con["code"], 
-                        code_system_name: normalize_code_set_name(con["codeSystemName"]), 
+                        code_system_name: code_system_name,
                         code_system_version: con["code_system_version"],
                         display_name: con["displayName"], code_system: con["codeSystem"])
           end
           vs.concepts = concepts
           return vs
-        end
-      end
-
-      def self.normalize_code_set_name(code_set_name)
-        case code_set_name
-        when 'RXNORM'
-          'RxNorm'
-        when 'ICD9CM'
-          'ICD-9-CM'
-        when 'ICD10CM'
-          'ICD-10-CM'
-        when 'ICD10PCS'
-          'ICD-10-PCS'
-        when 'SNOMEDCT'
-          'SNOMED-CT'
-        when 'CDCREC'
-          'CDC Race'
-        when 'HSLOC'
-          'HL7 Healthcare Service Location'
-        else
-          code_set_name
-        end
-      end
-      def self.denormalize_code_set_name(code_set_name)
-        case code_set_name
-        when'RxNorm'
-          'RXNORM'
-        when'ICD-9-CM'
-          'ICD9CM'
-        when'ICD-10-CM'
-          'ICD10CM'
-        when'ICD-10-PCS'
-          'ICD10PCS'
-        when'SNOMED-CT'
-          'SNOMEDCT'
-        when'CDC Race'
-          'CDCREC'
-        when'HL7 Healthcare Service Location'
-          'HSLOC'
-        else
-          code_set_name
         end
       end
     end
