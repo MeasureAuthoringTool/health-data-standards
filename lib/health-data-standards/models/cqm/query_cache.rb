@@ -18,8 +18,13 @@ module HealthDataStandards
       field :OBSERV, type: Float
       field :supplemental_data, type: Hash
 
-      def self.aggregate_measure(measure_id, effective_date, test_id=nil)
-        cache_entries = self.where(effective_date: effective_date, measure_id: measure_id, test_id: test_id)
+      def self.aggregate_measure(measure_id, numerator, effective_date, test_id=nil)
+        cache_entries = []
+        self.where(effective_date: effective_date, measure_id: measure_id, test_id: test_id).each do |entry|
+           if entry['population_ids.NUMER'] == numerator then
+             cache_entries.push(entry)
+           end
+        end
         aggregate_count = AggregateCount.new
         aggregate_count.measure_id = measure_id
         cache_entries.each do |cache_entry|

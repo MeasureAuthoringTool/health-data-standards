@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="utf-8"?>
 <ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xmlns="urn:hl7-org:v3"
@@ -80,7 +81,7 @@
       </representedOrganization>
     </assignedEntity>
   </legalAuthenticator>
-  
+
 
   <!-- 
 ********************************************************
@@ -110,7 +111,7 @@ Measure Section
           <code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
           <title>Measure Section</title>
           <text>
-             
+
           </text>
           <% measures.each do |measure| %>
           <entry>
@@ -125,7 +126,7 @@ Measure Section
                   <!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
                   <!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
                   <id root="<%= measure['hqmf_id'] %>"/>
-                  
+
                   <!-- SHOULD This is the title of the eMeasure -->
                   <text><%= measure['name'] %></text>
                   <!-- SHOULD: setId is the eMeasure version neutral id  -->
@@ -134,15 +135,15 @@ Measure Section
                   <versionNumber value="1"/>
                 </externalDocument>
               </reference>
-             
-              <% result = results[measure['hqmf_id']]
+
+              <% result = results[measure['population_ids.NUMER']]
                  unless result.is_cv? || result.multiple_population_types?
               -%>
               <component>
               <%== render :partial => 'performance_rate', :locals => {:aggregate_count => result} %>
               </component>
               <% end -%>
-              <% result.top_level_populations.each do |pop| 
+              <% result.top_level_populations.each do |pop|
                    unless pop.type == 'OBSERV' -%>
               <component>
               <%== render :partial => 'measure_data', :locals => {:aggregate_count => result, :population_type => pop.type, :population_id => pop.id} %>
