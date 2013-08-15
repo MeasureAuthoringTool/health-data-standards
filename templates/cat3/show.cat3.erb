@@ -94,7 +94,7 @@ CDA Body
 QRDA Category III Reporting Parameters 
 ********************************************************
 -->
-<%== cat1_renderer.render :partial => 'reporting_parameters', :locals => {:start_date => start_date, :end_date => end_date} %>
+<%== render :partial => 'reporting_parameters', :locals => {:start_date => start_date, :end_date => end_date} %>
       <!-- 
 ********************************************************
 Measure Section
@@ -144,7 +144,9 @@ Measure Section
               <% end -%>
               <% result.top_level_populations.each do |pop| 
                    unless pop.type == 'OBSERV' -%>
+              <component>
               <%== render :partial => 'measure_data', :locals => {:aggregate_count => result, :population_type => pop.type, :population_id => pop.id} %>
+              </component>
               <%   end
                  end -%>
             </organizer>
