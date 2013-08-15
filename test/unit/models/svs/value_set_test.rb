@@ -17,9 +17,4 @@ class ValueSetTest < MiniTest::Unit::TestCase
     assert_equal code_set_map[0]['set'], 'SNOMED-CT'
     assert_includes code_set_map[0]['values'], "103735009"
   end
-
-  def test_normalize_code_set_name
-    assert_equal 'SNOMED-CT',  HealthDataStandards::SVS::ValueSet.normalize_code_set_name('SNOMEDCT')
-    assert_equal 'FOO',  HealthDataStandards::SVS::ValueSet.normalize_code_set_name('FOO')
-  end
 end
