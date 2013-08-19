@@ -71,15 +71,15 @@ module HealthDataStandards
       end
 
       def smoking_gun_data(patient_cache_filter={})
-        ::Measure.calculate_smoking_gun_data(self.hqmf_id, patient_cache_filter)
+        ::Measure.calculate_smoking_gun_data(self["bundle_id"], self.hqmf_id, patient_cache_filter)
       end
       # Calculate the smoking gun data for the given hqmf_id with the given patient_cache_filter
       # The  filter will allow us to segment the cache by things like test_id required for Cypress.
 
-      def self.calculate_smoking_gun_data(hqmf_id, patient_cache_filter={})
+      def self.calculate_smoking_gun_data(bundle_id, hqmf_id, patient_cache_filter={})
         population_keys = ('a'..'zz').to_a
         values = {}
-        measure = Measure.top_level.where({hqmf_id: hqmf_id}).first
+        measure = Measure.top_level.where({hqmf_id: hqmf_id, bundle_id: bundle_id}).first
         sub_ids = []
         hqmf_measure = measure.as_hqmf_model
         population_codes = []
@@ -139,7 +139,7 @@ module HealthDataStandards
               qrda_template = 'N/A'
             end # end begin recue
              description = "#{HQMF::DataCriteria.title_for_template_id(template).titleize}: #{data_criteria.title}"
-             result << {description: description, oid: value_set_oid, template: qrda_template}
+             result << {description: description, oid: value_set_oid, template: qrda_template, rationale: rationale[data_criteria.id]}
             if data_criteria.temporal_references
               data_criteria.temporal_references.each do |temporal_reference|
                 if temporal_reference.reference.id != 'MeasurePeriod'

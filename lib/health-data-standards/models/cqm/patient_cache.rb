@@ -1,4 +1,4 @@
-module HealthDataStandards
+ module HealthDataStandards
 	module CQM
 	  class PatientCache
 			include Mongoid::Document
