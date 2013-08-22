@@ -1,4 +1,6 @@
-<% if entry.negation_reason.present? -%>
+<% if entry.negation_reason.present? 
+      vset = oid_for_code(entry.negation_reason,reason_oids, entry.record["bundle_id"])
+  -%>
 <entryRelationship typeCode="RSON">
   <observation classCode="OBS" moodCode="EVN">
     <templateId root="2.16.840.1.113883.10.20.24.3.88"/>  
@@ -10,7 +12,11 @@
     <effectiveTime <%= value_or_null_flavor(entry.start_time) %>/>
     <value xsi:type="CD" 
          code="<%= entry.negation_reason['code'] %>" 
-         codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.negation_reason['codeSystem'] || entry.negation_reason['code_system']) %>"/>
+         codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.negation_reason['codeSystem'] || entry.negation_reason['code_system']) %>"
+        <% if vset -%>
+          sdtc:valueSet="<%= vset %>"
+        <% end -%>
+         />
   </observation>
 </entryRelationship>
 <% end -%>

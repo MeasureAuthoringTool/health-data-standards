@@ -7,13 +7,12 @@
     <templateId root="2.16.840.1.113883.10.20.24.3.57"/>
     <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
     <%== code_display(entry, 'value_set_map' => value_set_map, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>    
-
     <statusCode code="completed"/>
 
     <effectiveTime>
       <low <%= value_or_null_flavor(entry.start_time) %>/>
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
-    <%== render(:partial => 'result_value', :locals => {:values => [entry.values.first]}) %>
+    <%== render(:partial => 'result_value', :locals => {:values => [entry.values.first], :result_oids=>result_oids}) %>
   </observation>
 </entry>

@@ -15,14 +15,31 @@ module HealthDataStandards
         # one for the value set oid and one for the data criteria itself
         def unique_data_criteria(measures)
           all_data_criteria = measures.map {|measure| measure.all_data_criteria}.flatten
-          unioned_data_criteria = all_data_criteria.map do |data_criteria|
+          mapped_data_criteria = {}
+          all_data_criteria.each do |data_criteria|
             data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition, 
                                                                               (data_criteria.status || ""),
                                                                               data_criteria.negation)
             value_set_oid = data_criteria.code_list_id
-            {'data_criteria_oid' => data_criteria_oid, 'value_set_oid' => value_set_oid, 'data_criteria' => data_criteria}
+            dc = {'data_criteria_oid' => data_criteria_oid, 'value_set_oid' => value_set_oid}
+            mapping = mapped_data_criteria[dc] ||= {'result_oids' => [], 'field_oids' =>{}, 'data_criteria' => data_criteria}
+            
+            if data_criteria.field_values
+              data_criteria.field_values.each_pair do |field,descr|
+                if descr && descr.type == "CD"
+                  (mapping['field_oids'][field] ||= []) << descr.code_list_id
+                end
+              end
+            end
+
+            if data_criteria.value && data_criteria.value.type == "CD"
+              mapping["result_oids"] << data_criteria.value.code_list_id
+            end
+
+            # {'data_criteria_oid' => data_criteria_oid, 'value_set_oid' => value_set_oid, 'data_criteria' => data_criteria}
           end
-          unioned_data_criteria.uniq_by {|thingy| [thingy['data_criteria_oid'], thingy['value_set_oid']]}
+          # unioned_data_criteria.uniq_by {|thingy| [thingy['data_criteria_oid'], thingy['value_set_oid']]}
+          mapped_data_criteria.collect{|dc| dc[0].merge dc[1] }
         end
 
         # Returns true if the supplied entry matches any of the supplied data criteria, false otherwise
@@ -54,6 +71,7 @@ module HealthDataStandards
                                                                                        data_criteria.negation)
           HealthDataStandards.logger.warn("Looking for dc [#{data_criteria_oid}]")
           filtered_entries = []
+          entries = []
           case data_criteria_oid
           when '2.16.840.1.113883.3.560.1.404'
             filtered_entries = handle_patient_expired(patient)
@@ -62,7 +80,7 @@ module HealthDataStandards
           when '2.16.840.1.113883.3.560.1.405'
             filtered_entries = handle_payer_information(patient)
           else
-            entries = patient.entries_for_oid(data_criteria_oid)
+            entries.concat patient.entries_for_oid(data_criteria_oid)
 
               case data_criteria_oid
               when '2.16.840.1.113883.3.560.1.5' 
@@ -80,6 +98,7 @@ module HealthDataStandards
             if codes.empty?
               HealthDataStandards.logger.warn("No codes for #{data_criteria.code_list_id}")
             end
+            entries.uniq!
             filtered_entries = entries.find_all do |entry|
               # This special case is for when the code list is a reason
               if data_criteria.code_list_id =~ /2\.16\.840\.1\.113883\.3\.526\.3\.100[7-9]/
@@ -117,6 +136,19 @@ module HealthDataStandards
           patient.insurance_providers
         end
 
+        def code_in_valueset( code, valuesets=[],bundle_id=nil)
+          unless(bundle_id.nil?)
+            bundle = Bundle.find(bundle_id)
+            vs_matches = []
+            valuesets.each do |vs|
+              vset = bundle.valuesets.where({"oid"=>vs}).first
+              if vset && vset.concepts.where({"code" => code["code"], "codeSystem" => code["code_system"]}).first
+                vs_matches << vs
+              end
+            end
+            return vs_matches
+          end
+        end
       end
     end
   end

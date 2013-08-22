@@ -14,7 +14,7 @@
       <!-- Attribute: discharge datetime -->
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
-    <%== render(:partial => 'ordinality', :locals => {:entry => entry}) %>
+    <%== render(:partial => 'ordinality', :locals => {:entry => entry, :reason_oids=>field_oids["ORDINALITY"]}) %>
     
     <%== code_display(entry, {'tag_name' => 'value', 'value_set_map' => value_set_map,'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'],
                                                     'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\""}) %>

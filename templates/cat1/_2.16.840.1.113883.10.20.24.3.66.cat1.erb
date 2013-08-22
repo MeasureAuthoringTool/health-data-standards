@@ -27,7 +27,7 @@
         <%== code_display(entry, 'value_set_map' => value_set_map, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'CPT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
         <statusCode code="completed"/>
         <effectiveTime <%= value_or_null_flavor(entry.start_time) %>/>
-        <%== render(:partial => 'result_value', :locals => {:values => entry.values}) %>
+        <%== render(:partial => 'result_value', :locals => {:values => entry.values, :result_oids=>result_oids} ) %>
       </observation>
     </entryRelationship>
   </procedure>

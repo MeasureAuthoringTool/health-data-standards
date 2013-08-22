@@ -11,7 +11,9 @@ module HealthDataStandards
               render(:partial => HealthDataStandards::Export::QRDA::EntryTemplateResolver.partial_for(dc['data_criteria_oid'], dc['value_set_oid']), :locals => {:entry => entry,
                                                                                                                                    :data_criteria => dc['data_criteria'],
                                                                                                                                    :value_set_oid => dc['value_set_oid'],
-                                                                                                                                   :value_set_map => vs_map})
+                                                                                                                                   :value_set_map => vs_map,
+                                                                                                                                   :result_oids => dc["result_oids"],
+                                                                                                                                   :field_oids => dc["field_oids"]})
           end
           html_array.join("\n")
         end
@@ -32,6 +34,21 @@ module HealthDataStandards
           else
             ''
           end
+        end
+
+        def oid_for_code(codedValue, valueset_oids,  bundle_id = nil)
+          valueset_oids ||=[]
+          code = codedValue["code"]
+          code_system = codedValue["code_set"]
+          vs_map = (value_set_map(bundle_id) || {})
+          valueset_oids.each do |vs_oid|
+            oid_list = (vs_map[vs_oid] || [])
+            oid_map = Hash[oid_list.collect{|x| [x["set"],x["values"]]}]
+            if (oid_map[code_system] || []).index code
+              return vs_oid
+            end
+          end
+          return nil
         end
 
       end

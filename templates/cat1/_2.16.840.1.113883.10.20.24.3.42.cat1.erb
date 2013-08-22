@@ -20,7 +20,7 @@
           <low <%= value_or_null_flavor(entry.start_time) %>/>
           <high <%= value_or_null_flavor(entry.end_time) %>/>
         </effectiveTime>
-        <%== render(:partial => 'medication_details', :locals => {:entry => entry}) %>
+        <%== render(:partial => 'medication_details', :locals => {:entry => entry, :route_oids=>field_oids["ROUTE"]}) %>
         <consumable>
           <manufacturedProduct classCode="MANU">
             <!-- Medication Information (consolidation) template -->
@@ -33,6 +33,6 @@
         </consumable>
       </substanceAdministration>
     </entryRelationship>
-    <%== render(:partial => 'reason', :locals => {:entry => entry}) %>
+    <%== render(:partial => 'reason', :locals => {:entry => entry,:reason_oids=>field_oids["REASON"]}) %>
   </act>
 </entry>
