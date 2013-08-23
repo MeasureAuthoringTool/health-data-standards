@@ -5,7 +5,7 @@ In addition this project also contains libaries for parsing hqmf documents and f
 Environment
 ===========
 
-This project currently uses Ruby 1.9.2 and is built using [Bundler](http://gembundler.com/). To get all of the dependencies for the project, first install bundler:
+This project currently uses Ruby 1.9.3 and is built using [Bundler](http://gembundler.com/). To get all of the dependencies for the project, first install bundler:
 
     gem install bundler
 
@@ -22,10 +22,19 @@ Project Practices
 
 Please try to follow our [Coding Style Guides](http://github.com/eedrummer/styleguide). Additionally, we will be using git in a pattern similar to [Vincent Driessen's workflow](http://nvie.com/posts/a-successful-git-branching-model/). While feature branches are encouraged, they are not required to work on the project.
 
+Change Log
+==========
+
+3.2.8 - August 23, 2013
+
+* Bug fixes for QRDA Category III generation
+* Import for insurance providers from QRDA Category I documents
+* Consolidated code for dealing with code system names
+
 License
 =======
 
-Copyright 2011 The MITRE Corporation
+Copyright 2013 The MITRE Corporation
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
