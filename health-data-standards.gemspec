@@ -8,20 +8,20 @@ Gem::Specification.new do |s|
   s.homepage = "https://github.com/projectcypress/health-data-standards"
   s.authors = ["Andy Gregorowicz", "Sam Sayer", "Marc Hadley", "Rob Dingwell", "Andre Quina"]
 
-  s.version = '3.2.7'
+  s.version = '3.2.8'
   
   s.add_dependency 'rest-client', '~>1.6.7'
   s.add_dependency 'erubis', '~> 2.7.0'
-  s.add_dependency 'mongoid', '~> 3.1.0'
-  s.add_dependency 'activesupport', '~> 3.2.9'
-  s.add_dependency 'uuid', '~> 2.3.5'
+  s.add_dependency 'mongoid', '~> 3.1.4'
+  s.add_dependency 'activesupport', '~> 3.2.14'
+  s.add_dependency 'uuid', '~> 2.3.7'
   s.add_dependency 'builder', '~> 3.0.0'
-  s.add_dependency 'nokogiri', '~> 1.5.5'
+  s.add_dependency 'nokogiri', '~> 1.6.0'
 
   s.add_dependency 'rubyzip'
 
   s.add_dependency 'log4r', '~> 1.1.10'
-  s.add_dependency 'memoist', '~> 0.9.0'
+  s.add_dependency 'memoist', '~> 0.9.1'
 
   s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/**/*.erb') + Dir.glob('lib/**/*.json') + Dir.glob('lib/**/*.erb') + Dir.glob('lib/health-data-standards/tasks/*.rake') +
             ["Gemfile", "README.md", "Rakefile", "VERSION"]
