@@ -98,7 +98,7 @@ module HealthDataStandards
             if codes.empty?
               HealthDataStandards.logger.warn("No codes for #{data_criteria.code_list_id}")
             end
-            entries.uniq!
+            entries.uniq! {|e| e["_id"]}
             filtered_entries = entries.find_all do |entry|
               # This special case is for when the code list is a reason
               if data_criteria.code_list_id =~ /2\.16\.840\.1\.113883\.3\.526\.3\.100[7-9]/
