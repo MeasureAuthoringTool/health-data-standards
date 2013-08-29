@@ -32,7 +32,7 @@ module HealthDataStandards
           provider = {}
           entity = performer.xpath(entity_path)
           
-          name = entity.xpath("./cda:assignedPerson/cda:name")
+          name = entity.at_xpath("./cda:assignedPerson/cda:name")
           provider[:title]        = extract_data(name, "./cda:prefix")
           provider[:given_name]   = extract_data(name, "./cda:given[1]")
           provider[:family_name]  = extract_data(name, "./cda:family")
@@ -51,6 +51,7 @@ module HealthDataStandards
           provider[:telecoms] = performer.xpath("./cda:assignedEntity/cda:telecom").try(:map) {|te| import_telecom(te)}
           
           provider[:npi] = npi if Provider.valid_npi?(npi)
+          
           provider
         end
       
@@ -61,7 +62,7 @@ module HealthDataStandards
       
         # Returns nil if result is an empty string, block allows text munging of result if there is one
         def extract_data(subject, query)
-          result = subject.xpath(query).text
+          result = subject.try(:xpath,query).try(:text)
           if result == ""
             nil
           else
