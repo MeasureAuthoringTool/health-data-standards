@@ -12,6 +12,7 @@ require 'memoist'
 # Freedom patches
 require_relative 'health-data-standards/ext/symbol'
 require_relative 'health-data-standards/ext/string'
+require_relative 'health-data-standards/ext/node'
 
 require_relative 'health-data-standards/util/hl7_helper'
 require_relative 'health-data-standards/util/code_system_helper'

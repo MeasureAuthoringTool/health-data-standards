@@ -1,9 +1,14 @@
 language: ruby
 rvm:
   - 1.9.3
+  - 2.0.0
+  - jruby-19mode
 
 services:
   - mongodb
+
+env:
+  - "JRUBY_OPTS=-J-Xmx1024m"
 
 script: bundle exec rake test
 
