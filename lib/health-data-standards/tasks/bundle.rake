@@ -3,6 +3,32 @@ require 'health-data-standards'
 db_name = ENV['DB_NAME'] || 'test'
 
 namespace :bundle do
+
+  desc 'Activate/Inactivate a measure bundle'
+  task :activate,[:version,:active] => [:environment] do |task, args|
+    bundle = Bundle.where({version: args.version})
+    if bundle.count == 0
+      puts "Cannot find bundle with version number #{args.version}"
+      return
+    end
+
+    bundle.each do |b|
+      b.active = (args.active == "true")
+      b.save
+      puts "Bundle #{b.title} - #{b.version}  active: #{b.active}"
+    end
+
+  end
+
+
+  desc 'List bundles'
+  task :list  => [:environment] do 
+     Bundle.where({}).each do |b|
+      puts "Bundle #{b.title} - #{b.version}  active: #{b.active}"
+     end
+  end
+
+
   desc 'Import a quality bundle into the database.'
   task :import, [:bundle_path,  :delete_existing,  :update_measures, :type, :create_indexes] => [:environment] do |task, args|
     raise "The path to the measures zip file must be specified" unless args.bundle_path
