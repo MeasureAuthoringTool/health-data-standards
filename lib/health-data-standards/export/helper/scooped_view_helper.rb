@@ -92,6 +92,10 @@ module HealthDataStandards
                  entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.63')
               when  '2.16.840.1.113883.3.560.1.63' 
                  entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.6')
+              when '2.16.840.1.113883.3.560.1.3' 
+                 entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.11')
+              when  '2.16.840.1.113883.3.560.1.11' 
+                 entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.3')
               end
  
             codes = (value_set_map(patient["bundle_id"])[data_criteria.code_list_id] || [])
