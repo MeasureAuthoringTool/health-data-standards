@@ -1,7 +1,10 @@
 module Qrda
 
   class Person
-	include Personable
+	  include Mongoid::Document
+    field :given, type: String
+    field :family, type: String
+    
 	
   end
   
