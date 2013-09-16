@@ -22,26 +22,38 @@ module HealthDataStandards
         binding
       end
 
+     
+
       def render(params)
         erb = nil
+        ident = nil
         if params[:template]
           erb = @template_helper.template(params[:template])
         elsif params[:partial]
           erb = @template_helper.partial(params[:partial])
-        end
-        
-        locals = params[:locals]
-        locals ||= {}
-        rendering_context = RenderingContext.new(locals)
-        rendering_context.template_helper = @template_helper
-        if @extensions.present?
-          rendering_context.extensions = @extensions
-          @extensions.each do |extension|
-            rendering_context.extend(extension)
+          if params[:collection] 
+            ident = params[:id] || params[:partial]
           end
         end
-        eruby = Erubis::EscapedEruby.new(erb) # TODO: cache these
-        eruby.result(rendering_context.my_binding)
+
+        collection = params[:collection] || [true]
+        collection.map do |item| 
+          locals = params[:locals]
+          locals ||= {}
+          if ident
+            locals[ident] = item 
+          end
+          rendering_context = RenderingContext.new(locals)
+          rendering_context.template_helper = @template_helper
+          if @extensions.present?
+            rendering_context.extensions = @extensions
+            @extensions.each do |extension|
+              rendering_context.extend(extension)
+            end
+          end
+          eruby = Erubis::EscapedEruby.new(erb) # TODO: cache these
+          eruby.result(rendering_context.my_binding)
+        end.join
       end
     end
   end

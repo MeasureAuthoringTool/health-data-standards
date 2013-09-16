@@ -74,6 +74,17 @@ require_relative 'health-data-standards/models/metadata/change_info'
 require_relative 'health-data-standards/models/metadata/link_info'
 require_relative 'health-data-standards/models/metadata/pedigree'
 
+require_relative 'health-data-standards/models/qrda/id'
+require_relative 'health-data-standards/models/qrda/device'
+require_relative 'health-data-standards/models/qrda/person'
+require_relative 'health-data-standards/models/qrda/organization'
+require_relative 'health-data-standards/models/qrda/custodian'
+require_relative 'health-data-standards/models/qrda/legal_authenticator'
+require_relative 'health-data-standards/models/qrda/author'
+require_relative 'health-data-standards/models/qrda/header'
+
+
+
 require_relative 'health-data-standards/export/qrda/entry_template_resolver'
 require_relative 'health-data-standards/export/helper/scooped_view_helper'
 require_relative 'health-data-standards/export/helper/html_view_helper'
