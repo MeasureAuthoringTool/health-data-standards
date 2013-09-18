@@ -19,6 +19,6 @@ class MedicalEquipmentImporterTest < MiniTest::Unit::TestCase
     
     assert_equal( {"SNOMED-CT" => ["304120007"]}, me2.codes)
     assert_equal "Good Health Prostheses Company", me2.manufacturer
-    
+
   end
 end
