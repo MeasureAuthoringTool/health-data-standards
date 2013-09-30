@@ -3,7 +3,7 @@
  xmlns="urn:hl7-org:v3"
  xmlns:cda="urn:hl7-org:v3">
 
-  <!-- 
+  <!--
     ********************************************************
     CDA Header
     ********************************************************
@@ -13,7 +13,7 @@
   <!-- QRDA Category III Release 1 template ID (this template ID differs from QRDA III comment only template ID). -->
   <templateId root="2.16.840.1.113883.10.20.27.1.1"/>
   <%== render :partial=>"id", :locals=>{identifier: header.identifier} %>
-  
+
   <!-- SHALL QRDA III document type code -->
   <code code="55184-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"
     displayName="Quality Reporting Document Architecture Calculated Summary Report"/>
@@ -33,19 +33,19 @@
   </recordTarget>
 
   <%== render :partial=>"author", :collection=>header.authors %>
-  <!-- SHALL have 1..* author. MAY be device or person. 
+  <!-- SHALL have 1..* author. MAY be device or person.
     The author of the CDA document in this example is a device at a data submission vendor/registry. -->
- 
-  <!-- The custodian of the CDA document is the same as the legal authenticator in this 
+
+  <!-- The custodian of the CDA document is the same as the legal authenticator in this
   example and represents the reporting organization. -->
   <!-- SHALL -->
   <custodian>
     <assignedCustodian>
       <%== render :partial=>"id", :collection=>header.custodian.organization.ids, :id=>"identifier" %>
-      <%== render :partial=>"organization", :locals=>{organization: header.custodian.organization} %>
+      <%== render :partial=>"custodian_organization", :locals=>{organization: header.custodian.organization} %>
     </assignedCustodian>
   </custodian>
-  <!-- The legal authenticator of the CDA document is a single person who is at the 
+  <!-- The legal authenticator of the CDA document is a single person who is at the
     same organization as the custodian in this example. This element must be present. -->
   <!-- SHALL -->
   <legalAuthenticator>
@@ -67,22 +67,22 @@
       <%== render :partial=>"organization", :locals=>{organization: header.legal_authenticator.organization} %>
     </assignedEntity>
   </legalAuthenticator>
-  
 
-  <!-- 
+
+  <!--
 ********************************************************
 CDA Body
 ********************************************************
 -->
   <component>
     <structuredBody>
-      <!-- 
+      <!--
 ********************************************************
-QRDA Category III Reporting Parameters 
+QRDA Category III Reporting Parameters
 ********************************************************
 -->
 <%== render :partial => 'reporting_parameters', :locals => {:start_date => start_date, :end_date => end_date} %>
-      <!-- 
+      <!--
 ********************************************************
 Measure Section
 ********************************************************
@@ -97,7 +97,7 @@ Measure Section
           <code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
           <title>Measure Section</title>
           <text>
-             
+
           </text>
           <% measures.each do |measure| %>
           <entry>
@@ -112,7 +112,7 @@ Measure Section
                   <!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
                   <!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
                   <id root="<%= measure['hqmf_id'] %>"/>
-                  
+
                   <!-- SHOULD This is the title of the eMeasure -->
                   <text><%= measure['name'] %></text>
                   <!-- SHOULD: setId is the eMeasure version neutral id  -->
@@ -121,7 +121,7 @@ Measure Section
                   <versionNumber value="1"/>
                 </externalDocument>
               </reference>
-             
+
               <% result = results[measure['hqmf_id']]
                  unless result.is_cv? || result.multiple_population_types?
               -%>
@@ -129,7 +129,7 @@ Measure Section
               <%== render :partial => 'performance_rate', :locals => {:aggregate_count => result} %>
               </component>
               <% end -%>
-              <% result.top_level_populations.each do |pop| 
+              <% result.top_level_populations.each do |pop|
                    unless pop.type == 'OBSERV' -%>
               <component>
               <%== render :partial => 'measure_data', :locals => {:aggregate_count => result, :population_type => pop.type, :population_id => pop.id} %>
