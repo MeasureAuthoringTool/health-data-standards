@@ -1,5 +1,6 @@
 class Record
   include Mongoid::Document
+  include Mongoid::Timestamps
   extend Memoist
   
   field :title, type: String

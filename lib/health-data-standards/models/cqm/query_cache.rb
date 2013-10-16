@@ -2,8 +2,11 @@ module HealthDataStandards
   module CQM
     class QueryCache
       include Mongoid::Document
+      include Mongoid::Timestamps
       store_in collection: 'query_cache'
 
+      field :calculation_date, type: Time 
+      field :status, type: Hash
       field :measure_id, type: String
       field :sub_id, type: String
       field :population_ids, type: Hash
@@ -18,8 +21,8 @@ module HealthDataStandards
       field :OBSERV, type: Float
       field :supplemental_data, type: Hash
 
-      def self.aggregate_measure(measure_id, effective_date, test_id=nil)
-        cache_entries = self.where(effective_date: effective_date, measure_id: measure_id, test_id: test_id)
+      def self.aggregate_measure(measure_id, effective_date, filter=nil, test_id=nil)
+        cache_entries = self.where(effective_date: effective_date, measure_id: measure_id, test_id: test_id, filter: filter)
         aggregate_count = AggregateCount.new
         aggregate_count.measure_id = measure_id
         cache_entries.each do |cache_entry|

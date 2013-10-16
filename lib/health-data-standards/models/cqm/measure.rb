@@ -2,6 +2,7 @@ module HealthDataStandards
   module CQM
     class Measure
       include Mongoid::Document
+      include Mongoid::Timestamps
       store_in collection: 'measures'
       field :id, type: String
       field :sub_id, type: String

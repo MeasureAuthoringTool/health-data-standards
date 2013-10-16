@@ -3,6 +3,7 @@ module HealthDataStandards
 
     class Bundle
       include Mongoid::Document
+      include Mongoid::Timestamps
       store_in collection: 'bundles'
       field :title, type: String
       field :version, type: String
