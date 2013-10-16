@@ -83,7 +83,11 @@ require_relative 'health-data-standards/models/qrda/legal_authenticator'
 require_relative 'health-data-standards/models/qrda/author'
 require_relative 'health-data-standards/models/qrda/header'
 
-
+require_relative 'health-data-standards/models/cqm/aggregate_objects'
+require_relative 'health-data-standards/models/cqm/query_cache'
+require_relative 'health-data-standards/models/cqm/bundle'
+require_relative 'health-data-standards/models/cqm/measure'
+require_relative 'health-data-standards/models/cqm/patient_cache'
 
 require_relative 'health-data-standards/export/qrda/entry_template_resolver'
 require_relative 'health-data-standards/export/helper/scooped_view_helper'
@@ -168,11 +172,6 @@ require_relative 'health-data-standards/import/cat1/ecog_status_importer'
 require_relative 'health-data-standards/import/cat1/symptom_active_importer'
 require_relative 'health-data-standards/import/cat1/insurance_provider_importer'
 
-require_relative 'health-data-standards/models/cqm/aggregate_objects'
-require_relative 'health-data-standards/models/cqm/query_cache'
-require_relative 'health-data-standards/models/cqm/bundle'
-require_relative 'health-data-standards/models/cqm/measure'
-require_relative 'health-data-standards/models/cqm/patient_cache'
 require_relative 'health-data-standards/import/bundle/importer'
 
 

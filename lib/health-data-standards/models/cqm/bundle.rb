@@ -15,18 +15,19 @@ module HealthDataStandards
 
       validates_presence_of :version
 
-      def self.active
-        self.where({active: true})
+      scope :active, where(active: true)
+
+      def self.latest_bundle_id
+        desc(:exported).first.try(:_id)
       end
 
       def measures
-      	 HealthDataStandards::CQM::Measure.where({bundle_id: self.id}).order_by([["id", :asc],["sub_id",:asc]])
+        HealthDataStandards::CQM::Measure.where({bundle_id: self.id}).order_by([["id", :asc],["sub_id",:asc]])
       end
 
       def records
-      	Record.where(bundle_id: self._id, test_id: nil).order_by([["last", :asc]])
+        Record.where(bundle_id: self._id, test_id: nil).order_by([["last", :asc]])
       end
-
 
       def value_sets
         HealthDataStandards::SVS::ValueSet.in(bundle_id: self.id)
@@ -38,8 +39,6 @@ module HealthDataStandards
         self.value_sets.destroy
         super
       end
-
-
-	   end
+     end
   end
 end
