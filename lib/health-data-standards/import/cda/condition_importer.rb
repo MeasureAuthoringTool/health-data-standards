@@ -37,7 +37,7 @@ module HealthDataStandards
         def extract_ordinality(parent_element, entry)
           ordinality_element = parent_element.at_xpath(@ordinality_xpath)
           if ordinality_element
-            entry.ordinality = {CodeSystemHelper.code_system_for(ordinality_element['codeSystem']) => [ordinality_element['code']]}
+            entry.ordinality = {"code" => ordinality_element['code'], "code_system" => CodeSystemHelper.code_system_for(ordinality_element['codeSystem']), "codeSystemName" => CodeSystemHelper.code_system_for(ordinality_element['codeSystem']), CodeSystemHelper.code_system_for(ordinality_element['codeSystem']) => [ordinality_element['code']]}
           end
         end
 
