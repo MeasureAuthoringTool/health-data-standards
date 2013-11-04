@@ -163,12 +163,12 @@ module HealthDataStandards
           unless negation_indicator.nil?
             entry.negation_ind = negation_indicator.eql?('true')
             if entry.negation_ind
-              negation_reason_element = parent_element.at_xpath("./cda:entryRelationship[@typeCode='RSON']/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:code")
+              negation_reason_element = parent_element.at_xpath("./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value")
               if negation_reason_element
                 code_system_oid = negation_reason_element['codeSystem']
                 code = negation_reason_element['code']
                 code_system = HealthDataStandards::Util::CodeSystemHelper.code_system_for(code_system_oid)
-                entry.negation_reason = {'code' => code, 'codeSystem' => code_system}
+                entry.negation_reason = {'code' => code, 'code_system' => code_system, 'codeSystem' => code_system}
               end
             end
           end
