@@ -1,0 +1,2208 @@
+{
+  "id": "8A4D92B2-397A-48D2-0139-7CC6B5B8011E",
+    "bundle_id" : "4fdb62e01d41c820f6000001",
+  "nqf_id": "0024",
+  "hqmf_id": "8A4D92B2-397A-48D2-0139-7CC6B5B8011E",
+  "hqmf_set_id": "0B63F730-25D6-4248-B11F-8C09C66A04EB",
+  "hqmf_version_number": 1,
+  "cms_id": "CMS155v1",
+  "endorser": null,
+  "name": "Weight Assessment and Counseling for Nutrition and Physical Activity for Children and Adolescents",
+  "description": "Percentage of patients 3-17 years of age who had an outpatient visit with a Primary Care Physician (PCP) or Obstetrician/Gynecologist (OB/GYN) and who had evidence of the following during the measurement period. Three rates are reported.\r\n\r\n - Percentage of patients with height, weight, and body mass index (BMI) percentile documentation\r\n - Percentage of patients with counseling for nutrition\r\n - Percentage of patients with counseling for physical activity",
+  "type": "ep",
+  "category": "Core",
+  "steward": null,
+  "population": {
+    "conjunction": "and",
+    "items": [
+      {
+        "conjunction": "and",
+        "items": [
+          {
+            "title": "birth date",
+            "description": "Patient Characteristic Birthdate: birth date",
+            "standard_category": "individual_characteristic",
+            "qds_data_type": "individual_characteristic",
+            "code_list_id": "2.16.840.1.113883.3.560.100.4",
+            "property": "birthtime",
+            "type": "characteristic",
+            "definition": "patient_characteristic_birthdate",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "PatientCharacteristicBirthdateBirthDate",
+            "inline_code_list": {
+              "LOINC": [
+                "21112-8"
+              ]
+            },
+            "temporal_references": [
+              {
+                "type": "SBS",
+                "reference": "MeasurePeriod",
+                "range": {
+                  "type": "IVL_PQ",
+                  "low": {
+                    "type": "PQ",
+                    "unit": "a",
+                    "value": "12",
+                    "inclusive?": true,
+                    "derived?": false
+                  }
+                },
+                "title": "MeasurePeriod"
+              }
+            ]
+          },
+          {
+            "title": "birth date",
+            "description": "Patient Characteristic Birthdate: birth date",
+            "standard_category": "individual_characteristic",
+            "qds_data_type": "individual_characteristic",
+            "code_list_id": "2.16.840.1.113883.3.560.100.4",
+            "property": "birthtime",
+            "type": "characteristic",
+            "definition": "patient_characteristic_birthdate",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "PatientCharacteristicBirthdateBirthDate",
+            "inline_code_list": {
+              "LOINC": [
+                "21112-8"
+              ]
+            },
+            "temporal_references": [
+              {
+                "type": "SBS",
+                "reference": "MeasurePeriod",
+                "range": {
+                  "type": "IVL_PQ",
+                  "high": {
+                    "type": "PQ",
+                    "unit": "a",
+                    "value": "17",
+                    "inclusive?": true,
+                    "derived?": false
+                  }
+                },
+                "title": "MeasurePeriod"
+              }
+            ]
+          },
+          {
+            "conjunction": "or",
+            "items": [
+              {
+                "title": "Face-to-Face Interaction",
+                "description": "Encounter, Performed: Face-to-Face Interaction",
+                "standard_category": "encounter",
+                "qds_data_type": "encounter",
+                "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1048",
+                "type": "encounters",
+                "definition": "encounter",
+                "status": "performed",
+                "hard_status": false,
+                "negation": false,
+                "source_data_criteria": "EncounterPerformedFaceToFaceInteraction",
+                "temporal_references": [
+                  {
+                    "type": "DURING",
+                    "reference": "MeasurePeriod",
+                    "title": "MeasurePeriod"
+                  }
+                ]
+              },
+              {
+                "title": "Office Visit",
+                "description": "Encounter, Performed: Office Visit",
+                "standard_category": "encounter",
+                "qds_data_type": "encounter",
+                "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+                "type": "encounters",
+                "definition": "encounter",
+                "status": "performed",
+                "hard_status": false,
+                "negation": false,
+                "source_data_criteria": "EncounterPerformedOfficeVisit",
+                "temporal_references": [
+                  {
+                    "type": "DURING",
+                    "reference": "MeasurePeriod",
+                    "title": "MeasurePeriod"
+                  }
+                ]
+              },
+              {
+                "title": "Preventive Care Services-Individual Counseling",
+                "description": "Encounter, Performed: Preventive Care Services-Individual Counseling",
+                "standard_category": "encounter",
+                "qds_data_type": "encounter",
+                "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1026",
+                "type": "encounters",
+                "definition": "encounter",
+                "status": "performed",
+                "hard_status": false,
+                "negation": false,
+                "source_data_criteria": "EncounterPerformedPreventiveCareServicesIndividualCounseling",
+                "temporal_references": [
+                  {
+                    "type": "DURING",
+                    "reference": "MeasurePeriod",
+                    "title": "MeasurePeriod"
+                  }
+                ]
+              },
+              {
+                "title": "Preventive Care- Initial Office Visit, 0 to 17",
+                "description": "Encounter, Performed: Preventive Care- Initial Office Visit, 0 to 17",
+                "standard_category": "encounter",
+                "qds_data_type": "encounter",
+                "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1022",
+                "type": "encounters",
+                "definition": "encounter",
+                "status": "performed",
+                "hard_status": false,
+                "negation": false,
+                "source_data_criteria": "EncounterPerformedPreventiveCareInitialOfficeVisit0To17",
+                "temporal_references": [
+                  {
+                    "type": "DURING",
+                    "reference": "MeasurePeriod",
+                    "title": "MeasurePeriod"
+                  }
+                ]
+              },
+              {
+                "title": "Preventive Care - Established Office Visit, 0 to 17",
+                "description": "Encounter, Performed: Preventive Care - Established Office Visit, 0 to 17",
+                "standard_category": "encounter",
+                "qds_data_type": "encounter",
+                "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1024",
+                "type": "encounters",
+                "definition": "encounter",
+                "status": "performed",
+                "hard_status": false,
+                "negation": false,
+                "source_data_criteria": "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17",
+                "temporal_references": [
+                  {
+                    "type": "DURING",
+                    "reference": "MeasurePeriod",
+                    "title": "MeasurePeriod"
+                  }
+                ]
+              },
+              {
+                "title": "Preventive Care Services - Group Counseling",
+                "description": "Encounter, Performed: Preventive Care Services - Group Counseling",
+                "standard_category": "encounter",
+                "qds_data_type": "encounter",
+                "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1027",
+                "type": "encounters",
+                "definition": "encounter",
+                "status": "performed",
+                "hard_status": false,
+                "negation": false,
+                "source_data_criteria": "EncounterPerformedPreventiveCareServicesGroupCounseling",
+                "temporal_references": [
+                  {
+                    "type": "DURING",
+                    "reference": "MeasurePeriod",
+                    "title": "MeasurePeriod"
+                  }
+                ]
+              },
+              {
+                "title": "Home Healthcare Services",
+                "description": "Encounter, Performed: Home Healthcare Services",
+                "standard_category": "encounter",
+                "qds_data_type": "encounter",
+                "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1016",
+                "type": "encounters",
+                "definition": "encounter",
+                "status": "performed",
+                "hard_status": false,
+                "negation": false,
+                "source_data_criteria": "EncounterPerformedHomeHealthcareServices",
+                "temporal_references": [
+                  {
+                    "type": "DURING",
+                    "reference": "MeasurePeriod",
+                    "title": "MeasurePeriod"
+                  }
+                ]
+              }
+            ],
+            "negation": null,
+            "precondition_id": 83
+          }
+        ],
+        "negation": null,
+        "precondition_id": 85
+      }
+    ]
+  },
+  "denominator": {
+    "conjunction": "and",
+    "items": [
+
+    ]
+  },
+  "numerator": {
+    "conjunction": "and",
+    "items": [
+      {
+        "conjunction": "and",
+        "items": [
+          {
+            "title": "Counseling for Nutrition",
+            "description": "Intervention, Performed: Counseling for Nutrition",
+            "standard_category": "procedure",
+            "qds_data_type": "procedure_performed",
+            "code_list_id": "2.16.840.1.113883.3.464.1003.195.12.1003",
+            "type": "interventions",
+            "definition": "intervention",
+            "status": "performed",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "InterventionPerformedCounselingForNutrition",
+            "temporal_references": [
+              {
+                "type": "DURING",
+                "reference": "MeasurePeriod",
+                "title": "MeasurePeriod"
+              }
+            ]
+          }
+        ],
+        "negation": null,
+        "precondition_id": 19
+      }
+    ]
+  },
+  "exclusions": {
+    "conjunction": "and",
+    "items": [
+      {
+        "conjunction": "and",
+        "items": [
+          {
+            "title": "Pregnancy",
+            "description": "Diagnosis, Active: Pregnancy",
+            "standard_category": "diagnosis_condition_problem",
+            "qds_data_type": "diagnosis_active",
+            "code_list_id": "2.16.840.1.113883.3.526.3.378",
+            "type": "conditions",
+            "definition": "diagnosis",
+            "status": "active",
+            "hard_status": false,
+            "negation": false,
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "DIAGNOSIS_ACTIVE_PREGNANCY",
+            "source_data_criteria": "OccurrenceAPregnancy1",
+            "temporal_references": [
+              {
+                "type": "SBE",
+                "reference": "MeasurePeriod",
+                "title": "MeasurePeriod"
+              }
+            ]
+          },
+          {
+            "conjunction": "or",
+            "items": [
+              {
+                "title": "Pregnancy",
+                "description": "Diagnosis, Active: Pregnancy",
+                "standard_category": "diagnosis_condition_problem",
+                "qds_data_type": "diagnosis_active",
+                "code_list_id": "2.16.840.1.113883.3.526.3.378",
+                "type": "conditions",
+                "definition": "diagnosis",
+                "status": "active",
+                "hard_status": false,
+                "negation": false,
+                "specific_occurrence": "A",
+                "specific_occurrence_const": "DIAGNOSIS_ACTIVE_PREGNANCY",
+                "source_data_criteria": "OccurrenceAPregnancy1",
+                "temporal_references": [
+                  {
+                    "type": "EBS",
+                    "reference": "MeasurePeriod",
+                    "title": "MeasurePeriod"
+                  }
+                ]
+              }
+            ],
+            "negation": true,
+            "precondition_id": 6
+          }
+        ],
+        "negation": null,
+        "precondition_id": 7
+      }
+    ]
+  },
+  "map_fn": "function() {\n        var patient = this;\n        var effective_date = <%= effective_date %>;\n\n        hqmfjs = {}\n        <%= init_js_frameworks %>\n        \n        \n      var patient_api = new hQuery.Patient(patient);\n\n      \n\n      // clear out logger\n      if (typeof Logger != 'undefined') { Logger.logger = []; Logger.rationale={};}\n      // turn on logging if it is enabled\n      if (Logger.enabled) enableLogging();\n      \n      \n        // #########################\n        // ##### DATA ELEMENTS #####\n        // #########################\n\n        OidDictionary = <%= oid_dictionary %>;\n        \n        // Measure variables\nvar MeasurePeriod = {\n  \"low\": new TS(\"201201010000\", null, true),\n  \"high\": new TS(\"201212312359\", null, true)\n}\nhqmfjs.MeasurePeriod = function(patient) {\n  return [new hQuery.CodedEntry(\n    {\n      \"start_time\": MeasurePeriod.low.asDate().getTime()/1000,\n      \"end_time\": MeasurePeriod.high.asDate().getTime()/1000,\n      \"codes\": {}\n    }\n  )];\n}\nif (typeof effective_date === 'number') {\n  MeasurePeriod.high.date = new Date(1000*effective_date);\n  // add one minute before pulling off the year.  This turns 12-31-2012 23:59 into 1-1-2013 00:00 => 1-1-2012 00:00\n  MeasurePeriod.low.date = new Date(1000*(effective_date+60));\n  MeasurePeriod.low.date.setFullYear(MeasurePeriod.low.date.getFullYear()-1);\n}\n\n// Data critera\nhqmfjs.OccurrenceAPregnancy1 = function(patient, initialSpecificContext) {\n  var events = patient.allProblems();\n  events.specific_occurrence = 'OccurrenceAPregnancy1'\n  events = events.withStatuses([\"active\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.526.3.378\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.DiagnosisActivePregnancy = function(patient, initialSpecificContext) {\n  var events = patient.allProblems();\n  events = events.withStatuses([\"active\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.526.3.378\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  events.specificContext=hqmf.SpecificsManager.identity()\n  return events;\n}\n\nhqmfjs.OccurrenceAPregnancy1_precondition_4 = function(patient, initialSpecificContext) {\n  var events = patient.allProblems();\n  events.specific_occurrence = 'OccurrenceAPregnancy1'\n  events = events.withStatuses([\"active\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.526.3.378\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = SBE(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.OccurrenceAPregnancy1_precondition_2 = function(patient, initialSpecificContext) {\n  var events = patient.allProblems();\n  events.specific_occurrence = 'OccurrenceAPregnancy1'\n  events = events.withStatuses([\"active\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.526.3.378\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = EBS(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.PhysicalExamFindingBmiPercentile_precondition_8 = function(patient, initialSpecificContext) {\n  var events = patient.procedureResults();\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.121.12.1012\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.PhysicalExamFindingHeight_precondition_10 = function(patient, initialSpecificContext) {\n  var events = patient.procedureResults();\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.121.12.1014\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.PhysicalExamFindingWeight_precondition_12 = function(patient, initialSpecificContext) {\n  var events = patient.procedureResults();\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.121.12.1015\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.InterventionPerformedCounselingForNutrition_precondition_17 = function(patient, initialSpecificContext) {\n  var events = patient.allProcedures();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.195.12.1003\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.InterventionPerformedCounselingForPhysicalActivity_precondition_20 = function(patient, initialSpecificContext) {\n  var events = patient.allProcedures();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.118.12.1035\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.PatientCharacteristicBirthdateBirthDate_precondition_23 = function(patient, initialSpecificContext) {\nvar value = patient.birthtime();\nvar events = [value];\nevents = SBS(events, hqmfjs.MeasurePeriod(patient), new IVL_PQ(new PQ(3, \"a\", true), null));\nevents.specificContext=hqmf.SpecificsManager.identity();\nreturn events;\n\n}\n\nhqmfjs.PatientCharacteristicBirthdateBirthDate_precondition_25 = function(patient, initialSpecificContext) {\nvar value = patient.birthtime();\nvar events = [value];\nevents = SBS(events, hqmfjs.MeasurePeriod(patient), new IVL_PQ(null, new PQ(17, \"a\", true)));\nevents.specificContext=hqmf.SpecificsManager.identity();\nreturn events;\n\n}\n\nhqmfjs.EncounterPerformedFaceToFaceInteraction_precondition_27 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1048\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedOfficeVisit_precondition_29 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1001\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedPreventiveCareServicesIndividualCounseling_precondition_31 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1026\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedPreventiveCareInitialOfficeVisit0To17_precondition_33 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1022\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17_precondition_35 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1024\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedPreventiveCareServicesGroupCounseling_precondition_37 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1027\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedHomeHealthcareServices_precondition_39 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1016\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.PatientCharacteristicBirthdateBirthDate_precondition_44 = function(patient, initialSpecificContext) {\nvar value = patient.birthtime();\nvar events = [value];\nevents = SBS(events, hqmfjs.MeasurePeriod(patient), new IVL_PQ(new PQ(3, \"a\", true), null));\nevents.specificContext=hqmf.SpecificsManager.identity();\nreturn events;\n\n}\n\nhqmfjs.PatientCharacteristicBirthdateBirthDate_precondition_46 = function(patient, initialSpecificContext) {\nvar value = patient.birthtime();\nvar events = [value];\nevents = SBS(events, hqmfjs.MeasurePeriod(patient), new IVL_PQ(null, new PQ(11, \"a\", true)));\nevents.specificContext=hqmf.SpecificsManager.identity();\nreturn events;\n\n}\n\nhqmfjs.EncounterPerformedFaceToFaceInteraction_precondition_48 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1048\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedOfficeVisit_precondition_50 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1001\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedPreventiveCareServicesIndividualCounseling_precondition_52 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1026\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedPreventiveCareInitialOfficeVisit0To17_precondition_54 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1022\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17_precondition_56 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1024\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedPreventiveCareServicesGroupCounseling_precondition_58 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1027\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedHomeHealthcareServices_precondition_60 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1016\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.PatientCharacteristicBirthdateBirthDate_precondition_65 = function(patient, initialSpecificContext) {\nvar value = patient.birthtime();\nvar events = [value];\nevents = SBS(events, hqmfjs.MeasurePeriod(patient), new IVL_PQ(new PQ(12, \"a\", true), null));\nevents.specificContext=hqmf.SpecificsManager.identity();\nreturn events;\n\n}\n\nhqmfjs.PatientCharacteristicBirthdateBirthDate_precondition_67 = function(patient, initialSpecificContext) {\nvar value = patient.birthtime();\nvar events = [value];\nevents = SBS(events, hqmfjs.MeasurePeriod(patient), new IVL_PQ(null, new PQ(17, \"a\", true)));\nevents.specificContext=hqmf.SpecificsManager.identity();\nreturn events;\n\n}\n\nhqmfjs.EncounterPerformedFaceToFaceInteraction_precondition_69 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1048\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedOfficeVisit_precondition_71 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1001\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedPreventiveCareServicesIndividualCounseling_precondition_73 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1026\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedPreventiveCareInitialOfficeVisit0To17_precondition_75 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1022\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17_precondition_77 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1024\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedPreventiveCareServicesGroupCounseling_precondition_79 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1027\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EncounterPerformedHomeHealthcareServices_precondition_81 = function(patient, initialSpecificContext) {\n  var events = patient.encounters();\n  events = events.withStatuses([\"performed\"]);\n  events = events.withoutNegation();\n  var codes = getCodes(\"2.16.840.1.113883.3.464.1003.101.12.1016\");\n  var start = null;\n  var end = null;\n  events = events.match(codes, start, end, true);\n\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  else events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\n\n\n        // #########################\n        // ##### MEASURE LOGIC #####\n        // #########################\n        \n        hqmfjs.initializeSpecifics = function(patient_api, hqmfjs) { hqmf.SpecificsManager.initialize(patient_api,hqmfjs,{\"id\":\"OccurrenceAPregnancy1\",\"type\":\"DIAGNOSIS_ACTIVE_PREGNANCY\",\"function\":\"OccurrenceAPregnancy1\"}) }\n\n        // INITIAL PATIENT POPULATION\n        hqmfjs.IPP = function(patient, initialSpecificContext) {\n  return allTrue('IPP_2',  \n    allTrue('85',     hqmfjs.PatientCharacteristicBirthdateBirthDate_precondition_65(patient, initialSpecificContext),     hqmfjs.PatientCharacteristicBirthdateBirthDate_precondition_67(patient, initialSpecificContext),    \n      atLeastOneTrue('83',       hqmfjs.EncounterPerformedFaceToFaceInteraction_precondition_69(patient, initialSpecificContext),       hqmfjs.EncounterPerformedOfficeVisit_precondition_71(patient, initialSpecificContext),       hqmfjs.EncounterPerformedPreventiveCareServicesIndividualCounseling_precondition_73(patient, initialSpecificContext),       hqmfjs.EncounterPerformedPreventiveCareInitialOfficeVisit0To17_precondition_75(patient, initialSpecificContext),       hqmfjs.EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17_precondition_77(patient, initialSpecificContext),       hqmfjs.EncounterPerformedPreventiveCareServicesGroupCounseling_precondition_79(patient, initialSpecificContext),       hqmfjs.EncounterPerformedHomeHealthcareServices_precondition_81(patient, initialSpecificContext)\n      )\n    )\n  );\n};\n\n\n        // DENOMINATOR\n        hqmfjs.DENOM = function(patient) { return new Boolean(true); }\n        // NUMERATOR\n        hqmfjs.NUMER = function(patient, initialSpecificContext) {\n  return allTrue('NUMER_1',  \n    allTrue('19',     hqmfjs.InterventionPerformedCounselingForNutrition_precondition_17(patient, initialSpecificContext)\n    )\n  );\n};\n\n\n        hqmfjs.DENEX = function(patient, initialSpecificContext) {\n  return atLeastOneTrue('DENEX',  \n    allTrue('7',     hqmfjs.OccurrenceAPregnancy1_precondition_4(patient, initialSpecificContext),    \n      allFalse('6',       hqmfjs.OccurrenceAPregnancy1_precondition_2(patient, initialSpecificContext)\n      )\n    )\n  );\n};\n\n\n        hqmfjs.DENEXCEP = function(patient) { return new Boolean(false); }\n        // CV\n        hqmfjs.MSRPOPL = function(patient) { return new Boolean(false); }\n        hqmfjs.OBSERV = function(patient) { return new Boolean(false); }\n        \n      \n      var occurrenceId = null;\n\n      hqmfjs.initializeSpecifics(patient_api, hqmfjs)\n      \n      var population = function() {\n        return executeIfAvailable(hqmfjs.IPP, patient_api);\n      }\n      var denominator = function() {\n        return executeIfAvailable(hqmfjs.DENOM, patient_api);\n      }\n      var numerator = function() {\n        return executeIfAvailable(hqmfjs.NUMER, patient_api);\n      }\n      var exclusion = function() {\n        return executeIfAvailable(hqmfjs.DENEX, patient_api);\n      }\n      var denexcep = function() {\n        return executeIfAvailable(hqmfjs.DENEXCEP, patient_api);\n      }\n      var msrpopl = function() {\n        return executeIfAvailable(hqmfjs.MSRPOPL, patient_api);\n      }\n      var observ = function(specific_context) {\n        \n        var observFunc = hqmfjs.OBSERV\n        if (typeof(observFunc)==='function')\n          return observFunc(patient_api, specific_context);\n        else\n          return [];\n      }\n      \n      var executeIfAvailable = function(optionalFunction, arg) {\n        if (typeof(optionalFunction)==='function')\n          return optionalFunction(arg);\n        else\n          return false;\n      }\n\n      if (Logger.enabled) enableMeasureLogging(hqmfjs);\n\n      map(patient, population, denominator, numerator, exclusion, denexcep, msrpopl, observ, occurrenceId,false);\n      \n      };\n      ",
+  "continuous_variable": false,
+  "episode_of_care": false,
+  "sub_id": "g",
+  "subtitle": "Nutrition Counseling, RS2: 12-17",
+  "short_subtitle": "Nutrition Counseling, RS2: 12-17",
+  "data_criteria": [
+    {
+      "OccurrenceAPregnancy1_precondition_4": {
+        "title": "Pregnancy",
+        "description": "Diagnosis, Active: Pregnancy",
+        "standard_category": "diagnosis_condition_problem",
+        "qds_data_type": "diagnosis_active",
+        "code_list_id": "2.16.840.1.113883.3.526.3.378",
+        "type": "conditions",
+        "definition": "diagnosis",
+        "status": "active",
+        "hard_status": false,
+        "negation": false,
+        "specific_occurrence": "A",
+        "specific_occurrence_const": "DIAGNOSIS_ACTIVE_PREGNANCY",
+        "source_data_criteria": "OccurrenceAPregnancy1",
+        "temporal_references": [
+          {
+            "type": "SBE",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "OccurrenceAPregnancy1_precondition_2": {
+        "title": "Pregnancy",
+        "description": "Diagnosis, Active: Pregnancy",
+        "standard_category": "diagnosis_condition_problem",
+        "qds_data_type": "diagnosis_active",
+        "code_list_id": "2.16.840.1.113883.3.526.3.378",
+        "type": "conditions",
+        "definition": "diagnosis",
+        "status": "active",
+        "hard_status": false,
+        "negation": false,
+        "specific_occurrence": "A",
+        "specific_occurrence_const": "DIAGNOSIS_ACTIVE_PREGNANCY",
+        "source_data_criteria": "OccurrenceAPregnancy1",
+        "temporal_references": [
+          {
+            "type": "EBS",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "PhysicalExamFindingBmiPercentile_precondition_8": {
+        "title": "BMI percentile",
+        "description": "Physical Exam, Finding: BMI percentile",
+        "standard_category": "physical_exam",
+        "qds_data_type": "physical_exam",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.121.12.1012",
+        "type": "physical_exams",
+        "definition": "physical_exam",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "PhysicalExamFindingBmiPercentile",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "PhysicalExamFindingHeight_precondition_10": {
+        "title": "Height",
+        "description": "Physical Exam, Finding: Height",
+        "standard_category": "physical_exam",
+        "qds_data_type": "physical_exam",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.121.12.1014",
+        "type": "physical_exams",
+        "definition": "physical_exam",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "PhysicalExamFindingHeight",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "PhysicalExamFindingWeight_precondition_12": {
+        "title": "Weight",
+        "description": "Physical Exam, Finding: Weight",
+        "standard_category": "physical_exam",
+        "qds_data_type": "physical_exam",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.121.12.1015",
+        "type": "physical_exams",
+        "definition": "physical_exam",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "PhysicalExamFindingWeight",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "InterventionPerformedCounselingForNutrition_precondition_17": {
+        "title": "Counseling for Nutrition",
+        "description": "Intervention, Performed: Counseling for Nutrition",
+        "standard_category": "procedure",
+        "qds_data_type": "procedure_performed",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.195.12.1003",
+        "type": "interventions",
+        "definition": "intervention",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "InterventionPerformedCounselingForNutrition",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "InterventionPerformedCounselingForPhysicalActivity_precondition_20": {
+        "title": "Counseling for Physical Activity",
+        "description": "Intervention, Performed: Counseling for Physical Activity",
+        "standard_category": "procedure",
+        "qds_data_type": "procedure_performed",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.118.12.1035",
+        "type": "interventions",
+        "definition": "intervention",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "InterventionPerformedCounselingForPhysicalActivity",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "PatientCharacteristicBirthdateBirthDate_precondition_23": {
+        "title": "birth date",
+        "description": "Patient Characteristic Birthdate: birth date",
+        "standard_category": "individual_characteristic",
+        "qds_data_type": "individual_characteristic",
+        "code_list_id": "2.16.840.1.113883.3.560.100.4",
+        "property": "birthtime",
+        "type": "characteristic",
+        "definition": "patient_characteristic_birthdate",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "PatientCharacteristicBirthdateBirthDate",
+        "inline_code_list": {
+          "LOINC": [
+            "21112-8"
+          ]
+        },
+        "temporal_references": [
+          {
+            "type": "SBS",
+            "reference": "MeasurePeriod",
+            "range": {
+              "type": "IVL_PQ",
+              "low": {
+                "type": "PQ",
+                "unit": "a",
+                "value": "3",
+                "inclusive?": true,
+                "derived?": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "PatientCharacteristicBirthdateBirthDate_precondition_25": {
+        "title": "birth date",
+        "description": "Patient Characteristic Birthdate: birth date",
+        "standard_category": "individual_characteristic",
+        "qds_data_type": "individual_characteristic",
+        "code_list_id": "2.16.840.1.113883.3.560.100.4",
+        "property": "birthtime",
+        "type": "characteristic",
+        "definition": "patient_characteristic_birthdate",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "PatientCharacteristicBirthdateBirthDate",
+        "inline_code_list": {
+          "LOINC": [
+            "21112-8"
+          ]
+        },
+        "temporal_references": [
+          {
+            "type": "SBS",
+            "reference": "MeasurePeriod",
+            "range": {
+              "type": "IVL_PQ",
+              "high": {
+                "type": "PQ",
+                "unit": "a",
+                "value": "17",
+                "inclusive?": true,
+                "derived?": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedFaceToFaceInteraction_precondition_27": {
+        "title": "Face-to-Face Interaction",
+        "description": "Encounter, Performed: Face-to-Face Interaction",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1048",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedFaceToFaceInteraction",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedOfficeVisit_precondition_29": {
+        "title": "Office Visit",
+        "description": "Encounter, Performed: Office Visit",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedOfficeVisit",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedPreventiveCareServicesIndividualCounseling_precondition_31": {
+        "title": "Preventive Care Services-Individual Counseling",
+        "description": "Encounter, Performed: Preventive Care Services-Individual Counseling",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1026",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedPreventiveCareServicesIndividualCounseling",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedPreventiveCareInitialOfficeVisit0To17_precondition_33": {
+        "title": "Preventive Care- Initial Office Visit, 0 to 17",
+        "description": "Encounter, Performed: Preventive Care- Initial Office Visit, 0 to 17",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1022",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedPreventiveCareInitialOfficeVisit0To17",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17_precondition_35": {
+        "title": "Preventive Care - Established Office Visit, 0 to 17",
+        "description": "Encounter, Performed: Preventive Care - Established Office Visit, 0 to 17",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1024",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedPreventiveCareServicesGroupCounseling_precondition_37": {
+        "title": "Preventive Care Services - Group Counseling",
+        "description": "Encounter, Performed: Preventive Care Services - Group Counseling",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1027",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedPreventiveCareServicesGroupCounseling",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedHomeHealthcareServices_precondition_39": {
+        "title": "Home Healthcare Services",
+        "description": "Encounter, Performed: Home Healthcare Services",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1016",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedHomeHealthcareServices",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "PatientCharacteristicBirthdateBirthDate_precondition_44": {
+        "title": "birth date",
+        "description": "Patient Characteristic Birthdate: birth date",
+        "standard_category": "individual_characteristic",
+        "qds_data_type": "individual_characteristic",
+        "code_list_id": "2.16.840.1.113883.3.560.100.4",
+        "property": "birthtime",
+        "type": "characteristic",
+        "definition": "patient_characteristic_birthdate",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "PatientCharacteristicBirthdateBirthDate",
+        "inline_code_list": {
+          "LOINC": [
+            "21112-8"
+          ]
+        },
+        "temporal_references": [
+          {
+            "type": "SBS",
+            "reference": "MeasurePeriod",
+            "range": {
+              "type": "IVL_PQ",
+              "low": {
+                "type": "PQ",
+                "unit": "a",
+                "value": "3",
+                "inclusive?": true,
+                "derived?": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "PatientCharacteristicBirthdateBirthDate_precondition_46": {
+        "title": "birth date",
+        "description": "Patient Characteristic Birthdate: birth date",
+        "standard_category": "individual_characteristic",
+        "qds_data_type": "individual_characteristic",
+        "code_list_id": "2.16.840.1.113883.3.560.100.4",
+        "property": "birthtime",
+        "type": "characteristic",
+        "definition": "patient_characteristic_birthdate",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "PatientCharacteristicBirthdateBirthDate",
+        "inline_code_list": {
+          "LOINC": [
+            "21112-8"
+          ]
+        },
+        "temporal_references": [
+          {
+            "type": "SBS",
+            "reference": "MeasurePeriod",
+            "range": {
+              "type": "IVL_PQ",
+              "high": {
+                "type": "PQ",
+                "unit": "a",
+                "value": "11",
+                "inclusive?": true,
+                "derived?": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedFaceToFaceInteraction_precondition_48": {
+        "title": "Face-to-Face Interaction",
+        "description": "Encounter, Performed: Face-to-Face Interaction",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1048",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedFaceToFaceInteraction",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedOfficeVisit_precondition_50": {
+        "title": "Office Visit",
+        "description": "Encounter, Performed: Office Visit",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedOfficeVisit",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedPreventiveCareServicesIndividualCounseling_precondition_52": {
+        "title": "Preventive Care Services-Individual Counseling",
+        "description": "Encounter, Performed: Preventive Care Services-Individual Counseling",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1026",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedPreventiveCareServicesIndividualCounseling",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedPreventiveCareInitialOfficeVisit0To17_precondition_54": {
+        "title": "Preventive Care- Initial Office Visit, 0 to 17",
+        "description": "Encounter, Performed: Preventive Care- Initial Office Visit, 0 to 17",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1022",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedPreventiveCareInitialOfficeVisit0To17",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17_precondition_56": {
+        "title": "Preventive Care - Established Office Visit, 0 to 17",
+        "description": "Encounter, Performed: Preventive Care - Established Office Visit, 0 to 17",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1024",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedPreventiveCareServicesGroupCounseling_precondition_58": {
+        "title": "Preventive Care Services - Group Counseling",
+        "description": "Encounter, Performed: Preventive Care Services - Group Counseling",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1027",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedPreventiveCareServicesGroupCounseling",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedHomeHealthcareServices_precondition_60": {
+        "title": "Home Healthcare Services",
+        "description": "Encounter, Performed: Home Healthcare Services",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1016",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedHomeHealthcareServices",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "PatientCharacteristicBirthdateBirthDate_precondition_65": {
+        "title": "birth date",
+        "description": "Patient Characteristic Birthdate: birth date",
+        "standard_category": "individual_characteristic",
+        "qds_data_type": "individual_characteristic",
+        "code_list_id": "2.16.840.1.113883.3.560.100.4",
+        "property": "birthtime",
+        "type": "characteristic",
+        "definition": "patient_characteristic_birthdate",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "PatientCharacteristicBirthdateBirthDate",
+        "inline_code_list": {
+          "LOINC": [
+            "21112-8"
+          ]
+        },
+        "temporal_references": [
+          {
+            "type": "SBS",
+            "reference": "MeasurePeriod",
+            "range": {
+              "type": "IVL_PQ",
+              "low": {
+                "type": "PQ",
+                "unit": "a",
+                "value": "12",
+                "inclusive?": true,
+                "derived?": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "PatientCharacteristicBirthdateBirthDate_precondition_67": {
+        "title": "birth date",
+        "description": "Patient Characteristic Birthdate: birth date",
+        "standard_category": "individual_characteristic",
+        "qds_data_type": "individual_characteristic",
+        "code_list_id": "2.16.840.1.113883.3.560.100.4",
+        "property": "birthtime",
+        "type": "characteristic",
+        "definition": "patient_characteristic_birthdate",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "PatientCharacteristicBirthdateBirthDate",
+        "inline_code_list": {
+          "LOINC": [
+            "21112-8"
+          ]
+        },
+        "temporal_references": [
+          {
+            "type": "SBS",
+            "reference": "MeasurePeriod",
+            "range": {
+              "type": "IVL_PQ",
+              "high": {
+                "type": "PQ",
+                "unit": "a",
+                "value": "17",
+                "inclusive?": true,
+                "derived?": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedFaceToFaceInteraction_precondition_69": {
+        "title": "Face-to-Face Interaction",
+        "description": "Encounter, Performed: Face-to-Face Interaction",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1048",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedFaceToFaceInteraction",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedOfficeVisit_precondition_71": {
+        "title": "Office Visit",
+        "description": "Encounter, Performed: Office Visit",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedOfficeVisit",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedPreventiveCareServicesIndividualCounseling_precondition_73": {
+        "title": "Preventive Care Services-Individual Counseling",
+        "description": "Encounter, Performed: Preventive Care Services-Individual Counseling",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1026",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedPreventiveCareServicesIndividualCounseling",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedPreventiveCareInitialOfficeVisit0To17_precondition_75": {
+        "title": "Preventive Care- Initial Office Visit, 0 to 17",
+        "description": "Encounter, Performed: Preventive Care- Initial Office Visit, 0 to 17",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1022",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedPreventiveCareInitialOfficeVisit0To17",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17_precondition_77": {
+        "title": "Preventive Care - Established Office Visit, 0 to 17",
+        "description": "Encounter, Performed: Preventive Care - Established Office Visit, 0 to 17",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1024",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedPreventiveCareServicesGroupCounseling_precondition_79": {
+        "title": "Preventive Care Services - Group Counseling",
+        "description": "Encounter, Performed: Preventive Care Services - Group Counseling",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1027",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedPreventiveCareServicesGroupCounseling",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    },
+    {
+      "EncounterPerformedHomeHealthcareServices_precondition_81": {
+        "title": "Home Healthcare Services",
+        "description": "Encounter, Performed: Home Healthcare Services",
+        "standard_category": "encounter",
+        "qds_data_type": "encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1016",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EncounterPerformedHomeHealthcareServices",
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    }
+  ],
+  "oids": [
+    "2.16.840.1.113883.3.560.100.4",
+    "2.16.840.1.113883.3.526.3.378",
+    "2.16.840.1.113883.3.464.1003.195.12.1003",
+    "2.16.840.1.113883.3.464.1003.121.12.1015",
+    "2.16.840.1.113883.3.464.1003.121.12.1014",
+    "2.16.840.1.113883.3.464.1003.121.12.1012",
+    "2.16.840.1.113883.3.464.1003.118.12.1035",
+    "2.16.840.1.113883.3.464.1003.101.12.1048",
+    "2.16.840.1.113883.3.464.1003.101.12.1027",
+    "2.16.840.1.113883.3.464.1003.101.12.1026",
+    "2.16.840.1.113883.3.464.1003.101.12.1024",
+    "2.16.840.1.113883.3.464.1003.101.12.1022",
+    "2.16.840.1.113883.3.464.1003.101.12.1016",
+    "2.16.840.1.113883.3.464.1003.101.12.1001"
+  ],
+  "population_ids": {
+    "IPP": "E83A6DA6-D34E-4107-8431-2FB2C86738C7",
+    "DENOM": "A08E22DD-9B31-40AD-BA5C-5DB43F8FFBE4",
+    "NUMER": "E3ACA22F-9239-417D-8074-E4882FB0F848",
+    "DENEX": "FE61FF42-F9EF-4ADA-9D3F-E734B8D70E87",
+    "stratification": "5722134D-5F7C-42AD-914B-E73B4C366D55"
+  },
+   "hqmf_document" : { "id" : "0024",
+    "hqmf_id" : "8A4D92B2-397A-48D2-0139-7CC6B5B8011E",
+    "hqmf_set_id" : "0B63F730-25D6-4248-B11F-8C09C66A04EB",
+    "hqmf_version_number" : 1,
+    "title" : "Weight Assessment and Counseling for Nutrition and Physical Activity for Children and Adolescents",
+    "description" : "Percentage of patients 3-17 years of age who had an outpatient visit with a Primary Care Physician (PCP) or Obstetrician/Gynecologist (OB/GYN) and who had evidence of the following during the measurement period. Three rates are reported.\r\n\r\n - Percentage of patients with height, weight, and body mass index (BMI) percentile documentation\r\n - Percentage of patients with counseling for nutrition\r\n - Percentage of patients with counseling for physical activity",
+    "cms_id" : "CMS155v1",
+    "population_criteria" : { "DENEX" : { "conjunction?" : true,
+        "type" : "DENEX",
+        "title" : "Denominator",
+        "hqmf_id" : "FE61FF42-F9EF-4ADA-9D3F-E734B8D70E87",
+        "preconditions" : [ 
+          { "id" : 7,
+            "preconditions" : [ 
+              { "id" : 4,
+                "reference" : "OccurrenceAPregnancy1_precondition_4" }, 
+              { "id" : 6,
+                "preconditions" : [ 
+                  { "id" : 2,
+                    "reference" : "OccurrenceAPregnancy1_precondition_2" } ],
+                "conjunction_code" : "atLeastOneTrue",
+                "negation" : true } ],
+            "conjunction_code" : "allTrue" } ] },
+      "NUMER" : { "conjunction?" : true,
+        "type" : "NUMER",
+        "title" : "Numerator",
+        "hqmf_id" : "E60D324E-7606-42C2-8E46-5EE29289725D",
+        "preconditions" : [ 
+          { "id" : 16,
+            "preconditions" : [ 
+              { "id" : 14,
+                "preconditions" : [ 
+                  { "id" : 8,
+                    "reference" : "PhysicalExamFindingBmiPercentile_precondition_8" }, 
+                  { "id" : 10,
+                    "reference" : "PhysicalExamFindingHeight_precondition_10" }, 
+                  { "id" : 12,
+                    "reference" : "PhysicalExamFindingWeight_precondition_12" } ],
+                "conjunction_code" : "allTrue" } ],
+            "conjunction_code" : "allTrue" } ] },
+      "NUMER_1" : { "conjunction?" : true,
+        "type" : "NUMER",
+        "title" : "Numerator",
+        "hqmf_id" : "E3ACA22F-9239-417D-8074-E4882FB0F848",
+        "preconditions" : [ 
+          { "id" : 19,
+            "preconditions" : [ 
+              { "id" : 17,
+                "reference" : "InterventionPerformedCounselingForNutrition_precondition_17" } ],
+            "conjunction_code" : "allTrue" } ] },
+      "NUMER_2" : { "conjunction?" : true,
+        "type" : "NUMER",
+        "title" : "Numerator",
+        "hqmf_id" : "84C557E8-41B1-43F6-8C1B-1D204335AAFB",
+        "preconditions" : [ 
+          { "id" : 22,
+            "preconditions" : [ 
+              { "id" : 20,
+                "reference" : "InterventionPerformedCounselingForPhysicalActivity_precondition_20" } ],
+            "conjunction_code" : "allTrue" } ] },
+      "DENOM" : { "conjunction?" : true,
+        "type" : "DENOM",
+        "title" : "Denominator",
+        "hqmf_id" : "A08E22DD-9B31-40AD-BA5C-5DB43F8FFBE4" },
+      "IPP" : { "conjunction?" : true,
+        "type" : "IPP",
+        "title" : "Initial Patient Population",
+        "hqmf_id" : "E83A6DA6-D34E-4107-8431-2FB2C86738C7",
+        "preconditions" : [ 
+          { "id" : 43,
+            "preconditions" : [ 
+              { "id" : 23,
+                "reference" : "PatientCharacteristicBirthdateBirthDate_precondition_23" }, 
+              { "id" : 25,
+                "reference" : "PatientCharacteristicBirthdateBirthDate_precondition_25" }, 
+              { "id" : 41,
+                "preconditions" : [ 
+                  { "id" : 27,
+                    "reference" : "EncounterPerformedFaceToFaceInteraction_precondition_27" }, 
+                  { "id" : 29,
+                    "reference" : "EncounterPerformedOfficeVisit_precondition_29" }, 
+                  { "id" : 31,
+                    "reference" : "EncounterPerformedPreventiveCareServicesIndividualCounseling_precondition_31" }, 
+                  { "id" : 33,
+                    "reference" : "EncounterPerformedPreventiveCareInitialOfficeVisit0To17_precondition_33" }, 
+                  { "id" : 35,
+                    "reference" : "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17_precondition_35" }, 
+                  { "id" : 37,
+                    "reference" : "EncounterPerformedPreventiveCareServicesGroupCounseling_precondition_37" }, 
+                  { "id" : 39,
+                    "reference" : "EncounterPerformedHomeHealthcareServices_precondition_39" } ],
+                "conjunction_code" : "atLeastOneTrue" } ],
+            "conjunction_code" : "allTrue" } ] },
+      "IPP_1" : { "conjunction?" : true,
+        "type" : "IPP",
+        "title" : "Initial Patient Population",
+        "hqmf_id" : "E83A6DA6-D34E-4107-8431-2FB2C86738C7",
+        "preconditions" : [ 
+          { "id" : 64,
+            "preconditions" : [ 
+              { "id" : 44,
+                "reference" : "PatientCharacteristicBirthdateBirthDate_precondition_44" }, 
+              { "id" : 46,
+                "reference" : "PatientCharacteristicBirthdateBirthDate_precondition_46" }, 
+              { "id" : 62,
+                "preconditions" : [ 
+                  { "id" : 48,
+                    "reference" : "EncounterPerformedFaceToFaceInteraction_precondition_48" }, 
+                  { "id" : 50,
+                    "reference" : "EncounterPerformedOfficeVisit_precondition_50" }, 
+                  { "id" : 52,
+                    "reference" : "EncounterPerformedPreventiveCareServicesIndividualCounseling_precondition_52" }, 
+                  { "id" : 54,
+                    "reference" : "EncounterPerformedPreventiveCareInitialOfficeVisit0To17_precondition_54" }, 
+                  { "id" : 56,
+                    "reference" : "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17_precondition_56" }, 
+                  { "id" : 58,
+                    "reference" : "EncounterPerformedPreventiveCareServicesGroupCounseling_precondition_58" }, 
+                  { "id" : 60,
+                    "reference" : "EncounterPerformedHomeHealthcareServices_precondition_60" } ],
+                "conjunction_code" : "atLeastOneTrue" } ],
+            "conjunction_code" : "allTrue" } ] },
+      "IPP_2" : { "conjunction?" : true,
+        "type" : "IPP",
+        "title" : "Initial Patient Population",
+        "hqmf_id" : "E83A6DA6-D34E-4107-8431-2FB2C86738C7",
+        "preconditions" : [ 
+          { "id" : 85,
+            "preconditions" : [ 
+              { "id" : 65,
+                "reference" : "PatientCharacteristicBirthdateBirthDate_precondition_65" }, 
+              { "id" : 67,
+                "reference" : "PatientCharacteristicBirthdateBirthDate_precondition_67" }, 
+              { "id" : 83,
+                "preconditions" : [ 
+                  { "id" : 69,
+                    "reference" : "EncounterPerformedFaceToFaceInteraction_precondition_69" }, 
+                  { "id" : 71,
+                    "reference" : "EncounterPerformedOfficeVisit_precondition_71" }, 
+                  { "id" : 73,
+                    "reference" : "EncounterPerformedPreventiveCareServicesIndividualCounseling_precondition_73" }, 
+                  { "id" : 75,
+                    "reference" : "EncounterPerformedPreventiveCareInitialOfficeVisit0To17_precondition_75" }, 
+                  { "id" : 77,
+                    "reference" : "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17_precondition_77" }, 
+                  { "id" : 79,
+                    "reference" : "EncounterPerformedPreventiveCareServicesGroupCounseling_precondition_79" }, 
+                  { "id" : 81,
+                    "reference" : "EncounterPerformedHomeHealthcareServices_precondition_81" } ],
+                "conjunction_code" : "atLeastOneTrue" } ],
+            "conjunction_code" : "allTrue" } ] } },
+    "data_criteria" : { "DiagnosisActivePregnancy" : { "title" : "Pregnancy",
+        "description" : "Diagnosis, Active: Pregnancy",
+        "standard_category" : "diagnosis_condition_problem",
+        "qds_data_type" : "diagnosis_active",
+        "code_list_id" : "2.16.840.1.113883.3.526.3.378",
+        "type" : "conditions",
+        "definition" : "diagnosis",
+        "status" : "active",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "DiagnosisActivePregnancy" },
+      "OccurrenceAPregnancy1_precondition_4" : { "title" : "Pregnancy",
+        "description" : "Diagnosis, Active: Pregnancy",
+        "standard_category" : "diagnosis_condition_problem",
+        "qds_data_type" : "diagnosis_active",
+        "code_list_id" : "2.16.840.1.113883.3.526.3.378",
+        "type" : "conditions",
+        "definition" : "diagnosis",
+        "status" : "active",
+        "hard_status" : false,
+        "negation" : false,
+        "specific_occurrence" : "A",
+        "specific_occurrence_const" : "DIAGNOSIS_ACTIVE_PREGNANCY",
+        "source_data_criteria" : "OccurrenceAPregnancy1",
+        "temporal_references" : [ 
+          { "type" : "SBE",
+            "reference" : "MeasurePeriod" } ] },
+      "OccurrenceAPregnancy1_precondition_2" : { "title" : "Pregnancy",
+        "description" : "Diagnosis, Active: Pregnancy",
+        "standard_category" : "diagnosis_condition_problem",
+        "qds_data_type" : "diagnosis_active",
+        "code_list_id" : "2.16.840.1.113883.3.526.3.378",
+        "type" : "conditions",
+        "definition" : "diagnosis",
+        "status" : "active",
+        "hard_status" : false,
+        "negation" : false,
+        "specific_occurrence" : "A",
+        "specific_occurrence_const" : "DIAGNOSIS_ACTIVE_PREGNANCY",
+        "source_data_criteria" : "OccurrenceAPregnancy1",
+        "temporal_references" : [ 
+          { "type" : "EBS",
+            "reference" : "MeasurePeriod" } ] },
+      "PhysicalExamFindingBmiPercentile_precondition_8" : { "title" : "BMI percentile",
+        "description" : "Physical Exam, Finding: BMI percentile",
+        "standard_category" : "physical_exam",
+        "qds_data_type" : "physical_exam",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.121.12.1012",
+        "type" : "physical_exams",
+        "definition" : "physical_exam",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "PhysicalExamFindingBmiPercentile",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "PhysicalExamFindingHeight_precondition_10" : { "title" : "Height",
+        "description" : "Physical Exam, Finding: Height",
+        "standard_category" : "physical_exam",
+        "qds_data_type" : "physical_exam",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.121.12.1014",
+        "type" : "physical_exams",
+        "definition" : "physical_exam",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "PhysicalExamFindingHeight",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "PhysicalExamFindingWeight_precondition_12" : { "title" : "Weight",
+        "description" : "Physical Exam, Finding: Weight",
+        "standard_category" : "physical_exam",
+        "qds_data_type" : "physical_exam",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.121.12.1015",
+        "type" : "physical_exams",
+        "definition" : "physical_exam",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "PhysicalExamFindingWeight",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "InterventionPerformedCounselingForNutrition_precondition_17" : { "title" : "Counseling for Nutrition",
+        "description" : "Intervention, Performed: Counseling for Nutrition",
+        "standard_category" : "procedure",
+        "qds_data_type" : "procedure_performed",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.195.12.1003",
+        "type" : "interventions",
+        "definition" : "intervention",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "InterventionPerformedCounselingForNutrition",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "InterventionPerformedCounselingForPhysicalActivity_precondition_20" : { "title" : "Counseling for Physical Activity",
+        "description" : "Intervention, Performed: Counseling for Physical Activity",
+        "standard_category" : "procedure",
+        "qds_data_type" : "procedure_performed",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.118.12.1035",
+        "type" : "interventions",
+        "definition" : "intervention",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "InterventionPerformedCounselingForPhysicalActivity",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "PatientCharacteristicBirthdateBirthDate_precondition_23" : { "title" : "birth date",
+        "description" : "Patient Characteristic Birthdate: birth date",
+        "standard_category" : "individual_characteristic",
+        "qds_data_type" : "individual_characteristic",
+        "code_list_id" : "2.16.840.1.113883.3.560.100.4",
+        "property" : "birthtime",
+        "type" : "characteristic",
+        "definition" : "patient_characteristic_birthdate",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "PatientCharacteristicBirthdateBirthDate",
+        "inline_code_list" : { "LOINC" : [ 
+            "21112-8" ] },
+        "temporal_references" : [ 
+          { "type" : "SBS",
+            "reference" : "MeasurePeriod",
+            "range" : { "type" : "IVL_PQ",
+              "low" : { "type" : "PQ",
+                "unit" : "a",
+                "value" : "3",
+                "inclusive?" : true,
+                "derived?" : false } } } ] },
+      "PatientCharacteristicBirthdateBirthDate_precondition_25" : { "title" : "birth date",
+        "description" : "Patient Characteristic Birthdate: birth date",
+        "standard_category" : "individual_characteristic",
+        "qds_data_type" : "individual_characteristic",
+        "code_list_id" : "2.16.840.1.113883.3.560.100.4",
+        "property" : "birthtime",
+        "type" : "characteristic",
+        "definition" : "patient_characteristic_birthdate",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "PatientCharacteristicBirthdateBirthDate",
+        "inline_code_list" : { "LOINC" : [ 
+            "21112-8" ] },
+        "temporal_references" : [ 
+          { "type" : "SBS",
+            "reference" : "MeasurePeriod",
+            "range" : { "type" : "IVL_PQ",
+              "high" : { "type" : "PQ",
+                "unit" : "a",
+                "value" : "17",
+                "inclusive?" : true,
+                "derived?" : false } } } ] },
+      "EncounterPerformedFaceToFaceInteraction_precondition_27" : { "title" : "Face-to-Face Interaction",
+        "description" : "Encounter, Performed: Face-to-Face Interaction",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1048",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedFaceToFaceInteraction",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedOfficeVisit_precondition_29" : { "title" : "Office Visit",
+        "description" : "Encounter, Performed: Office Visit",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1001",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedOfficeVisit",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedPreventiveCareServicesIndividualCounseling_precondition_31" : { "title" : "Preventive Care Services-Individual Counseling",
+        "description" : "Encounter, Performed: Preventive Care Services-Individual Counseling",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1026",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedPreventiveCareServicesIndividualCounseling",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedPreventiveCareInitialOfficeVisit0To17_precondition_33" : { "title" : "Preventive Care- Initial Office Visit, 0 to 17",
+        "description" : "Encounter, Performed: Preventive Care- Initial Office Visit, 0 to 17",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1022",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedPreventiveCareInitialOfficeVisit0To17",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17_precondition_35" : { "title" : "Preventive Care - Established Office Visit, 0 to 17",
+        "description" : "Encounter, Performed: Preventive Care - Established Office Visit, 0 to 17",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1024",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedPreventiveCareServicesGroupCounseling_precondition_37" : { "title" : "Preventive Care Services - Group Counseling",
+        "description" : "Encounter, Performed: Preventive Care Services - Group Counseling",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1027",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedPreventiveCareServicesGroupCounseling",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedHomeHealthcareServices_precondition_39" : { "title" : "Home Healthcare Services",
+        "description" : "Encounter, Performed: Home Healthcare Services",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1016",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedHomeHealthcareServices",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "PatientCharacteristicBirthdateBirthDate_precondition_44" : { "title" : "birth date",
+        "description" : "Patient Characteristic Birthdate: birth date",
+        "standard_category" : "individual_characteristic",
+        "qds_data_type" : "individual_characteristic",
+        "code_list_id" : "2.16.840.1.113883.3.560.100.4",
+        "property" : "birthtime",
+        "type" : "characteristic",
+        "definition" : "patient_characteristic_birthdate",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "PatientCharacteristicBirthdateBirthDate",
+        "inline_code_list" : { "LOINC" : [ 
+            "21112-8" ] },
+        "temporal_references" : [ 
+          { "type" : "SBS",
+            "reference" : "MeasurePeriod",
+            "range" : { "type" : "IVL_PQ",
+              "low" : { "type" : "PQ",
+                "unit" : "a",
+                "value" : "3",
+                "inclusive?" : true,
+                "derived?" : false } } } ] },
+      "PatientCharacteristicBirthdateBirthDate_precondition_46" : { "title" : "birth date",
+        "description" : "Patient Characteristic Birthdate: birth date",
+        "standard_category" : "individual_characteristic",
+        "qds_data_type" : "individual_characteristic",
+        "code_list_id" : "2.16.840.1.113883.3.560.100.4",
+        "property" : "birthtime",
+        "type" : "characteristic",
+        "definition" : "patient_characteristic_birthdate",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "PatientCharacteristicBirthdateBirthDate",
+        "inline_code_list" : { "LOINC" : [ 
+            "21112-8" ] },
+        "temporal_references" : [ 
+          { "type" : "SBS",
+            "reference" : "MeasurePeriod",
+            "range" : { "type" : "IVL_PQ",
+              "high" : { "type" : "PQ",
+                "unit" : "a",
+                "value" : "11",
+                "inclusive?" : true,
+                "derived?" : false } } } ] },
+      "EncounterPerformedFaceToFaceInteraction_precondition_48" : { "title" : "Face-to-Face Interaction",
+        "description" : "Encounter, Performed: Face-to-Face Interaction",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1048",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedFaceToFaceInteraction",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedOfficeVisit_precondition_50" : { "title" : "Office Visit",
+        "description" : "Encounter, Performed: Office Visit",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1001",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedOfficeVisit",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedPreventiveCareServicesIndividualCounseling_precondition_52" : { "title" : "Preventive Care Services-Individual Counseling",
+        "description" : "Encounter, Performed: Preventive Care Services-Individual Counseling",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1026",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedPreventiveCareServicesIndividualCounseling",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedPreventiveCareInitialOfficeVisit0To17_precondition_54" : { "title" : "Preventive Care- Initial Office Visit, 0 to 17",
+        "description" : "Encounter, Performed: Preventive Care- Initial Office Visit, 0 to 17",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1022",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedPreventiveCareInitialOfficeVisit0To17",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17_precondition_56" : { "title" : "Preventive Care - Established Office Visit, 0 to 17",
+        "description" : "Encounter, Performed: Preventive Care - Established Office Visit, 0 to 17",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1024",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedPreventiveCareServicesGroupCounseling_precondition_58" : { "title" : "Preventive Care Services - Group Counseling",
+        "description" : "Encounter, Performed: Preventive Care Services - Group Counseling",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1027",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedPreventiveCareServicesGroupCounseling",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedHomeHealthcareServices_precondition_60" : { "title" : "Home Healthcare Services",
+        "description" : "Encounter, Performed: Home Healthcare Services",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1016",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedHomeHealthcareServices",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "PatientCharacteristicBirthdateBirthDate_precondition_65" : { "title" : "birth date",
+        "description" : "Patient Characteristic Birthdate: birth date",
+        "standard_category" : "individual_characteristic",
+        "qds_data_type" : "individual_characteristic",
+        "code_list_id" : "2.16.840.1.113883.3.560.100.4",
+        "property" : "birthtime",
+        "type" : "characteristic",
+        "definition" : "patient_characteristic_birthdate",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "PatientCharacteristicBirthdateBirthDate",
+        "inline_code_list" : { "LOINC" : [ 
+            "21112-8" ] },
+        "temporal_references" : [ 
+          { "type" : "SBS",
+            "reference" : "MeasurePeriod",
+            "range" : { "type" : "IVL_PQ",
+              "low" : { "type" : "PQ",
+                "unit" : "a",
+                "value" : "12",
+                "inclusive?" : true,
+                "derived?" : false } } } ] },
+      "PatientCharacteristicBirthdateBirthDate_precondition_67" : { "title" : "birth date",
+        "description" : "Patient Characteristic Birthdate: birth date",
+        "standard_category" : "individual_characteristic",
+        "qds_data_type" : "individual_characteristic",
+        "code_list_id" : "2.16.840.1.113883.3.560.100.4",
+        "property" : "birthtime",
+        "type" : "characteristic",
+        "definition" : "patient_characteristic_birthdate",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "PatientCharacteristicBirthdateBirthDate",
+        "inline_code_list" : { "LOINC" : [ 
+            "21112-8" ] },
+        "temporal_references" : [ 
+          { "type" : "SBS",
+            "reference" : "MeasurePeriod",
+            "range" : { "type" : "IVL_PQ",
+              "high" : { "type" : "PQ",
+                "unit" : "a",
+                "value" : "17",
+                "inclusive?" : true,
+                "derived?" : false } } } ] },
+      "EncounterPerformedFaceToFaceInteraction_precondition_69" : { "title" : "Face-to-Face Interaction",
+        "description" : "Encounter, Performed: Face-to-Face Interaction",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1048",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedFaceToFaceInteraction",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedOfficeVisit_precondition_71" : { "title" : "Office Visit",
+        "description" : "Encounter, Performed: Office Visit",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1001",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedOfficeVisit",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedPreventiveCareServicesIndividualCounseling_precondition_73" : { "title" : "Preventive Care Services-Individual Counseling",
+        "description" : "Encounter, Performed: Preventive Care Services-Individual Counseling",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1026",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedPreventiveCareServicesIndividualCounseling",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedPreventiveCareInitialOfficeVisit0To17_precondition_75" : { "title" : "Preventive Care- Initial Office Visit, 0 to 17",
+        "description" : "Encounter, Performed: Preventive Care- Initial Office Visit, 0 to 17",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1022",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedPreventiveCareInitialOfficeVisit0To17",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17_precondition_77" : { "title" : "Preventive Care - Established Office Visit, 0 to 17",
+        "description" : "Encounter, Performed: Preventive Care - Established Office Visit, 0 to 17",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1024",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedPreventiveCareServicesGroupCounseling_precondition_79" : { "title" : "Preventive Care Services - Group Counseling",
+        "description" : "Encounter, Performed: Preventive Care Services - Group Counseling",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1027",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedPreventiveCareServicesGroupCounseling",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] },
+      "EncounterPerformedHomeHealthcareServices_precondition_81" : { "title" : "Home Healthcare Services",
+        "description" : "Encounter, Performed: Home Healthcare Services",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1016",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedHomeHealthcareServices",
+        "temporal_references" : [ 
+          { "type" : "DURING",
+            "reference" : "MeasurePeriod" } ] } },
+    "source_data_criteria" : { "PatientCharacteristicBirthdateBirthDate" : { "title" : "birth date",
+        "description" : "Patient Characteristic Birthdate: birth date",
+        "standard_category" : "individual_characteristic",
+        "qds_data_type" : "individual_characteristic",
+        "code_list_id" : "2.16.840.1.113883.3.560.100.4",
+        "property" : "birthtime",
+        "type" : "characteristic",
+        "definition" : "patient_characteristic_birthdate",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "PatientCharacteristicBirthdateBirthDate",
+        "inline_code_list" : { "LOINC" : [ 
+            "21112-8" ] } },
+      "EncounterPerformedOfficeVisit" : { "title" : "Office Visit",
+        "description" : "Encounter, Performed: Office Visit",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1001",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedOfficeVisit" },
+      "EncounterPerformedPreventiveCareInitialOfficeVisit0To17" : { "title" : "Preventive Care- Initial Office Visit, 0 to 17",
+        "description" : "Encounter, Performed: Preventive Care- Initial Office Visit, 0 to 17",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1022",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedPreventiveCareInitialOfficeVisit0To17" },
+      "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17" : { "title" : "Preventive Care - Established Office Visit, 0 to 17",
+        "description" : "Encounter, Performed: Preventive Care - Established Office Visit, 0 to 17",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1024",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedPreventiveCareEstablishedOfficeVisit0To17" },
+      "EncounterPerformedPreventiveCareServicesIndividualCounseling" : { "title" : "Preventive Care Services-Individual Counseling",
+        "description" : "Encounter, Performed: Preventive Care Services-Individual Counseling",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1026",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedPreventiveCareServicesIndividualCounseling" },
+      "EncounterPerformedPreventiveCareServicesGroupCounseling" : { "title" : "Preventive Care Services - Group Counseling",
+        "description" : "Encounter, Performed: Preventive Care Services - Group Counseling",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1027",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedPreventiveCareServicesGroupCounseling" },
+      "EncounterPerformedFaceToFaceInteraction" : { "title" : "Face-to-Face Interaction",
+        "description" : "Encounter, Performed: Face-to-Face Interaction",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1048",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedFaceToFaceInteraction" },
+      "DiagnosisActivePregnancy" : { "title" : "Pregnancy",
+        "description" : "Diagnosis, Active: Pregnancy",
+        "standard_category" : "diagnosis_condition_problem",
+        "qds_data_type" : "diagnosis_active",
+        "code_list_id" : "2.16.840.1.113883.3.526.3.378",
+        "type" : "conditions",
+        "definition" : "diagnosis",
+        "status" : "active",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "DiagnosisActivePregnancy" },
+      "PhysicalExamFindingBmiPercentile" : { "title" : "BMI percentile",
+        "description" : "Physical Exam, Finding: BMI percentile",
+        "standard_category" : "physical_exam",
+        "qds_data_type" : "physical_exam",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.121.12.1012",
+        "type" : "physical_exams",
+        "definition" : "physical_exam",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "PhysicalExamFindingBmiPercentile" },
+      "PhysicalExamFindingHeight" : { "title" : "Height",
+        "description" : "Physical Exam, Finding: Height",
+        "standard_category" : "physical_exam",
+        "qds_data_type" : "physical_exam",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.121.12.1014",
+        "type" : "physical_exams",
+        "definition" : "physical_exam",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "PhysicalExamFindingHeight" },
+      "PhysicalExamFindingWeight" : { "title" : "Weight",
+        "description" : "Physical Exam, Finding: Weight",
+        "standard_category" : "physical_exam",
+        "qds_data_type" : "physical_exam",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.121.12.1015",
+        "type" : "physical_exams",
+        "definition" : "physical_exam",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "PhysicalExamFindingWeight" },
+      "InterventionPerformedCounselingForNutrition" : { "title" : "Counseling for Nutrition",
+        "description" : "Intervention, Performed: Counseling for Nutrition",
+        "standard_category" : "procedure",
+        "qds_data_type" : "procedure_performed",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.195.12.1003",
+        "type" : "interventions",
+        "definition" : "intervention",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "InterventionPerformedCounselingForNutrition" },
+      "InterventionPerformedCounselingForPhysicalActivity" : { "title" : "Counseling for Physical Activity",
+        "description" : "Intervention, Performed: Counseling for Physical Activity",
+        "standard_category" : "procedure",
+        "qds_data_type" : "procedure_performed",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.118.12.1035",
+        "type" : "interventions",
+        "definition" : "intervention",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "InterventionPerformedCounselingForPhysicalActivity" },
+      "EncounterPerformedHomeHealthcareServices" : { "title" : "Home Healthcare Services",
+        "description" : "Encounter, Performed: Home Healthcare Services",
+        "standard_category" : "encounter",
+        "qds_data_type" : "encounter",
+        "code_list_id" : "2.16.840.1.113883.3.464.1003.101.12.1016",
+        "type" : "encounters",
+        "definition" : "encounter",
+        "status" : "performed",
+        "hard_status" : false,
+        "negation" : false,
+        "source_data_criteria" : "EncounterPerformedHomeHealthcareServices" },
+      "OccurrenceAPregnancy1" : { "title" : "Pregnancy",
+        "description" : "Diagnosis, Active: Pregnancy",
+        "standard_category" : "diagnosis_condition_problem",
+        "qds_data_type" : "diagnosis_active",
+        "code_list_id" : "2.16.840.1.113883.3.526.3.378",
+        "type" : "conditions",
+        "definition" : "diagnosis",
+        "status" : "active",
+        "hard_status" : false,
+        "negation" : false,
+        "specific_occurrence" : "A",
+        "specific_occurrence_const" : "DIAGNOSIS_ACTIVE_PREGNANCY",
+        "source_data_criteria" : "OccurrenceAPregnancy1" } },
+    "attributes" : [ 
+      { "id" : "COPYRIGHT",
+        "code" : "COPY",
+        "value" : "Physician Performance Measure (Measures) and related data specifications were developed by the National Committee for Quality Assurance (NCQA). \r\n\r\nThe Measures are copyrighted but can be reproduced and distributed, without modification, for noncommercial purposes (e.g., use by healthcare providers in connection with their practices). Commercial use is defined as the sale, licensing, or distribution of the Measures for commercial gain, or incorporation of the Measures into a product or service that is sold, licensed or distributed for commercial gain. Commercial use of the Measures requires a license agreement between the user and NCQA. NCQA is not responsible for any use of the Measures. \r\n\r\nCopyright 2012 National Committee for Quality Assurance. All Rights Reserved. \r\n\r\nLimited proprietary coding is contained in the Measure specifications for user convenience. Users of proprietary code sets should obtain all necessary licenses from the owners of the code sets. NCQA disclaims all liability for use or accuracy of any CPT or other codes contained in the specifications.\r\n\r\nCPT(R) contained in the Measure specifications is copyright 2004-2011 American Medical Association. LOINC(R) copyright 2004-2011 Regenstrief Institute, Inc. \r\n\r\nThis material contains SNOMED Clinical Terms(R) (SNOMED CT[R]) copyright 2004-2011 International Health Terminology Standards Development Organisation. ICD-10 copyright 2011 World Health Organization. All Rights Reserved.\r\n\r\nDue to technical limitations, registered trademarks are indicated by (R) or [R] and unregistered trademarks are indicated by (TM) or [TM].",
+        "name" : "Copyright" }, 
+      { "id" : "MEASURE_SCORING",
+        "code" : "MSRSCORE",
+        "name" : "Measure Scoring" }, 
+      { "id" : "MEASURE_TYPE",
+        "code" : "MSRTYPE",
+        "name" : "Measure Type" }, 
+      { "id" : "STRATIFICATION",
+        "code" : "STRAT",
+        "value" : "Report a total score, and each of the following strata:\r\nStratum 1 – Patients age 3-11  \r\nStratum 2 – Patients age 12-17",
+        "name" : "Stratification" }, 
+      { "id" : "RISK_ADJUSTMENT",
+        "code" : "MSRADJ",
+        "value" : "None",
+        "name" : "Risk Adjustment" }, 
+      { "id" : "RATE_AGGREGATION",
+        "code" : "MSRAGG",
+        "value" : "None",
+        "name" : "Rate Aggregation" }, 
+      { "id" : "RATIONALE",
+        "code" : "RAT",
+        "value" : "One of the most important developments in pediatrics in the past two decades has been the emergence of a new chronic disease: obesity in childhood and adolescence. The rapidly increasing prevalence of obesity among children is one of the most challenging dilemmas currently facing pediatricians. National Health and Nutrition Examination Survey (NHANES) data from Cycle II (1976–1980) compared with data from Cycle III (1988–1994) documents an increase in the prevalence of obesity in all age, ethnic, and gender groups. NHANES data collected from 1999–2000 revealed a continued increase in the number of obese children. In that data collection, the prevalence of obesity (body mass index (BMI) > 95th percentile) was 10 percent among children 2–5 years of age and 15 percent among children 6–19 years of age. When children at risk for obesity (BMI of 85th–94th percentile) were included, the prevalence increased to 20 percent and 30 percent, respectively. Therefore, >1 of every 4 patients examined by pediatricians either is obese or is considered to be at high risk for developing this challenging health problem (O’Brien et al. 2004).\r\n\r\nIn addition to the growing prevalence of obesity in children and adolescents, the number of overweight children at risk of becoming obese is also of great concern. Evidence suggests that overweight children and adolescents are more likely to become obese as adults. For example, one study found that approximately 80 percent of children who were overweight at age 10–15 years were obese adults at age 25 years (Whitaker et al. 1997). Another study found that 25 percent of obese adults were overweight as children. The latter study also found that if overweight begins before 8 years of age, obesity in adulthood is likely to be more severe (Freedman et al. 2001).",
+        "name" : "Rationale" }, 
+      { "id" : "CLINICAL_RECOMMENDATION_STATEMENT",
+        "code" : "CRS",
+        "value" : "U.S. Preventive Services Task Force (2005) - Evidence is insufficient to recommend for or against routine screening for overweight in children and adolescents as a means to prevent adverse health outcomes (I rating).\r\n\r\nAmerican Academy of Pediatrics (2004) - BMI should be calculated from the height and weight, and the BMI percentile should be calculated.\r\n\r\nAmerican Medical Association (AMA), Centers for Disease Control and Prevention (CDC), Health Resources and Services Administration (HRSA) (2007) - At minimum, a yearly assessment of weight status in all children.\r\n\r\nInclude calculation of height, weight (measured appropriately), and body mass index (BMI) for age and plotting of those measures on standard growth charts.\r\n\r\nThe AAP and the American College of Clinical Endocrinology (ACCE) (Dorsey 2005) - Screen children for obesity using BMI and examine overweight children for obesity-related diseases.\r\n\r\nCDC (Baker 2005) - Using the percentile BMI for age and gender as the most appropriate and easily available method to screen for childhood overweight or at risk for overweight. \r\n\r\nBright Futures (AAP) (Hagan 2008) - Calculate BMI at every visit.",
+        "name" : "Clinical Recommendation Statement" }, 
+      { "id" : "IMPROVEMENT_NOTATION",
+        "code" : "IDUR",
+        "value" : "Higher score indicates better quality",
+        "name" : "Improvement Notation" }, 
+      { "id" : "NQF_ID_NUMBER",
+        "code" : "OTH",
+        "value" : "0024",
+        "name" : "NQF ID Number" }, 
+      { "id" : "DISCLAIMER",
+        "code" : "DISC",
+        "value" : "These performance Measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications.\r\n\r\nTHE MEASURES AND SPECIFICATIONS ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND.",
+        "name" : "Disclaimer" }, 
+      { "id" : "EMEASURE_IDENTIFIER",
+        "code" : "OTH",
+        "value" : "155",
+        "name" : "eMeasure Identifier" }, 
+      { "id" : "REFERENCE",
+        "code" : "REF",
+        "value" : "Hagan, J.F., Shaw J.S., Duncan P.M. eds. 2008. Bright Futures: Guidelines for Health Supervision of Infants, Children, and Adolescents, Third Edition. Elk Grove: American Academy of Pediatrics.",
+        "name" : "Reference" }, 
+      { "id" : "DEFINITION",
+        "code" : "DEF",
+        "value" : "None",
+        "name" : "Definition" }, 
+      { "id" : "GUIDANCE",
+        "code" : "GUIDE",
+        "value" : "The visit must be performed by a PCP or OB/GYN. \r\nBecause BMI norms for youth vary with age and gender, this measure evaluates whether BMI percentile is assessed rather than an absolute BMI value.",
+        "name" : "Guidance" }, 
+      { "id" : "TRANSMISSION_FORMAT",
+        "code" : "OTH",
+        "value" : "TBD",
+        "name" : "Transmission Format" }, 
+      { "id" : "INITIAL_PATIENT_POPULATION",
+        "code" : "IPP",
+        "value" : "Patients 3-17 years of age with at least one outpatient visit with a primary care physician (PCP) or an obstetrician/gynecologist (OB/GYN) during the measurement period",
+        "name" : "Initial Patient Population" }, 
+      { "id" : "DENOMINATOR",
+        "code" : "DENOM",
+        "value" : "Equals initial patient population",
+        "name" : "Denominator" }, 
+      { "id" : "DENOMINATOR_EXCLUSIONS",
+        "code" : "OTH",
+        "value" : "Patients who have a diagnosis of pregnancy during the measurement period",
+        "name" : "Denominator Exclusions" }, 
+      { "id" : "NUMERATOR",
+        "code" : "NUMER",
+        "value" : "Numerator 1: Patients who had a height, weight and body mass index (BMI) percentile recorded during the measurement period\r\nNumerator 2: Patients who had counseling for nutrition during the measurement period\r\nNumerator 3: Patients who had counseling for physical activity during the measurement period",
+        "name" : "Numerator" }, 
+      { "id" : "NUMERATOR_EXCLUSIONS",
+        "code" : "OTH",
+        "value" : "Not Applicable",
+        "name" : "Numerator Exclusions" }, 
+      { "id" : "DENOMINATOR_EXCEPTIONS",
+        "code" : "DENEXCEP",
+        "value" : "None",
+        "name" : "Denominator Exceptions" }, 
+      { "id" : "MEASURE_POPULATION",
+        "code" : "MSRPOPL",
+        "value" : "Not Applicable",
+        "name" : "Measure Population" }, 
+      { "id" : "MEASURE_OBSERVATIONS",
+        "code" : "OTH",
+        "value" : "Not Applicable",
+        "name" : "Measure Observations" }, 
+      { "id" : "SUPPLEMENTAL_DATA_ELEMENTS",
+        "code" : "OTH",
+        "value" : "For every patient evaluated by this measure also identify payer, race, ethnicity and sex",
+        "name" : "Supplemental Data Elements" } ],
+    "populations" : [ 
+      { "NUMER" : "NUMER",
+        "DENOM" : "DENOM",
+        "IPP" : "IPP",
+        "DENEX" : "DENEX",
+        "title" : "BMI Recorded",
+        "id" : "Population1" }, 
+      { "NUMER" : "NUMER_1",
+        "DENOM" : "DENOM",
+        "IPP" : "IPP",
+        "DENEX" : "DENEX",
+        "title" : "Nutrition Counseling",
+        "id" : "Population2" }, 
+      { "NUMER" : "NUMER_2",
+        "DENOM" : "DENOM",
+        "IPP" : "IPP",
+        "DENEX" : "DENEX",
+        "title" : "Physical Activity Counseling",
+        "id" : "Population3" }, 
+      { "IPP" : "IPP_1",
+        "DENOM" : "DENOM",
+        "NUMER" : "NUMER",
+        "DENEX" : "DENEX",
+        "stratification" : "95DF97E7-810D-48A5-8F02-99FA4B384A7B",
+        "title" : "BMI Recorded, RS1: 3-11",
+        "id" : "Population4" }, 
+      { "IPP" : "IPP_2",
+        "DENOM" : "DENOM",
+        "NUMER" : "NUMER",
+        "DENEX" : "DENEX",
+        "stratification" : "5722134D-5F7C-42AD-914B-E73B4C366D55",
+        "title" : "BMI Recorded, RS2: 12-17",
+        "id" : "Population5" }, 
+      { "IPP" : "IPP_1",
+        "DENOM" : "DENOM",
+        "NUMER" : "NUMER_1",
+        "DENEX" : "DENEX",
+        "stratification" : "95DF97E7-810D-48A5-8F02-99FA4B384A7B",
+        "title" : "Nutrition Counseling, RS1: 3-11",
+        "id" : "Population6" }, 
+      { "IPP" : "IPP_2",
+        "DENOM" : "DENOM",
+        "NUMER" : "NUMER_1",
+        "DENEX" : "DENEX",
+        "stratification" : "5722134D-5F7C-42AD-914B-E73B4C366D55",
+        "title" : "Nutrition Counseling, RS2: 12-17",
+        "id" : "Population7" }, 
+      { "IPP" : "IPP_1",
+        "DENOM" : "DENOM",
+        "NUMER" : "NUMER_2",
+        "DENEX" : "DENEX",
+        "stratification" : "95DF97E7-810D-48A5-8F02-99FA4B384A7B",
+        "title" : "Physical Activity Counseling, RS1: 3-11",
+        "id" : "Population8" }, 
+      { "IPP" : "IPP_2",
+        "DENOM" : "DENOM",
+        "NUMER" : "NUMER_2",
+        "DENEX" : "DENEX",
+        "stratification" : "5722134D-5F7C-42AD-914B-E73B4C366D55",
+        "title" : "Physical Activity Counseling, RS2: 12-17",
+        "id" : "Population9" } ],
+    "measure_period" : { "type" : "IVL_TS",
+      "low" : { "type" : "TS",
+        "value" : "201201010000",
+        "inclusive?" : true,
+        "derived?" : false },
+      "high" : { "type" : "TS",
+        "value" : "201212312359",
+        "inclusive?" : true,
+        "derived?" : false },
+      "width" : { "type" : "PQ",
+        "unit" : "a",
+        "value" : "1",
+        "inclusive?" : true,
+        "derived?" : false } } }
+}

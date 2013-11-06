@@ -4,23 +4,29 @@ class Cat1Test < MiniTest::Unit::TestCase
   include HealthDataStandards::Export::Helper::Cat1ViewHelper
 
   def setup
-    @patient = Record.where({first: "Barry"}).first
+    unless @initialized
+      collection_fixtures('records')
+      @patient = Record.where({first: "Barry"}).first
 
-    @start_date = Time.now.years_ago(1)
-    @end_date = Time.now
+      @start_date = Time.now.years_ago(1)
+      @end_date = Time.now
 
-    @measures = MEASURES
-    @qrda_xml = HealthDataStandards::Export::Cat1.new.export(@patient, @measures, @start_date, @end_date)
-    @doc = Nokogiri::XML(@qrda_xml)
-    @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+      collection_fixtures('measures')
+      @measures = HealthDataStandards::CQM::Measure.all
+      @qrda_xml = HealthDataStandards::Export::Cat1.new.export(@patient, @measures, @start_date, @end_date)
+      @doc = Nokogiri::XML(@qrda_xml)
+      @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+      @initialized = true
+    end
   end
 
 
   def test_schema_validation
      xsd = Nokogiri::XML::Schema(open("./resources/schema/infrastructure/cda/CDA_SDTC.xsd"))
+     valid_measures = @measures.select { |m| m.hqmf_id.length > 4 } #make sure there is a valid hqmf_id
      Record.all.each do |record|
-      doc = Nokogiri::XML(HealthDataStandards::Export::Cat1.new.export(record,@measures,@start_date,@end_date))
-      assert_equal [], xsd.validate(doc) 
+      doc = Nokogiri::XML(HealthDataStandards::Export::Cat1.new.export(record,valid_measures,@start_date,@end_date))
+      assert_equal [], xsd.validate(doc), "Invalid Cat I for #{record.first} #{record.last}" 
     end  
   end
 
@@ -36,7 +42,10 @@ class Cat1Test < MiniTest::Unit::TestCase
   end
 
   def test_entries_for_data_criteria
-    data_criteria = @measures.find{|m| m.hqmf_id == '2E679CD2-3FEC-4A75-A75A-61403E5EFEE8'}.all_data_criteria.find{|dc| dc.id == 'MedicationDispensedPharyngitisAntibiotics_precondition_4'}
+    # for some reason the find method isn't working on @measures
+    measure1 = @measures.select{|m| m.hqmf_id == '0001'}.first
+    assert measure1
+    data_criteria = measure1.all_data_criteria.find{|dc| dc.id == 'MedicationDispensedPreferredAsthmaTherapy_precondition_37'}
     entries = entries_for_data_criteria(data_criteria, @patient)
     assert_equal 1, entries.length
     assert_equal 'Multivitamin', entries[0].description
@@ -71,9 +80,9 @@ class Cat1Test < MiniTest::Unit::TestCase
 
   def test_measure_section_export
     measure_entries = @doc.xpath('//cda:section[cda:templateId/@root="2.16.840.1.113883.10.20.24.2.3"]/cda:entry')
-    assert_equal MEASURES.length, measure_entries.size
+    assert_equal @measures.length, measure_entries.size
     measure = measure_entries.find do |measure_entry|
-      measure_entry.at_xpath('./cda:organizer/cda:reference/cda:externalDocument/cda:setId[@root="B5FEE67F-F5C4-4C73-9D58-1941F9729539"]').present?
+      measure_entry.at_xpath('./cda:organizer/cda:reference/cda:externalDocument/cda:id[@root="0001"]').present?
     end
     assert measure
   end
