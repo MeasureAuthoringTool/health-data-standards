@@ -25,11 +25,13 @@ Please try to follow the [GitHub Coding Style Guides](https://github.com/stylegu
 Change Log
 ==========
 
-3.2.12 - XXXXXXXXXXXXXXXXX
+3.3.0 - November 7, 2013
 
 * Removing hardcoded headers in QRDA documents and replacing them with templates populated by Ruby objects
 * XML structural fixes in QRDA Category III generation
 * QRDA Category I generation was previously dependent on a patient being associated with a bundle id, it will now use the latest bundle if one is not provided
+* Specified a version in our dependency on rubyzip. API changes in rubyzip were breaking our code
+* Fixed discrepancies between our Measure model and the JSON representation provided in measure bundles
 
 3.2.11 - September 4, 2013
 
