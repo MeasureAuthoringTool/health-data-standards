@@ -6,7 +6,7 @@ module HealthDataStandards
           super(entry_finder)
           @entry_class = Procedure
         end
-        
+
         def create_entry(entry_element, nrh = CDA::NarrativeReferenceHandler.new)
           procedure = super
           procedure.status_code = {'HL7 ActStatus' => ['ordered']}
@@ -20,7 +20,7 @@ module HealthDataStandards
 
         def extract_dates(parent_element, entry, element_name="author")
           if parent_element.at_xpath("cda:#{element_name}/cda:time/@value")
-            entry.start_time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:time")['value'])
+            entry.time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:time")['value'])
           end
         end
 
