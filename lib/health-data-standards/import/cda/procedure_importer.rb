@@ -9,10 +9,12 @@ module HealthDataStandards
           super(entry_finder)
           @entry_class = Procedure
           @value_xpath = nil
+          @ordinality_xpath = "./cda:priorityCode"
         end
-        
+
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
           procedure = super
+          extract_ordinality(entry_element, procedure)
           extract_performer(entry_element, procedure)
           extract_site(entry_element, procedure)
           extract_negation(entry_element, procedure)
@@ -20,6 +22,13 @@ module HealthDataStandards
         end
 
         private
+
+        def extract_ordinality(parent_element, procedure)
+          ordinality_element = parent_element.at_xpath(@ordinality_xpath)
+          if ordinality_element
+            procedure.ordinality = {CodeSystemHelper.code_system_for(ordinality_element['codeSystem']) => [ordinality_element['code']]}
+          end
+        end
 
         def extract_performer(parent_element, procedure)
           performer_element = parent_element.at_xpath("./cda:performer")
