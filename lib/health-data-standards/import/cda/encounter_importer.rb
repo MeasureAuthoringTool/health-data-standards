@@ -3,10 +3,9 @@ module HealthDataStandards
     module CDA
       # TODO Extract Discharge Disposition
       class EncounterImporter < SectionImporter
-    
-        def initialize(entry_finder=EntryFinder.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.127']/cda:entry/cda:encounter"))
+        def initialize(entry_finder=EntryFinder.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.127']/cda:entry/cda:encounter or //cda:section[cda:templateId/@root='2.16.840.1.113883.10.20.17.2.4']/cda:entry/cda:encounter"))
           super(entry_finder)
-          @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:act"
+          @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation"
           @entry_class = Encounter
         end
         
@@ -53,6 +52,7 @@ module HealthDataStandards
         end
     
         def extract_admission(parent_element, encounter)
+          encounter.admit_time = encounter.start_time
           encounter.admit_type = extract_code(parent_element, "./cda:priorityCode")
         end
 
