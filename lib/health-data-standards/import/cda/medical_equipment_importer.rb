@@ -13,6 +13,7 @@ module HealthDataStandards
           medical_equipment = super
           extract_manufacturer(entry_element, medical_equipment)
           extract_anatomical_structure(entry_element, medical_equipment)
+          extract_removal_time(entry_element, medical_equipment)
           medical_equipment
         end
 
@@ -21,7 +22,13 @@ module HealthDataStandards
           entry.manufacturer = manufacturer.strip if manufacturer
         end
 
-        def extract_anatomical_structure(entry_element, entry) 
+        def extract_removal_time(entry_element, entry)
+          if entry_element.at_xpath("cda:effectiveTime/cda:high")
+            entry.removal_time = HL7Helper.timestamp_to_integer(entry_element.at_xpath("cda:effectiveTime/cda:high")['value'])
+          end
+        end
+
+        def extract_anatomical_structure(entry_element, entry)
           site = entry_element.at_xpath(@anatomical_xpath)
           if site
             entry.anatomical_structure = {CodeSystemHelper.code_system_for(site['codeSystem']) => [site['code']]}
