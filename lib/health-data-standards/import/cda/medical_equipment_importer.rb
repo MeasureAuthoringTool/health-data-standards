@@ -31,7 +31,7 @@ module HealthDataStandards
         def extract_anatomical_structure(entry_element, entry)
           site = entry_element.at_xpath(@anatomical_xpath)
           if site
-            entry.anatomical_structure = {CodeSystemHelper.code_system_for(site['codeSystem']) => [site['code']]}
+            entry.anatomical_structure = {"code" => site['code'], "code_system" => CodeSystemHelper.code_system_for(site['codeSystem']), "codeSystemName" => CodeSystemHelper.code_system_for(site['codeSystem']), CodeSystemHelper.code_system_for(site['codeSystem']) => [site['code']]}
           end
         end
       end
