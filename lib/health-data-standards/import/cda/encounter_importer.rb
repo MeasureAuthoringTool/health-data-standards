@@ -44,12 +44,8 @@ module HealthDataStandards
         def extract_reason(parent_element, encounter, nrh)
           reason_element = parent_element.at_xpath(@reason_xpath)
           if reason_element
-            reason = Entry.new
-            extract_codes(reason_element, reason)
-            extract_reason_description(reason_element, reason, nrh)
-            extract_status(reason_element, reason)
-            extract_dates(reason_element, reason)
-            encounter.reason = reason
+            value = reason_element.at_xpath("./cda:value")
+            encounter.reason = {"code" => value['code'], "code_system" => CodeSystemHelper.code_system_for(value['codeSystem']), "codeSystemName" => CodeSystemHelper.code_system_for(value['codeSystem']), CodeSystemHelper.code_system_for(value['codeSystem']) => [value['code']]}
           end
         end
     
