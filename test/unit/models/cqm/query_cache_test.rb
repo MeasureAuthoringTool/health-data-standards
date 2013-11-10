@@ -3,7 +3,7 @@ require 'test_helper'
 class QueryCacheTest < MiniTest::Unit::TestCase
   def test_aggregate_measure
     collection_fixtures('query_cache')
-    aggregate_count = HealthDataStandards::CQM::QueryCache.aggregate_measure("8A4D92B2-397A-48D2-0139-C648B33D5582" ,1356998340)
+    aggregate_count = HealthDataStandards::CQM::QueryCache.aggregate_measure("8A4D92B2-397A-48D2-0139-C648B33D5582", nil ,1356998340)
     ipp_pop = aggregate_count.top_level_populations.find{|p| p.type == 'IPP'}
     assert_equal 3, ipp_pop.value
     assert_equal "155518F5-8B70-49AB-A3CB-E53037D5442D", ipp_pop.id
