@@ -121,10 +121,8 @@ Measure Section
                   <versionNumber value="1"/>
                 </externalDocument>
               </reference>
-             
-              <% result = results[measure['hqmf_id']]
-                 unless result.is_cv? || result.multiple_population_types?
-              -%>
+              <% result = measure['sub_id'] ? results[measure['hqmf_id']][measure['sub_id']] : results[measure['hqmf_id']] -%>
+              <% unless result.is_cv? || result.multiple_population_types? -%>
               <component>
               <%== render :partial => 'performance_rate', :locals => {:aggregate_count => result} %>
               </component>
@@ -134,8 +132,8 @@ Measure Section
               <component>
               <%== render :partial => 'measure_data', :locals => {:aggregate_count => result, :population_type => pop.type, :population_id => pop.id} %>
               </component>
-              <%   end
-                 end -%>
+                <% end -%>
+              <% end -%>
             </organizer>
           </entry>
           <% end %>
