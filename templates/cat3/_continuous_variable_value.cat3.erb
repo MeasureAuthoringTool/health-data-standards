@@ -5,7 +5,7 @@
       <originalText>Time Difference</originalText>
     </code>
     <statusCode code="completed"/>
-    <value xsi:type="PQ" value="<%= population.population_count('OBSERV') %>" unit="min"/>
+    <value xsi:type="PQ" value="<%= population.value %>" unit="min"/>
     <methodCode code="MEDIAN" 
                 displayName="Median" 
                 codeSystem="2.16.840.1.113883.5.84" 
@@ -13,7 +13,7 @@
     <reference typeCode="REFR">
       <!-- reference to the relevant measure observation in the eMeasure -->
       <externalObservation classCode="OBS" moodCode="EVN">
-        <id root="<%= population.population_id('OBSERV') %>"/>
+        <id root="<%=population.id %>"/>
       </externalObservation>
     </reference>
   </observation>

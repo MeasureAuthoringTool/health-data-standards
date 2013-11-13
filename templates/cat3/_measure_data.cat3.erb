@@ -1,5 +1,5 @@
 
-<!--   MEASURE DATA REPORTING FOR    <%= population_type %>  <%= aggregate_count.population_id(population_type) %>  -->
+<!--   MEASURE DATA REPORTING FOR    <%= population.type %>  <%= population.id %>  -->
 <observation classCode="OBS" moodCode="EVN">
   <!-- Measure Data template -->
   <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
@@ -8,7 +8,7 @@
         displayName="Assertion" 
         codeSystemName="ActCode"/>
   <statusCode code="completed"/>
-  <value xsi:type="CD" code="<%= population_type %>" 
+  <value xsi:type="CD" code="<%= population.type %>" 
          codeSystem="2.16.840.1.113883.5.1063"  
          codeSystemName="ObservationValue"/>
   <!-- Aggregate Count -->
@@ -19,16 +19,16 @@
         displayName="rate aggregation" 
         codeSystem="2.16.840.1.113883.5.4" 
         codeSystemName="ActCode"/>
-      <value xsi:type="INT" value="<%= aggregate_count.population_count(population_type, population_id).round %>"/>
+      <value xsi:type="INT" value="<%= population.value.round %>"/>
       <methodCode code="COUNT" 
         displayName="Count" 
         codeSystem="2.16.840.1.113883.5.84" 
         codeSystemName="ObservationMethod"/>
     </observation>
   </entryRelationship>
-  <% aggregate_count.stratifications.each do |strat| -%>
+  <% population.stratifications.each do |strat| -%>
 
-  <!--  Startification Reporting Template for <%= population_type %>  <%= aggregate_count.population_id(population_type) %>  Stratification <%= strat.id %>   -->
+  <!--  Startification Reporting Template for <%= population.type %>  <%= population.id %>  Stratification <%= strat.id %>   -->
 
   <entryRelationship typeCode="COMP">
     <observation classCode="OBS" moodCode="EVN">
@@ -48,14 +48,14 @@
                 displayName="rate aggregation" 
                 codeSystem="2.16.840.1.113883.5.4" 
                 codeSystemName="ActCode"/>
-          <value xsi:type="INT" value="<%= strat.population_count(population_type, population_id).round %>"/>
+          <value xsi:type="INT" value="<%= strat.value.round %>"/>
           <methodCode code="COUNT" 
                       displayName="Count" 
                       codeSystem="2.16.840.1.113883.5.84" 
                       codeSystemName="ObservationMethod"/>
         </observation>
       </entryRelationship>
-      <% if population_type == 'MSRPOPL' -%>
+      <% if population.type == 'MSRPOPL' -%>
       <%== render :partial => 'continuous_variable_value', :locals => {:population => strat} %>
       <% end -%>
       <reference typeCode="REFR">
@@ -66,12 +66,12 @@
     </observation>
   </entryRelationship>
   <% end -%>
-  <% if aggregate_count.supplemental_data.present? -%>
-  <%   sex_supplimental_data = aggregate_count.supplemental_data_for(population_type, "SEX")
+  <% if population.supplemental_data.present? -%>
+  <%   sex_supplimental_data = population.supplemental_data["SEX"]
        if sex_supplimental_data.present?
          sex_supplimental_data.each do |sex, count| -%>
    
-   <!--    SEX Supplemental Data Reporting for <%= population_type %> <%= aggregate_count.population_id(population_type) %>       --> 
+   <!--    SEX Supplemental Data Reporting for <%= population.type %>  <%= population.id %>      --> 
          
   <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Sex Supplemental Data', 
                 :template_id => '2.16.840.1.113883.10.20.27.3.6', :supplemental_data_code => '184100006',
@@ -79,11 +79,11 @@
                 :supplemental_data_value_code_system => '2.16.840.1.113883.5.1', :count => count} %>   
       <% end -%>
     <% end -%>
-  <%   ethnicity_supplimental_data = aggregate_count.supplemental_data_for(population_type, "ETHNICITY")
+  <%   ethnicity_supplimental_data = population.supplemental_data["ETHNICITY"]
        if ethnicity_supplimental_data.present?
          ethnicity_supplimental_data.each do |ethnicity, count| -%>
 
-    <!--     ETHNICITY Supplemental Data Reporting  for <%= population_type %> <%= aggregate_count.population_id(population_type) %>     --> 
+    <!--     ETHNICITY Supplemental Data Reporting  for <%= population.type %>  <%= population.id %>     --> 
 
   <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Ethnicity Supplemental Data', 
                 :template_id => '2.16.840.1.113883.10.20.27.3.7', :supplemental_data_code => '364699009',
@@ -91,11 +91,11 @@
                 :supplemental_data_value_code_system => '2.16.840.1.113883.6.238', :count => count} %>   
       <% end -%>
     <% end -%>
-  <%   race_supplimental_data = aggregate_count.supplemental_data_for(population_type, "RACE")
+  <%   race_supplimental_data = population.supplemental_data["RACE"]
        if race_supplimental_data.present?
          race_supplimental_data.each do |race, count| -%>
 
-   <!--      RACE Supplemental Data Reporting  for <%= population_type %> <%= aggregate_count.population_id(population_type) %>    --> 
+   <!--      RACE Supplemental Data Reporting  for <%= population.type %>  <%= population.id %> --> 
 
   <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Race Supplemental Data', 
                 :template_id => '2.16.840.1.113883.10.20.27.3.8', :supplemental_data_code => '103579009',
@@ -103,11 +103,11 @@
                 :supplemental_data_value_code_system => '2.16.840.1.113883.6.238', :count => count} %>   
       <% end -%>
     <% end -%>
-  <%   payer_supplimental_data = aggregate_count.supplemental_data_for(population_type, "PAYER")
+  <%   payer_supplimental_data = population.supplemental_data["PAYER"]
        if payer_supplimental_data.present?
          payer_supplimental_data.each do |payer, count| -%>
 
- <!--         PAYER Supplemental Data Reporting   for <%= population_type %> <%= aggregate_count.population_id(population_type) %>     -->        
+ <!--         PAYER Supplemental Data Reporting   for<%= population.type %>  <%= population.id %>   -->        
   <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Payer Supplemental Data', 
                 :template_id => '2.16.840.1.113883.10.20.27.3.9', :supplemental_data_code => '48768-6',
                 :supplemental_data_code_system => '2.16.840.1.113883.6.1', :supplemental_data_value_code => payer,
@@ -115,12 +115,12 @@
       <% end -%>
     <% end -%>
   <% end -%>
-  <% if population_type == 'MSRPOPL' -%>
-  <%== render :partial => 'continuous_variable_value', :locals => {:population => aggregate_count} %>
+  <% if population.type == 'MSRPOPL' -%>
+  <%== render :partial => 'continuous_variable_value', :locals => {:population => aggregate_count.populations.find{|p| p.type == "OBSERV"}}%>
   <% end -%>
   <reference typeCode="REFR">
      <externalObservation classCode="OBS" moodCode="EVN">
-        <id root="<%= aggregate_count.population_id(population_type) %>"/>
+        <id root="<%= population.id %>"/>
      </externalObservation>
   </reference>
 </observation>
