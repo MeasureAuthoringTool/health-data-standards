@@ -30,7 +30,7 @@ class MiniTest::Unit::TestCase
     Mongoid.session(:default)[collection].drop
     Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', collection, '*.json')).each do |json_fixture_file|
       #puts "Loading #{json_fixture_file}"
-      fixture_json = JSON.parse(File.read(json_fixture_file))
+      fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
       id_attributes.each do |attr|
         fixture_json[attr] = Moped::BSON::ObjectId.from_string(fixture_json[attr])
       end
@@ -96,7 +96,7 @@ def collection_fixtures(collection, *id_attributes)
   Mongoid.session(:default)[collection].drop
   Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', collection, '*.json')).each do |json_fixture_file|
     #puts "Loading #{json_fixture_file}"
-    fixture_json = JSON.parse(File.read(json_fixture_file))
+    fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
     id_attributes.each do |attr|
       fixture_json[attr] = Moped::BSON::ObjectId.from_string(fixture_json[attr])
     end
@@ -108,8 +108,3 @@ end
 collection_fixtures('records', '_id')
 collection_fixtures('health_data_standards_svs_value_sets', '_id')
 collection_fixtures('measures')
-
-MEASURES = []
-Mongoid.session(:default)['measures'].find.each do |measure|
-  MEASURES << HQMF::Document.from_json(measure)
-end

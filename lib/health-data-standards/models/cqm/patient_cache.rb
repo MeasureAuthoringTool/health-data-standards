@@ -2,6 +2,7 @@
 	module CQM
 	  class PatientCache
 			include Mongoid::Document
+			include Mongoid::Timestamps
 	    store_in collection: 'patient_cache'
 			index "value.last" => 1
 	  	index "bundle_id" => 1

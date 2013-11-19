@@ -2,10 +2,11 @@ require 'test_helper'
 
 class HTMLTest < MiniTest::Unit::TestCase
   def test_scooped_html
+    collection_fixtures('measures')
     collection_fixtures('records', '_id')
     record = Record.find('4dcbecdb431a5f5878000004')
 
-    pneumonia_measures = MEASURES.select{|measure| measure.id == '0043'}
+    pneumonia_measures = HealthDataStandards::CQM::Measure.where(nqf_id: '0043')
     result = HealthDataStandards::Export::HTML.new.export(record, pneumonia_measures)
 
     assert !(result.match /Rosa/).nil? # first

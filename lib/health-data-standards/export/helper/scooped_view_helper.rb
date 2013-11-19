@@ -5,9 +5,16 @@ module HealthDataStandards
         include HealthDataStandards::Util
         include HealthDataStandards::SVS
         VS_MAP = {}
+
         def value_set_map(bundle_id=nil)
-      
-          VS_MAP[bundle_id] ||= Hash[ValueSet.where({bundle_id: bundle_id}).map{ |p| [p.oid, p.code_set_map] }]
+          bundle_id_to_use = nil
+          if bundle_id
+            bundle_id_to_use = bundle_id
+          else
+            latest_bundle_id = HealthDataStandards::CQM::Bundle.latest_bundle_id
+            bundle_id_to_use = Moped::BSON::ObjectId.from_string(latest_bundle_id) if latest_bundle_id
+          end
+          VS_MAP[bundle_id_to_use] ||= Hash[ValueSet.where({bundle_id: bundle_id_to_use}).map{ |p| [p.oid, p.code_set_map] }]
         end
 
         # Given a set of measures, find the data criteria/value set pairs that are unique across all of them
@@ -130,7 +137,7 @@ module HealthDataStandards
 
         def handle_patient_expired(patient)
           if patient.expired
-            [OpenStruct.new(start_date: patient.deathdate)]
+            [OpenStruct.new(start_date: patient.deathdate, id: UUID.generate)]
           else
             []
           end
@@ -138,20 +145,6 @@ module HealthDataStandards
 
         def handle_payer_information(patient)
           patient.insurance_providers
-        end
-
-        def code_in_valueset( code, valuesets=[],bundle_id=nil)
-          unless(bundle_id.nil?)
-            bundle = Bundle.find(bundle_id)
-            vs_matches = []
-            valuesets.each do |vs|
-              vset = bundle.valuesets.where({"oid"=>vs}).first
-              if vset && vset.concepts.where({"code" => code["code"], "codeSystem" => code["code_system"]}).first
-                vs_matches << vs
-              end
-            end
-            return vs_matches
-          end
         end
       end
     end

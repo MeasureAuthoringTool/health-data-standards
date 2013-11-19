@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.authors = ["Andy Gregorowicz", "Sam Sayer", "Marc Hadley", "Rob Dingwell", "Andre Quina"]
   s.license = 'APL 2.0'
   
-  s.version = '3.2.11'
+  s.version = '3.3.0'
 
   s.add_dependency 'rest-client', '~>1.6.7'
   s.add_dependency 'erubis', '~> 2.7.0'
@@ -19,11 +19,11 @@ Gem::Specification.new do |s|
   s.add_dependency 'builder', '~> 3.0.0'
   s.add_dependency 'nokogiri', '~> 1.6.0'
 
-  s.add_dependency 'rubyzip'
+  s.add_dependency 'rubyzip', '0.9.9'
 
   s.add_dependency 'log4r', '~> 1.1.10'
   s.add_dependency 'memoist', '~> 0.9.1'
 
   s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/**/*.erb') + Dir.glob('lib/**/*.json') + Dir.glob('lib/**/*.erb') + Dir.glob('lib/health-data-standards/tasks/*.rake') +
-            ["Gemfile", "README.md", "Rakefile", "VERSION"]
+            ["Gemfile", "README.md", "Rakefile"]
 end
