@@ -1,6 +1,6 @@
-
-<% vals = entry.values || [nil]
-   vals.each do |value| %>
+<% vals = entry.values.empty? ? [nil] : entry.values 
+   vals.each do |value| 
+ %>   
 <entry>
   <procedure classCode="PROC" moodCode="EVN">
     <!-- Consolidated Procedure Activity Procedure TemplateId 
