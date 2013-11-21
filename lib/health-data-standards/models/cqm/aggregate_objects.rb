@@ -1,6 +1,5 @@
 module HealthDataStandards
   module CQM
-
     module PopulationSelectors
       def numerator
         populations.find {|pop| pop.type == 'NUMER'}
@@ -51,42 +50,86 @@ module HealthDataStandards
         population_groups.values.any? { |pops| pops.size > 1 }
       end
     end
-
     class Population
-      attr_accessor :type, :value, :id
-    end
-
-    class Stratification
-      attr_accessor :id, :populations
-      include PopulationSelectors
-
-      def initialize
-        @populations = []
-      end
-    end
-
-    class AggregateCount
-      attr_accessor :measure_id, :stratifications, :top_level_populations, :supplemental_data
-      alias :populations :top_level_populations
-      include PopulationSelectors
+      attr_accessor :type, :value, :id, :stratifications, :supplemental_data
 
       def initialize
         @stratifications = []
-        @top_level_populations = []
       end
 
-      def is_cv?
-        top_level_populations.any? {|pop| pop.type == 'MSRPOPL'}
+      def add_stratification(id,value)
+        unless stratifications.find{|st| st.id == id}
+          stratifications << Stratification.new(id,value)
+        end
       end
 
+    end
+
+    class Stratification
+      attr_accessor :id, :value
+      def initialize(id,value)
+        @id = id
+        @value = value
+      end
+
+    end
+
+    class PopulationGroup
+      include PopulationSelectors
+      attr_accessor :populations
       def performance_rate
         numerator_count.to_f / 
           (denominator_count - denominator_exclusions_count - denominator_exceptions_count)
       end
 
-      def supplemental_data_for(population_type, supplemental_data_type)
-        supplemental_data[population_type][supplemental_data_type]
+      def is_cv?
+        populations.any? {|pop| pop.type == 'MSRPOPL'}
       end
+
+    end
+
+    class AggregateCount
+      attr_accessor :measure_id,  :populations, :population_groups
+
+      def initialize(measure_id)
+        @populations = []
+        @measure_id = measure_id
+        @population_groups = []
+      end
+
+      def add_entry(cache_entry)
+        entry_populations = []
+        cache_entry.population_ids.each do |population_type, population_id|
+          population = populations.find{|pop| pop.id == population_id}
+          if population.nil? && population_type != 'stratification'
+            population = Population.new
+            population.type = population_type
+            population.id = population_id
+            populations << population
+          end
+          unless population_type == 'stratification'
+            if cache_entry.is_stratification?
+              strat_id = cache_entry.population_ids['stratification']
+              population.add_stratification(strat_id,cache_entry[population_type])
+            else
+              population.value = cache_entry[population_type]
+              population.supplemental_data = cache_entry.supplemental_data[population_type]
+            end
+          end
+          entry_populations << population if population
+        end
+         pgroup = population_groups.find{|pg| pg.populations.collect{|p| p.id}.sort == entry_populations.collect{|p| p.id}.sort }
+         unless pgroup
+          pg = PopulationGroup.new
+          pg.populations = entry_populations
+          population_groups << pg
+         end
+      end
+
+      def is_cv?
+        populations.any? {|pop| pop.type == 'MSRPOPL'}
+      end
+
     end
   end
 end

@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.authors = ["Andy Gregorowicz", "Sam Sayer", "Marc Hadley", "Rob Dingwell", "Andre Quina"]
   s.license = 'APL 2.0'
   
-  s.version = '3.3.0'
+  s.version = '3.3.1'
 
   s.add_dependency 'rest-client', '~>1.6.7'
   s.add_dependency 'erubis', '~> 2.7.0'
