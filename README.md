@@ -25,6 +25,12 @@ Please try to follow the [GitHub Coding Style Guides](https://github.com/stylegu
 Change Log
 ==========
 
+3.3.1 - Not yet released
+
+* CDA importers now handle removal time on medical equipment
+* QRDA Cat I exporter now handles 38 week gestational period
+* Stratification fixes for QRDA Cat III export
+
 3.3.0 - November 7, 2013
 
 * Removing hardcoded headers in QRDA documents and replacing them with templates populated by Ruby objects
