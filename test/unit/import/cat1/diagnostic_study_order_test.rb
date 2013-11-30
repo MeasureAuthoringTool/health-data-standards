@@ -11,6 +11,6 @@ class DiagnosticStudyOrderImporterTest < MiniTest::Unit::TestCase
     order = orders[0]
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19891215072420')
     assert order.codes['LOINC'].include?("69399-4")
-    assert_equal expected_start, order.start_time
+    assert_equal expected_start, order.time
   end
 end
