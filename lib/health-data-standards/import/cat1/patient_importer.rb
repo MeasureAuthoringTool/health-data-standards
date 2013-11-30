@@ -38,7 +38,7 @@ module HealthDataStandards
                                              generate_importer(CDA::ProcedureImporter, "//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.4']", '2.16.840.1.113883.3.560.1.129'), #comm from provider to provider
                                              generate_importer(CDA::ProcedureImporter, "//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.2']", '2.16.840.1.113883.3.560.1.30'), #comm from patient to provider
                                              generate_importer(ProcedureOrderImporter, nil, '2.16.840.1.113883.3.560.1.62', 'ordered'),
-                                             generate_importer(CDA::ProcedureImporter, "//cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.64']", '2.16.840.1.113883.3.560.1.6'),
+                                             generate_importer(ProcedurePerformedImporter, "//cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.64']", '2.16.840.1.113883.3.560.1.6'),
                                              generate_importer(CDA::ProcedureImporter, "//cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.66']", '2.16.840.1.113883.3.560.1.63'),
                                              generate_importer(CDA::ProcedureImporter, "//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.69']", '2.16.840.1.113883.3.560.1.21'),
                                              generate_importer(CDA::ProcedureImporter, "//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.18']", '2.16.840.1.113883.3.560.1.103', 'performed'), #diagnostic study performed
