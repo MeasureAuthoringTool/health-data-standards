@@ -53,6 +53,7 @@ module HealthDataStandards
         end
     
         def extract_admission(parent_element, encounter)
+          encounter.admit_time = encounter.start_time
           encounter.admit_type = extract_code(parent_element, "./cda:priorityCode")
         end
 
