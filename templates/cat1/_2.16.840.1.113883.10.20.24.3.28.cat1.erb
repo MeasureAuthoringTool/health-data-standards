@@ -1,3 +1,6 @@
+<% vals = entry.values.empty? ? [nil] : entry.values 
+   vals.each do |value| 
+ %>   
 <entry>
   <observation classCode="OBS" moodCode="EVN">
     <!-- Functional Status Result Observation (consolidation) template -->
@@ -15,6 +18,7 @@
     </effectiveTime>
 
     <!-- Result -->
-    <%== render(:partial => 'result_value', :locals => {:values => [entry.values.first], :result_oids=>result_oids}) %>
+    <%== render(:partial => 'result_value', :locals => {:values => [value], :result_oids=>result_oids}) %>
   </observation>
 </entry>
+<% end %>
