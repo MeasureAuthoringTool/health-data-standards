@@ -12,6 +12,6 @@ class ProcedureOrderImporterTest < MiniTest::Unit::TestCase
     assert procedure_order.codes['CPT'].include?('90870')
     assert procedure_order.oid
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20110524094323')
-    assert_equal expected_start, procedure_order.start_time
+    assert_equal expected_start, procedure_order.time
   end
 end
