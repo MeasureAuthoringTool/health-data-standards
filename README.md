@@ -32,6 +32,7 @@ Change Log
 * Stratification fixes for QRDA Cat III export
 * QRDA Cat I importer now extracts incision date/time from procedure performed templates
 * CDA importers set admit times on encounters
+* QRDA Cat I diagnostic study order importer now better handles order time for CQM calculation
 
 3.3.0 - November 7, 2013
 
