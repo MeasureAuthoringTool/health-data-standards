@@ -30,6 +30,7 @@ Change Log
 * CDA importers now handle removal time on medical equipment
 * QRDA Cat I exporter now handles 38 week gestational period
 * Stratification fixes for QRDA Cat III export
+* QRDA Cat I importer now extracts incision date/time from procedure performed templates
 
 3.3.0 - November 7, 2013
 
