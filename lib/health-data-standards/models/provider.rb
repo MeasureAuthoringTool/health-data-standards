@@ -47,4 +47,14 @@ class Provider
   
     return sum.to_s
   end
+
+  #this is intentially left blank. When using the ProviderImporter class this method will be called
+  # if a parsed provider can not be found in the database if the parsed provider does not have an 
+  # npi number associated with it.  This allows applications to handle this how they see fit by redefining
+  # this method.  If this method call return nil an attempt will be made to discover the Provider by name 
+  # matching and if that fails a Provider will be created in the db based on the information in the parsed
+  #  hase
+  def self.resolve_provider(provider_hash)
+
+  end
 end
