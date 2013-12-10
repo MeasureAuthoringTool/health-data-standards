@@ -21,7 +21,7 @@ module HealthDataStandards
           if reason_element
             reason = Entry.new
             extract_codes(reason_element, reason)
-            extract_reason_description(reason_element, reason, nrh)
+            extract_description(reason_element, reason, nrh)
             extract_status(reason_element, reason)
             extract_dates(reason_element, reason)
             encounter.reason = reason
