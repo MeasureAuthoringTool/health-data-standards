@@ -250,6 +250,10 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert encounter.discharge_disposition["code"].include?('306699001')
     assert_equal expected_start, encounter.start_time
     assert_equal expected_end, encounter.end_time
+    assert_equal expected_start, encounter.admit_time
+    assert_equal expected_end, encounter.discharge_time
+    assert encounter.reason.codes['SNOMED-CT'].include?('410666004')
+    assert_equal expected_start, encounter.reason.time
   end
 
   def test_insurance_provider
