@@ -24,8 +24,16 @@ module HealthDataStandards
             extract_description(reason_element, reason, nrh)
             extract_status(reason_element, reason)
             extract_dates(reason_element, reason)
+            extract_workaround_codes(reason_element, reason)
             encounter.reason = reason
           end
+        end
+
+        def extract_workaround_codes(parent_element, entry)
+          value = parent_element.at_xpath("./cda:value")
+          entry['code'] = value['code']
+          entry['code_system'] = CodeSystemHelper.code_system_for(value['codeSystem'])
+          entry['codeSystemName'] = CodeSystemHelper.code_system_for(value['codeSystem'])
         end
 
         def extract_admit_time(parent_element, encounter)
