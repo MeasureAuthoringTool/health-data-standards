@@ -41,7 +41,7 @@ module HealthDataStandards
           return nil if codedValue.nil?
           valueset_oids ||=[]
           code = codedValue["code"]
-          code_system = codedValue["code_set"]
+          code_system = codedValue["code_set"] || codedValue["code_system"]
           vs_map = (value_set_map(bundle_id) || {})
           valueset_oids.each do |vs_oid|
             oid_list = (vs_map[vs_oid] || [])
