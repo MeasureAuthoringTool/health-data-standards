@@ -37,6 +37,12 @@ module HealthDataStandards
       def partial(partial_name)
         template("_#{partial_name}")
       end
+
+      def template_file(file,partial=false)
+        file = partial ? "_#{file}" : file
+        File.new(File.join(template_root, "#{file}.#{@template_format}.erb"))
+      end
+
     end
   end
 end

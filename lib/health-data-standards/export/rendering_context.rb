@@ -1,5 +1,6 @@
 module HealthDataStandards
   module Export
+
     # Used to actually render stuff. A RenderingContext needs to be set up with
     # a template helper and may be provided with extensions.
     #
@@ -51,8 +52,9 @@ module HealthDataStandards
               rendering_context.extend(extension)
             end
           end
-          eruby = Erubis::EscapedEruby.new(erb) # TODO: cache these
-          eruby.result(rendering_context.my_binding)
+            eruby = Erubis::EscapedEruby.new(erb) # TODO: cache these
+            eruby.filename=  @template_helper.template_file((params[:template] || params[:partial]), params[:partial]).path
+            eruby.result(rendering_context.my_binding)
         end.join
       end
     end
