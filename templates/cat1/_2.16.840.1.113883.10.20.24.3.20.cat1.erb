@@ -1,3 +1,6 @@
+<% vals = entry.values.empty? ? [nil] : entry.values 
+   vals.each do |value| 
+ %>   
 <entry>
   <observation classCode="OBS" moodCode="EVN" <%== negation_indicator(entry) %>>
     <!-- Consolidated Result Observation templateId (Implied Template) -->
@@ -14,7 +17,8 @@
       <low <%= value_or_null_flavor(entry.start_time) %>/>
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
-    <%== render(:partial => 'result_value', :locals => {:values => [entry.values.first], :result_oids=>result_oids}) %>
+    <%== render(:partial => 'result_value', :locals => {:values => [value], :result_oids=>result_oids}) %>
     <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"]}) %>
   </observation>
 </entry>
+<% end %>
