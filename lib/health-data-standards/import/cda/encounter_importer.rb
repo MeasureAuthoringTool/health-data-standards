@@ -18,6 +18,7 @@ module HealthDataStandards
           extract_negation(entry_element, encounter)
           extract_admission(entry_element, encounter)
           extract_discharge_disposition(entry_element, encounter)
+          extract_transfers(entry_element, encounter)
           encounter
         end
     
@@ -59,6 +60,28 @@ module HealthDataStandards
         def extract_discharge_disposition(parent_element, encounter)
           encounter.discharge_time = encounter.end_time
           encounter.discharge_disposition = extract_code(parent_element, "./sdtc:dischargeDispositionCode")
+        end
+
+        def extract_transfers(parent_element, encounter)
+          transfer_from_element = parent_element.at_xpath("./cda:participant[@typeCode='ORG']")
+          if (transfer_from_element)
+            transfer_from = Transfer.new(time: transfer_from_element.at_xpath("./cda:time")['value'])
+            transfer_from_subelement = transfer_from_element.at_xpath("./cda:participantRole[@classCode='LOCE']")
+            raw_tf_code = extract_code(transfer_from_subelement, './cda:code')
+            code_hash = {CodeSystemHelper.code_system_for(raw_tf_code["codeSystemOid"]) => [raw_tf_code["code"]]}
+            transfer_from.codes = code_hash
+            encounter.transfer_from = transfer_from
+          end
+
+          transfer_to_element = parent_element.at_xpath("./cda:participant[@typeCode='DST']")
+          if (transfer_to_element)
+            transfer_to = Transfer.new(time: transfer_to_element.at_xpath("./cda:time")['value'])
+            transfer_to_subelement = transfer_to_element.at_xpath("./cda:participantRole[@classCode='LOCE']")
+            raw_tt_code = extract_code(transfer_to_subelement, './cda:code')
+            code_hash = {CodeSystemHelper.code_system_for(raw_tt_code["codeSystemOid"]) => [raw_tt_code["code"]]}
+            transfer_to.codes = code_hash
+            encounter.transfer_to = transfer_to
+          end
         end
       end
     end

@@ -3,8 +3,9 @@ class Encounter < Entry
   field :dischargeDisposition, type: Hash
   field :admitTime, type: Integer
   field :dischargeTime, type: Integer
-  field :transferTo, type: Hash
-  field :transferFrom, type: Hash
+  
+  embeds_one :transferTo, class_name: "Transfer"
+  embeds_one :transferFrom, class_name: "Transfer"
 
   embeds_one :facility
   embeds_one :reason, class_name: "Entry"

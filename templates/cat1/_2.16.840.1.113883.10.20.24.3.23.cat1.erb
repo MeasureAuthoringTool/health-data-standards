@@ -53,6 +53,27 @@
     </participant>
     <% end -%>
 
+    <% if entry.respond_to?(:transferFrom) && entry.transferFrom.present? -%>
+    <participant typeCode="ORG">
+      <time value="<%= entry.transferFrom.time %>"/> 
+      <participantRole classCode="LOCE">
+        <templateId root="2.16.840.1.113883.10.20.24.3.81"/> 
+        <%== code_display(entry.transferFrom, 'value_set_map' => value_set_map, 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+      </participantRole> 
+    </participant>
+    <% end -%>
+
+    <% if entry.respond_to?(:transferTo) && entry.transferTo.present? -%>
+    <participant typeCode="DST">
+      <time value="<%= entry.transferTo.time %>"/> 
+      <participantRole classCode="LOCE">
+        <!-- Transfer To (Destination) template --> 
+        <templateId root="2.16.840.1.113883.10.20.24.3.82"/> 
+        <%== code_display(entry.transferTo, 'value_set_map' => value_set_map, 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+      </participantRole> 
+    </participant>
+    <% end -%>
+
     <% if entry.reason.present? -%>
     <entryRelationship typeCode="RSON">
       <observation classCode="OBS" moodCode="EVN">
