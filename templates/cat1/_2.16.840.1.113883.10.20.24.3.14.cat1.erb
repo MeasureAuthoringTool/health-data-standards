@@ -18,6 +18,7 @@
 
     <%== code_display(entry, 'value_set_map' => value_set_map,'tag_name' => 'value', 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT'],
                              'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <text><%= entry.description %></text>
     <!-- Status -->
     <entryRelationship typeCode="REFR">
       <observation classCode="OBS" moodCode="EVN">
