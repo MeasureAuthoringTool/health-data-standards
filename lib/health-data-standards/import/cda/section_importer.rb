@@ -47,12 +47,9 @@ module HealthDataStandards
           if @value_xpath
             extract_value(entry_element, entry)
           end
-          entry.free_text = entry_element.at_xpath("./cda:text").try("text")
+          entry.description = entry_element.at_xpath("./cda:text").try("text")
           if @status_xpath
             extract_status(entry_element, entry)
-          end
-          if @description_xpath
-            extract_description(entry_element, entry, nrh)
           end
           entry
         end
@@ -76,7 +73,7 @@ module HealthDataStandards
           end
         end
 
-        def extract_description(parent_element, entry, nrh)
+        def extract_reason_description(parent_element, entry, nrh)
           code_elements = parent_element.xpath(@description_xpath)
           code_elements.each do |code_element|
             tag = code_element['value']

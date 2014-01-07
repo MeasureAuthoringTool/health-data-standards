@@ -9,7 +9,7 @@ module GreenC32
     def test_extraction
       ad = @adi.import(@ad)
       assert ad.valid?
-      assert_equal "Do this, not that", ad.free_text
+      assert_equal "Do this, not that", ad.description
     end
   end
 end

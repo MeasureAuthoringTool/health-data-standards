@@ -13,6 +13,7 @@ module HealthDataStandards
           extract_interpretation(entry_element, result)
           extract_reference_range(entry_element, result)
           extract_negation(entry_element, result)
+          extract_reason_description(entry_element, result, nrh)
           result
         end
     

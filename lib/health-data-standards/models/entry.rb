@@ -15,7 +15,6 @@ class Entry
   field :start_time, type: Integer
   field :end_time, type: Integer
   field :status_code, type: Hash
-  field :free_text, type: String
   field :mood_code, type: String, default: "EVN"
   field :negationInd, type: Boolean
   field :negationReason, type: Hash

@@ -8,14 +8,10 @@ class InsuranceProvider < Entry
   embeds_one :subscriber, class_name: "Person"
   
   field :type, type: String
-  field :time, type: Integer
-  field :start_time, type: Integer
-  field :end_time, type: Integer
   field :member_id, type: String
   field :relationship, type: Hash
   field :financial_responsibility_type, type: Hash
   field :name, type: String
-  field :free_text, type: String
   
 
   def shift_dates(date_diff)

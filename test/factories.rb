@@ -25,7 +25,7 @@ FactoryGirl.define do
     f.end_time        1267323432
     f.admit_type      {{"NUBC" => ["12345678"]}}
     f.discharge_disposition {{"NUBC" => ["23456789"]}}
-    f.free_text       "Sample Encounter"
+    f.description       "Sample Encounter"
     f.facility { FactoryGirl.build(:organization) }
     f.sequence :oid do |n|
       "1.2.3.#{n}"
@@ -96,7 +96,7 @@ FactoryGirl.define do
     f.codes { { "SNOMED-CT" => ["4234322"]}}
     f.start_time { 1.month.ago }
     f.end_time { Time.now }
-    f.free_text "Go insane"
+    f.description "Go insane"
   end
 
   factory :immunization do |f|
