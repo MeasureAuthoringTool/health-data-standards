@@ -25,10 +25,6 @@ module HealthDataStandards
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
           medication = super
           
-          if medication.description.present?
-            medication.free_text = medication.description
-          end
-          
           extract_administration_timing(entry_element, medication)
           
           medication.route = extract_code(entry_element, "./cda:routeCode")

@@ -18,6 +18,7 @@
         <templateId root="2.16.840.1.113883.10.20.24.3.87"/>
         <id root="<%= UUID.generate %>"/>
         <%== code_display(entry, 'value_set_map' => value_set_map, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+        <text><%= entry.description %></text>
         <statusCode code="completed"/>
         <effectiveTime <%= value_or_null_flavor(entry.start_time) %>/>
         <% ev = entry.values.first

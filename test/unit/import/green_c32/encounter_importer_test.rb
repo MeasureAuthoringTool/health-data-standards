@@ -14,7 +14,7 @@ module GreenC32
       refute_nil encounter
       refute_nil encounter.start_time
       refute_nil encounter.end_time
-      assert_equal "Routine Check Up", encounter.free_text
+      assert_equal "Routine Check Up", encounter.description
       
       refute_nil encounter.admit_type
       refute encounter.admit_type.empty?

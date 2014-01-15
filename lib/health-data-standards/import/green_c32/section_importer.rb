@@ -105,7 +105,7 @@ module HealthDataStandards
           extract_status(element, entry)
           extract_value(element, entry)
           extract_effective_time(element, entry)
-          entry.free_text = element.at_xpath("./gc32:freeText").try(:inner_text)
+          entry.description = element.at_xpath("./gc32:freeText").try(:inner_text)
           entry
         end
         
@@ -158,10 +158,6 @@ module HealthDataStandards
           telecom.value = extract_node_attribute(telecom_element, :value)
           telecom.preferred = extract_node_attribute(telecom_element, :preferred)
           telecom
-        end
-        
-        def extract_free_text(element, entry, free_text_element="freeText")
-          entry.free_text = extract_node_text(element.at_xpath("./gc32:#{free_text_element}"))
         end
                 
         private
