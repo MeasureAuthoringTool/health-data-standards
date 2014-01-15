@@ -16,6 +16,7 @@ module HealthDataStandards
           extract_performer(entry_element, procedure)
           extract_site(entry_element, procedure)
           extract_negation(entry_element, procedure)
+          extract_scalar(entry_element, procedure)
           procedure
         end
 
@@ -30,6 +31,17 @@ module HealthDataStandards
           procedure.site = extract_code(parent_element, "./cda:targetSiteCode")
         end
 
+        def extract_scalar(parent_element, procedure)
+          return unless scalar_element = parent_element.at_xpath("./cda:value")
+          case scalar_element["xsi:type"]
+          when "PQ"
+            procedure.set_value scalar_element['value'].to_i, scalar_element['unit']
+          when "BL"
+            procedure.set_value scalar_element['value']
+          when "ST"
+            procedure.set_value scalar_element.content
+          end
+        end
       end
     end
   end
