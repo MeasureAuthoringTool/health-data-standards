@@ -79,20 +79,32 @@ class Record
   alias :clinical_trial_participant :clinicalTrialParticipant
   alias :clinical_trial_participant= :clinicalTrialParticipant=
 
-  # Removed duplicate entries from a section based on id. This method may
-  # lose information because it does not compare entries based on clinical
-  # content
-  def dedup_section!(section)
+
+  # Remove duplicate entries from a section based on cda_identifier or id.
+  # This method may lose information because it does not compare entries
+  # based on clinical content
+  def dedup_section_ignoring_content!(section)
     unique_entries = self.send(section).uniq do |entry|
-      if entry.respond_to?(:cda_identifier) && entry.cda_identifier.present?
-        entry.cda_identifier
-      else
-        entry.id
-      end
+      entry.identifier
     end
     self.send("#{section}=", unique_entries)
   end
+  def dedup_section_merging_codes_and_values!(section)
+    unique_entries = {}
+    self.send(section).each do |entry|
+      if unique_entries[entry.identifier]
+        unique_entries[entry.identifier].codes = unique_entries[entry.identifier].codes.deep_merge(entry.codes)
+        unique_entries[entry.identifier].values.concat(entry.values)
+      else
+        unique_entries[entry.identifier] = entry
+      end
+    end
+    self.send("#{section}=", unique_entries.values)
+  end
 
+  def dedup_section!(section)
+    section == :results ? dedup_section_merging_codes_and_values!(section) : dedup_section_ignoring_content!(section)
+  end
   def dedup_record!
     Record::Sections.each {|section| self.dedup_section!(section)}
   end

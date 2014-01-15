@@ -206,4 +206,12 @@ class Entry
     self.time = self.time.nil? ? nil : (self.time + date_diff)
   end
 
+  def identifier
+    if respond_to?(:cda_identifier) && self.cda_identifier.present?
+      self.cda_identifier
+    else
+      self.id
+    end
+  end
+
 end

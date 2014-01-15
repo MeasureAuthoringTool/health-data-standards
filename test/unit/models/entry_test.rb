@@ -89,15 +89,27 @@ class EntryTest < MiniTest::Unit::TestCase
     assert entry2 != entry3
     assert entry1 != entry3
   end
-  
+
   def test_to_hash
     entry = Entry.new
     entry.add_code("44556699", "RxNorm")
     entry.time = 1270598400
     entry.specifics = "specific"
-    
+
     h = entry.to_hash
     assert_equal 1270598400, h['time']
     assert h['codes']['RxNorm'].include?('44556699')
+  end
+
+  def test_identifier_id
+    entry = Entry.new
+    assert_equal entry.id, entry.identifier
+  end
+
+  def test_identifier_cda_identifier
+    entry = Entry.new
+    identifier = CDAIdentifier.new(root: '1.2.3.4')
+    entry.cda_identifier = identifier
+    assert_equal identifier, entry.identifier
   end
 end
