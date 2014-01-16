@@ -28,6 +28,23 @@ class RecordTest < MiniTest::Unit::TestCase
     assert_equal 3, record.encounters.size
   end
 
+  def test_dedup_procedure_section
+    record = Record.new
+    identifier = CDAIdentifier.new(root: '1.2.3.4')
+    value_a = ResultValue.new(scalar: 10)
+    value_b = ResultValue.new(scalar: 20)
+    record.procedures << Procedure.new(cda_identifier: identifier, codes: {:x => {:y => "z"}}, values: [value_a])
+    record.procedures << Procedure.new(cda_identifier: identifier, codes: {:a => "b", :x => {:z => "a"}}, values: [value_b])
+
+    assert_equal 2, record.procedures.size
+
+    record.dedup_section! :procedures
+
+    assert_equal 1, record.procedures.size
+    assert_equal({:x => {:y => "z", :z => "a"}, :a => "b"}, record.procedures[0].codes)
+    assert_equal([value_a, value_b], record.procedures[0].values)
+  end
+
   def test_dedup_results_section
     record = Record.new
     identifier = CDAIdentifier.new(root: '1.2.3.4')
