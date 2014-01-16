@@ -27,6 +27,10 @@ Change Log
 
 3.3.1 - Not yet released
 
+* Implemented support to encounter transfers in QRDA Cat I import and export
+* Fixed bug where clinical trial participant would always return true on Record
+* QRDA Cat I importer now extracts ordinality and values from procedures
+* Better de-duplicating of data elements imported from QRDA Cat I
 * CDA importers now handle removal time on medical equipment
 * QRDA Cat I exporter now handles 38 week gestational period
 * Stratification fixes for QRDA Cat III export
