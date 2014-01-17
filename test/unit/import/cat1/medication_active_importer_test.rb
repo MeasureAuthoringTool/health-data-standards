@@ -16,6 +16,6 @@ class MedicationActiveImporterTest < MiniTest::Unit::TestCase
     assert medication.codes['RxNorm'].include?('866439')
     assert_equal expected_start, medication.start_time
     assert_equal expected_end, medication.end_time
-    assert_equal 1, medication.cumulative_medication_duration['scalar']
+    assert_equal "5", medication.cumulative_medication_duration['scalar']
   end
 end

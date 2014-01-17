@@ -10,6 +10,18 @@
            />
 <% end -%>
 
+<!-- Attribute: dose -->
 <% if entry.respond_to?(:dose) && entry.dose.present? -%>
 <doseQuantity value="<%= entry.dose['value']%>"/>
+<% end -%>
+
+<!-- Attribute: cumulativeMedicationDuration -->
+<% if entry.respond_to?(:cumulativeMedicationDuration) && entry.cumulativeMedicationDuration.present? -%>
+<sourceOf typeCode="SUBJ">
+  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+    <templateId root="2.16.840.1.113883.3.560.1.1033.3"/>
+    <code code="363819003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT" displayName="cumulative medication duration"/>
+    <value xsi:type="IVL_PQ" value="<%= entry.cumulativeMedicationDuration['scalar'] -%>" unit="<%= entry.cumulativeMedicationDuration['units'] -%>"/>
+  </observation>
+</sourceOf>
 <% end -%>
