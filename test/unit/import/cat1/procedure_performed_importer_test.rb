@@ -16,5 +16,6 @@ class ProcedurePerformedImporterTest < MiniTest::Unit::TestCase
     expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19860118051933')
     assert_equal expected_start, procedure_performed.start_time
     assert_equal HealthDataStandards::Util::HL7Helper.timestamp_to_integer("19860117151505"), procedure_performed.incision_time
+    assert_equal true, procedure_performed.negation_ind
   end
 end
