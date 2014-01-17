@@ -13,6 +13,7 @@ module HealthDataStandards
           procedure = super
           extract_ordinality(entry_element, procedure)
           extract_incision_date_time(entry_element,procedure)
+          extract_negation(entry_element, procedure)
           procedure
         end
 
