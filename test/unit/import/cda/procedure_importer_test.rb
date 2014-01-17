@@ -14,4 +14,12 @@ class ProcedureImporterTest < MiniTest::Unit::TestCase
     assert_equal pq_value.scalar, entry.values[0].scalar
     assert_equal pq_value.units, entry.values[0].units
   end
+
+  def test_extracting_values
+    entries = @si.create_entries(@doc)
+    entry = entries[2]
+    pq_value = PhysicalQuantityResultValue.new(scalar: "eleventeen", units: nil)
+    assert_equal pq_value.scalar, entry.values[0].scalar
+    assert_equal pq_value.units, entry.values[0].units
+  end
 end

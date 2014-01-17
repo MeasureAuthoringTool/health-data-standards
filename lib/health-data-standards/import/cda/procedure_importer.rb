@@ -8,7 +8,7 @@ module HealthDataStandards
         def initialize(entry_finder=EntryFinder.new("//cda:section[cda:templateId/@root!='2.16.840.1.113883.3.88.11.83.124']//cda:procedure"))
           super(entry_finder)
           @entry_class = Procedure
-          @value_xpath = ".//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.87']/cda:value"
+          @value_xpath = "./cda:value | ./cda:entryRelationship[@typeCode='REFR']/cda:observation/cda:value"
           @ordinality_xpath = "./cda:priorityCode"
         end
 
