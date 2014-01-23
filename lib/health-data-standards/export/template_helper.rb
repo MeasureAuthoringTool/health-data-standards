@@ -17,12 +17,12 @@ module HealthDataStandards
       end
 
       def template_root
-        @template_directory ||= File.dirname(__FILE__)
+        @template_directory ||= File.join(File.dirname(__FILE__), '..', '..', '..', 'templates')
 
         if @template_subdir
-          return File.join(@template_directory, '..', '..', '..', 'templates', @template_subdir)
+          return File.join(@template_directory, @template_subdir)
         else
-          return File.join(@template_directory, '..', '..', '..', 'templates')
+          return @template_directory
         end
       end
 
