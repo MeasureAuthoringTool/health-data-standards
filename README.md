@@ -25,8 +25,11 @@ Please try to follow the [GitHub Coding Style Guides](https://github.com/stylegu
 Change Log
 ==========
 
-3.3.1 - Not yet released
+3.4.0 - January 23, 2014
 
+* _New Feature_ - BulkRecordImporter class now available that provides the ability to import QRDA Cat I, Consolidated CDA and HITSP C32 
+* TemplateHelper now properly accepts a different directory for templates
+* QRDA Cat I importer now extracts negation on procedures
 * Implemented support to encounter transfers in QRDA Cat I import and export
 * Fixed bug where clinical trial participant would always return true on Record
 * QRDA Cat I importer now extracts ordinality and values from procedures
