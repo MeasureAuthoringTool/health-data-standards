@@ -25,6 +25,10 @@ Please try to follow the [GitHub Coding Style Guides](https://github.com/stylegu
 Change Log
 ==========
 
+3.4.2 - Not yet released
+
+* QRDA Cat I importer now imports procedure values regardless of whether the template has them at the root level or nested in an entryRelationship
+
 3.4.1 - January 24, 2014
 
 * Fix for JRuby - Nokogiri is now fixed to version 1.6.0 exactly. Version 1.6.1 was breaking the CCR part of the test suite under JRuby. Nokogiri 1.6.0 works properly across Ruby 1.9.3, Ruby 2.0.0 and JRuby 1.7.9
