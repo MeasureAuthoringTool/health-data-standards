@@ -5,7 +5,7 @@ In addition this project also contains libaries for parsing HQMF documents and f
 Environment
 ===========
 
-This project currently uses Ruby 1.9.3, Ruby 2.0.0 and JRuby 1.7.5 and is built using [Bundler](http://gembundler.com/). To get all of the dependencies for the project, first install bundler:
+This project currently uses Ruby 1.9.3, Ruby 2.0.0 and JRuby 1.7.9 and is built using [Bundler](http://gembundler.com/). To get all of the dependencies for the project, first install bundler:
 
     gem install bundler
 
@@ -24,6 +24,10 @@ Please try to follow the [GitHub Coding Style Guides](https://github.com/stylegu
 
 Change Log
 ==========
+
+3.4.1 - January 24, 2014
+
+* Fix for JRuby - Nokogiri is now fixed to version 1.6.0 exactly. Version 1.6.1 was breaking the CCR part of the test suite under JRuby. Nokogiri 1.6.0 works properly across Ruby 1.9.3, Ruby 2.0.0 and JRuby 1.7.9
 
 3.4.0 - January 23, 2014
 
