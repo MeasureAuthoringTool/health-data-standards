@@ -6,9 +6,11 @@ module HealthDataStandards
       include Mongoid::Timestamps
       store_in collection: 'bundles'
       field :title, type: String
+      field :name, type: String
       field :version, type: String
       field :license, type: String
       field :extensions, type: Array
+      field :measures, type: Array
       field :effective_date
       field :measure_period_start
       field :records, type: Array
@@ -16,7 +18,7 @@ module HealthDataStandards
 
       validates_presence_of :version
 
-      scope :active, where(active: true)
+      scope :active, -> {where(active: true)}
 
       def self.latest_bundle_id
         desc(:exported).first.try(:_id)

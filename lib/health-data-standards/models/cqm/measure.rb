@@ -30,8 +30,8 @@ module HealthDataStandards
       field :preconditions, type: Hash
       field :hqmf_document, type: Hash
       scope :top_level_by_type , ->(type){where({"type"=> type}).any_of({"sub_id" => nil}, {"sub_id" => "a"})}
-      scope :top_level , any_of({"sub_id" => nil}, {"sub_id" => "a"})
-      scope :order_by_id_sub_id, order_by([["id", :asc],["sub_id", :asc]])
+      scope :top_level , ->{any_of({"sub_id" => nil}, {"sub_id" => "a"})}
+      scope :order_by_id_sub_id, ->{order_by([["id", :asc],["sub_id", :asc]])}
 
       index oids: 1
       index hqmf_id: 1
@@ -74,7 +74,7 @@ module HealthDataStandards
       end
 
       def key
-        "#{self['id']}#{sub_id}"
+        "#{id}#{sub_id}"
       end
       
       def is_cv?
@@ -108,7 +108,7 @@ module HealthDataStandards
       end
 
       def measure_id
-        self['id']
+        id
       end
 
       def continuous?

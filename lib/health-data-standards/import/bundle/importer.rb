@@ -75,7 +75,7 @@ module HealthDataStandards
           Mongoid.default_session['system.js'].find('_id' => name).upsert(
             {
               "_id" => name,
-              "value" => Moped::BSON::Code.new(fn)
+              "value" => BSON::Code.new(fn)
             }
           )
         end
