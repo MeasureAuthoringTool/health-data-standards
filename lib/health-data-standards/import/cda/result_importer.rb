@@ -9,7 +9,6 @@ module HealthDataStandards
         
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
           result = super
-          extract_value(entry_element, result)
           extract_interpretation(entry_element, result)
           extract_reference_range(entry_element, result)
           extract_negation(entry_element, result)
