@@ -31,8 +31,8 @@ class RecordTest < MiniTest::Unit::TestCase
   def test_dedup_procedure_section
     record = Record.new
     identifier = CDAIdentifier.new(root: '1.2.3.4')
-    value_a = ResultValue.new(scalar: 10)
-    value_b = ResultValue.new(scalar: 20)
+    value_a = PhysicalQuantityResultValue.new(scalar: 10)
+    value_b = PhysicalQuantityResultValue.new(scalar: 20)
     record.procedures << Procedure.new(cda_identifier: identifier, codes: {:x => {:y => "z"}}, values: [value_a])
     record.procedures << Procedure.new(cda_identifier: identifier, codes: {:a => "b", :x => {:z => "a"}}, values: [value_b])
 
@@ -48,8 +48,8 @@ class RecordTest < MiniTest::Unit::TestCase
   def test_dedup_results_section
     record = Record.new
     identifier = CDAIdentifier.new(root: '1.2.3.4')
-    value_a = ResultValue.new(scalar: 10)
-    value_b = ResultValue.new(scalar: 20)
+    value_a = PhysicalQuantityResultValue.new(scalar: 10)
+    value_b = PhysicalQuantityResultValue.new(scalar: 20)
     record.results << LabResult.new(cda_identifier: identifier, codes: {:x => {:y => "z"}}, values: [value_a])
     record.results << LabResult.new(cda_identifier: identifier, codes: {:a => "b", :x => {:z => "a"}}, values: [value_b])
 

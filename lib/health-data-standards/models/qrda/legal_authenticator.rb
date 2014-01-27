@@ -4,6 +4,7 @@ module Qrda
     include Mongoid::Document
 
     field :time, type: DateTime, default: Time.now
+    field :telecoms, type: Array
     
     embeds_many :ids
     embeds_many :addresses

@@ -32,7 +32,7 @@ class MiniTest::Unit::TestCase
       #puts "Loading #{json_fixture_file}"
       fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
       id_attributes.each do |attr|
-        fixture_json[attr] = Moped::BSON::ObjectId.from_string(fixture_json[attr])
+        fixture_json[attr] = BSON::ObjectId.from_string(fixture_json[attr])
       end
 
       Mongoid.session(:default)[collection].insert(fixture_json)
@@ -98,7 +98,7 @@ def collection_fixtures(collection, *id_attributes)
     #puts "Loading #{json_fixture_file}"
     fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
     id_attributes.each do |attr|
-      fixture_json[attr] = Moped::BSON::ObjectId.from_string(fixture_json[attr])
+      fixture_json[attr] = BSON::ObjectId.from_string(fixture_json[attr])
     end
 
     Mongoid.session(:default)[collection].insert(fixture_json)

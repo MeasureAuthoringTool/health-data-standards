@@ -1,5 +1,5 @@
 class Entry
-
+  include ActiveModel::MassAssignmentSecurity
   include Mongoid::Document
   include ThingWithCodes
 
