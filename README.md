@@ -28,6 +28,7 @@ Change Log
 3.4.2 - Not yet released
 
 * QRDA Cat I importer now imports procedure values regardless of whether the template has them at the root level or nested in an entryRelationship
+* Bug fix - Result importer will no longer double import result values
 
 3.4.1 - January 24, 2014
 
