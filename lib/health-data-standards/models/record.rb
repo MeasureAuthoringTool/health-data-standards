@@ -85,6 +85,12 @@ class Record
     matching_entries_by_section.flatten
   end
 
+  def entries
+    Sections.map do |section|
+      self.send(section)
+    end.flatten
+  end
+
   memoize :entries_for_oid
   
   alias :clinical_trial_participant :clinicalTrialParticipant
