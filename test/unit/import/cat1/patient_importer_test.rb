@@ -59,7 +59,7 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert device_applied.codes['ICD-9-CM'].include?('37.98')
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19850331043808')
     assert_equal expected_start, device_applied.start_time
-    assert_equal( {"SNOMED-CT" => ["thigh"]}, device_applied.anatomical_structure)
+    assert_equal device_applied.anatomical_structure["SNOMED-CT"], ["thigh"]
   end
 
   def test_comm_prov_to_patient
