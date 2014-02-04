@@ -1,6 +1,7 @@
 require 'erubis'
 require 'active_support'
 require 'mongoid'
+require 'mongoid/tree'
 require 'uuid'
 require 'builder'
 require 'csv'

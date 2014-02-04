@@ -1,5 +1,6 @@
 class Provider
   include Personable
+  include Mongoid::Tree
   
   field :npi         , type: String
   field :tin         , type: String

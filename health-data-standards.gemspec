@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rest-client', '~>1.6.7'
   s.add_dependency 'erubis', '~> 2.7.0'
   s.add_dependency 'mongoid', '~> 3.1.4'
+  s.add_dependency 'mongoid-tree', '~> 1.0.4'
   s.add_dependency 'activesupport', '~> 3.2.14'
   s.add_dependency 'uuid', '~> 2.3.7'
   s.add_dependency 'builder', '~> 3.0.0'
