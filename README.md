@@ -29,6 +29,8 @@ Change Log
 
 * QRDA Cat I importer now imports procedure values regardless of whether the template has them at the root level or nested in an entryRelationship
 * Bug fix - Result importer will no longer double import result values
+* QRDA Cat I importer now imports encounter order end times
+* Bug fix - QRDA Cat I importer now properly imports condition and procedure ordinaltiy
 
 3.4.1 - January 24, 2014
 
