@@ -51,6 +51,7 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert risk_category_assessment.codes['LOINC'].include?('72136-5')
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19930805130208')
     assert_equal expected_start, risk_category_assessment.start_time
+    assert_equal "7", risk_category_assessment.values.first["scalar"]
   end
 
   def test_device_applied
