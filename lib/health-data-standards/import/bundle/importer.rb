@@ -164,6 +164,14 @@ module HealthDataStandards
             end
 
             contents.each do |document| 
+              if name == "by_patient"
+                # Set the patient_id to the actual _id of
+                # newly created patient record
+                medical_record_id = document['value']['medical_record_id']
+                if patient = Record.by_patient_id(medical_record_id).first
+                  document['value']['patient_id'] = patient.id
+                end
+              end
               document['bundle_id'] = bundle.id
               Mongoid.default_session[collection].insert(document)
             end
