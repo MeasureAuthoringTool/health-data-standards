@@ -10,7 +10,7 @@ class Provider
   validates_uniqueness_of :npi, allow_blank: true
   
   embeds_one :organization
-
+  embeds_many :cda_identifiers, class_name: "CDAIdentifier", as: :cda_identifiable
 
   def records(effective_date=nil)
     Record.by_provider(self, effective_date)

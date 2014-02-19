@@ -3,7 +3,7 @@ class CDAIdentifier
 
   field :root, type: String
   field :extension, type: String
-  embedded_in :entry
+  embedded_in :cda_identifiable, polymorphic: true
 
   def ==(comparison_object)
     if comparison_object.respond_to?(:root) && comparison_object.respond_to?(:extension)
