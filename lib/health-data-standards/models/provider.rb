@@ -2,15 +2,36 @@ class Provider
   include Personable
   include Mongoid::Tree
   
-  field :npi         , type: String
-  field :tin         , type: String
+  NPI_OID = '2.16.840.1.113883.4.6'
+  TAX_ID_OID = '2.16.840.1.113883.4.2'
+
   field :specialty   , type: String
   field :phone       , type: String
   
   validates_uniqueness_of :npi, allow_blank: true
   
   embeds_one :organization
+  embeds_many :cda_identifiers, class_name: "CDAIdentifier", as: :cda_identifiable
 
+  scope :by_npi, ->(an_npi){ where("cda_identifiers.root" => NPI_OID, "cda_identifiers.extension" => an_npi)}
+
+  def npi=(an_npi)
+    self.cda_identifiers << CDAIdentifier.new(root: NPI_OID, extension: an_npi)
+  end
+
+  def npi
+    cda_id_npi = self.cda_identifiers.where(root: NPI_OID).first
+    cda_id_npi ? cda_id_npi.extension : nil
+  end
+
+  def tin=(a_tin)
+    self.cda_identifiers << CDAIdentifier.new(root: TAX_ID_OID, extension: a_tin)
+  end
+
+  def tin
+    cda_id_tin = self.cda_identifiers.where(root: TAX_ID_OID).first
+    cda_id_tin ? cda_id_tin.extension : nil
+  end
 
   def records(effective_date=nil)
     Record.by_provider(self, effective_date)
