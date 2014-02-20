@@ -86,35 +86,7 @@
       </representedOrganization>
     </assignedEntity>
   </legalAuthenticator>
-
-  <!-- TODO: This is where the provider information will go.
-       It is currently hard coded, but should be replaced with the providers
-       and the time over which they are performing. --> 
-  <documentationOf typeCode="DOC">
-    <serviceEvent classCode="PCPR"> <!-- care provision -->
-      <effectiveTime>
-        <low value="20020716"/>
-        <high value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
-      </effectiveTime>
-      <!-- You can include multiple performers, each with an NPI, TIN, CCN. -->
-      <performer typeCode="PRF"> 
-        <time>
-          <low value="20020716"/>
-          <high value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
-        </time>
-        <assignedEntity>
-          <!-- This is the provider NPI -->
-          <id root="2.16.840.1.113883.4.6" extension="111111111" /> 
-          <representedOrganization>
-            <!-- This is the organization TIN -->
-            <id root="2.16.840.1.113883.4.2" extension="1234567" /> 
-            <!-- This is the organization CCN -->
-            <id root="2.16.840.1.113883.4.336" extension="54321" /> 
-          </representedOrganization>
-        </assignedEntity>
-      </performer>
-    </serviceEvent>
-  </documentationOf>
+  <%== render :partial => 'providers', :locals => {:patient => patient} %>
   <component>
     <structuredBody>
       <%== render :partial => 'measures', :locals => {:measures => measures} %>
