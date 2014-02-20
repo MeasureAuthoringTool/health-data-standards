@@ -6,10 +6,11 @@ module ProviderImportUtils
   end
   
   def find_or_create_provider(provider_hash)
-    provider = Provider.where(npi: provider_hash[:npi]).first if provider_hash[:npi] && !provider_hash[:npi].empty?
+    provider = Provider.by_npi(provider_hash[:npi]).first if provider_hash[:npi] && !provider_hash[:npi].empty?
     unless provider
       if provider_hash[:npi]
         provider = Provider.create(provider_hash)
+        provider.npi = provider_hash[:npi]
       else
         provider ||= Provider.resolve_provider(provider_hash) if Provider.respond_to? :resolve_provider
         
