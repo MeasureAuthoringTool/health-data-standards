@@ -43,8 +43,10 @@
             <% end -%>
           <% end -%>
           <representedOrganization>
-            <% if pp.provider.tin -%>
-            <id root="2.16.840.1.113883.4.2" extension="<%= pp.provider.tin %>" /> 
+            <% pp.provider.cda_identifiers.each do |cda_id| -%>
+            <% if cda_id.root.eql?('2.16.840.1.113883.4.2') -%>
+            <id root="2.16.840.1.113883.4.2" extension="<%= cda_id.extension %>" /> 
+            <% end -%>  
             <% end -%>
           </representedOrganization>
         </assignedEntity>
