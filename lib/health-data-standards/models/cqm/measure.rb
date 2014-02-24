@@ -48,6 +48,8 @@ module HealthDataStandards
         pipeline << {'$group' => {_id: "$id", 
                                   name: {"$first" => "$name"},
                                   description: {"$first" => "$description"},
+                                  nqf_id: {"$first" => "$nqf_id"},
+                                  cms_id: {"$first" => "$cms_id"},
                                   sub_ids: {'$push' => "$sub_id"},
                                   subs: {'$push' => {"sub_id" => "$sub_id", "short_subtitle" => "$short_subtitle"}},
                                   category: {'$first' => "$category"}}}
@@ -57,7 +59,9 @@ module HealthDataStandards
                                              'name' => "$name",
                                              'description' => "$description",
                                              'subs' => "$subs",
-                                             'sub_ids' => "$sub_ids"
+                                             'sub_ids' => "$sub_ids",
+                                             'nqf_id' => "$nqf_id",
+                                             'cms_id' => "$cms_id"
                                             }}}}
 
         pipeline << {'$project' => {'category' => '$_id', 'measures' => 1, '_id' => 0}}
