@@ -78,6 +78,11 @@ module HealthDataStandards
 
         record = Record.update_or_create(patient_data)
         record.provider_performances = providers
+        providers.each do |prov| 
+          prov.provider.ancestors.each do |ancestor|
+            record.provider_performaces.push(ProviderPerformance.new(start_date: prov.start_date, end_date: prov.end_date, provider: ancestor))  
+          end
+        end
         record.save
         
         {status: 'success', message: 'patient imported', status_code: 201, record: record}

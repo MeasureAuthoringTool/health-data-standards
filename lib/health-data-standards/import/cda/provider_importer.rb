@@ -31,7 +31,14 @@ module HealthDataStandards
         def extract_provider_data(performer, use_dates=true, entity_path="./cda:assignedEntity")
           provider = {}
           entity = performer.xpath(entity_path)
-          
+
+          cda_idents = []
+          entity.xpath("./cda:id").each do |cda_ident|
+            ident_root = cda_ident['root']
+            ident_extension = cda_ident['extension']
+            cda_idents.push(CDAIdentifier.new(root: ident_root, extension: ident_extension)) if ident_root.present?
+          end
+
           name = entity.at_xpath("./cda:assignedPerson/cda:name")
           provider[:title]        = extract_data(name, "./cda:prefix")
           provider[:given_name]   = extract_data(name, "./cda:given[1]")
@@ -51,7 +58,8 @@ module HealthDataStandards
           provider[:telecoms] = performer.xpath("./cda:assignedEntity/cda:telecom").try(:map) {|te| import_telecom(te)}
           
           provider[:npi] = npi if Provider.valid_npi?(npi)
-          
+          provider[:cda_identifiers] = cda_idents
+
           provider
         end
       

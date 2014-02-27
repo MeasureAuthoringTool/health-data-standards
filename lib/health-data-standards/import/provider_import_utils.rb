@@ -13,7 +13,12 @@ module ProviderImportUtils
         provider.npi = provider_hash[:npi]
       else
         provider ||= Provider.resolve_provider(provider_hash) if Provider.respond_to? :resolve_provider
-        
+
+        ident_roots = provider_hash[:cda_identifiers].map {|ident| ident.root}
+        ident_extensions = provider_hash[:cda_identifiers].map {|ident| ident.extension}
+        unless ident_roots.size == 0
+          provider ||= Provider.in("cda_identifiers.root" => ident_roots).and.in("cda_identifiers.extension" => ident_extensions).first
+        end
         provider_query = {:title => provider_hash[:title],            
                             :given_name => provider_hash[:given_name],  
                             :family_name=> provider_hash[:family_name],
