@@ -16,7 +16,13 @@ class Provider
   scope :by_npi, ->(an_npi){ where("cda_identifiers.root" => NPI_OID, "cda_identifiers.extension" => an_npi)}
 
   def npi=(an_npi)
-    self.cda_identifiers << CDAIdentifier.new(root: NPI_OID, extension: an_npi)
+    cda_id_npi = self.cda_identifiers.where(root: NPI_OID).first
+    if cda_id_npi
+      cda_id_npi.extension = an_npi
+      cda_id_npi.save!
+    else
+      self.cda_identifiers << CDAIdentifier.new(root: NPI_OID, extension: an_npi)
+    end
   end
 
   def npi
