@@ -55,6 +55,16 @@ class CDAProviderImporterTest < MiniTest::Unit::TestCase
 
   end
 
+  def test_import_of_cda_identifier
+    assert_equal 0, Provider.count, "Should be 0 providers in the DB"
+    doc = Nokogiri::XML(File.read('test/fixtures/providers/one_provider_cda_ident.xml'))
+    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+    providers = @importer.extract_providers(doc)
+    assert_equal 1, providers.length, "should have found 1 provider in the file"
+    assert_equal Provider.count , providers.length, "should be as many providers in db as parsed"
+    assert_equal 1, Provider.where("cda_identifiers.root" => "Division", "cda_identifiers.extension" => "12345").count
+  end
+
   def test_import_resolve_provider
     def Provider.resolve_provider(p) 
       Provider.first
