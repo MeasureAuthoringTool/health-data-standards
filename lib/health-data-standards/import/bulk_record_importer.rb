@@ -36,7 +36,6 @@ module HealthDataStandards
             begin
               BulkRecordImporter.import(xml)
             rescue Exception => e
-              puts e
               failed_dir = File.join(file.dirname, 'failed_imports')
               unless(Dir.exists?(failed_dir))
                 Dir.mkdir(failed_dir)
