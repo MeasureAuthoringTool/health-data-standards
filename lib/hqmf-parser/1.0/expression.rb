@@ -17,6 +17,8 @@ module HQMF1
         @value = Value.new(@entry.xpath('./*/cda:value'))
       when 'ANYNonNull'
         @value = HQMF::AnyValue.new
+      when nil
+        @value = HQMF::AnyValue.new
       else
         raise "Unknown expression value type #{type}"
       end
