@@ -19,7 +19,7 @@ module HealthDataStandards
       field :type, type: String
       field :category, type: String
       field :population_ids , type: Hash
-      field :oids, type: Array 
+      field :oids, type: Array
 
       field :population_criteria, type: Hash
       field :data_criteria, type: Array, default: []
@@ -39,33 +39,35 @@ module HealthDataStandards
       index sub_id: 1
       index _id: 1, sub_id: 1
       index bundle_id: 1
-      
+
       validates_presence_of :id
       validates_presence_of :name
 
       def self.categories
         pipeline = []
-        pipeline << {'$group' => {_id: "$id", 
+        pipeline << {'$group' => {_id: "$id",
                                   name: {"$first" => "$name"},
                                   description: {"$first" => "$description"},
+                                  subs: {'$push' => {"sub_id" => "$sub_id", "short_subtitle" => "$short_subtitle"}},
+                                  sub_ids: {'$push' => "$sub_id"},
                                   nqf_id: {"$first" => "$nqf_id"},
                                   cms_id: {"$first" => "$cms_id"},
-                                  sub_ids: {'$push' => "$sub_id"},
-                                  subs: {'$push' => {"sub_id" => "$sub_id", "short_subtitle" => "$short_subtitle"}},
+                                  continuous_variable: {"$first" => "$continuous_variable"},
                                   category: {'$first' => "$category"}}}
 
         pipeline << {'$group' => {_id: "$category",
-                                  measures: {'$push' => {"id" => "$_id", 
+                                  measures: {'$push' => {"id" => "$_id",
                                              'name' => "$name",
                                              'description' => "$description",
                                              'subs' => "$subs",
                                              'sub_ids' => "$sub_ids",
                                              'nqf_id' => "$nqf_id",
-                                             'cms_id' => "$cms_id"
+                                             'cms_id' => "$cms_id",
+                                             'continuous_variable' => "$continuous_variable"
                                             }}}}
 
         pipeline << {'$project' => {'category' => '$_id', 'measures' => 1, '_id' => 0}}
-  
+
         pipeline << {'$sort' => {"category" => 1}}
         Mongoid.default_session.command(aggregate: 'measures', pipeline: pipeline)['result']
       end
@@ -80,7 +82,7 @@ module HealthDataStandards
       def key
         "#{self['id']}#{sub_id}"
       end
-      
+
       def is_cv?
         ! population_ids[MSRPOPL].nil?
       end
@@ -88,7 +90,7 @@ module HealthDataStandards
       def self.installed
         Measure.order_by([["id", :asc],["sub_id", :asc]]).to_a
       end
-      
+
 
       # Finds all measures and groups the sub measures
       # @return Array - This returns an Array of Hashes. Each Hash will represent a top level measure with an ID, name, and category.
@@ -98,14 +100,14 @@ module HealthDataStandards
                     if (obj.sub_id != null)
                       prev.subs.push({id : obj.id + obj.sub_id, name : obj.subtitle});
                   }'
-        
+
         self.moped_session.command( :group=> {:ns=>"measures", :key => {:id=>1, :name=>1, :category=>1}, :initial => {:subs => []}, "$reduce" => reduce})["retval"]
       end
 
       def display_name
         "#{self['cms_id']}/#{self['nqf_id']} - #{name}"
       end
-      
+
 
       def set_id
         self.hqmf_set_id
