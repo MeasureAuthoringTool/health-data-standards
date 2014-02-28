@@ -25,8 +25,14 @@ Please try to follow the [GitHub Coding Style Guides](https://github.com/stylegu
 Change Log
 ==========
 
-3.4.2 - Not yet released
+3.4.2 - February 28, 2014
 
+* Provider improvements
+** Providers are now exported in QRDA Cat I if they exist on the Record object
+** Provider identifiers are now represented with CDAIdentifiers
+** Provider import will now import any type of identifier
+** Providers can now be arranged in a hierarchy
+** When importing providers from a clincial document, matching to existing providers in MongoDB has been improved to matching on any type of identifier
 * QRDA Cat I importer now imports procedure values regardless of whether the template has them at the root level or nested in an entryRelationship
 * Bug fix - Result importer will no longer double import result values
 * QRDA Cat I importer now imports encounter order end times
