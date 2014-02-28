@@ -36,6 +36,7 @@ module HealthDataStandards
             begin
               BulkRecordImporter.import(xml)
             rescue Exception => e
+              puts e
               failed_dir = File.join(file.dirname, 'failed_imports')
               unless(Dir.exists?(failed_dir))
                 Dir.mkdir(failed_dir)
@@ -80,7 +81,7 @@ module HealthDataStandards
         record.provider_performances = providers
         providers.each do |prov| 
           prov.provider.ancestors.each do |ancestor|
-            record.provider_performaces.push(ProviderPerformance.new(start_date: prov.start_date, end_date: prov.end_date, provider: ancestor))  
+            record.provider_performances.push(ProviderPerformance.new(start_date: prov.start_date, end_date: prov.end_date, provider: ancestor))  
           end
         end
         record.save
