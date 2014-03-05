@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="HQMFR2.xsl"?>
+
+<!--
+Title: Colorado Public Health Reporting for Pertussis - Clinician
+
+Revision History: Based on RCKMS HL7 Example CO Pertussis 10-25-2012 
+RWM: Used release 2 of the IG and sample files to create a working HQMF R2
+
+-->
+
+
+<!-- ************************************************************************************************ 
+This "Illustration Pupose Only" sample measure is based on the HQMF R2 Implementation Guide.
+*****************************************************************************************************-->
+<QualityMeasureDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="urn:hl7-org:v3 ../Latest%20Build%20Output/output/processable/multicacheschemas/EMeasure.xsd"
+   xmlns="urn:hl7-org:v3" xmlns:ex="urn:hl7-org/v3-example" xmlns:mif="urn:hl7-org:v3/mif2"
+   xmlns:sch="http://www.ascc.net/xml/schematron">
+   <!-- Measure Header Section -->
+   <typeId root="2.16.840.1.113883.1.3" extension="POQM_HD000001UV02"/>
+   <id root="eb082c9e-ecbb-4ddf-a394-40a138c88a83"/>
+   <code code="57024-2" codeSystem="2.16.840.1.113883.6.1">
+      <displayName value="Health Quality Measure Document"/>
+   </code>
+   <title value="Colorado Public Health Reporting for Pertussis: Clinician Reporting"/>
+   <text
+      value="This document describes the reporting requirements for Clinician Reportable Significant Findings for Pertussis in Colorado."/>
+   <statusCode code="Active"/>
+   <!-- The document is still being worked on.  Change to "complete" when done. -->
+   <setId root="2ae0a16f-0e8a-4a29-9e71-47588b281451"/>
+   <versionNumber value="2"/>
+   <author typeCode="AUT">
+      <responsibleParty classCode="ASSIGNED">
+         <id>
+            <item root="OID_for_provider_ID_root" extension="provider_ID"/>
+         </id>
+         <telecom>
+            <item use="WP" value="tel:(303)692-2700"/>
+            <item use="WP" value="mailto:meghan.barnes@state.co.us"/>
+         </telecom>
+         <assignedResponsiblePerson>
+            <name>
+               <item>
+                  <part type="TITLE" value="Vaccine Preventable Disease Epidemiologist"/>
+                  <part type="FAM" value="Barnes"/>
+                  <part type="GIV" value="Meghan"/>
+               </item>
+            </name>
+         </assignedResponsiblePerson>
+         <representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id>
+               <item root="OID_CODOH_PertussisProgram"/>
+            </id>
+            <name>
+               <item>
+                  <part value="Colorado Department of Public Health and Environment"/>
+                  <!-- RWM: Data type meanings don't seem to allow me to have an organizational name here.  Do I just leave they type and use blank?  -->
+               </item>
+            </name>
+         </representedResponsibleOrganization>
+      </responsibleParty>
+   </author>
+   <custodian>
+      <responsibleParty classCode="ASSIGNED">
+         <representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id>
+               <item root="COOID_PertussisSignificantFindings"/>
+            </id>
+            <name>
+               <item>
+                  <part
+                     value="Communicable Disease Control Program, Disease Control and Environmental Epidemiology
+                     Colorado Department of Public Health and Environment"
+                  />
+               </item>
+            </name>
+            <telecom>
+               <item use="WP" value="tel:303-692-2700"> </item>
+               <item use="WP" value="fax:303-782-0338"/>
+               <item use="WP" value="mailto:pat.acquaro@state.co.us"/>
+               <item use="WP"
+                  value="url:http://www.colorado.gov/cs/Satellite/CDPHE-DCEED/CBON/1251607754708"/>
+            </telecom>
+            <addr>
+               <item>
+                  <part type="SAL" value="4300 cherry Creek Drive South"/>
+                  <part type="CTY" value="Denver"/>
+                  <part type="STA" value="CO"/>
+                  <part type="ZIP" value="80246"/>
+               </item>
+            </addr>
+         </representedResponsibleOrganization>
+      </responsibleParty>
+   </custodian>
+   <verifier>
+      <responsibleParty classCode="ASSIGNED">
+         <telecom>
+            <item use="WP" value="tel:(303)692-2663"/>
+            <item use="WP" value="mailto:lisa.miller@state.co.us"/>
+         </telecom>
+         <assignedResponsiblePerson>
+            <name>
+               <item>
+                  <part type="TITLE" value="Commissioner of Public Health / State Epidemiologist"/>
+                  <part type="TITLE" value="Dr."/>
+                  <part type="FAM" value="Miller"/>
+                  <part type="GIV" value="Lisa"/>
+               </item>
+            </name>
+         </assignedResponsiblePerson>
+      </responsibleParty>
+   </verifier>
+   <definition>
+      <!-- RWM: Combines the two diagnosis codes for pertussin into one value set. -->
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="c7a0b2e5-f54d-4b02-9029-b338b27472bb"/>
+         <!-- RWM:  UID for this value set -->
+         <value>
+            <item code="0330" codeSystem="2.16.840.1.113883.6.103"
+               codeSystemName="ICD-9-CM, Volume 1&amp;2">
+               <displayName
+                  value="Whooping cough due to bordetella pertussis [B. pertussis] [033.0]"/>
+            </item>
+            <item code="0331" codeSystem="2.16.840.1.113883.6.103"
+               codeSystemName="ICD-9-CM, Volume 1&amp;2">
+               <displayName
+                  value="Whooping cough due to bordetella parapertussis [B. parapertussis] [033.1]"
+               />
+            </item>
+         </value>
+      </valueSet>
+   </definition>
+   <!-- RWM:  See section 4.1.3.14 of 2013 IG for explanation -->
+   <controlVariable>
+      <!-- RWM:  Section  4.1.3.7 in HQMF IG (2013) -->
+      <measurePeriod>
+         <code code="MSRTP" codeSystem="2.16.840.1.113883.3.560">
+            <displayName value="Measurement period"/>
+         </code>
+         <value xsi:type="IVL_TS" nullFlavor="NI">
+            <!-- RWM: This does not have a specific reporting period or time.  Reporting is triggered by an event.  -->
+            <originalText mediaType="text/plain"
+               value="Within 24 hours of diagnosis or positive lab report"/>
+         </value>
+      </measurePeriod>
+   </controlVariable>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRRPTTIME" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Timeframe for Reporting"/>
+         </code>
+         <value xsi:type="PQ" unit="h" value="24"> </value>
+         <!-- RWM: Report within 24 hours. -->
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="TRANF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Transmission Format"/>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain" value="HL7 PHCR Pertussis CDA (REFERENCE)"
+         > </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="TRANF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Transmission Format"/>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain"
+            value="
+            Method Name:  fax to CDPHE; 
+            Method Type: fax;
+            Method priority: Preferred;
+            Receiving Organization: Colorado Department of Public Health and Environment; 
+            Receiving Organization unit: Disease Control and Environmental Epidemiology; 
+            secure fax #: 303-782-0338
+            "
+         />
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="TRANF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Transmission Format"/>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain"
+            value="
+            Method Name:  phone to CDPHE;  
+            Method priority: Available;
+            Receiving Organization: Colorado Department of Public Health and Environment; 
+            Receiving Organization unit: Disease Control and Environmental Epidemiology; 
+            telephone for reporting: 303-692-2700
+            after hours emergency phone #: 303-370-9395
+            "
+         />
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="TRANF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Transmission Format"/>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain"
+            value="
+            Method Name:  fax to local HD; 
+            Method Type: fax;
+            Receiving Organization: Denver Public Health ; 
+            Receiving Organization unit: ; 
+            Method priority: Available;
+            secure facsimile fax #: 303 602-3615
+            "
+         />
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="TRANF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Transmission Format"/>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain"
+            value="
+            Method Name:  phone to local HD; 
+            Method Type: phone;
+            Receiving Organization: Denver Public Health ; 
+            Receiving Organization unit: ; 
+            Method priority: Available;
+            telephone for reporting: 303 436-7200;
+            after hours emergency telephone phone #: 
+            "
+         />
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="TRANF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Transmission Format"/>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain"
+            value="
+            Method Name: web entry of case reports into CEDRS; 
+            Method Type: webportal (URL);
+            Receiving Organization: Colorado Department of Public Health and Environment; 
+            Receiving Organization unit: Disease Control and Environmental Epidemiology; 
+            Method priority: Available;
+            Method priority comment: only available for ICP's - it is the preferred method for ICPs;
+            Supporting Text: Communicable Disease Epidemiology Program
+            Program_URL:http://www.colorado.gov/cs/Satellite/CDPHE-DCEED/CBON/1251607754708
+            Reporting/submission_form_URL:http://www.colorado.gov/cs/Satellite/CDPHE-DCEED/CBON/1251607755364
+            "
+         />
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="USE" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Notice of Use"/>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain"
+            value="Spatial context of use (the geographical area where it is applicable): Colorado"
+         > </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="USE" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Notice of Use"/>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain"
+            value="Relevant Reporters context of use: Healthcare Providers, Hospitals, Healthcare facilities that are NOT Hospitals"
+         > </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRTOPIC" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Topic Type"/>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain" value="Clinical context of use : Pertussis"> </value>
+         <!-- RWM:  MSRTOPIC should be CD according to IG.  This may need to be coded in some way. ICD-9 could be used.  ICD: 033 Whooping cough -->
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRTOPIC" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Topic Type"/>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain"
+            value="Laboratory Topic context of use : Bordetella pertussis Results"> </value>
+         <!-- RWM:  MSRTOPIC should be CD according to IG.  This may need to be coded in some way. LOINC could be used. -->
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRSET" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Care Setting"/>
+         </code>
+         <value xsi:type="CD" code="1107-2" codeSystem="2.16.840.1.113883.6.259"
+            valueSet="2.16.840.1.113883.1.11.16927"
+            codeSystemName="Healthcare Service Location (HL7)">
+            <displayName value="Outpatient practice setting"/>
+            <originalText value="healthcare provider, non-hospital clinical settings, hospital"/>
+         </value>
+         <!-- RWM:  MSRTOPIC should be CD according to IG.  This may need to be coded in some way. LOINC could be used. -->
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="RAT" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Rationale"/>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain"
+            value="Pertussis is a threat to public health and shall be reportable in accordance with the provisions of the Colorado Rules and Regulations pertaining to Epidemic and Communicable Disease Control."
+         />
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DISC" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Disclaimer"/>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain"
+            value="This emeasure is an interpetation of public health law and rules [LANGUAGE PENDING]"
+         />
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain"
+            value="Communicable Disease Epidemiology Program: http://www.colorado.gov/cs/Satellite/CDPHE-DCEED/CBON/1251607754708"
+         />
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain"
+            value="statute and regulations: statute and regulations: gov   http://www.colorado.gov/cs/Satellite/CDPHE-DCEED/CBON/1251607755364   (navigate to the statute and regulations from this link)"
+         />
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain"
+            value="Reporting/submission form URL: http://www.colorado.gov/cs/Satellite/CDPHE-DCEED/CBON/1251607755364"
+         />
+      </measureAttribute>
+   </subjectOf>
+   <!-- RWM:  ***********************
+      *******************************
+      -->
+   <componentOf>
+      <qualityMeasureSet classCode="ACT">
+         <id root="COOID_PertussisSignificantFindings" extension="COPERTUSSISREPORTABLES"/>
+         <title value="Colorado Public Health Reporting for Pertussis - Clinician"/>
+      </qualityMeasureSet>
+   </componentOf>
+   <!--      
+********************************************************
+eMeasure Body
+********************************************************
+-->
+   <!-- 
+********************************************************
+Data Criteria section 
+NOTE: Constrained to Pertussis Results
+********************************************************
+-->
+   <!-- Measure Population Criteria Section -->
+   <component>
+      <populationCriteriaSection>
+         <!-- RWM:  IG Section 4.9.4 PopulationCriteriaSection -->
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1">
+            <displayName value="Population criteria"/>
+         </code>
+         <title value="Population Criteria Section"/>
+         <!-- RWM:  
+            *********
+            
+            Since this is not a report for a population with a numerator and denominator,
+            it only has an initial population.
+            
+            The original measure has a single report being generated for an individual patient
+            at the moment of diagnosis or lab result.  Since that is not really a measure of a population
+            this sample would  need to be changed to report for a population over a period of time.
+            
+            ********
+            -->
+         <text>
+            <xml>
+               <list>
+                  <item>
+                     <content styleCode="Bold">Initial Patient Population:</content>
+                     <list>
+                        <caption>All True</caption>
+                        <item>
+                           <list>
+                              <caption>At Least One True</caption>
+                              <item>"Isolation/detection of B. pertussis by culture: Isolation or
+                                 detection of B. pertussis from any Culture method; and not
+                                 preliminary results”</item>
+                              <item>"Positive Bordetella pertussis Culture: Isolation of Bordetella
+                                 pertussis from a clinical specimen</item>
+                              <item>"Positive B. pertussis by PCR: Positive B. pertussis nucleic
+                                 acid by PCR"</item>
+                              <item>"Positive B. Pertussis IgM by serology: Positive B. Pertussis
+                                 IgM by serology"</item>
+                              <item>"Positive B. Pertussis IgA by serology: Positive B. Pertussis
+                                 IgA by serology"</item>
+                              <item>"Positive B. Pertussis Ag by DFA: Positive B. Pertussis Ag by
+                                 DFA"</item>
+                              <item>"Suspected or confirmed diagnosis of Pertussis: Clinician
+                                 determines a suspected or confirmed diagnosis of Pertussis"</item>
+                              <item>"Pertussis as cause of death"</item>
+                              <item>“Pertussis as a significant condition contributing to
+                                 death”</item>
+                              <item>"Care provided in Jurisdiction (Colorado): patient was treated
+                                 by a provider in Colorado"</item>
+                              <item>"Patient Resides in Jurisdiction(Colorado): patient lives in
+                                 Colorado"</item>
+                           </list>
+                        </item>
+                        <item>
+                           <list>
+                              <caption>At Least One True</caption>
+                              <item>"Patient Sought Care in Jurisdiction (Colorado)"</item>
+                              <item>"Patient Resides in Jurisdiction(Colorado)"</item>
+                           </list>
+                        </item>
+                     </list>
+                  </item>
+                  <item>
+                     <content styleCode="Bold">Denominator:</content>
+                     <list>
+                        <caption>Not Applicable</caption>
+                        <!-- RWM: 
+                        Constraint 18:
+                        A populationCriteriaSection SHALL NOT contain a Denominator entry if the measure population parameters are continuous variable or cohort based. -->
+                     </list>
+                  </item>
+                  <item>
+                     <content styleCode="Bold">Numerator</content>
+                     <list>
+                        <item>
+                           <list>
+                              <caption>Not Applicable</caption>
+                              <!-- RWM:
+                                 Constraint 22:
+                                 A populationCriteriaSection SHALL NOT contain a Numerator Exclusion entry if the measure population parameters are continuous variable or cohort based. -->
+                           </list>
+                        </item>
+                     </list>
+                  </item>
+               </list>
+            </xml>
+         </text>
+         <!-- IPP -->
+         <component typeCode="COMP">
+            <!-- RWM:  Constraint 13: A populationCriteriaSection SHALL contain 1..1 initialPopulationCriteria if the measure population parameters are proportion, continuous variable or cohort measure based. -->
+            <initialPopulationCriteria classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="E8827E28-FF85-4C3F-A9F9-180E3D4E3A07" identifierName="IPOP"/>
+               <code code="IPOP" codeSystem="2.16.840.1.113883.5.1063"
+                  codeSystemName="HL7 Observation Value">
+                  <displayName value="Initial Patient Population"/>
+               </code>
+               <precondition>
+                  <allTrue>
+                     <!-- RWM:  Sets up the AND between each group.  -->
+                     <!-- RWM:  Nested preconditions.  OR-OR-OR   AND   OR-OR-OR  -->
+                     <precondition typeCode="PRCN">
+                        <atLeastOneTrue>
+                           <!-- RWM:  Sets up the OR between each -->
+                           <precondition typeCode="PRCN">
+                              <criteriaReference classCode="OBS" moodCode="EVN">
+                                 <id root="d6b9f738-293a-42de-87f7-374b7f791370"/>
+                                 <!-- RWM: Positive Pertussis Culture Results -->
+                              </criteriaReference>
+                           </precondition>
+                           <precondition typeCode="PRCN">
+                              <criteriaReference classCode="OBS" moodCode="EVN">
+                                 <id root="e0b5ccf3-92c5-47bb-9c7e-5d191e8c3593"/>
+                                 <!-- RWM:  Pertussis Diagnosis -->
+                              </criteriaReference>
+                           </precondition>
+                        </atLeastOneTrue>
+                     </precondition>
+                     <!-- RWM:  
+                        ***** AND **** 
+                     -->
+                     <precondition typeCode="PRCN">
+                        <atLeastOneTrue>
+                           <!-- RWM:  Sets up the OR between each -->
+                           <precondition typeCode="PRCN">
+                              <criteriaReference classCode="ENC" moodCode="EVN">
+                                 <id root="22137d38-6f22-4174-8692-8796bb734dd2"/>
+                                 <!-- RWM:  Care Provided in Colorado -->
+                              </criteriaReference>
+                           </precondition>
+                           <precondition typeCode="PRCN">
+                              <criteriaReference classCode="OBS" moodCode="EVN">
+                                 <id root="eb8234dc-9a2a-450d-997d-7391407a9ac9"/>
+                                 <!-- RWM:  Patient Resides in Colorado -->
+                              </criteriaReference>
+                           </precondition>
+                        </atLeastOneTrue>
+                     </precondition>
+                  </allTrue>
+               </precondition>
+            </initialPopulationCriteria>
+         </component>
+      </populationCriteriaSection>
+   </component>
+   <!-- 
+    ****************
+      Measure Data Criteria Section 
+   ******************
+   -->
+   <component>
+      <dataCriteriaSection>
+         <code code="57025-9" codeSystem="2.16.840.1.113883.6.1">
+            <displayName value="Data criteria (QDM Data Elements)"/>
+         </code>
+         <title value="Data Criteria Section"/>
+         <text>
+            <xml>
+               <list>
+                  <item>"Isolation/detection of B. pertussis by culture: Isolation or detection of
+                     B. pertussis from any Culture method; and not preliminary results”</item>
+                  <item>"Positive Bordetella pertussis Culture: Isolation of Bordetella pertussis
+                     from a clinical specimen</item>
+                  <item>"Positive B. pertussis by PCR: Positive B. pertussis nucleic acid by
+                     PCR"</item>
+                  <item>"Positive B. Pertussis IgM by serology: Positive B. Pertussis IgM by
+                     serology"</item>
+                  <item>"Positive B. Pertussis IgA by serology: Positive B. Pertussis IgA by
+                     serology"</item>
+                  <item>"Positive B. Pertussis Ag by DFA: Positive B. Pertussis Ag by DFA"</item>
+                  <item>"Suspected or confirmed diagnosis of Pertussis: Clinician determines a
+                     suspected or confirmed diagnosis of Pertussis"</item>
+                  <item>"Pertussis as cause of death"</item>
+                  <item>“Pertussis as a significant condition contributing to death”</item>
+                  <item>"Care provided in Jurisdiction (Colorado): patient was treated by a provider
+                     in Colorado"</item>
+                  <item>"Patient Resides in Jurisdiction(Colorado): patient lives in
+                     Colorado"</item>
+               </list>
+            </xml>
+         </text>
+         <!-- These definitions provide a model of specific criteria subtypes and should be referenced in the criterion. These particular definitions are 
+			provided for illustration purposes only, as they are optional. -->
+         <definition>
+            <observationDefinition>
+               <id extension="Demographics" root="2.16.840.1.113883.3.1619.5148.1"/>
+            </observationDefinition>
+         </definition>
+         <definition>
+            <encounterDefinition>
+               <id extension="Encounters" root="2.16.840.1.113883.3.1619.5148.1"/>
+            </encounterDefinition>
+         </definition>
+         <definition>
+            <observationDefinition>
+               <id extension="Problems" root="2.16.840.1.113883.3.1619.5148.1"/>
+            </observationDefinition>
+         </definition>
+         <definition>
+            <observationDefinition>
+               <id extension="Allergies" root="2.16.840.1.113883.3.1619.5148.1"/>
+            </observationDefinition>
+         </definition>
+         <definition>
+            <procedureDefinition>
+               <id extension="Procedures" root="2.16.840.1.113883.3.1619.5148.1"/>
+            </procedureDefinition>
+         </definition>
+         <definition>
+            <observationDefinition>
+               <id extension="Results" root="2.16.840.1.113883.3.1619.5148.1"/>
+            </observationDefinition>
+         </definition>
+         <definition>
+            <observationDefinition>
+               <id extension="Vitals" root="2.16.840.1.113883.3.1619.5148.1"/>
+            </observationDefinition>
+         </definition>
+         <definition>
+            <substanceAdministrationDefinition>
+               <id extension="Medications" root="2.16.840.1.113883.3.1619.5148.1"/>
+            </substanceAdministrationDefinition>
+         </definition>
+         <definition>
+            <supplyDefinition>
+               <id extension="RX" root="2.16.840.1.113883.3.1619.5148.1"/>
+            </supplyDefinition>
+         </definition>
+         <!-- ******
+         ***********
+         Data Criteria Entries
+         ***********
+         ***********
+         -->
+         <!-- Care provided in Jurisdiction (Colorado) -->
+         <entry typeCode="DRIV">
+            <localVariableName value="careProvidedInColorado"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <id root="22137d38-6f22-4174-8692-8796bb734dd2"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1">
+                  <displayName value="Encounters"/>
+               </code>
+               <participation typeCode="LOC">
+                  <!-- RWM: Location where service is done -->
+                  <role classCode="SDLOC">
+                     <!-- RWM:  Service delivery location -->
+                     <addr>
+                        <item>
+                           <part type="STA" value="CO"/>
+                        </item>
+                     </addr>
+                  </role>
+               </participation>
+            </encounterCriteria>
+         </entry>
+         <!-- Patient Resides in Jurisdiction(Colorado) -->
+         <entry typeCode="DRIV">
+            <localVariableName value="patientResidesInColorado"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <id root="eb8234dc-9a2a-450d-997d-7391407a9ac9"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1">
+                  <displayName value="Encounters"/>
+               </code>
+               <participation typeCode="RCT">
+                  <!-- RWM: Record target -->
+                  <role classCode="PAT">
+                     <!-- RWM:  Patient -->
+                     <addr>
+                        <item>
+                           <part type="STA" value="CO"/>
+                        </item>
+                     </addr>
+                  </role>
+               </participation>
+            </observationCriteria>
+         </entry>
+         <!-- RWM:
+           ***************
+           Value sets that could be used. 
+           ***************
+Value Set Code:	PHVS_LabResult_Pertussis	
+Value Set Name:	Lab Result (Pertussis)
+Value Set OID: 	2.16.840.1.114222.4.11.3131
+Value Set Description:	Bordetella Pertussis Lab Testing Result
+**This only had one concept code**
+===========
+Value Set Code:	PHVS_SerologyPerformedLabLocation_Pertussis	
+Value Set Name:	Serology Performed Lab Location (Pertussis)
+Value Set OID: 	2.16.840.1.114222.4.11.3139
+Value Set Description:	Type of lab where serology testing performed
+**This has 4 concept codes
+===========
+Value Set Code:	PHVS_LabTestName_Pertussis	
+Value Set Name:	Lab Test Name (Pertussis)
+Value Set OID: 	2.16.840.1.114222.4.11.4184
+Value Set Description:	lab tests associated with Pertussis
+**This has 76 concept codes
+===========
+Value Set Code:	PHVS_LabResultRCMT_Pertussis	
+Value Set Name:	Lab Result RCMT (Pertussis)
+Value Set OID: 	2.16.840.1.114222.4.11.4069
+Value Set Description:	lab results associated with Pertussis
+**This only had one concept code**
+==========
+Signs and Symptoms (Pertussis)
+Listed in the Pertussis Implementation guide (2010)  
+https://wiki.phdsc.org/images/5/51/Pertussis_ImplementationGuide.pdf
+This value set does not actually exist or was removed
+Value Set Signs and Symptoms (Pertussis) - 2.16.840.1.114222.4.11.6016
+Code System SNOMEDCT - 2.16.840.1.113883.6.96
+Source PHIN VADS
+Source URL https://phinvads.cdc.gov/vads/ViewValueSet.action?oid=2.16.840.1.114222.4.11.6016
+===========
+Diagnosis
+0331	Bordetella parapertussis	Whooping cough due to bordetella parapertussis [B. parapertussis] [033.1]	ICD-9-CM, Volume 1&2	Details
+0330	Bordetella pertussis	Whooping cough due to bordetella pertussis [B. pertussis] [033.0]	ICD-9-CM, Volume 1&2	Details
+Code System OID	2.16.840.1.113883.6.103
+Code System Name	ICD-9-CM, Volume 1&2 
+
+Both of these were put into a value set in the <definition> section of this measure.
+A unique ID was assigned to that value set to be used here.
+UID:  c7a0b2e5-f54d-4b02-9029-b338b27472bb
+
+           ***************
+           -->
+         <!-- Positive Pertussis Culture Results -->
+         <entry typeCode="DRIV">
+            <localVariableName value="PositivePertussisCultureResults"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <id root="d6b9f738-293a-42de-87f7-374b7f791370"/>
+               <code valueSet="2.16.840.1.114222.4.11.4184">
+                  <displayName value="Lab Test Name (Pertussis)"/>
+               </code>
+               <value xsi:type="CD" code="10828004" codeSystem="2.16.840.1.113883.6.96"
+                  codeSystemName="SNOMED-CT">
+                  <displayName value="Positive"/>
+               </value>
+            </observationCriteria>
+         </entry>
+         <!-- Pertussis Diagnosis -->
+         <entry typeCode="DRIV">
+            <localVariableName value="PertussisDiagnosis"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <id root="e0b5ccf3-92c5-47bb-9c7e-5d191e8c3593"/>
+               <code valueSet="c7a0b2e5-f54d-4b02-9029-b338b27472bb"/>
+            </observationCriteria>
+         </entry>
+      </dataCriteriaSection>
+   </component>
+</QualityMeasureDocument>

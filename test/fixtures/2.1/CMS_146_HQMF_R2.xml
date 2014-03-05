@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="utf-8"?>
+<QualityMeasureDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="urn:hl7-org:v3 HQMF%20R2/Spring%202013/Latest%20Build%20Output/output/processable/multicacheschemas/EMeasure.xsd"
+ xmlns="urn:hl7-org:v3">
+  <id root="2.16.840.1.113883.3.100.1" extension="8A4D92B2-3946-CDAE-0139-77F580AE6690"/>
+  <code code="57024-2" codeSystem="2.16.840.1.113883.6.1"/>
+  <title value="Appropriate Testing for Children with Pharyngitis"/>
+  <text
+    value="Percentage of children 2-18 years of age who were diagnosed with pharyngitis, ordered an antibiotic and received a group A streptococcus (strep) test for the episode."/>
+  <statusCode code="completed"/>
+  <setId root="2.16.840.1.113883.3.100.1" extension="BEB1C33C-2549-4E7F-9567-05ED38448464"/>
+  <versionNumber value="1"/>
+  <author typeCode="AUT">
+    <responsibleParty classCode="ASSIGNED"/>
+  </author>
+  <custodian typeCode="CST">
+    <responsibleParty classCode="ASSIGNED"/>
+  </custodian>
+  <controlVariable>
+    <measurePeriod>
+      <id root="2.16.840.1.113883.3.100.100.123" extension="MeasurePeriod"/>
+      <code code="MSRTP" codeSystem="2.16.840.1.113883.3.560">
+        <displayName value="Measurement period"/>
+      </code>
+      
+      
+      <!-- measure period defined as: Starting at Jan 1, 2012, for a period of 1 year, repeated every year" -->
+      <value xsi:type="PIVL_TS">
+        <phase lowClosed="true" highClosed="true">
+          <low value="201201010000" />
+          <width xsi:type="PQ" value="1" unit="a"/>
+        </phase>
+        <period value="1" unit="a" />
+      </value>
+    </measurePeriod>
+  </controlVariable>
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="COPYRIGHT"/>
+      <code code="COPY">
+        <displayName value="Copyright"/>
+      </code>
+      <value xsi:type="ED"
+        value="Physician Performance Measure (Measures) and related data specifications were developed by the National Committee for Quality Assurance (NCQA). 
+
+The Measures are copyrighted but can be reproduced and distributed, without modification, for noncommercial purposes (e.g., use by healthcare providers in connection with their practices). Commercial use is defined as the sale, licensing, or distribution of the Measures for commercial gain, or incorporation of the Measures into a product or service that is sold, licensed or distributed for commercial gain. Commercial use of the Measures requires a license agreement between the user and NCQA. NCQA is not responsible for any use of the Measures. 
+
+Copyright 2012 National Committee for Quality Assurance. All Rights Reserved. 
+
+Limited proprietary coding is contained in the Measure specifications for user convenience. Users of proprietary code sets should obtain all necessary licenses from the owners of the code sets. NCQA disclaims all liability for use or accuracy of any CPT or other codes contained in the specifications.
+
+CPT(R) contained in the Measure specifications is copyright 2004-2011 American Medical Association. LOINC(R) copyright 2004-2011 Regenstrief Institute, Inc. 
+This material contains SNOMED Clinical Terms(R) (SNOMED CT[R]) copyright 2004-2011 International Health Terminology Standards Development Organisation. ICD-10 copyright 2011 World Health Organization. All Rights Reserved.
+
+Due to technical limitations, registered trademarks are indicated by (R) or [R] and unregistered trademarks are indicated by (TM) or [TM]."
+      />
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="MEASURE_SCORING"/>
+      <code code="MSRSCORE">
+        <displayName value="Measure Scoring"/>
+      </code>
+      <value xsi:type="CD" code="PROPOR" codeSystem="2.16.840.1.113883.1.11.20367">
+        <displayName value="Proportion"/>
+      </value>
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="MEASURE_TYPE"/>
+      <code code="MSRTYPE">
+        <displayName value="Measure Type"/>
+      </code>
+      <value xsi:type="CD" code="PROCESS" codeSystem="2.16.840.1.113883.1.11.20368">
+        <displayName value="Process"/>
+      </value>
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="STRATIFICATION"/>
+      <code code="STRAT">
+        <displayName value="Stratification"/>
+      </code>
+      <value xsi:type="ED" value="None"/>
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="RISK_ADJUSTMENT"/>
+      <code code="MSRADJ">
+        <displayName value="Risk Adjustment"/>
+      </code>
+      <value xsi:type="ED" value="None"/>
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="RATE_AGGREGATION"/>
+      <code code="MSRAGG">
+        <displayName value="Rate Aggregation"/>
+      </code>
+      <value xsi:type="ED" value="None"/>
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="RATIONALE"/>
+      <code code="RAT">
+        <displayName value="Rationale"/>
+      </code>
+      <value xsi:type="ED"
+        value="Group A streptococcal bacterial infections and other infections that cause pharyngitis (which are most often viral) often produce the same signs and symptoms (IDSA 2002). The American Academy of Pediatrics, the Centers for Disease Control and Prevention, and the Infectious Diseases Society of America all recommend a diagnostic test for Strep A to improve diagnostic accuracy and avoid unnecessary antibiotic treatment (Linder et al. 2005).  A study on antibiotic treatment of children with sore throat found that although only 15 to 36 percent of children with sore throat have Strep A pharyngitis, physicians prescribed antibiotics to 53 percent of children with a chief complaint of sore throat between 1995 and 2003 (Linder et al. 2005)."
+      />
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="CLINICAL_RECOMMENDATION_STATEMENT"/>
+      <code code="CRS">
+        <displayName value="Clinical Recommendation Statement"/>
+      </code>
+      <value xsi:type="ED"
+        value="Institute for Clinical Systems Improvement (ICSI) (2007) 
+
+Reduce unnecessary use of antibiotics. Antibiotic treatment should be reserved for a bacterial illness. Diagnosis of group A beta streptococcal Pharyngitis should be made by laboratory testing rather than clinically. 
+
+Infectious Disease Society of America (Bisno et al. 2002) 
+
+The signs and symptoms of group A streptococcal and other (most frequently viral) pharyngitides overlap broadly. Therefore, unless the physician is able with confidence to exclude the diagnosis of streptococcal pharyngitis on epidemiological and clinical grounds alone, a laboratory test should be done to determine whether group A streptococci are present in the pharynx. 
+
+With the exception of very rare infections by certain other pharyngeal bacterial pathogens (e.g., Corynebacterium diphtheriae and Neisseria gonorrhoeae), antimicrobial therapy is of no proven benefit as treatment for acute pharyngitis due to bacteria other than group A streptococci. Therefore, it is extremely important that physicians exclude the diagnosis of group A streptococcal pharyngitis to prevent inappropriate administration of antimicrobials to large numbers of patients with pharyngitis. 
+
+Michigan Quality Improvement Consortium (2007)
+
+Probability of group A beta hemolytic streptococci (GABHS): Low; Testing: None; Treatment: Symptomatic treatment only. Avoid antibiotics. Probability of GABHS: Intermediate or High; Testing: Throat Culture (TC) OR Rapid Screen; Treatment: If TC is positive, use antibiotics. If TC is negative, use symptomatic treatment only. Avoid antibiotics. If treatment is started and culture result is negative, stop antibiotics. If Rapid Screen is positive, use antibiotics. If Rapid Screen is negative, culture (Culture is optional for age 16 and over) and only use antibiotics if throat culture is positive. (Michigan, 2007)"
+      />
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="IMPROVEMENT_NOTATION"/>
+      <code code="IDUR">
+        <displayName value="Improvement Notation"/>
+      </code>
+      <value xsi:type="ED" value="Higher score indicates better quality"/>
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="NQF_ID_NUMBER"/>
+      <code code="OTH">
+        <displayName value="NQF ID Number"/>
+      </code>
+      <value xsi:type="ED" value="0002"/>
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="DISCLAIMER"/>
+      <code code="DISC">
+        <displayName value="Disclaimer"/>
+      </code>
+      <value xsi:type="ED"
+        value="These performance Measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications.
+
+THE MEASURES AND SPECIFICATIONS ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND."
+      />
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="EMEASURE_IDENTIFIER"/>
+      <code code="OTH">
+        <displayName value="eMeasure Identifier"/>
+      </code>
+      <value xsi:type="ED" value="146"/>
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="REFERENCE"/>
+      <code code="REF">
+        <displayName value="Reference"/>
+      </code>
+      <value xsi:type="ED"
+        value="Michigan Quality Improvement Consortium. 2007. Acute pharyngitis in children. Southfield: Michigan Quality Improvement Consortium."
+      />
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="DEFINITION"/>
+      <code code="DEF">
+        <displayName value="Definition"/>
+      </code>
+      <value xsi:type="ED" value="None"/>
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="GUIDANCE"/>
+      <code code="GUIDE">
+        <displayName value="Guidance"/>
+      </code>
+      <value xsi:type="ED" value="None"/>
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="TRANSMISSION_FORMAT"/>
+      <code code="TRANF">
+        <displayName value="Transmission Format"/>
+      </code>
+      <value xsi:type="ED" value="TBD"/>
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="INITIAL_PATIENT_POPULATION"/>
+      <code code="IPP">
+        <displayName value="Initial Patient Population"/>
+      </code>
+      <value xsi:type="ED"
+        value="Children 2-18 years of age who had an outpatient or emergency department (ED) visit with a diagnosis of pharyngitis during the measurement period and an antibiotic ordered on or three days after the visit"
+      />
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="DENOMINATOR"/>
+      <code code="DENOM">
+        <displayName value="Denominator"/>
+      </code>
+      <value xsi:type="ED" value="Equals Initial Patient Population"/>
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="DENOMINATOR_EXCLUSIONS"/>
+      <code code="OTH">
+        <displayName value="Denominator Exclusions"/>
+      </code>
+      <value xsi:type="ED"
+        value="Children who are taking antibiotics in the 30 days prior to the diagnosis of pharyngitis"
+      />
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="NUMERATOR"/>
+      <code code="NUMER">
+        <displayName value="Numerator"/>
+      </code>
+      <value xsi:type="ED"
+        value="Children with a group A streptococcus test in the 7-day period from 3 days prior through 3 days after the diagnosis of pharyngitis"
+      />
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="NUMERATOR_EXCLUSIONS"/>
+      <code code="OTH">
+        <displayName value="Numerator Exclusions"/>
+      </code>
+      <value xsi:type="ED" value="Not Applicable"/>
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="DENOMINATOR_EXCEPTIONS"/>
+      <code code="DENEXCEP">
+        <displayName value="Denominator Exceptions"/>
+      </code>
+      <value xsi:type="ED" value="None"/>
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="MEASURE_POPULATION"/>
+      <code code="MSRPOPL">
+        <displayName value="Measure Population"/>
+      </code>
+      <value xsi:type="ED" value="Not Applicable"/>
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="MEASURE_OBSERVATIONS"/>
+      <code code="OTH">
+        <displayName value="Measure Observations"/>
+      </code>
+      <value xsi:type="ED" value="Not Applicable"/>
+    </measureAttribute>
+  </subjectOf>
+
+  <subjectOf>
+    <measureAttribute>
+      <id root="2.16.840.1.113883.3.100.1" extension="SUPPLEMENTAL_DATA_ELEMENTS"/>
+      <code code="OTH">
+        <displayName value="Supplemental Data Elements"/>
+      </code>
+      <value xsi:type="ED"
+        value="For every patient evaluated by this measure also identify payer, race, ethnicity and sex."
+      />
+    </measureAttribute>
+  </subjectOf>
+
+  <component>
+    <dataCriteriaSection>
+      <code code="57025-9" codeSystem="2.16.840.1.113883.6.1"/>
+      <title value="Data Criteria Section"/>
+      <text value="This section describes the data criteria."/>
+      
+      <!-- Patient is >= 2 years and < 18 before start of measurement Period -->
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">     
+          <id root="2.16.840.1.113883.3.100.1"
+              extension="PatientCharacteristicBirthdate"/>
+          <code codeSystemName="LOINC" codeSystem="2.16.840.1.113883.6.1" code="21112-8">
+            <displayName value="birth date"/>
+          </code>
+          <text value="Patient Characteristic Birthdate: birth date"/>
+          <temporallyRelatedInformation typeCode="SCW">
+            <pauseQuantity>
+              <uncertainRange lowClosed="true" highClosed="true">
+                <low xsi:type="PQ" value="2" unit="a"/>
+                <high xsi:type="PQ" value="18" unit="a"/>
+              </uncertainRange>
+            </pauseQuantity>
+            <criteriaReference moodCode="EVN" classCode="OBS">
+              <id root="2.16.840.1.113883.3.100.100.123" extension="MeasurePeriod"/>
+            </criteriaReference>
+          </temporallyRelatedInformation>
+        </observationCriteria>
+      </entry>
+      
+ <!-- Acute Pharyngitis Criteria -->
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id root="2.16.840.1.113883.3.100.1" extension="DiagnosisActiveAcutePharyngitis"/>
+          <text value="Diagnosis, Active: Acute Pharyngitis"/>
+          <statusCode code="active"/>
+          <value xsi:type="CD" valueSet="2.16.840.1.113883.3.464.1003.102.12.1011">
+            <displayName value="Acute Pharyngitis"/>
+          </value>
+        </observationCriteria>
+      </entry>
+      
+      <!-- Acute Tonsillitis -->
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id root="2.16.840.1.113883.3.100.1" extension="DiagnosisActiveAcuteTonsillitis"/>
+          <text value="Diagnosis, Active: Acute Tonsillitis"/>
+          <statusCode code="active"/>
+          <value xsi:type="CD" valueSet="2.16.840.1.113883.3.464.1003.102.12.1012">
+            <displayName value="Acute Tonsillitis"/>
+          </value>
+        </observationCriteria>
+      </entry>
+      
+      <!-- Diagnosis of Acute Pharingytis OR Acute Tonsillitis -->
+      <entry typeCode="DRIV">
+        <grouperCriteria classCode="GROUPER" moodCode="EVN">
+          <id root="2.16.840.1.113883.3.100.1" extension="PharyngitisORTonsillitis"/>
+          <outboundRelationship typeCode="COMP">
+            <conjunctionCode code="OR"/>
+            <criteriaReference classCode="OBS" moodCode="EVN">
+              <id root="2.16.840.1.113883.3.100.1" extension="DiagnosisActiveAcuteTonsillitis"/>
+            </criteriaReference>
+          </outboundRelationship>
+          <outboundRelationship typeCode="COMP">
+            <conjunctionCode code="OR"/>
+            <criteriaReference classCode="OBS" moodCode="EVN">
+              <id root="2.16.840.1.113883.3.100.1" extension="DiagnosisActiveAcutePharyngitis"/>
+            </criteriaReference>
+          </outboundRelationship>
+        </grouperCriteria>
+      </entry>
+
+      <!-- Encounter DURING Measure Period, diagnosis of (pharyngitis OR tonsillitis) -->
+      <entry typeCode="DRIV">
+        <encounterCriteria moodCode="EVN" classCode="ENC">
+          <id root="2.16.840.1.113883.3.100.1" extension="EncounterPerformedAmbulatoryEdVisit"/>
+          <code xsi:type="CD" valueSet="2.16.840.1.113883.3.464.1003.101.12.1061">
+            <displayName value="Ambulatory/ED Visit"/>
+          </code>
+          <text value="Encounter, Performed: Ambulatory/ED Visit"/>
+          <temporallyRelatedInformation typeCode="DURING">
+            <criteriaReference classCode="OBS" moodCode="EVN">
+              <id root="2.16.840.1.113883.3.100.100.123" extension="MeasurePeriod"/>
+            </criteriaReference>
+          </temporallyRelatedInformation>
+          <temporallyRelatedInformation typeCode="OVERLAP">
+            <criteriaReference classCode="GROUPER" moodCode="EVN">
+              <id root="2.16.840.1.113883.3.100.1" extension="PharyngitisORTonsillitis"/>
+            </criteriaReference>
+          </temporallyRelatedInformation>
+        </encounterCriteria>
+      </entry>
+
+      <!-- Medication Order, <= 3 days after the start of Encounter -->
+
+      <entry typeCode="DRIV">
+        <supplyCriteria moodCode="EVN" classCode="SPLY">
+          <id root="2.16.840.1.113883.3.100.1"
+              extension="MedicationOrderAntibioticMedications"/>
+          <text value="Medication, Order: Antibiotic Medications"/>
+          <statusCode code="ordered"/>
+          <participation typeCode="PRD">
+            <role classCode="THER">
+              <code valueSet="2.16.840.1.113883.3.464.1003.196.12.1001">
+                <displayName value="Antibiotic Medications"/>
+              </code> 
+            </role>
+          </participation>
+          <temporallyRelatedInformation typeCode="SCW">
+            <pauseQuantity>
+              <uncertainRange lowClosed="true" highClosed="true">
+                <low xsi:type="PQ" value="-3" unit="d" />
+                <high xsi:type="PQ" value="0" unit="d" />
+              </uncertainRange>
+            </pauseQuantity>
+            <criteriaReference moodCode="EVN" classCode="ENC">
+              <id root="2.16.840.1.113883.3.100.1" extension="EncounterPerformedAmbulatoryEdVisit"/>
+            </criteriaReference>
+          </temporallyRelatedInformation>       
+        </supplyCriteria>
+      </entry>
+      
+      
+      <!-- Medication <= 30 days before Diagnosis of Pharyngitis and Tonsillitis -->
+      <entry typeCode="DRIV">
+        <substanceAdministrationCriteria moodCode="EVN" classCode="SBADM">
+          <id root="2.16.840.1.113883.3.100.1"
+            extension="MedicationActiveAntibioticMedications"/>
+          <text value="Medication, Active: Antibiotic Medications"/>
+          <statusCode code="active"/>
+          <participation typeCode="CSM">
+            <role classCode="THER">
+              <code valueSet="2.16.840.1.113883.3.464.1003.196.12.1001">
+                <displayName value="Antibiotic Medications"/>
+              </code>
+            </role>
+          </participation>
+          <temporallyRelatedInformation typeCode="SCW">
+            <pauseQuantity>
+              <uncertainRange lowClosed="true" highClosed="true">
+                <low xsi:type="PQ" value="0" unit="d"/>
+                <high xsi:type="PQ" value="30" unit="d" />
+              </uncertainRange>
+            </pauseQuantity>
+            <criteriaReference classCode="GROUPER" moodCode="EVN">
+              <id root="2.16.840.1.113883.3.100.1" extension="PharingytisORTonsillitis"/>
+            </criteriaReference>
+          </temporallyRelatedInformation>
+        </substanceAdministrationCriteria>
+      </entry>
+      
+      <!-- Strep A Test <= 3 days before Encounter with Diagnosis or (Pharyngitis OR tonsillitis) starts -->
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id root="2.16.840.1.113883.3.100.1"
+              extension="LaboratoryTestResultGroupAStreptococcusTest_1"/>
+          <code xsi:type="CD" valueSet="2.16.840.1.113883.3.464.1003.198.12.1012">
+            <displayName value="Group A Streptococcus Test"/>
+          </code>
+          <text value="Laboratory Test, Result: Group A Streptococcus Test"/>
+          <value xsi:type="ANY" nullFlavor="NI"/>
+          <temporallyRelatedInformation typeCode="SCW">
+            <pauseQuantity>
+              <uncertainRange lowClosed="true" highClosed="true">
+                <low xsi:type="PQ" value="0" unit="d"/>
+                <high xsi:type="PQ" value="3" unit="d" />
+              </uncertainRange>
+            </pauseQuantity>
+            <criteriaReference moodCode="EVN" classCode="ENC">
+              <id root="2.16.840.1.113883.3.100.1" extension="EncounterPerformedAmbulatoryEdVisit"/>
+            </criteriaReference>
+          </temporallyRelatedInformation>
+        </observationCriteria>
+      </entry>
+      
+      <!-- Strep A Test <= 3 days after Encounter with Diagnosis or (Pharyngitis OR tonsillitis) ended -->
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS">
+          <id root="2.16.840.1.113883.3.100.1"
+            extension="LaboratoryTestResultGroupAStreptococcusTest_2"/>
+          <code xsi:type="CD" valueSet="2.16.840.1.113883.3.464.1003.198.12.1012">
+            <displayName value="Group A Streptococcus Test"/>
+          </code>
+          <text value="Laboratory Test, Result: Group A Streptococcus Test"/>
+          <value xsi:type="ANY" nullFlavor="NI"/>
+          <temporallyRelatedInformation typeCode="SCWE">
+            <pauseQuantity>
+              <uncertainRange lowClosed="true" highClosed="true">
+                <low xsi:type="PQ" value="-3" unit="d"/>
+                <high xsi:type="PQ" value="0" unit="d" />
+              </uncertainRange>
+            </pauseQuantity>
+            <criteriaReference moodCode="EVN" classCode="ENC">
+              <id root="2.16.840.1.113883.3.100.1" extension="EncounterPerformedAmbulatoryEdVisit"/>
+            </criteriaReference>
+          </temporallyRelatedInformation>
+        </observationCriteria>
+      </entry>
+      
+      <!-- Strep A Test Starts During Encounter with Diagnosis (Pharyngitis OR tonsillitis) -->
+      <entry typeCode="DRIV">
+        <observationCriteria moodCode="EVN" classCode="OBS"> 
+          <id root="2.16.840.1.113883.3.100.1"
+            extension="LaboratoryTestResultGroupAStreptococcusTest_3"/>
+          <code xsi:type="CD" valueSet="2.16.840.1.113883.3.464.1003.198.12.1012">
+            <displayName value="Group A Streptococcus Test"/>
+          </code>
+          <text value="Laboratory Test, Result: Group A Streptococcus Test"/>
+          <value xsi:type="ANY" nullFlavor="NI"/>
+          <temporallyRelatedInformation typeCode="SDU">
+            <criteriaReference moodCode="EVN" classCode="ENC">
+              <id root="2.16.840.1.113883.3.100.1" extension="EncounterPerformedAmbulatoryEdVisit"/>
+            </criteriaReference>
+          </temporallyRelatedInformation>
+        </observationCriteria>
+      </entry>    
+    </dataCriteriaSection>
+  </component>
+  
+  <component>
+    <populationCriteriaSection>
+      <id root="2.16.840.1.113883.3.100.1" extension="Population0"/>
+      <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"/>
+      <title value=""/>
+      <text value="This section describes the Initial Patient Population, Numerator, Denominator,
+        Denominator Exclusions"/>
+      <component typeCode="COMP">
+        <initialPopulationCriteria classCode="OBS" moodCode="EVN">
+          <id root="c75181d0-73eb-11de-8a39-0800200c9a66"
+            extension="14A38107-50A1-4DD9-A6AB-BC9E5DEDCEB9"/>
+          <code codeSystem="2.16.840.1.113883.5.1063" codeSystemName="HL7 Observation Value"
+            code="IPPOP">
+            <displayName value="Initial Patient Population"/>
+          </code>
+          <precondition typeCode="PRCN">
+            <allTrue>
+              <id/>
+              <precondition typeCode="PRCN">
+                <criteriaReference moodCode="EVN" classCode="OBS">
+                  <id root="2.16.840.1.113883.3.100.1" extension="PatientCharacteristicBirthdate"/>
+                </criteriaReference>
+              </precondition>
+              <precondition typeCode="PRCN">
+                <criteriaReference moodCode="EVN" classCode="OBS">
+                  <id root="2.16.840.1.113883.3.100.1" extension="EncounterPerformedAmbulatoryEdVisit"/>
+                </criteriaReference>
+              </precondition>
+              <precondition typeCode="PRCN">
+                <criteriaReference moodCode="EVN" classCode="OBS">
+                  <id root="2.16.840.1.113883.3.100.1" extension="MedicationOrderAntibioticMedications"/>
+                </criteriaReference>
+              </precondition>
+            </allTrue>
+          </precondition>
+        </initialPopulationCriteria>
+      </component>
+
+      <component typeCode="COMP">
+        <denominatorCriteria classCode="OBS" moodCode="EVN">
+          <id root="c75181d0-73eb-11de-8a39-0800200c9a66"
+            extension="0002BEB6-F5E8-4755-A95C-1CA6E66BF321"/>
+          <code codeSystem="2.16.840.1.113883.5.1063" codeSystemName="HL7 Observation Value"
+            code="DENOM">
+            <displayName value="Denominator"/>
+          </code>
+          <precondition typeCode="PRCN" nullFlavor="NA">
+            <allTrue>
+              <id/>
+            </allTrue>
+          </precondition>
+        </denominatorCriteria>
+      </component>
+      <component typeCode="COMP">
+        <numeratorCriteria classCode="OBS" moodCode="EVN">
+          <id root="c75181d0-73eb-11de-8a39-0800200c9a66"
+            extension="035CCE7F-1141-4636-9168-B9D530E980F5"/>
+          <code codeSystem="2.16.840.1.113883.5.1063" codeSystemName="HL7 Observation Value"
+            code="NUMER">
+            <displayName value="Numerator"/>
+          </code>
+          <precondition typeCode="PRCN">
+            <allTrue>
+              <id/>
+              <precondition typeCode="PRCN">
+                <atLeastOneTrue>
+                  <id/>
+                  <precondition typeCode="PRCN">
+                    <criteriaReference moodCode="EVN" classCode="OBS">
+                      <id root="2.16.840.1.113883.3.100.1"
+                        extension="LaboratoryTestResultGroupAStreptococcusTest_1"/>
+                    </criteriaReference>
+                  </precondition>
+                  <precondition typeCode="PRCN">
+                    <criteriaReference moodCode="EVN" classCode="OBS">
+                      <id root="2.16.840.1.113883.3.100.1"
+                        extension="LaboratoryTestResultGroupAStreptococcusTest_2"/>
+                    </criteriaReference>
+                  </precondition>
+                  <precondition typeCode="PRCN">
+                    <criteriaReference moodCode="EVN" classCode="OBS">
+                      <id root="2.16.840.1.113883.3.100.1"
+                        extension="LaboratoryTestResultGroupAStreptococcusTest_3"/>
+                    </criteriaReference>
+                  </precondition>
+                </atLeastOneTrue>
+              </precondition>
+            </allTrue>
+          </precondition>
+        </numeratorCriteria>
+      </component>
+
+      <component typeCode="COMP">
+        <denominatorExclusionCriteria classCode="OBS" moodCode="EVN">
+          <id root="c75181d0-73eb-11de-8a39-0800200c9a66"
+            extension="7966CC65-62B4-493E-8188-1E393BC900B1"/>
+          <code codeSystem="2.16.840.1.113883.5.1063" codeSystemName="HL7 Observation Value"
+            code="DENEX">
+            <displayName value="Denominator Exclusions"/>
+          </code>
+          <precondition typeCode="PRCN">
+            <allTrue>
+              <id/>
+              <precondition typeCode="PRCN">
+                <criteriaReference moodCode="EVN" classCode="SBADM">
+                  <id root="2.16.840.1.113883.3.100.1"
+                    extension="MedicationActiveAntibioticMedications"/>
+                </criteriaReference>
+              </precondition>
+            </allTrue>
+          </precondition>
+        </denominatorExclusionCriteria>
+      </component>
+
+    </populationCriteriaSection>
+  </component>
+</QualityMeasureDocument>
