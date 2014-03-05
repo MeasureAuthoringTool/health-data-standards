@@ -122,6 +122,14 @@ module HQMF
     def population_criteria(id)
       find(@population_criteria, :id, id)
     end
+
+    def is_cv?
+      find(@population_criteria, :type, HQMF::PopulationCriteria::MSRPOPL)
+    end
+
+    def find_population_by_type(type)
+      find(@population_criteria, :type, type)
+    end
     
     # Get all the data criteria defined by the measure
     # @return [Array] an array of HQMF::DataCriteria describing the data elements used by the measure
@@ -167,7 +175,14 @@ module HQMF
       end
       used_dc
     end
-    
+
+    # Get specific attributes by code.
+    # @param [String] code the attribute code
+    # @param [String] code_system the attribute code system
+    # @return [Array#Attribute] the matching attributes, raises an Exception if not found
+    def attributes_for_code(code, code_system)
+      @attributes.find_all { |e| e.send(:code) == code && e.send(:code_obj).send(:system) == code_system }
+    end
     
     # Get a specific data criteria by id.
     # @param [String] id the data criteria identifier

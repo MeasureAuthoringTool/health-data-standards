@@ -1,9 +1,8 @@
       <entry typeCode="DRIV">
+        <%= xml_for_local_variable(criteria) %>
         <observationCriteria moodCode="EVN" classCode="OBS">
           <%= xml_for_template(criteria, is_source_data_criteria) %>
-          <id>
-            <item root="2.16.840.1.113883.3.100.1" extension="<%= criteria.id %>"/>
-          </id>
+          <id root="2.16.840.1.113883.3.100.1" extension="<%= criteria.id %>"/>
           <%= xml_for_description(criteria) %>
           <%= xml_for_code(criteria) %>
           <%= xml_for_effective_time(criteria) %>

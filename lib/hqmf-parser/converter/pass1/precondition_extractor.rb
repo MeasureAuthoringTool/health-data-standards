@@ -136,6 +136,15 @@ module HQMF
         container = HQMF::Converter::SimpleRestriction.new(operator, nil, [comparison_precondition])
       else
         container = HQMF::Converter::SimpleRestriction.new(operator, target_id)
+        # handle transitive restrictions... this is where we are adding a field to a target of a timing restriction
+        if (restrictions && !restrictions.empty? && children.nil?)
+          children = []
+          restrictions.each do |child|
+            comparison_precondition = HQMF::Converter::SimplePrecondition.new(nil,[child],HQMF::Reference.new(target_id),nil, false)
+            comparison_precondition.klass = HQMF::Converter::SimplePrecondition::COMPARISON
+            children << comparison_precondition
+          end
+        end
         container.preconditions = children
       end
       

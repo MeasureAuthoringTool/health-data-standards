@@ -20,20 +20,16 @@ module HQMF2
     
     attr_reader :type, :unit, :value
     
-    def initialize(entry, default_type='PQ')
+    def initialize(entry, default_type='PQ', force_inclusive=false)
       @entry = entry
       @type = attr_val('./@xsi:type') || default_type
       @unit = attr_val('./@unit')
       @value = attr_val('./@value')
+      @force_inclusive = force_inclusive
     end
     
     def inclusive?
-      case attr_val('./@inclusive')
-      when 'false'
-        false
-      else
-        true
-      end
+      attr_val("../@#{@entry.name}Closed") == 'true' || @force_inclusive
     end
     
     def derived?
@@ -67,9 +63,9 @@ module HQMF2
       @type = type
       @entry = entry
       if @entry
-        @low = optional_value('./cda:low', default_bounds_type)
-        @high = optional_value('./cda:high', default_bounds_type)
-        @width = optional_value('./cda:width', 'PQ')
+        @low = optional_value("#{default_element_name}/cda:low", default_bounds_type)
+        @high = optional_value("#{default_element_name}/cda:high", default_bounds_type)
+        @width = optional_value("#{default_element_name}/cda:width", 'PQ')
       end
     end
     
@@ -92,6 +88,17 @@ module HQMF2
         Value.new(value_def, type)
       else
         nil
+      end
+    end
+
+    def default_element_name
+      case type
+      when 'IVL_PQ'
+        '.'
+      when 'IVL_TS'
+        'cda:phase'
+      else
+        'cda:uncertainRange'
       end
     end
     
@@ -141,7 +148,7 @@ module HQMF2
     end
 
     def title
-      attr_val('./@displayName')
+      attr_val('./*/@value')
     end
 
     def value
@@ -171,8 +178,18 @@ module HQMF2
       @entry = entry
       @type = attr_val('./cda:subsetCode/@code')
       value_def = @entry.at_xpath('./*/cda:repeatNumber', HQMF2::Document::NAMESPACES)
+      if !value_def
+        value_def = @entry.at_xpath('./*/cda:value', HQMF2::Document::NAMESPACES)
+      end
       if value_def
-        @value = HQMF2::Range.new(value_def, 'IVL_INT')
+        value_type = value_def.at_xpath('./@xsi:type', HQMF2::Document::NAMESPACES)
+        if String.try_convert(value_type) ==  "ANY"
+          @value = HQMF2::AnyValue.new()
+        end
+      end
+
+      if value_def && !@value
+        @value = HQMF2::Range.new(value_def, 'IVL_PQ')
       end
     end
 
@@ -193,7 +210,7 @@ module HQMF2
       @reference = Reference.new(@entry.at_xpath('./*/cda:id', HQMF2::Document::NAMESPACES))
       range_def = @entry.at_xpath('./cda:pauseQuantity', HQMF2::Document::NAMESPACES)
       if range_def
-        @range = HQMF2::Range.new(range_def, 'IVL_PQ')
+        @range = HQMF2::Range.new(range_def, 'PQ')
       end
     end
     

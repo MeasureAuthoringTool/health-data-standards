@@ -1,11 +1,9 @@
-	<subjectOf>
-		<measureAttribute>
-			<id root="2.16.840.1.113883.3.100.1" extension="<%= attribute.id %>"/>
-			<code code="<%= attribute.code %>">
-				<displayName value="<%= attribute.name %>"/>
-			</code>
-			<%- if attribute.value -%>
-			<value xsi:type="ED" value="<%= attribute.value %>"/>
-			<%- end -%>
-		</measureAttribute>
-	</subjectOf>
+  <subjectOf>
+    <measureAttribute classCode="OBS" moodCode="EVN">
+      <%- if attribute.id_obj -%>
+      <id root="2.16.840.1.113883.3.100.1" <%="extension=\"#{attribute.id_obj.extension}\"" if attribute.id_obj.extension %>"/>
+      <%- end -%>
+      <%= xml_for_value(attribute.code_obj, 'code', false) %>
+      <%= xml_for_value(attribute.value_obj, 'value') %>
+    </measureAttribute>
+  </subjectOf>

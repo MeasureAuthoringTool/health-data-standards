@@ -1,8 +1,21 @@
           <excerpt typeCode="XCRPT">
             <subsetCode code="<%= subset.type %>"/>
             <<%= element_name_prefix(criteria) %>Criteria moodCode="EVN" classCode="<%= reference_type_name(criteria.id) %>">
-            <%- if subset.value -%>
-              <%= xml_for_value(subset.value, 'repeatNumber') %>
+            <id root="2.16.840.1.113883.3.100.1" extension="<%= criteria.id %>"/>
+            <%- if subset && subset.value -%>
+              <%- if subset.type == 'COUNT' -%>
+                <repeatNumber <%= "lowClosed=\"true\"" if subset.value.low && subset.value.low.inclusive? %> 
+                              <%= "highClosed=\"true\"" if subset.value.high && subset.value.high.inclusive? %>>
+                   <%- if subset.value.low -%>
+                     <low value="<%= subset.value.low.value %>"/>
+                   <%- end -%>
+                   <%- if subset.value.high -%>
+                     <high value="<%= subset.value.high.value %>"/>
+                   <%- end -%>
+                </repeatNumber>
+              <%- else -%>
+                <%= xml_for_value(subset.value, 'value') %>
+              <%- end -%>
             <%- end -%>
             </<%= element_name_prefix(criteria) %>Criteria>
           </excerpt>

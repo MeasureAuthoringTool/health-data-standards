@@ -1119,14 +1119,20 @@
          <xs:enumeration value="DEBIT"/>
       </xs:restriction>
    </xs:simpleType>
-   <xs:simpleType name="ActRelationshipAdjunctCurativeIndication">
+   <xs:simpleType name="ActRelationshipActiveImmunizationAgainst">
       <xs:restriction base="cs">
-         <xs:enumeration value="CURE.ADJ"/>
+         <xs:enumeration value="ACTIMM"/>
       </xs:restriction>
    </xs:simpleType>
+   <xs:simpleType name="ActRelationshipAdjunctCurativeIndication">
+      <xs:restriction base="cs"/>
+   </xs:simpleType>
    <xs:simpleType name="ActRelationshipAdjunctMitigation">
+      <xs:restriction base="cs"/>
+   </xs:simpleType>
+   <xs:simpleType name="ActRelationshipAdjunctiveTreatment">
       <xs:restriction base="cs">
-         <xs:enumeration value="MTGT.ADJ"/>
+         <xs:enumeration value="ADJUNCT"/>
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="ActRelationshipArrival">
@@ -1199,12 +1205,17 @@
          <xs:enumeration value="PRCN"/>
          <xs:enumeration value="RSON"/>
          <xs:enumeration value="BLOCK"/>
-         <xs:enumeration value="CURE"/>
-         <xs:enumeration value="CURE.ADJ"/>
          <xs:enumeration value="DIAG"/>
+         <xs:enumeration value="IMM"/>
+         <xs:enumeration value="ACTIMM"/>
+         <xs:enumeration value="PASSIMM"/>
          <xs:enumeration value="MITGT"/>
          <xs:enumeration value="RCVY"/>
-         <xs:enumeration value="MTGT.ADJ"/>
+         <xs:enumeration value="PRYLX"/>
+         <xs:enumeration value="TREAT"/>
+         <xs:enumeration value="ADJUNCT"/>
+         <xs:enumeration value="MTREAT"/>
+         <xs:enumeration value="PALLTREAT"/>
          <xs:enumeration value="SYMP"/>
          <xs:enumeration value="TRIG"/>
       </xs:restriction>
@@ -1221,9 +1232,7 @@
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="ActRelationshipCurativeIndication">
-      <xs:restriction base="cs">
-         <xs:enumeration value="CURE"/>
-      </xs:restriction>
+      <xs:restriction base="cs"/>
    </xs:simpleType>
    <xs:simpleType name="ActRelationshipDeparture">
       <xs:restriction base="cs">
@@ -1256,6 +1265,11 @@
          <xs:enumeration value="EDU"/>
       </xs:restriction>
    </xs:simpleType>
+   <xs:simpleType name="ActRelationshipEndsBeforeEnd">
+      <xs:restriction base="cs">
+         <xs:enumeration value="EBE"/>
+      </xs:restriction>
+   </xs:simpleType>
    <xs:simpleType name="ActRelationshipEndsBeforeStartOf">
       <xs:restriction base="cs">
          <xs:enumeration value="EBS"/>
@@ -1265,6 +1279,11 @@
       <xs:restriction base="cs">
          <xs:enumeration value="ECW"/>
          <xs:enumeration value="CONCURRENT"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="ActRelationshipEndsConcurrentWithStart">
+      <xs:restriction base="cs">
+         <xs:enumeration value="ECWS"/>
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="ActRelationshipEndsDuring">
@@ -1379,6 +1398,11 @@
          <xs:enumeration value="GOAL"/>
       </xs:restriction>
    </xs:simpleType>
+   <xs:simpleType name="ActRelationshipHasMetadata">
+      <xs:restriction base="cs">
+         <xs:enumeration value="META"/>
+      </xs:restriction>
+   </xs:simpleType>
    <xs:simpleType name="ActRelationshipHasOption">
       <xs:restriction base="cs">
          <xs:enumeration value="OPTN"/>
@@ -1420,11 +1444,23 @@
          <xs:enumeration value="TRIG"/>
       </xs:restriction>
    </xs:simpleType>
+   <xs:simpleType name="ActRelationshipHasValue">
+      <xs:restriction base="cs">
+         <xs:enumeration value="VALUE"/>
+      </xs:restriction>
+   </xs:simpleType>
    <xs:simpleType name="ActRelationshipICSRInvestigation">
       <xs:restriction base="cs">
          <xs:enumeration value="RPLC"/>
          <xs:enumeration value="SEQL"/>
          <xs:enumeration value="SPRT"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="ActRelationshipImmunizationAgainst">
+      <xs:restriction base="cs">
+         <xs:enumeration value="IMM"/>
+         <xs:enumeration value="ACTIMM"/>
+         <xs:enumeration value="PASSIMM"/>
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="ActRelationshipInstantiatesMaster">
@@ -1490,6 +1526,11 @@
          <xs:enumeration value="LIMIT"/>
       </xs:restriction>
    </xs:simpleType>
+   <xs:simpleType name="ActRelationshipMaintenanceTreatment">
+      <xs:restriction base="cs">
+         <xs:enumeration value="MTREAT"/>
+      </xs:restriction>
+   </xs:simpleType>
    <xs:simpleType name="ActRelationshipMatchesTrigger">
       <xs:restriction base="cs">
          <xs:enumeration value="MTCH"/>
@@ -1531,33 +1572,51 @@
          <xs:enumeration value="OVERLAP"/>
       </xs:restriction>
    </xs:simpleType>
+   <xs:simpleType name="ActRelationshipPalliates">
+      <xs:restriction base="cs">
+         <xs:enumeration value="PALLTREAT"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="ActRelationshipPassiveImmunizationAgainst">
+      <xs:restriction base="cs">
+         <xs:enumeration value="PASSIMM"/>
+      </xs:restriction>
+   </xs:simpleType>
    <xs:simpleType name="ActRelationshipPertains">
       <xs:restriction base="cs">
          <xs:enumeration value="PERT"/>
          <xs:enumeration value="EAE"/>
          <xs:enumeration value="EAS"/>
          <xs:enumeration value="EDU"/>
+         <xs:enumeration value="EBE"/>
          <xs:enumeration value="EBS"/>
          <xs:enumeration value="ECW"/>
          <xs:enumeration value="CONCURRENT"/>
+         <xs:enumeration value="ECWS"/>
          <xs:enumeration value="EAE"/>
          <xs:enumeration value="EAS"/>
          <xs:enumeration value="EDU"/>
+         <xs:enumeration value="EBE"/>
          <xs:enumeration value="EBS"/>
          <xs:enumeration value="ECW"/>
          <xs:enumeration value="CONCURRENT"/>
+         <xs:enumeration value="ECWS"/>
          <xs:enumeration value="SAE"/>
          <xs:enumeration value="SAS"/>
          <xs:enumeration value="SDU"/>
+         <xs:enumeration value="SBE"/>
          <xs:enumeration value="SBS"/>
          <xs:enumeration value="SCW"/>
          <xs:enumeration value="CONCURRENT"/>
+         <xs:enumeration value="SCWE"/>
          <xs:enumeration value="SAE"/>
          <xs:enumeration value="SAS"/>
          <xs:enumeration value="SDU"/>
+         <xs:enumeration value="SBE"/>
          <xs:enumeration value="SBS"/>
          <xs:enumeration value="SCW"/>
          <xs:enumeration value="CONCURRENT"/>
+         <xs:enumeration value="SCWE"/>
          <xs:enumeration value="DURING"/>
          <xs:enumeration value="DURING"/>
          <xs:enumeration value="OVERLAP"/>
@@ -1565,27 +1624,35 @@
          <xs:enumeration value="EAE"/>
          <xs:enumeration value="EAS"/>
          <xs:enumeration value="EDU"/>
+         <xs:enumeration value="EBE"/>
          <xs:enumeration value="EBS"/>
          <xs:enumeration value="ECW"/>
          <xs:enumeration value="CONCURRENT"/>
+         <xs:enumeration value="ECWS"/>
          <xs:enumeration value="EAE"/>
          <xs:enumeration value="EAS"/>
          <xs:enumeration value="EDU"/>
+         <xs:enumeration value="EBE"/>
          <xs:enumeration value="EBS"/>
          <xs:enumeration value="ECW"/>
          <xs:enumeration value="CONCURRENT"/>
+         <xs:enumeration value="ECWS"/>
          <xs:enumeration value="SAE"/>
          <xs:enumeration value="SAS"/>
          <xs:enumeration value="SDU"/>
+         <xs:enumeration value="SBE"/>
          <xs:enumeration value="SBS"/>
          <xs:enumeration value="SCW"/>
          <xs:enumeration value="CONCURRENT"/>
+         <xs:enumeration value="SCWE"/>
          <xs:enumeration value="SAE"/>
          <xs:enumeration value="SAS"/>
          <xs:enumeration value="SDU"/>
+         <xs:enumeration value="SBE"/>
          <xs:enumeration value="SBS"/>
          <xs:enumeration value="SCW"/>
          <xs:enumeration value="CONCURRENT"/>
+         <xs:enumeration value="SCWE"/>
          <xs:enumeration value="DURING"/>
          <xs:enumeration value="DURING"/>
          <xs:enumeration value="OVERLAP"/>
@@ -1636,6 +1703,11 @@
          <xs:enumeration value="DEBIT"/>
       </xs:restriction>
    </xs:simpleType>
+   <xs:simpleType name="ActRelationshipProphylaxisOf">
+      <xs:restriction base="cs">
+         <xs:enumeration value="PRYLX"/>
+      </xs:restriction>
+   </xs:simpleType>
    <xs:simpleType name="ActRelationshipProvidesEvidenceFor">
       <xs:restriction base="cs">
          <xs:enumeration value="EVID"/>
@@ -1650,12 +1722,17 @@
       <xs:restriction base="cs">
          <xs:enumeration value="RSON"/>
          <xs:enumeration value="BLOCK"/>
-         <xs:enumeration value="CURE"/>
-         <xs:enumeration value="CURE.ADJ"/>
          <xs:enumeration value="DIAG"/>
+         <xs:enumeration value="IMM"/>
+         <xs:enumeration value="ACTIMM"/>
+         <xs:enumeration value="PASSIMM"/>
          <xs:enumeration value="MITGT"/>
          <xs:enumeration value="RCVY"/>
-         <xs:enumeration value="MTGT.ADJ"/>
+         <xs:enumeration value="PRYLX"/>
+         <xs:enumeration value="TREAT"/>
+         <xs:enumeration value="ADJUNCT"/>
+         <xs:enumeration value="MTREAT"/>
+         <xs:enumeration value="PALLTREAT"/>
          <xs:enumeration value="SYMP"/>
       </xs:restriction>
    </xs:simpleType>
@@ -1761,6 +1838,11 @@
          <xs:enumeration value="SDU"/>
       </xs:restriction>
    </xs:simpleType>
+   <xs:simpleType name="ActRelationshipStartsBeforeEnd">
+      <xs:restriction base="cs">
+         <xs:enumeration value="SBE"/>
+      </xs:restriction>
+   </xs:simpleType>
    <xs:simpleType name="ActRelationshipStartsBeforeStartOf">
       <xs:restriction base="cs">
          <xs:enumeration value="SBS"/>
@@ -1770,6 +1852,11 @@
       <xs:restriction base="cs">
          <xs:enumeration value="SCW"/>
          <xs:enumeration value="CONCURRENT"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="ActRelationshipStartsConcurrentWithEnd">
+      <xs:restriction base="cs">
+         <xs:enumeration value="SCWE"/>
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="ActRelationshipStartsDuring">
@@ -1797,27 +1884,35 @@
          <xs:enumeration value="EAE"/>
          <xs:enumeration value="EAS"/>
          <xs:enumeration value="EDU"/>
+         <xs:enumeration value="EBE"/>
          <xs:enumeration value="EBS"/>
          <xs:enumeration value="ECW"/>
          <xs:enumeration value="CONCURRENT"/>
+         <xs:enumeration value="ECWS"/>
          <xs:enumeration value="EAE"/>
          <xs:enumeration value="EAS"/>
          <xs:enumeration value="EDU"/>
+         <xs:enumeration value="EBE"/>
          <xs:enumeration value="EBS"/>
          <xs:enumeration value="ECW"/>
          <xs:enumeration value="CONCURRENT"/>
+         <xs:enumeration value="ECWS"/>
          <xs:enumeration value="SAE"/>
          <xs:enumeration value="SAS"/>
          <xs:enumeration value="SDU"/>
+         <xs:enumeration value="SBE"/>
          <xs:enumeration value="SBS"/>
          <xs:enumeration value="SCW"/>
          <xs:enumeration value="CONCURRENT"/>
+         <xs:enumeration value="SCWE"/>
          <xs:enumeration value="SAE"/>
          <xs:enumeration value="SAS"/>
          <xs:enumeration value="SDU"/>
+         <xs:enumeration value="SBE"/>
          <xs:enumeration value="SBS"/>
          <xs:enumeration value="SCW"/>
          <xs:enumeration value="CONCURRENT"/>
+         <xs:enumeration value="SCWE"/>
          <xs:enumeration value="DURING"/>
          <xs:enumeration value="DURING"/>
          <xs:enumeration value="OVERLAP"/>
@@ -1829,9 +1924,11 @@
          <xs:enumeration value="EAE"/>
          <xs:enumeration value="EAS"/>
          <xs:enumeration value="EDU"/>
+         <xs:enumeration value="EBE"/>
          <xs:enumeration value="EBS"/>
          <xs:enumeration value="ECW"/>
          <xs:enumeration value="CONCURRENT"/>
+         <xs:enumeration value="ECWS"/>
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="ActRelationshipTemporallyPertainsStart">
@@ -1839,9 +1936,11 @@
          <xs:enumeration value="SAE"/>
          <xs:enumeration value="SAS"/>
          <xs:enumeration value="SDU"/>
+         <xs:enumeration value="SBE"/>
          <xs:enumeration value="SBS"/>
          <xs:enumeration value="SCW"/>
          <xs:enumeration value="CONCURRENT"/>
+         <xs:enumeration value="SCWE"/>
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="ActRelationshipTransformation">
@@ -1849,8 +1948,19 @@
          <xs:enumeration value="XFRM"/>
       </xs:restriction>
    </xs:simpleType>
+   <xs:simpleType name="ActRelationshipTreats">
+      <xs:restriction base="cs">
+         <xs:enumeration value="TREAT"/>
+         <xs:enumeration value="ADJUNCT"/>
+         <xs:enumeration value="MTREAT"/>
+         <xs:enumeration value="PALLTREAT"/>
+         <xs:enumeration value="SYMP"/>
+      </xs:restriction>
+   </xs:simpleType>
    <xs:simpleType name="ActRelationshipType">
       <xs:restriction base="cs">
+         <xs:enumeration value="ACTIMM"/>
+         <xs:enumeration value="ADJUNCT"/>
          <xs:enumeration value="APND"/>
          <xs:enumeration value="ARR"/>
          <xs:enumeration value="ART"/>
@@ -1867,8 +1977,6 @@
          <xs:enumeration value="COVBY"/>
          <xs:enumeration value="CREDIT"/>
          <xs:enumeration value="CTRLV"/>
-         <xs:enumeration value="CURE"/>
-         <xs:enumeration value="CURE.ADJ"/>
          <xs:enumeration value="DEBIT"/>
          <xs:enumeration value="DEP"/>
          <xs:enumeration value="DIAG"/>
@@ -1877,8 +1985,10 @@
          <xs:enumeration value="DURING"/>
          <xs:enumeration value="EAE"/>
          <xs:enumeration value="EAS"/>
+         <xs:enumeration value="EBE"/>
          <xs:enumeration value="EBS"/>
          <xs:enumeration value="ECW"/>
+         <xs:enumeration value="ECWS"/>
          <xs:enumeration value="EDU"/>
          <xs:enumeration value="ELNK"/>
          <xs:enumeration value="EVID"/>
@@ -1888,6 +1998,7 @@
          <xs:enumeration value="GEN"/>
          <xs:enumeration value="GEVL"/>
          <xs:enumeration value="GOAL"/>
+         <xs:enumeration value="IMM"/>
          <xs:enumeration value="INST"/>
          <xs:enumeration value="ITEMSLOC"/>
          <xs:enumeration value="LIMIT"/>
@@ -1896,7 +2007,7 @@
          <xs:enumeration value="MITGT"/>
          <xs:enumeration value="MOD"/>
          <xs:enumeration value="MTCH"/>
-         <xs:enumeration value="MTGT.ADJ"/>
+         <xs:enumeration value="MTREAT"/>
          <xs:enumeration value="NAME"/>
          <xs:enumeration value="OBJC"/>
          <xs:enumeration value="OBJF"/>
@@ -1905,9 +2016,12 @@
          <xs:enumeration value="OREF"/>
          <xs:enumeration value="OUTC"/>
          <xs:enumeration value="OVERLAP"/>
+         <xs:enumeration value="PALLTREAT"/>
+         <xs:enumeration value="PASSIMM"/>
          <xs:enumeration value="PERT"/>
          <xs:enumeration value="PRCN"/>
          <xs:enumeration value="PREV"/>
+         <xs:enumeration value="PRYLX"/>
          <xs:enumeration value="RCHAL"/>
          <xs:enumeration value="RCVY"/>
          <xs:enumeration value="REFR"/>
@@ -1919,9 +2033,11 @@
          <xs:enumeration value="RSON"/>
          <xs:enumeration value="SAE"/>
          <xs:enumeration value="SAS"/>
+         <xs:enumeration value="SBE"/>
          <xs:enumeration value="SBS"/>
          <xs:enumeration value="SCH"/>
          <xs:enumeration value="SCW"/>
+         <xs:enumeration value="SCWE"/>
          <xs:enumeration value="SDU"/>
          <xs:enumeration value="SEQL"/>
          <xs:enumeration value="SPRT"/>
@@ -1930,9 +2046,11 @@
          <xs:enumeration value="SUCC"/>
          <xs:enumeration value="SUMM"/>
          <xs:enumeration value="SYMP"/>
+         <xs:enumeration value="TREAT"/>
          <xs:enumeration value="TRIG"/>
          <xs:enumeration value="UPDT"/>
          <xs:enumeration value="USE"/>
+         <xs:enumeration value="VALUE"/>
          <xs:enumeration value="VRXCRPT"/>
          <xs:enumeration value="XCRPT"/>
          <xs:enumeration value="XFRM"/>
@@ -2484,18 +2602,14 @@
       <xs:restriction base="cs">
          <xs:enumeration value="INSTANCE"/>
          <xs:enumeration value="KIND"/>
-         <xs:enumeration value="QUANTIFIED_KIND"/>
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="EntityDeterminerDescribedQuantified">
-      <xs:restriction base="cs">
-         <xs:enumeration value="QUANTIFIED_KIND"/>
-      </xs:restriction>
+      <xs:restriction base="cs"/>
    </xs:simpleType>
    <xs:simpleType name="EntityDeterminerDetermined">
       <xs:restriction base="cs">
          <xs:enumeration value="KIND"/>
-         <xs:enumeration value="QUANTIFIED_KIND"/>
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="EntityDeterminerSpecific">
@@ -2511,6 +2625,8 @@
          <xs:enumeration value="CL"/>
          <xs:enumeration value="CON"/>
          <xs:enumeration value="DEV"/>
+         <xs:enumeration value="FLAV"/>
+         <xs:enumeration value="FORMUL"/>
          <xs:enumeration value="FRM"/>
          <xs:enumeration value="HOM"/>
          <xs:enumeration value="IN"/>
@@ -2519,11 +2635,13 @@
          <xs:enumeration value="MID"/>
          <xs:enumeration value="NB"/>
          <xs:enumeration value="PFX"/>
+         <xs:enumeration value="POPUL"/>
          <xs:enumeration value="PR"/>
          <xs:enumeration value="SCI"/>
          <xs:enumeration value="SFX"/>
          <xs:enumeration value="SP"/>
          <xs:enumeration value="STR"/>
+         <xs:enumeration value="TIME"/>
          <xs:enumeration value="TMK"/>
          <xs:enumeration value="USE"/>
       </xs:restriction>
@@ -3445,9 +3563,9 @@
          <xs:enumeration value="BOND"/>
          <xs:enumeration value="CAREGIVER"/>
          <xs:enumeration value="CASEBJ"/>
-         <xs:enumeration value="CHILD"/>
          <xs:enumeration value="CIT"/>
          <xs:enumeration value="CLAIM"/>
+         <xs:enumeration value="CNTM"/>
          <xs:enumeration value="COLR"/>
          <xs:enumeration value="COMPAR"/>
          <xs:enumeration value="CON"/>
@@ -3455,7 +3573,6 @@
          <xs:enumeration value="CONT"/>
          <xs:enumeration value="CONY"/>
          <xs:enumeration value="COVPTY"/>
-         <xs:enumeration value="CRED"/>
          <xs:enumeration value="CRINV"/>
          <xs:enumeration value="CRSPNSR"/>
          <xs:enumeration value="DEATHPLC"/>
@@ -3465,6 +3582,7 @@
          <xs:enumeration value="ECON"/>
          <xs:enumeration value="EMP"/>
          <xs:enumeration value="EQUIV"/>
+         <xs:enumeration value="EXLOC"/>
          <xs:enumeration value="EXPAGTCAR"/>
          <xs:enumeration value="EXPR"/>
          <xs:enumeration value="EXPVECTOR"/>
@@ -3494,15 +3612,11 @@
          <xs:enumeration value="NAMED"/>
          <xs:enumeration value="NOK"/>
          <xs:enumeration value="NOT"/>
-         <xs:enumeration value="NURPRAC"/>
-         <xs:enumeration value="NURS"/>
          <xs:enumeration value="OWN"/>
-         <xs:enumeration value="PA"/>
          <xs:enumeration value="PART"/>
          <xs:enumeration value="PAT"/>
          <xs:enumeration value="PAYEE"/>
          <xs:enumeration value="PAYOR"/>
-         <xs:enumeration value="PHYS"/>
          <xs:enumeration value="POLHOLD"/>
          <xs:enumeration value="PROG"/>
          <xs:enumeration value="PROV"/>
@@ -3521,7 +3635,6 @@
          <xs:enumeration value="STBL"/>
          <xs:enumeration value="STD"/>
          <xs:enumeration value="STOR"/>
-         <xs:enumeration value="SUBS"/>
          <xs:enumeration value="SUBSCR"/>
          <xs:enumeration value="SUBY"/>
          <xs:enumeration value="TERR"/>
@@ -3669,6 +3782,10 @@
          <xs:enumeration value="DEATHPLC"/>
          <xs:enumeration value="DST"/>
          <xs:enumeration value="RET"/>
+         <xs:enumeration value="EXLOC"/>
+         <xs:enumeration value="SDLOC"/>
+         <xs:enumeration value="DSDLOC"/>
+         <xs:enumeration value="ISDLOC"/>
          <xs:enumeration value="EXPR"/>
          <xs:enumeration value="HLD"/>
          <xs:enumeration value="HLTHCHRT"/>
@@ -3678,9 +3795,6 @@
          <xs:enumeration value="MNT"/>
          <xs:enumeration value="OWN"/>
          <xs:enumeration value="RGPR"/>
-         <xs:enumeration value="SDLOC"/>
-         <xs:enumeration value="DSDLOC"/>
-         <xs:enumeration value="ISDLOC"/>
          <xs:enumeration value="TERR"/>
          <xs:enumeration value="USED"/>
          <xs:enumeration value="WRTE"/>
@@ -3707,9 +3821,7 @@
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="RoleClassChild">
-      <xs:restriction base="cs">
-         <xs:enumeration value="CHILD"/>
-      </xs:restriction>
+      <xs:restriction base="cs"/>
    </xs:simpleType>
    <xs:simpleType name="RoleClassCitizen">
       <xs:restriction base="cs">
@@ -3761,6 +3873,11 @@
          <xs:enumeration value="NOK"/>
       </xs:restriction>
    </xs:simpleType>
+   <xs:simpleType name="RoleClassContaminantIngredient">
+      <xs:restriction base="cs">
+         <xs:enumeration value="CNTM"/>
+      </xs:restriction>
+   </xs:simpleType>
    <xs:simpleType name="RoleClassContent">
       <xs:restriction base="cs">
          <xs:enumeration value="CONT"/>
@@ -3788,9 +3905,7 @@
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="RoleClassCredentialedEntity">
-      <xs:restriction base="cs">
-         <xs:enumeration value="CRED"/>
-      </xs:restriction>
+      <xs:restriction base="cs"/>
    </xs:simpleType>
    <xs:simpleType name="RoleClassDedicatedServiceDeliveryLocation">
       <xs:restriction base="cs">
@@ -3824,6 +3939,14 @@
          <xs:enumeration value="EQUIV"/>
          <xs:enumeration value="SAME"/>
          <xs:enumeration value="SUBY"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="RoleClassEventLocation">
+      <xs:restriction base="cs">
+         <xs:enumeration value="EXLOC"/>
+         <xs:enumeration value="SDLOC"/>
+         <xs:enumeration value="DSDLOC"/>
+         <xs:enumeration value="ISDLOC"/>
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="RoleClassExposedEntity">
@@ -3925,6 +4048,7 @@
          <xs:enumeration value="ADJV"/>
          <xs:enumeration value="ADTV"/>
          <xs:enumeration value="BASE"/>
+         <xs:enumeration value="CNTM"/>
          <xs:enumeration value="IACT"/>
          <xs:enumeration value="COLR"/>
          <xs:enumeration value="FLVR"/>
@@ -4086,14 +4210,10 @@
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="RoleClassNurse">
-      <xs:restriction base="cs">
-         <xs:enumeration value="NURS"/>
-      </xs:restriction>
+      <xs:restriction base="cs"/>
    </xs:simpleType>
    <xs:simpleType name="RoleClassNursePractitioner">
-      <xs:restriction base="cs">
-         <xs:enumeration value="NURPRAC"/>
-      </xs:restriction>
+      <xs:restriction base="cs"/>
    </xs:simpleType>
    <xs:simpleType name="RoleClassOntological">
       <xs:restriction base="cs">
@@ -4103,7 +4223,6 @@
          <xs:enumeration value="GEN"/>
          <xs:enumeration value="GRIC"/>
          <xs:enumeration value="INST"/>
-         <xs:enumeration value="SUBS"/>
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="RoleClassOwnedEntity">
@@ -4131,6 +4250,7 @@
          <xs:enumeration value="ADJV"/>
          <xs:enumeration value="ADTV"/>
          <xs:enumeration value="BASE"/>
+         <xs:enumeration value="CNTM"/>
          <xs:enumeration value="IACT"/>
          <xs:enumeration value="COLR"/>
          <xs:enumeration value="FLVR"/>
@@ -4159,6 +4279,10 @@
          <xs:enumeration value="DEATHPLC"/>
          <xs:enumeration value="DST"/>
          <xs:enumeration value="RET"/>
+         <xs:enumeration value="EXLOC"/>
+         <xs:enumeration value="SDLOC"/>
+         <xs:enumeration value="DSDLOC"/>
+         <xs:enumeration value="ISDLOC"/>
          <xs:enumeration value="EXPR"/>
          <xs:enumeration value="HLD"/>
          <xs:enumeration value="HLTHCHRT"/>
@@ -4168,9 +4292,6 @@
          <xs:enumeration value="MNT"/>
          <xs:enumeration value="OWN"/>
          <xs:enumeration value="RGPR"/>
-         <xs:enumeration value="SDLOC"/>
-         <xs:enumeration value="DSDLOC"/>
-         <xs:enumeration value="ISDLOC"/>
          <xs:enumeration value="TERR"/>
          <xs:enumeration value="USED"/>
          <xs:enumeration value="WRTE"/>
@@ -4192,14 +4313,10 @@
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="RoleClassPhysician">
-      <xs:restriction base="cs">
-         <xs:enumeration value="PHYS"/>
-      </xs:restriction>
+      <xs:restriction base="cs"/>
    </xs:simpleType>
    <xs:simpleType name="RoleClassPhysicianAssistant">
-      <xs:restriction base="cs">
-         <xs:enumeration value="PA"/>
-      </xs:restriction>
+      <xs:restriction base="cs"/>
    </xs:simpleType>
    <xs:simpleType name="RoleClassPlaceOfDeath">
       <xs:restriction base="cs">
@@ -4342,6 +4459,10 @@
          <xs:enumeration value="DEATHPLC"/>
          <xs:enumeration value="DST"/>
          <xs:enumeration value="RET"/>
+         <xs:enumeration value="EXLOC"/>
+         <xs:enumeration value="SDLOC"/>
+         <xs:enumeration value="DSDLOC"/>
+         <xs:enumeration value="ISDLOC"/>
          <xs:enumeration value="EXPR"/>
          <xs:enumeration value="HLD"/>
          <xs:enumeration value="HLTHCHRT"/>
@@ -4351,9 +4472,6 @@
          <xs:enumeration value="MNT"/>
          <xs:enumeration value="OWN"/>
          <xs:enumeration value="RGPR"/>
-         <xs:enumeration value="SDLOC"/>
-         <xs:enumeration value="DSDLOC"/>
-         <xs:enumeration value="ISDLOC"/>
          <xs:enumeration value="TERR"/>
          <xs:enumeration value="USED"/>
          <xs:enumeration value="WRTE"/>
@@ -4363,7 +4481,6 @@
          <xs:enumeration value="GEN"/>
          <xs:enumeration value="GRIC"/>
          <xs:enumeration value="INST"/>
-         <xs:enumeration value="SUBS"/>
          <xs:enumeration value="CONT"/>
          <xs:enumeration value="EXPAGTCAR"/>
          <xs:enumeration value="EXPVECTOR"/>
@@ -4376,6 +4493,7 @@
          <xs:enumeration value="ADJV"/>
          <xs:enumeration value="ADTV"/>
          <xs:enumeration value="BASE"/>
+         <xs:enumeration value="CNTM"/>
          <xs:enumeration value="IACT"/>
          <xs:enumeration value="COLR"/>
          <xs:enumeration value="FLVR"/>
@@ -4447,6 +4565,7 @@
          <xs:enumeration value="ADJV"/>
          <xs:enumeration value="ADTV"/>
          <xs:enumeration value="BASE"/>
+         <xs:enumeration value="CNTM"/>
          <xs:enumeration value="IACT"/>
          <xs:enumeration value="COLR"/>
          <xs:enumeration value="FLVR"/>
@@ -4465,9 +4584,7 @@
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="RoleClassSubsumer">
-      <xs:restriction base="cs">
-         <xs:enumeration value="SUBS"/>
-      </xs:restriction>
+      <xs:restriction base="cs"/>
    </xs:simpleType>
    <xs:simpleType name="RoleClassTerritoryOfAuthority">
       <xs:restriction base="cs">
@@ -5063,7 +5180,6 @@
       <xs:restriction base="cs">
          <xs:enumeration value="INSTANCE"/>
          <xs:enumeration value="KIND"/>
-         <xs:enumeration value="QUANTIFIED_KIND"/>
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="x_DocumentActMood">

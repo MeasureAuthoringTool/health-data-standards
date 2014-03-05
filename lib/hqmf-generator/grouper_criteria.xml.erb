@@ -1,0 +1,17 @@
+      <entry typeCode="DRIV">
+        <%= xml_for_local_variable(criteria) %>
+        <grouperCriteria moodCode="EVN" classCode="GROUPER">
+          <%= xml_for_template(criteria, is_source_data_criteria) %>
+          <id root="2.16.840.1.113883.3.100.1" extension="<%= criteria.id %>"/>
+          <%= xml_for_description(criteria) %>
+          <definition>
+            <criteriaReference moodCode="EVN" classCode="GROUPER">
+              <id root="2.16.840.1.113883.3.100.1" extension="<%= section_name(criteria) %>"/>
+            </criteriaReference>
+          </definition>
+          <%= xml_for_temporal_references(criteria) %> 
+          <%= xml_for_fields(criteria) %>
+          <%= xml_for_derivation(criteria) %>
+          <%= xml_for_subsets(criteria) %>
+        </grouperCriteria>
+      </entry>

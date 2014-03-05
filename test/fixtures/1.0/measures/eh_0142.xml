@@ -1,0 +1,1634 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="xslt/eMeasure.xsl"?>
+<QualityMeasureDocument xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         
+      <!--
+         **************************************************************   
+         Measure Header Section
+         **************************************************************
+      --><typeId root="2.16.840.1.113883.1.3" extension="POQM_HD000001"/>
+   <id root="40280381-3d27-5493-013d-4bfbd29a5f66"/>
+   <code code="57024-2" codeSystem="2.16.840.1.113883.6.1"
+         displayName="Health Quality Measure Document"/>
+   <title>Aspirin Prescribed at Discharge</title>
+   <text>Acute myocardial infarction (AMI) patients who are prescribed aspirin at hospital discharge</text>
+   <statusCode code="InProgress"/>
+   <setId root="bb481284-30dd-4383-928c-82385bbf1b17"/>
+   <versionNumber value="2"/>
+   <author typeCode="AUT">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="2.16.840.1.113883"/>
+            <name>Oklahoma Foundation for Medical Quality</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </author>
+   <custodian>
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="2.16.840.1.113883"/>
+            <name>Oklahoma Foundation for Medical Quality</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </custodian>
+   <verifier typeCode="VRF">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <name>National Quality Forum</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </verifier>
+   <subjectOf>
+      <measureAttribute>
+         <code code="COPY" codeSystem="2.16.840.1.113883.5.4" displayName="Copyright"/>
+         <value xsi:type="ED" mediaType="text/plain">Measure specifications are in the Public Domain.
+
+LOINC (R) is a registered trademark of the Regenstrief Institute.
+
+This material contains SNOMED Clinical Terms (R) (SNOMED CT(c)) copyright 2004-2010 International Health Terminology Standards Development Organization. All rights reserved.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRSCORE" codeSystem="2.16.840.1.113883.5.4"
+               displayName="Measure Scoring"/>
+         <value xsi:type="CD" code="PROPOR" codeSystem="2.16.840.1.113883.1.11.20367"
+                displayName="Proportion"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRTYPE" codeSystem="2.16.840.1.113883.5.4" displayName="Measure Type"/>
+         <value xsi:type="CD" code="PROCESS" codeSystem="2.16.840.1.113883.1.11.20368"
+                displayName="Process"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="STRAT" codeSystem="2.16.840.1.113883.5.4" displayName="Stratification"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRADJ" codeSystem="2.16.840.1.113883.5.4" displayName="Risk Adjustment"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRAGG" codeSystem="2.16.840.1.113883.5.4" displayName="Rate Aggregation"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="RAT" codeSystem="2.16.840.1.113883.5.4" displayName="Rationale"/>
+         <value xsi:type="ED" mediaType="text/plain">Aspirin therapy in patients who have suffered an acute myocardial infarction reduces the risk of adverse events and mortality. Studies have demonstrated that aspirin can reduce this risk by 20% (Antiplatelet Trialists' Collaboration, 1994). National guidelines strongly recommend long-term aspirin for the secondary prevention of subsequent cardiovascular events in eligible older patients discharged after AMI (Antman, 2004; Antman, 2008; Anderson, 2007; and Smith, 2006).</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="CRS" codeSystem="2.16.840.1.113883.3.560"
+               displayName="Clinical Recommendation Statement"/>
+         <value xsi:type="ED" mediaType="text/plain">National guidelines strongly recommend long-term aspirin for the secondary prevention of subsequent cardiovascular events in eligible older patients discharged after AMI</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IDUR" codeSystem="2.16.840.1.113883.3.560"
+               displayName="Improvement Notation"/>
+         <value xsi:type="ED" mediaType="text/plain">Higher score indicates better quality</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>NQF ID Number</originalText>
+         </code>
+         <value xsi:type="II" root="2.16.840.1.113883.3.560.1" extension="0142"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DISC" codeSystem="2.16.840.1.113883.5.4" displayName="Disclaimer">
+            <originalText>Disclaimer</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>eMeasure Identifier</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">100</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.74"/>
+         <id root="caa87530-bb5d-4074-97e4-0d3c295ee511"/>
+         <code code="MSRTP" displayName="Measurement period"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="IVL_TS">
+            <low value="00000101"/>
+            <high value="00001231"/>
+         </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureStartDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="b75caf8c-e05b-4c33-ab1f-434fdb179e4a"/>
+         <code code="MSRSD" displayName="Measurement start date"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00000101"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureEndDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="e24fb666-b72c-414c-8ea1-adc508be75e1"/>
+         <code code="MSRED" displayName="Measurement end date"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00001231"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Anderson JL, Adams CD, Antman EM, Bridges CR, Califf RM, Casey DE Jr, et al. ACC/AHA 2007 guidelines for the management of patients with unstable angina/non–ST-elevation myocardial infarction: a report of the American College of Cardiology/American Heart Association Task Force on Practice Guidelines (Writing Committee to Revise the 2002 Guidelines for the Management of Patients With Unstable Angina/Non–ST-Elevation Myocardial Infarction): developed in collaboration with the American College of Emergency Physicians, American College of Physicians, Society for Academic Emergency Medicine, Society for Cardiovascular Angiography and Interventions, and Society of Thoracic Surgeons. J Am Coll Cardiol. 2007;50:e1–157.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Antiplatelet Trialists' Collaboration. Collaborative overview of randomized trials of antiplatelet therapy - I: prevention of death, myocardial infarction, and stroke by prolonged antiplatelet therapy in various categories of patients. BMJ. 1994;308:81-106.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Antman EM, Anbe DT, Armstrong PW, Bates ER, Green LA, Hand M, et al. ACC/AHA guidelines for the management of patients with ST-elevation myocardial infarction: a report of the American College of Cardiology/American Heart Association Task Force on Practice Guidelines (Committee to Revise the 1999 Guidelines for the Management of Patients With Acute Myocardial Infarction). 2004.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Antman EM, Hand M, Armstrong PW, Bates ER, Green LA, Halasyamani LK, et al. 2007 focused update of the ACC/AHA 2004 Guidelines for the Management of Patients With ST-Elevation Myocardial Infarction: a report of the American College of Cardiology/American Heart Association Task Force on Practice Guidelines (Writing Group to Review New Evidence and Update the ACC/AHA 2004 Guidelines for the Management of Patients With ST-Elevation Myocardial Infarction). J Am Coll Cardiol. 2008;51:210–47.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Krumholz HM, Anderson JL, Bachelder BL, Fesmire FM, Fihn SD, Foody JM, et al. ACC/AHA 2008 performance measures for adults with ST-elevation and non–ST-elevation myocardial infarction: a report of the American College of Cardiology/American Heart Association Task Force on Performance Measures (Writing Committee to Develop Performance Measures for ST-Elevation and Non–ST-Elevation Myocardial Infarction). J Am Coll Cardiol. 2008;52:2046 –99.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Smith SC, Allen J, Blair SN, Bonow RO, Brass LM, Fonarow GC, et al. AHA/ACC guidelines for secondary prevention for patients with coronary and other atherosclerotic vascular disease: 2006 update. J Am Coll Cardiol. 2006;47:2130 –9. doi:10.1016/j.jacc.2006.04.026.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DEF" codeSystem="2.16.840.1.113883.3.560" displayName="Definition"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="GUIDE" codeSystem="2.16.840.1.113883.5.4" displayName="Guidance"/>
+         <value xsi:type="ED" mediaType="text/plain">The measurement period is one calendar year but the reporting period is 3 months as a calendar quarter; Q1 = Jan – Mar, Q2 = Apr – Jun, Q3 = Jul – Sep, Q4 is Oct – Dec.
+
+Exclusion element guidance: 
+The intent for the exclusion for patients who are clinical trial participants was to be limited to patients participating in a clinical trial for acute myocardial infarction (AMI), ST elevation myocardial infarction (STEMI), non-ST elevation myocardial infarction (non-STEMI), heart attack, or acute coronary syndrome (ACS), the same conditions as covered by the measure. However, the value set specifying clinical trial participation is not limited to a specific type of trial; therefore, this piece of logic will not be included in certification testing or reviewed on audit at this time.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Transmission Format</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IPP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Initial Patient Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">All hospital discharges for acute myocardial infarction (AMI) with hospital stays &lt;= 120 days during the measurement year for patients age 18 and older at the time of hospital admission</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENOM" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">All Acute Myocardial Infarctions patients age 18 and older with an ICD-9-CM Principal Diagnosis Code for Acute Myocardial Infarction</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Denominator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Patients with Comfort Measures Only documented. 
+Patients enrolled in clinical trials.
+Patients discharged to another hospital. 
+Patients who left against medical advice. 
+Patients who expired.
+Patients discharged to home for hospice care.
+Patients discharged to a health care facility for hospice care.
+Patients with a documented Reason for No Aspirin at Discharge</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="NUMER" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Numerator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Acute Myocardial Infarction patients who are prescribed aspirin at hospital discharge.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Numerator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator Exceptions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Measure Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Measure Observations</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Supplemental Data Elements</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">For every patient evaluated by this measure also identify payer, race, ethnicity, and sex.</value>
+      </measureAttribute>
+   </subjectOf>
+   <componentOf>
+      <qualityMeasureSet classCode="ACT">
+         <id root="84ad5f28-fddc-48d1-95dd-06ae1e2cc5ac"/>
+         <title>Acute Myocardial Infarction (AMI)</title>
+      </qualityMeasureSet>
+   </componentOf>
+         
+      <!--
+         **************************************************************   
+         Population Criteria Section
+         **************************************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Population criteria"/>
+         <title>Population criteria</title>
+         <text>
+            <list>
+               <item>
+                  <content styleCode="Bold">Initial Patient Population =</content>
+                  <list>
+                     <item>AND: "Diagnosis, Active: Hospital Measures - AMI (ordinality: 'Hospital Measures - Principal')" starts during "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient"</item>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &gt;= 18 year(s) starts before start of "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient"</item>
+                     <item>AND: "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient (length of stay &lt;= 120 day(s))"</item>
+                     <item>AND: "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient (discharge datetime)" during "Measurement Period"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator =</content>
+                  <list>
+                     <item>AND: "Initial Patient Population"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exclusions =</content>
+                  <list>
+                     <item>AND: <list>
+                           <item>OR: "Intervention, Performed: Hospital Measures-Comfort Measures Only Intervention" starts during "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient"</item>
+                           <item>OR: "Medication, Adverse Effects: Aspirin Allergen" starts before or during "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient"</item>
+                           <item>OR: "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient (discharge status: 'Hospital Measures - Expired')"</item>
+                           <item>OR: "Medication, Discharge not done: Medical Reason" for "Hospital Measures-Aspirin RxNorm Value Set" during "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient"</item>
+                           <item>OR: "Medication, Order not done: Medical Reason" for "Hospital Measures-Aspirin RxNorm Value Set" during "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient"</item>
+                           <item>OR: "Medication, Order not done: Patient Reason" for "Hospital Measures-Aspirin RxNorm Value Set" during "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient"</item>
+                           <item>OR: "Medication, Discharge: Hospital Measures - Warfarin Anticoagulants" during "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient"</item>
+                           <item>OR: "Medication, Administered not done: Hospital Measures - Hold" for "Hospital Measures-Aspirin RxNorm Value Set" during "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient"</item>
+                           <item>OR: "Medication, Allergy: Aspirin Allergen" starts before or during "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient"</item>
+                           <item>OR: "Medication, Intolerance: Aspirin Allergen" starts before or during "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient"</item>
+                           <item>OR: "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient (discharge status: 'Discharge To Another Hospital')"</item>
+                           <item>OR: "Medication, Discharge not done: Patient Reason" for "Hospital Measures-Aspirin RxNorm Value Set" during "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient"</item>
+                           <item>OR: "Transfer To: Hospital Measures - Home Hospice Care"  &lt; 1 day(s) starts after end of "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient"</item>
+                           <item>OR: "Transfer To: Hospital Measures - Inpatient Hospice Care"  &lt; 1 day(s) starts after end of "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient"</item>
+                           <item>OR: "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient (discharge status: 'Left Against Medical Advice')"</item>
+                           <item>OR: <list>
+                                 <item>AND NOT: "Occurrence A of Patient Characteristic: Clinical Trial Participant" ends before start of "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient"</item>
+                                 <item>AND: "Occurrence A of Patient Characteristic: Clinical Trial Participant" starts before or during "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient"</item>
+                              </list>
+                           </item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Numerator =</content>
+                  <list>
+                     <item>AND: "Medication, Discharge: Hospital Measures-Aspirin" starts during "Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exceptions =</content>
+                  <list>
+                     <item>None</item>
+                  </list>
+               </item>
+            </list>
+         </text>
+         <!--
+            **************************************************************   
+            Population Criteria Section: exclusions 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true" actionNegationInd="true">
+               <id root="3E6F8A69-10C6-4571-BB74-53D26CE2E954"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.46"/>
+                           <id root="6da67453-dd59-4bd2-a3f7-943740033c06"/>
+                           <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="1.3.6.1.4.1.33895.1.3.0.45"
+                                       displayName="Hospital Measures-Comfort Measures Only Intervention SNOMED-CT Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Intervention, Performed: Hospital Measures-Comfort Measures Only Intervention</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="SDU">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                                       <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                                    </observation>
+                                 </sourceOf>
+                              </procedure>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Adverse Effects pattern --><templateId root="2.16.840.1.113883.3.560.1.7"/>
+                           <id root="473e4e3c-0bab-44c9-acf6-c825b430724d"/>
+                           <code code="48765-2" displayName="Allergies, adverse reactions, alerts"
+                                 codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="419511003" codeSystem="2.16.840.1.113883.6.96"
+                                       displayName="Drug adverse effect"/>
+                                 <title>Medication, Adverse Effects: Aspirin Allergen</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.117.1.7.1.139"
+                                                displayName="Aspirin Allergen RxNorm Value Set"
+                                                codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="EAS" inversionInd="true">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                                       <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.666.5.625"
+                                       displayName="Hospital Measures-Encounter Inpatient SNOMED-CT Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient (discharge status: 'Hospital Measures - Expired')</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <templateId root="2.16.840.1.113883.3.560.1.1003.2"/>
+                                       <code code="309039003" codeSystem="2.16.840.1.113883.6.96"
+                                             displayName="discharge status"
+                                             codeSystemName="SNOMED-CT"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.666.5.1146"
+                                              codeSystem="2.16.840.1.113883.3.560.101.1"
+                                              displayName="Hospital Measures - Expired"/>
+                                    </observation>
+                                 </sourceOf>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Medication, Discharge pattern --><templateId root="2.16.840.1.113883.3.560.1.200"/>
+                           <id root="1fd32e69-6ae7-4bf0-a17c-36f31722e1a6"/>
+                           <code code="10183-2" displayName="Discharge Medications"
+                                 codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                 <title>Medication, Discharge not done: Medical Reason</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.666.5.626"
+                                                displayName="Hospital Measures-Aspirin RxNorm Value Set"
+                                                codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="RSON">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.526.2.313"
+                                              displayName="Medical Reason SNOMED-CT Value Set"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="DURING">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                                       <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                                    </observation>
+                                 </sourceOf>
+                              </substanceAdministration>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.78"/>
+                           <id root="d63fcdf8-e955-4399-9d9e-54138c5d72ff"/>
+                           <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                 <title>Medication, Order not done: Medical Reason</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.666.5.626"
+                                                displayName="Hospital Measures-Aspirin RxNorm Value Set"
+                                                codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="RSON">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.526.2.313"
+                                              displayName="Medical Reason SNOMED-CT Value Set"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="DURING">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                                       <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                                    </observation>
+                                 </sourceOf>
+                              </substanceAdministration>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.78"/>
+                           <id root="d63fcdf8-e955-4399-9d9e-54138c5d72ff"/>
+                           <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                 <title>Medication, Order not done: Patient Reason</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.666.5.626"
+                                                displayName="Hospital Measures-Aspirin RxNorm Value Set"
+                                                codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="RSON">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.526.2.311"
+                                              displayName="Patient Reason SNOMED-CT Value Set"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="DURING">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                                       <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                                    </observation>
+                                 </sourceOf>
+                              </substanceAdministration>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Discharge pattern --><templateId root="2.16.840.1.113883.3.560.1.199"/>
+                           <id root="2ceb8ed5-e582-43eb-a2e4-8313c49ebfd6"/>
+                           <code code="10183-2" displayName="Discharge Medications"
+                                 codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                 <title>Medication, Discharge: Hospital Measures - Warfarin Anticoagulants</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.666.5.636"
+                                                displayName="Hospital Measures - Warfarin Anticoagulants RxNorm Value Set"
+                                                codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="DURING">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                                       <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                                    </observation>
+                                 </sourceOf>
+                              </substanceAdministration>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Medication, Administered pattern --><templateId root="2.16.840.1.113883.3.560.1.114"/>
+                           <id root="c102a05d-343d-4a94-9de9-441c2445db91"/>
+                           <code code="18610-6" displayName="Medication administered"
+                                 codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                                 <title>Medication, Administered not done: Hospital Measures - Hold</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.666.5.626"
+                                                displayName="Hospital Measures-Aspirin RxNorm Value Set"
+                                                codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="RSON">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.666.5.1145"
+                                              displayName="Hospital Measures - Hold SNOMED-CT Value Set"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="DURING">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                                       <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                                    </observation>
+                                 </sourceOf>
+                              </substanceAdministration>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Allergy pattern --><templateId root="2.16.840.1.113883.3.560.1.1"/>
+                           <id root="c254f97d-86f1-49fd-8f11-367d977c098c"/>
+                           <code code="48765-2" displayName="Allergies, adverse reactions, alerts"
+                                 codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="416098002" codeSystem="2.16.840.1.113883.6.96" displayName="Drug allergy"/>
+                                 <title>Medication, Allergy: Aspirin Allergen</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.117.1.7.1.139"
+                                                displayName="Aspirin Allergen RxNorm Value Set"
+                                                codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="EAS" inversionInd="true">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                                       <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Intolerance pattern --><templateId root="2.16.840.1.113883.3.560.1.15"/>
+                           <id root="9577f1b1-2075-400b-87c2-a391c34065cd"/>
+                           <code code="48765-2" displayName="Allergies, adverse reactions, alerts"
+                                 codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="59037007" codeSystem="2.16.840.1.113883.6.96"
+                                       displayName="Drug intolerance"/>
+                                 <title>Medication, Intolerance: Aspirin Allergen</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.117.1.7.1.139"
+                                                displayName="Aspirin Allergen RxNorm Value Set"
+                                                codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="EAS" inversionInd="true">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                                       <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.666.5.625"
+                                       displayName="Hospital Measures-Encounter Inpatient SNOMED-CT Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient (discharge status: 'Discharge To Another Hospital')</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <templateId root="2.16.840.1.113883.3.560.1.1003.2"/>
+                                       <code code="309039003" codeSystem="2.16.840.1.113883.6.96"
+                                             displayName="discharge status"
+                                             codeSystemName="SNOMED-CT"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.87"
+                                              codeSystem="2.16.840.1.113883.3.560.101.1"
+                                              displayName="Discharge To Another Hospital"/>
+                                    </observation>
+                                 </sourceOf>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Medication, Discharge pattern --><templateId root="2.16.840.1.113883.3.560.1.200"/>
+                           <id root="1fd32e69-6ae7-4bf0-a17c-36f31722e1a6"/>
+                           <code code="10183-2" displayName="Discharge Medications"
+                                 codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                 <title>Medication, Discharge not done: Patient Reason</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.666.5.626"
+                                                displayName="Hospital Measures-Aspirin RxNorm Value Set"
+                                                codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="RSON">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.526.2.311"
+                                              displayName="Patient Reason SNOMED-CT Value Set"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="DURING">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                                       <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                                    </observation>
+                                 </sourceOf>
+                              </substanceAdministration>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Transfer To pattern --><templateId root="2.16.840.1.113883.3.560.1.72"/>
+                           <id root="cd02505c-bc32-46f0-b780-b420ac72fec2"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <title>Transfer To: Hospital Measures - Home Hospice Care</title>
+                                 <participant typeCode="DST">
+                                    <roleParticipant classCode="LOCE">
+                                       <code code="2.16.840.1.113883.3.666.5.3008"
+                                             displayName="Hospital Measures - Home Hospice Care SNOMED-CT Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="SAE">
+                                    <pauseQuantity xsi:type="IVL_PQ">
+                                       <high value="1" unit="d" inclusive="false"/>
+                                    </pauseQuantity>
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                                       <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Transfer To pattern --><templateId root="2.16.840.1.113883.3.560.1.72"/>
+                           <id root="96c9ce8b-621d-4f2b-b567-a9ad87bad66e"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <title>Transfer To: Hospital Measures - Inpatient Hospice Care</title>
+                                 <participant typeCode="DST">
+                                    <roleParticipant classCode="LOCE">
+                                       <code code="2.16.840.1.113883.3.666.5.3007"
+                                             displayName="Hospital Measures - Inpatient Hospice Care SNOMED-CT Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="SAE">
+                                    <pauseQuantity xsi:type="IVL_PQ">
+                                       <high value="1" unit="d" inclusive="false"/>
+                                    </pauseQuantity>
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                                       <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.666.5.625"
+                                       displayName="Hospital Measures-Encounter Inpatient SNOMED-CT Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient (discharge status: 'Left Against Medical Advice')</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <templateId root="2.16.840.1.113883.3.560.1.1003.2"/>
+                                       <code code="309039003" codeSystem="2.16.840.1.113883.6.96"
+                                             displayName="discharge status"
+                                             codeSystemName="SNOMED-CT"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.666.5.1106"
+                                              codeSystem="2.16.840.1.113883.3.560.101.1"
+                                              displayName="Left Against Medical Advice"/>
+                                    </observation>
+                                 </sourceOf>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Patient Characteristic pattern --><templateId root="2.16.840.1.113883.3.560.1.1001"/>
+                                 <id root="cc365ece-46ab-4785-afed-9e4fc3d88f57"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.526.2.643" codeSystem="2.16.840.1.113883.3.560.101.1"
+                                             displayName="Clinical Trial Participant SNOMED-CT Value Set"/>
+                                       <title>Occurrence A of Patient Characteristic: Clinical Trial Participant</title>
+                                       <sourceOf typeCode="EBS">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                                             <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic pattern --><templateId root="2.16.840.1.113883.3.560.1.1001"/>
+                                 <id root="cc365ece-46ab-4785-afed-9e4fc3d88f57"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.526.2.643" codeSystem="2.16.840.1.113883.3.560.101.1"
+                                             displayName="Clinical Trial Participant SNOMED-CT Value Set"/>
+                                       <title>Occurrence A of Patient Characteristic: Clinical Trial Participant</title>
+                                       <sourceOf typeCode="EAS" inversionInd="true">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                                             <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: numerator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="036382A2-9CCA-4F25-AA5A-3ED690ACCB45"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="NUMER" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Numerator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Discharge pattern --><templateId root="2.16.840.1.113883.3.560.1.199"/>
+                     <id root="1fd32e69-6ae7-4bf0-a17c-36f31722e1a6"/>
+                     <code code="10183-2" displayName="Discharge Medications"
+                           codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                           <title>Medication, Discharge: Hospital Measures-Aspirin</title>
+                           <participant typeCode="CSM">
+                              <roleParticipant classCode="MANU">
+                                 <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                    <code code="2.16.840.1.113883.3.666.5.626"
+                                          displayName="Hospital Measures-Aspirin RxNorm Value Set"
+                                          codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 </playingMaterial>
+                              </roleParticipant>
+                           </participant>
+                           <sourceOf typeCode="SDU">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                                 <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                              </observation>
+                           </sourceOf>
+                        </substanceAdministration>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: denominator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="A3A01B1A-591A-4568-95B6-1AAE185F59FF"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="64D92822-FB51-4A2B-840F-24DFCC91E4EB"/>
+                     <title>Initial Patient Population</title>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: population 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="64D92822-FB51-4A2B-840F-24DFCC91E4EB"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="IPP" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Initial Patient Population"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                     <id root="8ef9a8a9-9c97-4592-8cf9-67a78916cb71"/>
+                     <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                           <title>Diagnosis, Active: Hospital Measures - AMI (ordinality: 'Hospital Measures - Principal')</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.666.5.3011"
+                                  displayName="Hospital Measures - AMI Grouping Value Set"/>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                 <value xsi:type="CD" code="55561003" displayName="active"
+                                        codeSystem="2.16.840.1.113883.6.96"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="SUBJ">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <templateId root="2.16.840.1.113883.3.560.1.1012.2"/>
+                                 <code code="117363000" codeSystem="2.16.840.1.113883.6.96" displayName="ordinality"
+                                       codeSystemName="SNOMED-CT"/>
+                                 <value xsi:type="CD" code="2.16.840.1.113883.3.666.5.3010"
+                                        codeSystem="2.16.840.1.113883.3.560.101.1"
+                                        displayName="Hospital Measures - Principal"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="SDU">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                                 <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="bb6d6209-c1c2-4016-9c8d-5ab3fe4235e7"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                                  codeSystem="2.16.840.1.113883.3.560.101.1"
+                                  displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <low value="18" unit="a" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                                 <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                     <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                     <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                     <sourceOf typeCode="COMP">
+                        <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.666.5.625"
+                                 displayName="Hospital Measures-Encounter Inpatient SNOMED-CT Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient (length of stay &lt;= 120  day(s))</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="SUBJ">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <templateId root="2.16.840.1.113883.3.560.1.1029.3"/>
+                                 <code code="183797002" codeSystem="2.16.840.1.113883.6.96"
+                                       displayName="length of stay"
+                                       codeSystemName="SNOMED-CT"/>
+                                 <value xsi:type="IVL_PQ">
+                                    <high value="120" unit="d" inclusive="true"/>
+                                 </value>
+                              </observation>
+                           </sourceOf>
+                        </encounter>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                     <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+                     <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                     <sourceOf typeCode="COMP">
+                        <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.666.5.625"
+                                 displayName="Hospital Measures-Encounter Inpatient SNOMED-CT Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence A of Encounter, Performed: Hospital Measures-Encounter Inpatient (discharge datetime)</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <templateId root="2.16.840.1.113883.3.560.1.1025.1"/>
+                                 <code code="442864001" codeSystem="2.16.840.1.113883.6.96"
+                                       displayName="discharge datetime"
+                                       codeSystemName="SNOMED-CT"/>
+                                 <value xsi:type="ANYNonNull"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="DURING">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="caa87530-bb5d-4074-97e4-0d3c295ee511"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </encounter>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Data Criteria Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57025-9" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Data criteria (QDM Data Elements)"/>
+         <title>Data criteria (QDM Data Elements)</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Diagnosis, Active: Hospital Measures - AMI"</content> using "Hospital Measures - AMI Grouping Value Set (2.16.840.1.113883.3.666.5.3011)"</item>
+               <item>
+                  <content>"Encounter, Performed: Hospital Measures-Encounter Inpatient"</content> using "Hospital Measures-Encounter Inpatient SNOMED-CT Value Set (2.16.840.1.113883.3.666.5.625)"</item>
+               <item>
+                  <content>"Intervention, Performed: Hospital Measures-Comfort Measures Only Intervention"</content> using "Hospital Measures-Comfort Measures Only Intervention SNOMED-CT Value Set (1.3.6.1.4.1.33895.1.3.0.45)"</item>
+               <item>
+                  <content>"Medication, Administered not done: Hospital Measures - Hold"</content> using "Hospital Measures - Hold SNOMED-CT Value Set (2.16.840.1.113883.3.666.5.1145)"</item>
+               <item>
+                  <content>"Medication, Administered: Hospital Measures-Aspirin"</content> using "Hospital Measures-Aspirin RxNorm Value Set (2.16.840.1.113883.3.666.5.626)"</item>
+               <item>
+                  <content>"Medication, Adverse Effects: Aspirin Allergen"</content> using "Aspirin Allergen RxNorm Value Set (2.16.840.1.113883.3.117.1.7.1.139)"</item>
+               <item>
+                  <content>"Medication, Allergy: Aspirin Allergen"</content> using "Aspirin Allergen RxNorm Value Set (2.16.840.1.113883.3.117.1.7.1.139)"</item>
+               <item>
+                  <content>"Medication, Discharge not done: Medical Reason"</content> using "Medical Reason SNOMED-CT Value Set (2.16.840.1.113883.3.526.2.313)"</item>
+               <item>
+                  <content>"Medication, Discharge not done: Patient Reason"</content> using "Patient Reason SNOMED-CT Value Set (2.16.840.1.113883.3.526.2.311)"</item>
+               <item>
+                  <content>"Medication, Discharge: Hospital Measures - Warfarin Anticoagulants"</content> using "Hospital Measures - Warfarin Anticoagulants RxNorm Value Set (2.16.840.1.113883.3.666.5.636)"</item>
+               <item>
+                  <content>"Medication, Discharge: Hospital Measures-Aspirin"</content> using "Hospital Measures-Aspirin RxNorm Value Set (2.16.840.1.113883.3.666.5.626)"</item>
+               <item>
+                  <content>"Medication, Intolerance: Aspirin Allergen"</content> using "Aspirin Allergen RxNorm Value Set (2.16.840.1.113883.3.117.1.7.1.139)"</item>
+               <item>
+                  <content>"Medication, Order not done: Medical Reason"</content> using "Medical Reason SNOMED-CT Value Set (2.16.840.1.113883.3.526.2.313)"</item>
+               <item>
+                  <content>"Medication, Order not done: Patient Reason"</content> using "Patient Reason SNOMED-CT Value Set (2.16.840.1.113883.3.526.2.311)"</item>
+               <item>
+                  <content>"Medication, Order: Hospital Measures-Aspirin"</content> using "Hospital Measures-Aspirin RxNorm Value Set (2.16.840.1.113883.3.666.5.626)"</item>
+               <item>
+                  <content>"Patient Characteristic Birthdate: birth date"</content> using "birth date LOINC Value Set (2.16.840.1.113883.3.560.100.4)"</item>
+               <item>
+                  <content>"Patient Characteristic: Clinical Trial Participant"</content> using "Clinical Trial Participant SNOMED-CT Value Set (2.16.840.1.113883.3.526.2.643)"</item>
+               <item>
+                  <content>"Transfer To: Hospital Measures - Home Hospice Care"</content> using "Hospital Measures - Home Hospice Care SNOMED-CT Value Set (2.16.840.1.113883.3.666.5.3008)"</item>
+               <item>
+                  <content>"Transfer To: Hospital Measures - Inpatient Hospice Care"</content> using "Hospital Measures - Inpatient Hospice Care SNOMED-CT Value Set (2.16.840.1.113883.3.666.5.3007)"</item>
+               <item>
+                  <content>Attribute: "Ordinality: Hospital Measures - Principal"</content> using "Hospital Measures - Principal SNOMED-CT Value Set  (2.16.840.1.113883.3.666.5.3010)"</item>
+               <item>
+                  <content>Attribute: "Discharge status: Hospital Measures - Expired"</content> using "Hospital Measures - Expired Grouping Value Set  (2.16.840.1.113883.3.666.5.1146)"</item>
+               <item>
+                  <content>Attribute: "Discharge status: Discharge To Another Hospital"</content> using "Discharge To Another Hospital SNOMED-CT Value Set  (2.16.840.1.113883.3.117.1.7.1.87)"</item>
+               <item>
+                  <content>Attribute: "Discharge status: Left Against Medical Advice"</content> using "Left Against Medical Advice SNOMED-CT Value Set  (2.16.840.1.113883.3.666.5.1106)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="8ef9a8a9-9c97-4592-8cf9-67a78916cb71"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: Hospital Measures - AMI</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.666.5.3011"
+                            displayName="Hospital Measures - AMI Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active"
+                                  codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+               <id root="bb6d6209-c1c2-4016-9c8d-5ab3fe4235e7"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                     <title>Patient Characteristic Birthdate: birth date</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="birth date LOINC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+               <id root="d63fcdf8-e955-4399-9d9e-54138c5d72ff"/>
+               <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                     <title>Medication, Order: Hospital Measures-Aspirin</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.666.5.626"
+                                    displayName="Hospital Measures-Aspirin RxNorm Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.46"/>
+               <id root="6da67453-dd59-4bd2-a3f7-943740033c06"/>
+               <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                     <code code="1.3.6.1.4.1.33895.1.3.0.45"
+                           displayName="Hospital Measures-Comfort Measures Only Intervention SNOMED-CT Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Intervention, Performed: Hospital Measures-Comfort Measures Only Intervention</title>
+                     <statusCode code="completed"/>
+                  </procedure>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Transfer To pattern --><templateId root="2.16.840.1.113883.3.560.1.72"/>
+               <id root="cd02505c-bc32-46f0-b780-b420ac72fec2"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <title>Transfer To: Hospital Measures - Home Hospice Care</title>
+                     <participant typeCode="DST">
+                        <roleParticipant classCode="LOCE">
+                           <code code="2.16.840.1.113883.3.666.5.3008"
+                                 displayName="Hospital Measures - Home Hospice Care SNOMED-CT Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                        </roleParticipant>
+                     </participant>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Transfer To pattern --><templateId root="2.16.840.1.113883.3.560.1.72"/>
+               <id root="96c9ce8b-621d-4f2b-b567-a9ad87bad66e"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <title>Transfer To: Hospital Measures - Inpatient Hospice Care</title>
+                     <participant typeCode="DST">
+                        <roleParticipant classCode="LOCE">
+                           <code code="2.16.840.1.113883.3.666.5.3007"
+                                 displayName="Hospital Measures - Inpatient Hospice Care SNOMED-CT Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                        </roleParticipant>
+                     </participant>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Discharge pattern --><templateId root="2.16.840.1.113883.3.560.1.199"/>
+               <id root="2ceb8ed5-e582-43eb-a2e4-8313c49ebfd6"/>
+               <code code="10183-2" displayName="Discharge Medications"
+                     codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                     <title>Medication, Discharge: Hospital Measures - Warfarin Anticoagulants</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.666.5.636"
+                                    displayName="Hospital Measures - Warfarin Anticoagulants RxNorm Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Discharge pattern --><templateId root="2.16.840.1.113883.3.560.1.199"/>
+               <id root="1fd32e69-6ae7-4bf0-a17c-36f31722e1a6"/>
+               <code code="10183-2" displayName="Discharge Medications"
+                     codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                     <title>Medication, Discharge: Hospital Measures-Aspirin</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.666.5.626"
+                                    displayName="Hospital Measures-Aspirin RxNorm Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Allergy pattern --><templateId root="2.16.840.1.113883.3.560.1.1"/>
+               <id root="c254f97d-86f1-49fd-8f11-367d977c098c"/>
+               <code code="48765-2" displayName="Allergies, adverse reactions, alerts"
+                     codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="416098002" codeSystem="2.16.840.1.113883.6.96" displayName="Drug allergy"/>
+                     <title>Medication, Allergy: Aspirin Allergen</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.117.1.7.1.139"
+                                    displayName="Aspirin Allergen RxNorm Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Intolerance pattern --><templateId root="2.16.840.1.113883.3.560.1.15"/>
+               <id root="9577f1b1-2075-400b-87c2-a391c34065cd"/>
+               <code code="48765-2" displayName="Allergies, adverse reactions, alerts"
+                     codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="59037007" codeSystem="2.16.840.1.113883.6.96"
+                           displayName="Drug intolerance"/>
+                     <title>Medication, Intolerance: Aspirin Allergen</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.117.1.7.1.139"
+                                    displayName="Aspirin Allergen RxNorm Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Adverse Effects pattern --><templateId root="2.16.840.1.113883.3.560.1.7"/>
+               <id root="473e4e3c-0bab-44c9-acf6-c825b430724d"/>
+               <code code="48765-2" displayName="Allergies, adverse reactions, alerts"
+                     codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="419511003" codeSystem="2.16.840.1.113883.6.96"
+                           displayName="Drug adverse effect"/>
+                     <title>Medication, Adverse Effects: Aspirin Allergen</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.117.1.7.1.139"
+                                    displayName="Aspirin Allergen RxNorm Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Administered pattern --><templateId root="2.16.840.1.113883.3.560.1.14"/>
+               <id root="c102a05d-343d-4a94-9de9-441c2445db91"/>
+               <code code="18610-6" displayName="Medication administered"
+                     codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                     <title>Medication, Administered: Hospital Measures-Aspirin</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.666.5.626"
+                                    displayName="Hospital Measures-Aspirin RxNorm Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="41e2cbf2-6959-4ec5-b584-91f7956c4c61"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.666.5.625"
+                           displayName="Hospital Measures-Encounter Inpatient SNOMED-CT Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Hospital Measures-Encounter Inpatient</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic pattern --><templateId root="2.16.840.1.113883.3.560.1.1001"/>
+               <id root="784a82b3-29d4-44fb-98ba-666cbe3871af"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.526.2.643" codeSystem="2.16.840.1.113883.3.560.101.1"
+                           displayName="Clinical Trial Participant SNOMED-CT Value Set"/>
+                     <title>Patient Characteristic: Clinical Trial Participant</title>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Discharge not done pattern --><templateId root="2.16.840.1.113883.3.560.1.200"/>
+               <id root="a4c6e0f8-608a-4145-86db-f649eb1358bd"/>
+               <code code="10183-2" displayName="Discharge Medications"
+                     codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                     <title>Medication, Discharge not done: Medical Reason</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.526.2.313"
+                                    displayName="Medical Reason SNOMED-CT Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order not done pattern --><templateId root="2.16.840.1.113883.3.560.1.78"/>
+               <id root="24f455c5-bb4b-4f90-9716-8a829818a79b"/>
+               <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                     <title>Medication, Order not done: Medical Reason</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.526.2.313"
+                                    displayName="Medical Reason SNOMED-CT Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order not done pattern --><templateId root="2.16.840.1.113883.3.560.1.78"/>
+               <id root="c7fde54f-1216-4bca-935b-d0a7ac35c2e0"/>
+               <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                     <title>Medication, Order not done: Patient Reason</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.526.2.311"
+                                    displayName="Patient Reason SNOMED-CT Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Administered not done pattern --><templateId root="2.16.840.1.113883.3.560.1.114"/>
+               <id root="a16fd0d3-5acf-412e-8599-672af6c1ad08"/>
+               <code code="18610-6" displayName="Medication administered"
+                     codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                     <title>Medication, Administered not done: Hospital Measures - Hold</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.666.5.1145"
+                                    displayName="Hospital Measures - Hold SNOMED-CT Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Discharge not done pattern --><templateId root="2.16.840.1.113883.3.560.1.200"/>
+               <id root="d5e11616-f198-4af1-bd82-26894021ed4c"/>
+               <code code="10183-2" displayName="Discharge Medications"
+                     codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                     <title>Medication, Discharge not done: Patient Reason</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.526.2.311"
+                                    displayName="Patient Reason SNOMED-CT Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="17362f90-7870-4459-b4f0-addd8e2c92ba"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>Hospital Measures-Encounter Inpatient</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="41e2cbf2-6959-4ec5-b584-91f7956c4c61"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.1001"/>
+               <id root="cc365ece-46ab-4785-afed-9e4fc3d88f57"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>Clinical Trial Participant</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="784a82b3-29d4-44fb-98ba-666cbe3871af"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+            
+         <!--
+            **************************************************************   
+            Stratification Section
+            **************************************************************
+         --><component typeCode="COMP">
+      <section>
+         <code code="69669-0" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Population stratification description"/>
+         <title>Reporting Stratification</title>
+         <text>
+            <list>
+               <item>None</item>
+            </list>
+         </text>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Supplemental Data Elements Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="69670-8" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Supplemental Data Elements"/>
+         <title>Supplemental Data Elements</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Patient Characteristic Ethnicity: Ethnicity"</content> using "Ethnicity CDC Value Set (2.16.840.1.114222.4.11.837)"</item>
+               <item>
+                  <content>"Patient Characteristic Payer: Payer"</content> using "Payer Source of Payment Typology Value Set (2.16.840.1.114222.4.11.3591)"</item>
+               <item>
+                  <content>"Patient Characteristic Race: Race"</content> using "Race CDC Value Set (2.16.840.1.114222.4.11.836)"</item>
+               <item>
+                  <content>"Patient Characteristic Sex: ONC Administrative Sex"</content> using "ONC Administrative Sex Administrative Sex Value Set (2.16.840.1.113762.1.4.1)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Sex pattern --><templateId root="2.16.840.1.113883.3.560.1.402"/>
+               <id root="2611f6ca-b0a8-4687-b8b6-7aafbe7b8778"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="263495000" codeSystem="2.16.840.1.113883.6.96" displayName="Sex"/>
+                     <title>Patient Characteristic Sex: ONC Administrative Sex</title>
+                     <value xsi:type="CD" code="2.16.840.1.113762.1.4.1"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="ONC Administrative Sex Administrative Sex Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Race pattern --><templateId root="2.16.840.1.113883.3.560.1.406"/>
+               <id root="8b92379a-86bd-490b-a6e7-ac26a66852bb"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="32624-9" codeSystem="2.16.840.1.113883.6.1" displayName="Race"/>
+                     <title>Patient Characteristic Race: Race</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.836"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Race CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Ethnicity pattern --><templateId root="2.16.840.1.113883.3.560.1.403"/>
+               <id root="af84906e-5b81-4695-8efa-c729c6677c3a"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="54133-4" codeSystem="2.16.840.1.113883.6.1" displayName="Ethnicity"/>
+                     <title>Patient Characteristic Ethnicity: Ethnicity</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.837"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Ethnicity CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Payer pattern --><templateId root="2.16.840.1.113883.3.560.1.405"/>
+               <id root="f3122cd6-64cb-4d14-a4c3-ee34eeca6196"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" displayName="Payer"/>
+                     <title>Patient Characteristic Payer: Payer</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.3591"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Payer Source of Payment Typology Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+      </section>
+   </component>
+</QualityMeasureDocument>

@@ -1,0 +1,2038 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="xslt/eMeasure.xsl"?>
+<QualityMeasureDocument xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         
+      <!--
+         **************************************************************   
+         Measure Header Section
+         **************************************************************
+      --><typeId root="2.16.840.1.113883.1.3" extension="POQM_HD000001"/>
+   <id root="40280381-3e93-d1af-013e-a49f8f204114"/>
+   <code code="57024-2" codeSystem="2.16.840.1.113883.6.1"
+         displayName="Health Quality Measure Document"/>
+   <title>HIV/AIDS: Pneumocystis jiroveci pneumonia (PCP) prophylaxis</title>
+   <text>Percentage of patients aged 6 weeks and older with a diagnosis of HIV/AIDS who were prescribed Pneumocystis jiroveci pneumonia (PCP) prophylaxis</text>
+   <statusCode code="InProgress"/>
+   <setId root="1cdd20de-5de9-4759-8a93-31f1f8baaaa2"/>
+   <versionNumber value="2"/>
+   <author typeCode="AUT">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="6ea1ca74-9378-472d-bb76-77807e7cca32"/>
+            <name>National Committee for Quality Assurance (NCQA)/ and American Medical Association - convened Physician Consortium for Performance Improvement (AMA-PCPI)</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </author>
+   <custodian>
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="29b398b0-ef4d-41d5-bcf1-b56cf0668e66"/>
+            <name>National Committee for Quality Assurance (NCQA)</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </custodian>
+   <verifier typeCode="VRF">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <name>National Quality Forum</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </verifier>
+   <subjectOf>
+      <measureAttribute>
+         <code code="COPY" codeSystem="2.16.840.1.113883.5.4" displayName="Copyright"/>
+         <value xsi:type="ED" mediaType="text/plain">Physician Performance Measures (Measures) and related data specifications have been developed by the American Medical Association (AMA) - convened Physician Consortium for Performance Improvement(R) (PCPI[R]) and the National Committee for Quality Assurance (NCQA). 
+
+These Measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications. The Measures, while copyrighted, can be reproduced and distributed, without modification, for noncommercial purposes, e.g., use by health care providers in connection with their practices. Commercial use is defined as the sale, license, or distribution of the Measures for commercial gain, or incorporation of the Measures into a product or service that is sold, licensed or distributed for commercial gain. Commercial uses of the Measures require a license agreement between the user and the AMA, (on behalf of the PCPI) or NCQA. Neither the AMA, NCQA, PCPI nor its members shall be responsible for any use of the Measures. 
+
+Limited proprietary coding is contained in the Measure specifications for convenience. Users of the proprietary code sets should obtain all necessary licenses from the owners of these code sets. The NCQA, AMA, the PCPI and its members disclaim all liability for use or accuracy of any Current Procedural Terminology (CPT[R]) or other coding contained in the specifications. 
+
+CPT(R) contained in the Measure specifications is copyright 2004-2012 American Medical Association. LOINC(R) copyright 2004-2012 Regenstrief Institute, Inc. This material contains SNOMED Clinical Terms(R) (SNOMED CT[R]) copyright 2004-2012 International Health Terminology Standards Development Organisation. ICD-10 copyright 2012 World Health Organization. All Rights Reserved.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRSCORE" codeSystem="2.16.840.1.113883.5.4"
+               displayName="Measure Scoring"/>
+         <value xsi:type="CD" code="PROPOR" codeSystem="2.16.840.1.113883.1.11.20367"
+                displayName="Proportion"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRTYPE" codeSystem="2.16.840.1.113883.5.4" displayName="Measure Type"/>
+         <value xsi:type="CD" code="PROCESS" codeSystem="2.16.840.1.113883.1.11.20368"
+                displayName="Process"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="STRAT" codeSystem="2.16.840.1.113883.5.4" displayName="Stratification"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRADJ" codeSystem="2.16.840.1.113883.5.4" displayName="Risk Adjustment"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRAGG" codeSystem="2.16.840.1.113883.5.4" displayName="Rate Aggregation"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="RAT" codeSystem="2.16.840.1.113883.5.4" displayName="Rationale"/>
+         <value xsi:type="ED" mediaType="text/plain">Although advances in the management of HIV and AIDS diseases have been made, Pneumocystis carinii pneumonia (PCP) remains an important complication and cause of morbidity.  Without PCP prophylaxis, patients with HIV/AIDS are at increased risk of developing PCP, especially when CD4 cell counts fall 200mm3-250mm3 (Kaplan, 1998; Phair, 1990).  PCP prophylaxis is very effective and has been demonstrated to prolong life.   
+
+Data from Kaiser Permanente suggests that a gap exists between what is recommended for patients with HIV infection, and what is actually performed.  According to 2005-2006 data from Kaiser Permanente California (both Northern and Southern), Georgia, and Oregon, only 71% of HIV-infected persons with a CD4&lt;200mm3 received PCP prophylaxis (personal communication, 2007).</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="CRS" codeSystem="2.16.840.1.113883.3.560"
+               displayName="Clinical Recommendation Statement"/>
+         <value xsi:type="ED" mediaType="text/plain">HIV-infected adults and adolescents, including pregnant women and those on HAART, should receive chemoprophylaxis against PCP if they have a CD4+T lymphocyte count of &lt;200/mL or a history of oropharyngeal candidiasis. (USPH/IDSA, 2002)</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IDUR" codeSystem="2.16.840.1.113883.3.560"
+               displayName="Improvement Notation"/>
+         <value xsi:type="ED" mediaType="text/plain">A higher score indicates better quality</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>NQF ID Number</originalText>
+         </code>
+         <value xsi:type="II" root="2.16.840.1.113883.3.560.1" extension="0405"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DISC" codeSystem="2.16.840.1.113883.5.4" displayName="Disclaimer">
+            <originalText>Disclaimer</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">These performance Measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications.
+
+THE MEASURES AND SPECIFICATIONS ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND.
+
+Due to technical limitations, registered trademarks are indicated by (R) or [R] and unregistered trademarks are indicated by (TM) or [TM].</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>eMeasure Identifier</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">52</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.74"/>
+         <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+         <code code="MSRTP" displayName="Measurement period"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="IVL_TS">
+            <low value="00000101"/>
+            <high value="00001231"/>
+         </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureStartDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="99c075e7-9ac4-483d-8129-a18423c1801e"/>
+         <code code="MSRSD" displayName="Measurement start date"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00000101"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureEndDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="40a33722-c992-4e25-b550-5a81711ca74f"/>
+         <code code="MSRED" displayName="Measurement end date"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00001231"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Kaplan JE, Hanson DL, Navin TR, Jones JL. Risk factors for primary Pneumocystis carinii pneumonia in human immunodeficiency virus--infected adolescents and adults in the United States: reassessment of indications for chemoprophylaxis. The Journal of Infectious Diseases. 1998;178:1126-32.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Personal communication. Michael Horberg, MD, Director, HIV/AIDS Policy, Quality Improvement, Research, The Permanente Federation. 2007 Nov 6.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Phair J, Munoz A, Detels R, Kaslow R, Rinaldo C, Saah A. The risk of Pneumocystis carinii pneumonia among men infected with human immunodeficiency virus type 1. Multicenter AIDS Cohort Study Group. NEJM. 1990 Jan 18;322:161-65.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DEF" codeSystem="2.16.840.1.113883.3.560" displayName="Definition"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="GUIDE" codeSystem="2.16.840.1.113883.5.4" displayName="Guidance"/>
+         <value xsi:type="ED" mediaType="text/plain">Denominator 1: The CD4 count below 200 cells/mm3 must occur during the first nine months of the year.
+
+Denominator 2: The CD4 count below 500 cells/mm3 or the CD4 percentage below 15% must occur during the first nine months of the year.
+
+Once all denominators and numerators are calculated, a total rate should be calculated using the sum of the three denominators and the sum of the three numerators.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Transmission Format</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">TBD</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IPP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Initial Patient Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Denominator 1: All patients aged 6 years and older with a diagnosis of HIV/AIDS and a CD4 count below 200 cells/mm3 who had at least two visits during the measurement year, with at least 90 days in between each visit
+
+Denominator 2: All patients aged 1-5 years of age with a diagnosis of HIV/AIDS and a CD4 count below 500 cells/mm3 or a CD4 percentage below 15% who had at least two visits during the measurement year, with at least 90 days in between each visit
+
+Denominator 3: All patients aged 6 weeks to 12 months with a diagnosis of HIV who had at least two visits during the measurement year, with at least 90 days in between each visit</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENOM" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Equals Initial Patient Population</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Denominator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="NUMER" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Numerator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Numerator 1: Patients who were prescribed pneumocystis jiroveci pneumonia (PCP) prophylaxis within 3 months of CD4 count below 200 cells/mm3
+
+Numerator 2: Patients who were prescribed pneumocystic jiroveci pneumonia (PCP) prophylaxis within 3 months of CD4 count below 500 cells/ mm3 or a CD4 percentage below 15%
+
+Numerator 3: Patients who were prescribed Pneumocystic jiroveci pneumonia (PCP) prophylaxis at the time of diagnosis of HIV</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Numerator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator Exceptions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Numerator 1: Patient did not receive PCP prophylaxis because there was a CD4 count above 200 cells/mm3 during the three months after a CD4 count below 200 cells/mm3 
+
+Numerator 2: Patient did not receive PCP prophylaxis because there was a CD4 count above 500 cells/mm3 or CD4 percentage above 15% during the three months after a CD4 count below 500 cells/mm3 or CD4 percentage below 15% 
+
+Numerator 3: None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Measure Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Measure Observations</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Supplemental Data Elements</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">For every patient evaluated by this measure also identify payer, race, ethnicity, and sex.</value>
+      </measureAttribute>
+   </subjectOf>
+   <componentOf>
+      <qualityMeasureSet classCode="ACT">
+         <id root="2f363bb7-306c-47fc-aed0-273b22b7050a"/>
+         <title>Not Applicable</title>
+      </qualityMeasureSet>
+   </componentOf>
+         
+      <!--
+         **************************************************************   
+         Population Criteria Section
+         **************************************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Population criteria"/>
+         <title>Population criteria</title>
+         <text>
+            <paragraph>
+               <caption>Population Criteria 1</caption>
+            </paragraph>
+            <list>
+               <item>
+                  <content styleCode="Bold">Initial Patient Population 1 =</content>
+                  <list>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &gt;= 6 year(s) starts before start of "Measurement Period"</item>
+                     <item>AND: "Diagnosis, Active: HIV" starts before or during "Measurement Period"</item>
+                     <item>AND: "Occurrence A of Encounter, Performed: HIV Visit" during "Measurement Period"</item>
+                     <item>AND: "Occurrence B of Encounter, Performed: HIV Visit" during "Measurement Period"</item>
+                     <item>AND: "Occurrence A of Laboratory Test, Result: CD4+ Count (result &lt; 200 per mm3)"  &lt; 9 month(s) ends after start of "Measurement Period"</item>
+                     <item>AND: "Occurrence B of Encounter, Performed: HIV Visit"  &gt;= 90 day(s) starts after end of "Occurrence A of Encounter, Performed: HIV Visit"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator 1 =</content>
+                  <list>
+                     <item>AND: "Initial Patient Population 1"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exclusions 1=</content>
+                  <list>
+                     <item>None</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Numerator 1 =</content>
+                  <list>
+                     <item>AND: <list>
+                           <item>OR: "Medication, Order: Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis"  &lt;= 3 month(s) starts after end of "Occurrence A of Laboratory Test, Result: CD4+ Count"</item>
+                           <item>OR: <list>
+                                 <item>AND: "Occurrence A of Medication, Order: Dapsone and pyrimethamine"  &lt;= 3 month(s) starts after end of "Occurrence A of Laboratory Test, Result: CD4+ Count"</item>
+                                 <item>AND: "Occurrence A of Medication, Order: Leucovorin"  &lt;= 3 month(s) starts after end of "Occurrence A of Laboratory Test, Result: CD4+ Count"</item>
+                                 <item>AND: <list>
+                                       <item>OR: "Occurrence A of Medication, Order: Leucovorin" concurrent with "Occurrence A of Medication, Order: Dapsone and pyrimethamine"</item>
+                                       <item>OR: <list>
+                                             <item>AND NOT: "Occurrence A of Medication, Order: Dapsone and pyrimethamine" ends before start of "Occurrence A of Medication, Order: Leucovorin"</item>
+                                             <item>AND: "Occurrence A of Medication, Order: Dapsone and pyrimethamine"  &lt; 1 day(s) starts before or during "Occurrence A of Medication, Order: Leucovorin"</item>
+                                          </list>
+                                       </item>
+                                       <item>OR: <list>
+                                             <item>AND NOT: "Occurrence A of Medication, Order: Leucovorin" ends before start of "Occurrence A of Medication, Order: Dapsone and pyrimethamine"</item>
+                                             <item>AND: "Occurrence A of Medication, Order: Leucovorin"  &lt; 1 day(s) starts before or during "Occurrence A of Medication, Order: Dapsone and pyrimethamine"</item>
+                                          </list>
+                                       </item>
+                                    </list>
+                                 </item>
+                              </list>
+                           </item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exceptions 1 =</content>
+                  <list>
+                     <item>AND: "Occurrence B of Laboratory Test, Result: CD4+ Count (result &gt;= 200 per mm3)"  &lt;= 3 month(s) ends after end of "Occurrence A of Laboratory Test, Result: CD4+ Count"</item>
+                  </list>
+               </item>
+            </list>
+            <paragraph>
+               <caption>Population Criteria 2</caption>
+            </paragraph>
+            <list>
+               <item>
+                  <content styleCode="Bold">Initial Patient Population 2 =</content>
+                  <list>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &gt;= 1 year(s) starts before start of "Measurement Period"</item>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &lt; 6 year(s) starts before start of "Measurement Period"</item>
+                     <item>AND: "Diagnosis, Active: HIV" starts before or during "Measurement Period"</item>
+                     <item>AND: "Occurrence A of Encounter, Performed: HIV Visit" during "Measurement Period"</item>
+                     <item>AND: "Occurrence B of Encounter, Performed: HIV Visit" during "Measurement Period"</item>
+                     <item>AND: "Occurrence B of Encounter, Performed: HIV Visit"  &gt;= 90 day(s) starts after end of "Occurrence A of Encounter, Performed: HIV Visit"</item>
+                     <item>AND: <list>
+                           <item>OR: "Occurrence A of Laboratory Test, Result: CD4+ Count (result &lt; 500 per mm3)"  &lt; 9 month(s) ends after start of "Measurement Period"</item>
+                           <item>OR: "Occurrence A of Laboratory Test, Result: CD4+ Percentage (result &lt; 15 %)"  &lt; 9 month(s) ends after start of "Measurement Period"</item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator 2 =</content>
+                  <list>
+                     <item>AND: "Initial Patient Population 2"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exclusions 2=</content>
+                  <list>
+                     <item>None</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Numerator 2 =</content>
+                  <list>
+                     <item>AND: <list>
+                           <item>OR: "Medication, Order: Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis"  &lt;= 3 month(s) starts after end of "Occurrence A of Laboratory Test, Result: CD4+ Count"</item>
+                           <item>OR: "Medication, Order: Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis"  &lt;= 3 month(s) starts after end of "Occurrence A of Laboratory Test, Result: CD4+ Percentage"</item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exceptions 2 =</content>
+                  <list>
+                     <item>AND: <list>
+                           <item>OR: "Occurrence B of Laboratory Test, Result: CD4+ Count (result &gt;= 500 per mm3)"  &lt;= 3 month(s) ends after end of "Occurrence A of Laboratory Test, Result: CD4+ Count"</item>
+                           <item>OR: "Occurrence B of Laboratory Test, Result: CD4+ Percentage (result &gt;= 15 %)"  &lt;= 3 month(s) ends after end of "Occurrence A of Laboratory Test, Result: CD4+ Percentage"</item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+            </list>
+            <paragraph>
+               <caption>Population Criteria 3</caption>
+            </paragraph>
+            <list>
+               <item>
+                  <content styleCode="Bold">Initial Patient Population 3 =</content>
+                  <list>
+                     <item>AND:  FIRST: "Occurrence A of Diagnosis, Active: HIV" starts before or during "Measurement Period"</item>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &gt;= 6 week(s) starts before start of "Measurement Period"</item>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &lt; 1 year(s) starts before start of "Measurement Period"</item>
+                     <item>AND: "Occurrence A of Encounter, Performed: HIV Visit" during "Measurement Period"</item>
+                     <item>AND: "Occurrence B of Encounter, Performed: HIV Visit" during "Measurement Period"</item>
+                     <item>AND: "Occurrence B of Encounter, Performed: HIV Visit"  &gt;= 90 day(s) starts after end of "Occurrence A of Encounter, Performed: HIV Visit"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator 3 =</content>
+                  <list>
+                     <item>AND: "Initial Patient Population 3"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exclusions 3=</content>
+                  <list>
+                     <item>None</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Numerator 3 =</content>
+                  <list>
+                     <item>AND: "Medication, Order: Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis" starts during "Occurrence A of Diagnosis, Active: HIV"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exceptions 3=</content>
+                  <list>
+                     <item>None</item>
+                  </list>
+               </item>
+            </list>
+         </text>
+         <!--
+            **************************************************************   
+            Population Criteria Section: exceptions 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="dcf7e8dd-29a4-4c97-acaa-3774932ab761"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator Exception"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="5006E0D0-900C-4183-B9F8-5715F4F55EC2"/>
+                     <title>Denominator 1</title>
+                  </observation>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.12"/>
+                     <id root="be835227-f051-4d60-9d6b-4d6b44802d52"/>
+                     <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.464.1003.121.12.1004"
+                                 displayName="CD4+ Count Grouping Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence B of Laboratory Test, Result: CD4+ Count (result &gt;= 200  per mm3)</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <templateId root="2.16.840.1.113883.3.560.1.1019.3"/>
+                                 <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                       codeSystemName="SNOMED-CT"/>
+                                 <value xsi:type="IVL_PQ">
+                                    <low value="200" unit="/mm3" inclusive="true"/>
+                                 </value>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="EAE">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <high value="3" unit="mo" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="2aab441a-8864-4456-aaaa-33d58506f1d7"/>
+                                 <title>Occurrence A of Laboratory Test, Result: CD4+ Count</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: exceptions 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="4dd62f1e-9479-46c8-a9b4-65b1f69b833b"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator Exception"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="357323DA-DDE5-461A-9BBD-36A7ADB95DA4"/>
+                     <title>Denominator 2</title>
+                  </observation>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.12"/>
+                           <id root="be835227-f051-4d60-9d6b-4d6b44802d52"/>
+                           <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.1003.121.12.1004"
+                                       displayName="CD4+ Count Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Occurrence B of Laboratory Test, Result: CD4+ Count (result &gt;= 500  per mm3)</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <templateId root="2.16.840.1.113883.3.560.1.1019.3"/>
+                                       <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                             codeSystemName="SNOMED-CT"/>
+                                       <value xsi:type="IVL_PQ">
+                                          <low value="500" unit="/mm3" inclusive="true"/>
+                                       </value>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="EAE">
+                                    <pauseQuantity xsi:type="IVL_PQ">
+                                       <high value="3" unit="mo" inclusive="true"/>
+                                    </pauseQuantity>
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="2aab441a-8864-4456-aaaa-33d58506f1d7"/>
+                                       <title>Occurrence A of Laboratory Test, Result: CD4+ Count</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.12"/>
+                           <id root="6c89da7a-5f08-4485-9d6e-e37053221c20"/>
+                           <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.1003.121.12.1005"
+                                       displayName="CD4+ Percentage Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Occurrence B of Laboratory Test, Result: CD4+ Percentage (result &gt;= 15  %)</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <templateId root="2.16.840.1.113883.3.560.1.1019.3"/>
+                                       <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                             codeSystemName="SNOMED-CT"/>
+                                       <value xsi:type="IVL_PQ">
+                                          <low value="15" unit="%" inclusive="true"/>
+                                       </value>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="EAE">
+                                    <pauseQuantity xsi:type="IVL_PQ">
+                                       <high value="3" unit="mo" inclusive="true"/>
+                                    </pauseQuantity>
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="c39ca47f-05ee-4192-964a-f1897533ac0e"/>
+                                       <title>Occurrence A of Laboratory Test, Result: CD4+ Percentage</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: numerator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="66dc3242-4a38-4dcd-91b2-03041e4d94a5"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="NUMER" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Numerator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="5006E0D0-900C-4183-B9F8-5715F4F55EC2"/>
+                     <title>Denominator 1</title>
+                  </observation>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+                           <id root="f5d26b95-afdd-41df-9cb1-a8aa04da72e0"/>
+                           <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                 <title>Medication, Order: Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.464.1003.196.12.1076"
+                                                displayName="Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis Grouping Value Set"
+                                                codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="SAE">
+                                    <pauseQuantity xsi:type="IVL_PQ">
+                                       <high value="3" unit="mo" inclusive="true"/>
+                                    </pauseQuantity>
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="2aab441a-8864-4456-aaaa-33d58506f1d7"/>
+                                       <title>Occurrence A of Laboratory Test, Result: CD4+ Count</title>
+                                    </observation>
+                                 </sourceOf>
+                              </substanceAdministration>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+                                 <id root="19700f61-d0dc-40b9-a0ff-2f7a0e36a10e"/>
+                                 <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                                 <sourceOf typeCode="COMP">
+                                    <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                       <title>Occurrence A of Medication, Order: Dapsone and pyrimethamine</title>
+                                       <participant typeCode="CSM">
+                                          <roleParticipant classCode="MANU">
+                                             <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                <code code="2.16.840.1.113883.3.464.1003.196.12.1202"
+                                                      displayName="Dapsone and pyrimethamine Grouping Value Set"
+                                                      codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             </playingMaterial>
+                                          </roleParticipant>
+                                       </participant>
+                                       <sourceOf typeCode="SAE">
+                                          <pauseQuantity xsi:type="IVL_PQ">
+                                             <high value="3" unit="mo" inclusive="true"/>
+                                          </pauseQuantity>
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <id root="2aab441a-8864-4456-aaaa-33d58506f1d7"/>
+                                             <title>Occurrence A of Laboratory Test, Result: CD4+ Count</title>
+                                          </observation>
+                                       </sourceOf>
+                                    </substanceAdministration>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+                                 <id root="8af10f40-c04a-4c2b-9ea6-8c262f9f195f"/>
+                                 <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                                 <sourceOf typeCode="COMP">
+                                    <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                       <title>Occurrence A of Medication, Order: Leucovorin</title>
+                                       <participant typeCode="CSM">
+                                          <roleParticipant classCode="MANU">
+                                             <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                <code code="2.16.840.1.113883.3.464.1003.196.12.1205"
+                                                      displayName="Leucovorin Grouping Value Set"
+                                                      codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             </playingMaterial>
+                                          </roleParticipant>
+                                       </participant>
+                                       <sourceOf typeCode="SAE">
+                                          <pauseQuantity xsi:type="IVL_PQ">
+                                             <high value="3" unit="mo" inclusive="true"/>
+                                          </pauseQuantity>
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <id root="2aab441a-8864-4456-aaaa-33d58506f1d7"/>
+                                             <title>Occurrence A of Laboratory Test, Result: CD4+ Count</title>
+                                          </observation>
+                                       </sourceOf>
+                                    </substanceAdministration>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+                                       <id root="8af10f40-c04a-4c2b-9ea6-8c262f9f195f"/>
+                                       <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                             <title>Occurrence A of Medication, Order: Leucovorin</title>
+                                             <participant typeCode="CSM">
+                                                <roleParticipant classCode="MANU">
+                                                   <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                      <code code="2.16.840.1.113883.3.464.1003.196.12.1205"
+                                                            displayName="Leucovorin Grouping Value Set"
+                                                            codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                                   </playingMaterial>
+                                                </roleParticipant>
+                                             </participant>
+                                             <sourceOf typeCode="CONCURRENT">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <id root="19700f61-d0dc-40b9-a0ff-2f7a0e36a10e"/>
+                                                   <title>Occurrence A of Medication, Order: Dapsone and pyrimethamine</title>
+                                                </observation>
+                                             </sourceOf>
+                                          </substanceAdministration>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                                       <sourceOf typeCode="PRCN">
+                                          <conjunctionCode code="AND"/>
+                                          <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+                                             <id root="19700f61-d0dc-40b9-a0ff-2f7a0e36a10e"/>
+                                             <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                                             <sourceOf typeCode="COMP">
+                                                <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                                   <title>Occurrence A of Medication, Order: Dapsone and pyrimethamine</title>
+                                                   <participant typeCode="CSM">
+                                                      <roleParticipant classCode="MANU">
+                                                         <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                            <code code="2.16.840.1.113883.3.464.1003.196.12.1202"
+                                                                  displayName="Dapsone and pyrimethamine Grouping Value Set"
+                                                                  codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                                         </playingMaterial>
+                                                      </roleParticipant>
+                                                   </participant>
+                                                   <sourceOf typeCode="EBS">
+                                                      <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                         <id root="8af10f40-c04a-4c2b-9ea6-8c262f9f195f"/>
+                                                         <title>Occurrence A of Medication, Order: Leucovorin</title>
+                                                      </observation>
+                                                   </sourceOf>
+                                                </substanceAdministration>
+                                             </sourceOf>
+                                          </act>
+                                       </sourceOf>
+                                       <sourceOf typeCode="PRCN">
+                                          <conjunctionCode code="AND"/>
+                                          <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+                                             <id root="19700f61-d0dc-40b9-a0ff-2f7a0e36a10e"/>
+                                             <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                                             <sourceOf typeCode="COMP">
+                                                <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                                   <title>Occurrence A of Medication, Order: Dapsone and pyrimethamine</title>
+                                                   <participant typeCode="CSM">
+                                                      <roleParticipant classCode="MANU">
+                                                         <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                            <code code="2.16.840.1.113883.3.464.1003.196.12.1202"
+                                                                  displayName="Dapsone and pyrimethamine Grouping Value Set"
+                                                                  codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                                         </playingMaterial>
+                                                      </roleParticipant>
+                                                   </participant>
+                                                   <sourceOf typeCode="EAS" inversionInd="true">
+                                                      <pauseQuantity xsi:type="IVL_PQ">
+                                                         <high value="1" unit="d" inclusive="false"/>
+                                                      </pauseQuantity>
+                                                      <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                         <id root="8af10f40-c04a-4c2b-9ea6-8c262f9f195f"/>
+                                                         <title>Occurrence A of Medication, Order: Leucovorin</title>
+                                                      </observation>
+                                                   </sourceOf>
+                                                </substanceAdministration>
+                                             </sourceOf>
+                                          </act>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                                       <sourceOf typeCode="PRCN">
+                                          <conjunctionCode code="AND"/>
+                                          <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+                                             <id root="8af10f40-c04a-4c2b-9ea6-8c262f9f195f"/>
+                                             <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                                             <sourceOf typeCode="COMP">
+                                                <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                                   <title>Occurrence A of Medication, Order: Leucovorin</title>
+                                                   <participant typeCode="CSM">
+                                                      <roleParticipant classCode="MANU">
+                                                         <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                            <code code="2.16.840.1.113883.3.464.1003.196.12.1205"
+                                                                  displayName="Leucovorin Grouping Value Set"
+                                                                  codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                                         </playingMaterial>
+                                                      </roleParticipant>
+                                                   </participant>
+                                                   <sourceOf typeCode="EBS">
+                                                      <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                         <id root="19700f61-d0dc-40b9-a0ff-2f7a0e36a10e"/>
+                                                         <title>Occurrence A of Medication, Order: Dapsone and pyrimethamine</title>
+                                                      </observation>
+                                                   </sourceOf>
+                                                </substanceAdministration>
+                                             </sourceOf>
+                                          </act>
+                                       </sourceOf>
+                                       <sourceOf typeCode="PRCN">
+                                          <conjunctionCode code="AND"/>
+                                          <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+                                             <id root="8af10f40-c04a-4c2b-9ea6-8c262f9f195f"/>
+                                             <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                                             <sourceOf typeCode="COMP">
+                                                <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                                   <title>Occurrence A of Medication, Order: Leucovorin</title>
+                                                   <participant typeCode="CSM">
+                                                      <roleParticipant classCode="MANU">
+                                                         <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                            <code code="2.16.840.1.113883.3.464.1003.196.12.1205"
+                                                                  displayName="Leucovorin Grouping Value Set"
+                                                                  codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                                         </playingMaterial>
+                                                      </roleParticipant>
+                                                   </participant>
+                                                   <sourceOf typeCode="EAS" inversionInd="true">
+                                                      <pauseQuantity xsi:type="IVL_PQ">
+                                                         <high value="1" unit="d" inclusive="false"/>
+                                                      </pauseQuantity>
+                                                      <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                         <id root="19700f61-d0dc-40b9-a0ff-2f7a0e36a10e"/>
+                                                         <title>Occurrence A of Medication, Order: Dapsone and pyrimethamine</title>
+                                                      </observation>
+                                                   </sourceOf>
+                                                </substanceAdministration>
+                                             </sourceOf>
+                                          </act>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: numerator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="26fc92e3-9711-407a-9f46-ba6efc3a18e2"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="NUMER" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Numerator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="357323DA-DDE5-461A-9BBD-36A7ADB95DA4"/>
+                     <title>Denominator 2</title>
+                  </observation>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+                           <id root="f5d26b95-afdd-41df-9cb1-a8aa04da72e0"/>
+                           <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                 <title>Medication, Order: Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.464.1003.196.12.1076"
+                                                displayName="Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis Grouping Value Set"
+                                                codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="SAE">
+                                    <pauseQuantity xsi:type="IVL_PQ">
+                                       <high value="3" unit="mo" inclusive="true"/>
+                                    </pauseQuantity>
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="2aab441a-8864-4456-aaaa-33d58506f1d7"/>
+                                       <title>Occurrence A of Laboratory Test, Result: CD4+ Count</title>
+                                    </observation>
+                                 </sourceOf>
+                              </substanceAdministration>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+                           <id root="f5d26b95-afdd-41df-9cb1-a8aa04da72e0"/>
+                           <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                 <title>Medication, Order: Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.464.1003.196.12.1076"
+                                                displayName="Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis Grouping Value Set"
+                                                codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="SAE">
+                                    <pauseQuantity xsi:type="IVL_PQ">
+                                       <high value="3" unit="mo" inclusive="true"/>
+                                    </pauseQuantity>
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="c39ca47f-05ee-4192-964a-f1897533ac0e"/>
+                                       <title>Occurrence A of Laboratory Test, Result: CD4+ Percentage</title>
+                                    </observation>
+                                 </sourceOf>
+                              </substanceAdministration>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: numerator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="90815a54-6159-4409-886e-604d91c96000"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="NUMER" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Numerator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="D9799FE0-CD73-42DF-9486-BA04F1F63DB3"/>
+                     <title>Denominator 3</title>
+                  </observation>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+                     <id root="f5d26b95-afdd-41df-9cb1-a8aa04da72e0"/>
+                     <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                           <title>Medication, Order: Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis</title>
+                           <participant typeCode="CSM">
+                              <roleParticipant classCode="MANU">
+                                 <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                    <code code="2.16.840.1.113883.3.464.1003.196.12.1076"
+                                          displayName="Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis Grouping Value Set"
+                                          codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 </playingMaterial>
+                              </roleParticipant>
+                           </participant>
+                           <sourceOf typeCode="SDU">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="4a737cd4-76a2-4f5e-be0f-739dc6f7fb4e"/>
+                                 <title>Occurrence A of Diagnosis, Active: HIV</title>
+                              </observation>
+                           </sourceOf>
+                        </substanceAdministration>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: denominator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="5006E0D0-900C-4183-B9F8-5715F4F55EC2"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="BEC02F08-61C9-4248-8512-B19584C8095F"/>
+                     <title>Initial Patient Population 1</title>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: denominator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="357323DA-DDE5-461A-9BBD-36A7ADB95DA4"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="1D0C7BE5-F9A9-42A9-8720-4CF737082FEA"/>
+                     <title>Initial Patient Population 2</title>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: denominator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="D9799FE0-CD73-42DF-9486-BA04F1F63DB3"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="383CCBED-2407-4E5D-9DBD-26681AAE54D0"/>
+                     <title>Initial Patient Population 3</title>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: population 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="BEC02F08-61C9-4248-8512-B19584C8095F"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="IPP" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Initial Patient Population"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="f1b5a8de-fc17-4206-aafe-63c034f0f691"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                                  codeSystem="2.16.840.1.113883.3.560.101.1"
+                                  displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <low value="6" unit="a" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                     <id root="418bcb5e-e6b2-424b-837b-cd81e33e8190"/>
+                     <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                           <title>Diagnosis, Active: HIV</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.464.1003.120.12.1003"
+                                  displayName="HIV Grouping Value Set"/>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                 <value xsi:type="CD" code="55561003" displayName="active"
+                                        codeSystem="2.16.840.1.113883.6.96"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="EAS" inversionInd="true">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                     <id root="cdc6742d-db5a-4c6e-9906-55011a6b49dd"/>
+                     <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                     <sourceOf typeCode="COMP">
+                        <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.464.1003.101.12.1047"
+                                 displayName="HIV Visit Grouping Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence A of Encounter, Performed: HIV Visit</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="DURING">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </encounter>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                     <id root="ee860bfe-aadf-4f65-9ced-d92d8a00b162"/>
+                     <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                     <sourceOf typeCode="COMP">
+                        <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.464.1003.101.12.1047"
+                                 displayName="HIV Visit Grouping Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence B of Encounter, Performed: HIV Visit</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="DURING">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </encounter>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.12"/>
+                     <id root="2aab441a-8864-4456-aaaa-33d58506f1d7"/>
+                     <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.464.1003.121.12.1004"
+                                 displayName="CD4+ Count Grouping Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence A of Laboratory Test, Result: CD4+ Count (result &lt; 200  per mm3)</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <templateId root="2.16.840.1.113883.3.560.1.1019.3"/>
+                                 <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                       codeSystemName="SNOMED-CT"/>
+                                 <value xsi:type="IVL_PQ">
+                                    <high value="200" unit="/mm3" inclusive="false"/>
+                                 </value>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="EAS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <high value="9" unit="mo" inclusive="false"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                     <id root="ee860bfe-aadf-4f65-9ced-d92d8a00b162"/>
+                     <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                     <sourceOf typeCode="COMP">
+                        <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.464.1003.101.12.1047"
+                                 displayName="HIV Visit Grouping Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence B of Encounter, Performed: HIV Visit</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="SAE">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <low value="90" unit="d" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="cdc6742d-db5a-4c6e-9906-55011a6b49dd"/>
+                                 <title>Occurrence A of Encounter, Performed: HIV Visit</title>
+                              </observation>
+                           </sourceOf>
+                        </encounter>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: population 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="1D0C7BE5-F9A9-42A9-8720-4CF737082FEA"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="IPP" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Initial Patient Population"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="f1b5a8de-fc17-4206-aafe-63c034f0f691"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                                  codeSystem="2.16.840.1.113883.3.560.101.1"
+                                  displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <low value="1" unit="a" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="f1b5a8de-fc17-4206-aafe-63c034f0f691"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                                  codeSystem="2.16.840.1.113883.3.560.101.1"
+                                  displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <high value="6" unit="a" inclusive="false"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                     <id root="418bcb5e-e6b2-424b-837b-cd81e33e8190"/>
+                     <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                           <title>Diagnosis, Active: HIV</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.464.1003.120.12.1003"
+                                  displayName="HIV Grouping Value Set"/>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                 <value xsi:type="CD" code="55561003" displayName="active"
+                                        codeSystem="2.16.840.1.113883.6.96"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="EAS" inversionInd="true">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                     <id root="cdc6742d-db5a-4c6e-9906-55011a6b49dd"/>
+                     <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                     <sourceOf typeCode="COMP">
+                        <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.464.1003.101.12.1047"
+                                 displayName="HIV Visit Grouping Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence A of Encounter, Performed: HIV Visit</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="DURING">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </encounter>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                     <id root="ee860bfe-aadf-4f65-9ced-d92d8a00b162"/>
+                     <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                     <sourceOf typeCode="COMP">
+                        <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.464.1003.101.12.1047"
+                                 displayName="HIV Visit Grouping Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence B of Encounter, Performed: HIV Visit</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="DURING">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </encounter>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                     <id root="ee860bfe-aadf-4f65-9ced-d92d8a00b162"/>
+                     <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                     <sourceOf typeCode="COMP">
+                        <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.464.1003.101.12.1047"
+                                 displayName="HIV Visit Grouping Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence B of Encounter, Performed: HIV Visit</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="SAE">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <low value="90" unit="d" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="cdc6742d-db5a-4c6e-9906-55011a6b49dd"/>
+                                 <title>Occurrence A of Encounter, Performed: HIV Visit</title>
+                              </observation>
+                           </sourceOf>
+                        </encounter>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.12"/>
+                           <id root="2aab441a-8864-4456-aaaa-33d58506f1d7"/>
+                           <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.1003.121.12.1004"
+                                       displayName="CD4+ Count Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Occurrence A of Laboratory Test, Result: CD4+ Count (result &lt; 500  per mm3)</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <templateId root="2.16.840.1.113883.3.560.1.1019.3"/>
+                                       <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                             codeSystemName="SNOMED-CT"/>
+                                       <value xsi:type="IVL_PQ">
+                                          <high value="500" unit="/mm3" inclusive="false"/>
+                                       </value>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="EAS">
+                                    <pauseQuantity xsi:type="IVL_PQ">
+                                       <high value="9" unit="mo" inclusive="false"/>
+                                    </pauseQuantity>
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+                                       <title>Measurement Period</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.12"/>
+                           <id root="c39ca47f-05ee-4192-964a-f1897533ac0e"/>
+                           <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.1003.121.12.1005"
+                                       displayName="CD4+ Percentage Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Occurrence A of Laboratory Test, Result: CD4+ Percentage (result &lt; 15  %)</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <templateId root="2.16.840.1.113883.3.560.1.1019.3"/>
+                                       <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                             codeSystemName="SNOMED-CT"/>
+                                       <value xsi:type="IVL_PQ">
+                                          <high value="15" unit="%" inclusive="false"/>
+                                       </value>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="EAS">
+                                    <pauseQuantity xsi:type="IVL_PQ">
+                                       <high value="9" unit="mo" inclusive="false"/>
+                                    </pauseQuantity>
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+                                       <title>Measurement Period</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: population 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="383CCBED-2407-4E5D-9DBD-26681AAE54D0"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="IPP" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Initial Patient Population"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <subsetCode code="FIRST"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                     <id root="4a737cd4-76a2-4f5e-be0f-739dc6f7fb4e"/>
+                     <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                           <title>Occurrence A of Diagnosis, Active: HIV</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.464.1003.120.12.1003"
+                                  displayName="HIV Grouping Value Set"/>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                 <value xsi:type="CD" code="55561003" displayName="active"
+                                        codeSystem="2.16.840.1.113883.6.96"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="EAS" inversionInd="true">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="f1b5a8de-fc17-4206-aafe-63c034f0f691"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                                  codeSystem="2.16.840.1.113883.3.560.101.1"
+                                  displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <low value="6" unit="wk" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="f1b5a8de-fc17-4206-aafe-63c034f0f691"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                                  codeSystem="2.16.840.1.113883.3.560.101.1"
+                                  displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <high value="1" unit="a" inclusive="false"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                     <id root="cdc6742d-db5a-4c6e-9906-55011a6b49dd"/>
+                     <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                     <sourceOf typeCode="COMP">
+                        <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.464.1003.101.12.1047"
+                                 displayName="HIV Visit Grouping Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence A of Encounter, Performed: HIV Visit</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="DURING">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </encounter>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                     <id root="ee860bfe-aadf-4f65-9ced-d92d8a00b162"/>
+                     <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                     <sourceOf typeCode="COMP">
+                        <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.464.1003.101.12.1047"
+                                 displayName="HIV Visit Grouping Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence B of Encounter, Performed: HIV Visit</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="DURING">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="06d3dd47-27b5-4caf-8db6-eb86c5f628f1"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </encounter>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                     <id root="ee860bfe-aadf-4f65-9ced-d92d8a00b162"/>
+                     <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                     <sourceOf typeCode="COMP">
+                        <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.464.1003.101.12.1047"
+                                 displayName="HIV Visit Grouping Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence B of Encounter, Performed: HIV Visit</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="SAE">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <low value="90" unit="d" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="cdc6742d-db5a-4c6e-9906-55011a6b49dd"/>
+                                 <title>Occurrence A of Encounter, Performed: HIV Visit</title>
+                              </observation>
+                           </sourceOf>
+                        </encounter>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Data Criteria Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57025-9" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Data criteria (QDM Data Elements)"/>
+         <title>Data criteria (QDM Data Elements)</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Diagnosis, Active: HIV"</content> using "HIV Grouping Value Set (2.16.840.1.113883.3.464.1003.120.12.1003)"</item>
+               <item>
+                  <content>"Encounter, Performed: HIV Visit"</content> using "HIV Visit Grouping Value Set (2.16.840.1.113883.3.464.1003.101.12.1047)"</item>
+               <item>
+                  <content>"Laboratory Test, Result: CD4+ Count"</content> using "CD4+ Count Grouping Value Set (2.16.840.1.113883.3.464.1003.121.12.1004)"</item>
+               <item>
+                  <content>"Laboratory Test, Result: CD4+ Percentage"</content> using "CD4+ Percentage Grouping Value Set (2.16.840.1.113883.3.464.1003.121.12.1005)"</item>
+               <item>
+                  <content>"Medication, Order: Dapsone and pyrimethamine"</content> using "Dapsone and pyrimethamine Grouping Value Set (2.16.840.1.113883.3.464.1003.196.12.1202)"</item>
+               <item>
+                  <content>"Medication, Order: Leucovorin"</content> using "Leucovorin Grouping Value Set (2.16.840.1.113883.3.464.1003.196.12.1205)"</item>
+               <item>
+                  <content>"Medication, Order: Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis"</content> using "Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis Grouping Value Set (2.16.840.1.113883.3.464.1003.196.12.1076)"</item>
+               <item>
+                  <content>"Patient Characteristic Birthdate: birth date"</content> using "birth date LOINC Value Set (2.16.840.1.113883.3.560.100.4)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="418bcb5e-e6b2-424b-837b-cd81e33e8190"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: HIV</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.464.1003.120.12.1003"
+                            displayName="HIV Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active"
+                                  codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+               <id root="f5d26b95-afdd-41df-9cb1-a8aa04da72e0"/>
+               <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                     <title>Medication, Order: Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.464.1003.196.12.1076"
+                                    displayName="Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis Grouping Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.12"/>
+               <id root="385bb7bb-e726-46a7-a3cf-57748a937729"/>
+               <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.1003.121.12.1005"
+                           displayName="CD4+ Percentage Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Laboratory Test, Result: CD4+ Percentage</title>
+                     <statusCode code="completed"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+               <id root="df80a019-b833-4888-9112-2c5b848e0278"/>
+               <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                     <title>Medication, Order: Leucovorin</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.464.1003.196.12.1205"
+                                    displayName="Leucovorin Grouping Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+               <id root="ba2cbece-f6bf-4219-9cf6-51b0b7da5d3e"/>
+               <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                     <title>Medication, Order: Dapsone and pyrimethamine</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.464.1003.196.12.1202"
+                                    displayName="Dapsone and pyrimethamine Grouping Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+               <id root="f1b5a8de-fc17-4206-aafe-63c034f0f691"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                     <title>Patient Characteristic Birthdate: birth date</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="birth date LOINC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="696506e6-fa86-4b43-97d1-247c235d4a17"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.1003.101.12.1047"
+                           displayName="HIV Visit Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: HIV Visit</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.12"/>
+               <id root="0bc91d9d-c2b5-4393-9827-39dc7a8b6add"/>
+               <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.1003.121.12.1004"
+                           displayName="CD4+ Count Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Laboratory Test, Result: CD4+ Count</title>
+                     <statusCode code="completed"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="cdc6742d-db5a-4c6e-9906-55011a6b49dd"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>HIV Visit</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="696506e6-fa86-4b43-97d1-247c235d4a17"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="ee860bfe-aadf-4f65-9ced-d92d8a00b162"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>HIV Visit</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="696506e6-fa86-4b43-97d1-247c235d4a17"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.12"/>
+               <id root="2aab441a-8864-4456-aaaa-33d58506f1d7"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>CD4+ Count</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="0bc91d9d-c2b5-4393-9827-39dc7a8b6add"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.12"/>
+               <id root="be835227-f051-4d60-9d6b-4d6b44802d52"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>CD4+ Count</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="0bc91d9d-c2b5-4393-9827-39dc7a8b6add"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.17"/>
+               <id root="8af10f40-c04a-4c2b-9ea6-8c262f9f195f"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>Leucovorin</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="df80a019-b833-4888-9112-2c5b848e0278"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.12"/>
+               <id root="c39ca47f-05ee-4192-964a-f1897533ac0e"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>CD4+ Percentage</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="385bb7bb-e726-46a7-a3cf-57748a937729"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.12"/>
+               <id root="6c89da7a-5f08-4485-9d6e-e37053221c20"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>CD4+ Percentage</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="385bb7bb-e726-46a7-a3cf-57748a937729"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="4a737cd4-76a2-4f5e-be0f-739dc6f7fb4e"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>HIV</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="418bcb5e-e6b2-424b-837b-cd81e33e8190"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.17"/>
+               <id root="19700f61-d0dc-40b9-a0ff-2f7a0e36a10e"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>Dapsone and pyrimethamine</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="ba2cbece-f6bf-4219-9cf6-51b0b7da5d3e"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+            
+         <!--
+            **************************************************************   
+            Stratification Section
+            **************************************************************
+         --><component typeCode="COMP">
+      <section>
+         <code code="69669-0" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Population stratification description"/>
+         <title>Reporting Stratification</title>
+         <text>
+            <list>
+               <item>None</item>
+            </list>
+         </text>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Supplemental Data Elements Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="69670-8" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Supplemental Data Elements"/>
+         <title>Supplemental Data Elements</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Patient Characteristic Ethnicity: Ethnicity"</content> using "Ethnicity CDC Value Set (2.16.840.1.114222.4.11.837)"</item>
+               <item>
+                  <content>"Patient Characteristic Payer: Payer"</content> using "Payer Source of Payment Typology Value Set (2.16.840.1.114222.4.11.3591)"</item>
+               <item>
+                  <content>"Patient Characteristic Race: Race"</content> using "Race CDC Value Set (2.16.840.1.114222.4.11.836)"</item>
+               <item>
+                  <content>"Patient Characteristic Sex: ONC Administrative Sex"</content> using "ONC Administrative Sex Administrative Sex Value Set (2.16.840.1.113762.1.4.1)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Sex pattern --><templateId root="2.16.840.1.113883.3.560.1.402"/>
+               <id root="dc1566d8-e19f-4b7e-baec-a9307732d066"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="263495000" codeSystem="2.16.840.1.113883.6.96" displayName="Sex"/>
+                     <title>Patient Characteristic Sex: ONC Administrative Sex</title>
+                     <value xsi:type="CD" code="2.16.840.1.113762.1.4.1"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="ONC Administrative Sex Administrative Sex Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Race pattern --><templateId root="2.16.840.1.113883.3.560.1.406"/>
+               <id root="bef71a9f-3401-49c2-ac6e-aa20263ebcaa"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="32624-9" codeSystem="2.16.840.1.113883.6.1" displayName="Race"/>
+                     <title>Patient Characteristic Race: Race</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.836"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Race CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Ethnicity pattern --><templateId root="2.16.840.1.113883.3.560.1.403"/>
+               <id root="0967b327-fa2f-472a-b925-c3326b65da2e"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="54133-4" codeSystem="2.16.840.1.113883.6.1" displayName="Ethnicity"/>
+                     <title>Patient Characteristic Ethnicity: Ethnicity</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.837"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Ethnicity CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Payer pattern --><templateId root="2.16.840.1.113883.3.560.1.405"/>
+               <id root="d42e1a89-f8e2-4936-a51e-60bed613dd6b"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" displayName="Payer"/>
+                     <title>Patient Characteristic Payer: Payer</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.3591"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Payer Source of Payment Typology Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+      </section>
+   </component>
+</QualityMeasureDocument>

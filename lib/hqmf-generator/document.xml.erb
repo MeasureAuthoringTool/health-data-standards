@@ -2,12 +2,12 @@
 <QualityMeasureDocument xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <id root="2.16.840.1.113883.3.100.1" extension="<%= doc.hqmf_id %>" />
   <code code="57024-2" codeSystem="2.16.840.1.113883.6.1"/>
-  <title value="<%= doc.title %>"/>
-  <text value="<%= doc.description %>"/>
+  <title value="<%=ERB::Util::h doc.title %>"/>
+  <text value="<%=ERB::Util::h doc.description %>"/>
   <statusCode code="completed" />
   <setId root="2.16.840.1.113883.3.100.1" extension="<%= doc.hqmf_set_id %>" />
   <versionNumber value="<%= doc.hqmf_version_number %>"/>
-  <author typeCode="AUT" contextControlCode="OP">
+  <author typeCode="AUT">
     <responsibleParty classCode="ASSIGNED" />
   </author>
   <custodian typeCode="CST">
@@ -18,9 +18,18 @@
       <code code="MSRTP" codeSystem="2.16.840.1.113883.3.560">
         <displayName value="Measurement period"/>
       </code>
-      <value>
-        <low value="<%= doc.measure_period.low.value %>" />
-        <high value="<%= doc.measure_period.high.value %>" />
+      <value xsi:type="PIVL_TS">
+        <phase lowClosed="true" highClosed="true">
+            <%- if doc.measure_period.low != nil -%>
+                <low value="<%= doc.measure_period.low.value %>" />
+            <%- end -%>
+            <%- if doc.measure_period.high != nil -%>
+                <high value="<%= doc.measure_period.high.value %>" />
+            <%- end -%>
+            <%- if doc.measure_period.width != nil -%>
+                <width xsi:type="PQ" value="<%= doc.measure_period.width.value %>" unit="a" />
+            <%- end -%>
+        </phase>
       </value>
     </measurePeriod>
   </controlVariable>
@@ -29,9 +38,12 @@
   <%- end -%>
   <component>
     <dataCriteriaSection>
+      <templateId>
+        <item root="2.16.840.1.113883.10.20.28.2.2" />
+      </templateId>
       <code code="57025-9" codeSystem="2.16.840.1.113883.6.1"/>
       <title value="Data Criteria Section"/>
-      <text>This section describes the data criteria.</text>
+      <text value="This section describes the data criteria."/>
       <%- doc.all_data_criteria.each do |data_criteria| -%>
       <%= xml_for_data_criteria(data_criteria, false) %>
       <%- end -%>
@@ -47,17 +59,36 @@
 		  <templateId>
 		    <item root="<%= HQMF::Document::STRATIFIED_POPULATION_TEMPLATE_ID %>" identifierName="<%= HQMF::Document::STRATIFIED_POPULATION_TEMPLATE_TITLE %>" controlInformationRoot="<%= population['stratification'] %>"/>
 		  </templateId>
+      <%- else -%>
+      <templateId>
+        <item root="2.16.840.1.113883.10.20.28.2.1"/>
+      </templateId>
       <%- end -%>
       <id root="2.16.840.1.113883.3.100.1" extension="<%= population['id'] || "Population#{population_index}" %>"/>
       <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"/>
-      <title value="<%= population['title'] %>"/>
-      <text>This section describes the Initial Patient Population,
-        Numerator, Denominator, Denominator Exceptions, and Measure
-        Populations</text>
+      <title value="<%=ERB::Util::h population['title'] %>"/>
+      <text value="This section describes the Initial Patient Population, Numerator, Denominator, Denominator Exceptions, and Measure Populations"/>
       <%- population.keys.each do |criteria_id| -%>
       <%= xml_for_population_criteria(population, criteria_id) %>
       <%- end -%>
     </populationCriteriaSection>
   </component>
+ <%- if doc.is_cv? -%>
+
+   <component>
+    <measureObservationSection>
+      <templateId>
+        <item root="2.16.840.1.113883.10.20.28.2.4" />
+      </templateId>
+      <code code="57027-5" codeSystem="2.16.840.1.113883.6.1">
+        <displayName value="Measure Observation" />
+      </code>
+      <title value="Measure Observation Section" />
+      <text></text>
+      <%= xml_for_measure_observation_definition(doc) %>
+    </measureObservationSection>
+  </component>
+
+  <%- end -%>
   <%- end -%>
 </QualityMeasureDocument>

@@ -9,12 +9,5 @@ module HQMF1
       @hqmf_contents = File.open(path).read
     end
   
-    # def test_patient_criteria_backfill
-    #   hqmf = HQMF::Parser.parse(@hqmf_contents, HQMF::Parser::HQMF_VERSION_1)
-    #   
-    # end
-      
-
-    
   end
 end

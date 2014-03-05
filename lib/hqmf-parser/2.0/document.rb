@@ -21,11 +21,59 @@ module HQMF2
       
       # Extract measure attributes
       @attributes = @doc.xpath('/cda:QualityMeasureDocument/cda:subjectOf/cda:measureAttribute', NAMESPACES).collect do |attribute|
-        id = attribute.at_xpath('./cda:id/@extension', NAMESPACES).try(:value)
+        id = attribute.at_xpath('./cda:id/@root', NAMESPACES).try(:value)
         code = attribute.at_xpath('./cda:code/@code', NAMESPACES).try(:value)
         name = attribute.at_xpath('./cda:code/cda:displayName/@value', NAMESPACES).try(:value)
         value = attribute.at_xpath('./cda:value/@value', NAMESPACES).try(:value)
-        HQMF::Attribute.new(id, code, value, nil, name)
+
+        id_obj = nil
+        if attribute.at_xpath('./cda:id', NAMESPACES)
+          id_obj = HQMF::Identifier.new(attribute.at_xpath('./cda:id/@xsi:type', NAMESPACES).try(:value), id, attribute.at_xpath('./cda:id/@extension', NAMESPACES).try(:value))
+        end
+
+        code_obj = nil;
+        if attribute.at_xpath('./cda:code', NAMESPACES)
+          nullFlavor = attribute.at_xpath('./cda:code/@nullFlavor', NAMESPACES).try(:value)
+          oText = attribute.at_xpath('./cda:code/cda:originalText', NAMESPACES) ? attribute.at_xpath('./cda:code/cda:originalText/@value', NAMESPACES).try(:value) : nil
+          code_obj = HQMF::Coded.new(attribute.at_xpath('./cda:code/@xsi:type', NAMESPACES).try(:value) || 'CD',
+                                 attribute.at_xpath('./cda:code/@codeSystem', NAMESPACES).try(:value),
+                                 code,
+                                 attribute.at_xpath('./cda:code/@valueSet', NAMESPACES).try(:value),
+                                 name,
+                                 nullFlavor,
+                                 oText)
+
+
+          # Mapping for nil values to align with 1.0 parsing
+          if code == nil
+            code = nullFlavor
+          end
+
+          if name == nil
+            name = oText
+          end
+
+        end
+
+        value_obj = nil
+        if attribute.at_xpath('./cda:value', NAMESPACES)
+          type = attribute.at_xpath('./cda:value/@xsi:type', NAMESPACES).try(:value)
+          case type
+          when 'II'
+            value_obj = HQMF::Identifier.new(type, attribute.at_xpath('./cda:value/@root', NAMESPACES).try(:value), attribute.at_xpath('./cda:value/@extension', NAMESPACES).try(:value))
+            if value == nil
+              value = attribute.at_xpath('./cda:value/@extension', NAMESPACES).try(:value)
+            end
+          when 'ED'
+            value_obj = HQMF::ED.new(type, value, attribute.at_xpath('./cda:value/@mediaType', NAMESPACES).try(:value))
+          when 'CD'
+            value_obj = HQMF::Coded.new('CD', attribute.at_xpath('./cda:value/@codeSystem', NAMESPACES).try(:value), attribute.at_xpath('./cda:value/@code', NAMESPACES).try(:value), attribute.at_xpath('./cda:value/@valueSet', NAMESPACES).try(:value), attribute.at_xpath('./cda:value/cda:displayName/@value', NAMESPACES).try(:value))
+          else
+            value_obj = value.present? ? HQMF::GenericValueContainer.new(type, value) : HQMF::AnyValue.new(type)
+          end
+        end
+
+        HQMF::Attribute.new(id, code, value, nil, name, id_obj, code_obj, value_obj)
       end
       
       # Extract the data criteria
@@ -54,11 +102,13 @@ module HQMF2
         population['stratification'] = stratifier_id_def.value if stratifier_id_def
 
         {
-          HQMF::PopulationCriteria::IPP => 'patientPopulationCriteria',
+          HQMF::PopulationCriteria::IPP => 'initialPopulationCriteria',
           HQMF::PopulationCriteria::DENOM => 'denominatorCriteria',
           HQMF::PopulationCriteria::NUMER => 'numeratorCriteria',
           HQMF::PopulationCriteria::DENEXCEP => 'denominatorExceptionCriteria',
-          HQMF::PopulationCriteria::DENEX => 'denominatorExclusionCriteria'
+          HQMF::PopulationCriteria::DENEX => 'denominatorExclusionCriteria',
+          HQMF::PopulationCriteria::STRAT => 'stratifierCriteria',
+          HQMF::PopulationCriteria::MSRPOPL => 'measurePopulationCriteria'
         }.each_pair do |criteria_id, criteria_element_name|
           criteria_def = population_def.at_xpath("cda:component[cda:#{criteria_element_name}]", NAMESPACES)
           
@@ -95,12 +145,50 @@ module HQMF2
             end
           end
         end
+
+
         id_def = population_def.at_xpath('cda:id/@extension', NAMESPACES)
         population['id'] = id_def ? id_def.value : "Population#{population_index}"
         title_def = population_def.at_xpath('cda:title/@value', NAMESPACES)
         population['title'] = title_def ? title_def.value : "Population #{population_index}"
+        observation_section = @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:measureObservationSection', NAMESPACES)
+        if !observation_section.empty?
+           population['OBSERV'] = 'OBSERV'
+        end
         @populations << population
       end
+
+
+      #look for observation data in separate section but create a population for it if it exists
+      observation_section = @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:measureObservationSection', NAMESPACES)
+      if !observation_section.empty?
+        observation_section.xpath("cda:definition",NAMESPACES).each do |criteria_def|
+          criteria_id = "OBSERV"
+          population = {}
+          criteria = PopulationCriteria.new(criteria_def, self)
+          criteria.type="OBSERV"
+          # this section constructs a human readable id.  The first IPP will be IPP, the second will be IPP_1, etc.  This allows the populations to be
+          # more readable.  The alternative would be to have the hqmf ids in the populations, which would work, but is difficult to read the populations.
+          if ids_by_hqmf_id["#{criteria.hqmf_id}"]
+             criteria.create_human_readable_id(ids_by_hqmf_id[criteria.hqmf_id])
+          else
+            if population_counters[criteria_id]
+              population_counters[criteria_id] += 1
+              criteria.create_human_readable_id("#{criteria_id}_#{population_counters[criteria_id]}")
+            else
+              population_counters[criteria_id] = 0
+              criteria.create_human_readable_id(criteria_id)
+            end
+            ids_by_hqmf_id["#{criteria.hqmf_id}"] = criteria.id
+          end
+          
+          @population_criteria << criteria
+
+          population[criteria_id] = criteria.id
+          @populations << population
+          end 
+      end
+
     end
     
     # Get the title of the measure
@@ -150,6 +238,7 @@ module HQMF2
     end
     
     def to_model
+
       dcs = all_data_criteria.collect {|dc| dc.to_model}
       pcs = all_population_criteria.collect {|pc| pc.to_model}
       sdc = source_data_criteria.collect{|dc| dc.to_model}

@@ -26,36 +26,22 @@ module HQMF1
       @attributes = @doc.xpath('//cda:subjectOf/cda:measureAttribute').collect do |attr|
         Attribute.new(attr)
       end
-      @population_criteria = @doc.xpath('//cda:section[cda:code/@code="57026-7"]/cda:entry').collect do |attr|
-        PopulationCriteria.new(attr, self)
+      @population_criteria = @doc.xpath('//cda:section[cda:code/@code="57026-7"]/cda:entry').collect do |criteria|
+        PopulationCriteria.new(criteria, self)
       end
-      observations = @doc.xpath('//cda:section[cda:code/@code="57027-5"]/cda:entry').collect do |attr|
-        Observation.new(attr, self)
+      observations = @doc.xpath('//cda:section[cda:code/@code="57027-5"]/cda:entry').collect do |observation|
+        Observation.new(observation, self)
       end
       @population_criteria.concat(observations)
 
-      @stratification = @doc.xpath('//cda:section[cda:code/@code="69669-0"]/cda:entry').collect do |attr|
-        PopulationCriteria.new(attr, self)
+      @stratification = @doc.xpath('//cda:section[cda:code/@code="69669-0"]/cda:entry').collect do |strat|
+        PopulationCriteria.new(strat, self)
       end
       
       if (@stratification and !@stratification.empty?)
-        initial_populations = @population_criteria.select {|pc| pc.code.starts_with? 'IPP'}
-        initial_populations.each do |population|
-          
-          @stratification.each do |stratification|
-            new_population = HQMF1::PopulationCriteria.new(population.entry, population.doc)
-            new_population.hqmf_id = new_population.id
-            new_population.stratification_id = stratification.id
-            new_population.id = "#{new_population.id}_#{stratification.id}"
-            ids = stratification.preconditions.map(&:id)
-            new_population.preconditions.delete_if {|precondition| ids.include? precondition.id}
-            new_population.preconditions.concat(stratification.preconditions)
-            new_population.preconditions.rotate!(-1*stratification.preconditions.size)
-            @population_criteria << new_population
-          end
-          
+        @stratification.each do |stratification|
+          @population_criteria << stratification
         end
-        
       end
       
       @hqmf_set_id = @doc.at_xpath('//cda:setId/@root').value.upcase
@@ -136,7 +122,7 @@ module HQMF1
     # Parse an XML document from the supplied contents
     # @return [Nokogiri::XML::Document]
     def self.parse(hqmf_contents)
-      doc = Nokogiri::XML(hqmf_contents)
+      doc = hqmf_contents.kind_of?(Nokogiri::XML::Document) ? hqmf_contents : Nokogiri::XML(hqmf_contents)
       doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
       doc
     end
@@ -169,6 +155,7 @@ module HQMF1
         json[:data_criteria].merge! criteria_json
       end
       
+      # TODO: Investigate why we never use json[:attributes] in the model
       json[:metadata] = {}
       json[:attributes] = {}
       @attributes.each do |attribute|

@@ -62,7 +62,7 @@ module HQMF
       json[:id] = self.id
       json[:reference] = self.reference.id if self.reference
       json[:preconditions] = x if x = json_array(@preconditions)
-      json[:conjunction_code] = self.conjunction_code if self.conjunction_code
+      json[:conjunction_code] = self.conjunction_code if self.conjunction_code && self.preconditions.length > 0
       json[:negation] = self.negation if self.negation
       json
     end

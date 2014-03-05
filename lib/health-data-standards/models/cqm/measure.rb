@@ -9,6 +9,7 @@ module HealthDataStandards
       store_in collection: 'measures'
       field :id, as: :id, type: String
       field :sub_id, type: String
+      field :cms_id, type: String
       field :name, type: String
       field :subtitle, type: String
       field :short_subtitle, type: String
