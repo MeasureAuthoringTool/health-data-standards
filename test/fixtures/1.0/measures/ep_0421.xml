@@ -1,0 +1,2335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="xslt/eMeasure.xsl"?>
+<QualityMeasureDocument xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         
+      <!--
+         **************************************************************   
+         Measure Header Section
+         **************************************************************
+      --><typeId root="2.16.840.1.113883.1.3" extension="POQM_HD000001"/>
+   <id root="40280381-3e93-d1af-013e-d6e2b772150d"/>
+   <code code="57024-2" codeSystem="2.16.840.1.113883.6.1"
+         displayName="Health Quality Measure Document"/>
+   <title>Preventive Care and Screening: Body Mass Index (BMI) Screening and Follow-Up</title>
+   <text>Percentage of patients aged 18 years and older with a documented BMI during the encounter or during the previous six months, AND when the BMI is outside of normal parameters, a follow-up plan is documented during the encounter or during the previous six months of the encounter &#xD;
+&#xD;
+Normal Parameters:       Age 65 years and older BMI =&gt; 23 and &lt; 30 &#xD;
+&#xD;
+                                    Age 18 – 64 years BMI =&gt; 18.5 and &lt; 25</text>
+   <statusCode code="Complete"/>
+   <setId root="9a031bb8-3d9b-11e1-8634-00237d5bf174"/>
+   <versionNumber value="2"/>
+   <author typeCode="AUT">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="5e6bc199-9923-44c4-9892-f2f36a939e9d"/>
+            <name>Quality Insights of Pennsylvania</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </author>
+   <custodian>
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="2.16.840.1.113883.3.560.3.31"/>
+            <name>Centers for Medicare &amp; Medicaid Services</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </custodian>
+   <verifier typeCode="VRF">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <name>National Quality Forum</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </verifier>
+   <subjectOf>
+      <measureAttribute>
+         <code code="COPY" codeSystem="2.16.840.1.113883.5.4" displayName="Copyright"/>
+         <value xsi:type="ED" mediaType="text/plain">Limited proprietary coding is contained in the measure specifications for convenience. Users of the proprietary code sets should obtain all necessary licenses from the owners of these code sets. Quality Insights of Pennsylvania disclaims all liability for use or accuracy of any Current Procedural Terminology (CPT [R]) or other coding contained in the specifications.&#xD;
+&#xD;
+&#xD;
+&#xD;
+CPT (R) contained in the Measure specifications is copyright 2007-2011 American Medical Association. &#xD;
+&#xD;
+&#xD;
+&#xD;
+LOINC (R) copyright 2004-2011 Regenstrief Institute, Inc. This material contains SNOMED Clinical Terms (R) (SNOMED CT [R]) copyright 2004-2011 International Health Terminology Standards Development Organization. All Rights Reserved.&#xD;
+&#xD;
+&#xD;
+&#xD;
+Due to technical limitations, registered trademarks are indicated by (R) or [R] and unregistered trademarks are indicated by (TM) or [TM].</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRSCORE" codeSystem="2.16.840.1.113883.5.4"
+               displayName="Measure Scoring"/>
+         <value xsi:type="CD" code="PROPOR" codeSystem="2.16.840.1.113883.1.11.20367"
+                displayName="Proportion"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRTYPE" codeSystem="2.16.840.1.113883.5.4" displayName="Measure Type"/>
+         <value xsi:type="CD" code="PROCESS" codeSystem="2.16.840.1.113883.1.11.20368"
+                displayName="Process"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="STRAT" codeSystem="2.16.840.1.113883.5.4" displayName="Stratification"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRADJ" codeSystem="2.16.840.1.113883.5.4" displayName="Risk Adjustment"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRAGG" codeSystem="2.16.840.1.113883.5.4" displayName="Rate Aggregation"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="RAT" codeSystem="2.16.840.1.113883.5.4" displayName="Rationale"/>
+         <value xsi:type="ED" mediaType="text/plain">Rationale BMI Above Upper Parameters&#xD;
+&#xD;
+Obesity continues to be a costly public health concern in the United States. The Centers for Disease Control and Prevention (CDC, 2010) reported that in 2009, no state met the Healthy People 2010 obesity target of 15 percent and the self reported overall prevalence of obesity among adults had increased 1.1 percentage points in 2007 to 26.7 percent. Flegal, Carroll, Kit &amp; Ogden (2012) reported the prevalence of BMI-defined obesity in adults is high and continues to exceed 30% in most sex-age groups. In addition to the continued high prevalence rate for adults in general, there has been a significant increase for men and for non-Hispanic black and Mexican American women over the 12-year period from 1999 through 2010.Moyer (2012) reported: .Obesity is associated with such health problems as an increased risk for coronary artery disease, type 2 diabetes, various types of cancer, gallstones and disability. These comorbid medical conditions are associated with higher use of health care services and costs among obese patients (p. 373).  &#xD;
+&#xD;
+&#xD;
+&#xD;
+Obesity is also associated with an increased risk of death, particularly in adults younger than age 65 years and has been shown to reduce life expectancy by 6 to 20 years depending on age and race (LeBlanc et al., 2011).&#xD;
+&#xD;
+&#xD;
+Finkelstein, Trogdon, Cohen and Dietz (2009) found that in 2006, across all payers, per capita medical spending for the obese is $1,429 higher per year (42 percent) than for someone of normal weight.  Using 2008 dollars, this was estimated to be equivalent to $147 billion dollars in medical care costs related to obesity. &#xD;
+&#xD;
+&#xD;
+&#xD;
+In addition to a high prevalence rate of obesity, less than 50% of obese adults in 2010 received advice to exercise or perform physical activity (Barnes &amp; Schoenborn, 2012). &#xD;
+&#xD;
+&#xD;
+&#xD;
+BMI Below Normal Parameters &#xD;
+&#xD;
+In the National Center of Health Statistics (NCHS) Health E-Stat, Fryer &amp; Ogden (2012) reported that poor nutrition or underlying health conditions can result in underweight. Results from the 2007-2010 National Health and Nutrition Examination Survey (NHANES), using measured heights and weights, indicate an estimated 1.7% of U.S. adults are underweight with women more likely to be underweight than men.  (as c &#xD;
+&#xD;
+&#xD;
+&#xD;
+Ranhoff, Gjoen &amp; Mowe  (2005) recommended using BMI &lt; 23 for the elderly to identify positive results with malnutrition screens and poor nutritional status</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="CRS" codeSystem="2.16.840.1.113883.3.560"
+               displayName="Clinical Recommendation Statement"/>
+         <value xsi:type="ED" mediaType="text/plain">Although multiple clinical recommendations addressing obesity have been developed by professional organizations, societies and associations, two recommendations have been identified which exemplify the intent of the measure and address the numerator and denominator.&#xD;
+&#xD;
+&#xD;
+&#xD;
+The US Preventive Health Services Task Force (USPSTF) recommends that clinicians screen all adult (aged 18 years and older) for obesity. Clinicians should offer or refer patients with a BMI of 30 or higher to intensive, multicomponent behavioral interventions. This is a B recommendation (Moyer, 2012).&#xD;
+&#xD;
+&#xD;
+As cited in Wilkinson et al. (2012), the Institute for Clinical Systems Improvement (ICSI, ) Preventive Services for Adults, Obesity Screening (Level II) Recommendation provides the following guidance &#xD;
+            &#xD;
+&#xD;
+-Record height, weight and calculate body mass index at least annually&#xD;
+&#xD;
+-A BMI greater or equal to 30 is defined as obese&#xD;
+&#xD;
+-A BMI of 25-29 is defined as overweight&#xD;
+&#xD;
+-Intensive intervention for obese individuals, based on BMI, is recommended by the U.S. Preventive Services to help control weight</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IDUR" codeSystem="2.16.840.1.113883.3.560"
+               displayName="Improvement Notation"/>
+         <value xsi:type="ED" mediaType="text/plain">Higher score indicates better quality</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>NQF ID Number</originalText>
+         </code>
+         <value xsi:type="II" root="2.16.840.1.113883.3.560.1" extension="0421"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DISC" codeSystem="2.16.840.1.113883.5.4" displayName="Disclaimer">
+            <originalText>Disclaimer</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">These performance measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications.&#xD;
+&#xD;
+&#xD;
+&#xD;
+THE MEASURES AND SPECIFICATIONS ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>eMeasure Identifier</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">69</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.74"/>
+         <id root="fd760eed-4a95-47de-bed1-66a656dca709"/>
+         <code code="MSRTP" displayName="Measurement period"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="IVL_TS">
+            <low value="00000101"/>
+            <high value="00001231"/>
+         </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureStartDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="2d34d257-7bbe-43b7-9f82-054fec86995d"/>
+         <code code="MSRSD" displayName="Measurement start date"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00000101"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureEndDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="2d0b0cd4-a377-4cd6-8c79-ac7b9383fb21"/>
+         <code code="MSRED" displayName="Measurement end date"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00001231"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Reference	Centers for Disease Control and Prevention (CDC). ( 2010). Vital Signs: State-specific obesity prevalence among adults, - United States, 2009. Morbidity and mortality weekly report, 59.  Retrieved from http://www.cdc.gov/mmwr/preview/mmwrhtml/mm59e0803a1.htm</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Flegal, K. M., Carroll, M. D., Kit, B. K., Ogden, C. L. (2012). Prevalence of obesity and trends in the distribution of body mass index among U. S. adults, 1999-2010. JAMA, 307(5), 491-497.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Moyer, V. A. (2012). Screening for and management of obesity in adults: U.S. Preventive Services Task Force Recommendation Statement. Annals of Internal Medicine, 157, 373-378.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Fryar, C. D., &amp; Ogden, C. L. (2012). Prevalence of underweight among adults aged 20 and over: United States, 1960-1962 through 2007-2010. National Center for Health Statistics, Division of Health and Nutrition Examination Surveys. Retrieved from http://www.cdc.gov/nchs/data/hestat/underweight_adult_07_10/underweight_adult_07_10.pdf</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Finkelstein, E.A., Trogdon, J.G., Cohen, J.W., &amp; Dietz, W. (2009). Annual Medical Spending Attributable To Obesity: Payer-And Service-Specific Estimates. Health Affairs, 28(5), w822-w831.  doi:  10.1377/hlthaff.28.5.w822</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Wilkinson, J., Bass, C., Diem, S., Gravley, A., Harvey, L. Hayes, R., Johnson, K., Maciosek, M., McKeon, K., Milteer, L., Morgan, J., Rothe, P., Snellman, L., Solberg, L., Storlie, C., &amp; Vincent, P. (2012). Institute for Clinical Systems Improvement. Preventive Services for Adults. Retrieved from http://bit.ly.PrevServAdults0912.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">LeBlanc, E., O’Connor, E., Whitlock, E.P., Patnode, C., &amp; Kapka T. (2011). Screening for and Management of Obesity and Overweight in Adults. AHRQ Publication No. 11-05159- EF-1, Evidence Synthesis Number 89. Retrieved from http://www.uspreventiveservicestaskforce.org/uspstf11/obeseadult/obesees.pdf</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Barnes PM, Schoenborn CA (2012). Trends in adults receiving a recommendation for exercise or other physical activity from a physician or other health professional. Centers for Disease Control and Prevention (CDC), National Center for Health Statistics (NCHS) Data Brief, No. 86: Feb 2012.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DEF" codeSystem="2.16.840.1.113883.3.560" displayName="Definition"/>
+         <value xsi:type="ED" mediaType="text/plain">BMI- Body mass index (BMI) -is a number calculated using the Quetelet index: weight divided by height squared (W/H2) and is commonly used to classify weight categories. BMI can be calculated using:&#xD;
+&#xD;
+Metric Units:    BMI = Weight (kg) / (Height (m) x Height (m))    OR             &#xD;
+&#xD;
+                                     English Units: BMI = Weight (lb) / (Height (in) x Height (in)) x 703&#xD;
+&#xD;
+&#xD;
+&#xD;
+Follow-Up Plan – Proposed outline of treatment to be conducted as a result of a BMI out of normal parameters. A follow-up may include, but is not limited to: documentation of education, referral (e.g. a registered dietician, nutritionist, occupational therapist, physical therapist, primary care provider, exercise physiologist, mental health professional, or surgeon), pharmacological interventions, dietary supplements, exercise counseling or nutrition</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="GUIDE" codeSystem="2.16.840.1.113883.5.4" displayName="Guidance"/>
+         <value xsi:type="ED" mediaType="text/plain">There is no diagnosis associated with this measure. This measure may be reported by eligible professionals who perform the quality actions described in the measure based on the services provided at the time of the qualifying visit and the measure-specific denominator coding. The BMI documented in the medical record may be reported if done in the provider’s office/facility or if a BMI is documented within the previous six months in outside medical records obtained by the provider. If the most recent documented BMI is outside of normal parameters, then a follow-up plan must be documented within six months of the abnormal BMI. An eligible professional or their staff is required to measure both height and weight. Both height and weight must be obtained within the same six months.  Self-reported values cannot be used. The documented follow-up interventions must be related to the BMI outside of normal parameters, example:  “Patient referred to nutrition counseling for BMI above normal parameters”.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Transmission Format</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">TBD</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IPP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Initial Patient Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">There are two (2) Initial Patient Populations for this measure NOTE: The most recent quality code submitted will be used for performance calculation.&#xD;
+&#xD;
+Initial Patient Population 1:  All patients 65 years of age and older before the beginning of the measurement period with at least one eligible encounter during the measurement period NOT INCLUDING encounters where the patient is receiving palliative care, refuses measurement of height and/or weight, the patient is in an urgent or emergent medical situation where time is of the essence and to delay treatment would jeopardize the patient’s health status, or there is any other reason documented in the medical record by the provider explaining why BMI measurement was not appropriate. &#xD;
+&#xD;
+Initial Patient Population 2:  All patients 18 through 64 years before the beginning of the measurement period with at least one eligible encounter during the measurement period NOT INCLUDING encounters where the patient is receiving palliative care, refuses measurement of height and/or weight, the patient is in an urgent or emergent medical situation where time is of the essence and to delay treatment would jeopardize the patient’s health status, or there is any other reason documented in the medical record by the provider explaining why BMI measurement was not appropriate</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENOM" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Equals Initial Patient Population</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Denominator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Patients who are pregnant.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="NUMER" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Numerator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Patients with a documented BMI during the encounter or during the previous six months, AND when the BMI is outside of normal parameters, a follow-up plan is documented during the encounter or during the previous six months of the encounter with the BMI outside of normal parameters.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Numerator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator Exceptions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Measure Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Measure Observations</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Supplemental Data Elements</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">For every patient evaluated by this measure also identify payer, race, ethnicity and sex.</value>
+      </measureAttribute>
+   </subjectOf>
+   <componentOf>
+      <qualityMeasureSet classCode="ACT">
+         <id root="ffd4afd7-4981-48c2-92dd-73b764987409"/>
+         <title>none</title>
+      </qualityMeasureSet>
+   </componentOf>
+         
+      <!--
+         **************************************************************   
+         Population Criteria Section
+         **************************************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Population criteria"/>
+         <title>Population criteria</title>
+         <text>
+            <paragraph>
+               <caption>Population Criteria 1</caption>
+            </paragraph>
+            <list>
+               <item>
+                  <content styleCode="Bold">Initial Patient Population 1 =</content>
+                  <list>
+                     <item>AND NOT: <list>
+                           <item>OR: "Procedure, Order: Palliative Care" starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                           <item>OR: "Physical Exam, Performed not done: Medical or Other reason not done" for "BMI LOINC Value LOINC Value Set" during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                           <item>OR: "Physical Exam, Performed not done: Patient Reason Refused" for "BMI LOINC Value LOINC Value Set" during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                        </list>
+                     </item>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &gt;= 65 year(s) starts before start of "Measurement Period"</item>
+                     <item>AND: "Occurrence A of Encounter, Performed: BMI Encounter Code Set" during "Measurement Period"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator 1 =</content>
+                  <list>
+                     <item>AND: "Initial Patient Population 1"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exclusions 1 =</content>
+                  <list>
+                     <item>AND NOT: "Occurrence A of Diagnosis, Active: Pregnancy Dx" ends before start of "Measurement Period"</item>
+                     <item>AND: "Occurrence A of Diagnosis, Active: Pregnancy Dx" starts before or during "Measurement Period"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Numerator 1 =</content>
+                  <list>
+                     <item>AND: <list>
+                           <item>OR: <list>
+                                 <item>AND: MOST RECENT:"Occurrence A of Physical Exam, Finding: BMI LOINC Value"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                 <item>AND: "Occurrence A of Physical Exam, Finding: BMI LOINC Value (result &gt;= 23 kg/m2)"</item>
+                                 <item>AND: "Occurrence A of Physical Exam, Finding: BMI LOINC Value (result &lt; 30 kg/m2)"</item>
+                              </list>
+                           </item>
+                           <item>OR: <list>
+                                 <item>AND: MOST RECENT:"Occurrence A of Physical Exam, Finding: BMI LOINC Value"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                 <item>AND: "Occurrence A of Physical Exam, Finding: BMI LOINC Value (result &gt;= 30 kg/m2)"</item>
+                                 <item>AND: <list>
+                                       <item>OR: "Intervention, Order: Above Normal Follow-up (reason: 'Overweight')"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                       <item>OR: "Intervention, Order: Referrals where weight assessment may occur (reason: 'Overweight')"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                       <item>OR: "Medication, Order: Above Normal Medications (reason: 'Overweight')"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                    </list>
+                                 </item>
+                              </list>
+                           </item>
+                           <item>OR: <list>
+                                 <item>AND: MOST RECENT:"Occurrence A of Physical Exam, Finding: BMI LOINC Value"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                 <item>AND: "Occurrence A of Physical Exam, Finding: BMI LOINC Value (result &lt; 23 kg/m2)"</item>
+                                 <item>AND: <list>
+                                       <item>OR: "Intervention, Order: Below Normal Follow up (reason: 'Underweight')"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                       <item>OR: "Intervention, Order: Referrals where weight assessment may occur (reason: 'Underweight')"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                       <item>OR: "Medication, Order: Below Normal Medications (reason: 'Underweight')"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                    </list>
+                                 </item>
+                              </list>
+                           </item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exceptions 1=</content>
+                  <list>
+                     <item>None</item>
+                  </list>
+               </item>
+            </list>
+            <paragraph>
+               <caption>Population Criteria 2</caption>
+            </paragraph>
+            <list>
+               <item>
+                  <content styleCode="Bold">Initial Patient Population 2 =</content>
+                  <list>
+                     <item>AND NOT: <list>
+                           <item>OR: "Procedure, Order: Palliative Care" starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                           <item>OR: "Physical Exam, Performed not done: Medical or Other reason not done" for "BMI LOINC Value LOINC Value Set" during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                           <item>OR: "Physical Exam, Performed not done: Patient Reason Refused" for "BMI LOINC Value LOINC Value Set" during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                        </list>
+                     </item>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &gt;= 18 year(s) starts before start of "Measurement Period"</item>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &lt; 64 year(s) starts before start of "Measurement Period"</item>
+                     <item>AND: "Occurrence A of Encounter, Performed: BMI Encounter Code Set" during "Measurement Period"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator 2 =</content>
+                  <list>
+                     <item>AND: "Initial Patient Population 2"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exclusions 2 =</content>
+                  <list>
+                     <item>AND NOT: "Occurrence A of Diagnosis, Active: Pregnancy Dx" ends before start of "Measurement Period"</item>
+                     <item>AND: "Occurrence A of Diagnosis, Active: Pregnancy Dx" starts before or during "Measurement Period"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Numerator 2 =</content>
+                  <list>
+                     <item>AND: <list>
+                           <item>OR: <list>
+                                 <item>AND: MOST RECENT:"Occurrence A of Physical Exam, Finding: BMI LOINC Value"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                 <item>AND: "Occurrence A of Physical Exam, Finding: BMI LOINC Value (result &gt;= 18.5 kg/m2)"</item>
+                                 <item>AND: "Occurrence A of Physical Exam, Finding: BMI LOINC Value (result &lt; 25 kg/m2)"</item>
+                              </list>
+                           </item>
+                           <item>OR: <list>
+                                 <item>AND: MOST RECENT:"Occurrence A of Physical Exam, Finding: BMI LOINC Value"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                 <item>AND: "Occurrence A of Physical Exam, Finding: BMI LOINC Value (result &gt;= 25 kg/m2)"</item>
+                                 <item>AND: <list>
+                                       <item>OR: "Intervention, Order: Above Normal Follow-up (reason: 'Overweight')"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                       <item>OR: "Intervention, Order: Referrals where weight assessment may occur (reason: 'Overweight')"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                       <item>OR: "Medication, Order: Above Normal Medications (reason: 'Overweight')"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                    </list>
+                                 </item>
+                              </list>
+                           </item>
+                           <item>OR: <list>
+                                 <item>AND: MOST RECENT:"Occurrence A of Physical Exam, Finding: BMI LOINC Value"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                 <item>AND: "Occurrence A of Physical Exam, Finding: BMI LOINC Value (result &lt; 18.5 kg/m2)"</item>
+                                 <item>AND: <list>
+                                       <item>OR: "Intervention, Order: Below Normal Follow up (reason: 'Underweight')"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                       <item>OR: "Intervention, Order: Referrals where weight assessment may occur (reason: 'Underweight')"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                       <item>OR: "Medication, Order: Below Normal Medications (reason: 'Underweight')"  &lt;= 6 month(s) starts before or during "Occurrence A of Encounter, Performed: BMI Encounter Code Set"</item>
+                                    </list>
+                                 </item>
+                              </list>
+                           </item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exceptions 2=</content>
+                  <list>
+                     <item>None</item>
+                  </list>
+               </item>
+            </list>
+         </text>
+         <!--
+            **************************************************************   
+            Population Criteria Section: exclusions 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true" actionNegationInd="true">
+               <id root="6f3694a9-6ae2-4fed-923a-198489ab47b8"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="3FA95131-7882-49C0-9830-2ACB82E914D8"/>
+                     <title>Initial Patient Population 1</title>
+                  </observation>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                     <id root="670eef9e-99a5-4259-9558-a960b2bf6dc5"/>
+                     <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                           <title>Occurrence A of Diagnosis, Active: Pregnancy Dx</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.600.1.1623"
+                                  displayName="Pregnancy Dx Grouping Value Set"/>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                 <value xsi:type="CD" code="55561003" displayName="active"
+                                        codeSystem="2.16.840.1.113883.6.96"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="EBS">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="fd760eed-4a95-47de-bed1-66a656dca709"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                     <id root="670eef9e-99a5-4259-9558-a960b2bf6dc5"/>
+                     <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                           <title>Occurrence A of Diagnosis, Active: Pregnancy Dx</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.600.1.1623"
+                                  displayName="Pregnancy Dx Grouping Value Set"/>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                 <value xsi:type="CD" code="55561003" displayName="active"
+                                        codeSystem="2.16.840.1.113883.6.96"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="EAS" inversionInd="true">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="fd760eed-4a95-47de-bed1-66a656dca709"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: exclusions 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true" actionNegationInd="true">
+               <id root="d98c4592-bdce-4bdf-8466-2339a98ad00b"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="95D45B98-C6A1-42F4-A0F5-617DF414A2AE"/>
+                     <title>Initial Patient Population 2</title>
+                  </observation>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                     <id root="670eef9e-99a5-4259-9558-a960b2bf6dc5"/>
+                     <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                           <title>Occurrence A of Diagnosis, Active: Pregnancy Dx</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.600.1.1623"
+                                  displayName="Pregnancy Dx Grouping Value Set"/>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                 <value xsi:type="CD" code="55561003" displayName="active"
+                                        codeSystem="2.16.840.1.113883.6.96"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="EBS">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="fd760eed-4a95-47de-bed1-66a656dca709"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                     <id root="670eef9e-99a5-4259-9558-a960b2bf6dc5"/>
+                     <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                           <title>Occurrence A of Diagnosis, Active: Pregnancy Dx</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.600.1.1623"
+                                  displayName="Pregnancy Dx Grouping Value Set"/>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                 <value xsi:type="CD" code="55561003" displayName="active"
+                                        codeSystem="2.16.840.1.113883.6.96"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="EAS" inversionInd="true">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="fd760eed-4a95-47de-bed1-66a656dca709"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: numerator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="22aab4cb-4452-4ba0-8a45-b340a318092d"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="NUMER" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Numerator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="47F98343-B180-4CD6-9622-1D913DE255B2"/>
+                     <title>Denominator 1</title>
+                  </observation>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <subsetCode code="RECENT"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Finding pattern --><templateId root="2.16.840.1.113883.3.560.1.18"/>
+                                 <id root="f38bbdf9-7930-42a5-8c20-553101d1745a"/>
+                                 <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                       displayName="Physical Examination"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.600.1.681"
+                                             displayName="BMI LOINC Value LOINC Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Physical Exam, Finding: BMI LOINC Value</title>
+                                       <sourceOf typeCode="EAS" inversionInd="true">
+                                          <pauseQuantity xsi:type="IVL_PQ">
+                                             <high value="6" unit="mo" inclusive="true"/>
+                                          </pauseQuantity>
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                             <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Finding pattern --><templateId root="2.16.840.1.113883.3.560.1.18"/>
+                                 <id root="f38bbdf9-7930-42a5-8c20-553101d1745a"/>
+                                 <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                       displayName="Physical Examination"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.600.1.681"
+                                             displayName="BMI LOINC Value LOINC Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Physical Exam, Finding: BMI LOINC Value (result &gt;= 23  kg/m2)</title>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <templateId root="2.16.840.1.113883.3.560.1.1019.3"/>
+                                             <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                                   codeSystemName="SNOMED-CT"/>
+                                             <value xsi:type="IVL_PQ">
+                                                <low value="23" unit="kg/m2" inclusive="true"/>
+                                             </value>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Finding pattern --><templateId root="2.16.840.1.113883.3.560.1.18"/>
+                                 <id root="f38bbdf9-7930-42a5-8c20-553101d1745a"/>
+                                 <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                       displayName="Physical Examination"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.600.1.681"
+                                             displayName="BMI LOINC Value LOINC Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Physical Exam, Finding: BMI LOINC Value (result &lt; 30  kg/m2)</title>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <templateId root="2.16.840.1.113883.3.560.1.1019.3"/>
+                                             <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                                   codeSystemName="SNOMED-CT"/>
+                                             <value xsi:type="IVL_PQ">
+                                                <high value="30" unit="kg/m2" inclusive="false"/>
+                                             </value>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <subsetCode code="RECENT"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Finding pattern --><templateId root="2.16.840.1.113883.3.560.1.18"/>
+                                 <id root="f38bbdf9-7930-42a5-8c20-553101d1745a"/>
+                                 <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                       displayName="Physical Examination"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.600.1.681"
+                                             displayName="BMI LOINC Value LOINC Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Physical Exam, Finding: BMI LOINC Value</title>
+                                       <sourceOf typeCode="EAS" inversionInd="true">
+                                          <pauseQuantity xsi:type="IVL_PQ">
+                                             <high value="6" unit="mo" inclusive="true"/>
+                                          </pauseQuantity>
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                             <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Finding pattern --><templateId root="2.16.840.1.113883.3.560.1.18"/>
+                                 <id root="f38bbdf9-7930-42a5-8c20-553101d1745a"/>
+                                 <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                       displayName="Physical Examination"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.600.1.681"
+                                             displayName="BMI LOINC Value LOINC Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Physical Exam, Finding: BMI LOINC Value (result &gt;= 30  kg/m2)</title>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <templateId root="2.16.840.1.113883.3.560.1.1019.3"/>
+                                             <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                                   codeSystemName="SNOMED-CT"/>
+                                             <value xsi:type="IVL_PQ">
+                                                <low value="30" unit="kg/m2" inclusive="true"/>
+                                             </value>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.45"/>
+                                       <id root="015c6634-d753-4900-ad9e-9ac3bc6f9e71"/>
+                                       <code code="18776-5" displayName="Plan of care" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <procedure classCode="PROC" moodCode="RQO" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.600.1.1525"
+                                                   displayName="Above Normal Follow-up Grouping Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Intervention, Order: Above Normal Follow-up (reason: 'Overweight')</title>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <templateId root="2.16.840.1.113883.3.560.1.1017.2"/>
+                                                   <code code="410666004" codeSystem="2.16.840.1.113883.6.96" displayName="reason"
+                                                         codeSystemName="SNOMED-CT"/>
+                                                   <value xsi:type="CD" code="2.16.840.1.113883.3.600.2387"
+                                                          codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                          displayName="Overweight"/>
+                                                </observation>
+                                             </sourceOf>
+                                             <sourceOf typeCode="EAS" inversionInd="true">
+                                                <pauseQuantity xsi:type="IVL_PQ">
+                                                   <high value="6" unit="mo" inclusive="true"/>
+                                                </pauseQuantity>
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                                   <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                                </observation>
+                                             </sourceOf>
+                                          </procedure>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.45"/>
+                                       <id root="0cea25ed-5b26-4bc8-aeb0-59922348c3bf"/>
+                                       <code code="18776-5" displayName="Plan of care" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <procedure classCode="PROC" moodCode="RQO" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.600.1.1527"
+                                                   displayName="Referrals where weight assessment may occur Grouping Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Intervention, Order: Referrals where weight assessment may occur (reason: 'Overweight')</title>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <templateId root="2.16.840.1.113883.3.560.1.1017.2"/>
+                                                   <code code="410666004" codeSystem="2.16.840.1.113883.6.96" displayName="reason"
+                                                         codeSystemName="SNOMED-CT"/>
+                                                   <value xsi:type="CD" code="2.16.840.1.113883.3.600.2387"
+                                                          codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                          displayName="Overweight"/>
+                                                </observation>
+                                             </sourceOf>
+                                             <sourceOf typeCode="EAS" inversionInd="true">
+                                                <pauseQuantity xsi:type="IVL_PQ">
+                                                   <high value="6" unit="mo" inclusive="true"/>
+                                                </pauseQuantity>
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                                   <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                                </observation>
+                                             </sourceOf>
+                                          </procedure>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+                                       <id root="f6322442-737d-472d-8d35-3efcbbb7a54d"/>
+                                       <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                             <title>Medication, Order: Above Normal Medications (reason: 'Overweight')</title>
+                                             <participant typeCode="CSM">
+                                                <roleParticipant classCode="MANU">
+                                                   <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                      <code code="2.16.840.1.113883.3.600.1.1498"
+                                                            displayName="Above Normal Medications RxNorm Value Set"
+                                                            codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                                   </playingMaterial>
+                                                </roleParticipant>
+                                             </participant>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <templateId root="2.16.840.1.113883.3.560.1.1017.2"/>
+                                                   <code code="410666004" codeSystem="2.16.840.1.113883.6.96" displayName="reason"
+                                                         codeSystemName="SNOMED-CT"/>
+                                                   <value xsi:type="CD" code="2.16.840.1.113883.3.600.2387"
+                                                          codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                          displayName="Overweight"/>
+                                                </observation>
+                                             </sourceOf>
+                                             <sourceOf typeCode="EAS" inversionInd="true">
+                                                <pauseQuantity xsi:type="IVL_PQ">
+                                                   <high value="6" unit="mo" inclusive="true"/>
+                                                </pauseQuantity>
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                                   <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                                </observation>
+                                             </sourceOf>
+                                          </substanceAdministration>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <subsetCode code="RECENT"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Finding pattern --><templateId root="2.16.840.1.113883.3.560.1.18"/>
+                                 <id root="f38bbdf9-7930-42a5-8c20-553101d1745a"/>
+                                 <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                       displayName="Physical Examination"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.600.1.681"
+                                             displayName="BMI LOINC Value LOINC Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Physical Exam, Finding: BMI LOINC Value</title>
+                                       <sourceOf typeCode="EAS" inversionInd="true">
+                                          <pauseQuantity xsi:type="IVL_PQ">
+                                             <high value="6" unit="mo" inclusive="true"/>
+                                          </pauseQuantity>
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                             <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Finding pattern --><templateId root="2.16.840.1.113883.3.560.1.18"/>
+                                 <id root="f38bbdf9-7930-42a5-8c20-553101d1745a"/>
+                                 <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                       displayName="Physical Examination"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.600.1.681"
+                                             displayName="BMI LOINC Value LOINC Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Physical Exam, Finding: BMI LOINC Value (result &lt; 23  kg/m2)</title>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <templateId root="2.16.840.1.113883.3.560.1.1019.3"/>
+                                             <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                                   codeSystemName="SNOMED-CT"/>
+                                             <value xsi:type="IVL_PQ">
+                                                <high value="23" unit="kg/m2" inclusive="false"/>
+                                             </value>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.45"/>
+                                       <id root="f4da7934-467c-4e7c-b01b-08ef32607988"/>
+                                       <code code="18776-5" displayName="Plan of care" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <procedure classCode="PROC" moodCode="RQO" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.600.1.1528"
+                                                   displayName="Below Normal Follow up Grouping Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Intervention, Order: Below Normal Follow up (reason: 'Underweight')</title>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <templateId root="2.16.840.1.113883.3.560.1.1017.2"/>
+                                                   <code code="410666004" codeSystem="2.16.840.1.113883.6.96" displayName="reason"
+                                                         codeSystemName="SNOMED-CT"/>
+                                                   <value xsi:type="CD" code="2.16.840.1.113883.3.600.2388"
+                                                          codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                          displayName="Underweight"/>
+                                                </observation>
+                                             </sourceOf>
+                                             <sourceOf typeCode="EAS" inversionInd="true">
+                                                <pauseQuantity xsi:type="IVL_PQ">
+                                                   <high value="6" unit="mo" inclusive="true"/>
+                                                </pauseQuantity>
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                                   <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                                </observation>
+                                             </sourceOf>
+                                          </procedure>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.45"/>
+                                       <id root="0cea25ed-5b26-4bc8-aeb0-59922348c3bf"/>
+                                       <code code="18776-5" displayName="Plan of care" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <procedure classCode="PROC" moodCode="RQO" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.600.1.1527"
+                                                   displayName="Referrals where weight assessment may occur Grouping Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Intervention, Order: Referrals where weight assessment may occur (reason: 'Underweight')</title>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <templateId root="2.16.840.1.113883.3.560.1.1017.2"/>
+                                                   <code code="410666004" codeSystem="2.16.840.1.113883.6.96" displayName="reason"
+                                                         codeSystemName="SNOMED-CT"/>
+                                                   <value xsi:type="CD" code="2.16.840.1.113883.3.600.2388"
+                                                          codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                          displayName="Underweight"/>
+                                                </observation>
+                                             </sourceOf>
+                                             <sourceOf typeCode="EAS" inversionInd="true">
+                                                <pauseQuantity xsi:type="IVL_PQ">
+                                                   <high value="6" unit="mo" inclusive="true"/>
+                                                </pauseQuantity>
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                                   <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                                </observation>
+                                             </sourceOf>
+                                          </procedure>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+                                       <id root="f39d6083-fabc-4777-8d62-c445bc443868"/>
+                                       <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                             <title>Medication, Order: Below Normal Medications (reason: 'Underweight')</title>
+                                             <participant typeCode="CSM">
+                                                <roleParticipant classCode="MANU">
+                                                   <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                      <code code="2.16.840.1.113883.3.600.1.1499"
+                                                            displayName="Below Normal Medications RxNorm Value Set"
+                                                            codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                                   </playingMaterial>
+                                                </roleParticipant>
+                                             </participant>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <templateId root="2.16.840.1.113883.3.560.1.1017.2"/>
+                                                   <code code="410666004" codeSystem="2.16.840.1.113883.6.96" displayName="reason"
+                                                         codeSystemName="SNOMED-CT"/>
+                                                   <value xsi:type="CD" code="2.16.840.1.113883.3.600.2388"
+                                                          codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                          displayName="Underweight"/>
+                                                </observation>
+                                             </sourceOf>
+                                             <sourceOf typeCode="EAS" inversionInd="true">
+                                                <pauseQuantity xsi:type="IVL_PQ">
+                                                   <high value="6" unit="mo" inclusive="true"/>
+                                                </pauseQuantity>
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                                   <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                                </observation>
+                                             </sourceOf>
+                                          </substanceAdministration>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: numerator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="875d8e62-44e5-4249-803d-1b36b57dc2da"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="NUMER" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Numerator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="73F6ACC4-B252-42CA-8C3B-330EC37F1294"/>
+                     <title>Denominator 2</title>
+                  </observation>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <subsetCode code="RECENT"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Finding pattern --><templateId root="2.16.840.1.113883.3.560.1.18"/>
+                                 <id root="f38bbdf9-7930-42a5-8c20-553101d1745a"/>
+                                 <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                       displayName="Physical Examination"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.600.1.681"
+                                             displayName="BMI LOINC Value LOINC Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Physical Exam, Finding: BMI LOINC Value</title>
+                                       <sourceOf typeCode="EAS" inversionInd="true">
+                                          <pauseQuantity xsi:type="IVL_PQ">
+                                             <high value="6" unit="mo" inclusive="true"/>
+                                          </pauseQuantity>
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                             <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Finding pattern --><templateId root="2.16.840.1.113883.3.560.1.18"/>
+                                 <id root="f38bbdf9-7930-42a5-8c20-553101d1745a"/>
+                                 <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                       displayName="Physical Examination"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.600.1.681"
+                                             displayName="BMI LOINC Value LOINC Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Physical Exam, Finding: BMI LOINC Value (result &gt;= 18.5  kg/m2)</title>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <templateId root="2.16.840.1.113883.3.560.1.1019.3"/>
+                                             <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                                   codeSystemName="SNOMED-CT"/>
+                                             <value xsi:type="IVL_PQ">
+                                                <low value="18.5" unit="kg/m2" inclusive="true"/>
+                                             </value>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Finding pattern --><templateId root="2.16.840.1.113883.3.560.1.18"/>
+                                 <id root="f38bbdf9-7930-42a5-8c20-553101d1745a"/>
+                                 <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                       displayName="Physical Examination"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.600.1.681"
+                                             displayName="BMI LOINC Value LOINC Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Physical Exam, Finding: BMI LOINC Value (result &lt; 25  kg/m2)</title>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <templateId root="2.16.840.1.113883.3.560.1.1019.3"/>
+                                             <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                                   codeSystemName="SNOMED-CT"/>
+                                             <value xsi:type="IVL_PQ">
+                                                <high value="25" unit="kg/m2" inclusive="false"/>
+                                             </value>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <subsetCode code="RECENT"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Finding pattern --><templateId root="2.16.840.1.113883.3.560.1.18"/>
+                                 <id root="f38bbdf9-7930-42a5-8c20-553101d1745a"/>
+                                 <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                       displayName="Physical Examination"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.600.1.681"
+                                             displayName="BMI LOINC Value LOINC Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Physical Exam, Finding: BMI LOINC Value</title>
+                                       <sourceOf typeCode="EAS" inversionInd="true">
+                                          <pauseQuantity xsi:type="IVL_PQ">
+                                             <high value="6" unit="mo" inclusive="true"/>
+                                          </pauseQuantity>
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                             <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Finding pattern --><templateId root="2.16.840.1.113883.3.560.1.18"/>
+                                 <id root="f38bbdf9-7930-42a5-8c20-553101d1745a"/>
+                                 <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                       displayName="Physical Examination"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.600.1.681"
+                                             displayName="BMI LOINC Value LOINC Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Physical Exam, Finding: BMI LOINC Value (result &gt;= 25  kg/m2)</title>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <templateId root="2.16.840.1.113883.3.560.1.1019.3"/>
+                                             <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                                   codeSystemName="SNOMED-CT"/>
+                                             <value xsi:type="IVL_PQ">
+                                                <low value="25" unit="kg/m2" inclusive="true"/>
+                                             </value>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.45"/>
+                                       <id root="015c6634-d753-4900-ad9e-9ac3bc6f9e71"/>
+                                       <code code="18776-5" displayName="Plan of care" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <procedure classCode="PROC" moodCode="RQO" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.600.1.1525"
+                                                   displayName="Above Normal Follow-up Grouping Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Intervention, Order: Above Normal Follow-up (reason: 'Overweight')</title>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <templateId root="2.16.840.1.113883.3.560.1.1017.2"/>
+                                                   <code code="410666004" codeSystem="2.16.840.1.113883.6.96" displayName="reason"
+                                                         codeSystemName="SNOMED-CT"/>
+                                                   <value xsi:type="CD" code="2.16.840.1.113883.3.600.2387"
+                                                          codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                          displayName="Overweight"/>
+                                                </observation>
+                                             </sourceOf>
+                                             <sourceOf typeCode="EAS" inversionInd="true">
+                                                <pauseQuantity xsi:type="IVL_PQ">
+                                                   <high value="6" unit="mo" inclusive="true"/>
+                                                </pauseQuantity>
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                                   <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                                </observation>
+                                             </sourceOf>
+                                          </procedure>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.45"/>
+                                       <id root="0cea25ed-5b26-4bc8-aeb0-59922348c3bf"/>
+                                       <code code="18776-5" displayName="Plan of care" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <procedure classCode="PROC" moodCode="RQO" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.600.1.1527"
+                                                   displayName="Referrals where weight assessment may occur Grouping Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Intervention, Order: Referrals where weight assessment may occur (reason: 'Overweight')</title>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <templateId root="2.16.840.1.113883.3.560.1.1017.2"/>
+                                                   <code code="410666004" codeSystem="2.16.840.1.113883.6.96" displayName="reason"
+                                                         codeSystemName="SNOMED-CT"/>
+                                                   <value xsi:type="CD" code="2.16.840.1.113883.3.600.2387"
+                                                          codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                          displayName="Overweight"/>
+                                                </observation>
+                                             </sourceOf>
+                                             <sourceOf typeCode="EAS" inversionInd="true">
+                                                <pauseQuantity xsi:type="IVL_PQ">
+                                                   <high value="6" unit="mo" inclusive="true"/>
+                                                </pauseQuantity>
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                                   <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                                </observation>
+                                             </sourceOf>
+                                          </procedure>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+                                       <id root="f6322442-737d-472d-8d35-3efcbbb7a54d"/>
+                                       <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                             <title>Medication, Order: Above Normal Medications (reason: 'Overweight')</title>
+                                             <participant typeCode="CSM">
+                                                <roleParticipant classCode="MANU">
+                                                   <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                      <code code="2.16.840.1.113883.3.600.1.1498"
+                                                            displayName="Above Normal Medications RxNorm Value Set"
+                                                            codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                                   </playingMaterial>
+                                                </roleParticipant>
+                                             </participant>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <templateId root="2.16.840.1.113883.3.560.1.1017.2"/>
+                                                   <code code="410666004" codeSystem="2.16.840.1.113883.6.96" displayName="reason"
+                                                         codeSystemName="SNOMED-CT"/>
+                                                   <value xsi:type="CD" code="2.16.840.1.113883.3.600.2387"
+                                                          codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                          displayName="Overweight"/>
+                                                </observation>
+                                             </sourceOf>
+                                             <sourceOf typeCode="EAS" inversionInd="true">
+                                                <pauseQuantity xsi:type="IVL_PQ">
+                                                   <high value="6" unit="mo" inclusive="true"/>
+                                                </pauseQuantity>
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                                   <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                                </observation>
+                                             </sourceOf>
+                                          </substanceAdministration>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <subsetCode code="RECENT"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Finding pattern --><templateId root="2.16.840.1.113883.3.560.1.18"/>
+                                 <id root="f38bbdf9-7930-42a5-8c20-553101d1745a"/>
+                                 <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                       displayName="Physical Examination"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.600.1.681"
+                                             displayName="BMI LOINC Value LOINC Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Physical Exam, Finding: BMI LOINC Value</title>
+                                       <sourceOf typeCode="EAS" inversionInd="true">
+                                          <pauseQuantity xsi:type="IVL_PQ">
+                                             <high value="6" unit="mo" inclusive="true"/>
+                                          </pauseQuantity>
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                             <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Finding pattern --><templateId root="2.16.840.1.113883.3.560.1.18"/>
+                                 <id root="f38bbdf9-7930-42a5-8c20-553101d1745a"/>
+                                 <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                       displayName="Physical Examination"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.600.1.681"
+                                             displayName="BMI LOINC Value LOINC Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Physical Exam, Finding: BMI LOINC Value (result &lt; 18.5  kg/m2)</title>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <templateId root="2.16.840.1.113883.3.560.1.1019.3"/>
+                                             <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                                   codeSystemName="SNOMED-CT"/>
+                                             <value xsi:type="IVL_PQ">
+                                                <high value="18.5" unit="kg/m2" inclusive="false"/>
+                                             </value>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.45"/>
+                                       <id root="f4da7934-467c-4e7c-b01b-08ef32607988"/>
+                                       <code code="18776-5" displayName="Plan of care" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <procedure classCode="PROC" moodCode="RQO" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.600.1.1528"
+                                                   displayName="Below Normal Follow up Grouping Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Intervention, Order: Below Normal Follow up (reason: 'Underweight')</title>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <templateId root="2.16.840.1.113883.3.560.1.1017.2"/>
+                                                   <code code="410666004" codeSystem="2.16.840.1.113883.6.96" displayName="reason"
+                                                         codeSystemName="SNOMED-CT"/>
+                                                   <value xsi:type="CD" code="2.16.840.1.113883.3.600.2388"
+                                                          codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                          displayName="Underweight"/>
+                                                </observation>
+                                             </sourceOf>
+                                             <sourceOf typeCode="EAS" inversionInd="true">
+                                                <pauseQuantity xsi:type="IVL_PQ">
+                                                   <high value="6" unit="mo" inclusive="true"/>
+                                                </pauseQuantity>
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                                   <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                                </observation>
+                                             </sourceOf>
+                                          </procedure>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.45"/>
+                                       <id root="0cea25ed-5b26-4bc8-aeb0-59922348c3bf"/>
+                                       <code code="18776-5" displayName="Plan of care" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <procedure classCode="PROC" moodCode="RQO" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.600.1.1527"
+                                                   displayName="Referrals where weight assessment may occur Grouping Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Intervention, Order: Referrals where weight assessment may occur (reason: 'Underweight')</title>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <templateId root="2.16.840.1.113883.3.560.1.1017.2"/>
+                                                   <code code="410666004" codeSystem="2.16.840.1.113883.6.96" displayName="reason"
+                                                         codeSystemName="SNOMED-CT"/>
+                                                   <value xsi:type="CD" code="2.16.840.1.113883.3.600.2388"
+                                                          codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                          displayName="Underweight"/>
+                                                </observation>
+                                             </sourceOf>
+                                             <sourceOf typeCode="EAS" inversionInd="true">
+                                                <pauseQuantity xsi:type="IVL_PQ">
+                                                   <high value="6" unit="mo" inclusive="true"/>
+                                                </pauseQuantity>
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                                   <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                                </observation>
+                                             </sourceOf>
+                                          </procedure>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+                                       <id root="f39d6083-fabc-4777-8d62-c445bc443868"/>
+                                       <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                             <title>Medication, Order: Below Normal Medications (reason: 'Underweight')</title>
+                                             <participant typeCode="CSM">
+                                                <roleParticipant classCode="MANU">
+                                                   <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                      <code code="2.16.840.1.113883.3.600.1.1499"
+                                                            displayName="Below Normal Medications RxNorm Value Set"
+                                                            codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                                   </playingMaterial>
+                                                </roleParticipant>
+                                             </participant>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <templateId root="2.16.840.1.113883.3.560.1.1017.2"/>
+                                                   <code code="410666004" codeSystem="2.16.840.1.113883.6.96" displayName="reason"
+                                                         codeSystemName="SNOMED-CT"/>
+                                                   <value xsi:type="CD" code="2.16.840.1.113883.3.600.2388"
+                                                          codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                          displayName="Underweight"/>
+                                                </observation>
+                                             </sourceOf>
+                                             <sourceOf typeCode="EAS" inversionInd="true">
+                                                <pauseQuantity xsi:type="IVL_PQ">
+                                                   <high value="6" unit="mo" inclusive="true"/>
+                                                </pauseQuantity>
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                                   <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                                </observation>
+                                             </sourceOf>
+                                          </substanceAdministration>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: denominator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="47F98343-B180-4CD6-9622-1D913DE255B2"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="3FA95131-7882-49C0-9830-2ACB82E914D8"/>
+                     <title>Initial Patient Population 1</title>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: denominator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="73F6ACC4-B252-42CA-8C3B-330EC37F1294"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="95D45B98-C6A1-42F4-A0F5-617DF414A2AE"/>
+                     <title>Initial Patient Population 2</title>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: population 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="3FA95131-7882-49C0-9830-2ACB82E914D8"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="IPP" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Initial Patient Population"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.62"/>
+                           <id root="48f8bd4a-33d1-403c-9571-24d89dc98472"/>
+                           <code code="18776-5" displayName="Plan of care" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <procedure classCode="PROC" moodCode="RQO" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.600.1.1579"
+                                       displayName="Palliative Care Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Procedure, Order: Palliative Care</title>
+                                 <sourceOf typeCode="EAS" inversionInd="true">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                       <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                    </observation>
+                                 </sourceOf>
+                              </procedure>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Physical Exam, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.157"/>
+                           <id root="ced6bcea-685e-4627-a9d2-3ce5c5e87e5c"/>
+                           <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                 displayName="Physical Examination"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.600.1.681"
+                                       displayName="BMI LOINC Value LOINC Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Physical Exam, Performed not done: Medical or Other reason not done</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="RSON">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.600.1.1502"
+                                              displayName="Medical or Other reason not done SNOMED-CT Value Set"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="DURING">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                       <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Physical Exam, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.157"/>
+                           <id root="ced6bcea-685e-4627-a9d2-3ce5c5e87e5c"/>
+                           <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                 displayName="Physical Examination"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.600.1.681"
+                                       displayName="BMI LOINC Value LOINC Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Physical Exam, Performed not done: Patient Reason Refused</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="RSON">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.600.1.1503"
+                                              displayName="Patient Reason Refused SNOMED-CT Value Set"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="DURING">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                       <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="323ec37e-61bc-4cb6-885c-6a92aa449d2d"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                                  codeSystem="2.16.840.1.113883.3.560.101.1"
+                                  displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <low value="65" unit="a" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="fd760eed-4a95-47de-bed1-66a656dca709"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                     <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                     <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                     <sourceOf typeCode="COMP">
+                        <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.600.1.1751"
+                                 displayName="BMI Encounter Code Set Grouping Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="DURING">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="fd760eed-4a95-47de-bed1-66a656dca709"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </encounter>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: population 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="95D45B98-C6A1-42F4-A0F5-617DF414A2AE"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="IPP" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Initial Patient Population"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.62"/>
+                           <id root="48f8bd4a-33d1-403c-9571-24d89dc98472"/>
+                           <code code="18776-5" displayName="Plan of care" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <procedure classCode="PROC" moodCode="RQO" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.600.1.1579"
+                                       displayName="Palliative Care Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Procedure, Order: Palliative Care</title>
+                                 <sourceOf typeCode="EAS" inversionInd="true">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                       <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                    </observation>
+                                 </sourceOf>
+                              </procedure>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Physical Exam, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.157"/>
+                           <id root="ced6bcea-685e-4627-a9d2-3ce5c5e87e5c"/>
+                           <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                 displayName="Physical Examination"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.600.1.681"
+                                       displayName="BMI LOINC Value LOINC Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Physical Exam, Performed not done: Medical or Other reason not done</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="RSON">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.600.1.1502"
+                                              displayName="Medical or Other reason not done SNOMED-CT Value Set"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="DURING">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                       <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Physical Exam, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.157"/>
+                           <id root="ced6bcea-685e-4627-a9d2-3ce5c5e87e5c"/>
+                           <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                                 displayName="Physical Examination"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.600.1.681"
+                                       displayName="BMI LOINC Value LOINC Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Physical Exam, Performed not done: Patient Reason Refused</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="RSON">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.600.1.1503"
+                                              displayName="Patient Reason Refused SNOMED-CT Value Set"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="DURING">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                                       <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="323ec37e-61bc-4cb6-885c-6a92aa449d2d"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                                  codeSystem="2.16.840.1.113883.3.560.101.1"
+                                  displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <low value="18" unit="a" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="fd760eed-4a95-47de-bed1-66a656dca709"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="323ec37e-61bc-4cb6-885c-6a92aa449d2d"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                                  codeSystem="2.16.840.1.113883.3.560.101.1"
+                                  displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <high value="64" unit="a" inclusive="false"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="fd760eed-4a95-47de-bed1-66a656dca709"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                     <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+                     <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                     <sourceOf typeCode="COMP">
+                        <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.600.1.1751"
+                                 displayName="BMI Encounter Code Set Grouping Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence A of Encounter, Performed: BMI Encounter Code Set</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="DURING">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="fd760eed-4a95-47de-bed1-66a656dca709"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </encounter>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Data Criteria Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57025-9" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Data criteria (QDM Data Elements)"/>
+         <title>Data criteria (QDM Data Elements)</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Diagnosis, Active: Pregnancy Dx"</content> using "Pregnancy Dx Grouping Value Set (2.16.840.1.113883.3.600.1.1623)"</item>
+               <item>
+                  <content>"Encounter, Performed: BMI Encounter Code Set"</content> using "BMI Encounter Code Set Grouping Value Set (2.16.840.1.113883.3.600.1.1751)"</item>
+               <item>
+                  <content>"Intervention, Order: Above Normal Follow-up"</content> using "Above Normal Follow-up Grouping Value Set (2.16.840.1.113883.3.600.1.1525)"</item>
+               <item>
+                  <content>"Intervention, Order: Below Normal Follow up"</content> using "Below Normal Follow up Grouping Value Set (2.16.840.1.113883.3.600.1.1528)"</item>
+               <item>
+                  <content>"Intervention, Order: Referrals where weight assessment may occur"</content> using "Referrals where weight assessment may occur Grouping Value Set (2.16.840.1.113883.3.600.1.1527)"</item>
+               <item>
+                  <content>"Medication, Order: Above Normal Medications"</content> using "Above Normal Medications RxNorm Value Set (2.16.840.1.113883.3.600.1.1498)"</item>
+               <item>
+                  <content>"Medication, Order: Below Normal Medications"</content> using "Below Normal Medications RxNorm Value Set (2.16.840.1.113883.3.600.1.1499)"</item>
+               <item>
+                  <content>"Patient Characteristic Birthdate: birth date"</content> using "birth date LOINC Value Set (2.16.840.1.113883.3.560.100.4)"</item>
+               <item>
+                  <content>"Physical Exam, Finding: BMI LOINC Value"</content> using "BMI LOINC Value LOINC Value Set (2.16.840.1.113883.3.600.1.681)"</item>
+               <item>
+                  <content>"Physical Exam, Performed not done: Medical or Other reason not done"</content> using "Medical or Other reason not done SNOMED-CT Value Set (2.16.840.1.113883.3.600.1.1502)"</item>
+               <item>
+                  <content>"Physical Exam, Performed not done: Patient Reason Refused"</content> using "Patient Reason Refused SNOMED-CT Value Set (2.16.840.1.113883.3.600.1.1503)"</item>
+               <item>
+                  <content>"Physical Exam, Performed: BMI LOINC Value"</content> using "BMI LOINC Value LOINC Value Set (2.16.840.1.113883.3.600.1.681)"</item>
+               <item>
+                  <content>"Procedure, Order: Palliative Care"</content> using "Palliative Care Grouping Value Set (2.16.840.1.113883.3.600.1.1579)"</item>
+               <item>
+                  <content>Attribute: "Reason: Overweight"</content> using "Overweight SNOMED-CT Value Set  (2.16.840.1.113883.3.600.2387)"</item>
+               <item>
+                  <content>Attribute: "Reason: Underweight"</content> using "Underweight SNOMED-CT Value Set  (2.16.840.1.113883.3.600.2388)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Finding pattern --><templateId root="2.16.840.1.113883.3.560.1.18"/>
+               <id root="9e973386-d09f-4381-9bd3-dc23fa74c33c"/>
+               <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                     displayName="Physical Examination"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.600.1.681"
+                           displayName="BMI LOINC Value LOINC Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Physical Exam, Finding: BMI LOINC Value</title>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+               <id root="323ec37e-61bc-4cb6-885c-6a92aa449d2d"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                     <title>Patient Characteristic Birthdate: birth date</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="birth date LOINC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+               <id root="f6322442-737d-472d-8d35-3efcbbb7a54d"/>
+               <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                     <title>Medication, Order: Above Normal Medications</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.600.1.1498"
+                                    displayName="Above Normal Medications RxNorm Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+               <id root="f39d6083-fabc-4777-8d62-c445bc443868"/>
+               <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                     <title>Medication, Order: Below Normal Medications</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.600.1.1499"
+                                    displayName="Below Normal Medications RxNorm Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.45"/>
+               <id root="015c6634-d753-4900-ad9e-9ac3bc6f9e71"/>
+               <code code="18776-5" displayName="Plan of care" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <procedure classCode="PROC" moodCode="RQO" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.600.1.1525"
+                           displayName="Above Normal Follow-up Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Intervention, Order: Above Normal Follow-up</title>
+                  </procedure>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.45"/>
+               <id root="0cea25ed-5b26-4bc8-aeb0-59922348c3bf"/>
+               <code code="18776-5" displayName="Plan of care" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <procedure classCode="PROC" moodCode="RQO" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.600.1.1527"
+                           displayName="Referrals where weight assessment may occur Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Intervention, Order: Referrals where weight assessment may occur</title>
+                  </procedure>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.45"/>
+               <id root="f4da7934-467c-4e7c-b01b-08ef32607988"/>
+               <code code="18776-5" displayName="Plan of care" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <procedure classCode="PROC" moodCode="RQO" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.600.1.1528"
+                           displayName="Below Normal Follow up Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Intervention, Order: Below Normal Follow up</title>
+                  </procedure>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.62"/>
+               <id root="48f8bd4a-33d1-403c-9571-24d89dc98472"/>
+               <code code="18776-5" displayName="Plan of care" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <procedure classCode="PROC" moodCode="RQO" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.600.1.1579"
+                           displayName="Palliative Care Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Procedure, Order: Palliative Care</title>
+                  </procedure>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="8e930fd8-9bd9-4084-b5f7-063dc3b01001"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: Pregnancy Dx</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.600.1.1623"
+                            displayName="Pregnancy Dx Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active"
+                                  codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.57"/>
+               <id root="ced6bcea-685e-4627-a9d2-3ce5c5e87e5c"/>
+               <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                     displayName="Physical Examination"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.600.1.681"
+                           displayName="BMI LOINC Value LOINC Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Physical Exam, Performed: BMI LOINC Value</title>
+                     <statusCode code="completed"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="c200f208-2995-463e-ab57-23a0264f5180"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.600.1.1751"
+                           displayName="BMI Encounter Code Set Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: BMI Encounter Code Set</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Performed not done pattern --><templateId root="2.16.840.1.113883.3.560.1.157"/>
+               <id root="79eb72a1-ca65-461f-9139-5c4465be7354"/>
+               <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                     displayName="Physical Examination"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.600.1.1502"
+                           displayName="Medical or Other reason not done SNOMED-CT Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Physical Exam, Performed not done: Medical or Other reason not done</title>
+                     <statusCode code="completed"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Physical Exam, Performed not done pattern --><templateId root="2.16.840.1.113883.3.560.1.157"/>
+               <id root="b1511e5f-c174-461b-a362-95261480af65"/>
+               <code code="29545-1" codeSystem="2.16.840.1.113883.6.1"
+                     displayName="Physical Examination"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.600.1.1503"
+                           displayName="Patient Reason Refused SNOMED-CT Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Physical Exam, Performed not done: Patient Reason Refused</title>
+                     <statusCode code="completed"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.18"/>
+               <id root="f38bbdf9-7930-42a5-8c20-553101d1745a"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>BMI LOINC Value</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="9e973386-d09f-4381-9bd3-dc23fa74c33c"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="edfa17ff-633e-4eac-838a-bdfbf57b7080"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>BMI Encounter Code Set</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="c200f208-2995-463e-ab57-23a0264f5180"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="670eef9e-99a5-4259-9558-a960b2bf6dc5"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>Pregnancy Dx</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="8e930fd8-9bd9-4084-b5f7-063dc3b01001"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+            
+         <!--
+            **************************************************************   
+            Stratification Section
+            **************************************************************
+         --><component typeCode="COMP">
+      <section>
+         <code code="69669-0" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Population stratification description"/>
+         <title>Reporting Stratification</title>
+         <text>
+            <list>
+               <item>None</item>
+            </list>
+         </text>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Supplemental Data Elements Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="69670-8" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Supplemental Data Elements"/>
+         <title>Supplemental Data Elements</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Patient Characteristic Ethnicity: Ethnicity"</content> using "Ethnicity CDC Value Set (2.16.840.1.114222.4.11.837)"</item>
+               <item>
+                  <content>"Patient Characteristic Payer: Payer"</content> using "Payer Source of Payment Typology Value Set (2.16.840.1.114222.4.11.3591)"</item>
+               <item>
+                  <content>"Patient Characteristic Race: Race"</content> using "Race CDC Value Set (2.16.840.1.114222.4.11.836)"</item>
+               <item>
+                  <content>"Patient Characteristic Sex: ONC Administrative Sex"</content> using "ONC Administrative Sex Administrative Sex Value Set (2.16.840.1.113762.1.4.1)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Sex pattern --><templateId root="2.16.840.1.113883.3.560.1.402"/>
+               <id root="5e23e54b-e847-465f-bc10-922df24c40e8"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="263495000" codeSystem="2.16.840.1.113883.6.96" displayName="Sex"/>
+                     <title>Patient Characteristic Sex: ONC Administrative Sex</title>
+                     <value xsi:type="CD" code="2.16.840.1.113762.1.4.1"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="ONC Administrative Sex Administrative Sex Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Race pattern --><templateId root="2.16.840.1.113883.3.560.1.406"/>
+               <id root="d8167754-2541-4623-acd5-17b6657ecd56"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="32624-9" codeSystem="2.16.840.1.113883.6.1" displayName="Race"/>
+                     <title>Patient Characteristic Race: Race</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.836"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Race CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Ethnicity pattern --><templateId root="2.16.840.1.113883.3.560.1.403"/>
+               <id root="43a6dc15-3ed4-4d73-9378-db2684bacb50"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="54133-4" codeSystem="2.16.840.1.113883.6.1" displayName="Ethnicity"/>
+                     <title>Patient Characteristic Ethnicity: Ethnicity</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.837"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Ethnicity CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Payer pattern --><templateId root="2.16.840.1.113883.3.560.1.405"/>
+               <id root="69e0e8c4-b8e8-4835-85bc-d0e0893e722f"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" displayName="Payer"/>
+                     <title>Patient Characteristic Payer: Payer</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.3591"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Payer Source of Payment Typology Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+      </section>
+   </component>
+</QualityMeasureDocument>
