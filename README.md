@@ -5,7 +5,7 @@ In addition this project also contains libaries for parsing HQMF documents and f
 Environment
 ===========
 
-This project currently uses Ruby 1.9.3, Ruby 2.0.0 and JRuby 1.7.9 and is built using [Bundler](http://gembundler.com/). To get all of the dependencies for the project, first install bundler:
+This project currently uses Ruby 1.9.3, Ruby 2.0.0, Ruby 2.1.1 and JRuby 1.7.11 and is built using [Bundler](http://gembundler.com/). To get all of the dependencies for the project, first install bundler:
 
     gem install bundler
 
@@ -25,6 +25,10 @@ Please try to follow the [GitHub Coding Style Guides](https://github.com/stylegu
 Change Log
 ==========
 
+3.4.3 - March 6, 2014
+* Implemented support for providers in QRDA Cat III documents
+* Now handles null value HQMF expression value types
+
 3.4.2 - February 28, 2014
 
 * Provider improvements
@@ -32,7 +36,7 @@ Change Log
 ** Provider identifiers are now represented with CDAIdentifiers
 ** Provider import will now import any type of identifier
 ** Providers can now be arranged in a hierarchy
-** When importing providers from a clincial document, matching to existing providers in MongoDB has been improved to matching on any type of identifier
+** When importing providers from a clinical document, matching to existing providers in MongoDB has been improved to matching on any type of identifier
 * QRDA Cat I importer now imports procedure values regardless of whether the template has them at the root level or nested in an entryRelationship
 * Bug fix - Result importer will no longer double import result values
 * QRDA Cat I importer now imports encounter order end times
@@ -44,7 +48,7 @@ Change Log
 
 3.4.0 - January 23, 2014
 
-* _New Feature_ - BulkRecordImporter class now available that provides the ability to import QRDA Cat I, Consolidated CDA and HITSP C32 
+* _New Feature_ - BulkRecordImporter class now available that provides the ability to import QRDA Cat I, Consolidated CDA and HITSP C32
 * TemplateHelper now properly accepts a different directory for templates
 * QRDA Cat I importer now extracts negation on procedures
 * Implemented support to encounter transfers in QRDA Cat I import and export
@@ -70,7 +74,7 @@ Change Log
 
 * Adding rake tasks for working with measure bundles
 * Fixes for XPath expression execution when using JRuby
-* OID fixes for ordinality in QRDA Category 
+* OID fixes for ordinality in QRDA Category
 
 3.2.8 - August 23, 2013
 
@@ -81,7 +85,7 @@ Change Log
 License
 =======
 
-Copyright 2013 The MITRE Corporation
+Copyright 2014 The MITRE Corporation
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
