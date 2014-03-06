@@ -6,7 +6,7 @@ module Qrda
     embeds_many :authors
     embeds_one :custodian
     embeds_one :legal_authenticator
-    embeds_many :performers
+    embeds_many :performers, class_name: "Provider"
 
     field  :time , type: DateTime, default: Time.now
   end
