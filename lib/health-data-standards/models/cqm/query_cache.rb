@@ -5,7 +5,7 @@ module HealthDataStandards
       include Mongoid::Timestamps
       store_in collection: 'query_cache'
 
-      field :calculation_date, type: Time 
+      field :calculation_date, type: Time
       field :status, type: Hash
       field :measure_id, type: String
       field :sub_id, type: String
@@ -21,8 +21,13 @@ module HealthDataStandards
       field :OBSERV, type: Float
       field :supplemental_data, type: Hash
 
-      def self.aggregate_measure(measure_id, effective_date, filter=nil, test_id=nil)
-        cache_entries = self.where(effective_date: effective_date, measure_id: measure_id, test_id: test_id, filter: filter)
+      def self.aggregate_measure(measure_id, effective_date, filters=nil, test_id=nil)
+        query_hash = {'effective_date' => effective_date, 'measure_id' => measure_id,
+                      'test_id' => test_id}
+        if filters
+          query_hash.merge!(filters)
+        end
+        cache_entries = self.where(query_hash)
         aggregate_count = AggregateCount.new(measure_id)
         cache_entries.each do |cache_entry|
           aggregate_count.add_entry(cache_entry)
@@ -38,7 +43,7 @@ module HealthDataStandards
         population_ids.has_key?('MSRPOPL')
       end
 
-      
+
     end
   end
 end
