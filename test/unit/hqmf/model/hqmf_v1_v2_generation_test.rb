@@ -8,6 +8,7 @@ class HQMFV1V2GenerationTest < Test::Unit::TestCase
 
   @@num_finished_tests = 0
   @@result_map = {}
+  @@error_type_map = Hash.new(0)
 
   # Create a blank folder for the errors
   FileUtils.rm_rf(RESULTS_DIR) if File.directory?(RESULTS_DIR)
@@ -27,7 +28,7 @@ class HQMFV1V2GenerationTest < Test::Unit::TestCase
   def teardown
     # write the summary file if we're finished the last test
     if @@result_map.length == @@num_total_tests
-      num_failed_tests = @@result_map.select { |k, v| v > 0 }.length
+      num_failed_tests = @@result_map.select { |k, v| v != 0 }.length
       num_total_errors = @@result_map.values.inject(0) { |sum, n | n > 0 ? sum + n : sum }
       File.open(SUMMARY_FILE, 'w') do | file |
         file.write(sprintf("Total Measures: %6d\n", @@num_total_tests))
@@ -37,6 +38,12 @@ class HQMFV1V2GenerationTest < Test::Unit::TestCase
         file.write "----------------------------------------------\n"
         @@result_map.each_pair do | measure_name, num_errors |
           file.write(sprintf("%-28s  %16s\n", measure_name, num_errors >= 0 ? num_errors.to_s : 'error'))
+        end
+        file.write "\n\n"
+        file.write "Count    Error Message\n"
+        file.write "--------------------------------------------------------------------------------\n"
+        @@error_type_map.sort_by {|k,v| v}.reverse.each do |err, count|
+          file.write(sprintf("%-8d %s\n", count, err))
         end
       end
     end
@@ -58,6 +65,7 @@ class HQMFV1V2GenerationTest < Test::Unit::TestCase
       File.open("#{RESULTS_DIR}/#{measure_name}.err", 'w') do | file |
         file.write "#{measure_name}: #{errors.length} errors\n\n"
         errors.each do |error|
+          @@error_type_map[error.message] += 1
           file.write(sprintf("%-8d  %s\n", error.line, error.message))
         end
       end
