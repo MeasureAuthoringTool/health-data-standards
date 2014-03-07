@@ -67,9 +67,9 @@ module HQMF2
       @type = type
       @entry = entry
       if @entry
-        @low = optional_value('./cda:low', default_bounds_type)
-        @high = optional_value('./cda:high', default_bounds_type)
-        @width = optional_value('./cda:width', 'PQ')
+        @low = optional_value('./cda:phase/cda:low', default_bounds_type)
+        @high = optional_value('./cda:phase/cda:high', default_bounds_type)
+        @width = optional_value('./cda:phase/cda:width', 'PQ')
       end
     end
     

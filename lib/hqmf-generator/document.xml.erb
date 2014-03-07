@@ -18,10 +18,18 @@
       <code code="MSRTP" codeSystem="2.16.840.1.113883.3.560">
         <displayName value="Measurement period"/>
       </code>
-      <value>
-        <low value="<%= doc.measure_period.low.value %>" />
-        <high value="<%= doc.measure_period.high.value %>" />
-      </value>
+      <value xsi:type="PIVL_TS"">
+        <phase lowClosed="true" highClosed="true">
+            <%- if doc.measure_period.low != nil -%>
+                <low value="<%= doc.measure_period.low.value %>" />
+            <%- end -%>
+            <%- if doc.measure_period.high != nil -%>
+                <high value="<%= doc.measure_period.high.value %>" />
+            <%- end -%>
+            <%- if doc.measure_period.width != nil -%>
+                <width xsi:type="PQ" value="<%= doc.measure_period.width.value %>" unit="a" />
+            <%- end -%>
+        </phase>
     </measurePeriod>
   </controlVariable>
   <%- doc.attributes.each do |attribute| -%>
