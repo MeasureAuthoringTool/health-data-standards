@@ -28,6 +28,7 @@ module HQMF1
       @preconditions = @entry.xpath('./*/cda:sourceOf[@typeCode="PRCN"]').collect do |entry|
         Precondition.new(entry, self, @doc)
       end
+      check_nil_conjunction_on_child
     end
     
     # Get the conjunction code, e.g. AND, OR
