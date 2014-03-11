@@ -1,6 +1,6 @@
 <tr class="narr_tr">
   
-  <td><%if entry.negationInd %><b>Not Done: </b><% end %><%= entry.description %></td>
+  <td><%if entry.negationInd %><b>Not Done: </b><% end %><%= decode_hqmf_description(entry.description, entry.oid) %></td>
   <td>
     <% entry.codes.each do |set, codes| %>
       <% entry_key = "#{entry.id}_#{by_encounter}" %>
