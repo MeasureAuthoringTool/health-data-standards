@@ -52,9 +52,7 @@ module HealthDataStandards
               rendering_context.extend(extension)
             end
           end
-            eruby = Erubis::EscapedEruby.new(erb) # TODO: cache these
-            eruby.filename=  @template_helper.template_file((params[:template] || params[:partial]), params[:partial]).path
-            eruby.result(rendering_context.my_binding)
+            erb.result(rendering_context.my_binding)
         end.join
       end
     end
