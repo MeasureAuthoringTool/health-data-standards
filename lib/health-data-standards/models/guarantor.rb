@@ -1,5 +1,6 @@
 class Guarantor
   include Mongoid::Document
+  include Mongoid::Attributes::Dynamic
   
   embeds_one :organization
   embeds_one :person

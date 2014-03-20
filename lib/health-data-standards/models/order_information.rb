@@ -1,5 +1,6 @@
 class OrderInformation
   include Mongoid::Document
+  include Mongoid::Attributes::Dynamic
   
   field :orderNumber, type: String
   field :fills, type: Integer

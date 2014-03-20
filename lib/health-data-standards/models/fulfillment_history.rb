@@ -1,5 +1,6 @@
 class FulfillmentHistory
   include Mongoid::Document
+  include Mongoid::Attributes::Dynamic
   
   field :prescriptionNumber, type: String
   field :dispenseDate, type: Integer
