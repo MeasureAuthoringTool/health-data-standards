@@ -1,5 +1,6 @@
 class ProviderPerformance
   include Mongoid::Document
+  include Mongoid::Attributes::Dynamic
   
   field :start_date, type: Integer
   field :end_date, type: Integer

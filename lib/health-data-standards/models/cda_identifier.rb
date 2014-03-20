@@ -1,5 +1,6 @@
 class CDAIdentifier
   include Mongoid::Document
+  include Mongoid::Attributes::Dynamic
 
   field :root, type: String
   field :extension, type: String
