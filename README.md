@@ -29,6 +29,7 @@ Change Log
 
 * Updating the Measure model to deal with continuous variable and NQF and CMS ids through Measure.categories
 * Bug fix - Filters were not properly handled by the QueryCache
+* Bug fix - Fixed the order of populations in HQMF::PopulationCriteria::ALL_POPULATION_CODES so that DENEX is after denominator
 
 3.4.3 - March 6, 2014
 
