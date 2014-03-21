@@ -1,13 +1,8 @@
 class MedicalEquipment < Entry
   
   field :manufacturer, type: String
-  field :anatomicalStructure, type: Hash
-  field :removalTime, type: Integer
-
-  alias :anatomical_structure :anatomicalStructure
-  alias :anatomical_structure= :anatomicalStructure=
-  alias :removal_time :removalTime
-  alias :removal_time= :removalTime=
+  field :anatomicalStructure, as: :anatomical_structure, type: Hash
+  field :removalTime, as: :removal_time, type: Integer
 
    def shift_dates(date_diff)
    	super

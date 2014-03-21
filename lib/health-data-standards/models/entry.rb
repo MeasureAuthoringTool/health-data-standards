@@ -17,15 +17,10 @@ class Entry
   field :end_time, type: Integer
   field :status_code, type: Hash
   field :mood_code, type: String, default: "EVN"
-  field :negationInd, type: Boolean
-  field :negationReason, type: Hash
+  field :negationInd, as: :negation_ind, type: Boolean
+  field :negationReason, as: :negation_reason, type: Hash
   field :oid, type: String
   field :reason, type: Hash
-  
-  alias :negation_ind :negationInd
-  alias :negation_ind= :negationInd=
-  alias :negation_reason :negationReason
-  alias :negation_reason= :negationReason=
   
   attr_protected :version
   attr_protected :_id
