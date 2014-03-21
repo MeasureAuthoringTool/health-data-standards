@@ -7,7 +7,7 @@ module HealthDataStandards
       MSRPOPL = 'MSRPOPL'
 
       store_in collection: 'measures'
-      field :id, type: String
+      field :id, as: :id, type: String
       field :sub_id, type: String
       field :name, type: String
       field :subtitle, type: String
@@ -83,7 +83,7 @@ module HealthDataStandards
       end
 
       def key
-        "#{id}#{sub_id}"
+        "#{self['id']}#{sub_id}"
       end
 
       def is_cv?
@@ -117,7 +117,7 @@ module HealthDataStandards
       end
 
       def measure_id
-        id
+        self['id']
       end
 
       def continuous?
