@@ -12,7 +12,7 @@ module HealthDataStandards
             bundle_id_to_use = bundle_id
           else
             latest_bundle_id = HealthDataStandards::CQM::Bundle.latest_bundle_id
-            bundle_id_to_use = Moped::BSON::ObjectId.from_string(latest_bundle_id) if latest_bundle_id
+            bundle_id_to_use = BSON::ObjectId.from_string(latest_bundle_id) if latest_bundle_id
           end
           VS_MAP[bundle_id_to_use] ||= Hash[ValueSet.where({bundle_id: bundle_id_to_use}).map{ |p| [p.oid, p.code_set_map] }]
         end
