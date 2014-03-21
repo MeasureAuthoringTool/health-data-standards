@@ -16,7 +16,7 @@ module HQMF
     MSRPOPL = 'MSRPOPL'
     OBSERV = 'OBSERV'
     
-    ALL_POPULATION_CODES = [IPP, DENOM, NUMER, DENEXCEP, DENEX, MSRPOPL, OBSERV]
+    ALL_POPULATION_CODES = [IPP, DENOM, DENEX, NUMER, DENEXCEP, MSRPOPL, OBSERV]
     
     # Create a new population criteria
     # @param [String] id
