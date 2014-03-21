@@ -147,7 +147,7 @@ module HealthDataStandards
             bulk << vs
             report_progress('Value Sets', (index*100/entries.length)) if index%10 == 0
           end
-          HealthDataStandards::SVS::ValueSet.collection.insert(bulk.map {|vs| vs.as_document})
+          HealthDataStandards::SVS::ValueSet.collection.insert(bulk.map {|vs| vs.as_document}) unless bulk.empty?
           puts "\rLoading: Value Sets Complete          "
         end
 
