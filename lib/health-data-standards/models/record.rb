@@ -19,9 +19,9 @@ class Record
   field :marital_status, type: Hash
   field :medical_record_number, type: String
   field :expired, type: Boolean
-  field :clinicalTrialParticipant, type: Boolean   # Currently not implemented in the C32 importer
-                                                   # because it cannot be easily represented in a
-                                                   # HITSP C32
+  field :clinicalTrialParticipant, as: :clinical_trial_participant, type: Boolean   # Currently not implemented in the C32 importer
+                                                                                    # because it cannot be easily represented in a
+                                                                                    # HITSP C32
 
   index "last" => 1                                                   
   embeds_many :allergies
@@ -93,9 +93,6 @@ class Record
   end
 
   memoize :entries_for_oid
-  
-  alias :clinical_trial_participant :clinicalTrialParticipant
-  alias :clinical_trial_participant= :clinicalTrialParticipant=
 
 
   # Remove duplicate entries from a section based on cda_identifier or id.

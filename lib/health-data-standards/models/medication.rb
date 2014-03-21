@@ -1,52 +1,32 @@
 class Medication < Entry
-  field :administrationTiming, type: Hash
+  field :administrationTiming, as: :administration_timing, type: Hash
   field :freeTextSig, type: String
   field :dose, type: Hash
-  field :typeOfMedication, type: Hash
-  field :statusOfMedication, type: Hash
+  field :typeOfMedication, as: :type_of_medication, type: Hash
+  field :statusOfMedication, as: :status_of_medication, type: Hash
   embeds_many :fulfillmentHistory, class_name: 'FulfillmentHistory'
   embeds_many :orderInformation, class_name: 'OrderInformation'
 
   field :route, type: Hash
   field :site, type: Hash
-  field :doseRestriction, type: Hash
-  field :fulfillmentInstructions, type: String
+  field :doseRestriction, as: :dose_restriction, type: Hash
+  field :fulfillmentInstructions, as: :fulfillment_instructions, type: String
   field :indication, type: Hash
-  field :productForm, type: Hash
+  field :productForm, as: :product_form, type: Hash
   field :vehicle, type: Hash
   field :reaction, type: Hash
-  field :deliveryMethod, type: Hash
-  field :patientInstructions, type: String
-  field :doseIndicator, type: String
+  field :deliveryMethod, as: :delivery_method, type: Hash
+  field :patientInstructions, as: :patient_instructions, type: String
+  field :doseIndicator, as: :dose_indicator, type: String
 
   # There are currently no importers that support this field
   # It is expected to be a scalar and value, such as 7 days
-  field :cumulativeMedicationDuration, type: Hash
-  
-  alias :administration_timing :administrationTiming
-  alias :administration_timing= :administrationTiming=
-  alias :type_of_medication :typeOfMedication
-  alias :type_of_medication= :typeOfMedication=
-  alias :status_of_medication :statusOfMedication
-  alias :status_of_medication= :statusOfMedication=
+  field :cumulativeMedicationDuration, as: :cumulative_medication_duration, type: Hash
+
   alias :fulfillment_history :fulfillmentHistory
   alias :fulfillment_history= :fulfillmentHistory=
   alias :order_information :orderInformation
   alias :order_information= :orderInformation=
-  alias :dose_restriction :doseRestriction
-  alias :dose_restriction= :doseRestriction=
-  alias :fulfillment_instructions :fulfillmentInstructions
-  alias :fulfillment_instructions= :fulfillmentInstructions=
-  alias :product_form :productForm
-  alias :product_form= :productForm=
-  alias :delivery_method :deliveryMethod
-  alias :delivery_method= :deliveryMethod=
-  alias :patient_instructions :patientInstructions
-  alias :patient_instructions= :patientInstructions=
-  alias :dose_indicator :doseIndicator
-  alias :dose_indicator= :doseIndicator=
-  alias :cumulative_medication_duration :cumulativeMedicationDuration
-  alias :cumulative_medication_duration= :cumulativeMedicationDuration=
 
   def shift_dates(date_diff)
     super

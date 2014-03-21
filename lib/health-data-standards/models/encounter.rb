@@ -1,8 +1,8 @@
 class Encounter < Entry
-  field :admitType, type: Hash
-  field :dischargeDisposition, type: Hash
-  field :admitTime, type: Integer
-  field :dischargeTime, type: Integer
+  field :admitType, as: :admit_type, type: Hash
+  field :dischargeDisposition, as: :discharge_disposition, type: Hash
+  field :admitTime, as: :admit_time, type: Integer
+  field :dischargeTime, as: :discharge_time, type: Integer
   
   embeds_one :transferTo, class_name: "Transfer"
   embeds_one :transferFrom, class_name: "Transfer"
@@ -12,14 +12,6 @@ class Encounter < Entry
 
   belongs_to :performer, class_name: "Provider"
 
-  alias :admit_time :admitTime
-  alias :admit_time= :admitTime=
-  alias :admit_type :admitType
-  alias :admit_type= :admitType=
-  alias :discharge_disposition :dischargeDisposition
-  alias :discharge_disposition= :dischargeDisposition=
-  alias :discharge_time :dischargeTime
-  alias :discharge_time= :dischargeTime=
   alias :transfer_to :transferTo
   alias :transfer_to= :transferTo=
   alias :transfer_from :transferFrom
