@@ -22,7 +22,7 @@ namespace :bundle do
 
 
   desc 'List bundles'
-  task :list  => [:environment] do 
+  task :list  => [:environment] do
      Bundle.where({}).each do |b|
       puts "Bundle #{b.title} - #{b.version}  active: #{b.active}"
      end
@@ -30,14 +30,15 @@ namespace :bundle do
 
 
   desc 'Import a quality bundle into the database.'
-  task :import, [:bundle_path,  :delete_existing,  :update_measures, :type, :create_indexes] => [:environment] do |task, args|
+  task :import, [:bundle_path,  :delete_existing,  :update_measures, :type, :create_indexes, :exclude_results] => [:environment] do |task, args|
     raise "The path to the measures zip file must be specified" unless args.bundle_path
     options = {:delete_existing => (args.delete_existing == "true"),
     					 :type => args.type,
-    					 :update_measures => (args.update_measures == "true")
+    					 :update_measures => (args.update_measures == "true"),
+               :exclude_results => (args.exclude_results == "true")
     					}
 
-    bundle = File.open(args.bundle_path)    
+    bundle = File.open(args.bundle_path)
     importer = HealthDataStandards::Import::Bundle::Importer
     bundle_contents = importer.import(bundle, options)
 
@@ -52,30 +53,30 @@ namespace :bundle do
     end
 
     puts "Successfully imported bundle at: #{args.bundle_path}"
-    puts "\t Imported into environment: #{Rails.env.upcase}" if defined? Rails 
+    puts "\t Imported into environment: #{Rails.env.upcase}" if defined? Rails
     puts "\t Loaded #{args.type || 'all'} measures"
     puts "\t Sub-Measures Loaded: #{counts[:measures]}"
     puts "\t Test Patients Loaded: #{counts[:records]}"
     puts "\t Extensions Loaded: #{counts[:extensions]}"
     puts "\t Value Sets Loaded: #{counts[:value_sets]}"
-    
+
 
   end
-  
+
   # this task is most likely temporary.  Once Bonnie can handle both EP and EH measures together, this would no longer be required.
   desc 'Merge two bundles into one.'
   task :merge, [:bundle_one,:bundle_two] do |t, args|
     raise "Two bundle zip file paths to be merged must be specified" unless args.bundle_one && args.bundle_two
-    
+
     tmpdir = Dir.mktmpdir
     ['measures','patients','library_functions','results', 'sources', 'value_sets'].each do |dir|
-      
+
       FileUtils.mkdir_p(File.join(tmpdir, 'output', dir))
-      
+
     end
-      
+
     begin
-      
+
       ({'one'=>args.bundle_one,'two'=>args.bundle_two}).each do |key, source|
         Zip::ZipFile.open(source) do |zip_file|
           zip_file.each do |f|
@@ -85,8 +86,8 @@ namespace :bundle do
           end
         end
       end
-      
-      
+
+
       ['measures','patients','library_functions', 'sources'].each do |dir|
         ['one','two'].each do |key|
           FileUtils.mv(Dir.glob(File.join(tmpdir,key,dir,'*')), File.join(tmpdir,'output',dir))
@@ -102,14 +103,14 @@ namespace :bundle do
           end
         end
       end
-      
+
       Dir.glob(File.join(tmpdir,'one','results','*.json')).each do |result_path_one|
         json_one = JSON.parse(File.new(result_path_one).read)
         result_filename = Pathname.new(result_path_one).basename.to_s
         json_two = JSON.parse(File.new(File.join(tmpdir,'two','results',result_filename)).read)
         File.open(File.join(tmpdir,'output','results',result_filename), 'w') {|f| f.write(JSON.pretty_generate(json_one + json_two)) }
       end
-      
+
       json_one = JSON.parse(File.new(File.join(tmpdir,'one','bundle.json')).read)
       json_two = JSON.parse(File.new(File.join(tmpdir,'two','bundle.json')).read)
       json_out = {}
@@ -119,7 +120,7 @@ namespace :bundle do
       ['measures','patients','extensions'].each do |key|
         json_out[key] = (json_one[key] + json_two[key]).uniq
       end
-      
+
       version = json_out['version']
 
       File.open(File.join(tmpdir,'output','bundle.json'), 'w') {|f| f.write(JSON.pretty_generate(json_out)) }
@@ -133,14 +134,14 @@ namespace :bundle do
           zipfile.add(file.sub(path+'/',''),file)
         end
       end
-      
+
       puts "wrote merged bundle to: #{out_zip}"
 
     ensure
       FileUtils.remove_entry_secure tmpdir
     end
-    
-  
+
+
   end
-  
+
 end
