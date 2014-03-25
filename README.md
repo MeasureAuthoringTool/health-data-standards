@@ -25,7 +25,7 @@ Please try to follow the [GitHub Coding Style Guides](https://github.com/stylegu
 Change Log
 ==========
 
-3.4.4 - Not yet released
+3.4.4
 
 * Updating the Measure model to deal with continuous variable and NQF and CMS ids through Measure.categories
 * Bug fix - Filters were not properly handled by the QueryCache
