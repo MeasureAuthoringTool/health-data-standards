@@ -25,11 +25,12 @@ Please try to follow the [GitHub Coding Style Guides](https://github.com/stylegu
 Change Log
 ==========
 
-3.4.4
+3.4.4 - March 25, 2014
 
 * Updating the Measure model to deal with continuous variable and NQF and CMS ids through Measure.categories
 * Bug fix - Filters were not properly handled by the QueryCache
 * Bug fix - Fixed the order of populations in HQMF::PopulationCriteria::ALL_POPULATION_CODES so that DENEX is after denominator
+* When importing measure bundles, you can now exclude patients and calculation results
 
 3.4.3 - March 6, 2014
 
