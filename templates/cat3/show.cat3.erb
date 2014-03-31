@@ -116,7 +116,11 @@ Measure Section
                   <id root="<%= measure['hqmf_id'] %>"/>
 
                   <!-- SHOULD This is the title of the eMeasure -->
+                  <% if measure['subtitle'] -%>                  
+                  <text><%= measure['name'] %> (<%= measure['subtitle'] %>)</text>
+                  <% else -%>
                   <text><%= measure['name'] %></text>
+                  <% end %>
                   <!-- SHOULD: setId is the eMeasure version neutral id  -->
                   <setId root="<%= measure['hqmf_set_id'] %>"/>
                   <!-- This is the sequential eMeasure Version number -->
@@ -124,7 +128,7 @@ Measure Section
                 </externalDocument>
               </reference>
 
-              <% result = results[measure['hqmf_id']]
+              <% result = results["#{measure['hqmf_id']}.#{measure['sub_id']}"]
                  unless result.is_cv?
                   result.population_groups.each do |pg|
               -%>
