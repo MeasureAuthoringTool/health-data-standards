@@ -21,9 +21,9 @@ module HealthDataStandards
       field :OBSERV, type: Float
       field :supplemental_data, type: Hash
 
-      def self.aggregate_measure(measure_id, effective_date, filters=nil, test_id=nil)
+      def self.aggregate_measure(measure_id, sub_id, effective_date, filters=nil, test_id=nil)
         query_hash = {'effective_date' => effective_date, 'measure_id' => measure_id,
-                      'test_id' => test_id}
+                      'sub_id' => sub_id, 'test_id' => test_id}
         if filters
           query_hash.merge!(filters)
         end
