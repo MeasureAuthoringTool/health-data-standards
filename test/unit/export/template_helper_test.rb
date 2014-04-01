@@ -5,16 +5,18 @@ class TemplateHelperTest < MiniTest::Unit::TestCase
     @template_helper = HealthDataStandards::Export::TemplateHelper.new('c32', 'c32')
     erb = @template_helper.template 'show'
     assert erb
-    assert erb.length > 0
-    assert erb.include? 'ClinicalDocument'
+    assert erb.filename.match(/.*show.c32.erb/)
+    assert erb.src.length > 0
+    assert erb.src.include? 'ClinicalDocument'
   end
 
   def test_partial_finding
     @template_helper = HealthDataStandards::Export::TemplateHelper.new('c32', 'c32')
     erb = @template_helper.partial 'allergies'
     assert erb
-    assert erb.length > 0
-    assert erb.include? 'Allergies/Reactions'
+    assert erb.filename.match(/.*\_allergies.c32.erb/)
+    assert erb.src.length > 0
+    assert erb.src.include? 'Allergies/Reactions'
   end
 
   def test_render
