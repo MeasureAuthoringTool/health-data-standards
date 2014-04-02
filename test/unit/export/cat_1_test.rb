@@ -34,8 +34,8 @@ class Cat1Test < MiniTest::Unit::TestCase
      Record.all.each do |record|
       puts "Testing Cat I for #{record.first} #{record.last}"
       doc = Nokogiri::XML(HealthDataStandards::Export::Cat1.new.export(record,valid_measures,@start_date,@end_date))
-      assert_equal [], xsd.validate(doc), "Invalid Cat I for #{record.first} #{record.last}" 
-    end  
+      assert_equal [], xsd.validate(doc), "Invalid Cat I for #{record.first} #{record.last}"
+    end
   end
 
   def test_cda_header_export
@@ -101,5 +101,14 @@ class Cat1Test < MiniTest::Unit::TestCase
 
     assert_equal @start_date.to_formatted_s(:number), effective_time.at_xpath('./cda:low')['value']
     assert_equal @end_date.to_formatted_s(:number), effective_time.at_xpath('./cda:high')['value']
+  end
+
+  def test_record_target_export
+    street_address = @doc.at_xpath('//cda:recordTarget/cda:patientRole/cda:addr/cda:streetAddressLine')
+    assert street_address
+
+    expected_addr = "15 Credibility Street"
+
+    assert_equal expected_addr, street_address.children.first.to_s
   end
 end
