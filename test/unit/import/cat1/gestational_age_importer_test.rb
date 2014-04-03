@@ -7,7 +7,7 @@ class GestationalAgeImporterTest < MiniTest::Unit::TestCase
     nrh = HealthDataStandards::Import::CDA::NarrativeReferenceHandler.new
     nrh.build_id_map(doc)
     gai = HealthDataStandards::Import::Cat1::EntryPackage.new(HealthDataStandards::Import::Cat1::GestationalAgeImporter.new, '2.16.840.1.113883.3.560.1.1001')
-		gais = gai.package_entries(doc, nrh)
+		gais = gai.package_entries(cat1_patient_data_section(doc), nrh)
 		gestational_age = gais[0]
 		assert gestational_age.codes['SNOMED-CT'].include?("931004")
   end

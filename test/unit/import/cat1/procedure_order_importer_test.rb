@@ -7,7 +7,7 @@ class ProcedureOrderImporterTest < MiniTest::Unit::TestCase
     nrh = HealthDataStandards::Import::CDA::NarrativeReferenceHandler.new
     nrh.build_id_map(doc)
     p_o = HealthDataStandards::Import::Cat1::EntryPackage.new(HealthDataStandards::Import::Cat1::ProcedureOrderImporter.new, '2.16.840.1.113883.3.560.1.62', 'ordered')
-    procedure_orders = p_o.package_entries(doc, nrh)
+    procedure_orders = p_o.package_entries(cat1_patient_data_section(doc), nrh)
     procedure_order = procedure_orders[0]
     assert procedure_order.codes['CPT'].include?('90870')
     assert procedure_order.oid

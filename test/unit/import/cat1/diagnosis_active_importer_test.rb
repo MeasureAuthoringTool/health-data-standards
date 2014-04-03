@@ -7,7 +7,7 @@ class DiagnosisActiveImporterTest < MiniTest::Unit::TestCase
     nrh = HealthDataStandards::Import::CDA::NarrativeReferenceHandler.new
     nrh.build_id_map(doc)
     diag = HealthDataStandards::Import::Cat1::EntryPackage.new(HealthDataStandards::Import::Cat1::DiagnosisActiveImporter.new, '2.16.840.1.113883.3.560.1.2', 'active')
-    diagnoses = diag.package_entries(doc, nrh)
+    diagnoses = diag.package_entries(cat1_patient_data_section(doc), nrh)
     diagnosis = diagnoses[0]
     severity = {"SNOMED-CT" =>["55561003"]}
     assert diagnosis.codes['ICD-9-CM'].include?("999.34")

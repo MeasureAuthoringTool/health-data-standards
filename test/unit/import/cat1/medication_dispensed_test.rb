@@ -7,7 +7,7 @@ class MedicationDispensedImporterTest < MiniTest::Unit::TestCase
     nrh = HealthDataStandards::Import::CDA::NarrativeReferenceHandler.new
     nrh.build_id_map(doc)
     med = HealthDataStandards::Import::Cat1::EntryPackage.new(HealthDataStandards::Import::Cat1::MedicationDispensedImporter.new, '2.16.840.1.113883.3.560.1.8', 'dispensed')
-    medications = med.package_entries(doc, nrh)
+    medications = med.package_entries(cat1_patient_data_section(doc), nrh)
     medication = medications[0]
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19960119172123')
     expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19960119221325')

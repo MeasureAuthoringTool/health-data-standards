@@ -7,7 +7,7 @@ class DiagnosisInactiveImporterTest < MiniTest::Unit::TestCase
     nrh = HealthDataStandards::Import::CDA::NarrativeReferenceHandler.new
     nrh.build_id_map(doc)
     diag = HealthDataStandards::Import::Cat1::EntryPackage.new(HealthDataStandards::Import::Cat1::DiagnosisInactiveImporter.new, '2.16.840.1.113883.3.560.1.23', 'inactive')
-    diagnoses = diag.package_entries(doc, nrh)
+    diagnoses = diag.package_entries(cat1_patient_data_section(doc), nrh)
     diagnosis = diagnoses[0]
     assert diagnosis.codes['ICD-9-CM'].include?("V02.61")
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20040816121859')

@@ -9,7 +9,7 @@ class MedicationActiveImporterTest < MiniTest::Unit::TestCase
     nrh = CDA::NarrativeReferenceHandler.new
     nrh.build_id_map(doc)
     packager = Cat1::EntryPackage.new(Cat1::MedicationActiveImporter.new, '2.16.840.1.113883.3.560.1.13', 'active')
-    medication = packager.package_entries(doc, nrh).first
+    medication = packager.package_entries(cat1_patient_data_section(doc), nrh).first
     
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19890509170647')
     expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19890509173724')
