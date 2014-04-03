@@ -1,10 +1,10 @@
 module ProviderImportUtils
-  
+
   def extract_provider(performer, element_name="assignedEntity")
     provider_data = extract_provider_data(performer, false, "./cda:#{element_name}")
     find_or_create_provider(provider_data)
   end
-  
+
   def find_or_create_provider(provider_hash)
     provider = Provider.by_npi(provider_hash[:npi]).first if provider_hash[:npi] && !provider_hash[:npi].empty?
     unless provider
@@ -12,8 +12,6 @@ module ProviderImportUtils
         provider = Provider.create(provider_hash)
         provider.npi = provider_hash[:npi]
       else
-        provider ||= Provider.resolve_provider(provider_hash) if Provider.respond_to? :resolve_provider
-
         ident_roots = provider_hash[:cda_identifiers].map {|ident| ident.root}
         ident_extensions = provider_hash[:cda_identifiers].map {|ident| ident.extension}
         unless ident_roots.size == 0
@@ -24,10 +22,11 @@ module ProviderImportUtils
                             :family_name=> provider_hash[:family_name],
                             :specialty => provider_hash[:specialty]}
         provider ||= Provider.where(provider_query).first
+        provider ||= Provider.resolve_provider(provider_hash)
         provider ||= Provider.create(provider_hash)
       end
     end
-    provider 
+    provider
   end
 
   # Returns nil if result is an empty string, block allows text munging of result if there is one
@@ -39,5 +38,5 @@ module ProviderImportUtils
       result.content
     end
   end
-  
+
 end
