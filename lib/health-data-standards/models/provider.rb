@@ -7,9 +7,9 @@ class Provider
 
   field :specialty   , type: String
   field :phone       , type: String
-  
+
   validates_uniqueness_of :npi, allow_blank: true
-  
+
   embeds_one :organization
   embeds_many :cda_identifiers, class_name: "CDAIdentifier", as: :cda_identifiable
 
@@ -42,21 +42,21 @@ class Provider
   def records(effective_date=nil)
     Record.by_provider(self, effective_date)
   end
-  
+
   # validate the NPI, should be 10 or 15 digits total with the final digit being a
   # checksum using the Luhn algorithm with additional special handling as described in
-  # https://www.cms.gov/NationalProvIdentStand/Downloads/NPIcheckdigit.pdf 
+  # https://www.cms.gov/NationalProvIdentStand/Downloads/NPIcheckdigit.pdf
   def self.valid_npi?(npi)
     return false unless npi
     return false if npi.length != 10 and npi.length != 15
     return false if npi.gsub(/\d/, '').length > 0 # npi must be all digits
     return false if npi.length == 15 and (npi =~ /^80840/)==nil # 15 digit npi must start with 80840
-  
+
     # checksum is always calculated as if 80840 prefix is present
     if npi.length==10
       npi = '80840'+npi
     end
-  
+
     return luhn_checksum(npi[0,14])==npi[14]
   end
 
@@ -72,17 +72,19 @@ class Provider
       end
     end
     sum = (9*sum)%10
-  
+
     return sum.to_s
   end
 
-  #this is intentially left blank. When using the ProviderImporter class this method will be called
-  # if a parsed provider can not be found in the database if the parsed provider does not have an 
-  # npi number associated with it.  This allows applications to handle this how they see fit by redefining
-  # this method.  If this method call return nil an attempt will be made to discover the Provider by name 
-  # matching and if that fails a Provider will be created in the db based on the information in the parsed
-  #  hase
+  # When using the ProviderImporter class this method will be called if a parsed
+  # provider can not be found in the database if the parsed provider does not
+  # have an npi number associated with it.  This allows applications to handle
+  # this how they see fit by redefining this method.  The default implementation
+  # is to return an orphan parent (the singular provider without an NPI) if one
+  # exists.  If this method call return nil an attempt will be made to discover
+  # the Provider by name matching and if that fails a Provider will be created
+  # in the db based on the information in the parsed hash.
   def self.resolve_provider(provider_hash)
-
+    Provider.where(:npi => nil).first
   end
 end
