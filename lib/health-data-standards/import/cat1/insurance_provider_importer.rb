@@ -4,7 +4,7 @@ module HealthDataStandards
       class InsuranceProviderImporter < CDA::SectionImporter
       
         def initialize
-          super(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.55']"))
+          super(CDA::EntryFinder.new("./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.55']"))
           @check_for_usable = false # needs to be this way becase InsuranceProvider does not respond
                                     # to usable?
         end

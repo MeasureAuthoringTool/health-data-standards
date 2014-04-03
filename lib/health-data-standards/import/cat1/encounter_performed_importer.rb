@@ -2,7 +2,7 @@ module HealthDataStandards
   module Import
     module Cat1
       class EncounterPerformedImporter < CDA::EncounterImporter
-        def initialize(entry_finder=CDA::EntryFinder.new("//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']"))
+        def initialize(entry_finder=CDA::EntryFinder.new("./cda:entry/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']"))
           super(entry_finder)
           @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation"
         end

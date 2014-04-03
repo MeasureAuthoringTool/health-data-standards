@@ -105,6 +105,10 @@ def collection_fixtures(collection, *id_attributes)
   end
 end
 
+def cat1_patient_data_section(doc)
+  doc.xpath("/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.24.2.1']")
+end
+
 collection_fixtures('records', '_id')
 collection_fixtures('health_data_standards_svs_value_sets', '_id')
 collection_fixtures('measures')

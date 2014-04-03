@@ -7,7 +7,7 @@ class EncounterTransferImporterTest < MiniTest::Unit::TestCase
     nrh = HealthDataStandards::Import::CDA::NarrativeReferenceHandler.new
     nrh.build_id_map(doc)
     enc = HealthDataStandards::Import::Cat1::EntryPackage.new(HealthDataStandards::Import::CDA::EncounterImporter.new(HealthDataStandards::Import::CDA::EntryFinder.new("//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']")), '2.16.840.1.113883.3.560.1.79', 'performed')
-    encounters = enc.package_entries(doc, nrh)
+    encounters = enc.package_entries(cat1_patient_data_section(doc), nrh)
     encounter = encounters[0]
     from_time = 20120214
     to_time = 20120214

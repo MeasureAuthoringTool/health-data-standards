@@ -7,7 +7,7 @@ class DiagnosticStudyOrderImporterTest < MiniTest::Unit::TestCase
     nrh = HealthDataStandards::Import::CDA::NarrativeReferenceHandler.new
     nrh.build_id_map(doc)
     ord = HealthDataStandards::Import::Cat1::EntryPackage.new(HealthDataStandards::Import::Cat1::DiagnosticStudyOrderImporter.new, '2.16.840.1.113883.3.560.1.40', 'ordered')
-    orders = ord.package_entries(doc, nrh)
+    orders = ord.package_entries(cat1_patient_data_section(doc), nrh)
     order = orders[0]
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19891215072420')
     assert order.codes['LOINC'].include?("69399-4")

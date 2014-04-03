@@ -7,7 +7,7 @@ class ProcedurePerformedImporterTest < MiniTest::Unit::TestCase
     nrh = HealthDataStandards::Import::CDA::NarrativeReferenceHandler.new
     nrh.build_id_map(doc)
     p_p= HealthDataStandards::Import::Cat1::EntryPackage.new(HealthDataStandards::Import::Cat1::ProcedurePerformedImporter.new, '2.16.840.1.113883.3.560.1.6', 'ordered')
-    procedures_performed = p_p.package_entries(doc, nrh)
+    procedures_performed = p_p.package_entries(cat1_patient_data_section(doc), nrh)
     procedure_performed = procedures_performed[0]
     assert procedure_performed.codes['SNOMED-CT'].include?('236211007')
     assert procedure_performed.ordinality['SNOMED-CT'].include?('63161005')
