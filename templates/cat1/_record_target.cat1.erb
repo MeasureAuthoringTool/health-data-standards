@@ -9,24 +9,23 @@
       %>
       <id extension="<%= hic %>A" root="2.16.840.1.113883.4.572"/>
       <addr use="HP">
-        <%
-          if patient.addresses.length > 0
-            patient.addresses.each do |address|%>
-            <% address.street.each do |street|%>
+        <% if patient.addresses.present?
+            patient.addresses.each do |address| -%>
+            <% address.street.each do |street| -%>
               <streetAddressLine><%= street %></streetAddressLine>
             <% end %>
             <city><%= address.city %></city>
             <state><%= address.state %></state>
             <postalCode><%= address.zip %></postalCode>
             <country><%= address.country %></country>
-          <% end %>
-        <% else %>
+          <% end -%>
+        <% else -%>
           <streetAddressLine>202 Burlington Rd.</streetAddressLine>
           <city>Bedford</city>
           <state>MA</state>
           <postalCode>01730</postalCode>
           <country>US</country>
-        <% end %>
+        <% end -%>
       </addr>
       <telecom use="WP" value="tel:+1-781-271-3000"/>
       <patient>
