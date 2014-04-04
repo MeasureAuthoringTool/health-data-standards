@@ -3,6 +3,7 @@ module HealthDataStandards
     class ValueSet
 
       include Mongoid::Document
+      include Mongoid::Attributes::Dynamic
       field :oid, type: String
       field :display_name, type: String
       field :version, type: String

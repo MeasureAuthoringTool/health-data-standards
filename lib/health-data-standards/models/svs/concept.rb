@@ -4,6 +4,7 @@ module HealthDataStandards
     class Concept
 	
     	include Mongoid::Document
+      include Mongoid::Attributes::Dynamic
     	field :code, type: String
     	field :code_system_name, type: String
     	field :code_system_version, type: String

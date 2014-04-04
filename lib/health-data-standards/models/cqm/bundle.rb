@@ -4,6 +4,7 @@ module HealthDataStandards
     class Bundle
       include Mongoid::Document
       include Mongoid::Timestamps
+      include Mongoid::Attributes::Dynamic
       store_in collection: 'bundles'
       field :title, type: String
       field :name, type: String
