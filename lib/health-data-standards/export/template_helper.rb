@@ -51,8 +51,9 @@ module HealthDataStandards
           erb.filename=filename
           entry[:mtime]=mtime
           entry[:erb] = erb
+          @template_cache[template_name]=entry
         end
-        erb
+        entry[:erb]
       end
     end
   end
