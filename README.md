@@ -25,6 +25,13 @@ Please try to follow the [GitHub Coding Style Guides](https://github.com/stylegu
 Change Log
 ==========
 
+3.4.5 - Not yet released
+
+* Performance improvents in all exports through template caching
+* QRDA Cat I export now exports the record's actual address if present
+* QRDA Cat I export - Bug fix - previously patients with a race but no ethnicity would cause exceptions
+* QRDA Cat I import - performance improvements through more efficient XPath expressions
+
 3.4.4 - March 25, 2014
 
 * Updating the Measure model to deal with continuous variable and NQF and CMS ids through Measure.categories
