@@ -23,30 +23,34 @@ class Cat3Test < MiniTest::Unit::TestCase
     assert_equal 2, ipp_count.to_i
   end
 
+  def test_schema_validation
+    xsd = Nokogiri::XML::Schema(open("./resources/schema/infrastructure/cda/CDA_SDTC.xsd"))
+    assert_equal [], xsd.validate(@doc), "Invalid Cat III document"
+  end
 
   def generate_header
-   header_hash=  {identifier: {root: "header_root", extension: "header_ext"},
-     authors: [{ids: [ {root: "author_root" , extension: "author_extension"}],
-                   device: {name:"dvice_name" , model: "device_mod"},
-                   addresses:[],
-                   telecoms: [],
-                   time: Time.now,
-                   organization: {ids: [ {root: "authors_organization_root" , extension: "authors_organization_ext"}],
-                                  name: ""}}],
-     custodian: {ids: [ {root: "custodian_root" , extension: "custodian_ext"}],
-                 person: {given: "", family: ""},
-                 organization: {ids: [ {root: "custodian_rganization_root" , extension: "custodian_organization_ext"}],
-                                name: ""}},
-     legal_authenticator:{ids: [ {root: "legal_authenticator_root" , extension: "legal_authenticator_ext"}],
-                          addresses: [],
-                          telecoms:[],
-                          time: Time.now,
-                          person: {given:"hey", family: "there"},
-                          organization:{ids: [ {root: "legal_authenticator_org_root" , extension: "legal_authenticator_org_ext"}],
-                                        name: ""}
-                          }
-      }
-    
+    header_hash=  {identifier: {root: "2.16.840.1.113883.4.6", extension: "header_ext"},
+                   authors: [{ids: [ {root: "2.16.840.1.113883.4.7" , extension: "author_extension"}],
+                              device: {name:"dvice_name" , model: "device_mod"},
+                              addresses:[],
+                              telecoms: [],
+                              time: Time.now,
+                              organization: {ids: [ {root: "2.16.840.1.113883.4.9" , extension: "authors_organization_ext"}],
+                                             name: ""}}],
+                   custodian: {ids: [ {root: "custodian_root" , extension: "custodian_ext"}],
+                               person: {given: "", family: ""},
+                               organization: {ids: [ {root: "2.16.840.1.113883.4.12" , extension: "custodian_organization_ext"}],
+                                              name: ""}},
+                   legal_authenticator:{ids: [ {root: "2.16.840.1.113883.4.14" , extension: "legal_authenticator_ext"}],
+                                        addresses: [],
+                                        telecoms:[],
+                                        time: Time.now,
+                                        person: {given:"hey", family: "there"},
+                                        organization:{ids: [ {root: "2.16.840.1.113883.4.62" , extension: "legal_authenticator_org_ext"}],
+                                                      name: ""}
+                   }
+    }
+
     Qrda::Header.new(header_hash)
   end
 end
