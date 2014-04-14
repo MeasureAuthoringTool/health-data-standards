@@ -140,6 +140,19 @@ module HealthDataStandards
         @crit
       end
 
+      # Builds the query hash to pass to MongoDB
+      # Calling this method will create Prefilters if they do not exist on the
+      # measure
+      def prefilter_query!(effective_time)
+        self.build_pre_filters! if self.prefilters.empty?
+
+        if self.prefilters.count == 1
+          self.prefilters.first.build_query_hash(effective_time)
+        else
+          {'$and' => self.prefilters.map {|pf| pf.build_query_hash(effective_time)}}
+        end
+      end
+
       # For submeasures, this will return something like IPP_1
       def ipp_id
         ipp_hqmf_id = self.population_ids['IPP']
