@@ -24,14 +24,16 @@ module ThingWithCodes
     if matching_code_sets.present?
       if value_set_map
         matching_code_sets.each do |matching_code_set|
-           matching_codes = codes_value[matching_code_set] & value_set_map.collect{|cs| cs["set"] == matching_code_set ? cs["values"] : []}.flatten.compact
-           if matching_codes.present?
-             return {'code' => matching_codes.first, 'code_set' => matching_code_set}
-           end
+          matching_codes = codes_value[matching_code_set] & value_set_map.collect{|cs| cs["set"] == matching_code_set ? cs["values"] : []}.flatten.compact
+          if matching_codes.present?
+            return {'code' => matching_codes.first, 'code_set' => matching_code_set}
+          end
         end
+        # we did not find a matching preferred code... we cannot write this out to QRDA
+        return nil
       else
-      code_set = matching_code_sets.first
-      {'code' => codes_value[code_set].first, 'code_set' => code_set}
+        code_set = matching_code_sets.first
+        {'code' => codes_value[code_set].first, 'code_set' => code_set}
       end
     else
       nil
