@@ -2,7 +2,7 @@ class Record
   include Mongoid::Document
   include Mongoid::Timestamps
   extend Memoist
-  
+
   field :title, type: String
   field :first, type: String
   field :last, type: String
@@ -17,12 +17,13 @@ class Record
   field :test_id, type: Moped::BSON::ObjectId
   field :marital_status, type: Hash
   field :medical_record_number, type: String
+  field :medical_record_assigner, type: String
   field :expired, type: Boolean
   field :clinicalTrialParticipant, type: Boolean   # Currently not implemented in the C32 importer
                                                    # because it cannot be easily represented in a
                                                    # HITSP C32
 
-  index "last" => 1                                                   
+  index "last" => 1
   embeds_many :allergies
   embeds_many :care_goals, class_name: "Entry" # This can be any number of different entry types
   embeds_many :conditions
@@ -50,7 +51,7 @@ class Record
   embeds_many :provider_performances
   embeds_many :addresses, as: :locatable
   embeds_many :telecoms, as: :contactable
-  
+
   scope :by_provider, ->(prov, effective_date) { (effective_date) ? where(provider_queries(prov.id, effective_date)) : where('provider_performances.provider_id'=>prov.id)  }
   scope :by_patient_id, ->(id) { where(:medical_record_number => id) }
 
@@ -68,7 +69,7 @@ class Record
   def providers
     provider_performances.map {|pp| pp.provider }
   end
-  
+
   def over_18?
     Time.at(birthdate) < Time.now.years_ago(18)
   end
@@ -92,7 +93,7 @@ class Record
   end
 
   memoize :entries_for_oid
-  
+
   alias :clinical_trial_participant :clinicalTrialParticipant
   alias :clinical_trial_participant= :clinicalTrialParticipant=
 
@@ -139,16 +140,16 @@ class Record
 
   end
 
-  private 
-  
+  private
+
   def self.provider_queries(provider_id, effective_date)
    {'$or' => [provider_query(provider_id, effective_date,effective_date), provider_query(provider_id, nil,effective_date), provider_query(provider_id, effective_date,nil)]}
   end
   def self.provider_query(provider_id, start_before, end_after)
     {'provider_performances' => {'$elemMatch' => {'provider_id' => provider_id, '$and'=>[{'$or'=>[{'start_date'=>nil},{'start_date'=>{'$lt'=>start_before}}]}, {'$or'=>[{'end_date'=>nil},{'end_date'=> {'$gt'=>end_after}}]}] } }}
   end
-  
 
-  
+
+
 
 end
