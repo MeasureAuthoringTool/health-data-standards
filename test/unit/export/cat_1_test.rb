@@ -40,7 +40,9 @@ class Cat1Test < MiniTest::Unit::TestCase
 
   def test_cda_header_export
     first_name = @doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:given').text
+    medical_record_assigner = @doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:id/@root').value
     assert_equal 'Barry', first_name
+    assert_equal 'BarryBerrysBasement', medical_record_assigner
   end
 
   def test_patient_data_section_export
