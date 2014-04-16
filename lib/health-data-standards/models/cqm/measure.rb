@@ -149,7 +149,11 @@ module HealthDataStandards
         if self.prefilters.count == 1
           self.prefilters.first.build_query_hash(effective_time)
         else
-          {'$and' => self.prefilters.map {|pf| pf.build_query_hash(effective_time)}}
+          self.prefilters.inject({}) do |query, pf|
+            query.merge(pf.build_query_hash(effective_time)) do |key, new_val, old_val|
+              new_val.merge(old_val)
+            end
+          end
         end
       end
 
@@ -179,10 +183,10 @@ module HealthDataStandards
                   if tr['type'] == 'SBS' && tr['reference'] == 'MeasurePeriod'
                     years = nil
                     if tr['range']['high']
-                      prefilter.comparison = '$lte'
+                      prefilter.comparison = '$gte'
                       years = tr['range']['high']['value'].to_i
                     elsif tr['range']['low']
-                      prefilter.comparison = '$gte'
+                      prefilter.comparison = '$lte'
                       years = tr['range']['low']['value'].to_i
                     end
 

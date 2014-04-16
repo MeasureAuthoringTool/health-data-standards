@@ -61,7 +61,7 @@ class MeasureTest < ActiveSupport::TestCase
     assert_equal 1, measure.prefilters.count
     pf = measure.prefilters.first
     assert_equal 'birthdate', pf.record_field
-    assert_equal '$gte', pf.comparison
+    assert_equal '$lte', pf.comparison
     assert_equal -(66 * SECONDS_IN_A_YEAR), pf.effective_time_offset
   end
 
@@ -70,7 +70,6 @@ class MeasureTest < ActiveSupport::TestCase
     assert measure
     query_hash = measure.prefilter_query!(0)
 
-    assert query_hash['$and'].include?({'birthdate' => {'$gte' => -(4 * SECONDS_IN_A_YEAR)}})
-    assert query_hash['$and'].include?({'birthdate' => {'$lte' => -(18 * SECONDS_IN_A_YEAR)}})
+    assert_equal({'birthdate' => {'$lte' => -(4 * SECONDS_IN_A_YEAR), '$gte' => -(18 * SECONDS_IN_A_YEAR)}}, query_hash)
   end
 end
