@@ -41,7 +41,6 @@
   <!-- SHALL -->
   <custodian>
     <assignedCustodian>
-      <%== render :partial=>"id", :collection=>header.custodian.organization.ids, :id=>"identifier" %>
       <%== render :partial=>"organization", :locals=>{organization: header.custodian.organization, tag_name: "representedCustodianOrganization"} %>
     </assignedCustodian>
   </custodian>
@@ -64,7 +63,7 @@
         </name>
      </assignedPerson>
 
-      <%== render :partial=>"organization", :locals=>{organization: header.legal_authenticator.organization} %>
+      <%== render :partial=>"organization", :locals=>{organization: header.legal_authenticator.organization, tag_name: "representedOrganization"} %>
     </assignedEntity>
   </legalAuthenticator>
 
