@@ -25,7 +25,12 @@ Please try to follow the [GitHub Coding Style Guides](https://github.com/stylegu
 Change Log
 ==========
 
-3.4.5 - Not yet released
+3.4.6 - Not yet released
+
+* QRDA Cat I export now exports medical record number if present
+* Bug fix - QRDA Cat III export uses correct XML element name for representedCustodianOrganization
+
+3.4.5 - April 4, 2014
 
 * Performance improvents in all exports through template caching
 * QRDA Cat I export now exports the record's actual address if present
