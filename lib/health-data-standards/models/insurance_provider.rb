@@ -1,6 +1,5 @@
 class InsuranceProvider < Entry
   include Mongoid::Document
-  include ThingWithCodes
   
   embedded_in :record, class_name: 'Record'
   embeds_one :payer, class_name: "Organization"
