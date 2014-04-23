@@ -53,7 +53,7 @@ require_relative 'health-data-standards/models/medication'
 require_relative 'health-data-standards/models/procedure'
 require_relative 'health-data-standards/models/lab_result'
 require_relative 'health-data-standards/models/functional_status'
-require_relative 'health-data-standards/models/medical_equipment'  
+require_relative 'health-data-standards/models/medical_equipment'
 require_relative 'health-data-standards/models/record'
 require_relative 'health-data-standards/models/personable'
 require_relative 'health-data-standards/models/provider'
@@ -88,6 +88,7 @@ require_relative 'health-data-standards/models/qrda/header'
 require_relative 'health-data-standards/models/cqm/aggregate_objects'
 require_relative 'health-data-standards/models/cqm/query_cache'
 require_relative 'health-data-standards/models/cqm/bundle'
+require_relative 'health-data-standards/models/cqm/prefilter'
 require_relative 'health-data-standards/models/cqm/measure'
 require_relative 'health-data-standards/models/cqm/patient_cache'
 
@@ -149,7 +150,7 @@ require_relative 'health-data-standards/import/green_c32/encounter_importer'
 require_relative 'health-data-standards/import/green_c32/medication_importer'
 require_relative 'health-data-standards/import/green_c32/allergy_importer'
 require_relative 'health-data-standards/import/green_c32/social_history_importer'
-require_relative 'health-data-standards/import/green_c32/immunization_importer' 
+require_relative 'health-data-standards/import/green_c32/immunization_importer'
 require_relative 'health-data-standards/import/green_c32/support_importer'
 require_relative 'health-data-standards/import/green_c32/advance_directive_importer'
 require_relative 'health-data-standards/import/green_c32/medical_equipment_importer'
@@ -186,7 +187,7 @@ module HealthDataStandards
 end
 
 if defined?(Rails)
-  require_relative 'health-data-standards/railtie' 
+  require_relative 'health-data-standards/railtie'
 else
   HealthDataStandards.logger = Log4r::Logger.new("Health Data Standards")
   HealthDataStandards.logger.outputters = Log4r::Outputter.stdout
