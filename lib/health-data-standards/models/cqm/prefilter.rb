@@ -13,6 +13,8 @@ module HealthDataStandards
       # Comparison to a plain old value, like gender == 'F'
       field :desired_value
 
+      embedded_in :measure
+
       def build_query_hash(effective_time)
         filter_value = if self.effective_time_based
           effective_time + effective_time_offset
