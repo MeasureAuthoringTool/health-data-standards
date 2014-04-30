@@ -1,6 +1,6 @@
 This is a project to generate and consume HITSP C32, ASTM CCR, QRDA Category I, QRDA Category III and PQRI.
 
-In addition this project also contains libaries for parsing HQMF documents and for dealing with NLM valuesets.
+In addition this project also contains libraries for parsing HQMF documents and for dealing with NLM valuesets.
 
 Environment
 ===========
@@ -28,11 +28,13 @@ Change Log
 3.4.6 - Not yet released
 
 * QRDA Cat I export now exports medical record number if present
+* Measures can now generate prefilter queries to be passed to MongoDB before CQM MapReduce jobs
 * Bug fix - QRDA Cat III export uses correct XML element name for representedCustodianOrganization
+* Bug fix - InsuranceProvider model included ThingsWithCodes twice
 
 3.4.5 - April 4, 2014
 
-* Performance improvents in all exports through template caching
+* Performance improvements in all exports through template caching
 * QRDA Cat I export now exports the record's actual address if present
 * QRDA Cat I export - Bug fix - previously patients with a race but no ethnicity would cause exceptions
 * QRDA Cat I import - performance improvements through more efficient XPath expressions
@@ -52,11 +54,11 @@ Change Log
 3.4.2 - February 28, 2014
 
 * Provider improvements
-** Providers are now exported in QRDA Cat I if they exist on the Record object
-** Provider identifiers are now represented with CDAIdentifiers
-** Provider import will now import any type of identifier
-** Providers can now be arranged in a hierarchy
-** When importing providers from a clinical document, matching to existing providers in MongoDB has been improved to matching on any type of identifier
+  * Providers are now exported in QRDA Cat I if they exist on the Record object
+  * Provider identifiers are now represented with CDAIdentifiers
+  * Provider import will now import any type of identifier
+  * Providers can now be arranged in a hierarchy
+  * When importing providers from a clinical document, matching to existing providers in MongoDB has been improved to matching on any type of identifier
 * QRDA Cat I importer now imports procedure values regardless of whether the template has them at the root level or nested in an entryRelationship
 * Bug fix - Result importer will no longer double import result values
 * QRDA Cat I importer now imports encounter order end times
