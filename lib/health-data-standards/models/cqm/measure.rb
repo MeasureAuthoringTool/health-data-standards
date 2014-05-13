@@ -5,7 +5,6 @@ module HealthDataStandards
       include Mongoid::Timestamps
 
       MSRPOPL = 'MSRPOPL'
-      SECONDS_IN_A_YEAR = 365*24*60*60
 
       store_in collection: 'measures'
       field :id, type: String
@@ -190,7 +189,7 @@ module HealthDataStandards
                       years = tr['range']['low']['value'].to_i
                     end
 
-                    prefilter.effective_time_offset = -((1 + years) * SECONDS_IN_A_YEAR)
+                    prefilter.effective_time_offset = 1 + years
                     self.prefilters << prefilter
                   end
                 end
