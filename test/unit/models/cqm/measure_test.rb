@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class MeasureTest < ActiveSupport::TestCase
-  SECONDS_IN_A_YEAR = 365 * 24 * 60 * 60
-
   setup do
     dump_database
 
@@ -62,14 +60,15 @@ class MeasureTest < ActiveSupport::TestCase
     pf = measure.prefilters.first
     assert_equal 'birthdate', pf.record_field
     assert_equal '$lte', pf.comparison
-    assert_equal -(66 * SECONDS_IN_A_YEAR), pf.effective_time_offset
+    assert_equal 66, pf.effective_time_offset
   end
 
   test 'prefilter hash' do
     measure = HealthDataStandards::CQM::Measure.where(hqmf_id: '8A4D92B2-397A-48D2-0139-7CC6B5B8011E').first
     assert measure
     query_hash = measure.prefilter_query!(0)
-
-    assert_equal({'birthdate' => {'$lte' => -(4 * SECONDS_IN_A_YEAR), '$gte' => -(18 * SECONDS_IN_A_YEAR)}}, query_hash)
+    lte = Time.at(0).years_ago(4).to_i
+    gte = Time.at(0).years_ago(18).to_i
+    assert_equal({'birthdate' => {'$lte' => lte, '$gte' => gte}}, query_hash)
   end
 end

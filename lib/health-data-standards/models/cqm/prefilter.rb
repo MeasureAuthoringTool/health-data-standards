@@ -8,7 +8,7 @@ module HealthDataStandards
       field :comparison, type: String
       # Is it based on the effective_time, like 65yo during measure period
       field :effective_time_based, type: Boolean, default: false
-      # If effective_time_based, what is the offset from effective_time
+      # If effective_time_based, what is the offset from effective_time in years
       field :effective_time_offset, type: Integer
       # Comparison to a plain old value, like gender == 'F'
       field :desired_value
@@ -17,7 +17,8 @@ module HealthDataStandards
 
       def build_query_hash(effective_time)
         filter_value = if self.effective_time_based
-          effective_time + effective_time_offset
+          et = Time.at(effective_time)
+          et.years_ago(effective_time_offset).to_i
         else
           self.desired_value
         end
