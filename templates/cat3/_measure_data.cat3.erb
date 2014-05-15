@@ -56,8 +56,16 @@
         </observation>
       </entryRelationship>
       <% if population.type == 'MSRPOPL' -%>
-      <%== render :partial => 'continuous_variable_value', :locals => {:population => population.stratifications.find{|p| p.type == "OBSERV"}} %>
-      <% end -%>
+      <% 
+      #need to lookup the observation population entry and then find the stratification entry for it
+      observ = aggregate_count.populations.find{|p| p.type == "OBSERV"}
+      obs_strat = observ.stratifications.find{|s| s.id == strat.id}
+        if obs_strat
+      %>
+      <%== render :partial => 'continuous_variable_value', :locals => {:id => observ.id, :value=>obs_strat.value } %>
+      <% 
+        end
+      end -%>
       <reference typeCode="REFR">
         <externalObservation classCode="OBS" moodCode="EVN">
           <id root="<%= strat.id %>"/>
@@ -116,7 +124,8 @@
     <% end -%>
   <% end -%>
   <% if population.type == 'MSRPOPL' -%>
-  <%== render :partial => 'continuous_variable_value', :locals => {:population => aggregate_count.populations.find{|p| p.type == "OBSERV"}}%>
+  <%  observ = aggregate_count.populations.find{|p| p.type == "OBSERV"} %>
+  <%== render :partial => 'continuous_variable_value', :locals => {:id => observ.id, :value=>observ.value}%>
   <% end -%>
   <reference typeCode="REFR">
      <externalObservation classCode="OBS" moodCode="EVN">
