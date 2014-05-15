@@ -2,13 +2,13 @@ require 'zip/zipfilesystem'
 module HealthDataStandards
   module Import
     module Bundle
-      
+
       class Importer
 
-        SOURCE_ROOTS = {bundle: 'bundle.json', 
-                        libraries: File.join('library_functions','*.js'), 
-                        measures: 'measures', results: 'results', 
-                        valuesets: File.join('value_sets','json','*.json'), 
+        SOURCE_ROOTS = {bundle: 'bundle.json',
+                        libraries: File.join('library_functions','*.js'),
+                        measures: 'measures', results: 'results',
+                        valuesets: File.join('value_sets','json','*.json'),
                         patients: 'patients'}
         COLLECTION_NAMES = ["bundles", "records", "measures", "selected_measures", "patient_cache", "query_cache", "system.js"]
         CLEAR_ONLY_COLLECTIONS = ["system.js"]
@@ -36,19 +36,19 @@ module HealthDataStandards
               raise "A bundle with version #{bundle.version} already exists in the database. "
             end
 
-            HealthDataStandards::CQM::Bundle.where({:version => bundle.version}).each do |b| 
+            HealthDataStandards::CQM::Bundle.where({:version => bundle.version}).each do |b|
               puts "deleting existing bundle version: #{b.version}"
               b.delete
             end if options[:delete_existing]
 
             #find the highest bundle version and see if one is installed that is greater than the one
-            # we are currently installing.  Do not load the libs other wise 
+            # we are currently installing.  Do not load the libs other wise
             vers = bundle_versions.values.sort.reverse[0]
             if (vers.nil? || vers <= bundle.version || options["force_js_install"])
-              unpack_and_store_system_js(zip_file) 
+              unpack_and_store_system_js(zip_file)
             else
               puts "javascript libraries will not being updated as a more recent bundle version is already installed"
-            end  
+            end
             # Store the bundle metadata.
             unless bundle.save
               raise bundle.errors.full_messages.join(",")
@@ -56,9 +56,9 @@ module HealthDataStandards
             puts "bundle metadata unpacked..."
 
             measure_ids = unpack_and_store_measures(zip_file, options[:type], bundle, options[:update_measures])
-            unpack_and_store_patients(zip_file, options[:type], bundle)
+            unpack_and_store_patients(zip_file, options[:type], bundle) unless options[:exclude_results]
             unpack_and_store_valuesets(zip_file, bundle)
-            unpack_and_store_results(zip_file, options[:type], measure_ids, bundle)
+            unpack_and_store_results(zip_file, options[:type], measure_ids, bundle) unless options[:exclude_results]
 
           end
 
@@ -163,7 +163,15 @@ module HealthDataStandards
               contents.select! {|entry| measure_ids.include? entry['value']['measure_id']} if collection == 'patient_cache'
             end
 
-            contents.each do |document| 
+            contents.each do |document|
+              if name == "by_patient"
+                # Set the patient_id to the actual _id of
+                # newly created patient record
+                medical_record_id = document['value']['medical_record_id']
+                if patient = Record.by_patient_id(medical_record_id).first
+                  document['value']['patient_id'] = patient.id
+                end
+              end
               document['bundle_id'] = bundle.id
               Mongoid.default_session[collection].insert(document)
             end

@@ -19,7 +19,7 @@ module HealthDataStandards
       field :type, type: String
       field :category, type: String
       field :population_ids , type: Hash
-      field :oids, type: Array 
+      field :oids, type: Array
 
       field :population_criteria, type: Hash
       field :data_criteria, type: Array, default: []
@@ -29,6 +29,9 @@ module HealthDataStandards
       field :populations, type: Array
       field :preconditions, type: Hash
       field :hqmf_document, type: Hash
+
+      embeds_many :prefilters
+
       scope :top_level_by_type , ->(type){where({"type"=> type}).any_of({"sub_id" => nil}, {"sub_id" => "a"})}
       scope :top_level , any_of({"sub_id" => nil}, {"sub_id" => "a"})
       scope :order_by_id_sub_id, order_by([["id", :asc],["sub_id", :asc]])
@@ -39,29 +42,35 @@ module HealthDataStandards
       index sub_id: 1
       index _id: 1, sub_id: 1
       index bundle_id: 1
-      
+
       validates_presence_of :id
       validates_presence_of :name
 
       def self.categories
         pipeline = []
-        pipeline << {'$group' => {_id: "$id", 
+        pipeline << {'$group' => {_id: "$id",
                                   name: {"$first" => "$name"},
                                   description: {"$first" => "$description"},
-                                  sub_ids: {'$push' => "$sub_id"},
                                   subs: {'$push' => {"sub_id" => "$sub_id", "short_subtitle" => "$short_subtitle"}},
+                                  sub_ids: {'$push' => "$sub_id"},
+                                  nqf_id: {"$first" => "$nqf_id"},
+                                  cms_id: {"$first" => "$cms_id"},
+                                  continuous_variable: {"$first" => "$continuous_variable"},
                                   category: {'$first' => "$category"}}}
 
         pipeline << {'$group' => {_id: "$category",
-                                  measures: {'$push' => {"id" => "$_id", 
+                                  measures: {'$push' => {"id" => "$_id",
                                              'name' => "$name",
                                              'description' => "$description",
                                              'subs' => "$subs",
-                                             'sub_ids' => "$sub_ids"
+                                             'sub_ids' => "$sub_ids",
+                                             'nqf_id' => "$nqf_id",
+                                             'cms_id' => "$cms_id",
+                                             'continuous_variable' => "$continuous_variable"
                                             }}}}
 
         pipeline << {'$project' => {'category' => '$_id', 'measures' => 1, '_id' => 0}}
-  
+
         pipeline << {'$sort' => {"category" => 1}}
         Mongoid.default_session.command(aggregate: 'measures', pipeline: pipeline)['result']
       end
@@ -76,7 +85,7 @@ module HealthDataStandards
       def key
         "#{self['id']}#{sub_id}"
       end
-      
+
       def is_cv?
         ! population_ids[MSRPOPL].nil?
       end
@@ -84,7 +93,7 @@ module HealthDataStandards
       def self.installed
         Measure.order_by([["id", :asc],["sub_id", :asc]]).to_a
       end
-      
+
 
       # Finds all measures and groups the sub measures
       # @return Array - This returns an Array of Hashes. Each Hash will represent a top level measure with an ID, name, and category.
@@ -94,14 +103,14 @@ module HealthDataStandards
                     if (obj.sub_id != null)
                       prev.subs.push({id : obj.id + obj.sub_id, name : obj.subtitle});
                   }'
-        
+
         self.moped_session.command( :group=> {:ns=>"measures", :key => {:id=>1, :name=>1, :category=>1}, :initial => {:subs => []}, "$reduce" => reduce})["retval"]
       end
 
       def display_name
         "#{self['cms_id']}/#{self['nqf_id']} - #{name}"
       end
-      
+
 
       def set_id
         self.hqmf_set_id
@@ -128,6 +137,79 @@ module HealthDataStandards
           end
         end
         @crit
+      end
+
+      # Builds the query hash to pass to MongoDB
+      # Calling this method will create Prefilters if they do not exist on the
+      # measure
+      def prefilter_query!(effective_time)
+        self.build_pre_filters! if self.prefilters.empty?
+
+        if self.prefilters.count == 1
+          self.prefilters.first.build_query_hash(effective_time)
+        else
+          self.prefilters.inject({}) do |query, pf|
+            query.merge(pf.build_query_hash(effective_time)) do |key, new_val, old_val|
+              new_val.merge(old_val)
+            end
+          end
+        end
+      end
+
+      # For submeasures, this will return something like IPP_1
+      def ipp_id
+        ipp_hqmf_id = self.population_ids['IPP']
+        pop_id, pop_criteria = hqmf_document['population_criteria'].find do |population_id, population_criteria|
+          population_criteria['hqmf_id'] == ipp_hqmf_id
+        end
+        pop_id
+      end
+
+      def build_pre_filters!
+        dc = self.data_criteria.inject({}) do |all_dc, single_dc|
+          key = single_dc.keys.first
+          value = single_dc.values.first
+          all_dc[key] = value
+          all_dc
+        end
+        dc.each_pair do |criteria_name, data_criteria|
+          if data_criteria['definition'] == 'patient_characteristic_birthdate'
+            if data_criteria_in_population?(self.ipp_id, criteria_name)
+              prefilter = Prefilter.new(record_field: 'birthdate',
+                                        effective_time_based: true)
+              if data_criteria['temporal_references']
+                data_criteria['temporal_references'].each do |tr|
+                  if tr['type'] == 'SBS' && tr['reference'] == 'MeasurePeriod'
+                    years = nil
+                    if tr['range']['high']
+                      prefilter.comparison = '$gte'
+                      years = tr['range']['high']['value'].to_i
+                    elsif tr['range']['low']
+                      prefilter.comparison = '$lte'
+                      years = tr['range']['low']['value'].to_i
+                    end
+
+                    prefilter.effective_time_offset = 1 + years
+                    self.prefilters << prefilter
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+
+      private
+
+      def data_criteria_in_population?(population_id, criteria_name)
+        criteria_in_precondition?(self.hqmf_document['population_criteria'][population_id]['preconditions'], criteria_name)
+      end
+
+      def criteria_in_precondition?(preconditions, criteria_name)
+        preconditions.any? do |precondition|
+          (precondition['reference'] == criteria_name) ||
+          (precondition['preconditions'] && criteria_in_precondition?(precondition['preconditions'], criteria_name))
+        end
       end
     end
   end

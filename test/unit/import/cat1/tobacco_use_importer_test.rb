@@ -7,7 +7,7 @@ class TobaccoUseImporterTest < MiniTest::Unit::TestCase
     nrh = HealthDataStandards::Import::CDA::NarrativeReferenceHandler.new
     nrh.build_id_map(doc)
     tbac_use = HealthDataStandards::Import::Cat1::EntryPackage.new(HealthDataStandards::Import::Cat1::TobaccoUseImporter.new, '2.16.840.1.113883.3.560.1.1001', 'completed')
-    tobacco_use_entries = tbac_use.package_entries(doc, nrh)
+    tobacco_use_entries = tbac_use.package_entries(cat1_patient_data_section(doc), nrh)
     tobacco_use = tobacco_use_entries[0]
     assert tobacco_use.codes['SNOMED-CT'].include?('87739003')
     assert tobacco_use.oid

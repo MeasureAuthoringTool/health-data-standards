@@ -1,19 +1,28 @@
   <recordTarget>
     <patientRole>
-      <!-- id root="Cypress" extension="<%= patient.id %>"/ -->
-      <!-- Fake Medicare HIC number -->
-      <% 
-      # get the pateint id , treate it as a hex number, turn it to a string and strip the last 9 characters off of it
-        hic = patient.id.to_s.hex.to_s
-        hic = hic.slice(hic.length-9,9)
-      %>
-      <id extension="<%= hic %>A" root="2.16.840.1.113883.4.572"/>
+      <% if (patient.medical_record_number && patient.medical_record_assigner) %>
+        <id extension="<%= patient.medical_record_number %>" root="<%= patient.medical_record_assigner %>"/>
+      <% else -%>
+        <id extension="12345" root="PlaceholderOrganization" />
+      <% end -%>
       <addr use="HP">
-        <streetAddressLine>202 Burlington Rd.</streetAddressLine>
-        <city>Bedford</city>
-        <state>MA</state>
-        <postalCode>01730</postalCode>
-        <country>US</country>
+        <% if patient.addresses.present?
+            patient.addresses.each do |address| -%>
+            <% address.street.each do |street| -%>
+              <streetAddressLine><%= street %></streetAddressLine>
+            <% end %>
+            <city><%= address.city %></city>
+            <state><%= address.state %></state>
+            <postalCode><%= address.zip %></postalCode>
+            <country><%= address.country %></country>
+          <% end -%>
+        <% else -%>
+          <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+          <city>Bedford</city>
+          <state>MA</state>
+          <postalCode>01730</postalCode>
+          <country>US</country>
+        <% end -%>
       </addr>
       <telecom use="WP" value="tel:+1-781-271-3000"/>
       <patient>
@@ -26,11 +35,11 @@
         <% if (patient.race) %>
           <raceCode code="<%= patient.race['code'] %>" <% if patient.race['name']%>displayName="<%= patient.race['name'] %>"<% end %> codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
         <% end %>
-        <% if (patient.race) %>
+        <% if (patient.ethnicity) %>
           <ethnicGroupCode code="<%= patient.ethnicity['code'] %>" <% if patient.ethnicity['name']%>displayName="<%= patient.ethnicity['name'] %>"<% end %> codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
         <% end %>
         <%
-          languages = patient.languages 
+          languages = patient.languages
           languages = ["eng"] if languages.nil? or languages.empty?
           languages.each do |language|%>
           <languageCommunication>

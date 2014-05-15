@@ -7,7 +7,7 @@ class EncounterOrderImporterTest < MiniTest::Unit::TestCase
     nrh = HealthDataStandards::Import::CDA::NarrativeReferenceHandler.new
     nrh.build_id_map(doc)
     enc = HealthDataStandards::Import::Cat1::EntryPackage.new(HealthDataStandards::Import::Cat1::EncounterOrderImporter.new, '2.16.840.1.113883.3.560.1.83', 'ordered')
-    encounters = enc.package_entries(doc, nrh)
+    encounters = enc.package_entries(cat1_patient_data_section(doc), nrh)
     encounter = encounters[0]
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20051226144034')
     assert encounter.codes['SNOMED-CT'].include?("76168009")

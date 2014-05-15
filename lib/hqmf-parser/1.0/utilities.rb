@@ -36,6 +36,20 @@ module HQMF1
       end
       clean_json(json)
     end
+
+    # Preconditions can have nil conjunctions as part of a DATEDIFF, we want to remove these and warn
+    def check_nil_conjunction_on_child
+      if (@preconditions.length == 1 && @preconditions.first.conjunction.nil?)
+        bad_precondition = @preconditions.first
+        if (bad_precondition.restrictions.empty? && bad_precondition.subset.nil? && bad_precondition.expression.nil?)
+          @preconditions = @preconditions.first.preconditions
+          puts "\t FIXED PRECONDITION WITHOUT CONJUNCTION"
+        else
+          puts "\t PRECONDITION WITHOUT CONJUNCTION: Cannot be fixed"
+        end
+      end
+    end
+
     
   end
 end  

@@ -8,6 +8,13 @@ class Cat1Test < MiniTest::Unit::TestCase
       collection_fixtures('records')
       @patient = Record.where({first: "Barry"}).first
 
+      pp = ProviderPerformance.new(start_date: Time.new(2012).to_i, end_date: Time.new(2012, 12, 31).to_i)
+      provider = Provider.new(first: 'Hiram', last: 'McDaniels')
+      provider.npi = '111111111'
+      provider.save!
+      pp.provider = provider
+      @patient.provider_performances << pp
+
       @start_date = Time.now.years_ago(1)
       @end_date = Time.now
 
@@ -25,14 +32,17 @@ class Cat1Test < MiniTest::Unit::TestCase
      xsd = Nokogiri::XML::Schema(open("./resources/schema/infrastructure/cda/CDA_SDTC.xsd"))
      valid_measures = @measures.select { |m| m.hqmf_id.length > 4 } #make sure there is a valid hqmf_id
      Record.all.each do |record|
+      puts "Testing Cat I for #{record.first} #{record.last}"
       doc = Nokogiri::XML(HealthDataStandards::Export::Cat1.new.export(record,valid_measures,@start_date,@end_date))
-      assert_equal [], xsd.validate(doc), "Invalid Cat I for #{record.first} #{record.last}" 
-    end  
+      assert_equal [], xsd.validate(doc), "Invalid Cat I for #{record.first} #{record.last}"
+    end
   end
 
   def test_cda_header_export
     first_name = @doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:given').text
+    medical_record_assigner = @doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:id/@root').value
     assert_equal 'Barry', first_name
+    assert_equal 'BarryBerrysBasement', medical_record_assigner
   end
 
   def test_patient_data_section_export
@@ -93,5 +103,14 @@ class Cat1Test < MiniTest::Unit::TestCase
 
     assert_equal @start_date.to_formatted_s(:number), effective_time.at_xpath('./cda:low')['value']
     assert_equal @end_date.to_formatted_s(:number), effective_time.at_xpath('./cda:high')['value']
+  end
+
+  def test_record_target_export
+    street_address = @doc.at_xpath('//cda:recordTarget/cda:patientRole/cda:addr/cda:streetAddressLine')
+    assert street_address
+
+    expected_addr = "15 Credibility Street"
+
+    assert_equal expected_addr, street_address.children.first.to_s
   end
 end

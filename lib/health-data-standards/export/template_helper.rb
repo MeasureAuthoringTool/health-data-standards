@@ -14,6 +14,7 @@ module HealthDataStandards
         @template_format = template_format
         @template_directory = template_directory
         @template_subdir = template_subdir
+        @template_cache = {}
       end
 
       def template_root
@@ -29,20 +30,31 @@ module HealthDataStandards
       # Returns the raw ERb for the template_name provided. This method will look in
       # template_directory/template_subdir/template_name.template_format.erb
       def template(template_name)
-        File.read(File.join(template_root, "#{template_name}.#{@template_format}.erb"))
+        cache_template(template_name)
       end
 
       # Basically the same template, but prepends an underscore to the template name
       # to mimic the Rails convention for template fragments
       def partial(partial_name)
-        template("_#{partial_name}")
+        cache_template("_#{partial_name}")
       end
 
-      def template_file(file,partial=false)
-        file = partial ? "_#{file}" : file
-        File.new(File.join(template_root, "#{file}.#{@template_format}.erb"))
-      end
+      protected 
 
+      def cache_template(template_name)
+        entry = @template_cache[template_name] || {mtime:-1, erb:nil}
+        filename = File.join(template_root, "#{template_name}.#{@template_format}.erb")
+        mtime = File.mtime(filename).to_i
+        if mtime > entry[:mtime]
+          src = File.read(filename)
+          erb = Erubis::EscapedEruby.new(src)
+          erb.filename=filename
+          entry[:mtime]=mtime
+          entry[:erb] = erb
+          @template_cache[template_name]=entry
+        end
+        entry[:erb]
+      end
     end
   end
 end

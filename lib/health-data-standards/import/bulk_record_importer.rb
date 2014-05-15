@@ -3,47 +3,58 @@ module HealthDataStandards
   module Import
     class BulkRecordImporter
 
-      def self.import_directory(source_dir)
-
-        xml_files = Dir.glob(File.join(source_dir, '*.*'))
-        xml_files.each do |file|
-          begin
-            
-            result = RecordImporter.import(File.new(file).read, provider_map)
-            
-            if (result[:status] == 'success') 
-              record = result[:record]
-              record.save
-            else 
-              assert result[:message]
-            end
-            
-          rescue Exception => e
-            failed_dir = File.join(source_dir, '../', 'failed_imports')
-            unless(Dir.exists?(failed_dir))
-              Dir.mkdir(failed_dir)
-            end
-            FileUtils.cp(file, failed_dir)
-          end
+      def self.import_directory(source_dir, failed_dir=nil)
+        failed_dir ||= File.join(source_dir, '../', 'failed_imports')
+        files = Dir.glob(File.join(source_dir, '*.*'))
+        files.each do |file|
+           BulkRecordImporter.import_file(file,File.new(file).read,failed_dir)
         end
       end
       
-      def self.import_archive(file) 
+      def self.import_archive(file, failed_dir=nil) 
+        begin 
+        failed_dir ||=File.join(File.dirname(file))
         Zip::ZipFile.open(file.path) do |zipfile|
           zipfile.entries.each do |entry|
             next if entry.directory?
-            xml = zipfile.read(entry.name)
-            begin
-              BulkRecordImporter.import(xml)
-            rescue Exception => e
-              failed_dir = File.join(file.dirname, 'failed_imports')
-              unless(Dir.exists?(failed_dir))
-                Dir.mkdir(failed_dir)
-              end
-              FileUtils.cp(file, failed_dir)
-            end
+            data = zipfile.read(entry.name)
+            BulkRecordImporter.import_file(entry.name,data,failed_dir)
           end
         end
+      rescue
+        FileUtils.mkdir_p(failed_dir)
+        File.cp(file,File.join(failed_dir,file))
+        File.open(File.join(failed_dir,"#{file}.error")) do |f|
+          f.puts($!.message)
+          f.puts($!.backtrace)
+        end
+        raise $!
+      end
+      end
+
+      def self.import_file(name,data,failed_dir,provider_map={})
+        begin
+          ext = File.extname(name)
+          if ext == ".json"
+            BulkRecordImporter.import_json(data)
+          else
+            BulkRecordImporter.import(data)
+          end
+        rescue
+          FileUtils.mkdir_p(File.dirname(File.join(failed_dir,name)))
+          File.open(File.join(failed_dir,name),"w") do |f|
+            f.puts(data)
+          end
+          File.open(File.join(failed_dir,"#{name}.error"),"w") do |f|
+            f.puts($!.message)
+            f.puts($!.backtrace)
+          end
+        end
+      end
+
+      def self.import_json(data,provider_map = {})
+        json = JSON.parse(data,:max_nesting=>100)
+        Record.update_or_create(Record.new(json))
       end
       
       def self.import(xml_data, provider_map = {})
@@ -78,9 +89,12 @@ module HealthDataStandards
 
         record = Record.update_or_create(patient_data)
         record.provider_performances = providers
+        providers.each do |prov| 
+          prov.provider.ancestors.each do |ancestor|
+            record.provider_performances.push(ProviderPerformance.new(start_date: prov.start_date, end_date: prov.end_date, provider: ancestor))  
+          end
+        end
         record.save
-        
-        {status: 'success', message: 'patient imported', status_code: 201, record: record}
 
       end
     end

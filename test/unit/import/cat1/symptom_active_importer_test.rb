@@ -7,7 +7,7 @@ class SymptomActiveImporterTest < MiniTest::Unit::TestCase
     nrh = HealthDataStandards::Import::CDA::NarrativeReferenceHandler.new
     nrh.build_id_map(doc)
     symp = HealthDataStandards::Import::Cat1::EntryPackage.new(HealthDataStandards::Import::Cat1::SymptomActiveImporter.new, '2.16.840.1.113883.3.560.1.69', 'active')
-    symptoms = symp.package_entries(doc, nrh)
+    symptoms = symp.package_entries(cat1_patient_data_section(doc), nrh)
     symptom_active = symptoms[0]
     assert symptom_active.codes['SNOMED-CT'].include?('95815000')
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19930215222215')

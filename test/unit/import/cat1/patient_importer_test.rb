@@ -51,6 +51,7 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert risk_category_assessment.codes['LOINC'].include?('72136-5')
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19930805130208')
     assert_equal expected_start, risk_category_assessment.start_time
+    assert_equal "7", risk_category_assessment.values.first["scalar"]
   end
 
   def test_device_applied
@@ -59,7 +60,7 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     assert device_applied.codes['ICD-9-CM'].include?('37.98')
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19850331043808')
     assert_equal expected_start, device_applied.start_time
-    assert_equal( {"SNOMED-CT" => ["thigh"]}, device_applied.anatomical_structure)
+    assert_equal device_applied.anatomical_structure["SNOMED-CT"], ["thigh"]
   end
 
   def test_comm_prov_to_patient
@@ -183,13 +184,13 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     dead_patient = Record.new
     doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/condition_expired_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-    HealthDataStandards::Import::Cat1::PatientImporter.instance.get_patient_expired(dead_patient, doc)
+    HealthDataStandards::Import::Cat1::PatientImporter.instance.get_patient_expired(dead_patient, cat1_patient_data_section(doc))
     assert dead_patient.expired
 
     alive_patient = Record.new
     doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/functional_status_result_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-    HealthDataStandards::Import::Cat1::PatientImporter.instance.get_patient_expired(alive_patient, doc)
+    HealthDataStandards::Import::Cat1::PatientImporter.instance.get_patient_expired(alive_patient, cat1_patient_data_section(doc))
     refute alive_patient.expired
   end
 
@@ -207,7 +208,7 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     patient = Record.new
     doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/clinical_trial_participant_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-    HealthDataStandards::Import::Cat1::PatientImporter.instance.get_clinical_trial_participant(patient, doc)
+    HealthDataStandards::Import::Cat1::PatientImporter.instance.get_clinical_trial_participant(patient, cat1_patient_data_section(doc))
     assert patient.clinicalTrialParticipant
   end
 
@@ -215,7 +216,7 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     patient = Record.new
     doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/care_goal_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-    HealthDataStandards::Import::Cat1::PatientImporter.instance.get_clinical_trial_participant(patient, doc)
+    HealthDataStandards::Import::Cat1::PatientImporter.instance.get_clinical_trial_participant(patient, cat1_patient_data_section(doc))
     assert !patient.clinicalTrialParticipant
   end
 
@@ -277,7 +278,7 @@ class PatientImporterTest < MiniTest::Unit::TestCase
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
     patient = Record.new
-    HealthDataStandards::Import::Cat1::PatientImporter.instance.import_sections(patient, doc)
+    HealthDataStandards::Import::Cat1::PatientImporter.instance.import_sections(patient, cat1_patient_data_section(doc))
     patient
   end
 

@@ -70,6 +70,8 @@ module HQMF1
         p = Precondition.new(entry, parent, @doc)
         
       end
+
+      check_nil_conjunction_on_child
       
     end
     

@@ -6,7 +6,7 @@ class Entry
   # embedded_in :entry_list, polymorphic: true
   
   embedded_in :record
-  embeds_one :cda_identifier, class_name: "CDAIdentifier"
+  embeds_one :cda_identifier, class_name: "CDAIdentifier", as: :cda_identifiable
   embeds_many :values, class_name: "ResultValue"
   
   field :description, type: String

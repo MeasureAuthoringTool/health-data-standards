@@ -1,11 +1,11 @@
 This is a project to generate and consume HITSP C32, ASTM CCR, QRDA Category I, QRDA Category III and PQRI.
 
-In addition this project also contains libaries for parsing HQMF documents and for dealing with NLM valuesets.
+In addition this project also contains libraries for parsing HQMF documents and for dealing with NLM valuesets.
 
 Environment
 ===========
 
-This project currently uses Ruby 1.9.3, Ruby 2.0.0 and JRuby 1.7.9 and is built using [Bundler](http://gembundler.com/). To get all of the dependencies for the project, first install bundler:
+This project currently uses Ruby 1.9.3, Ruby 2.0.0, Ruby 2.1.1 and JRuby 1.7.11 and is built using [Bundler](http://gembundler.com/). To get all of the dependencies for the project, first install bundler:
 
     gem install bundler
 
@@ -25,10 +25,44 @@ Please try to follow the [GitHub Coding Style Guides](https://github.com/stylegu
 Change Log
 ==========
 
-3.4.2 - Not yet released
+3.4.6 - Not yet released
 
+* QRDA Cat I export now exports medical record number if present
+* Measures can now generate prefilter queries to be passed to MongoDB before CQM MapReduce jobs
+* Bug fix - QRDA Cat III export uses correct XML element name for representedCustodianOrganization
+* Bug fix - InsuranceProvider model included ThingsWithCodes twice
+
+3.4.5 - April 4, 2014
+
+* Performance improvements in all exports through template caching
+* QRDA Cat I export now exports the record's actual address if present
+* QRDA Cat I export - Bug fix - previously patients with a race but no ethnicity would cause exceptions
+* QRDA Cat I import - performance improvements through more efficient XPath expressions
+
+3.4.4 - March 25, 2014
+
+* Updating the Measure model to deal with continuous variable and NQF and CMS ids through Measure.categories
+* Bug fix - Filters were not properly handled by the QueryCache
+* Bug fix - Fixed the order of populations in HQMF::PopulationCriteria::ALL_POPULATION_CODES so that DENEX is after denominator
+* When importing measure bundles, you can now exclude patients and calculation results
+
+3.4.3 - March 6, 2014
+
+* Implemented support for providers in QRDA Cat III documents
+* Now handles null value HQMF expression value types
+
+3.4.2 - February 28, 2014
+
+* Provider improvements
+  * Providers are now exported in QRDA Cat I if they exist on the Record object
+  * Provider identifiers are now represented with CDAIdentifiers
+  * Provider import will now import any type of identifier
+  * Providers can now be arranged in a hierarchy
+  * When importing providers from a clinical document, matching to existing providers in MongoDB has been improved to matching on any type of identifier
 * QRDA Cat I importer now imports procedure values regardless of whether the template has them at the root level or nested in an entryRelationship
 * Bug fix - Result importer will no longer double import result values
+* QRDA Cat I importer now imports encounter order end times
+* Bug fix - QRDA Cat I importer now properly imports condition and procedure ordinaltiy
 
 3.4.1 - January 24, 2014
 
@@ -36,7 +70,7 @@ Change Log
 
 3.4.0 - January 23, 2014
 
-* _New Feature_ - BulkRecordImporter class now available that provides the ability to import QRDA Cat I, Consolidated CDA and HITSP C32 
+* _New Feature_ - BulkRecordImporter class now available that provides the ability to import QRDA Cat I, Consolidated CDA and HITSP C32
 * TemplateHelper now properly accepts a different directory for templates
 * QRDA Cat I importer now extracts negation on procedures
 * Implemented support to encounter transfers in QRDA Cat I import and export
@@ -62,7 +96,7 @@ Change Log
 
 * Adding rake tasks for working with measure bundles
 * Fixes for XPath expression execution when using JRuby
-* OID fixes for ordinality in QRDA Category 
+* OID fixes for ordinality in QRDA Category
 
 3.2.8 - August 23, 2013
 
@@ -73,7 +107,7 @@ Change Log
 License
 =======
 
-Copyright 2013 The MITRE Corporation
+Copyright 2014 The MITRE Corporation
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
