@@ -56,7 +56,7 @@
         </observation>
       </entryRelationship>
       <% if population.type == 'MSRPOPL' -%>
-      <%== render :partial => 'continuous_variable_value', :locals => {:population => strat} %>
+      <%== render :partial => 'continuous_variable_value', :locals => {:population => population.stratifications.find{|p| p.type == "OBSERV"}} %>
       <% end -%>
       <reference typeCode="REFR">
         <externalObservation classCode="OBS" moodCode="EVN">
