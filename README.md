@@ -25,11 +25,14 @@ Please try to follow the [GitHub Coding Style Guides](https://github.com/stylegu
 Change Log
 ==========
 
-3.4.6 - Not yet released
+3.4.6 - May 15, 2014
 
 * QRDA Cat I export now exports medical record number if present
 * Measures can now generate prefilter queries to be passed to MongoDB before CQM MapReduce jobs
+* BulkRecordImporter now handles JSON records and has better error handling
 * Bug fix - QRDA Cat III export uses correct XML element name for representedCustodianOrganization
+* Bug fix - QRDA Cat III export now properly represents CV measures
+* Bug fix - QRDA Cat I import now properly stores procedure performed ordinality
 * Bug fix - InsuranceProvider model included ThingsWithCodes twice
 
 3.4.5 - April 4, 2014
