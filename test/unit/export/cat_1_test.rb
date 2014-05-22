@@ -20,7 +20,8 @@ class Cat1Test < MiniTest::Unit::TestCase
 
       collection_fixtures('measures')
       @measures = HealthDataStandards::CQM::Measure.all
-      @qrda_xml = HealthDataStandards::Export::Cat1.new.export(@patient, @measures, @start_date, @end_date)
+      @header = generate_header
+      @qrda_xml = HealthDataStandards::Export::Cat1.new.export(@patient, @measures, @start_date, @end_date, @header)
       @doc = Nokogiri::XML(@qrda_xml)
       @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
       @initialized = true
@@ -33,7 +34,7 @@ class Cat1Test < MiniTest::Unit::TestCase
      valid_measures = @measures.select { |m| m.hqmf_id.length > 4 } #make sure there is a valid hqmf_id
      Record.all.each do |record|
       puts "Testing Cat I for #{record.first} #{record.last}"
-      doc = Nokogiri::XML(HealthDataStandards::Export::Cat1.new.export(record,valid_measures,@start_date,@end_date))
+      doc = Nokogiri::XML(HealthDataStandards::Export::Cat1.new.export(record,valid_measures,@start_date,@end_date, @header))
       assert_equal [], xsd.validate(doc), "Invalid Cat I for #{record.first} #{record.last}"
     end
   end
@@ -41,8 +42,10 @@ class Cat1Test < MiniTest::Unit::TestCase
   def test_cda_header_export
     first_name = @doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:given').text
     medical_record_assigner = @doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:id/@root').value
+    author_root_value = @doc.at_xpath('/cda:ClinicalDocument/cda:author/cda:assignedAuthor/cda:id/@root').value
     assert_equal 'Barry', first_name
     assert_equal 'BarryBerrysBasement', medical_record_assigner
+    assert_equal '2.16.840.1.113883.4.7', author_root_value
   end
 
   def test_patient_data_section_export
@@ -112,5 +115,31 @@ class Cat1Test < MiniTest::Unit::TestCase
     expected_addr = "15 Credibility Street"
 
     assert_equal expected_addr, street_address.children.first.to_s
+  end
+
+  def generate_header
+    header_hash=  {identifier: {root: "2.16.840.1.113883.4.6", extension: "header_ext"},
+                   authors: [{ids: [ {root: "2.16.840.1.113883.4.7" , extension: "author_extension"}],
+                              device: {name:"dvice_name" , model: "device_mod"},
+                              addresses:[],
+                              telecoms: [],
+                              time: Time.now,
+                              organization: {ids: [ {root: "2.16.840.1.113883.4.9" , extension: "authors_organization_ext"}],
+                                             name: ""}}],
+                   custodian: {ids: [ {root: "custodian_root" , extension: "custodian_ext"}],
+                               person: {given: "", family: ""},
+                               organization: {ids: [ {root: "2.16.840.1.113883.4.12" , extension: "custodian_organization_ext"}],
+                                              name: ""}},
+                   legal_authenticator:{ids: [ {root: "2.16.840.1.113883.4.14" , extension: "legal_authenticator_ext"}],
+                                        addresses: [],
+                                        telecoms:[],
+                                        time: Time.now,
+                                        person: {given:"hey", family: "there"},
+                                        organization:{ids: [ {root: "2.16.840.1.113883.4.62" , extension: "legal_authenticator_org_ext"}],
+                                                      name: ""}
+                   }
+    }
+
+    Qrda::Header.new(header_hash)
   end
 end
