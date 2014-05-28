@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rest-client', '~>1.6.7'
   s.add_dependency 'erubis', '~> 2.7.0'
-  s.add_dependency 'mongoid', '~> 4.0.0.alpha2'
+  s.add_dependency 'mongoid', '~> 4.0.0.beta2'
   s.add_dependency 'mongoid-tree', '~> 1.0.4'
   s.add_dependency 'activesupport', '~> 4.0.0'
   s.add_dependency 'protected_attributes', '~> 1.0.5'
