@@ -49,7 +49,7 @@ namespace :bundle do
 
     if (args.create_indexes != 'false')
       ::Rails.application.eager_load!
-      ::Rails::Mongoid.create_indexes
+      ::Mongoid::Tasks::Database.create_indexes
     end
 
     puts "Successfully imported bundle at: #{args.bundle_path}"

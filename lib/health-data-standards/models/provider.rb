@@ -1,6 +1,7 @@
 class Provider
   include Personable
   include Mongoid::Tree
+  include Mongoid::Attributes::Dynamic
   
   NPI_OID = '2.16.840.1.113883.4.6'
   TAX_ID_OID = '2.16.840.1.113883.4.2'

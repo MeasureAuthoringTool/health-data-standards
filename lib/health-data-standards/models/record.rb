@@ -1,6 +1,7 @@
 class Record
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Attributes::Dynamic
   extend Memoist
 
   field :title, type: String
@@ -14,14 +15,14 @@ class Record
   field :race, type: Hash
   field :ethnicity, type: Hash
   field :languages, type: Array, default: []
-  field :test_id, type: Moped::BSON::ObjectId
+  field :test_id, type: BSON::ObjectId
   field :marital_status, type: Hash
   field :medical_record_number, type: String
   field :medical_record_assigner, type: String
   field :expired, type: Boolean
-  field :clinicalTrialParticipant, type: Boolean   # Currently not implemented in the C32 importer
-                                                   # because it cannot be easily represented in a
-                                                   # HITSP C32
+  field :clinicalTrialParticipant, as: :clinical_trial_participant, type: Boolean   # Currently not implemented in the C32 importer
+                                                                                    # because it cannot be easily represented in a
+                                                                                    # HITSP C32
 
   index "last" => 1
   embeds_many :allergies
@@ -96,7 +97,6 @@ class Record
 
   alias :clinical_trial_participant :clinicalTrialParticipant
   alias :clinical_trial_participant= :clinicalTrialParticipant=
-
 
   # Remove duplicate entries from a section based on cda_identifier or id.
   # This method may lose information because it does not compare entries

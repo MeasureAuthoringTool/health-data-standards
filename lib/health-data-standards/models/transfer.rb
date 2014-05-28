@@ -1,5 +1,6 @@
 class Transfer
   include Mongoid::Document
+  include Mongoid::Attributes::Dynamic
   include ThingWithCodes
 
   field :time, type: Integer 

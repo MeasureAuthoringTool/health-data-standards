@@ -7,7 +7,7 @@ module HealthDataStandards
       MSRPOPL = 'MSRPOPL'
 
       store_in collection: 'measures'
-      field :id, type: String
+      field :id, as: :id, type: String
       field :sub_id, type: String
       field :name, type: String
       field :subtitle, type: String
@@ -33,8 +33,8 @@ module HealthDataStandards
       embeds_many :prefilters
 
       scope :top_level_by_type , ->(type){where({"type"=> type}).any_of({"sub_id" => nil}, {"sub_id" => "a"})}
-      scope :top_level , any_of({"sub_id" => nil}, {"sub_id" => "a"})
-      scope :order_by_id_sub_id, order_by([["id", :asc],["sub_id", :asc]])
+      scope :top_level , ->{any_of({"sub_id" => nil}, {"sub_id" => "a"})}
+      scope :order_by_id_sub_id, ->{order_by([["id", :asc],["sub_id", :asc]])}
 
       index oids: 1
       index hqmf_id: 1

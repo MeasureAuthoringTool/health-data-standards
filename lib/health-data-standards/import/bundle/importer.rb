@@ -75,7 +75,7 @@ module HealthDataStandards
           Mongoid.default_session['system.js'].find('_id' => name).upsert(
             {
               "_id" => name,
-              "value" => Moped::BSON::Code.new(fn)
+              "value" => BSON::Code.new(fn)
             }
           )
         end
@@ -147,7 +147,7 @@ module HealthDataStandards
             bulk << vs
             report_progress('Value Sets', (index*100/entries.length)) if index%10 == 0
           end
-          HealthDataStandards::SVS::ValueSet.collection.insert(bulk.map {|vs| vs.as_document})
+          HealthDataStandards::SVS::ValueSet.collection.insert(bulk.map {|vs| vs.as_document}) unless bulk.empty?
           puts "\rLoading: Value Sets Complete          "
         end
 
