@@ -25,6 +25,10 @@ Please try to follow the [GitHub Coding Style Guides](https://github.com/stylegu
 Change Log
 ==========
 
+4.0.0 - Not yet released
+
+* Upgrading to mongoid 4
+
 3.4.6 - May 15, 2014
 
 * QRDA Cat I export now exports medical record number if present
