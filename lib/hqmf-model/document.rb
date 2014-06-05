@@ -191,6 +191,50 @@ module HQMF
       find(@data_criteria, :id, id)
     end
     
+    # patient characteristics data criteria such as GENDER require looking at the codes to determine if the 
+    # measure is interested in Males or Females.  This process is awkward, and thus is done as a separate
+    # step after the document has been converted.
+    def backfill_patient_characteristics_with_codes(codes)
+      
+      [].concat(self.all_data_criteria).concat(self.source_data_criteria).each do |data_criteria|
+        if (data_criteria.type == :characteristic and !data_criteria.property.nil?)
+          if (codes)
+            value_set = codes[data_criteria.code_list_id]
+            puts "\tno value set for unknown patient characteristic: #{data_criteria.id}" unless value_set
+          else
+            puts "\tno code set to back fill: #{data_criteria.title}"
+            next
+          end
+          
+          if (data_criteria.property == :gender)
+            next if value_set.nil?
+            key = value_set.keys[0]
+            data_criteria.value = HQMF::Coded.new('CD','Administrative Sex',value_set[key].first)
+          else
+            data_criteria.inline_code_list = value_set
+          end
+          
+        elsif (data_criteria.type == :characteristic)
+          if (codes)
+            value_set = codes[data_criteria.code_list_id]
+            if (value_set)
+              # this is looking for a birthdate characteristic that is set as a generic characteristic but points to a loinc code set
+              if (value_set['LOINC'] and value_set['LOINC'].first == '21112-8')
+                data_criteria.definition = 'patient_characteristic_birthdate'
+              end
+              # this is looking for a gender characteristic that is set as a generic characteristic
+              gender_key = (value_set.keys.select {|set| set == 'Administrative Sex' || set == 'AdministrativeSex'}).first
+              if (gender_key and ['M','F'].include? value_set[gender_key].first)
+                data_criteria.definition = 'patient_characteristic_gender'
+                data_criteria.value = HQMF::Coded.new('CD','Gender',value_set[gender_key].first)
+              end
+            end
+          end
+
+        end
+      end
+    end
+
     private
     
     def find(collection, attribute, value)
