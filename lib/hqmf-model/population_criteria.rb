@@ -5,7 +5,7 @@ module HQMF
   
     include HQMF::Conversion::Utilities
 
-    attr_reader :preconditions, :id, :type, :title, :hqmf_id
+    attr_reader :preconditions, :id, :type, :title, :hqmf_id, :comments
     attr_accessor :aggregator
     
     IPP = 'IPP'
@@ -15,21 +15,24 @@ module HQMF
     DENEX = 'DENEX'
     MSRPOPL = 'MSRPOPL'
     OBSERV = 'OBSERV'
+
+    STRAT = 'STRAT'
     
-    ALL_POPULATION_CODES = [IPP, DENOM, DENEX, NUMER, DENEXCEP, MSRPOPL, OBSERV]
+    ALL_POPULATION_CODES = [STRAT, IPP, DENOM, DENEX, NUMER, DENEXCEP, MSRPOPL, OBSERV]
     
     # Create a new population criteria
     # @param [String] id
     # @param [String] hqmf_id
     # @param [Array#Precondition] preconditions 
     # @param [String] title (optional)
-    def initialize(id, hqmf_id, type, preconditions, title='', aggregator=nil)
+    def initialize(id, hqmf_id, type, preconditions, title='', aggregator=nil, comments=nil)
       @id = id
       @hqmf_id = hqmf_id
       @preconditions = preconditions
       @type = type
       @title = title
       @aggregator = aggregator
+      @comments = comments
     end
     
     # Create a new population criteria from a JSON hash keyed off symbols
@@ -41,8 +44,9 @@ module HQMF
       title = json['title']
       hqmf_id = json['hqmf_id']
       aggregator = json['aggregator']
+      comments = json['comments']
       
-      HQMF::PopulationCriteria.new(id, hqmf_id, type, preconditions, title, aggregator)
+      HQMF::PopulationCriteria.new(id, hqmf_id, type, preconditions, title, aggregator, comments)
     end
     
     def to_json
@@ -51,7 +55,7 @@ module HQMF
     
     def base_json
       x = nil
-      json = build_hash(self, [:conjunction?, :type, :title, :hqmf_id, :aggregator])
+      json = build_hash(self, [:conjunction?, :type, :title, :hqmf_id, :aggregator, :comments])
       json[:preconditions] = x if x = json_array(@preconditions)
       json
     end
@@ -68,7 +72,7 @@ module HQMF
     def conjunction_code
       
       case @type
-      when IPP, DENOM, NUMER, MSRPOPL
+      when IPP, STRAT, DENOM, NUMER, MSRPOPL
         HQMF::Precondition::ALL_TRUE
       when DENEXCEP, DENEX
         HQMF::Precondition::AT_LEAST_ONE_TRUE

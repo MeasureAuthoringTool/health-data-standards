@@ -50,7 +50,6 @@ module HQMF1
         if (@low == nil && @high == nil)
           @low = optional_value('.',true)
           @high = optional_value('.',true)
-          puts "\tfound = relationship parsing temporal reference (bugfix)"
         end
       end
     end

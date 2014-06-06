@@ -22,7 +22,8 @@ module HQMFModel
         '2.16.840.1.113883.221.5' => {}
       }
       
-      hqmf = HQMF::Parser.parse(@hqmf_contents, HQMF::Parser::HQMF_VERSION_1, codes)
+      hqmf = HQMF::Parser::V1Parser.new.parse(@hqmf_contents)
+      hqmf.backfill_patient_characteristics_with_codes(codes)
       
       json = hqmf.to_json
       
@@ -330,7 +331,8 @@ expected_dc[:PatientCharacteristicPayerPayer] = [
       }
       
                 
-      hqmf = HQMF::Parser.parse(@hqmf_contents, HQMF::Parser::HQMF_VERSION_1, codes)
+      hqmf = HQMF::Parser::V1Parser.new.parse(@hqmf_contents)
+      hqmf.backfill_patient_characteristics_with_codes(codes)
       
       json = hqmf.to_json
       
@@ -359,8 +361,9 @@ expected_dc[:PatientCharacteristicPayerPayer] = [
       }
       
                 
-      model = HQMF::Parser.parse(@hqmf_contents, HQMF::Parser::HQMF_VERSION_1, codes)
-      
+      model = HQMF::Parser::V1Parser.new.parse(@hqmf_contents)
+      model.backfill_patient_characteristics_with_codes(codes)
+     
       model.all_data_criteria.size.must_equal 30
       
       model.all_data_criteria.map(&:id).each do |key|
@@ -435,7 +438,7 @@ expected_dc[:PatientCharacteristicPayerPayer] = [
     
     
     def test_all_code_set_oids
-      hqmf = HQMF::Parser.parse(@hqmf_contents, HQMF::Parser::HQMF_VERSION_1, nil)
+      hqmf = HQMF::Parser::V1Parser.new.parse(@hqmf_contents)
       oids = hqmf.all_code_set_oids
       oids.length.must_equal 9
     end

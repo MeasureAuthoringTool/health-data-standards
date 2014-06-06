@@ -1,0 +1,1122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="xslt/eMeasure.xsl"?>
+<QualityMeasureDocument xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         
+      <!--
+         **************************************************************   
+         Measure Header Section
+         **************************************************************
+      --><typeId root="2.16.840.1.113883.1.3" extension="POQM_HD000001"/>
+   <id root="40280381-3d61-56a7-013e-62240559256d"/>
+   <code code="57024-2" codeSystem="2.16.840.1.113883.6.1"
+         displayName="Health Quality Measure Document"/>
+   <title>Diabetes: Hemoglobin A1c Poor Control</title>
+   <text>Percentage of patients 18-75 years of age with diabetes who had hemoglobin A1c &gt; 9.0% during the measurement period.</text>
+   <statusCode code="Complete"/>
+   <setId root="f2986519-5a4e-4149-a8f2-af0a1dc7f6bc"/>
+   <versionNumber value="2"/>
+   <author typeCode="AUT">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="2.16.840.1.113883.3.464"/>
+            <name>National Committee for Quality Assurance</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </author>
+   <custodian>
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="2.16.840.1.113883.3.464"/>
+            <name>National Committee for Quality Assurance</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </custodian>
+   <verifier typeCode="VRF">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <name>National Quality Forum</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </verifier>
+   <subjectOf>
+      <measureAttribute>
+         <code code="COPY" codeSystem="2.16.840.1.113883.5.4" displayName="Copyright"/>
+         <value xsi:type="ED" mediaType="text/plain">Physician Performance Measure (Measures) and related data specifications were developed by the National Committee for Quality Assurance (NCQA). 
+
+The Measures are copyrighted but can be reproduced and distributed, without modification, for noncommercial purposes (e.g., use by healthcare providers in connection with their practices). Commercial use is defined as the sale, licensing, or distribution of the Measures for commercial gain, or incorporation of the Measures into a product or service that is sold, licensed or distributed for commercial gain. Commercial use of the Measures requires a license agreement between the user and NCQA. NCQA is not responsible for any use of the Measures. 
+
+(c) 2008-2013 National Committee for Quality Assurance. All Rights Reserved. 
+
+Limited proprietary coding is contained in the Measure specifications for user convenience. Users of proprietary code sets should obtain all necessary licenses from the owners of the code sets.  NCQA disclaims all liability for use or accuracy of any CPT or other codes contained in the specifications.
+
+CPT(R) contained in the Measure specifications is copyright 2004-2012 American Medical Association. LOINC(R) copyright 2004-2012 Regenstrief Institute, Inc. This material contains SNOMED Clinical Terms(R) (SNOMED CT[R]) copyright 2004-2012 International Health Terminology Standards Development Organisation. ICD-10 copyright 2012 World Health Organization. All Rights Reserved.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRSCORE" codeSystem="2.16.840.1.113883.5.4"
+               displayName="Measure Scoring"/>
+         <value xsi:type="CD" code="PROPOR" codeSystem="2.16.840.1.113883.1.11.20367"
+                displayName="Proportion"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRTYPE" codeSystem="2.16.840.1.113883.5.4" displayName="Measure Type"/>
+         <value xsi:type="CD" code="OUTCOME" codeSystem="2.16.840.1.113883.1.11.20368"
+                displayName="Outcome"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="STRAT" codeSystem="2.16.840.1.113883.5.4" displayName="Stratification"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRADJ" codeSystem="2.16.840.1.113883.5.4" displayName="Risk Adjustment"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRAGG" codeSystem="2.16.840.1.113883.5.4" displayName="Rate Aggregation"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="RAT" codeSystem="2.16.840.1.113883.5.4" displayName="Rationale"/>
+         <value xsi:type="ED" mediaType="text/plain">Diabetes mellitus (diabetes) is a group of diseases characterized by high blood glucose levels caused by the body's inability to correctly produce or utilize the hormone insulin. It is recognized as a leading cause of death and disability in the U.S. and is highly underreported as a cause of death. Diabetes may cause life-threatening, life-ending or life-altering complications, including poor circulation, nerve damage or neuropathy in the feet and eventual amputation. Nearly 60-70 percent of diabetics suffer from mild or severe nervous system damage (American Diabetes Association 2009). 
+
+Randomized clinical trials have demonstrated that improved glycemic control, as evidenced by reduced levels of glycohemoglobin, correlates with a reduction in the development of microvascular complications in both Type 1 and Type 2 diabetes (Diabetes Control and Complications Trial Research Group 1993; Ohkubo 1995). In particular, the Diabetes Control and Complications Trial (DCCT) showed that for patients with Type 1 diabetes mellitus, important clinical outcomes such as retinopathy (an important precursor to blindness), nephropathy (which precedes renal failure), and neuropathy (a significant cause of foot ulcers and amputation in patients with diabetes) are directly related to level of glycemic control (Diabetes Control and Complications Trial Research Group 1993). Similar reductions in complications were noted in a smaller study of intensive therapy of patients with Type 2 diabetes by Ohkubo and co-workers, which was conducted in the Japanese population (Ohkubo et al. 1995).</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="CRS" codeSystem="2.16.840.1.113883.3.560"
+               displayName="Clinical Recommendation Statement"/>
+         <value xsi:type="ED" mediaType="text/plain">American Geriatrics Society (Brown et al. 2003):
+                
+For frail older adults, persons with life expectancy of less than 5 years, and others in whom the risks of intensive glycemic control appear to outweigh the benefits, a less stringent target such as 8% is appropriate. (Quality of Evidence: Level III; Strength of Evidence: Grade B)
+
+
+American Diabetes Association (2009):
+
+Lowering A1C to below or around 7% has been shown to reduce microvascular and neuropathic complications of type 1 and type 2 diabetes. Therefore, for microvascular disease prevention, the A1C goal for non-pregnant adults in general is &lt;7%. (Level of Evidence: A)
+
+In type 1 and type 2 diabetes, randomized controlled trials of intensive versus standard glycemic control have not shown a significant reduction in CVD outcomes during the randomized portion of the trials. Long-term follow-up of the Diabetes Control and Complications Trial (DCCT) and UK Prospective Diabetes Study (UKPDS) cohorts suggests that treatment to A1C targets below or around 7% in the years soon after the diagnosis of diabetes is associated with long-term reduction in risk of macrovascular disease. Until more evidence becomes available, the general goal of &lt;7% appears reasonable for many adults for macrovascular risk reduction. (Level of Evidence: B)
+
+Subgroup analyses of clinical trials such as the DCCT and UKPDS and the microvascular evidence from the Action in Diabetes and Vascular Disease: Preterax and Diamicron MR Controlled Evaluation (ADVANCE) trial suggest a small but incremental benefit in microvascular outcomes with A1C values closer to normal. Therefore, for selected individual patients, providers might reasonably suggest even lower A1C goals than the general goal of &lt;7%, if this can be achieved without significant hypoglycemia or other adverse effects of treatment. Such patients might include those with short duration of diabetes, long life expectancy, and no significant CVD. (Level of Evidence: B)
+
+Conversely, less stringent A1C goals than the general goal of &lt;7% may be appropriate for patients with a history of severe hypoglycemia, limited life expectancy, advanced microvascular or macrovascular complications, and extensive comorbid conditions and those with longstanding diabetes in whom the general goal is difficult to attain despite diabetes self-management education, appropriate glucose monitoring, and effective doses of multiple glucose lowering agents including insulin. (Level of Evidence: C)</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IDUR" codeSystem="2.16.840.1.113883.3.560"
+               displayName="Improvement Notation"/>
+         <value xsi:type="ED" mediaType="text/plain">Lower score indicates better quality</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>NQF ID Number</originalText>
+         </code>
+         <value xsi:type="II" root="2.16.840.1.113883.3.560.1" extension="0059"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DISC" codeSystem="2.16.840.1.113883.5.4" displayName="Disclaimer">
+            <originalText>Disclaimer</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">These performance Measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications.
+
+THE MEASURES AND SPECIFICATIONS ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND.
+
+Due to technical limitations, registered trademarks are indicated by (R) or [R] and unregistered trademarks are indicated by (TM) or [TM].</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>eMeasure Identifier</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">122</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.74"/>
+         <id root="e1009fc8-d475-4924-842f-6f463db4a08b"/>
+         <code code="MSRTP" displayName="Measurement period"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="IVL_TS">
+            <low value="00000101"/>
+            <high value="00001231"/>
+         </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureStartDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="86f9eaa4-7edf-432d-a46e-393ffba6b72d"/>
+         <code code="MSRSD" displayName="Measurement start date"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00000101"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureEndDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="66d488ca-1356-4da3-a182-28b848c312f4"/>
+         <code code="MSRED" displayName="Measurement end date"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00001231"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">American Diabetes Association. 2009. “Standards of Medical Care in Diabetes-2009.” Diabetes Care 2009 32 (Suppl 1):S6-S12.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Brown, A.F., C.M. Mangione, D. Saliba, C.A. Sarkisian. California Healthcare Foundation/American Geriatrics Society Panel on Improving Care for Elders with Diabetes. 2003. “Guidelines for Improving the Care of the Older Person with Diabetes Mellitus.” J Am Geriatr Soc 51(5 Suppl Guidelines):S265-80.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">The Diabetes Control and Complications Trial Research Group. 1994. “The effect of intensive treatment of diabetes and progression of long-term complications in insulin-dependent mellitus.” N Engl J Med 329:977-86.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Ohkubo Y., H. Kishikawa, E. Araki, T. Miyata, S. Isami, S. Motoyoshi, Y. Kojima, N. Furuyoshi, M. Shichiri. 1995. “Intensive insulin therapy prevents the progression of diabetic microvascular complications in Japanese patients with non-insulin-dependent diabetes mellitus: a randomized prospective 6-year study.” Diabetes Res Clin Pract 28(2):103-17.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DEF" codeSystem="2.16.840.1.113883.3.560" displayName="Definition"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="GUIDE" codeSystem="2.16.840.1.113883.5.4" displayName="Guidance"/>
+         <value xsi:type="ED" mediaType="text/plain">Patient is numerator compliant if most recent HbA1c level &gt;9% or is missing a result or if an HbA1c test was not done during the measurement year.
+
+Only patients with a diagnosis of Type 1 or Type 2 diabetes should be included in the denominator of this measure; patients with a diagnosis of secondary diabetes due to another condition should not be included.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Transmission Format</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">TBD</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IPP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Initial Patient Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Patients 18-75 years of age with diabetes with a visit during the measurement period</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENOM" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Equals Initial Patient Population</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Denominator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Patients with a diagnosis of gestational diabetes during the measurement period</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="NUMER" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Numerator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Patients whose most recent HbA1c level (performed during the measurement period) is &gt;9.0%</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Numerator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator Exceptions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Measure Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Measure Observations</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Supplemental Data Elements</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">For every patient evaluated by this measure also identify payer, race, ethnicity and sex.</value>
+      </measureAttribute>
+   </subjectOf>
+   <componentOf>
+      <qualityMeasureSet classCode="ACT">
+         <id root="bc0c7003-0d58-4dbd-a135-fe4456de3432"/>
+         <title>None</title>
+      </qualityMeasureSet>
+   </componentOf>
+         
+      <!--
+         **************************************************************   
+         Population Criteria Section
+         **************************************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Population criteria"/>
+         <title>Population criteria</title>
+         <text>
+            <list>
+               <item>
+                  <content styleCode="Bold">Initial Patient Population =</content>
+                  <list>
+                     <item>AND NOT: "Occurrence A of Diagnosis, Active: Diabetes" ends before start of "Measurement Period"</item>
+                     <item>AND: "Occurrence A of Diagnosis, Active: Diabetes" starts before or during "Measurement Period"</item>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &gt;= 18 year(s) starts before start of "Measurement Period"</item>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &lt; 75 year(s) starts before start of "Measurement Period"</item>
+                     <item>AND: <list>
+                           <item>OR: "Encounter, Performed: Office Visit"</item>
+                           <item>OR: "Encounter, Performed: Face-to-Face Interaction"</item>
+                           <item>OR: "Encounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up"</item>
+                           <item>OR: "Encounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up"</item>
+                           <item>OR: "Encounter, Performed: Home Healthcare Services"</item>
+                           <item>OR: "Encounter, Performed: Annual Wellness Visit"</item>
+                           <item> during "Measurement Period"</item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator =</content>
+                  <list>
+                     <item>AND: "Initial Patient Population"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exclusions =</content>
+                  <list>
+                     <item>AND NOT: "Occurrence A of Diagnosis, Active: Gestational Diabetes" ends before start of "Measurement Period"</item>
+                     <item>AND: "Occurrence A of Diagnosis, Active: Gestational Diabetes" starts before or during "Measurement Period"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Numerator =</content>
+                  <list>
+                     <item>AND: <list>
+                           <item>OR NOT: "Occurrence A of Laboratory Test, Result: HbA1c Laboratory Test" during "Measurement Period"</item>
+                           <item>OR: <list>
+                                 <item>AND: MOST RECENT:"Occurrence A of Laboratory Test, Result: HbA1c Laboratory Test" during "Measurement Period"</item>
+                                 <item>AND: "Occurrence A of Laboratory Test, Result: HbA1c Laboratory Test (result &gt; 9 %)"</item>
+                              </list>
+                           </item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exceptions =</content>
+                  <list>
+                     <item>None</item>
+                  </list>
+               </item>
+            </list>
+         </text>
+         <!--
+            **************************************************************   
+            Population Criteria Section: exclusions 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true" actionNegationInd="true">
+               <id root="3ABC05BC-D6C0-47A5-B708-356ED2D1283E"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                     <id root="583b540b-4b30-4e71-a7c8-a9fd599a1dcb"/>
+                     <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                           <title>Occurrence A of Diagnosis, Active: Gestational Diabetes</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.464.1003.103.12.1010"
+                                  displayName="Gestational Diabetes Grouping Value Set"/>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                 <value xsi:type="CD" code="55561003" displayName="active"
+                                        codeSystem="2.16.840.1.113883.6.96"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="EBS">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="e1009fc8-d475-4924-842f-6f463db4a08b"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                     <id root="583b540b-4b30-4e71-a7c8-a9fd599a1dcb"/>
+                     <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                           <title>Occurrence A of Diagnosis, Active: Gestational Diabetes</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.464.1003.103.12.1010"
+                                  displayName="Gestational Diabetes Grouping Value Set"/>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                 <value xsi:type="CD" code="55561003" displayName="active"
+                                        codeSystem="2.16.840.1.113883.6.96"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="EAS" inversionInd="true">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="e1009fc8-d475-4924-842f-6f463db4a08b"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: numerator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="65FCCA7C-46C6-4C47-A57D-51532F7CE150"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="NUMER" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Numerator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Laboratory Test, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.12"/>
+                           <id root="8133901b-726b-42d5-bd0c-479f72681b6f"/>
+                           <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.1003.198.12.1013"
+                                       displayName="HbA1c Laboratory Test Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Occurrence A of Laboratory Test, Result: HbA1c Laboratory Test</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="DURING">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="e1009fc8-d475-4924-842f-6f463db4a08b"/>
+                                       <title>Measurement Period</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <subsetCode code="RECENT"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.12"/>
+                                 <id root="8133901b-726b-42d5-bd0c-479f72681b6f"/>
+                                 <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.464.1003.198.12.1013"
+                                             displayName="HbA1c Laboratory Test Grouping Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Laboratory Test, Result: HbA1c Laboratory Test</title>
+                                       <statusCode code="completed"/>
+                                       <sourceOf typeCode="DURING">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <id root="e1009fc8-d475-4924-842f-6f463db4a08b"/>
+                                             <title>Measurement Period</title>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.12"/>
+                                 <id root="8133901b-726b-42d5-bd0c-479f72681b6f"/>
+                                 <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.464.1003.198.12.1013"
+                                             displayName="HbA1c Laboratory Test Grouping Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Laboratory Test, Result: HbA1c Laboratory Test (result &gt; 9  %)</title>
+                                       <statusCode code="completed"/>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <templateId root="2.16.840.1.113883.3.560.1.1019.3"/>
+                                             <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                                   codeSystemName="SNOMED-CT"/>
+                                             <value xsi:type="IVL_PQ">
+                                                <low value="9" unit="%" inclusive="false"/>
+                                             </value>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: denominator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="BD575AE2-835A-4102-A03C-6F6544D3B072"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="EA8DBC23-5330-4DC8-8624-57D6E3E98A45"/>
+                     <title>Initial Patient Population</title>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: population 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="EA8DBC23-5330-4DC8-8624-57D6E3E98A45"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="IPP" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Initial Patient Population"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                     <id root="369058d6-36af-46b4-9db0-b65e813f5a83"/>
+                     <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                           <title>Occurrence A of Diagnosis, Active: Diabetes</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.464.1003.103.12.1001"
+                                  displayName="Diabetes Grouping Value Set"/>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                 <value xsi:type="CD" code="55561003" displayName="active"
+                                        codeSystem="2.16.840.1.113883.6.96"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="EBS">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="e1009fc8-d475-4924-842f-6f463db4a08b"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                     <id root="369058d6-36af-46b4-9db0-b65e813f5a83"/>
+                     <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                           <title>Occurrence A of Diagnosis, Active: Diabetes</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.464.1003.103.12.1001"
+                                  displayName="Diabetes Grouping Value Set"/>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                 <value xsi:type="CD" code="55561003" displayName="active"
+                                        codeSystem="2.16.840.1.113883.6.96"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="EAS" inversionInd="true">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="e1009fc8-d475-4924-842f-6f463db4a08b"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="ca6aeff8-a13f-4f76-8b0c-83ef08dd29b3"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                                  codeSystem="2.16.840.1.113883.3.560.101.1"
+                                  displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <low value="18" unit="a" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="e1009fc8-d475-4924-842f-6f463db4a08b"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="ca6aeff8-a13f-4f76-8b0c-83ef08dd29b3"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                                  codeSystem="2.16.840.1.113883.3.560.101.1"
+                                  displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <high value="75" unit="a" inclusive="false"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="e1009fc8-d475-4924-842f-6f463db4a08b"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="6df9dea4-672c-4229-b116-53d47c693e6d"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.1003.101.12.1001"
+                                       displayName="Office Visit Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Encounter, Performed: Office Visit</title>
+                                 <statusCode code="completed"/>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="d86faecc-6578-4587-8f80-e32e8567f6b4"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.1003.101.12.1048"
+                                       displayName="Face-to-Face Interaction Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Encounter, Performed: Face-to-Face Interaction</title>
+                                 <statusCode code="completed"/>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="af49065b-2624-41b5-b489-f2da13ce7228"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.1003.101.12.1025"
+                                       displayName="Preventive Care Services - Established Office Visit, 18 and Up Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Encounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up</title>
+                                 <statusCode code="completed"/>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="513f701c-22a4-4257-9ff5-1172ac34b5f2"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.1003.101.12.1023"
+                                       displayName="Preventive Care Services-Initial Office Visit, 18 and Up Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Encounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up</title>
+                                 <statusCode code="completed"/>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="6b927448-c729-4992-828e-1813f167164e"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.1003.101.12.1016"
+                                       displayName="Home Healthcare Services Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Encounter, Performed: Home Healthcare Services</title>
+                                 <statusCode code="completed"/>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="31ad7b6c-167d-4c3b-ae91-115ce154850d"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.526.3.1240"
+                                       displayName="Annual Wellness Visit Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Encounter, Performed: Annual Wellness Visit</title>
+                                 <statusCode code="completed"/>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="DURING">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <id root="e1009fc8-d475-4924-842f-6f463db4a08b"/>
+                           <title>Measurement Period</title>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Data Criteria Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57025-9" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Data criteria (QDM Data Elements)"/>
+         <title>Data criteria (QDM Data Elements)</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Diagnosis, Active: Diabetes"</content> using "Diabetes Grouping Value Set (2.16.840.1.113883.3.464.1003.103.12.1001)"</item>
+               <item>
+                  <content>"Diagnosis, Active: Gestational Diabetes"</content> using "Gestational Diabetes Grouping Value Set (2.16.840.1.113883.3.464.1003.103.12.1010)"</item>
+               <item>
+                  <content>"Encounter, Performed: Annual Wellness Visit"</content> using "Annual Wellness Visit Grouping Value Set (2.16.840.1.113883.3.526.3.1240)"</item>
+               <item>
+                  <content>"Encounter, Performed: Face-to-Face Interaction"</content> using "Face-to-Face Interaction Grouping Value Set (2.16.840.1.113883.3.464.1003.101.12.1048)"</item>
+               <item>
+                  <content>"Encounter, Performed: Home Healthcare Services"</content> using "Home Healthcare Services Grouping Value Set (2.16.840.1.113883.3.464.1003.101.12.1016)"</item>
+               <item>
+                  <content>"Encounter, Performed: Office Visit"</content> using "Office Visit Grouping Value Set (2.16.840.1.113883.3.464.1003.101.12.1001)"</item>
+               <item>
+                  <content>"Encounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up"</content> using "Preventive Care Services - Established Office Visit, 18 and Up Grouping Value Set (2.16.840.1.113883.3.464.1003.101.12.1025)"</item>
+               <item>
+                  <content>"Encounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up"</content> using "Preventive Care Services-Initial Office Visit, 18 and Up Grouping Value Set (2.16.840.1.113883.3.464.1003.101.12.1023)"</item>
+               <item>
+                  <content>"Laboratory Test, Result: HbA1c Laboratory Test"</content> using "HbA1c Laboratory Test Grouping Value Set (2.16.840.1.113883.3.464.1003.198.12.1013)"</item>
+               <item>
+                  <content>"Patient Characteristic Birthdate: birth date"</content> using "birth date LOINC Value Set (2.16.840.1.113883.3.560.100.4)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+               <id root="ca6aeff8-a13f-4f76-8b0c-83ef08dd29b3"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                     <title>Patient Characteristic Birthdate: birth date</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="birth date LOINC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="cfe11a41-6aa0-4735-8c8a-8ccf0c4d12e1"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: Gestational Diabetes</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.464.1003.103.12.1010"
+                            displayName="Gestational Diabetes Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active"
+                                  codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="9747f360-c473-4dbd-a28d-818761c7a31c"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: Diabetes</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.464.1003.103.12.1001"
+                            displayName="Diabetes Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active"
+                                  codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.12"/>
+               <id root="514a8b2b-f359-4488-931f-154ec485c334"/>
+               <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.1003.198.12.1013"
+                           displayName="HbA1c Laboratory Test Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Laboratory Test, Result: HbA1c Laboratory Test</title>
+                     <statusCode code="completed"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="6df9dea4-672c-4229-b116-53d47c693e6d"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.1003.101.12.1001"
+                           displayName="Office Visit Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Office Visit</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="d86faecc-6578-4587-8f80-e32e8567f6b4"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.1003.101.12.1048"
+                           displayName="Face-to-Face Interaction Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Face-to-Face Interaction</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="af49065b-2624-41b5-b489-f2da13ce7228"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.1003.101.12.1025"
+                           displayName="Preventive Care Services - Established Office Visit, 18 and Up Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="513f701c-22a4-4257-9ff5-1172ac34b5f2"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.1003.101.12.1023"
+                           displayName="Preventive Care Services-Initial Office Visit, 18 and Up Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="6b927448-c729-4992-828e-1813f167164e"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.1003.101.12.1016"
+                           displayName="Home Healthcare Services Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Home Healthcare Services</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="31ad7b6c-167d-4c3b-ae91-115ce154850d"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.526.3.1240"
+                           displayName="Annual Wellness Visit Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Annual Wellness Visit</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="369058d6-36af-46b4-9db0-b65e813f5a83"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>Diabetes</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="9747f360-c473-4dbd-a28d-818761c7a31c"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.12"/>
+               <id root="8133901b-726b-42d5-bd0c-479f72681b6f"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>HbA1c Laboratory Test</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="514a8b2b-f359-4488-931f-154ec485c334"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="583b540b-4b30-4e71-a7c8-a9fd599a1dcb"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>Gestational Diabetes</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="cfe11a41-6aa0-4735-8c8a-8ccf0c4d12e1"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+            
+         <!--
+            **************************************************************   
+            Stratification Section
+            **************************************************************
+         --><component typeCode="COMP">
+      <section>
+         <code code="69669-0" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Population stratification description"/>
+         <title>Reporting Stratification</title>
+         <text>
+            <list>
+               <item>None</item>
+            </list>
+         </text>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Supplemental Data Elements Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="69670-8" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Supplemental Data Elements"/>
+         <title>Supplemental Data Elements</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Patient Characteristic Ethnicity: Ethnicity"</content> using "Ethnicity CDC Value Set (2.16.840.1.114222.4.11.837)"</item>
+               <item>
+                  <content>"Patient Characteristic Payer: Payer"</content> using "Payer Source of Payment Typology Value Set (2.16.840.1.114222.4.11.3591)"</item>
+               <item>
+                  <content>"Patient Characteristic Race: Race"</content> using "Race CDC Value Set (2.16.840.1.114222.4.11.836)"</item>
+               <item>
+                  <content>"Patient Characteristic Sex: ONC Administrative Sex"</content> using "ONC Administrative Sex Administrative Sex Value Set (2.16.840.1.113762.1.4.1)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Sex pattern --><templateId root="2.16.840.1.113883.3.560.1.402"/>
+               <id root="b80a3ed6-fe99-4daf-a0c2-35a06cbbccc5"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="263495000" codeSystem="2.16.840.1.113883.6.96" displayName="Sex"/>
+                     <title>Patient Characteristic Sex: ONC Administrative Sex</title>
+                     <value xsi:type="CD" code="2.16.840.1.113762.1.4.1"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="ONC Administrative Sex Administrative Sex Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Race pattern --><templateId root="2.16.840.1.113883.3.560.1.406"/>
+               <id root="c48b7ef2-05bf-4639-9395-800ca32895d1"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="32624-9" codeSystem="2.16.840.1.113883.6.1" displayName="Race"/>
+                     <title>Patient Characteristic Race: Race</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.836"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Race CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Ethnicity pattern --><templateId root="2.16.840.1.113883.3.560.1.403"/>
+               <id root="b5ff13ec-8f37-43c1-bdf9-467bdc76a133"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="54133-4" codeSystem="2.16.840.1.113883.6.1" displayName="Ethnicity"/>
+                     <title>Patient Characteristic Ethnicity: Ethnicity</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.837"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Ethnicity CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Payer pattern --><templateId root="2.16.840.1.113883.3.560.1.405"/>
+               <id root="ae06bfca-a4f1-46fa-97d6-a5cbfdf7fb52"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" displayName="Payer"/>
+                     <title>Patient Characteristic Payer: Payer</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.3591"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Payer Source of Payment Typology Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+      </section>
+   </component>
+</QualityMeasureDocument>

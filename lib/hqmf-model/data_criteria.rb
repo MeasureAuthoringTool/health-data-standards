@@ -31,7 +31,10 @@ module HQMF
              'INCISION_DATETIME' => {title:'Incision Date/Time', coded_entry_method: :incision_time, code: '34896006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1007.1', field_type: :timestamp},
              'REMOVAL_DATETIME' => {title:'Removal Date/Time', coded_entry_method: :removal_time, code: '118292001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1032.1', field_type: :timestamp},
              'TRANSFER_TO' => {title:'Transfer To', coded_entry_method: :transfer_to, code: 'TRANSFER_TO', template_id: '2.16.840.1.113883.3.560.1.72', field_type: :value},
-             'TRANSFER_FROM' => {title:'Transfer From', coded_entry_method: :transfer_from, code: 'TRANSFER_FROM', template_id: '2.16.840.1.113883.3.560.1.71', field_type: :value}
+             'TRANSFER_FROM' => {title:'Transfer From', coded_entry_method: :transfer_from, code: 'TRANSFER_FROM', template_id: '2.16.840.1.113883.3.560.1.71', field_type: :value},
+             'DUMMY_VARIABLE_dummy' => {title:'Dummy', coded_entry_method: :transfer_from, code: 'DUMMY', template_id: '0.1.2.3.4.5.6.7.8.9.1', field_type: :value},
+             'DUMMY_SATISFIES_ALL_dummy' => {title:'Dummy', coded_entry_method: :transfer_from, code: 'DUMMY', template_id: '0.1.2.3.4.5.6.7.8.9.2', field_type: :value},
+             'DUMMY_SATISFIES_ANY_dummy' => {title:'Dummy', coded_entry_method: :transfer_from, code: 'DUMMY', template_id: '0.1.2.3.4.5.6.7.8.9.3', field_type: :value}
              }
              
     VALUE_FIELDS = {'SEV'      => 'SEVERITY',
@@ -56,7 +59,7 @@ module HQMF
     
 
     attr_reader :title, :description, :code_list_id, :children_criteria, :derivation_operator , :specific_occurrence, :specific_occurrence_const, :source_data_criteria
-    attr_accessor :id, :value, :field_values, :effective_time, :status, :temporal_references, :subset_operators, :definition, :inline_code_list, :negation_code_list_id, :negation, :display_name
+    attr_accessor :id, :value, :field_values, :effective_time, :status, :temporal_references, :subset_operators, :definition, :inline_code_list, :negation_code_list_id, :negation, :display_name, :comments
   
     # Create a new data criteria instance
     # @param [String] id
@@ -80,7 +83,8 @@ module HQMF
     # @param [String] specific_occurrence
     # @param [String] specific_occurrence_const
     # @param [String] source_data_criteria (id for the source data criteria, important for specific occurrences)
-    def initialize(id, title, display_name, description, code_list_id, children_criteria, derivation_operator, definition, status, value, field_values, effective_time, inline_code_list, negation, negation_code_list_id, temporal_references, subset_operators, specific_occurrence, specific_occurrence_const, source_data_criteria=nil)
+    # @param [String] user comments for the criteria 
+    def initialize(id, title, display_name, description, code_list_id, children_criteria, derivation_operator, definition, status, value, field_values, effective_time, inline_code_list, negation, negation_code_list_id, temporal_references, subset_operators, specific_occurrence, specific_occurrence_const, source_data_criteria=nil, comments=nil)
 
       status = normalize_status(definition, status)
       @settings = HQMF::DataCriteria.get_settings_for_definition(definition, status)
@@ -105,6 +109,7 @@ module HQMF
       @specific_occurrence = specific_occurrence
       @specific_occurrence_const = specific_occurrence_const
       @source_data_criteria = source_data_criteria || id
+      @comments = comments
     end
     
     # create a new data criteria given a category and sub_category.  A sub category can either be a status or a sub category
@@ -163,9 +168,10 @@ module HQMF
       specific_occurrence = json['specific_occurrence'] if json['specific_occurrence']
       specific_occurrence_const = json['specific_occurrence_const'] if json['specific_occurrence_const']
       source_data_criteria = json['source_data_criteria'] if json['source_data_criteria']
+      comments = json['comments'] if json['comments']    
 
       HQMF::DataCriteria.new(id, title, display_name, description, code_list_id, children_criteria, derivation_operator, definition, status, value, field_values,
-                             effective_time, inline_code_list, negation, negation_code_list_id, temporal_references, subset_operators,specific_occurrence,specific_occurrence_const,source_data_criteria)
+                             effective_time, inline_code_list, negation, negation_code_list_id, temporal_references, subset_operators,specific_occurrence,specific_occurrence_const,source_data_criteria, comments)
     end
 
     def to_json
@@ -183,6 +189,7 @@ module HQMF
       json[:inline_code_list] = @inline_code_list if @inline_code_list
       json[:temporal_references] = x if x = json_array(@temporal_references)
       json[:subset_operators] = x if x = json_array(@subset_operators)
+      json[:comments] = x if x = json_array(@comments)
       json
     end
 
@@ -259,9 +266,15 @@ module HQMF
       
     end
 
+    def self.get_settings_map
+      return @settings_map if @settings_map
+      settings_file = File.expand_path('../data_criteria.json', __FILE__)
+      @settings_map = JSON.parse(File.read(settings_file))
+    end
+
     def self.get_settings_for_definition(definition, status)
       settings_file = File.expand_path('../data_criteria.json', __FILE__)
-      settings_map = JSON.parse(File.read(settings_file))
+      settings_map = get_settings_map
       key = definition + ((status.nil? || status.empty?) ? '' : "_#{status}")
       settings = settings_map[key]
       

@@ -5,8 +5,9 @@ module HQMF2
   
     include HQMF2::Utilities
     
-    attr_reader :preconditions, :id, :hqmf_id, :title, :type
-    
+    attr_reader :preconditions, :id, :hqmf_id, :title, :aggregator, :comments
+    #need to do this to allow for setting the type to OBSERV for 
+    attr_accessor :type
     # Create a new population criteria from the supplied HQMF entry
     # @param [Nokogiri::XML::Element] the HQMF entry
     def initialize(entry, doc)
@@ -15,6 +16,17 @@ module HQMF2
       @hqmf_id = attr_val('./*/cda:id/@extension')
       @title = attr_val('./*/cda:code/cda:displayName/@value') 
       @type = attr_val('./*/cda:code/@code')
+      @aggregator = nil
+      @comments = @entry.xpath("./*/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()", HQMF2::Document::NAMESPACES)
+                        .map{ |v| v.content }
+      obs_test = attr_val('./cda:measureObservationDefinition/@classCode')
+      if !@title && obs_test.to_s == "OBS"
+          @title = attr_val('../cda:code/cda:displayName/@value')
+          @aggregator = attr_val('./cda:measureObservationDefinition/cda:methodCode/cda:item/@code')
+      end
+      if(!@hqmf_id) # The id extension is not required, if it's not provided use the code
+        @hqmf_id = @type
+      end
       @preconditions = @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES).collect do |precondition|
         Precondition.new(precondition, @doc)
       end
@@ -34,7 +46,7 @@ module HQMF2
     # @return [String] conjunction code
     def conjunction_code
       case @type
-      when HQMF::PopulationCriteria::IPP, HQMF::PopulationCriteria::DENOM, HQMF::PopulationCriteria::NUMER
+      when HQMF::PopulationCriteria::IPP, HQMF::PopulationCriteria::DENOM, HQMF::PopulationCriteria::NUMER,HQMF::PopulationCriteria::MSRPOPL
         HQMF::Precondition::ALL_TRUE
       when HQMF::PopulationCriteria::DENEXCEP, HQMF::PopulationCriteria::DENEX
         HQMF::Precondition::AT_LEAST_ONE_TRUE
@@ -45,7 +57,7 @@ module HQMF2
     
     def to_model
       mps = preconditions.collect {|p| p.to_model}
-      HQMF::PopulationCriteria.new(id, hqmf_id, type, mps, title)
+      HQMF::PopulationCriteria.new(id, hqmf_id, type, mps, title, aggregator, comments)
     end
 
   end

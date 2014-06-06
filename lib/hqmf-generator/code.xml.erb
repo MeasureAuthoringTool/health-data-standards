@@ -4,10 +4,14 @@
           <%- code_system_oid = oid_for_name(code_system_name) -%>
           <<%= name %> codeSystemName="<%= code_system_name %>" codeSystem="<%= code_system_oid %>"
             code="<%= code %>">
-            <displayName value="<%= criteria.title %>"/>
+            <%- if criteria.title -%>
+              <displayName value="<%=ERB::Util::h criteria.title %>"/>
+            <%- end -%>
           </<%= name %>>
           <%- elsif criteria.code_list_id -%>
           <<%= name %><%= " xsi:type=\"CD\"" if include_type %> valueSet="<%= criteria.code_list_id %>">
-            <displayName value="<%= criteria.title %>"/>
+            <%- if criteria.title -%>
+              <displayName value="<%=ERB::Util::h criteria.title %>"/>
+            <%- end -%>
           </<%= name %>>
           <%- end -%>

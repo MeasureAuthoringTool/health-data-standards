@@ -26,10 +26,10 @@ module HQMF1
     # Get the code for the population criteria
     # @return [String] the code (e.g. IPP, DEMON, NUMER, DENEX, DENEXCEP)
     def code
-      value = attr_val('cda:observation/cda:value/@code')
+      value = attr_val('cda:observation/cda:value/@code') || HQMF::PopulationCriteria::STRAT
       # exclusion population criteria has id of DENOM with actionNegationInd of true
       # special case this to simply handling
-      if attr_val('cda:observation/@actionNegationInd')=='true'
+      if attr_val('cda:observation/@actionNegationInd')=='true' && value == HQMF::PopulationCriteria::DENOM
         value = HQMF::PopulationCriteria::DENEX
       end
       value.upcase

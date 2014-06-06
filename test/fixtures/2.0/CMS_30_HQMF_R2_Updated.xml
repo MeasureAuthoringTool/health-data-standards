@@ -1,0 +1,1075 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="HQMFR2.xsl"?>
+
+<!-- ************************************************************************************************ 
+This "Illustration Pupose Only" sample measure is based on the HQMF R2 Implementation Guide.
+*****************************************************************************************************-->
+<QualityMeasureDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:hl7-org:v3 ../Latest%20Build%20Output/output/processable/multicacheschemas/EMeasure.xsd"
+	xmlns="urn:hl7-org:v3" xmlns:ex="urn:hl7-org/v3-example" xmlns:mif="urn:hl7-org:v3/mif2"
+	xmlns:sch="http://www.ascc.net/xml/schematron">
+	<!-- Measure Header Section -->
+	<typeId root="2.16.840.1.113883.1.3" extension="POQM_HD000001UV02"/>
+	<id root="8a4d92b2-35fb-4aa7-0136-1df6d8c70252" extension="foo"/>
+	<code code="57024-2" codeSystem="2.16.840.1.113883.6.1">
+		<displayName value="Health Quality Measure Document"/>
+	</code>
+	<title
+		value="Statin Prescribed at Discharge"/>
+	<text
+		value="Acute myocardial infarction (AMI) patients who are prescribed a statin at hospital discharge."/>
+	<statusCode code="Complete"/>
+	<setId root="ebfa203e-acc1-4228-906c-855c4bf11310"/>
+	<versionNumber value="3"/>
+	<author typeCode="AUT">
+		<responsibleParty classCode="ASSIGNED">
+			<representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+				<id>
+					<item root="1.3.6.1.4.1.33895"/>
+				</id>
+				<name>
+					<item>
+						<part value="Oklahoma Foundation for Medical Quality"/>
+					</item>
+				</name>
+				<telecom nullFlavor="NI"/>
+			</representedResponsibleOrganization>
+		</responsibleParty>
+	</author>
+	<custodian>
+		<responsibleParty classCode="ASSIGNED">
+			<representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+				<id>
+					<item root="2.16.840.1.113883.3.560.3.31"/>
+				</id>
+				<name>
+					<item>
+						<part value="Centers for Medicare &amp; Medicaid Services"/>
+					</item>
+				</name>
+			</representedResponsibleOrganization>
+		</responsibleParty>
+	</custodian>
+	<definition>
+		<!-- Combine the AMI value sets for not giving a statin into a single valueset, for clarity -->
+		<valueSet classCode="OBS" moodCode="DEF">
+			<id root="2.16.840.1.113883.3.666.5.123456" extension="validReasonsAMI"/>
+			<value>
+				<item valueSet="2.16.840.1.113883.3.666.5.3003"
+					codeSystem="2.16.840.1.113883.3.560.101.1">
+					<displayName value="medical reasons AMI SNOMED-CT value set"/>
+				</item>
+				<item valueSet="2.16.840.1.113883.3.666.5.3004"
+					codeSystem="2.16.840.1.113883.3.560.101.1">
+					<displayName value="patient reasons AMI SNOMED-CT value set"/>
+				</item>
+				<item valueSet="2.16.840.1.113883.3.666.5.3005"
+					codeSystem="2.16.840.1.113883.3.560.101.1">
+					<displayName value="system reasons AMI SNOMED-CT value set"/>
+				</item>
+			</value>
+		</valueSet>
+	</definition>
+	<definition>
+		<!-- Combine the valid discharge codes indicating that no statin given was ok -->
+		<valueSet classCode="OBS" moodCode="DEF">
+			<id root="2.16.840.1.113883.3.666.5.1234567" extension="validDischargeCodesAMI"/>
+			<value>
+				<item valueSet="2.16.840.1.113883.3.666.5.1106"
+					codeSystem="2.16.840.1.113883.3.560.101.1">
+					<displayName value="left against medical advice value set"/>
+				</item>
+				<item valueSet="2.16.840.1.113883.3.666.5.647"
+					codeSystem="2.16.840.1.113883.3.560.101.1">
+					<displayName value="inpatient hospice care value set"/>
+				</item>
+				<item valueSet="2.16.840.1.113883.3.666.5.648"
+					codeSystem="2.16.840.1.113883.3.560.101.1">
+					<displayName value="home hospice care value set"/>
+				</item>
+				<item valueSet="2.16.840.1.113883.3.117.1.7.1.87"
+					codeSystem="2.16.840.1.113883.3.560.101.1">
+					<displayName value="discharge to another hospital value set"/>
+				</item>
+				<item valueSet="2.16.840.1.113883.3.117.1.7.1.86"
+					codeSystem="2.16.840.1.113883.3.560.101.1">
+					<displayName value="patient expired value set"/>
+				</item>
+			</value>
+		</valueSet>
+	</definition>
+	<controlVariable>
+		<measurePeriod>
+			<id root="2.16.840.1.113883.3.100.100.123" extension="MeasurePeriod"/>
+			<code code="MSRTP" codeSystem="2.16.840.1.113883.3.560">
+				<displayName value="Measurement period"/>
+			</code>
+			<!-- measure period defined as: Starting at Jan 1, 2012, for a period of 1 year, repeated every year" -->
+			<value xsi:type="PIVL_TS">
+				<phase lowClosed="true" highClosed="true">
+					<low value="201201010000"/>
+					<width xsi:type="PQ" value="1" unit="a"/>
+				</phase>
+				<period value="1" unit="a"/>
+			</value>
+		</measurePeriod>
+	</controlVariable>
+	<subjectOf>
+		<measureAttribute>
+			<code nullFlavor="OTH">
+				<originalText value="Finalized Date/Time"/>
+			</code>
+			<value xsi:type="TS" value="201304011658-0500"/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="COPY" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Copyright"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain"
+				value="Copyright Statement"/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="MSRSCORE" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Measure Scoring"/>
+			</code>
+			<value xsi:type="CD" code="PROPOR" codeSystem="2.16.840.1.113883.1.11.20367">
+				<displayName value="Proportion"/>
+			</value>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="MSRTYPE" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Measure Type"/>
+			</code>
+			<value xsi:type="CD" code="PROCESS" codeSystem="2.16.840.1.113883.1.11.20368">
+				<displayName value="Process"/>
+			</value>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="STRAT" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Stratification"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain" value="None"/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="MSRADJ" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Risk Adjustment"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain" value="None"/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="MSRAGG" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Rate Aggregation"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain" value="None"/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="RAT" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Rationale"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain"
+				value="Several randomized clinical trials have proven the benefits of statin drugs (also known as HMG Co-A reductase inhibitors) in reducing the risk of death and recurrent cardiovascular events in a broad range of patients with established cardiovascular disease, including those with prior myocardial infarction (4S, 1994; Sacks, 1996; LIPID Study Group, 1998; and MRC/BHF Heart Protection Study, 2002). Current ACC/AHA guidelines place a strong emphasis on the initiation or maintenance of statin drugs for patients hospitalized with AMI, particularly those with LDL-cholesterol levels above 100 mg/dL (Antman, 2004; Smith, 2006; Anderson, 2007; and Antman, 2008). As a result of the strength of the evidence and guideline support, the ACC/AHA have developed a performance measure to assess this aspect of care for patients with acute myocardial infarction (Krumholz, 2008). Because statins are generally well-tolerated, most patients with AMI are appropriate candidates for this therapy."
+			/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="CRS" codeSystem="2.16.840.1.113883.3.560">
+				<displayName value="Clinical Recommendation Statement"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain"
+				value="Several randomized clinical trials have proven the benefits of statin drugs (also known as HMG Co-A reductase inhibitors) in reducing the risk of death and recurrent cardiovascular events in a broad range of patients with established cardiovascular disease, including those with prior myocardial infarction."
+			/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="IDUR" codeSystem="2.16.840.1.113883.3.560">
+				<displayName value="Improvement Notation"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain" value="An increase in rate."/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code nullFlavor="OTH">
+				<originalText value="NQF ID Number"/>
+			</code>
+			<value xsi:type="II" root="2.16.840.1.113883.3.560.1" extension="0639"/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="DISC" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Disclaimer"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain" value="None"/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code nullFlavor="OTH">
+				<originalText value="eMeasure Identifier"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain" value="30"/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="REF" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Reference"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain"
+				value="Anderson JL, Adams CD, Antman EM, Bridges CR, Califf RM, Casey DE Jr, et al. ACC/AHA 2007 guidelines for the management of patients with unstable angina/non–ST-elevation myocardial infarction: a report of the American College of Cardiology/American Heart Association Task Force on Practice Guidelines (Writing Committee to Revise the 2002 Guidelines for the Management of Patients With Unstable Angina/Non–ST-Elevation Myocardial Infarction): developed in collaboration with the American College of Emergency Physicians, American College of Physicians, Society for Academic Emergency Medicine, Society for Cardiovascular Angiography and Interventions, and Society of Thoracic Surgeons. J Am Coll Cardiol. 2007;50:e1–157."
+			/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="REF" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Reference"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain"
+				value="Antman EM, Anbe DT, Armstrong PW, Bates ER, Green LA, Hand M, et al. ACC/AHA guidelines for the management of patients with ST-elevation myocardial infarction: a report of the American College of Cardiology/American Heart Association Task Force on Practice Guidelines (Committee to Revise the 1999 Guidelines for the Management of Patients With Acute Myocardial Infarction). 2004."
+			/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="REF" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Reference"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain"
+				value="Antman EM, Hand M, Armstrong PW, Bates ER, Green LA, Halasyamani LK, et al. 2007 focused update of the ACC/AHA 2004 Guidelines for the Management of Patients With ST-Elevation Myocardial Infarction: a report of the American College of Cardiology/American Heart Association Task Force on Practice Guidelines (Writing Group to Review New Evidence and Update the ACC/AHA 2004 Guidelines for the Management of Patients With ST-Elevation Myocardial Infarction). J Am Coll Cardiol. 2008;51:210–47."
+			/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="REF" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Reference"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain"
+				value="Krumholz HM, Anderson JL, Bachelder BL, Fesmire FM, Fihn SD, Foody JM, et al. ACC/AHA 2008 performance measures for adults with ST-elevation and non–ST-elevation myocardial infarction: a report of the American College of Cardiology/American Heart Association Task Force on Performance Measures (Writing Committee to Develop Performance Measures for ST-Elevation and Non–ST-Elevation Myocardial Infarction). J Am Coll Cardiol. 2008;52:2046 –99."
+			/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="REF" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Reference"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain"
+				value="The Long-Term Intervention with Pravastatin in Ischaemic Disease (LIPID) Study Group. Prevention of cardiovascular events and death with pravastatin in patients with coronary heart disease and a broad range of initial cholesterol levels. N Engl J Med. 1998;339:1349-57."
+			/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="REF" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Reference"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain"
+				value="MRC/BHF Heart Protection Study of cholesterol lowering with simvastatin in 20,536 high-risk individuals: a randomised placebo-controlled trial. Lancet. 2002;360:7-22."
+			/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="REF" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Reference"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain"
+				value="Randomised trial of cholesterol lowering in 4444 patients with coronary heart disease: the Scandinavian Simvastatin Survival Study (4S). Lancet. 1994;344:1383-9."
+			/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="REF" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Reference"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain"
+				value="Sacks FM, Pfeffer MA, Moye LA, et al, for the Cholesterol and Recurrent Events Trial investigators. The effect of pravastatin on coronary events after myocardial infarction in patients with average cholesterol levels. N Engl J Med. 1996;335:1001-9."
+			/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="REF" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Reference"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain"
+				value="Smith SC, Allen J, Blair SN, Bonow RO, Brass LM, Fonarow GC, et al. AHA/ACC guidelines for secondary prevention for patients with coronary and other atherosclerotic vascular disease: 2006 update. J Am Coll Cardiol. 2006;47:2130 –9. doi:10.1016/j.jacc.2006.04.026."
+			/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="DEF" codeSystem="2.16.840.1.113883.3.560">
+				<displayName value="Definition"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain" value="None"/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code code="GUIDE" codeSystem="2.16.840.1.113883.5.4">
+				<displayName value="Guidance"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain"
+				value="The measurement period is one calendar year but the reporting period is 3 months as a calendar quarter; Q1 is Jan – Mar, Q2 is Apr – Jun, Q3 is Jul – Sep, Q4 is Oct – Dec.
+				
+				Patients for whom there are missing or inaccurate data (e.g., arrival time, medication administration, etc.) are considered to have failed the measure; the total number of patients with missing or erroneous (e.g., a time of 03:69 or a date of 10/26/2035) data (i.e., measure failures) must be reported with the results of the measure.
+				
+				Exclusion element guidance: 
+				The exclusion for patients who are clinical trial participants is limited to patients participating in a clinical trial for acute myocardial infarction (AMI), ST elevation myocardial infarction (STEMI), non-ST elevation myocardial infarction (non-STEMI) heart attack, or acute coronary syndrome (ACS), the same conditions as covered by the measure. Other clinical trials are not valid reasons for exclusions.
+				
+				Medical, patient, or system reasons for not performing a test or giving a medication are categories for valid medical, patient, or system reasons that are not specifically listed in the exclusion section of the measure. Each is expected to be captured and made available for measurement or clinical decision support within the EHR workflow but the exact method or location of capture is a local or vendor decision."
+			/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code nullFlavor="OTH">
+				<originalText value="Transmission Format"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain" value="None"/>
+		</measureAttribute>
+	</subjectOf>
+	<subjectOf>
+		<measureAttribute>
+			<code nullFlavor="OTH">
+				<originalText value="Supplemental Data Elements"/>
+			</code>
+			<value xsi:type="ED" mediaType="text/plain"
+				value="For every patient evaluated by this measure also identify payer, race, ethnicity and gender."
+			/>
+		</measureAttribute>
+	</subjectOf>
+	<!-- Measure Body Section -->
+	<!-- Measure Population Criteria Section -->
+	<component>
+		<populationCriteriaSection>
+			<code code="57026-7" codeSystem="2.16.840.1.113883.6.1">
+				<displayName value="Population criteria"/>
+			</code>
+			<title value="Population Criteria Section"/>
+			<text>
+				<xml>
+					<list>
+						<item>
+							<content styleCode="Bold">Initial Patient Population:</content>
+							<list>
+								<caption>All true</caption>
+								<item>"Patient Characteristic Birthdate: birth date" &gt;= 18
+									year(s) starts before start of "Encounter, Performed: Encounter
+									Inpatient (admission datetime)"</item>
+								<item>"Diagnosis, Active: AMI (ordinality: 'Principal Diagnosis')"
+									during "Encounter, Performed: Encounter Inpatient"</item>
+								<item>"Encounter, Performed: Encounter Inpatient (length of stay
+									&lt;= 120 day(s))"</item>
+								<item>"Encounter, Performed: Encounter Inpatient (admission
+									datetime)"</item>
+							</list>
+						</item>
+						<item>
+							<content styleCode="Bold">Denominator:</content>
+							<list>
+								<caption>All true</caption>
+								<item>"Initial Patient Population"</item>
+							</list>
+						</item>
+						<item>
+							<content styleCode="Bold">Denominator Exclusions</content>
+							<list>
+								<caption>At least one true</caption>
+								<item>"Patient Characteristic Clinical Trial Participant: Clinical
+									Trial Participant" during "Encounter, Performed: Encounter
+									Inpatient"</item>
+								<item>"Intervention, Performed: Hospital Measures - Comfort Measure
+									Only Intervention" starts after start of "Encounter, Performed:
+									Encounter Inpatient"</item>
+								<item>"Encounter, Performed: Encounter Inpatient (discharge status:
+									'Patient Expired')"</item>
+								<item>"Encounter, Performed: Encounter Inpatient (discharge status:
+									'Discharge To Another Hospital')"</item>
+								<item>"Encounter, Performed: Encounter Inpatient (discharge status:
+									'Home Hospice Care')"</item>
+								<item>"Encounter, Performed: Encounter Inpatient (discharge status:
+									'Inpatient Hospice Care')"</item>
+								<item>"Encounter, Performed: Encounter Inpatient (discharge status:
+									'Left Against Medical Advice')"</item>
+								<item>
+									<list>
+										<caption>All true</caption>
+										<item>"Not Done: Medication, Order: Statins" ends concurrent
+											with "Encounter, Performed: Encounter Inpatient
+											(discharge datetime)"</item>
+										<item>"Nod Done: Medication, Active: Statins (Health Record
+											Field: 'Discharge Medication')" during "Encounter,
+											Performed: Encounter Inpatient"</item>
+										<item>
+											<list>
+												<caption>At least one true</caption>
+												<item>"Laboratory Test, Result: LDL-c Test (result
+												&lt; 100 mg/dL)" &lt;= 24 hour(s) starts after
+												start of "Encounter, Performed: Encounter
+												Inpatient (facility location arrival
+												datetime)"</item>
+												<item>"Laboratory Test, Result: LDL-c Test (result
+												&lt; 100 mg/dL)" &lt;= 30 day(s) starts before
+												start of "Encounter, Performed: Encounter
+												Inpatient (facility location arrival
+												datetime)"</item>
+												<item>"Medication, Order not done: Medical Reasons
+												AMI" for "Statins RxNorm Value Set" during
+												"Encounter, Performed: Encounter Inpatient"</item>
+												<item>"Medication, Order not done: Patient Reasons
+												AMI" for "Statins RxNorm Value Set" during
+												"Encounter, Performed: Encounter Inpatient"</item>
+												<item>"Medication, Order not done: System Reasons
+												AMI" for "Statins RxNorm Value Set" during
+												"Encounter, Performed: Encounter Inpatient"</item>
+											</list>
+										</item>
+									</list>
+								</item>
+							</list>
+						</item>
+						<item>
+							<content styleCode="Bold">Numerator</content>
+							<list>
+								<item>
+									<list>
+										<caption>At least one true</caption>
+										<item>"Medication, Order: Statins" ends concurrent with
+											"Encounter, Performed: Encounter Inpatient (discharge
+											datetime)"</item>
+										<item>"Medication, Active: Statins (Health Record Field:
+											'Discharge Medication')" during "Encounter, Performed:
+											Encounter Inpatient"</item>
+									</list>
+								</item>
+							</list>
+						</item>
+						<item>
+							<content styleCode="Bold">Denominator Exceptions</content>
+							<list>
+								<item>None</item>
+							</list>
+						</item>
+						<item>
+							<content styleCode="Bold">Stratification</content>
+							<list>
+								<item>None</item>
+							</list>
+						</item>
+					</list>
+				</xml>
+			</text>
+			<!-- IPP -->
+			<component typeCode="COMP">
+				<initialPopulationCriteria classCode="OBS" moodCode="EVN" isCriterionInd="true">
+					<id root="E8827E28-FF85-4C3F-A9F9-180E3D4E3A07" identifierName="IPOP"/>
+					<code code="IPPOP" codeSystem="2.16.840.1.113883.5.1063"
+						codeSystemName="HL7 Observation Value">
+						<displayName value="Initial Patient Population"/>
+					</code>
+					<precondition>
+						<allTrue>
+							<precondition typeCode="PRCN">
+								<criteriaReference classCode="OBS" moodCode="EVN">
+									<id root="e9a068dc-310a-48e4-95b0-eed852a8950b"
+										extension="PatientCharacteristicBirthdate"/>
+								</criteriaReference>
+							</precondition>
+							<precondition typeCode="PRCN">
+								<criteriaReference classCode="ENC" moodCode="EVN">
+									<id root="e9a068dc-310a-48e4-95b0-eed852a8950b"
+										extension="inpatientEncounterAMI"/>
+								</criteriaReference>
+							</precondition>
+						</allTrue>
+					</precondition>
+				</initialPopulationCriteria>
+			</component>
+			<!-- Denominator -->
+			<component typeCode="COMP">
+				<denominatorCriteria classCode="OBS" moodCode="EVN" isCriterionInd="true">
+					<id root="12471C88-136B-4442-958B-0926E77BCFF7" identifierName="Denom"/>
+					<code xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+						codeSystemName="HL7 Observation Value">
+						<displayName value="Denominator"/>
+					</code>
+				</denominatorCriteria>
+			</component>
+			<!-- Denominator Exclusion
+			 -->
+			<component typeCode="COMP">
+				<denominatorExclusionCriteria classCode="OBS" moodCode="EVN" isCriterionInd="true">
+					<id root="F335772A-A100-478F-8B8F-0F867EA5C343" identifierName="Denom_exclusion"/>
+					<code code="DENEX" codeSystem="2.16.840.1.113883.5.1063"
+						codeSystemName="HL7 Observation Value">
+						<displayName value="Denominator Exclusion"/>
+					</code>
+					<precondition>
+						<atLeastOneTrue>
+							<precondition typeCode="PRCN">
+								<criteriaReference classCode="OBS" moodCode="EVN">
+									<id root="b1866385-d91b-49d2-a12d-13b6334f67a3"
+										extension="clinicalTrialParticipant"/>
+								</criteriaReference>
+							</precondition>
+							<precondition typeCode="PRCN">
+								<criteriaReference classCode="PROC" moodCode="EVN">
+									<id root="7d559e0a-4e01-4f52-b87b-a3342705e2f2"
+										extension="InterventionPerformedComfortMeasureOnly"/>
+								</criteriaReference>
+							</precondition>
+							<precondition typeCode="PRCN">
+								<criteriaReference classCode="GROUPER" moodCode="EVN">
+									<id root="dd732e30-cc87-11e1-9b23-0800200c9a66"
+										extension="dischargedDuringInpatientEncounterAMI"/>
+								</criteriaReference>
+							</precondition>
+						</atLeastOneTrue>
+					</precondition>
+				</denominatorExclusionCriteria>
+			</component>
+			<!-- Denominator Exceptions -->
+			<component typeCode="COMP">
+				<denominatorExceptionCriteria classCode="OBS" moodCode="EVN" isCriterionInd="true">
+					<id root="F335772A-A100-478F-8B8F-0F867EA5C343" identifierName="Denom_exception"/>
+					<code code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063"
+						codeSystemName="HL7 Observation Value">
+						<displayName value="Denominator Exception"/>
+					</code>
+					<precondition>
+						<atLeastOneTrue>
+							<precondition typeCode="PRCN">
+								<criteriaReference classCode="OBS" moodCode="EVN">
+									<id root="a0d5b1b1-bf33-4a6d-b34d-3022b818da69"
+										extension="LDLResultLessThan100_24hr"/>
+								</criteriaReference>
+							</precondition>
+							<precondition typeCode="PRCN">
+								<criteriaReference classCode="OBS" moodCode="EVN">
+									<id root="a0d5b1b1-bf33-4a6d-b34d-3022b818da69"
+										extension="LDLResultLessThan100_30d"/>
+								</criteriaReference>
+							</precondition>
+							<precondition typeCode="PRCN">
+								<criteriaReference classCode="GROUPER" moodCode="EVN">
+									<id root="dd732e30-cc87-11e1-9b23-0800200c9a66"
+										extension="noStatinsWithMedicalReason"/>
+								</criteriaReference>
+							</precondition>
+						</atLeastOneTrue>
+					</precondition>
+				</denominatorExceptionCriteria>
+			</component>
+			<!-- Numerator -->
+			<component typeCode="COMP">
+				<numeratorCriteria moodCode="EVN" isCriterionInd="true">
+					<id root="4B1B4EA2-92F3-4357-A7C2-73EE0B934144" identifierName="Numerator"/>
+					<code code="NUMER" codeSystem="2.16.840.1.113883.5.1063"
+						codeSystemName="HL7 Observation Value">
+						<displayName value="Numerator"/>
+					</code>
+					<precondition>
+						<atLeastOneTrue>
+							<precondition typeCode="PRCN">
+								<criteriaReference classCode="SBADM" moodCode="EVN">
+									<id root="550f0dd0-cc77-11e1-9b23-0800200c9a66"
+										extension="statinMedOrderOnDischarge"/>
+								</criteriaReference>
+							</precondition>
+							<precondition typeCode="PRCN">
+								<criteriaReference classCode="SBADM" moodCode="EVN">
+									<id root="0bd01c10-cc7a-11e1-9b23-0800200c9a66"
+										extension="activeDischargeMedStatin"/>
+								</criteriaReference>
+							</precondition>
+						</atLeastOneTrue>
+					</precondition>
+				</numeratorCriteria>
+			</component>
+		</populationCriteriaSection>
+	</component>
+	<!-- Measure Data Criteria Section -->
+	<component>
+		<dataCriteriaSection>
+			<code code="57025-9" codeSystem="2.16.840.1.113883.6.1">
+				<displayName value="Data criteria (QDM Data Elements)"/>
+			</code>
+			<title value="Data Criteria Section"/>
+			<text>
+
+				<xml>
+					<list>
+						<item>Patient age is greater or equal to 18 years prior to inpatient
+							encounter</item>
+						<item>Inpatient encounter's length of stay is less than or equal to 120
+							days</item>
+						<item>Inpatient encounter with required admission datetime</item>
+						<item>Principal active diagnosis - acute myocardial infarction (AMI) during
+							inpatient encounter</item>
+						<item>Patient characteristic clinical trial participant during inpatient
+							encounter</item>
+						<item>Lab test result LDL-c less than 100mg/dL</item>
+						<item>Lab test result LDL-c less than 100mg/dL within 24 hours after
+							inpatient encounter admission datetime</item>
+						<item>Lab test result LDL-c lt 100mg/dL within 30 days prior to inpatient
+							encounter admission datetime</item>
+						<item>Comfort Measure Only Intervention performed after inpatient encounter
+							admission datetime</item>
+						<item>Encounter discharge status: patient expired</item>
+						<item>Encounter discharge status: discharge to another hospital</item>
+						<item>Encounter discharge status: home hospice care</item>
+						<item>Encounter discharge status: inpatient hospice care</item>
+						<item>Encounter discharge status: left against medical advice</item>
+						<item>Medication order: statins during inpatient encounter discharge
+							datetime</item>
+						<item>Active discharge medication: statins during inpatient encounter</item>
+						<item>Not done: medication order for statins during inpatient encounter
+							discharge datetime</item>
+						<item>Not done: active discharge medication: statins during inpatient
+							encounter</item>
+						<item>Medication order statins not done during inpatient encounter with
+							medical reason</item>
+						<item>Medication order statin not done during inpatient encounter with
+							patient reason</item>
+						<item>Medication order statin not done during inpatient encounter with
+							system reason</item>
+					</list>
+				</xml>
+			</text>
+
+			<!-- These definitions provide a model of specific criteria subtypes and should be referenced in the criterion. These particular definitions are 
+			provided for illustration purposes only, as they are optional. -->
+
+			<definition>
+				<observationDefinition>
+					<id extension="Demographics" root="2.16.840.1.113883.3.1619.5148.1"/>
+				</observationDefinition>
+			</definition>
+			<definition>
+				<encounterDefinition>
+					<id extension="Encounters" root="2.16.840.1.113883.3.1619.5148.1"/>
+				</encounterDefinition>
+			</definition>
+			<definition>
+				<observationDefinition>
+					<id extension="Problems" root="2.16.840.1.113883.3.1619.5148.1"/>
+				</observationDefinition>
+			</definition>
+			<definition>
+				<observationDefinition>
+					<id extension="Allergies" root="2.16.840.1.113883.3.1619.5148.1"/>
+				</observationDefinition>
+			</definition>
+			<definition>
+				<procedureDefinition>
+					<id extension="Procedures" root="2.16.840.1.113883.3.1619.5148.1"/>
+				</procedureDefinition>
+			</definition>
+			<definition>
+				<observationDefinition>
+					<id extension="Results" root="2.16.840.1.113883.3.1619.5148.1"/>
+				</observationDefinition>
+			</definition>
+			<definition>
+				<observationDefinition>
+					<id extension="Vitals" root="2.16.840.1.113883.3.1619.5148.1"/>
+				</observationDefinition>
+			</definition>
+			<definition>
+				<substanceAdministrationDefinition>
+					<id extension="Medications" root="2.16.840.1.113883.3.1619.5148.1"/>
+				</substanceAdministrationDefinition>
+			</definition>
+			<definition>
+				<supplyDefinition>
+					<id extension="RX" root="2.16.840.1.113883.3.1619.5148.1"/>
+				</supplyDefinition>
+			</definition>
+
+			<!-- Initial patient population: AMI patients >=18 years of age and length of stay <= 120days -->
+			<!-- Principal active diagnosis - acute myocardial infarction (AMI) -->
+			<entry typeCode="DRIV">
+				<localVariableName value="principalActiveDiagnosis_AMI"/>
+				<observationCriteria classCode="OBS" moodCode="EVN">
+					<id root="e656021e-89a9-4c7c-a45d-74adf2378af0"
+						extension="principalActiveDiagnosis_AMI"/>
+					<code code="11450-4" codeSystem="2.16.840.1.113883.6.1">
+						<displayName value="Problem"/>
+					</code>
+					<statusCode code="completed"/>
+					<!-- principal diagnosis -->
+					<priorityCode>
+						<item valueSet="2.16.840.1.113883.3.117.2.7.1.14" >
+							<displayName value="principal diagnosis"/>
+						</item>
+					</priorityCode>
+					<!-- AMI diagnosis value set -->
+					<value xsi:type="CD" valueSet="2.16.840.1.113883.3.666.5.3011">
+						<displayName value="Hospital Measures - AMI Grouping Value Set"/>
+					</value>
+				</observationCriteria>
+			</entry>
+
+			<!-- Inpatient encounter <=120 days and an AMI diagnosis  -->
+			<entry typeCode="DRIV">
+				<localVariableName value="inpatientEncounterAMI"/>
+				<encounterCriteria classCode="ENC" moodCode="EVN">
+					<id root="e9a068dc-310a-48e4-95b0-eed852a8950b"
+						extension="inpatientEncounterAMI"/>
+					<code valueSet="2.16.840.1.113883.3.666.5.3001">
+						<displayName value="Encounter Inpatient SNOMED-CT Value Set"/>
+					</code>
+					<title value="Performed inpatient encounter"/>
+					<statusCode code="completed"/>
+					<!-- Inpatient encounter's length of stay is less than or equal to 120 days -->
+					<lengthOfStayQuantity>
+						<uncertainRange lowClosed="true" highClosed="true">
+							<low xsi:type="PQ" value="0" unit="d"/>
+							<high xsi:type="PQ" value="120" unit="d"/>
+						</uncertainRange>
+					</lengthOfStayQuantity>
+					<temporallyRelatedInformation typeCode="EDU">
+						<criteriaReference classCode="OBS" moodCode="EVN">
+							<id root="2.16.840.1.113883.3.100.100.123" extension="MeasurePeriod"/>
+						</criteriaReference>
+					</temporallyRelatedInformation>
+					<!-- Principal active diagosis is AMI -->
+					<temporallyRelatedInformation typeCode="OVERLAP">
+						<criteriaReference classCode="OBS" moodCode="EVN">
+							<!-- referencing the inpatient encounter via id -->
+							<id root="e656021e-89a9-4c7c-a45d-74adf2378af0"
+								extension="principalActiveDiagnosis_AMI"/>
+						</criteriaReference>
+					</temporallyRelatedInformation>
+				</encounterCriteria>
+			</entry>
+
+			<!-- Patient age is greater or equal to 18 years prior to inpatient encounter  -->
+			<entry typeCode="DRIV">
+				<localVariableName value="ageGreaterThanOrEqualTo18Y"/>
+				<observationCriteria moodCode="EVN" classCode="OBS">
+					<id root="e9a068dc-310a-48e4-95b0-eed852a8950b"
+						extension="PatientCharacteristicBirthdate"/>
+					<code codeSystemName="LOINC" codeSystem="2.16.840.1.113883.6.1" code="21112-8">
+						<displayName value="birth date"/>
+					</code>
+					<text value="Patient Characteristic Birthdate: birth date"/>
+					<temporallyRelatedInformation typeCode="SCW">
+						<pauseQuantity>
+							<uncertainRange lowClosed="true">
+								<low xsi:type="PQ" value="18" unit="a"/>
+								<high xsi:type="PQ" nullFlavor="PINF"/>
+							</uncertainRange>
+						</pauseQuantity>
+						<criteriaReference classCode="ENC" moodCode="EVN">
+							<!-- referencing the inpatient encounter via id -->
+							<id root="e9a068dc-310a-48e4-95b0-eed852a8950b"
+								extension="inpatientEncounterAMI"/>
+						</criteriaReference>
+					</temporallyRelatedInformation>
+				</observationCriteria>
+			</entry>
+
+			<!-- Numerator: statin during valid encounter or prescribed at discharge -->
+			<!-- Medication order: statins during inpatient encounter discharge datetime -->
+			<entry typeCode="DRIV">
+				<localVariableName value="statinMedOrderOnDischarge"/>
+				<!-- moodeCode="RQO": medication order request -->
+				<substanceAdministrationCriteria classCode="SBADM" moodCode="INT">
+					<id root="550f0dd0-cc77-11e1-9b23-0800200c9a66"
+						extension="statinMedOrderOnDischarge"/>
+					<!-- optional title -->
+					<title value="Statin medication order at encounter discharge"/>
+					<!-- drug: statins -->
+					<participation typeCode="CSM">
+						<role classCode="MANU">
+							<playingMaterial classCode="MMAT" determinerCode="KIND">
+								<code code="2.16.840.1.113883.3.117.1.7.1.824"
+									codeSystem="2.16.840.1.113883.3.560.101.1">
+									<displayName value="Statins RxNorm Value Set"/>
+								</code>
+							</playingMaterial>
+						</role>
+					</participation>
+					<temporallyRelatedInformation typeCode="SDU">
+						<criteriaReference classCode="ENC" moodCode="EVN">
+							<id root="e9a068dc-310a-48e4-95b0-eed852a8950b"
+								extension="inpatientEncounterAMI"/>
+						</criteriaReference>
+					</temporallyRelatedInformation>
+				</substanceAdministrationCriteria>
+			</entry>
+
+			<!-- Denonminator Exclusions: comfort measures only; enrolled in clinical trials; 
+				 discharged to another hospital, against medical advice, due to death, to hospice care;
+				  -->
+			<!-- Patient characteristic clinical trial participant XXXduring inpatient encounterXXX -->
+			<entry typeCode="DRIV">
+				<localVariableName value="clinicalTrialParticipant"/>
+				<observationCriteria classCode="OBS" moodCode="EVN">
+					<id root="b1866385-d91b-49d2-a12d-13b6334f67a3"
+						extension="clinicalTrialParticipant"/>
+					<code code="428024001" codeSystem="2.16.840.1.113883.6.96">
+						<displayName value="Clinical Trial Participant"/>
+					</code>
+					<value xsi:type="CD" code="2.16.840.1.113883.3.526.2.643"
+						codeSystem="2.16.840.1.113883.3.560.101.1">
+						<displayName value="Clinical Trial Participant SNOMED-CT Value Set"/>
+					</value>
+					<temporallyRelatedInformation typeCode="OVERLAP">
+						<criteriaReference classCode="ENC" moodCode="EVN">
+							<id root="e9a068dc-310a-48e4-95b0-eed852a8950b"
+								extension="inpatientEncounterAMI"/>
+						</criteriaReference>
+					</temporallyRelatedInformation>
+				</observationCriteria>
+			</entry>
+
+			<!-- Comfort Measure Only Intervention XXXperformed after inpatient encounter admission datetimeXXX
+			 . -->
+			<entry typeCode="DRIV">
+				<localVariableName value="InterventionPerformedComfortMeasureOnly"/>
+				<procedureCriteria classCode="PROC" moodCode="EVN">
+					<id root="7d559e0a-4e01-4f52-b87b-a3342705e2f2"
+						extension="InterventionPerformedComfortMeasureOnly"/>
+					<code code="2.16.840.1.113883.3.666.5.3002"
+						codeSystem="2.16.840.1.113883.3.560.101.1">
+						<displayName
+							value="Hospital Measures - Comfort Measure Only Intervention SNOMED-CT Value Set"/>
+					</code>
+					<temporallyRelatedInformation typeCode="SDU">
+						<criteriaReference classCode="ENC" moodCode="EVN">
+							<id root="e9a068dc-310a-48e4-95b0-eed852a8950b"
+								extension="inpatientEncounterAMI"/>
+						</criteriaReference>
+					</temporallyRelatedInformation>
+				</procedureCriteria>
+			</entry>
+
+			<!-- Patient discharged against medical advice, to inpatient hospice care, to home hospice care, to another hospital during encounter, due to death -->
+			<entry typeCode="DRIV">
+				<encounterCriteria classCode="ENC" moodCode="EVN">
+					<id root="e9a068dc-310a-48e4-95b0-eed852a8950b" extension="discharged"/>
+					<!-- This valueSet is defined in a definition element above -->
+					<dischargeDispositionCode valueSet="2.16.840.1.113883.3.666.5.1234567"
+						codeSystem="2.16.840.1.113883.3.560.101.1">
+						<displayName value="left against medical advice value set"/>
+					</dischargeDispositionCode>
+				</encounterCriteria>
+			</entry>
+
+			<!-- Intersection of: encounters where patient was discharged with above reasons, with, inpatient AMI encounters.
+				Result: all encounters with AMI diagnosis AND patient was discharged with above reasons -->
+			<entry typeCode="DRIV">
+				<grouperCriteria classCode="GROUPER" moodCode="EVN">
+					<id root="dd732e30-cc87-11e1-9b23-0800200c9a66"
+						extension="dischargedDuringInpatientEncounterAMI"/>
+					<!-- encounters with discharge reasons -->
+					<outboundRelationship typeCode="COMP">
+						<conjunctionCode code="AND"/>
+						<criteriaReference classCode="ENC" moodCode="EVN">
+							<id root="e9a068dc-310a-48e4-95b0-eed852a8950b" extension="discharged"/>
+						</criteriaReference>
+					</outboundRelationship>
+					<!-- intersect with Inpatient AMI Encounters -->
+					<outboundRelationship typeCode="COMP">
+						<conjunctionCode code="AND"/>
+						<criteriaReference classCode="ENC" moodCode="EVN">
+							<id root="e9a068dc-310a-48e4-95b0-eed852a8950b"
+								extension="inpatientEncounterAMI"/>
+						</criteriaReference>
+					</outboundRelationship>
+				</grouperCriteria>
+			</entry>
+
+
+			<!-- Denominator Exceptions: with LDL<100 between 30 days prior and 24 hours after admission and no statin given;
+				 reason for no statin: medical reason, patient reason, system reason -->
+
+			<!-- Lab test result LDL-c less than 100mg/dL 24 after inpatient encounter start-->
+			<entry typeCode="DRIV">
+				<localVariableName value="LDLResultLessThan100"/>
+				<observationCriteria classCode="OBS" moodCode="EVN">
+					<id root="a0d5b1b1-bf33-4a6d-b34d-3022b818da69"
+						extension="LDLResultLessThan100_24hr"/>
+					<!-- LDL lab test scoped by value set -->
+					<code valueSet="2.16.840.1.113883.3.117.1.7.1.215"
+						codeSystem="2.16.840.1.113883.3.560.101.1">
+						<displayName value="LDL-c LOINC Value Set"/>
+					</code>
+					<statusCode code="completed"/>
+					<!-- result is less than 100 mg/dL -->
+					<value xsi:type="IVL_PQ" highClosed="false">
+						<high value="100" unit="mg/dL"/>
+					</value>
+					<temporallyRelatedInformation typeCode="SCW">
+						<pauseQuantity>
+							<uncertainRange lowClosed="true" highClosed="true">
+								<low xsi:type="PQ" value="-24" unit="h"/>
+								<high xsi:type="PQ" value="0" unit="h"/>
+							</uncertainRange>
+						</pauseQuantity>
+						<!-- LDL<100 within 24hours of inpatient encounter -->
+						<criteriaReference classCode="ENC" moodCode="EVN">
+							<id root="e9a068dc-310a-48e4-95b0-eed852a8950b"
+								extension="inpatientEncounterAMI"/>
+						</criteriaReference>
+					</temporallyRelatedInformation>
+				</observationCriteria>
+			</entry>
+
+			<!-- LDL<100 up to 30 days prior to admit and no statins -->
+			<entry typeCode="DRIV">
+				<localVariableName value="LDLlt100_30days"/>
+				<observationCriteria classCode="OBS" moodCode="EVN">
+					<id root="a0d5b1b1-bf33-4a6d-b34d-3022b818da69"
+						extension="LDLResultLessThan100_30d"/>
+					<!-- LDL lab test scoped by value set -->
+					<code valueSet="2.16.840.1.113883.3.117.1.7.1.215"
+						codeSystem="2.16.840.1.113883.3.560.101.1">
+						<displayName value="LDL-c LOINC Value Set"/>
+					</code>
+					<statusCode code="completed"/>
+					<!-- result is less than 100 mg/dL -->
+					<value xsi:type="IVL_PQ" highClosed="false">
+						<high value="100" unit="mg/dL"/>
+					</value>
+					<temporallyRelatedInformation typeCode="SCW">
+						<pauseQuantity>
+							<uncertainRange lowClosed="true" highClosed="true">
+								<low xsi:type="PQ" value="0" unit="d"/>
+								<high xsi:type="PQ" value="30" unit="d"/>
+							</uncertainRange>
+						</pauseQuantity>
+						<!-- LDL<100 within 30 days before inpatient encounter -->
+						<criteriaReference classCode="ENC" moodCode="EVN">
+							<id root="e9a068dc-310a-48e4-95b0-eed852a8950b"
+								extension="inpatientEncounterAMI"/>
+						</criteriaReference>
+					</temporallyRelatedInformation>
+				</observationCriteria>
+			</entry>
+
+			<!-- Patient NOT prescribed statin (both types) actionNegationInd=true DURING inpatient encounter-->
+			<entry typeCode="DRIV">
+				<!-- moodeCode="RQO": medication order request -->
+				<substanceAdministrationCriteria classCode="SBADM" moodCode="RQO"
+					actionNegationInd="true">
+					<id root="550f0dd0-cc77-11e1-9b23-0800200c9a66"
+						extension="negStatinMedOrderOnDischarge"/>
+					<!-- optional title -->
+					<title value="Statin medication order at encounter discharge"/>
+					<!-- drug: statins -->
+					<participation typeCode="CSM">
+						<role classCode="MANU">
+							<playingMaterial classCode="MMAT" determinerCode="KIND">
+								<code code="2.16.840.1.113883.3.117.1.7.1.824"
+									codeSystem="2.16.840.1.113883.3.560.101.1">
+									<displayName value="Statins RxNorm Value Set"/>
+								</code>
+							</playingMaterial>
+						</role>
+					</participation>
+					<temporallyRelatedInformation typeCode="DURING">
+						<criteriaReference classCode="ENC" moodCode="EVN">
+							<id root="e9a068dc-310a-48e4-95b0-eed852a8950b"
+								extension="inpatientEncounterAMI"/>
+						</criteriaReference>
+					</temporallyRelatedInformation>
+				</substanceAdministrationCriteria>
+			</entry>
+
+			<!-- patient not on statin medication DURING inpatient encounter-->
+			<entry typeCode="DRIV">
+				<substanceAdministrationCriteria classCode="SBADM" moodCode="EVN"
+					actionNegationInd="true">
+					<id root="0bd01c10-cc7a-11e1-9b23-0800200c9a66"
+						extension="negActiveDischargeMedStatin"/>
+					<!-- the type of medication is discharge medication -->
+					<code valueSet="2.16.840.1.113883.3.526.2.1075"
+						codeSystem="2.16.840.1.113883.3.560.101.1">
+						<displayName value="Discharge Medication"/>
+					</code>
+					<!-- active status -->
+					<statusCode code="active"/>
+					<participation typeCode="CSM">
+						<role classCode="MANU">
+							<playingMaterial classCode="MMAT" determinerCode="KIND">
+								<code code="2.16.840.1.113883.3.117.1.7.1.824"
+									codeSystem="2.16.840.1.113883.3.560.101.1">
+									<displayName value="Statins RxNorm Value Set"/>
+								</code>
+							</playingMaterial>
+						</role>
+					</participation>
+					<temporallyRelatedInformation typeCode="DURING">
+						<criteriaReference classCode="ENC" moodCode="EVN">
+							<id root="e9a068dc-310a-48e4-95b0-eed852a8950b"
+								extension="inpatientEncounterAMI"/>
+						</criteriaReference>
+					</temporallyRelatedInformation>
+				</substanceAdministrationCriteria>
+			</entry>
+
+			<!-- Reasons for no Statins: Medical Reasons, Patient Reasons, System Reasons -->
+			<entry typeCode="DRIV">
+				<observationCriteria classCode="OBS" moodCode="EVN">
+					<id root="ee732e30-cc87-11e1-9b23-0800200c9a77" extension="Reasons"/>
+					<code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+					<value xsi:type="CD" valueSet="2.16.840.1.113883.3.666.5.123456"
+						codeSystem="2.16.840.1.113883.3.560.101.1"> </value>
+				</observationCriteria>
+			</entry>
+
+			<!-- Statins not done during inpatient encounter with medical reason, patient reason, or system reason -->
+			<entry typeCode="DRIV">
+				<grouperCriteria classCode="GROUPER" moodCode="EVN">
+					<id root="dd732e30-cc87-11e1-9b23-0800200c9a66"
+						extension="noStatinsWithMedicalReason"/>
+					<outboundRelationship typeCode="COMP">
+						<conjunctionCode code="OR"/>
+						<criteriaReference classCode="SBADM" moodCode="EVN">
+							<id root="0bd01c10-cc7a-11e1-9b23-0800200c9a66"
+								extension="negActiveDischargeMedStatin"/>
+						</criteriaReference>
+					</outboundRelationship>
+					<outboundRelationship typeCode="COMP">
+						<conjunctionCode code="OR"/>
+						<criteriaReference classCode="SBADM" moodCode="EVN">
+							<id root="550f0dd0-cc77-11e1-9b23-0800200c9a66"
+								extension="negStatinMedOrderOnDischarge"/>
+						</criteriaReference>
+					</outboundRelationship>
+					<!-- reasons - valueSet defined in definition above -->
+					<outboundRelationship typeCode="RSON">
+						<criteriaReference classCode="OBS" moodCode="EVN">
+							<id root="ee732e30-cc87-11e1-9b23-0800200c9a77" extension="Reasons"/>
+						</criteriaReference>
+					</outboundRelationship>
+				</grouperCriteria>
+			</entry>
+		</dataCriteriaSection>
+	</component>
+</QualityMeasureDocument>

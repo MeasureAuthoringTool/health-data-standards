@@ -117,7 +117,6 @@ module HQMF
     end
     
     def stringify
-      operator = ""
       if (@high && @low)
         if (@high.value == @low.value and @high.inclusive? and low.inclusive?)
           "#{@low.stringify}"
@@ -155,19 +154,21 @@ module HQMF
   # Represents a HQMF CD value which has a code and codeSystem
   class Coded
     include HQMF::Conversion::Utilities
-    attr_reader :type, :system, :code, :code_list_id, :title
+    attr_reader :type, :system, :code, :code_list_id, :title, :null_flavor, :original_text
     
     # Create a new HQMF::Coded
     # @param [String] type
     # @param [String] system
     # @param [String] code
     # @param [String] code_list_id
-    def initialize(type,system,code,code_list_id=nil,title=nil)
+    def initialize(type,system,code,code_list_id=nil,title=nil,null_flavor=nil,original_text=nil)
       @type = type
       @system = system
       @code = code
       @code_list_id = code_list_id
       @title = title
+      @null_flavor = null_flavor
+      @original_text = original_text
     end
     
     def self.for_code_list(code_list_id,title=nil)
@@ -177,19 +178,26 @@ module HQMF
     def self.for_single_code(system,code,title=nil)
       HQMF::Coded.new('CD',system,code,nil,title)
     end
+
+    def self.for_null_flavor(null_flavor,original_text=nil)
+      HQMF::Coded.new('CD',nil,nil,nil,nil,null_flavor,original_text)
+    end
     
     def self.from_json(json)
+      json = json.with_indifferent_access
       type = json["type"] if json["type"]
       system = json["system"] if json["system"]
       code = json["code"] if json["code"]
       code_list_id = json["code_list_id"] if json["code_list_id"]
       title = json["title"] if json["title"]
+      null_flavor = json["null_flavor"] if json["null_flavor"]
+      original_text = json["original_text"] if json["original_text"]
       
-      HQMF::Coded.new(type,system,code,code_list_id,title)
+      HQMF::Coded.new(type,system,code,code_list_id,title, null_flavor, original_text)
     end
     
     def to_json
-      build_hash(self, [:type,:system,:code,:code_list_id,:title])
+      build_hash(self, [:type,:system,:code,:code_list_id,:title,:null_flavor,:original_text])
     end
     
     def value
@@ -241,7 +249,6 @@ module HQMF
     
     
     def to_json
-      x = nil
       json = build_hash(self, [:type])
       json[:reference] = @reference.to_json if @reference
       json[:range] = @range.to_json if @range
@@ -272,6 +279,10 @@ module HQMF
       end
     end
     
+    def supports_grouper_criteria?
+      ['FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH', 'RECENT', 'LAST'].include? @type
+    end
+
     def self.from_json(json)
       type = json["type"] if json["type"]
 
@@ -282,7 +293,6 @@ module HQMF
     
     
     def to_json
-      x = nil
       json = build_hash(self, [:type])
       json[:value] = @value.to_json if @value
       json
@@ -314,6 +324,79 @@ module HQMF
       check_equality(self,other)
     end
     
+  end
+
+  class Identifier
+    include HQMF::Conversion::Utilities
+    attr_accessor :type, :root, :extension
+
+    def initialize(type, root, extension=nil)
+      @type = type || 'II'
+      @root = root
+      @extension = extension
+    end
+
+    def self.from_json(json)
+      json = json.with_indifferent_access
+      HQMF::Identifier.new(json['type'], json['root'], json['extension'])
+    end
+
+    def to_json
+      build_hash(self, [:type, :root, :extension])
+    end
+
+    def ==(other)
+      check_equality(self,other)
+    end
+  end
+
+  # What does ED stand for?
+  # ED has a lot more elements / attributes to represent, but only caring about what I see used...
+  class ED
+    include HQMF::Conversion::Utilities
+    attr_accessor :type, :value, :media_type
+
+    def initialize(type, value, media_type)
+      @type = type || 'ED'
+      @value = value
+      @media_type = media_type
+    end
+
+    def self.from_json(json)
+      json = json.with_indifferent_access
+      HQMF::ED.new(json['type'], json['value'], json['media_type'])
+    end
+
+    def to_json
+      build_hash(self, [:type, :value, :media_type])
+    end
+
+    def ==(other)
+      check_equality(self,other)
+    end
+  end
+
+  class GenericValueContainer
+    include HQMF::Conversion::Utilities
+    attr_accessor :type, :value
+
+    def initialize(type, value)
+      @type = type
+      @value = value
+    end
+
+    def self.from_json(json)
+      json = json.with_indifferent_access
+      HQMF::GenericValueContainer.new(json['type'], json['value'])
+    end
+
+    def to_json
+      build_hash(self, [:type, :value])
+    end
+
+    def ==(other)
+      check_equality(self,other)
+    end
   end
   
 end

@@ -1,0 +1,1294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="xslt/eMeasure.xsl"?>
+<QualityMeasureDocument xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         
+      <!--
+         **************************************************************   
+         Measure Header Section
+         **************************************************************
+      --><typeId root="2.16.840.1.113883.1.3" extension="POQM_HD000001"/>
+   <id root="40280381-3d61-56a7-013e-7af612436402"/>
+   <code code="57024-2" codeSystem="2.16.840.1.113883.6.1"
+         displayName="Health Quality Measure Document"/>
+   <title>Anti-depressant Medication Management</title>
+   <text>Percentage of patients 18 years of age and older who were diagnosed with major depression and treated with antidepressant medication, and who remained on antidepressant medication treatment. Two rates are reported. 
+a. Percentage of patients who remained on an antidepressant medication for at least 84 days (12 weeks). 
+b. Percentage of patients who remained on an antidepressant medication for at least 180 days (6 months).</text>
+   <statusCode code="Complete"/>
+   <setId root="8924f2b3-ec06-4650-b634-d70a53dee577"/>
+   <versionNumber value="2"/>
+   <author typeCode="AUT">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="2.16.840.1.113883.3.464"/>
+            <name>National Committee for Quality Assurance</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </author>
+   <custodian>
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="2.16.840.1.113883.3.464"/>
+            <name>National Committee for Quality Assurance</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </custodian>
+   <verifier typeCode="VRF">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <name>National Quality Forum</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </verifier>
+   <subjectOf>
+      <measureAttribute>
+         <code code="COPY" codeSystem="2.16.840.1.113883.5.4" displayName="Copyright"/>
+         <value xsi:type="ED" mediaType="text/plain">Physician Performance Measure (Measures) and related data specifications were developed by the National Committee for Quality Assurance (NCQA). 
+
+The Measures are copyrighted but can be reproduced and distributed, without modification, for noncommercial purposes (e.g., use by healthcare providers in connection with their practices). Commercial use is defined as the sale, licensing, or distribution of the Measures for commercial gain, or incorporation of the Measures into a product or service that is sold, licensed or distributed for commercial gain. Commercial use of the Measures requires a license agreement between the user and NCQA. NCQA is not responsible for any use of the Measures. 
+
+(c) 2008-2013 National Committee for Quality Assurance. All Rights Reserved. 
+
+Limited proprietary coding is contained in the Measure specifications for user convenience. Users of proprietary code sets should obtain all necessary licenses from the owners of the code sets.  NCQA disclaims all liability for use or accuracy of any CPT or other codes contained in the specifications.
+
+CPT(R) contained in the Measure specifications is copyright 2004-2012 American Medical Association. LOINC(R) copyright 2004-2012 Regenstrief Institute, Inc. This material contains SNOMED Clinical Terms(R) (SNOMED CT[R]) copyright 2004-2012 International Health Terminology Standards Development Organisation. ICD-10 copyright 2012 World Health Organization. All Rights Reserved</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRSCORE" codeSystem="2.16.840.1.113883.5.4"
+               displayName="Measure Scoring"/>
+         <value xsi:type="CD" code="PROPOR" codeSystem="2.16.840.1.113883.1.11.20367"
+                displayName="Proportion"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRTYPE" codeSystem="2.16.840.1.113883.5.4" displayName="Measure Type"/>
+         <value xsi:type="CD" code="PROCESS" codeSystem="2.16.840.1.113883.1.11.20368"
+                displayName="Process"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="STRAT" codeSystem="2.16.840.1.113883.5.4" displayName="Stratification"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRADJ" codeSystem="2.16.840.1.113883.5.4" displayName="Risk Adjustment"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRAGG" codeSystem="2.16.840.1.113883.5.4" displayName="Rate Aggregation"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="RAT" codeSystem="2.16.840.1.113883.5.4" displayName="Rationale"/>
+         <value xsi:type="ED" mediaType="text/plain">Depression affects nearly 15 million adults in the U.S. (National Alliance on Mental Illness 2009) and is estimated to affect nearly a quarter of adults in their lifetime (Burcusa and Iacono 2007). Symptoms of depression include appetite and sleep disturbances, anxiety, irritability and decreased concentration (Charbonneau et al. 2005). The American Psychiatric Association recommends use of antidepressant medication and behavioral therapies, such as psychotherapy, to treat depression (American Psychiatric Association 2010).
+
+For the past 50 years, antidepressant medication has proven to be effective especially for patients with more severe symptoms (Fournier et al. 2010). Among patients who initiate antidepressant treatment, one in three discontinues treatment within one month, before the effect of medication can be assessed, and nearly one in two discontinues treatment within three months (Simon 2002).
+
+Due to increased risky behaviors for chronic disease (e.g., physical inactivity, smoking, excessive drinking and insufficient sleep), evidence has shown that depressive disorders are strongly related to the occurrence of many chronic diseases including diabetes, cancer, cardiovascular disease and asthma (Centers for Disease Control and Prevention 2011).
+
+Aligning depression quality improvement with methods used in managing other chronic illnesses has been an important step in depression care. Depression management systems have demonstrated improved short- and long-term outcomes of depression severity and persistence, employment retention, functional status and patient satisfaction (Katon et al. 2002; Rost et al. 2001).</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="CRS" codeSystem="2.16.840.1.113883.3.560"
+               displayName="Clinical Recommendation Statement"/>
+         <value xsi:type="ED" mediaType="text/plain">American Psychiatric Association (APA 2010): 
+Successful treatment of patients with major depressive disorder is promoted by a thorough assessment of the patient and close adherence to treatment plans. Treatment consists of an acute phase, during which remission is induced; a continuation phase, during which remission is preserved; and a maintenance phase, during which the susceptible patient is protected against the recurrence of a subsequent major depressive episode.
+
+Acute Phase: An antidepressant medication is recommended as an initial treatment choice for patients with mild to moderate major depressive disorder [I: Recommended with substantial clinical confidence] and definitely should be provided for those with severe major depressive disorder unless electroconvulsive therapy (ECT) is planned [I: Recommended with substantial clinical confidence]. For most patients, a selective serotonin reuptake inhibitor (SSRI), serotonin norepinephrine reuptake inhibitor (SNRI), mirtazapine, or bupropion is optimal [I: Recommended with substantial clinical confidence]. In general, the use of nonselective monoamine oxidase inhibitors (MAOIs) (e.g., phenelzine, tranylcypromine, isocarboxazid) should be restricted to patients who do not respond to other treatments [I: Recommended with substantial clinical confidence], given the necessity for dietary restrictions with these medications and the potential for deleterious drug-drug interactions. 
+
+During the acute phase of treatment, patients should be carefully and systematically monitored on a regular basis to assess their response to pharmacotherapy, identify the emergence of side effects (e.g., gastrointestinal symptoms, sedation, insomnia, activation, changes in weight, and cardiovascular, neurological, anticholinergic, or sexual side effects), and assess patient safety [I: Recommended with substantial clinical confidence]. If antidepressant side effects do occur, an initial strategy is to lower the dose of the antidepressant or to change to an antidepressant that is not associated with that side effect [I: Recommended with substantial clinical confidence].
+
+Continuation Phase: During the continuation phase of treatment, the patient should be carefully monitored for signs of possible relapse [I: Recommended with substantial clinical confidence]. Systematic assessment of symptoms, side effects, adherence, and functional status is essential [I: Recommended with substantial clinical confidence], and may be facilitated through the use of clinician- and/or patient-administered rating scales [II: Recommended with moderate clinical confidence]. To reduce the risk of relapse, patients who have been treated successfully with antidepressant medications in the acute phase should continue treatment with these agents for 4–9 months [I: Recommended with substantial clinical confidence]. In general, the dose used in the acute phase should be used in the continuation phase [II: Recommended with moderate clinical confidence]. To prevent a relapse of depression in the continuation phase, depression-focused psychotherapy is recommended [I: Recommended with substantial clinical confidence], with the best evidence available for cognitive-behavioral therapy.
+
+Maintenance Phase: During the maintenance phase, an antidepressant medication that produced symptom remission during the acute phase and maintained remission during the continuation phase should be continued at a full therapeutic dose [II: Recommended with moderate clinical confidence].</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IDUR" codeSystem="2.16.840.1.113883.3.560"
+               displayName="Improvement Notation"/>
+         <value xsi:type="ED" mediaType="text/plain">Higher score indicates better quality.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>NQF ID Number</originalText>
+         </code>
+         <value xsi:type="II" root="2.16.840.1.113883.3.560.1" extension="0105"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DISC" codeSystem="2.16.840.1.113883.5.4" displayName="Disclaimer">
+            <originalText>Disclaimer</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">These performance Measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications.
+
+THE MEASURES AND SPECIFICATIONS ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND.
+
+Due to technical limitations, registered trademarks are indicated by (R) or [R] and unregistered trademarks are indicated by (TM) or [TM].</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>eMeasure Identifier</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">128</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.74"/>
+         <id root="a21f8280-e977-4b35-8f4e-9e27b8b29468"/>
+         <code code="MSRTP" displayName="Measurement period"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="IVL_TS">
+            <low value="00000101"/>
+            <high value="00001231"/>
+         </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureStartDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="85fadc6b-3a05-4685-9784-8c36e0e876ff"/>
+         <code code="MSRSD" displayName="Measurement start date"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00000101"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureEndDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="6351d19f-e7e6-48a9-bb7a-f96f1810dc59"/>
+         <code code="MSRED" displayName="Measurement end date"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00001231"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Charbonneau, A., W. Bruning, T. Titus-Howard, E. Ellerbeck, J. Whittle, S. Hall, J. Campbell, S. Crain, S. Munro. 2005. “The community initiative on depression: report from a multiphase work site depression intervention.” J Occup Environ Med 47(1):60-7.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Fournier, J.C., R.J. DeRubeis, S.D. Hollon, S. Dimidjian, J.D. Amsterdam, R.C. Shelton, J. Fawcett. “Antidepressant drug effects and depression severity: A patient-level meta-analysis.” JAMA 303(1): 47-53.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Katon, W., J. Russo, M. Von Korff, E. Lin, G. Simon, T. Bush, E. Ludman, E. Walker. 2002. “Long-term effects of a collaborative care intervention in persistently depressed primary care patients.” J Gen Intern Med 17(10):741-748.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Rost, K., P. Nutting, J. Smith, J. Werner, N. Duan. 2001. “Improving depression outcomes in the community primary care practice: a randomized trial of the QuEST intervention.” J Gen Intern Med 16(3):143-149.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Simon, G.E. 2002. “Evidence review: efficacy and effectiveness of antidepressant treatment in primary care.” Gen Hosp Psychiatry 24(4):213-24.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">The National Alliance on Mental Illness. 2009. “Major Depression Fact Sheet.” http://www.nami.org/Template.cfm?Section=Depression&amp;Template=/ContentManagement/ContentDisplay.cfm&amp;ContentID=88956 (October 27, 2011)</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">American Psychiatric Association. 2010. Practice guideline for the treatment of patients with major depressive disorder, third edition. Arlington: American Psychiatric Association.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Burcusa, S.L., and W.G. Iacono. 2007. “Risk for recurrence in depression.” Clin Psychol Rev 27(8): 959-85.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Centers for Disease Control and Prevention (CDC). 2011. “Mental Health: Mental Health Basics.” http://www.cdc.gov/mentalhealth/basics.htm (July 27, 2011)</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DEF" codeSystem="2.16.840.1.113883.3.560" displayName="Definition"/>
+         <value xsi:type="ED" mediaType="text/plain">Index Episode Start Date (IESD): The earliest diagnosis of major depression during the period beginning 180 days prior to the measurement period through 180 days after the start of the measurement period.
+Index Prescription Start Date (IPSD): The earliest prescription dispensing event for an antidepressant medication during the period of 30 days prior to the IESD through 14 days after the IESD.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="GUIDE" codeSystem="2.16.840.1.113883.5.4" displayName="Guidance"/>
+         <value xsi:type="ED" mediaType="text/plain">To identify new treatment episodes for major depression, there must be a 90-day negative medication history (a period during which the patient was not taking antidepressant medication) prior to the first dispensing event associated with the Index Episode Start Date (Index Prescription Start Date).
+
+CUMULATIVE MEDICATION DURATION is an individual’s total number of medication days over a specific period; the period counts multiple prescriptions with gaps in between, but does not count the gaps during which a medication was not dispensed. 
+
+To determine the cumulative medication duration, determine first the number of the Medication Days for each prescription in the period: the number of doses divided by the dose frequency per day. Then add the Medication Days for each prescription without counting any days between the prescriptions.
+
+For example, there is an original prescription for 30 days with 2 refills for thirty days each. After a gap of 3 months, the medication was prescribed again for 60 days with 1 refill for 60 days. The cumulative medication duration is (30 x 3) + (60 x 2) = 210 days over the 10 month period.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Transmission Format</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">TBD</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IPP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Initial Patient Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Patients 18 years of age and older with a diagnosis of major depression in the 270 days (9 months) prior to the measurement period or the first 90 days (3 months) of the measurement period, who were treated with antidepressant medication, and with a visit during the measurement period</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENOM" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Equals Initial Patient Population</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Denominator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Patients who were actively on an antidepressant medication in the 90 days prior to the Index Prescription Start Date</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="NUMER" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Numerator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Numerator 1: Patients who have received antidepressant medication for at least 84 days (12 weeks) of continuous treatment during the 114-day period following the Index Prescription Start Date
+
+Numerator 2: Patients who have received antidepressant medications for at least 180 days (6 months) of continuous treatment during the 231-day period following the Index Prescription Start Date</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Numerator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator Exceptions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Measure Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Measure Observations</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Supplemental Data Elements</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">For every patient evaluated by this measure also identify payer, race, ethnicity and sex.</value>
+      </measureAttribute>
+   </subjectOf>
+   <componentOf>
+      <qualityMeasureSet classCode="ACT">
+         <id root="ef456a41-d292-4d08-9b99-d8e236a33f7e"/>
+         <title>None</title>
+      </qualityMeasureSet>
+   </componentOf>
+         
+      <!--
+         **************************************************************   
+         Population Criteria Section
+         **************************************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Population criteria"/>
+         <title>Population criteria</title>
+         <text>
+            <list>
+               <item>
+                  <content styleCode="Bold">Initial Patient Population =</content>
+                  <list>
+                     <item>AND:  FIRST: <list>
+                           <item>OR: "Occurrence A of Diagnosis, Active: Major Depression"  &lt;= 90 day(s) starts after start of "Measurement Period"</item>
+                           <item>OR: "Occurrence A of Diagnosis, Active: Major Depression"  &lt;= 270 day(s) starts before start of "Measurement Period"</item>
+                        </list>
+                     </item>
+                     <item>AND:  FIRST: <list>
+                           <item>OR: "Occurrence A of Medication, Dispensed: Antidepressant Medication"  &lt;= 14 day(s) starts after start of "Occurrence A of Diagnosis, Active: Major Depression"</item>
+                           <item>OR: "Occurrence A of Medication, Dispensed: Antidepressant Medication"  &lt;= 30 day(s) starts before start of "Occurrence A of Diagnosis, Active: Major Depression"</item>
+                        </list>
+                     </item>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &gt;= 18 year(s) starts before start of "Measurement Period"</item>
+                     <item>AND: <list>
+                           <item>OR: "Encounter, Performed: Office Visit"</item>
+                           <item>OR: "Encounter, Performed: Face-to-Face Interaction"</item>
+                           <item>OR: "Encounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up"</item>
+                           <item>OR: "Encounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up"</item>
+                           <item>OR: "Encounter, Performed: Home Healthcare Services"</item>
+                           <item>OR: "Encounter, Performed: Annual Wellness Visit"</item>
+                           <item>OR: "Encounter, Performed: Psych Visit - Diagnostic Evaluation"</item>
+                           <item>OR: "Encounter, Performed: Psych Visit - Psychotherapy"</item>
+                           <item> during "Measurement Period"</item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator =</content>
+                  <list>
+                     <item>AND: "Initial Patient Population"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exclusions =</content>
+                  <list>
+                     <item>AND: "Medication, Active: Antidepressant Medication"  &lt;= 90 day(s) starts before start of "Occurrence A of Medication, Dispensed: Antidepressant Medication"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Numerator 1 =</content>
+                  <list>
+                     <item>AND: "Medication, Active: Antidepressant Medication (cumulative medication duration &gt;= 84 day(s))"  &lt;= 114 day(s) ends after start of "Occurrence A of Medication, Dispensed: Antidepressant Medication"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Numerator 2 =</content>
+                  <list>
+                     <item>AND: "Medication, Active: Antidepressant Medication (cumulative medication duration &gt;= 180 day(s))"  &lt;= 231 day(s) ends after start of "Occurrence A of Medication, Dispensed: Antidepressant Medication"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exceptions =</content>
+                  <list>
+                     <item>None</item>
+                  </list>
+               </item>
+            </list>
+         </text>
+         <!--
+            **************************************************************   
+            Population Criteria Section: exclusions 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true" actionNegationInd="true">
+               <id root="EFB97597-3DC4-4522-B01B-7F72651C0AAA"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.13"/>
+                     <id root="2e6024a5-2981-4c10-bd04-bd5d5dc97853"/>
+                     <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                           <title>Medication, Active: Antidepressant Medication</title>
+                           <participant typeCode="CSM">
+                              <roleParticipant classCode="MANU">
+                                 <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                    <code code="2.16.840.1.113883.3.464.1003.196.12.1213"
+                                          displayName="Antidepressant Medication Grouping Value Set"
+                                          codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 </playingMaterial>
+                              </roleParticipant>
+                           </participant>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="33999-4" displayName="Status" codeSystem="2.16.840.1.113883.6.1"/>
+                                 <value xsi:type="CD" code="55561003" displayName="Active"
+                                        codeSystem="2.16.840.1.113883.6.96"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <high value="90" unit="d" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="2d6aaa9e-c8ee-4f1d-9cd4-1a71eec76a91"/>
+                                 <title>Occurrence A of Medication, Dispensed: Antidepressant Medication</title>
+                              </observation>
+                           </sourceOf>
+                        </substanceAdministration>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: numerator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="FDE3EA5C-2C12-4036-9AF2-B1FE1175C5EA"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="NUMER" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Numerator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.13"/>
+                     <id root="2e6024a5-2981-4c10-bd04-bd5d5dc97853"/>
+                     <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                           <title>Medication, Active: Antidepressant Medication (cumulative medication duration &gt;= 84  day(s))</title>
+                           <participant typeCode="CSM">
+                              <roleParticipant classCode="MANU">
+                                 <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                    <code code="2.16.840.1.113883.3.464.1003.196.12.1213"
+                                          displayName="Antidepressant Medication Grouping Value Set"
+                                          codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 </playingMaterial>
+                              </roleParticipant>
+                           </participant>
+                           <sourceOf typeCode="SUBJ">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <templateId root="2.16.840.1.113883.3.560.1.1001.3"/>
+                                 <code code="363819003" codeSystem="2.16.840.1.113883.6.96"
+                                       displayName="cumulative medication duration"
+                                       codeSystemName="SNOMED-CT"/>
+                                 <value xsi:type="IVL_PQ">
+                                    <low value="84" unit="d" inclusive="true"/>
+                                 </value>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="33999-4" displayName="Status" codeSystem="2.16.840.1.113883.6.1"/>
+                                 <value xsi:type="CD" code="55561003" displayName="Active"
+                                        codeSystem="2.16.840.1.113883.6.96"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="EAS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <high value="114" unit="d" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="2d6aaa9e-c8ee-4f1d-9cd4-1a71eec76a91"/>
+                                 <title>Occurrence A of Medication, Dispensed: Antidepressant Medication</title>
+                              </observation>
+                           </sourceOf>
+                        </substanceAdministration>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: numerator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="D10AA694-295C-40A8-A302-F22B13E2D248"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="NUMER" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Numerator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.13"/>
+                     <id root="2e6024a5-2981-4c10-bd04-bd5d5dc97853"/>
+                     <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                           <title>Medication, Active: Antidepressant Medication (cumulative medication duration &gt;= 180  day(s))</title>
+                           <participant typeCode="CSM">
+                              <roleParticipant classCode="MANU">
+                                 <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                    <code code="2.16.840.1.113883.3.464.1003.196.12.1213"
+                                          displayName="Antidepressant Medication Grouping Value Set"
+                                          codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 </playingMaterial>
+                              </roleParticipant>
+                           </participant>
+                           <sourceOf typeCode="SUBJ">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <templateId root="2.16.840.1.113883.3.560.1.1001.3"/>
+                                 <code code="363819003" codeSystem="2.16.840.1.113883.6.96"
+                                       displayName="cumulative medication duration"
+                                       codeSystemName="SNOMED-CT"/>
+                                 <value xsi:type="IVL_PQ">
+                                    <low value="180" unit="d" inclusive="true"/>
+                                 </value>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="33999-4" displayName="Status" codeSystem="2.16.840.1.113883.6.1"/>
+                                 <value xsi:type="CD" code="55561003" displayName="Active"
+                                        codeSystem="2.16.840.1.113883.6.96"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="EAS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <high value="231" unit="d" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="2d6aaa9e-c8ee-4f1d-9cd4-1a71eec76a91"/>
+                                 <title>Occurrence A of Medication, Dispensed: Antidepressant Medication</title>
+                              </observation>
+                           </sourceOf>
+                        </substanceAdministration>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: denominator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="DA47CDB1-FF93-4CA5-99C0-7629852A816C"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="9F28913F-1B59-45FD-B90F-DA0533BADAC3"/>
+                     <title>Initial Patient Population</title>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: population 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="9F28913F-1B59-45FD-B90F-DA0533BADAC3"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="IPP" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Initial Patient Population"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <subsetCode code="FIRST"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                           <id root="48e3ed07-6c01-4f2b-b79a-e5f6edcb1a6e"/>
+                           <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                 <title>Occurrence A of Diagnosis, Active: Major Depression</title>
+                                 <value xsi:type="CD" code="2.16.840.1.113883.3.464.1003.105.12.1007"
+                                        displayName="Major Depression Grouping Value Set"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                       <value xsi:type="CD" code="55561003" displayName="active"
+                                              codeSystem="2.16.840.1.113883.6.96"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="SAS">
+                                    <pauseQuantity xsi:type="IVL_PQ">
+                                       <high value="90" unit="d" inclusive="true"/>
+                                    </pauseQuantity>
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="a21f8280-e977-4b35-8f4e-9e27b8b29468"/>
+                                       <title>Measurement Period</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                           <id root="48e3ed07-6c01-4f2b-b79a-e5f6edcb1a6e"/>
+                           <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                 <title>Occurrence A of Diagnosis, Active: Major Depression</title>
+                                 <value xsi:type="CD" code="2.16.840.1.113883.3.464.1003.105.12.1007"
+                                        displayName="Major Depression Grouping Value Set"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                       <value xsi:type="CD" code="55561003" displayName="active"
+                                              codeSystem="2.16.840.1.113883.6.96"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="SBS">
+                                    <pauseQuantity xsi:type="IVL_PQ">
+                                       <high value="270" unit="d" inclusive="true"/>
+                                    </pauseQuantity>
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="a21f8280-e977-4b35-8f4e-9e27b8b29468"/>
+                                       <title>Measurement Period</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <subsetCode code="FIRST"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Dispensed pattern --><templateId root="2.16.840.1.113883.3.560.1.8"/>
+                           <id root="2d6aaa9e-c8ee-4f1d-9cd4-1a71eec76a91"/>
+                           <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <supply classCode="SPLY" moodCode="EVN" isCriterionInd="true">
+                                 <title>Occurrence A of Medication, Dispensed: Antidepressant Medication</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.464.1003.196.12.1213"
+                                                displayName="Antidepressant Medication Grouping Value Set"
+                                                codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="SAS">
+                                    <pauseQuantity xsi:type="IVL_PQ">
+                                       <high value="14" unit="d" inclusive="true"/>
+                                    </pauseQuantity>
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="48e3ed07-6c01-4f2b-b79a-e5f6edcb1a6e"/>
+                                       <title>Occurrence A of Diagnosis, Active: Major Depression</title>
+                                    </observation>
+                                 </sourceOf>
+                              </supply>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Dispensed pattern --><templateId root="2.16.840.1.113883.3.560.1.8"/>
+                           <id root="2d6aaa9e-c8ee-4f1d-9cd4-1a71eec76a91"/>
+                           <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <supply classCode="SPLY" moodCode="EVN" isCriterionInd="true">
+                                 <title>Occurrence A of Medication, Dispensed: Antidepressant Medication</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.464.1003.196.12.1213"
+                                                displayName="Antidepressant Medication Grouping Value Set"
+                                                codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="SBS">
+                                    <pauseQuantity xsi:type="IVL_PQ">
+                                       <high value="30" unit="d" inclusive="true"/>
+                                    </pauseQuantity>
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="48e3ed07-6c01-4f2b-b79a-e5f6edcb1a6e"/>
+                                       <title>Occurrence A of Diagnosis, Active: Major Depression</title>
+                                    </observation>
+                                 </sourceOf>
+                              </supply>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="ea482ff1-327a-4706-a9a5-15725f7432f7"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                                  codeSystem="2.16.840.1.113883.3.560.101.1"
+                                  displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <low value="18" unit="a" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="a21f8280-e977-4b35-8f4e-9e27b8b29468"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="715ff694-5782-4e2b-8b2b-88fde489cf27"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.1003.101.12.1001"
+                                       displayName="Office Visit Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Encounter, Performed: Office Visit</title>
+                                 <statusCode code="completed"/>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="6ec828cc-b3d3-4fcc-b3ec-de363e29fac7"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.1003.101.12.1048"
+                                       displayName="Face-to-Face Interaction Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Encounter, Performed: Face-to-Face Interaction</title>
+                                 <statusCode code="completed"/>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="3c9d9257-7bdd-46b1-9129-3945db39148d"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.1003.101.12.1025"
+                                       displayName="Preventive Care Services - Established Office Visit, 18 and Up Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Encounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up</title>
+                                 <statusCode code="completed"/>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="01e2710a-bb34-46b4-a9b1-8b8b06d0067b"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.1003.101.12.1023"
+                                       displayName="Preventive Care Services-Initial Office Visit, 18 and Up Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Encounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up</title>
+                                 <statusCode code="completed"/>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="95d34ae1-79ab-41f0-84cb-a94f4243a985"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.1003.101.12.1016"
+                                       displayName="Home Healthcare Services Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Encounter, Performed: Home Healthcare Services</title>
+                                 <statusCode code="completed"/>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="3e3f9882-1c66-494b-8279-9042403df01f"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.526.3.1240"
+                                       displayName="Annual Wellness Visit Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Encounter, Performed: Annual Wellness Visit</title>
+                                 <statusCode code="completed"/>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="f11a2b8c-2948-48c2-aba6-b9e385880a93"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.526.3.1492"
+                                       displayName="Psych Visit - Diagnostic Evaluation Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Encounter, Performed: Psych Visit - Diagnostic Evaluation</title>
+                                 <statusCode code="completed"/>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="b832a1e9-2761-4d81-9daa-270abdccbed8"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.526.3.1496"
+                                       displayName="Psych Visit - Psychotherapy Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Encounter, Performed: Psych Visit - Psychotherapy</title>
+                                 <statusCode code="completed"/>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="DURING">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <id root="a21f8280-e977-4b35-8f4e-9e27b8b29468"/>
+                           <title>Measurement Period</title>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Data Criteria Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57025-9" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Data criteria (QDM Data Elements)"/>
+         <title>Data criteria (QDM Data Elements)</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Diagnosis, Active: Major Depression"</content> using "Major Depression Grouping Value Set (2.16.840.1.113883.3.464.1003.105.12.1007)"</item>
+               <item>
+                  <content>"Encounter, Performed: Annual Wellness Visit"</content> using "Annual Wellness Visit Grouping Value Set (2.16.840.1.113883.3.526.3.1240)"</item>
+               <item>
+                  <content>"Encounter, Performed: Face-to-Face Interaction"</content> using "Face-to-Face Interaction Grouping Value Set (2.16.840.1.113883.3.464.1003.101.12.1048)"</item>
+               <item>
+                  <content>"Encounter, Performed: Home Healthcare Services"</content> using "Home Healthcare Services Grouping Value Set (2.16.840.1.113883.3.464.1003.101.12.1016)"</item>
+               <item>
+                  <content>"Encounter, Performed: Office Visit"</content> using "Office Visit Grouping Value Set (2.16.840.1.113883.3.464.1003.101.12.1001)"</item>
+               <item>
+                  <content>"Encounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up"</content> using "Preventive Care Services - Established Office Visit, 18 and Up Grouping Value Set (2.16.840.1.113883.3.464.1003.101.12.1025)"</item>
+               <item>
+                  <content>"Encounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up"</content> using "Preventive Care Services-Initial Office Visit, 18 and Up Grouping Value Set (2.16.840.1.113883.3.464.1003.101.12.1023)"</item>
+               <item>
+                  <content>"Encounter, Performed: Psych Visit - Diagnostic Evaluation"</content> using "Psych Visit - Diagnostic Evaluation Grouping Value Set (2.16.840.1.113883.3.526.3.1492)"</item>
+               <item>
+                  <content>"Encounter, Performed: Psych Visit - Psychotherapy"</content> using "Psych Visit - Psychotherapy Grouping Value Set (2.16.840.1.113883.3.526.3.1496)"</item>
+               <item>
+                  <content>"Medication, Active: Antidepressant Medication"</content> using "Antidepressant Medication Grouping Value Set (2.16.840.1.113883.3.464.1003.196.12.1213)"</item>
+               <item>
+                  <content>"Medication, Dispensed: Antidepressant Medication"</content> using "Antidepressant Medication Grouping Value Set (2.16.840.1.113883.3.464.1003.196.12.1213)"</item>
+               <item>
+                  <content>"Patient Characteristic Birthdate: birth date"</content> using "birth date LOINC Value Set (2.16.840.1.113883.3.560.100.4)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="b832a1e9-2761-4d81-9daa-270abdccbed8"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.526.3.1496"
+                           displayName="Psych Visit - Psychotherapy Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Psych Visit - Psychotherapy</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="f11a2b8c-2948-48c2-aba6-b9e385880a93"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.526.3.1492"
+                           displayName="Psych Visit - Diagnostic Evaluation Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Psych Visit - Diagnostic Evaluation</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+               <id root="ea482ff1-327a-4706-a9a5-15725f7432f7"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                     <title>Patient Characteristic Birthdate: birth date</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="birth date LOINC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.13"/>
+               <id root="2e6024a5-2981-4c10-bd04-bd5d5dc97853"/>
+               <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                     <title>Medication, Active: Antidepressant Medication</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.464.1003.196.12.1213"
+                                    displayName="Antidepressant Medication Grouping Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" displayName="Status" codeSystem="2.16.840.1.113883.6.1"/>
+                           <value xsi:type="CD" code="55561003" displayName="Active"
+                                  codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="715ff694-5782-4e2b-8b2b-88fde489cf27"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.1003.101.12.1001"
+                           displayName="Office Visit Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Office Visit</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="3c9d9257-7bdd-46b1-9129-3945db39148d"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.1003.101.12.1025"
+                           displayName="Preventive Care Services - Established Office Visit, 18 and Up Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="01e2710a-bb34-46b4-a9b1-8b8b06d0067b"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.1003.101.12.1023"
+                           displayName="Preventive Care Services-Initial Office Visit, 18 and Up Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="3e3f9882-1c66-494b-8279-9042403df01f"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.526.3.1240"
+                           displayName="Annual Wellness Visit Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Annual Wellness Visit</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="6ec828cc-b3d3-4fcc-b3ec-de363e29fac7"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.1003.101.12.1048"
+                           displayName="Face-to-Face Interaction Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Face-to-Face Interaction</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="95d34ae1-79ab-41f0-84cb-a94f4243a985"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.1003.101.12.1016"
+                           displayName="Home Healthcare Services Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Home Healthcare Services</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="445af4a4-9588-4543-8b4d-9ebadcc11b28"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: Major Depression</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.464.1003.105.12.1007"
+                            displayName="Major Depression Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active"
+                                  codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Dispensed pattern --><templateId root="2.16.840.1.113883.3.560.1.8"/>
+               <id root="9f9d756a-51d1-4be8-b382-cc463eecd3eb"/>
+               <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <supply classCode="SPLY" moodCode="EVN" isCriterionInd="true">
+                     <title>Medication, Dispensed: Antidepressant Medication</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.464.1003.196.12.1213"
+                                    displayName="Antidepressant Medication Grouping Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </supply>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="48e3ed07-6c01-4f2b-b79a-e5f6edcb1a6e"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>Major Depression</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="445af4a4-9588-4543-8b4d-9ebadcc11b28"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.8"/>
+               <id root="2d6aaa9e-c8ee-4f1d-9cd4-1a71eec76a91"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>Antidepressant Medication</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="9f9d756a-51d1-4be8-b382-cc463eecd3eb"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+            
+         <!--
+            **************************************************************   
+            Stratification Section
+            **************************************************************
+         --><component typeCode="COMP">
+      <section>
+         <code code="69669-0" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Population stratification description"/>
+         <title>Reporting Stratification</title>
+         <text>
+            <list>
+               <item>None</item>
+            </list>
+         </text>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Supplemental Data Elements Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="69670-8" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Supplemental Data Elements"/>
+         <title>Supplemental Data Elements</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Patient Characteristic Ethnicity: Ethnicity"</content> using "Ethnicity CDC Value Set (2.16.840.1.114222.4.11.837)"</item>
+               <item>
+                  <content>"Patient Characteristic Payer: Payer"</content> using "Payer Source of Payment Typology Value Set (2.16.840.1.114222.4.11.3591)"</item>
+               <item>
+                  <content>"Patient Characteristic Race: Race"</content> using "Race CDC Value Set (2.16.840.1.114222.4.11.836)"</item>
+               <item>
+                  <content>"Patient Characteristic Sex: ONC Administrative Sex"</content> using "ONC Administrative Sex Administrative Sex Value Set (2.16.840.1.113762.1.4.1)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Sex pattern --><templateId root="2.16.840.1.113883.3.560.1.402"/>
+               <id root="fd76e873-24bf-4bad-86f0-61d00a17fbd3"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="263495000" codeSystem="2.16.840.1.113883.6.96" displayName="Sex"/>
+                     <title>Patient Characteristic Sex: ONC Administrative Sex</title>
+                     <value xsi:type="CD" code="2.16.840.1.113762.1.4.1"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="ONC Administrative Sex Administrative Sex Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Race pattern --><templateId root="2.16.840.1.113883.3.560.1.406"/>
+               <id root="f03c3b56-ccab-4ed7-ac76-b1d5fdfd0edc"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="32624-9" codeSystem="2.16.840.1.113883.6.1" displayName="Race"/>
+                     <title>Patient Characteristic Race: Race</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.836"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Race CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Ethnicity pattern --><templateId root="2.16.840.1.113883.3.560.1.403"/>
+               <id root="ecc8a9bc-e9ce-4dfb-9393-5a2f36b96370"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="54133-4" codeSystem="2.16.840.1.113883.6.1" displayName="Ethnicity"/>
+                     <title>Patient Characteristic Ethnicity: Ethnicity</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.837"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Ethnicity CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Payer pattern --><templateId root="2.16.840.1.113883.3.560.1.405"/>
+               <id root="51138eb7-4e4e-47db-8f33-bed05b1470f3"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" displayName="Payer"/>
+                     <title>Patient Characteristic Payer: Payer</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.3591"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Payer Source of Payment Typology Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+      </section>
+   </component>
+</QualityMeasureDocument>

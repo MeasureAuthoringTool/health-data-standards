@@ -1,0 +1,756 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="xslt/eMeasure.xsl"?>
+<QualityMeasureDocument xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         
+      <!--
+         **************************************************************   
+         Measure Header Section
+         **************************************************************
+      --><typeId root="2.16.840.1.113883.1.3" extension="POQM_HD000001"/>
+   <id root="40280381-3e93-d1af-013e-a36090b72cc8"/>
+   <code code="57024-2" codeSystem="2.16.840.1.113883.6.1"
+         displayName="Health Quality Measure Document"/>
+   <title>Documentation of Current Medications in the Medical Record</title>
+   <text>Percentage of visits for patients aged 18 years and older for which the eligible professional attests to documenting a list of current medications using all immediate resources available on the date of the encounter.  This list must include ALL known prescriptions, over-the-counters, herbals, and vitamin/mineral/dietary (nutritional) supplements AND must contain the medications' name, dosage, frequency and route of administration.</text>
+   <statusCode code="Complete"/>
+   <setId root="9a032d9c-3d9b-11e1-8634-00237d5bf174"/>
+   <versionNumber value="3"/>
+   <author typeCode="AUT">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="0f9c9a19-5209-416d-8cfc-526f190ced67"/>
+            <name>Quality Insights of Pennsylvania</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </author>
+   <custodian>
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="2.16.840.1.113883.3.560.3.31"/>
+            <name>Centers for Medicare &amp; Medicaid Services</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </custodian>
+   <verifier typeCode="VRF">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <name>National Quality Forum</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </verifier>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Finalized Date/Time</originalText>
+         </code>
+         <value xsi:type="TS" value="201305141515-0500"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="COPY" codeSystem="2.16.840.1.113883.5.4" displayName="Copyright"/>
+         <value xsi:type="ED" mediaType="text/plain">Limited proprietary coding is contained in the measure specifications for convenience. Users of the proprietary code sets should obtain all necessary licenses from the owners of these code sets. Quality Insights of Pennsylvania disclaims all liability for use or accuracy of any Current Procedural Terminology (CPT [R]) or other coding contained in the specifications.&#xD;
+&#xD;
+CPT (R) contained in the Measure specifications is copyright 2007-2011 American Medical Association. &#xD;
+&#xD;
+LOINC (R) copyright 2004-2010 Regenstrief Institute, Inc. This material contains SNOMED Clinical Terms (R) (SNOMED CT [R]) copyright 2004-2010 International Health Terminology Standards Development Organization. All Rights Reserved.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRSCORE" codeSystem="2.16.840.1.113883.5.4"
+               displayName="Measure Scoring"/>
+         <value xsi:type="CD" code="PROPOR" codeSystem="2.16.840.1.113883.1.11.20367"
+                displayName="Proportion"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRTYPE" codeSystem="2.16.840.1.113883.5.4" displayName="Measure Type"/>
+         <value xsi:type="CD" code="PROCESS" codeSystem="2.16.840.1.113883.1.11.20368"
+                displayName="Process"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="STRAT" codeSystem="2.16.840.1.113883.5.4" displayName="Stratification"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRADJ" codeSystem="2.16.840.1.113883.5.4" displayName="Risk Adjustment"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRAGG" codeSystem="2.16.840.1.113883.5.4" displayName="Rate Aggregation"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="RAT" codeSystem="2.16.840.1.113883.5.4" displayName="Rationale"/>
+         <value xsi:type="ED" mediaType="text/plain">In the American Medical Association’s (AMA) “Physician’s Role in Medication Reconciliation” (2007), critical patient information, including medical and medication histories, current medications the patient is receiving and taking, and sources of medications, is essential to the delivery of safe medical care. However, interruptions in the continuity of care and information gaps in patient health records are common and significantly affect patient outcomes. Consequently, clinical judgments may be based on incomplete, inaccurate, poorly documented or unavailable information about the patient and his or her medication regimen.&#xD;
+&#xD;
+Medication safety efforts have primarily focused on hospitals; however, the majority of health care services are provided in the outpatient setting where two-thirds of physician visits result in writing at least one prescription (Stock et al., 2009). Chronically ill patients are increasingly being treated as outpatients, many of whom take multiple medications requiring close monitoring (Nassaralla et al., 2007).  &#xD;
+&#xD;
+Adverse drug events (ADE) prove to be more fatal in outpatient settings (1 of 131 outpatient deaths) than in hospitals (1 of 854 inpatient deaths) (Nassaralla et al., 2007). According to The Commonwealth Fund report (2010) about 11 to 15 of every 1,000 Americans visit a health care provider because of ADE in a given year, representing about three to four of every 1,000 patient visits during 1995 to 2001. The total number of visits to treat ADEs (VADEs) increased from 2.9 million in 1995 to 4.3 million visits in 2001.&#xD;
+&#xD;
+ADE in the ambulatory setting substantially increased the healthcare costs of elderly persons and estimated costs of $1,983 per case. Further findings of The Commonwealth Fund studies additionally identified 11% to 28% of the 4.3 million visit related ADEs (VADE) in 2001 might have been prevented with improved systems of care and better patient education, yielding an estimate of 473,000 to 1.2 million potentially preventable VADEs annually and potential cost-savings of $946 million to $2.4 billion. &#xD;
+&#xD;
+In the Institute for Safe Medication Practices “The White Paper on Medication Safety in the U.S. and the Roles of Community Pharmacists” (2007), the American Pharmaceutical Association identified that Americans spend more than $75 billion per year on prescription and nonprescription drugs. Unnecessary costs include: improper use of prescription medicines due to lack of knowledge costs the economy an estimated $20-100 billion per year; American businesses lose an estimated 20 million workdays per year due to incorrect use of medicines prescribed for heart and circulatory diseases alone; failure to have prescriptions dispensed and/or renewed has resulted in an estimated cost of $8.5 billion for increased hospital admissions and physician visits nearly one percent of the country's total health care expenditures.&#xD;
+&#xD;
+In 2005, the rate of medication errors during hospitalization was estimated to be 52 per 100 admissions, or 70 per 1,000 patient days. Emerging research suggests the scope of medication-related errors in ambulatory settings is as extensive as or more extensive than during hospitalization. Ambulatory visits result in a prescription for medication 50 to 70% of the time. One study estimated the rate of ADEs in the ambulatory setting to be 27 per 100 patients. It is estimated that between 2004 and 2005, in the United States 701,547 patients were treated for ADEs in emergency departments and 117,318 patients were hospitalized for injuries caused by an ADE. Individuals aged 65 years and older are more likely than any other population group to require treatment in the emergency department for ADEs. (AMA, 2007).&#xD;
+&#xD;
+The Agency for Healthcare Research &amp; Quality’s (AHRQ) “National’s Healthcare Disparities Report” (2011) identified the rate of adverse drug events (ADE) among Medicare beneficiaries in ambulatory settings 50 per 1,000 person-years. In 2005, AHRQ reported data on adults age 65 and over who received potentially inappropriate prescription medicines in the calendar year, by race, ethnicity, income, education, insurance status, and gender. The disparities were identified as follows: older Asians were more likely than older Whites to have inappropriate drug use (20.3% compared with 17.3%); Older Hispanics were less likely than older non-Hispanic Whites to have inappropriate drug use (13.5% compared with 17.6%); Older women were more likely than older men to have inappropriate drug use (20.2% compared with 14.3%); there were no statistically significant differences by income or education. &#xD;
+&#xD;
+Weeks et al. (2010) noted fragmented medication records across the health care continuum, inaccurate reporting of medication regimens by patients, and provider failure to acquire medication information from the patient or record all the necessary elements, present significant obstacles to obtaining an accurate medication list in the ambulatory care setting. Because these obstacles require solutions demonstrating improvements in access to information and communication, the Institute of Medicine and others have encouraged the incorporation of IT solutions in the medication reconciliation process. In a survey administered to office-based physicians with high rates of EMR use, Weeks et al. found there is an opportunity for universal medication lists utilizing health IT.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="CRS" codeSystem="2.16.840.1.113883.3.560"
+               displayName="Clinical Recommendation Statement"/>
+         <value xsi:type="ED" mediaType="text/plain">The Joint Commission’s 2013 National Patient Safety Goals guide providers to maintain and communicate accurate patient medication information guiding elements of performance to obtain and/or update information on the medications the patient is currently taking. The National Quality Forum’s 2010 update of the “Safe Practices for Better Healthcare”, states healthcare organizations must develop, reconcile, and communicate an accurate patient medication list throughout the continuum of care. Improving the safety of healthcare delivery saves lives, helps avoid unnecessary complications, and increases the confidence that receiving medical care actually makes patients better, not worse. Every healthcare stakeholder group should insist that provider organizations demonstrate their commitment to reducing healthcare error and improving safety by putting into place evidence-based safe practices.&#xD;
+&#xD;
+The AMA’s published report, “The Physician’s Role in Medication Reconciliation”, identified the best practice medication reconciliation team as one that is multidisciplinary and--in all settings of care--will include physicians, pharmacists, nurses, ancillary health care professionals and clerical staff. The team’s variable requisite knowledge, skills, experiences, and perspectives are needed to make medication reconciliation work as safely and smoothly as possible. Team members may have access to vital information or data needed to optimize medication safety. Because physicians are ultimately responsible for the medication reconciliation process and subsequently accountable for medication management, physician leadership and involvement in all phases of developing and initiating a medication reconciliation process or model is important to its success.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IDUR" codeSystem="2.16.840.1.113883.3.560"
+               displayName="Improvement Notation"/>
+         <value xsi:type="ED" mediaType="text/plain">Higher score indicates better quality.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>NQF ID Number</originalText>
+         </code>
+         <value xsi:type="II" root="2.16.840.1.113883.3.560.1" extension="0419"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DISC" codeSystem="2.16.840.1.113883.5.4" displayName="Disclaimer">
+            <originalText>Disclaimer</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">These performance measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications.&#xD;
+&#xD;
+THE MEASURES AND SPECIFICATIONS ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>eMeasure Identifier</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">68</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.74"/>
+         <id root="04a7a0aa-3b59-4e1b-9500-0aca25a9675b"/>
+         <code code="MSRTP" displayName="Measurement period"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="IVL_TS">
+            <low value="00000101"/>
+            <high value="00001231"/>
+         </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureStartDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="93babf23-b382-4fc4-848d-c63d77d9f4fb"/>
+         <code code="MSRSD" displayName="Measurement start date"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00000101"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureEndDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="f7e13ebf-3722-4b95-a18f-9c4daa09d223"/>
+         <code code="MSRED" displayName="Measurement end date"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00001231"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">American Medical Association (2007).  The physician’s role in medication reconciliation:  Issues, strategies and safety principles.  Retrieved from http://www.ama-assn.org/resources/doc/cqi/med-rec-monograph.pdf</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Stock, R., Scott, J., &amp; Gurtel, S. (2009).  Using an Electronic Prescribing System to Ensure Accurate Medication Lists in a Large Multidisciplinary Medical Group.  The Joint Commission Journal on Quality and Patient Safety; 35(5), 271-277</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Nassaralla, C.L., Naessens, J.M., Chaudhry, R., et al. (2007).  Implementation of a medication reconciliation process in an ambulatory internal medicine clinic.  Quality and Safety in Health Care 2007; (16),  90-94</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">The Commonwealth Fund (2010).  Adverse Drug Events:  Ambulatory Care Visits for Treatment.  Retrieved from http://www.commonwealthfund.org/Performance-Snapshots/Medication-Mistakes-and-Adverse-Drug-Events/Adverse-Drug-Events--Ambulatory-Care-Visits-for-Treatment.aspx</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Institute for Safe Medication Practices (2007).  A White Paper on Medication Safety in the U.S. and the Roles of Community Pharmacists.  Retrieved from http://www.ismp.org/pressroom/viewpoints/CommunityPharmacy.pdf</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Agency for Healthcare Research and Quality (2011).  National Healthcare Disparities Report 2011.  Retrieved from  http://www.ahrq.gov/research/findings/nhqrdr/nhqr11/chap3.html</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Weeks, D.L., Corbette, C.F., Stream, G. (2010).   Beliefs of Ambulatory Care Physicians about Accuracy of Patient Medication Records and Technology-Enhanced Solutions to Improve Accuracy.  Journal for Healthcare Quality; 32(5), 12-21.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">The Joint Commission (2013).  National Patient Safety Goals.   Retrieved from  http://www.jointcommission.org/assets/1/6/2013_AHC_NPSG_final_10-23.pdf</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">National Quality Forum (2010).  Safe Practices for Better Healthcare– 2010 Update.  Retrieved from http://www.qualityforum.org/Projects/Safe_Practices_2010.aspx</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DEF" codeSystem="2.16.840.1.113883.3.560" displayName="Definition"/>
+         <value xsi:type="ED" mediaType="text/plain">Current Medications:&#xD;
+Medications the patient is presently taking including all prescriptions, over-the-counters, herbals and vitamin/mineral/dietary (nutritional) supplements with each medication’s name, dosage, frequency and administered route.&#xD;
+&#xD;
+Route:&#xD;
+Documentation of the way the medication enters the body (some examples include but are not limited to:  oral, sublingual, subcutaneous injections, and/or topical)</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="GUIDE" codeSystem="2.16.840.1.113883.5.4" displayName="Guidance"/>
+         <value xsi:type="ED" mediaType="text/plain">This measure is to be reported for every encounter during the measurement period.&#xD;
+&#xD;
+Eligible professionals reporting this measure may document medication information received from the patient, authorized representative(s), caregiver(s) or other available healthcare resources. &#xD;
+&#xD;
+This list must include all prescriptions, over-the-counter (OTC) products, herbals, vitamins, minerals, dietary (nutritional) supplements AND must contain the medications’ name, dosage, frequency and route of administration.&#xD;
+&#xD;
+This measure should also be reported if the provider documented the patient is not currently taking any medications.&#xD;
+&#xD;
+By reporting the action described in this measure, the provider attests to having documented a list of current medications utilizing all immediate resources available at the time of the encounter.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Transmission Format</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">http://www.cms.gov/apps/ama/license.asp?file=/PQRS/downloads/2012_EHR_Documents_for_Vendors-Nov2011.zip</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IPP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Initial Patient Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">All visits occurring during the 12 month reporting period for patients aged 18 years and older  before the start of the measurement period</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENOM" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Equals Initial Patient Populations</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Denominator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="NUMER" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Numerator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Eligible professional attests to documenting, updating or reviewing the patient’s current medications using all immediate resources available on the date of the encounter. This list must include ALL known prescriptions, over-the-counters, herbals and vitamin/mineral/dietary (nutritional) supplements AND must contain the medications’ name, dosages, frequency and route of administration</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Numerator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator Exceptions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Medical Reason:&#xD;
+Patient is in an urgent or emergent medical situation where time is of the essence and to delay treatment would jeopardize the patient’s health status</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Measure Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Measure Observations</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Supplemental Data Elements</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">For every patient evaluated by this measure also identify payer, race, ethnicity and sex.</value>
+      </measureAttribute>
+   </subjectOf>
+   <componentOf>
+      <qualityMeasureSet classCode="ACT">
+         <id root="680ffd36-c4e4-4145-b6c3-92418b037069"/>
+         <title>CLINICAL QUALITY MEASURE SET 2014</title>
+      </qualityMeasureSet>
+   </componentOf>
+         
+      <!--
+         **************************************************************   
+         Population Criteria Section
+         **************************************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Population criteria"/>
+         <title>Population criteria</title>
+         <text>
+            <list>
+               <item>
+                  <content styleCode="Bold">Initial Patient Population =</content>
+                  <list>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &gt;= 18 year(s) starts before start of "Measurement Period"</item>
+                     <item>AND: "Occurrence A of Encounter, Performed: Medications Encounter Code Set" during "Measurement Period"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator =</content>
+                  <list>
+                     <item>AND: "Initial Patient Population"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exclusions =</content>
+                  <list>
+                     <item>None</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Numerator =</content>
+                  <list>
+                     <item>AND: "Procedure, Performed: Current Medications Documented SNMD" during "Occurrence A of Encounter, Performed: Medications Encounter Code Set"</item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exceptions =</content>
+                  <list>
+                     <item>AND: OR: "Procedure, Performed not done: Medical or Other reason not done" for "Current Medications Documented SNMD SNOMED-CT Value Set" during "Occurrence A of Encounter, Performed: Medications Encounter Code Set"</item>
+                  </list>
+               </item>
+            </list>
+         </text>
+         <!--
+            **************************************************************   
+            Population Criteria Section: exceptions 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="171D644F-3B45-4EBA-9A8C-31D3BA193088"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator Exception"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Procedure, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.106"/>
+                           <id root="4ba42e09-e324-4cc3-be69-99440b2e6773"/>
+                           <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.600.1.462"
+                                       displayName="Current Medications Documented SNMD SNOMED-CT Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Procedure, Performed not done: Medical or Other reason not done</title>
+                                 <sourceOf typeCode="RSON">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.600.1.1502"
+                                              displayName="Medical or Other reason not done SNOMED-CT Value Set"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="DURING">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="04fe655d-531a-4da8-ab8e-c3cfc20c7c57"/>
+                                       <title>Occurrence A of Encounter, Performed: Medications Encounter Code Set</title>
+                                    </observation>
+                                 </sourceOf>
+                              </procedure>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: numerator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="C54E0789-B833-438D-A2A0-63BBB60C13E6"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="NUMER" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Numerator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.6"/>
+                     <id root="4ba42e09-e324-4cc3-be69-99440b2e6773"/>
+                     <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.600.1.462"
+                                 displayName="Current Medications Documented SNMD SNOMED-CT Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Procedure, Performed: Current Medications Documented SNMD</title>
+                           <sourceOf typeCode="DURING">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="04fe655d-531a-4da8-ab8e-c3cfc20c7c57"/>
+                                 <title>Occurrence A of Encounter, Performed: Medications Encounter Code Set</title>
+                              </observation>
+                           </sourceOf>
+                        </procedure>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: denominator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="E7F35F6D-6963-48F5-8F73-8ECE4B7F8F50"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="FED9910E-07EF-40E1-B8F0-8B4331CBE8F0"/>
+                     <title>Initial Patient Population</title>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: population 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="FED9910E-07EF-40E1-B8F0-8B4331CBE8F0"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="IPP" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Initial Patient Population"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="ab42da35-cfc6-441b-adec-38140ddab330"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                                  codeSystem="2.16.840.1.113883.3.560.101.1"
+                                  displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <low value="18" unit="a" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="04a7a0aa-3b59-4e1b-9500-0aca25a9675b"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                     <id root="04fe655d-531a-4da8-ab8e-c3cfc20c7c57"/>
+                     <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                     <sourceOf typeCode="COMP">
+                        <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.600.1.1834"
+                                 displayName="Medications Encounter Code Set Grouping Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence A of Encounter, Performed: Medications Encounter Code Set</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="DURING">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="04a7a0aa-3b59-4e1b-9500-0aca25a9675b"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </encounter>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Data Criteria Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57025-9" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Data criteria (QDM Data Elements)"/>
+         <title>Data criteria (QDM Data Elements)</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Encounter, Performed: Medications Encounter Code Set"</content> using "Medications Encounter Code Set Grouping Value Set (2.16.840.1.113883.3.600.1.1834)"</item>
+               <item>
+                  <content>"Patient Characteristic Birthdate: birth date"</content> using "birth date LOINC Value Set (2.16.840.1.113883.3.560.100.4)"</item>
+               <item>
+                  <content>"Procedure, Performed not done: Medical or Other reason not done"</content> using "Medical or Other reason not done SNOMED-CT Value Set (2.16.840.1.113883.3.600.1.1502)"</item>
+               <item>
+                  <content>"Procedure, Performed: Current Medications Documented SNMD"</content> using "Current Medications Documented SNMD SNOMED-CT Value Set (2.16.840.1.113883.3.600.1.462)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="3f89a00f-7734-439a-829e-ffcf07d508c5"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.600.1.1834"
+                           displayName="Medications Encounter Code Set Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Medications Encounter Code Set</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.6"/>
+               <id root="4ba42e09-e324-4cc3-be69-99440b2e6773"/>
+               <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.600.1.462"
+                           displayName="Current Medications Documented SNMD SNOMED-CT Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Procedure, Performed: Current Medications Documented SNMD</title>
+                  </procedure>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+               <id root="ab42da35-cfc6-441b-adec-38140ddab330"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                     <title>Patient Characteristic Birthdate: birth date</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="birth date LOINC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Performed not done pattern --><templateId root="2.16.840.1.113883.3.560.1.106"/>
+               <id root="0dc9517b-7689-4229-8017-36dfcd0e7f28"/>
+               <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.600.1.1502"
+                           displayName="Medical or Other reason not done SNOMED-CT Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Procedure, Performed not done: Medical or Other reason not done</title>
+                  </procedure>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="04fe655d-531a-4da8-ab8e-c3cfc20c7c57"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>Medications Encounter Code Set</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="3f89a00f-7734-439a-829e-ffcf07d508c5"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+            
+         <!--
+            **************************************************************   
+            Stratification Section
+            **************************************************************
+         --><component typeCode="COMP">
+      <section>
+         <code code="69669-0" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Population stratification description"/>
+         <title>Reporting Stratification</title>
+         <text>
+            <list>
+               <item>None</item>
+            </list>
+         </text>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Supplemental Data Elements Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="69670-8" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Supplemental Data Elements"/>
+         <title>Supplemental Data Elements</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Patient Characteristic Ethnicity: Ethnicity"</content> using "Ethnicity CDC Value Set (2.16.840.1.114222.4.11.837)"</item>
+               <item>
+                  <content>"Patient Characteristic Payer: Payer"</content> using "Payer Source of Payment Typology Value Set (2.16.840.1.114222.4.11.3591)"</item>
+               <item>
+                  <content>"Patient Characteristic Race: Race"</content> using "Race CDC Value Set (2.16.840.1.114222.4.11.836)"</item>
+               <item>
+                  <content>"Patient Characteristic Sex: ONC Administrative Sex"</content> using "ONC Administrative Sex Administrative Sex Value Set (2.16.840.1.113762.1.4.1)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Sex pattern --><templateId root="2.16.840.1.113883.3.560.1.402"/>
+               <id root="53a028c8-9981-41ba-943d-3f6235c2e990"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="263495000" codeSystem="2.16.840.1.113883.6.96" displayName="Sex"/>
+                     <title>Patient Characteristic Sex: ONC Administrative Sex</title>
+                     <value xsi:type="CD" code="2.16.840.1.113762.1.4.1"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="ONC Administrative Sex Administrative Sex Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Race pattern --><templateId root="2.16.840.1.113883.3.560.1.406"/>
+               <id root="c93fbaa4-5a62-4bec-84f1-fb88b1b69181"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="32624-9" codeSystem="2.16.840.1.113883.6.1" displayName="Race"/>
+                     <title>Patient Characteristic Race: Race</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.836"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Race CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Ethnicity pattern --><templateId root="2.16.840.1.113883.3.560.1.403"/>
+               <id root="256b6c30-29bd-4eaa-bf0a-a69406823885"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="54133-4" codeSystem="2.16.840.1.113883.6.1" displayName="Ethnicity"/>
+                     <title>Patient Characteristic Ethnicity: Ethnicity</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.837"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Ethnicity CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Payer pattern --><templateId root="2.16.840.1.113883.3.560.1.405"/>
+               <id root="4f685f1e-07f1-4261-8889-884556a7dea1"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" displayName="Payer"/>
+                     <title>Patient Characteristic Payer: Payer</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.3591"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Payer Source of Payment Typology Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+      </section>
+   </component>
+</QualityMeasureDocument>

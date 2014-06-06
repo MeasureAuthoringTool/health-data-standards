@@ -23,8 +23,11 @@ module HQMF2
     # by the erb templates that are used to generate the HQMF document.
     class ErbContext < OpenStruct
       
+
       def initialize(vars)
         super(vars)
+        @local_var_names = {}
+        @local_var_counter = {}
       end
       
       # Get a binding that contains all the instance variables
@@ -33,6 +36,19 @@ module HQMF2
         binding
       end
       
+      def xml_for_local_variable(criteria)
+        name = @local_var_names[criteria.id]
+        unless name
+          if criteria.specific_occurrence
+            name = "Occurrence#{criteria.specific_occurrence}#{criteria.id}"
+          else
+            name = criteria.id
+          end
+          @local_var_names[criteria.id] = name
+        end
+        HQMF2::Generator.render_template('local_variable', {'name' => name})
+      end
+
       def xml_for_reference_id(id)
         reference = HQMF::Reference.new(id)
         xml_for_reference(reference)
@@ -144,7 +160,7 @@ module HQMF2
       def xml_for_population_criteria(population, criteria_id)
         xml = ''
         population_criteria = doc.population_criteria(population[criteria_id])
-        if population_criteria
+        if population_criteria && population_element_prefix(criteria_id) != "measureObservation"
           xml = HQMF2::Generator.render_template('population_criteria', {'doc' => doc, 'population' => population, 'criteria_id' => criteria_id, 'population_criteria' => population_criteria})
         end
         xml
@@ -158,6 +174,23 @@ module HQMF2
           end
         end
         refs.join
+      end
+
+      def xml_for_measure_observation_definition(doc)
+        observation = doc.find_population_by_type(HQMF::PopulationCriteria::OBSERV)
+        msrpopl = doc.find_population_by_type( HQMF::PopulationCriteria::MSRPOPL)
+        HQMF2::Generator.render_template('measure_observation_definition', {'doc' => doc, 'observation' => observation, "msrpopl" => msrpopl})
+      end
+
+      def expression_for_observation(doc,observation)
+        "NOT IMPLEMENTED"
+      end
+
+      def data_criteria_should_be_grouper?(criteria)
+        return false unless criteria
+        return false unless criteria.definition == 'derived'
+        return true unless criteria.subset_operators
+        criteria.subset_operators.all? {|o| o.supports_grouper_criteria?}
       end
       
       def oid_for_name(code_system_name)
@@ -189,8 +222,14 @@ module HQMF2
           'SBADM'
         when :medication_supply
           'SPLY'
+        when :observation
+           'OBS'
         else
-          'OBS'
+          if data_criteria_should_be_grouper?(referenced_criteria)
+            'GROUPER'
+          else
+            'OBS'
+          end
         end
       end
       
@@ -212,7 +251,15 @@ module HQMF2
           raise "Unknown demographic code [#{characteristic}]"
         end
       end
-      
+   
+      def is_transfer(code)
+        if code == "TRANSFER_TO" || code == "TRANSFER_FROM"
+          true
+        else
+          false
+        end
+      end
+   
       def oid_for_characteristic(characteristic)
         case characteristic
         when :birthtime
@@ -245,6 +292,12 @@ module HQMF2
           'characteristic_criteria'
         when 'variable'
           'variable_criteria'
+        when 'derived'
+          if data_criteria_should_be_grouper?(data_criteria)
+            'grouper_criteria'
+          else
+            'observation_criteria'
+          end
         else
           'observation_criteria'
         end
@@ -266,14 +319,18 @@ module HQMF2
         when :medication_supply
           'supply'
         else
-          'observation'
+          if data_criteria_should_be_grouper?(data_criteria)
+            'grouper'
+          else
+            'observation'
+          end
         end
       end
       
       def population_element_prefix(population_criteria_code)
         case population_criteria_code
         when HQMF::PopulationCriteria::IPP
-          'patientPopulation'
+          'initialPopulation'
         when HQMF::PopulationCriteria::DENOM
           'denominator'
         when HQMF::PopulationCriteria::NUMER
@@ -282,7 +339,13 @@ module HQMF2
           'denominatorException'
         when HQMF::PopulationCriteria::DENEX
           'denominatorExclusion'
-        else
+        when HQMF::PopulationCriteria::MSRPOPL
+          'measurePopulation'  
+        when HQMF::PopulationCriteria::OBSERV
+           'measureObservation'  
+        when HQMF::PopulationCriteria::STRAT
+           'stratifier'  
+        else  
           raise "Unknown population criteria type #{population_criteria_code}"
         end
       end

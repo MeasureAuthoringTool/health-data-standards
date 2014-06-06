@@ -19,7 +19,11 @@ namespace :hqmf do
       puts "####################################"
       puts "### processing: #{measure_def}..."
       puts "####################################"
-      doc = HQMF::Parser.parse(File.open(measure_def).read, version)
+      if (version == HQMF::Parser::HQMF_VERSION_1)
+        doc = HQMF::Parser::V1Parser.new.parse(File.open(file).read, version)
+      else
+        doc = HQMF::Parser::V2Parser.new.parse(File.open(file).read, version)
+      end
       filename = Pathname.new(measure_def).basename
       
       File.open(File.join(".","tmp",'json','all',"#{filename}.json"), 'w') {|f| f.write(doc.to_json.to_json(max_nesting: 100).gsub(/",/,"\",\n")) }
@@ -38,7 +42,11 @@ namespace :hqmf do
     file = File.expand_path(args.file)
     filename = Pathname.new(file).basename
     
-    doc = HQMF::Parser.parse(File.open(file).read, version)
+    if (version == HQMF::Parser::HQMF_VERSION_1)
+      doc = HQMF::Parser::V1Parser.new.parse(File.open(file).read, version)
+    else
+      doc = HQMF::Parser::V2Parser.new.parse(File.open(file).read, version)
+    end
     outfile = File.join(".","tmp",'json',"#{filename}.json")
     File.open(outfile, 'w') {|f| f.write(JSON.pretty_generate(doc.to_json, max_nesting: 100)) }
     
@@ -89,8 +97,8 @@ namespace :hqmf do
     version = HQMF::Parser::HQMF_VERSION_1
     file = File.expand_path(args.file)
     filename = Pathname.new(file).basename
-    
-    doc = HQMF::Parser.parse(File.open(file).read, version)
+
+    doc = HQMF::Parser::V1Parser.new.parse(File.open(file).read, version)
     
     hqmf_xml = HQMF2::Generator::ModelProcessor.to_hqmf(doc)
     xml = Nokogiri.XML(hqmf_xml) do |config|
@@ -113,8 +121,8 @@ namespace :hqmf do
     version = HQMF::Parser::HQMF_VERSION_2
     file = File.expand_path(args.file)
     filename = Pathname.new(file).basename
-    
-    doc = HQMF::Parser.parse(File.open(file).read, version)
+
+    doc = HQMF::Parser::V1Parser.new.parse(File.open(file).read, version)
     
     hqmf_xml = HQMF2::Generator::ModelProcessor.to_hqmf(doc)
     xml = Nokogiri.XML(hqmf_xml) do |config|

@@ -1,0 +1,2105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="xslt/eMeasure.xsl"?>
+<QualityMeasureDocument xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         
+      <!--
+         **************************************************************   
+         Measure Header Section
+         **************************************************************
+      --><typeId root="2.16.840.1.113883.1.3" extension="POQM_HD000001"/>
+   <id root="40280381-3cd1-4954-013d-12b735b91c26"/>
+   <code code="57024-2" codeSystem="2.16.840.1.113883.6.1"
+         displayName="Health Quality Measure Document"/>
+   <title>Venous Thromboembolism Patients Receiving Unfractionated Heparin with Dosages/Platelet Count Monitoring by Protocol or Nomogram</title>
+   <text>This measure assesses the number of patients diagnosed with confirmed VTE who received intravenous (IV) UFH therapy dosages AND had their platelet counts monitored using defined parameters such as a nomogram or protocol.</text>
+   <statusCode code="Complete"/>
+   <setId root="bcce43dd-08e3-46c3-bfdd-0b1b472690f0"/>
+   <versionNumber value="2"/>
+   <author typeCode="AUT">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="1.3.6.1.4.1.33895"/>
+            <name>Joint Commission</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </author>
+   <custodian>
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="1.3.6.1.4.1.33895"/>
+            <name>Joint Commission</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </custodian>
+   <verifier typeCode="VRF">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <name>National Quality Forum</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </verifier>
+   <subjectOf>
+      <measureAttribute>
+         <code code="COPY" codeSystem="2.16.840.1.113883.5.4" displayName="Copyright"/>
+         <value xsi:type="ED" mediaType="text/plain">Measure specifications are in the Public Domain.&#xD;
+&#xD;
+LOINC(R) is a registered trademark of the Regenstrief Institute.&#xD;
+&#xD;
+This material contains SNOMED Clinical Terms(R) (SNOMED CT(c)) copyright 2004-–2010 International Health Terminology Standards Development Organization. All rights reserved.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRSCORE" codeSystem="2.16.840.1.113883.5.4"
+               displayName="Measure Scoring"/>
+         <value xsi:type="CD" code="PROPOR" codeSystem="2.16.840.1.113883.1.11.20367"
+                displayName="Proportion"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRTYPE" codeSystem="2.16.840.1.113883.5.4" displayName="Measure Type"/>
+         <value xsi:type="CD" code="PROCESS" codeSystem="2.16.840.1.113883.1.11.20368"
+                displayName="Process"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="STRAT" codeSystem="2.16.840.1.113883.5.4" displayName="Stratification"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRADJ" codeSystem="2.16.840.1.113883.5.4" displayName="Risk Adjustment"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRAGG" codeSystem="2.16.840.1.113883.5.4" displayName="Rate Aggregation"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="RAT" codeSystem="2.16.840.1.113883.5.4" displayName="Rationale"/>
+         <value xsi:type="ED" mediaType="text/plain">Unfractionated heparin (UFH) management by weight-based/activated partial thromboplastin time (aPTT) adjusted protocols have demonstrated their ability through clinical trials to achieve a therapeutic aPTT more rapidly than with standard UFH dosing without increasing major bleeding. UFH management by nomogram/protocol has significantly advanced the use of UFH with the demonstrated ability to achieve therapeutic PTTs more rapidly than with standard UFH dosing.&#xD;
+&#xD;
+Heparin-induced thrombocytopenia (HIT) occurs more commonly in patients who receive UFH than in those who receive low molecular weight heparin. HIT is defined as an unexplained fall in platelet count (specifically, a 50% fall in platelet count from baseline, even if the platelet count remains above 150 x 109/L). Platelet counts generally begin to fall 5-10 days after the initiation of heparin therapy. Prompt recognition of HIT is important so that heparin can be discontinued and the risk of venous and arterial thrombosis minimized. To detect HIT, platelet count monitoring is recommended for all patients treated with UFH.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="CRS" codeSystem="2.16.840.1.113883.3.560"
+               displayName="Clinical Recommendation Statement"/>
+         <value xsi:type="ED" mediaType="text/plain">NoneHeparin-induced thrombocytopenia (HIT) may occur in patients who receive unfractionated heparin (UHF) for treatment of thromboembolism. Prompt recognition of HIT by evaluation of platelet counts can allow for detection of HIT, and the subsequent discontinuation of UFH.  Management of UFH by nomogram/protocol is recommended to decrease the time outside of the therapeutic range.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IDUR" codeSystem="2.16.840.1.113883.3.560"
+               displayName="Improvement Notation"/>
+         <value xsi:type="ED" mediaType="text/plain">An increase in rate</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>NQF ID Number</originalText>
+         </code>
+         <value xsi:type="II" root="2.16.840.1.113883.3.560.1" extension="0374"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DISC" codeSystem="2.16.840.1.113883.5.4" displayName="Disclaimer">
+            <originalText>Disclaimer</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>eMeasure Identifier</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">109</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.74"/>
+         <id root="d2474fae-ee2e-4f5b-abf2-068e10a0c526"/>
+         <code code="MSRTP" displayName="Measurement period"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="IVL_TS">
+            <low value="00000101"/>
+            <high value="00001231"/>
+         </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureStartDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="d7eb94f4-ae23-4aa7-989b-8107c31e4f2c"/>
+         <code code="MSRSD" displayName="Measurement start date"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00000101"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureEndDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="a1417656-a2ec-4746-86b0-2d4c7e9cee3f"/>
+         <code code="MSRED" displayName="Measurement end date"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00001231"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Cruickshank MK, Levine MN, Hirsh J et al. A standard heparin nomogram for the management of heparin therapy. Arch Intern Med. 1991 Feb;151(2):333-7.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Raschke RA, Reilly BM, Guidry JR et al. The weight-based heparin dosing nomogram compared with ‘standard care’ nomogram. Ann Intern Med. 1993 Nov 1;119(9):874-81.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Gunnarsson PD, Sawyer WT, Montague D et al. Appropriate use of heparin: Empiric vs. nomogram-based dosing. Arch Intern Med. 1995 Mar 13;155(5):526- 32.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Hirsch J, Bauer KA, Donati MB, Gould M, Samama MM, Weitz JI. Parenteral Anticoagulants: The Eighth ACCP Conference on antithrombotic and thrombolytic therapy. Chest. 2008; 133:141S-198S.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DEF" codeSystem="2.16.840.1.113883.3.560" displayName="Definition"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="GUIDE" codeSystem="2.16.840.1.113883.5.4" displayName="Guidance"/>
+         <value xsi:type="ED" mediaType="text/plain">The unit of measurement for this measure is an inpatient episode of care. Each distinct hospitalization should be reported, regardless of whether the same patient is admitted for inpatient care more than once during the measurement period. In addition, the eMeasure logic intends to represent events within or surrounding a single occurrence of an inpatient hospitalization.&#xD;
+&#xD;
+The facility location arrival datetime and facility location departure datetime are coupled with the emergency department visit value set. They intend to represent arrival date/time at the emergency department and the discharge date/time from the emergency department, respectively.&#xD;
+&#xD;
+Treatment adjustment by protocol and/or use of a clinical pathway must be specific to unfractionated heparin therapy. Heparin protocols and clinical pathways may include use of a nomogram.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Transmission Format</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IPP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Initial Patient Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Patients with a diagnosis of venous thromboembolism (VTE), a patient age greater than or equal to 18 years, and a length of stay less than or equal to 120 days.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENOM" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Patients with VTE confirmed through a diagnostic test and receiving IV UFH therapy</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Denominator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Patients with comfort measures only documented&#xD;
+Patients discharged to another hospital&#xD;
+Patients who left against medical advice&#xD;
+Patients who expired&#xD;
+Patients discharged to home for hospice care&#xD;
+Patients discharged to a health care facility for hospice care</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="NUMER" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Numerator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Patients who have their IV UFH therapy dosages AND platelet counts monitored according to defined parameters such as a nomogram or protocol.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Numerator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator Exceptions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Measure Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Measure Observations</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Supplemental Data Elements</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">For every patient evaluated by this measure also identify payer, race, ethnicity and sex.</value>
+      </measureAttribute>
+   </subjectOf>
+   <componentOf>
+      <qualityMeasureSet classCode="ACT">
+         <id root="e583d5aa-1c4b-4ca4-948f-6e534023034e"/>
+         <title>eMeasure Venous Thromboembolism (eVTE)</title>
+      </qualityMeasureSet>
+   </componentOf>
+         
+      <!--
+         **************************************************************   
+         Population Criteria Section
+         **************************************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Population criteria"/>
+         <title>Population criteria</title>
+         <text>
+            <list>
+               <item>
+                  <content styleCode="Bold">Initial Patient Population =</content>
+                  <list>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &gt;= 18 year(s) starts before start of "Occurrence A of Encounter, Performed: Inpatient Encounter"</item>
+                     <item>AND: "Occurrence A of Encounter, Performed: Inpatient Encounter (length of stay &lt;= 120 day(s))"</item>
+                     <item>AND: "Occurrence A of Encounter, Performed: Inpatient Encounter (discharge datetime)" during "Measurement Period"</item>
+                     <item>AND: <list>
+                           <item>OR: <list>
+                                 <item>AND: "Occurrence A of Encounter, Performed: Inpatient Encounter (admission datetime)"  &lt;= 1 hour(s) starts after end of "Occurrence A of Encounter, Performed: Emergency Department Visit (facility location departure datetime)"</item>
+                                 <item>AND: <list>
+                                       <item>OR: "Diagnosis, Active: Venous Thromboembolism"</item>
+                                       <item>OR: "Diagnosis, Active: Obstetrics VTE"</item>
+                                       <item> starts during "Occurrence A of Encounter, Performed: Emergency Department Visit"</item>
+                                    </list>
+                                 </item>
+                              </list>
+                           </item>
+                           <item>OR: <list>
+                                 <item>OR: "Diagnosis, Active: Venous Thromboembolism"</item>
+                                 <item>OR: "Diagnosis, Active: Obstetrics VTE"</item>
+                                 <item> starts during "Occurrence A of Encounter, Performed: Inpatient Encounter"</item>
+                              </list>
+                           </item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator =</content>
+                  <list>
+                     <item>AND: "Initial Patient Population"</item>
+                     <item>AND: <list>
+                           <item>OR: "Diagnostic Study, Result: VTE Diagnostic Test (result: 'VTE Confirmed')"  &lt;= 2 day(s) starts before start of "Occurrence A of Encounter, Performed: Inpatient Encounter"</item>
+                           <item>OR: "Diagnostic Study, Result: VTE Diagnostic Test (result: 'VTE Confirmed')" during "Occurrence A of Encounter, Performed: Inpatient Encounter"</item>
+                           <item>OR: <list>
+                                 <item>AND: "Occurrence A of Encounter, Performed: Inpatient Encounter (admission datetime)"  &lt;= 1 hour(s) starts after end of "Occurrence A of Encounter, Performed: Emergency Department Visit (facility location departure datetime)"</item>
+                                 <item>AND: <list>
+                                       <item>OR: "Diagnostic Study, Result: VTE Diagnostic Test (result: 'VTE Confirmed')"  &lt;= 2 day(s) starts before start of "Occurrence A of Encounter, Performed: Emergency Department Visit (facility location arrival datetime)"</item>
+                                       <item>OR: "Diagnostic Study, Result: VTE Diagnostic Test (result: 'VTE Confirmed')" during "Occurrence A of Encounter, Performed: Emergency Department Visit"</item>
+                                       <item>OR: "Diagnostic Study, Result: VTE Diagnostic Test (result: 'VTE Confirmed')" during "Occurrence A of Encounter, Performed: Inpatient Encounter"</item>
+                                    </list>
+                                 </item>
+                              </list>
+                           </item>
+                        </list>
+                     </item>
+                     <item>AND: <list>
+                           <item>OR: "Medication, Administered: Unfractionated Heparin (route: 'Intravenous route')" during "Occurrence A of Encounter, Performed: Inpatient Encounter"</item>
+                           <item>OR: <list>
+                                 <item>AND: "Occurrence A of Encounter, Performed: Inpatient Encounter (admission datetime)"  &lt;= 1 hour(s) starts after end of "Occurrence A of Encounter, Performed: Emergency Department Visit (facility location departure datetime)"</item>
+                                 <item>AND: "Medication, Administered: Unfractionated Heparin (route: 'Intravenous route')" starts during "Occurrence A of Encounter, Performed: Emergency Department Visit"</item>
+                              </list>
+                           </item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exclusions =</content>
+                  <list>
+                     <item>AND: <list>
+                           <item>OR: "Occurrence A of Encounter, Performed: Inpatient Encounter (discharge status: 'Discharge To Another Hospital')"</item>
+                           <item>OR: "Occurrence A of Encounter, Performed: Inpatient Encounter (discharge status: 'Left Against Medical Advice')"</item>
+                           <item>OR: "Occurrence A of Encounter, Performed: Inpatient Encounter (discharge status: 'Patient Expired')"</item>
+                           <item>OR: "Occurrence A of Encounter, Performed: Inpatient Encounter (discharge status: 'Discharged to Home for Hospice Care')"</item>
+                           <item>OR: "Occurrence A of Encounter, Performed: Inpatient Encounter (discharge status: 'Discharged to Health Care Facility for Hospice Care')"</item>
+                           <item>OR: <list>
+                                 <item>AND: "Occurrence A of Encounter, Performed: Inpatient Encounter (admission datetime)"  &lt;= 1 hour(s) starts after end of "Occurrence A of Encounter, Performed: Emergency Department Visit (facility location departure datetime)"</item>
+                                 <item>AND: <list>
+                                       <item>OR: "Intervention, Order: Palliative Care"</item>
+                                       <item>OR: "Intervention, Performed: Palliative Care"</item>
+                                       <item> starts during "Occurrence A of Encounter, Performed: Emergency Department Visit"</item>
+                                    </list>
+                                 </item>
+                              </list>
+                           </item>
+                           <item>OR: <list>
+                                 <item>OR: "Intervention, Order: Palliative Care"</item>
+                                 <item>OR: "Intervention, Performed: Palliative Care"</item>
+                                 <item> starts during "Occurrence A of Encounter, Performed: Inpatient Encounter"</item>
+                              </list>
+                           </item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Numerator =</content>
+                  <list>
+                     <item>AND: <list>
+                           <item>OR: <list>
+                                 <item>AND: "Laboratory Test, Performed: Platelet Count"</item>
+                                 <item>AND: <list>
+                                       <item>OR: "Procedure, Performed: Treatment Adjusted by Protocol"</item>
+                                       <item>OR: "Procedure, Performed: Clinical Pathway Protocol"</item>
+                                    </list>
+                                 </item>
+                                 <item> starts after start of "Medication, Order: Unfractionated Heparin (route: 'Intravenous route')"</item>
+                              </list>
+                           </item>
+                           <item>OR: <list>
+                                 <item>AND: "Medication, Administered: Unfractionated Heparin (stop datetime)"  &lt;= 24 hour(s) starts after start of "Medication, Administered: Unfractionated Heparin (start datetime)"</item>
+                                 <item>AND: <list>
+                                       <item>OR: "Procedure, Performed: Treatment Adjusted by Protocol"</item>
+                                       <item>OR: "Procedure, Performed: Clinical Pathway Protocol"</item>
+                                       <item> starts after start of "Medication, Order: Unfractionated Heparin (route: 'Intravenous route')"</item>
+                                    </list>
+                                 </item>
+                              </list>
+                           </item>
+                           <item> starts during "Occurrence A of Encounter, Performed: Inpatient Encounter"</item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Denominator Exceptions =</content>
+                  <list>
+                     <item>None</item>
+                  </list>
+               </item>
+            </list>
+         </text>
+         <!--
+            **************************************************************   
+            Population Criteria Section: exclusions 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true" actionNegationInd="true">
+               <id root="D0495270-2542-4A55-8765-5DE4ED3F460C"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.117.1.7.1.23"
+                                       displayName="Inpatient Encounter SNOMED-CT Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Occurrence A of Encounter, Performed: Inpatient Encounter (discharge status: 'Discharge To Another Hospital')</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <templateId root="2.16.840.1.113883.3.560.1.1003.2"/>
+                                       <code code="309039003" codeSystem="2.16.840.1.113883.6.96"
+                                             displayName="discharge status"
+                                             codeSystemName="SNOMED-CT"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.87"
+                                              codeSystem="2.16.840.1.113883.3.560.101.1"
+                                              displayName="Discharge To Another Hospital"/>
+                                    </observation>
+                                 </sourceOf>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.117.1.7.1.23"
+                                       displayName="Inpatient Encounter SNOMED-CT Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Occurrence A of Encounter, Performed: Inpatient Encounter (discharge status: 'Left Against Medical Advice')</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <templateId root="2.16.840.1.113883.3.560.1.1003.2"/>
+                                       <code code="309039003" codeSystem="2.16.840.1.113883.6.96"
+                                             displayName="discharge status"
+                                             codeSystemName="SNOMED-CT"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.308"
+                                              codeSystem="2.16.840.1.113883.3.560.101.1"
+                                              displayName="Left Against Medical Advice"/>
+                                    </observation>
+                                 </sourceOf>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.117.1.7.1.23"
+                                       displayName="Inpatient Encounter SNOMED-CT Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Occurrence A of Encounter, Performed: Inpatient Encounter (discharge status: 'Patient Expired')</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <templateId root="2.16.840.1.113883.3.560.1.1003.2"/>
+                                       <code code="309039003" codeSystem="2.16.840.1.113883.6.96"
+                                             displayName="discharge status"
+                                             codeSystemName="SNOMED-CT"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.309"
+                                              codeSystem="2.16.840.1.113883.3.560.101.1"
+                                              displayName="Patient Expired"/>
+                                    </observation>
+                                 </sourceOf>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.117.1.7.1.23"
+                                       displayName="Inpatient Encounter SNOMED-CT Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Occurrence A of Encounter, Performed: Inpatient Encounter (discharge status: 'Discharged to Home for Hospice Care')</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <templateId root="2.16.840.1.113883.3.560.1.1003.2"/>
+                                       <code code="309039003" codeSystem="2.16.840.1.113883.6.96"
+                                             displayName="discharge status"
+                                             codeSystemName="SNOMED-CT"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.209"
+                                              codeSystem="2.16.840.1.113883.3.560.101.1"
+                                              displayName="Discharged to Home for Hospice Care"/>
+                                    </observation>
+                                 </sourceOf>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.117.1.7.1.23"
+                                       displayName="Inpatient Encounter SNOMED-CT Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Occurrence A of Encounter, Performed: Inpatient Encounter (discharge status: 'Discharged to Health Care Facility for Hospice Care')</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <templateId root="2.16.840.1.113883.3.560.1.1003.2"/>
+                                       <code code="309039003" codeSystem="2.16.840.1.113883.6.96"
+                                             displayName="discharge status"
+                                             codeSystemName="SNOMED-CT"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.207"
+                                              codeSystem="2.16.840.1.113883.3.560.101.1"
+                                              displayName="Discharged to Health Care Facility for Hospice Care"/>
+                                    </observation>
+                                 </sourceOf>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                                 <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                                 <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                                 <sourceOf typeCode="COMP">
+                                    <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.117.1.7.1.23"
+                                             displayName="Inpatient Encounter SNOMED-CT Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Encounter, Performed: Inpatient Encounter (admission datetime)</title>
+                                       <statusCode code="completed"/>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <code code="399423000" codeSystem="2.16.840.1.113883.6.96"
+                                                   displayName="admission datetime"
+                                                   codeSystemName="SNOMED-CT"/>
+                                             <value xsi:type="ANYNonNull"/>
+                                          </observation>
+                                       </sourceOf>
+                                       <sourceOf typeCode="SAE">
+                                          <pauseQuantity xsi:type="IVL_PQ">
+                                             <high value="1" unit="h" inclusive="true"/>
+                                          </pauseQuantity>
+                                          <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                                             <id root="a7583d93-02a6-45f9-b873-253c7b0e7939"/>
+                                             <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                                             <sourceOf typeCode="COMP">
+                                                <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                                   <code code="2.16.840.1.113883.3.117.1.7.1.293"
+                                                         displayName="Emergency Department Visit Grouping Value Set"
+                                                         codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                                   <title>Occurrence A of Encounter, Performed: Emergency Department Visit (facility location departure datetime)</title>
+                                                   <statusCode code="completed"/>
+                                                   <sourceOf typeCode="SUBJ">
+                                                      <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                                         <templateId root="2.16.840.1.113883.3.560.1.1036.1"/>
+                                                         <participant typeCode="LOC">
+                                                            <roleParticipant classCode="SDLOC">
+                                                               <code/>
+                                                               <effectiveTime xsi:type="IVL_TS">
+                                                                  <high/>
+                                                               </effectiveTime>
+                                                            </roleParticipant>
+                                                         </participant>
+                                                      </encounter>
+                                                   </sourceOf>
+                                                </encounter>
+                                             </sourceOf>
+                                          </act>
+                                       </sourceOf>
+                                    </encounter>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.45"/>
+                                       <id root="cac74681-8d75-4b87-a674-e849b775ad2e"/>
+                                       <code code="18776-5" displayName="Plan of care" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <procedure classCode="PROC" moodCode="RQO" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.526.2.1076"
+                                                   displayName="Palliative Care SNOMED-CT Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Intervention, Order: Palliative Care</title>
+                                          </procedure>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.46"/>
+                                       <id root="4d7916a2-a0c6-4017-84cf-5b1b535a57ee"/>
+                                       <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.526.2.1076"
+                                                   displayName="Palliative Care SNOMED-CT Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Intervention, Performed: Palliative Care</title>
+                                             <statusCode code="completed"/>
+                                          </procedure>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="SDU">
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                                       <id root="a7583d93-02a6-45f9-b873-253c7b0e7939"/>
+                                       <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                                       <sourceOf typeCode="COMP">
+                                          <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.117.1.7.1.293"
+                                                   displayName="Emergency Department Visit Grouping Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Occurrence A of Encounter, Performed: Emergency Department Visit</title>
+                                             <statusCode code="completed"/>
+                                          </encounter>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="OR"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.45"/>
+                                 <id root="cac74681-8d75-4b87-a674-e849b775ad2e"/>
+                                 <code code="18776-5" displayName="Plan of care" codeSystem="2.16.840.1.113883.6.1"/>
+                                 <sourceOf typeCode="COMP">
+                                    <procedure classCode="PROC" moodCode="RQO" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.526.2.1076"
+                                             displayName="Palliative Care SNOMED-CT Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Intervention, Order: Palliative Care</title>
+                                    </procedure>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="OR"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.46"/>
+                                 <id root="4d7916a2-a0c6-4017-84cf-5b1b535a57ee"/>
+                                 <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+                                 <sourceOf typeCode="COMP">
+                                    <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.526.2.1076"
+                                             displayName="Palliative Care SNOMED-CT Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Intervention, Performed: Palliative Care</title>
+                                       <statusCode code="completed"/>
+                                    </procedure>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="SDU">
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                                 <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                                 <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                                 <sourceOf typeCode="COMP">
+                                    <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.117.1.7.1.23"
+                                             displayName="Inpatient Encounter SNOMED-CT Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Encounter, Performed: Inpatient Encounter</title>
+                                       <statusCode code="completed"/>
+                                    </encounter>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: numerator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="9A31D95C-A57A-4650-9D96-3FCE55AFB7F9"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="NUMER" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Numerator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.5"/>
+                                 <id root="10db92fd-fb45-4b5e-9e41-12e16eeb501c"/>
+                                 <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.117.1.7.1.267"
+                                             displayName="Platelet Count LOINC Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Laboratory Test, Performed: Platelet Count</title>
+                                       <statusCode code="completed"/>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.6"/>
+                                       <id root="322c1ac9-a03a-4b27-a064-b404d11cab89"/>
+                                       <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.117.1.7.1.278"
+                                                   displayName="Treatment Adjusted by Protocol SNOMED-CT Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Procedure, Performed: Treatment Adjusted by Protocol</title>
+                                          </procedure>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.6"/>
+                                       <id root="6f1f0e9e-f501-4a15-abad-8c9d6c70a117"/>
+                                       <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.117.1.7.1.253"
+                                                   displayName="Clinical Pathway Protocol SNOMED-CT Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Procedure, Performed: Clinical Pathway Protocol</title>
+                                          </procedure>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="SAS">
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+                                 <id root="4391a7f9-3198-4a04-beb1-4bc8a588022e"/>
+                                 <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                                 <sourceOf typeCode="COMP">
+                                    <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                       <title>Medication, Order: Unfractionated Heparin (route: 'Intravenous route')</title>
+                                       <participant typeCode="CSM">
+                                          <roleParticipant classCode="MANU">
+                                             <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                <code code="2.16.840.1.113883.3.117.1.7.1.218"
+                                                      displayName="Unfractionated Heparin RxNorm Value Set"
+                                                      codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             </playingMaterial>
+                                          </roleParticipant>
+                                       </participant>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <templateId root="2.16.840.1.113883.3.560.1.1020.2"/>
+                                             <code code="263513008" codeSystem="2.16.840.1.113883.6.96" displayName="route"
+                                                   codeSystemName="SNOMED-CT"/>
+                                             <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.222"
+                                                    codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                    displayName="Intravenous route"/>
+                                          </observation>
+                                       </sourceOf>
+                                    </substanceAdministration>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Administered pattern --><templateId root="2.16.840.1.113883.3.560.1.14"/>
+                                 <id root="e508c8c1-fe98-4b85-b27a-139e1fcb6e4e"/>
+                                 <code code="18610-6" displayName="Medication administered"
+                                       codeSystem="2.16.840.1.113883.6.1"/>
+                                 <sourceOf typeCode="COMP">
+                                    <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                                       <title>Medication, Administered: Unfractionated Heparin (stop datetime)</title>
+                                       <participant typeCode="CSM">
+                                          <roleParticipant classCode="MANU">
+                                             <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                <code code="2.16.840.1.113883.3.117.1.7.1.218"
+                                                      displayName="Unfractionated Heparin RxNorm Value Set"
+                                                      codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             </playingMaterial>
+                                          </roleParticipant>
+                                       </participant>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <templateId root="2.16.840.1.113883.3.560.1.1026.1"/>
+                                             <code code="397898000" codeSystem="2.16.840.1.113883.6.96"
+                                                   displayName="stop datetime"
+                                                   codeSystemName="SNOMED-CT"/>
+                                             <value xsi:type="ANYNonNull"/>
+                                          </observation>
+                                       </sourceOf>
+                                       <sourceOf typeCode="SAS">
+                                          <pauseQuantity xsi:type="IVL_PQ">
+                                             <high value="24" unit="h" inclusive="true"/>
+                                          </pauseQuantity>
+                                          <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Administered pattern --><templateId root="2.16.840.1.113883.3.560.1.14"/>
+                                             <id root="e508c8c1-fe98-4b85-b27a-139e1fcb6e4e"/>
+                                             <code code="18610-6" displayName="Medication administered"
+                                                   codeSystem="2.16.840.1.113883.6.1"/>
+                                             <sourceOf typeCode="COMP">
+                                                <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                                                   <title>Medication, Administered: Unfractionated Heparin (start datetime)</title>
+                                                   <participant typeCode="CSM">
+                                                      <roleParticipant classCode="MANU">
+                                                         <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                            <code code="2.16.840.1.113883.3.117.1.7.1.218"
+                                                                  displayName="Unfractionated Heparin RxNorm Value Set"
+                                                                  codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                                         </playingMaterial>
+                                                      </roleParticipant>
+                                                   </participant>
+                                                   <sourceOf typeCode="REFR">
+                                                      <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                         <templateId root="2.16.840.1.113883.3.560.1.1027.1"/>
+                                                         <code code="398201009" codeSystem="2.16.840.1.113883.6.96"
+                                                               displayName="start datetime"
+                                                               codeSystemName="SNOMED-CT"/>
+                                                         <value xsi:type="ANYNonNull"/>
+                                                      </observation>
+                                                   </sourceOf>
+                                                </substanceAdministration>
+                                             </sourceOf>
+                                          </act>
+                                       </sourceOf>
+                                    </substanceAdministration>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.6"/>
+                                       <id root="322c1ac9-a03a-4b27-a064-b404d11cab89"/>
+                                       <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.117.1.7.1.278"
+                                                   displayName="Treatment Adjusted by Protocol SNOMED-CT Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Procedure, Performed: Treatment Adjusted by Protocol</title>
+                                          </procedure>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.6"/>
+                                       <id root="6f1f0e9e-f501-4a15-abad-8c9d6c70a117"/>
+                                       <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.117.1.7.1.253"
+                                                   displayName="Clinical Pathway Protocol SNOMED-CT Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Procedure, Performed: Clinical Pathway Protocol</title>
+                                          </procedure>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="SAS">
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+                                       <id root="4391a7f9-3198-4a04-beb1-4bc8a588022e"/>
+                                       <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                                             <title>Medication, Order: Unfractionated Heparin (route: 'Intravenous route')</title>
+                                             <participant typeCode="CSM">
+                                                <roleParticipant classCode="MANU">
+                                                   <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                      <code code="2.16.840.1.113883.3.117.1.7.1.218"
+                                                            displayName="Unfractionated Heparin RxNorm Value Set"
+                                                            codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                                   </playingMaterial>
+                                                </roleParticipant>
+                                             </participant>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <templateId root="2.16.840.1.113883.3.560.1.1020.2"/>
+                                                   <code code="263513008" codeSystem="2.16.840.1.113883.6.96" displayName="route"
+                                                         codeSystemName="SNOMED-CT"/>
+                                                   <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.222"
+                                                          codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                          displayName="Intravenous route"/>
+                                                </observation>
+                                             </sourceOf>
+                                          </substanceAdministration>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="SDU">
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.117.1.7.1.23"
+                                       displayName="Inpatient Encounter SNOMED-CT Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Occurrence A of Encounter, Performed: Inpatient Encounter</title>
+                                 <statusCode code="completed"/>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: denominator 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="2052E612-DB95-45B4-A6F0-C81F77FA844D"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Denominator"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="1651D289-9B90-442B-BE89-D2B5B628A94C"/>
+                     <title>Initial Patient Population</title>
+                  </observation>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnostic Study, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.11"/>
+                           <id root="185451cb-c44e-4874-8946-bf3cc52b71c3"/>
+                           <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.117.1.7.1.276"
+                                       displayName="VTE Diagnostic Test Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Diagnostic Study, Result: VTE Diagnostic Test (result: 'VTE Confirmed')</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <templateId root="2.16.840.1.113883.3.560.1.1019.2"/>
+                                       <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                             codeSystemName="SNOMED-CT"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.407"
+                                              codeSystem="2.16.840.1.113883.3.560.101.1"
+                                              displayName="VTE Confirmed"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="SBS">
+                                    <pauseQuantity xsi:type="IVL_PQ">
+                                       <high value="2" unit="d" inclusive="true"/>
+                                    </pauseQuantity>
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                                       <title>Occurrence A of Encounter, Performed: Inpatient Encounter</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnostic Study, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.11"/>
+                           <id root="185451cb-c44e-4874-8946-bf3cc52b71c3"/>
+                           <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.117.1.7.1.276"
+                                       displayName="VTE Diagnostic Test Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Diagnostic Study, Result: VTE Diagnostic Test (result: 'VTE Confirmed')</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <templateId root="2.16.840.1.113883.3.560.1.1019.2"/>
+                                       <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                             codeSystemName="SNOMED-CT"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.407"
+                                              codeSystem="2.16.840.1.113883.3.560.101.1"
+                                              displayName="VTE Confirmed"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="DURING">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                                       <title>Occurrence A of Encounter, Performed: Inpatient Encounter</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                                 <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                                 <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                                 <sourceOf typeCode="COMP">
+                                    <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.117.1.7.1.23"
+                                             displayName="Inpatient Encounter SNOMED-CT Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Encounter, Performed: Inpatient Encounter (admission datetime)</title>
+                                       <statusCode code="completed"/>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <code code="399423000" codeSystem="2.16.840.1.113883.6.96"
+                                                   displayName="admission datetime"
+                                                   codeSystemName="SNOMED-CT"/>
+                                             <value xsi:type="ANYNonNull"/>
+                                          </observation>
+                                       </sourceOf>
+                                       <sourceOf typeCode="SAE">
+                                          <pauseQuantity xsi:type="IVL_PQ">
+                                             <high value="1" unit="h" inclusive="true"/>
+                                          </pauseQuantity>
+                                          <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                                             <id root="a7583d93-02a6-45f9-b873-253c7b0e7939"/>
+                                             <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                                             <sourceOf typeCode="COMP">
+                                                <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                                   <code code="2.16.840.1.113883.3.117.1.7.1.293"
+                                                         displayName="Emergency Department Visit Grouping Value Set"
+                                                         codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                                   <title>Occurrence A of Encounter, Performed: Emergency Department Visit (facility location departure datetime)</title>
+                                                   <statusCode code="completed"/>
+                                                   <sourceOf typeCode="SUBJ">
+                                                      <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                                         <templateId root="2.16.840.1.113883.3.560.1.1036.1"/>
+                                                         <participant typeCode="LOC">
+                                                            <roleParticipant classCode="SDLOC">
+                                                               <code/>
+                                                               <effectiveTime xsi:type="IVL_TS">
+                                                                  <high/>
+                                                               </effectiveTime>
+                                                            </roleParticipant>
+                                                         </participant>
+                                                      </encounter>
+                                                   </sourceOf>
+                                                </encounter>
+                                             </sourceOf>
+                                          </act>
+                                       </sourceOf>
+                                    </encounter>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnostic Study, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.11"/>
+                                       <id root="185451cb-c44e-4874-8946-bf3cc52b71c3"/>
+                                       <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.117.1.7.1.276"
+                                                   displayName="VTE Diagnostic Test Grouping Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Diagnostic Study, Result: VTE Diagnostic Test (result: 'VTE Confirmed')</title>
+                                             <statusCode code="completed"/>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <templateId root="2.16.840.1.113883.3.560.1.1019.2"/>
+                                                   <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                                         codeSystemName="SNOMED-CT"/>
+                                                   <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.407"
+                                                          codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                          displayName="VTE Confirmed"/>
+                                                </observation>
+                                             </sourceOf>
+                                             <sourceOf typeCode="SBS">
+                                                <pauseQuantity xsi:type="IVL_PQ">
+                                                   <high value="2" unit="d" inclusive="true"/>
+                                                </pauseQuantity>
+                                                <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                                                   <id root="a7583d93-02a6-45f9-b873-253c7b0e7939"/>
+                                                   <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                                                   <sourceOf typeCode="COMP">
+                                                      <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                                         <code code="2.16.840.1.113883.3.117.1.7.1.293"
+                                                               displayName="Emergency Department Visit Grouping Value Set"
+                                                               codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                                         <title>Occurrence A of Encounter, Performed: Emergency Department Visit (facility location arrival datetime)</title>
+                                                         <statusCode code="completed"/>
+                                                         <sourceOf typeCode="SUBJ">
+                                                            <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                                               <templateId root="2.16.840.1.113883.3.560.1.1035.1"/>
+                                                               <participant typeCode="LOC">
+                                                                  <roleParticipant classCode="SDLOC">
+                                                                     <code/>
+                                                                     <effectiveTime xsi:type="IVL_TS">
+                                                                        <low/>
+                                                                     </effectiveTime>
+                                                                  </roleParticipant>
+                                                               </participant>
+                                                            </encounter>
+                                                         </sourceOf>
+                                                      </encounter>
+                                                   </sourceOf>
+                                                </act>
+                                             </sourceOf>
+                                          </observation>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnostic Study, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.11"/>
+                                       <id root="185451cb-c44e-4874-8946-bf3cc52b71c3"/>
+                                       <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.117.1.7.1.276"
+                                                   displayName="VTE Diagnostic Test Grouping Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Diagnostic Study, Result: VTE Diagnostic Test (result: 'VTE Confirmed')</title>
+                                             <statusCode code="completed"/>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <templateId root="2.16.840.1.113883.3.560.1.1019.2"/>
+                                                   <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                                         codeSystemName="SNOMED-CT"/>
+                                                   <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.407"
+                                                          codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                          displayName="VTE Confirmed"/>
+                                                </observation>
+                                             </sourceOf>
+                                             <sourceOf typeCode="DURING">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <id root="a7583d93-02a6-45f9-b873-253c7b0e7939"/>
+                                                   <title>Occurrence A of Encounter, Performed: Emergency Department Visit</title>
+                                                </observation>
+                                             </sourceOf>
+                                          </observation>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnostic Study, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.11"/>
+                                       <id root="185451cb-c44e-4874-8946-bf3cc52b71c3"/>
+                                       <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.117.1.7.1.276"
+                                                   displayName="VTE Diagnostic Test Grouping Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Diagnostic Study, Result: VTE Diagnostic Test (result: 'VTE Confirmed')</title>
+                                             <statusCode code="completed"/>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <templateId root="2.16.840.1.113883.3.560.1.1019.2"/>
+                                                   <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                                         codeSystemName="SNOMED-CT"/>
+                                                   <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.407"
+                                                          codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                          displayName="VTE Confirmed"/>
+                                                </observation>
+                                             </sourceOf>
+                                             <sourceOf typeCode="DURING">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                                                   <title>Occurrence A of Encounter, Performed: Inpatient Encounter</title>
+                                                </observation>
+                                             </sourceOf>
+                                          </observation>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Administered pattern --><templateId root="2.16.840.1.113883.3.560.1.14"/>
+                           <id root="e508c8c1-fe98-4b85-b27a-139e1fcb6e4e"/>
+                           <code code="18610-6" displayName="Medication administered"
+                                 codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                                 <title>Medication, Administered: Unfractionated Heparin (route: 'Intravenous route')</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.117.1.7.1.218"
+                                                displayName="Unfractionated Heparin RxNorm Value Set"
+                                                codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <templateId root="2.16.840.1.113883.3.560.1.1020.2"/>
+                                       <code code="263513008" codeSystem="2.16.840.1.113883.6.96" displayName="route"
+                                             codeSystemName="SNOMED-CT"/>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.222"
+                                              codeSystem="2.16.840.1.113883.3.560.101.1"
+                                              displayName="Intravenous route"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="DURING">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                                       <title>Occurrence A of Encounter, Performed: Inpatient Encounter</title>
+                                    </observation>
+                                 </sourceOf>
+                              </substanceAdministration>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                                 <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                                 <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                                 <sourceOf typeCode="COMP">
+                                    <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.117.1.7.1.23"
+                                             displayName="Inpatient Encounter SNOMED-CT Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Encounter, Performed: Inpatient Encounter (admission datetime)</title>
+                                       <statusCode code="completed"/>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <code code="399423000" codeSystem="2.16.840.1.113883.6.96"
+                                                   displayName="admission datetime"
+                                                   codeSystemName="SNOMED-CT"/>
+                                             <value xsi:type="ANYNonNull"/>
+                                          </observation>
+                                       </sourceOf>
+                                       <sourceOf typeCode="SAE">
+                                          <pauseQuantity xsi:type="IVL_PQ">
+                                             <high value="1" unit="h" inclusive="true"/>
+                                          </pauseQuantity>
+                                          <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                                             <id root="a7583d93-02a6-45f9-b873-253c7b0e7939"/>
+                                             <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                                             <sourceOf typeCode="COMP">
+                                                <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                                   <code code="2.16.840.1.113883.3.117.1.7.1.293"
+                                                         displayName="Emergency Department Visit Grouping Value Set"
+                                                         codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                                   <title>Occurrence A of Encounter, Performed: Emergency Department Visit (facility location departure datetime)</title>
+                                                   <statusCode code="completed"/>
+                                                   <sourceOf typeCode="SUBJ">
+                                                      <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                                         <templateId root="2.16.840.1.113883.3.560.1.1036.1"/>
+                                                         <participant typeCode="LOC">
+                                                            <roleParticipant classCode="SDLOC">
+                                                               <code/>
+                                                               <effectiveTime xsi:type="IVL_TS">
+                                                                  <high/>
+                                                               </effectiveTime>
+                                                            </roleParticipant>
+                                                         </participant>
+                                                      </encounter>
+                                                   </sourceOf>
+                                                </encounter>
+                                             </sourceOf>
+                                          </act>
+                                       </sourceOf>
+                                    </encounter>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Administered pattern --><templateId root="2.16.840.1.113883.3.560.1.14"/>
+                                 <id root="e508c8c1-fe98-4b85-b27a-139e1fcb6e4e"/>
+                                 <code code="18610-6" displayName="Medication administered"
+                                       codeSystem="2.16.840.1.113883.6.1"/>
+                                 <sourceOf typeCode="COMP">
+                                    <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                                       <title>Medication, Administered: Unfractionated Heparin (route: 'Intravenous route')</title>
+                                       <participant typeCode="CSM">
+                                          <roleParticipant classCode="MANU">
+                                             <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                <code code="2.16.840.1.113883.3.117.1.7.1.218"
+                                                      displayName="Unfractionated Heparin RxNorm Value Set"
+                                                      codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             </playingMaterial>
+                                          </roleParticipant>
+                                       </participant>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <templateId root="2.16.840.1.113883.3.560.1.1020.2"/>
+                                             <code code="263513008" codeSystem="2.16.840.1.113883.6.96" displayName="route"
+                                                   codeSystemName="SNOMED-CT"/>
+                                             <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.222"
+                                                    codeSystem="2.16.840.1.113883.3.560.101.1"
+                                                    displayName="Intravenous route"/>
+                                          </observation>
+                                       </sourceOf>
+                                       <sourceOf typeCode="SDU">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <id root="a7583d93-02a6-45f9-b873-253c7b0e7939"/>
+                                             <title>Occurrence A of Encounter, Performed: Emergency Department Visit</title>
+                                          </observation>
+                                       </sourceOf>
+                                    </substanceAdministration>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: population 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="1651D289-9B90-442B-BE89-D2B5B628A94C"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="IPP" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Initial Patient Population"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="ad71437f-1ee7-4981-a3ab-fef343b68590"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                                  codeSystem="2.16.840.1.113883.3.560.101.1"
+                                  displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <low value="18" unit="a" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                                 <title>Occurrence A of Encounter, Performed: Inpatient Encounter</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                     <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                     <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                     <sourceOf typeCode="COMP">
+                        <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.117.1.7.1.23"
+                                 displayName="Inpatient Encounter SNOMED-CT Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence A of Encounter, Performed: Inpatient Encounter (length of stay &lt;= 120  day(s))</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="SUBJ">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <templateId root="2.16.840.1.113883.3.560.1.1029.3"/>
+                                 <code code="183797002" codeSystem="2.16.840.1.113883.6.96"
+                                       displayName="length of stay"
+                                       codeSystemName="SNOMED-CT"/>
+                                 <value xsi:type="IVL_PQ">
+                                    <high value="120" unit="d" inclusive="true"/>
+                                 </value>
+                              </observation>
+                           </sourceOf>
+                        </encounter>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                     <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                     <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                     <sourceOf typeCode="COMP">
+                        <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.117.1.7.1.23"
+                                 displayName="Inpatient Encounter SNOMED-CT Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Occurrence A of Encounter, Performed: Inpatient Encounter (discharge datetime)</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="REFR">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <templateId root="2.16.840.1.113883.3.560.1.1025.1"/>
+                                 <code code="442864001" codeSystem="2.16.840.1.113883.6.96"
+                                       displayName="discharge datetime"
+                                       codeSystemName="SNOMED-CT"/>
+                                 <value xsi:type="ANYNonNull"/>
+                              </observation>
+                           </sourceOf>
+                           <sourceOf typeCode="DURING">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="d2474fae-ee2e-4f5b-abf2-068e10a0c526"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </encounter>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                                 <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                                 <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                                 <sourceOf typeCode="COMP">
+                                    <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.117.1.7.1.23"
+                                             displayName="Inpatient Encounter SNOMED-CT Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Encounter, Performed: Inpatient Encounter (admission datetime)</title>
+                                       <statusCode code="completed"/>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <code code="399423000" codeSystem="2.16.840.1.113883.6.96"
+                                                   displayName="admission datetime"
+                                                   codeSystemName="SNOMED-CT"/>
+                                             <value xsi:type="ANYNonNull"/>
+                                          </observation>
+                                       </sourceOf>
+                                       <sourceOf typeCode="SAE">
+                                          <pauseQuantity xsi:type="IVL_PQ">
+                                             <high value="1" unit="h" inclusive="true"/>
+                                          </pauseQuantity>
+                                          <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                                             <id root="a7583d93-02a6-45f9-b873-253c7b0e7939"/>
+                                             <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                                             <sourceOf typeCode="COMP">
+                                                <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                                   <code code="2.16.840.1.113883.3.117.1.7.1.293"
+                                                         displayName="Emergency Department Visit Grouping Value Set"
+                                                         codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                                   <title>Occurrence A of Encounter, Performed: Emergency Department Visit (facility location departure datetime)</title>
+                                                   <statusCode code="completed"/>
+                                                   <sourceOf typeCode="SUBJ">
+                                                      <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                                         <templateId root="2.16.840.1.113883.3.560.1.1036.1"/>
+                                                         <participant typeCode="LOC">
+                                                            <roleParticipant classCode="SDLOC">
+                                                               <code/>
+                                                               <effectiveTime xsi:type="IVL_TS">
+                                                                  <high/>
+                                                               </effectiveTime>
+                                                            </roleParticipant>
+                                                         </participant>
+                                                      </encounter>
+                                                   </sourceOf>
+                                                </encounter>
+                                             </sourceOf>
+                                          </act>
+                                       </sourceOf>
+                                    </encounter>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                                       <id root="77ff0452-0f61-4c62-8984-4507d8365eea"/>
+                                       <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                             <title>Diagnosis, Active: Venous Thromboembolism</title>
+                                             <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.279"
+                                                    displayName="Venous Thromboembolism Grouping Value Set"/>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                                   <value xsi:type="CD" code="55561003" displayName="active"
+                                                          codeSystem="2.16.840.1.113883.6.96"/>
+                                                </observation>
+                                             </sourceOf>
+                                          </observation>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="PRCN">
+                                    <conjunctionCode code="OR"/>
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                                       <id root="f5948825-0532-405b-b238-ef2417287c97"/>
+                                       <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <sourceOf typeCode="COMP">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                             <title>Diagnosis, Active: Obstetrics VTE</title>
+                                             <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.264"
+                                                    displayName="Obstetrics VTE Grouping Value Set"/>
+                                             <sourceOf typeCode="REFR">
+                                                <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                                   <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                                   <value xsi:type="CD" code="55561003" displayName="active"
+                                                          codeSystem="2.16.840.1.113883.6.96"/>
+                                                </observation>
+                                             </sourceOf>
+                                          </observation>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                                 <sourceOf typeCode="SDU">
+                                    <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                                       <id root="a7583d93-02a6-45f9-b873-253c7b0e7939"/>
+                                       <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                                       <sourceOf typeCode="COMP">
+                                          <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                             <code code="2.16.840.1.113883.3.117.1.7.1.293"
+                                                   displayName="Emergency Department Visit Grouping Value Set"
+                                                   codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             <title>Occurrence A of Encounter, Performed: Emergency Department Visit</title>
+                                             <statusCode code="completed"/>
+                                          </encounter>
+                                       </sourceOf>
+                                    </act>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="OR"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                                 <id root="77ff0452-0f61-4c62-8984-4507d8365eea"/>
+                                 <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                       <title>Diagnosis, Active: Venous Thromboembolism</title>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.279"
+                                              displayName="Venous Thromboembolism Grouping Value Set"/>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                             <value xsi:type="CD" code="55561003" displayName="active"
+                                                    codeSystem="2.16.840.1.113883.6.96"/>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="OR"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                                 <id root="f5948825-0532-405b-b238-ef2417287c97"/>
+                                 <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                                 <sourceOf typeCode="COMP">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                       <title>Diagnosis, Active: Obstetrics VTE</title>
+                                       <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.264"
+                                              displayName="Obstetrics VTE Grouping Value Set"/>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                             <value xsi:type="CD" code="55561003" displayName="active"
+                                                    codeSystem="2.16.840.1.113883.6.96"/>
+                                          </observation>
+                                       </sourceOf>
+                                    </observation>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="SDU">
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                                 <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+                                 <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                                 <sourceOf typeCode="COMP">
+                                    <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                       <code code="2.16.840.1.113883.3.117.1.7.1.23"
+                                             displayName="Inpatient Encounter SNOMED-CT Value Set"
+                                             codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       <title>Occurrence A of Encounter, Performed: Inpatient Encounter</title>
+                                       <statusCode code="completed"/>
+                                    </encounter>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Data Criteria Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57025-9" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Data criteria (QDM Data Elements)"/>
+         <title>Data criteria (QDM Data Elements)</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Diagnosis, Active: Obstetrics VTE"</content> using "Obstetrics VTE Grouping Value Set (2.16.840.1.113883.3.117.1.7.1.264)"</item>
+               <item>
+                  <content>"Diagnosis, Active: Venous Thromboembolism"</content> using "Venous Thromboembolism Grouping Value Set (2.16.840.1.113883.3.117.1.7.1.279)"</item>
+               <item>
+                  <content>"Diagnostic Study, Result: VTE Diagnostic Test"</content> using "VTE Diagnostic Test Grouping Value Set (2.16.840.1.113883.3.117.1.7.1.276)"</item>
+               <item>
+                  <content>"Encounter, Performed: Emergency Department Visit"</content> using "Emergency Department Visit Grouping Value Set (2.16.840.1.113883.3.117.1.7.1.293)"</item>
+               <item>
+                  <content>"Encounter, Performed: Inpatient Encounter"</content> using "Inpatient Encounter SNOMED-CT Value Set (2.16.840.1.113883.3.117.1.7.1.23)"</item>
+               <item>
+                  <content>"Intervention, Order: Palliative Care"</content> using "Palliative Care SNOMED-CT Value Set (2.16.840.1.113883.3.526.2.1076)"</item>
+               <item>
+                  <content>"Intervention, Performed: Palliative Care"</content> using "Palliative Care SNOMED-CT Value Set (2.16.840.1.113883.3.526.2.1076)"</item>
+               <item>
+                  <content>"Laboratory Test, Performed: Platelet Count"</content> using "Platelet Count LOINC Value Set (2.16.840.1.113883.3.117.1.7.1.267)"</item>
+               <item>
+                  <content>"Medication, Administered: Unfractionated Heparin"</content> using "Unfractionated Heparin RxNorm Value Set (2.16.840.1.113883.3.117.1.7.1.218)"</item>
+               <item>
+                  <content>"Medication, Order: Unfractionated Heparin"</content> using "Unfractionated Heparin RxNorm Value Set (2.16.840.1.113883.3.117.1.7.1.218)"</item>
+               <item>
+                  <content>"Patient Characteristic Birthdate: birth date"</content> using "birth date LOINC Value Set (2.16.840.1.113883.3.560.100.4)"</item>
+               <item>
+                  <content>"Procedure, Performed: Clinical Pathway Protocol"</content> using "Clinical Pathway Protocol SNOMED-CT Value Set (2.16.840.1.113883.3.117.1.7.1.253)"</item>
+               <item>
+                  <content>"Procedure, Performed: Treatment Adjusted by Protocol"</content> using "Treatment Adjusted by Protocol SNOMED-CT Value Set (2.16.840.1.113883.3.117.1.7.1.278)"</item>
+               <item>
+                  <content>Attribute: "Result: VTE Confirmed"</content> using "VTE Confirmed SNOMED-CT Value Set  (2.16.840.1.113883.3.117.1.7.1.407)"</item>
+               <item>
+                  <content>Attribute: "Route: Intravenous route"</content> using "Intravenous route SNOMED-CT Value Set  (2.16.840.1.113883.3.117.1.7.1.222)"</item>
+               <item>
+                  <content>Attribute: "Discharge status: Discharge To Another Hospital"</content> using "Discharge To Another Hospital SNOMED-CT Value Set  (2.16.840.1.113883.3.117.1.7.1.87)"</item>
+               <item>
+                  <content>Attribute: "Discharge status: Left Against Medical Advice"</content> using "Left Against Medical Advice SNOMED-CT Value Set  (2.16.840.1.113883.3.117.1.7.1.308)"</item>
+               <item>
+                  <content>Attribute: "Discharge status: Patient Expired"</content> using "Patient Expired SNOMED-CT Value Set  (2.16.840.1.113883.3.117.1.7.1.309)"</item>
+               <item>
+                  <content>Attribute: "Discharge status: Discharged to Home for Hospice Care"</content> using "Discharged to Home for Hospice Care SNOMED-CT Value Set  (2.16.840.1.113883.3.117.1.7.1.209)"</item>
+               <item>
+                  <content>Attribute: "Discharge status: Discharged to Health Care Facility for Hospice Care"</content> using "Discharged to Health Care Facility for Hospice Care SNOMED-CT Value Set  (2.16.840.1.113883.3.117.1.7.1.207)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+               <id root="ad71437f-1ee7-4981-a3ab-fef343b68590"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                     <title>Patient Characteristic Birthdate: birth date</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="birth date LOINC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="f5948825-0532-405b-b238-ef2417287c97"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: Obstetrics VTE</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.264"
+                            displayName="Obstetrics VTE Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active"
+                                  codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Administered pattern --><templateId root="2.16.840.1.113883.3.560.1.14"/>
+               <id root="e508c8c1-fe98-4b85-b27a-139e1fcb6e4e"/>
+               <code code="18610-6" displayName="Medication administered"
+                     codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                     <title>Medication, Administered: Unfractionated Heparin</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.117.1.7.1.218"
+                                    displayName="Unfractionated Heparin RxNorm Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="77ff0452-0f61-4c62-8984-4507d8365eea"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: Venous Thromboembolism</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.279"
+                            displayName="Venous Thromboembolism Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active"
+                                  codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="545bb135-b6a2-419a-ac68-026daa785fc2"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.117.1.7.1.23"
+                           displayName="Inpatient Encounter SNOMED-CT Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Inpatient Encounter</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="9a97e1a8-2fd7-4e5e-94bf-3f452d3f356c"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.117.1.7.1.293"
+                           displayName="Emergency Department Visit Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Emergency Department Visit</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.45"/>
+               <id root="cac74681-8d75-4b87-a674-e849b775ad2e"/>
+               <code code="18776-5" displayName="Plan of care" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <procedure classCode="PROC" moodCode="RQO" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.526.2.1076"
+                           displayName="Palliative Care SNOMED-CT Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Intervention, Order: Palliative Care</title>
+                  </procedure>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Intervention, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.46"/>
+               <id root="4d7916a2-a0c6-4017-84cf-5b1b535a57ee"/>
+               <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.526.2.1076"
+                           displayName="Palliative Care SNOMED-CT Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Intervention, Performed: Palliative Care</title>
+                     <statusCode code="completed"/>
+                  </procedure>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnostic Study, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.11"/>
+               <id root="185451cb-c44e-4874-8946-bf3cc52b71c3"/>
+               <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.117.1.7.1.276"
+                           displayName="VTE Diagnostic Test Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Diagnostic Study, Result: VTE Diagnostic Test</title>
+                     <statusCode code="completed"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Order pattern --><templateId root="2.16.840.1.113883.3.560.1.17"/>
+               <id root="4391a7f9-3198-4a04-beb1-4bc8a588022e"/>
+               <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="RQO" isCriterionInd="true">
+                     <title>Medication, Order: Unfractionated Heparin</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.117.1.7.1.218"
+                                    displayName="Unfractionated Heparin RxNorm Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.6"/>
+               <id root="322c1ac9-a03a-4b27-a064-b404d11cab89"/>
+               <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.117.1.7.1.278"
+                           displayName="Treatment Adjusted by Protocol SNOMED-CT Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Procedure, Performed: Treatment Adjusted by Protocol</title>
+                  </procedure>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Procedure, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.6"/>
+               <id root="6f1f0e9e-f501-4a15-abad-8c9d6c70a117"/>
+               <code code="47519-4" displayName="Procedures" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <procedure classCode="PROC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.117.1.7.1.253"
+                           displayName="Clinical Pathway Protocol SNOMED-CT Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Procedure, Performed: Clinical Pathway Protocol</title>
+                  </procedure>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.5"/>
+               <id root="10db92fd-fb45-4b5e-9e41-12e16eeb501c"/>
+               <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.117.1.7.1.267"
+                           displayName="Platelet Count LOINC Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Laboratory Test, Performed: Platelet Count</title>
+                     <statusCode code="completed"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="a7583d93-02a6-45f9-b873-253c7b0e7939"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>Emergency Department Visit</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="9a97e1a8-2fd7-4e5e-94bf-3f452d3f356c"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="c6ea41b2-6a7a-42cd-b3ff-935cbcaf7c35"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>Inpatient Encounter</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="545bb135-b6a2-419a-ac68-026daa785fc2"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+            
+         <!--
+            **************************************************************   
+            Stratification Section
+            **************************************************************
+         --><component typeCode="COMP">
+      <section>
+         <code code="69669-0" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Population stratification description"/>
+         <title>Reporting Stratification</title>
+         <text>
+            <list>
+               <item>None</item>
+            </list>
+         </text>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Supplemental Data Elements Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="69670-8" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Supplemental Data Elements"/>
+         <title>Supplemental Data Elements</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Patient Characteristic Ethnicity: Ethnicity"</content> using "Ethnicity CDC Value Set (2.16.840.1.114222.4.11.837)"</item>
+               <item>
+                  <content>"Patient Characteristic Payer: Payer"</content> using "Payer Source of Payment Typology Value Set (2.16.840.1.114222.4.11.3591)"</item>
+               <item>
+                  <content>"Patient Characteristic Race: Race"</content> using "Race CDC Value Set (2.16.840.1.114222.4.11.836)"</item>
+               <item>
+                  <content>"Patient Characteristic Sex: ONC Administrative Sex"</content> using "ONC Administrative Sex Administrative Sex Value Set (2.16.840.1.113762.1.4.1)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Sex pattern --><templateId root="2.16.840.1.113883.3.560.1.402"/>
+               <id root="932d92cc-8f92-4021-9bc3-a765ccac06b7"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="263495000" codeSystem="2.16.840.1.113883.6.96" displayName="Sex"/>
+                     <title>Patient Characteristic Sex: ONC Administrative Sex</title>
+                     <value xsi:type="CD" code="2.16.840.1.113762.1.4.1"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="ONC Administrative Sex Administrative Sex Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Race pattern --><templateId root="2.16.840.1.113883.3.560.1.406"/>
+               <id root="2345fcb0-7383-4778-b2e3-705f9b43968d"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="32624-9" codeSystem="2.16.840.1.113883.6.1" displayName="Race"/>
+                     <title>Patient Characteristic Race: Race</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.836"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Race CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Ethnicity pattern --><templateId root="2.16.840.1.113883.3.560.1.403"/>
+               <id root="827466d3-106a-4b57-8422-e24bcef424d7"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="54133-4" codeSystem="2.16.840.1.113883.6.1" displayName="Ethnicity"/>
+                     <title>Patient Characteristic Ethnicity: Ethnicity</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.837"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Ethnicity CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Payer pattern --><templateId root="2.16.840.1.113883.3.560.1.405"/>
+               <id root="3c0c3240-5f75-41b4-af25-b99f34642a27"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" displayName="Payer"/>
+                     <title>Patient Characteristic Payer: Payer</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.3591"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Payer Source of Payment Typology Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+      </section>
+   </component>
+</QualityMeasureDocument>

@@ -1,0 +1,1186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="xslt/eMeasure.xsl"?>
+<QualityMeasureDocument xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         
+      <!--
+         **************************************************************   
+         Measure Header Section
+         **************************************************************
+      --><typeId root="2.16.840.1.113883.1.3" extension="POQM_HD000001"/>
+   <id root="40280381-3e93-d1af-013e-9e3e037e08d6"/>
+   <code code="57024-2" codeSystem="2.16.840.1.113883.6.1"
+         displayName="Health Quality Measure Document"/>
+   <title>ADE Prevention and Monitoring: Warfarin Time in Therapeutic Range</title>
+   <text>Average percentage of time in which patients aged 18 and older with atrial fibrillation who are on chronic warfarin therapy have International Normalized Ratio (INR) test results within the therapeutic range (i.e., TTR) during the measurement period.</text>
+   <statusCode code="InProgress"/>
+   <setId root="a5e96a45-8132-4e72-bf4f-e8c81db9e641"/>
+   <versionNumber value="2"/>
+   <author typeCode="AUT">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="e2d465ab-37d5-4372-80d2-0eef3a5fea73"/>
+            <name>National Committee for Quality Assurance (NCQA)</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </author>
+   <custodian>
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id root="abd9d413-75cd-4bf8-82ca-5d081b358a0d"/>
+            <name>Centers for Medicare &amp; Medicaid Services (CMS)</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </custodian>
+   <verifier typeCode="VRF">
+      <assignedPerson classCode="ASSIGNED">
+         <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+            <name>None</name>
+            <contactParty classCode="CON" nullFlavor="UNK"/>
+         </representedOrganization>
+      </assignedPerson>
+   </verifier>
+   <subjectOf>
+      <measureAttribute>
+         <code code="COPY" codeSystem="2.16.840.1.113883.5.4" displayName="Copyright"/>
+         <value xsi:type="ED" mediaType="text/plain">Limited proprietary coding is contained in the Measure specifications for user convenience. Users of proprietary code sets should obtain all necessary licenses from the owners of the code sets.  &#xD;
+&#xD;
+CPT(R) contained in the Measure specifications is copyright 2004-2012 American Medical Association. LOINC(R) copyright 2004-2012 Regenstrief Institute, Inc. This material contains SNOMED Clinical Terms(R) (SNOMED CT[R]) copyright 2004-2012 International Health Terminology Standards Development Organisation. ICD-10 copyright 2012 World Health Organization. All Rights Reserved.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRSCORE" codeSystem="2.16.840.1.113883.5.4"
+               displayName="Measure Scoring"/>
+         <value xsi:type="CD" code="CONTVAR" codeSystem="2.16.840.1.113883.1.11.20367"
+                displayName="Continuous Variable"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRTYPE" codeSystem="2.16.840.1.113883.5.4" displayName="Measure Type"/>
+         <value xsi:type="CD" code="OUTCOME" codeSystem="2.16.840.1.113883.1.11.20368"
+                displayName="Outcome"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="STRAT" codeSystem="2.16.840.1.113883.5.4" displayName="Stratification"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRADJ" codeSystem="2.16.840.1.113883.5.4" displayName="Risk Adjustment"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRAGG" codeSystem="2.16.840.1.113883.5.4" displayName="Rate Aggregation"/>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="RAT" codeSystem="2.16.840.1.113883.5.4" displayName="Rationale"/>
+         <value xsi:type="ED" mediaType="text/plain">Millions of patients in the United States use warfarin to prevent strokes or to prevent or treat venous thromboembolism. Warfarin is highly effective, and has been in clinical use for over 50 years. However, warfarin is difficult to manage because it has many possible interactions with diet, other drugs, and comorbid conditions that may destabilize anticoagulation control. The possible consequences of insufficient or excessive anticoagulation are extremely serious and often fatal, making it imperative to pursue good control.&#xD;
+&#xD;
+The international normalized ratio (INR) test is the laboratory test used to determine the degree to which the patient's coagulation has been successfully suppressed by the vitamin K antagonist (VKA). For most patients, the goal is to keep the INR between 2 and 3, which roughly corresponds to the blood taking 2 to 3 times as long to clot as would a normal person's blood. This level of anticoagulation has been shown to maximize benefit (i.e., protect patients from blood clots) while minimizing risk (i.e., risk of hemorrhage attributable to excessive anticoagulation). Therapeutic INR range (TTR) is a way of summarizing INR control over time.&#xD;
+&#xD;
+TTR has been followed before, mostly in the setting of clinical trials where it is used to evaluate the effectiveness of warfarin therapy, particularly when warfarin is being compared to some other strategy. However, TTR has not previously been used as a quality measure – in fact, there has been a general lack of quality measurement in oral anticoagulation. There is much evidence that better anticoagulation control (i.e., higher TTR) can protect patients from severe or even fatal adverse events.&#xD;
+&#xD;
+We are using a well-established guideline for the expected frequency of warfarin monitoring.  The ACCP clinical practice guidelines for the management of antithrombotic agents published in 2008 recommends that laboratory monitoring of warfarin in patients on stable doses of warfarin occur at an interval of no longer than 4 weeks. There is fairly strong support for extending this interval from 28 to 42 days with patients who have achieved stable control.  For example, researchers at the VA who used the TTR as an outcome reported that the maximum follow-up interval can be safely extended from 28 days to 42 days after the patient has recorded three in-range INR values, without adversely impacting TTR.  &#xD;
+&#xD;
+In 2012, the ACCP anticoagulation guidelines were updated to recommend that patients with very stable INRs can be tested every 12 weeks (or 84 days). The new guideline significantly increases the interval for which testing should occur in a subset of patients that are “very stable” – defined as a warfarin dose that has not changed in 6 months. Because the measurement period is set to only one year, it would be impossible to fully implement criteria for identifying patients whose dose has not changed in 6 months.  Also, because dose information is not consistently found in EHRs, building measure logic that is dependent on the availability of dose and dose adjustments was determined to be not currently feasible. Therefore, we have chosen not to allow an 84-day  follow-up interval, given its current level of evidentiary support and implementation challenges.  &#xD;
+&#xD;
+Because the target therapeutic range for patients with atrial flutter is the same as that for atrial fibrillation without valvular heart disease, patients with atrial flutter are also included in the denominator of this measure.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="CRS" codeSystem="2.16.840.1.113883.3.560"
+               displayName="Clinical Recommendation Statement"/>
+         <value xsi:type="ED" mediaType="text/plain">“In patients with atrial fibrillation (AF), including those with paroxysmal AF, who have had a prior ischemic stroke, transient ischemic attack, or systemic embolism, we recommend long-term anticoagulation with an oral [vitamin K antagonist] VKA, such as warfarin, targeted at an INR of 2.5 (range, 2.0 to 3.0) because of the high risk of future ischemic stroke faced by this set of patients (Grade 1A).”&#xD;
+&#xD;
+“In patients with AF, including those with paroxysmal AF, who have two or more of the following risk factors for future ischemic stroke, we recommend long-term anticoagulation with an oral VKA, such as warfarin, targeted at an INR of 2.5 (range, 2.0 to 3.0) because of the increased risk of future ischemic stroke faced by this set of patients (Grade 1A). Two or more of the following risk factors apply: (1) age&gt; 75 years, (2) history of hypertension, (3) diabetes mellitus, and (4) moderately or severely impaired left ventricular systolic function and/or heart failure.”&#xD;
+&#xD;
+“In patients with AF, including those with paroxysmal AF, with only one of the risk factors listed below, we recommend long-term antithrombotic therapy (Grade 1A), either as anticoagulation with an oral VKA, such as warfarin, targeted at an INR of 2.5 (range, 2.0 to 3.0) [Grade 1A], or as aspirin, at a dose of 75 to 325 mg/d (Grade 1B). For these patients at intermediate risk of ischemic stroke, we suggest a VKA rather than aspirin (Grade 2A). This set of patients with AF is defined by having one of the following risk factors: (1) age &gt; 75 years, (2) history of hypertension, (3) diabetes mellitus, and (4) moderately or severely impaired left ventricular systolic function and/or heart failure."&#xD;
+&#xD;
+“For patients with atrial flutter, we recommend that antithrombotic therapy decisions follow the same risk-based recommendations as for AF (Grade 1C).”&#xD;
+&#xD;
+“For patients who are receiving a stable dose of oral anticoagulants, we suggest monitoring at an interval of no longer than every 4 weeks.”</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IDUR" codeSystem="2.16.840.1.113883.3.560"
+               displayName="Improvement Notation"/>
+         <value xsi:type="ED" mediaType="text/plain">A higher score indicates higher quality</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>NQF ID Number</originalText>
+         </code>
+         <value xsi:type="II" root="2.16.840.1.113883.3.560.1" extension="NA"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DISC" codeSystem="2.16.840.1.113883.5.4" displayName="Disclaimer">
+            <originalText>Disclaimer</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">These performance Measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications.&#xD;
+&#xD;
+THE MEASURES AND SPECIFICATIONS ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND.&#xD;
+&#xD;
+Due to technical limitations, registered trademarks are indicated by (R) or [R] and unregistered trademarks are indicated by (TM) or [TM].</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>eMeasure Identifier</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">179</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.74"/>
+         <id root="f1d220b1-4751-4b5a-8b04-77ae116ed50b"/>
+         <code code="MSRTP" displayName="Measurement period"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="IVL_TS">
+            <low value="00000101"/>
+            <high value="00001231"/>
+         </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureStartDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="8897285c-88b6-4493-aec9-5a09b34a3408"/>
+         <code code="MSRSD" displayName="Measurement start date"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00000101"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <localVariableName>measureEndDate</localVariableName>
+      <measureAttribute>
+         <templateId root="2.16.840.1.113883.3.560.1.75"/>
+         <id root="9d0bb064-8515-4f26-98a9-64ed5e3722a8"/>
+         <code code="MSRED" displayName="Measurement end date"
+               codeSystem="2.16.840.1.113883.3.560"/>
+         <value xsi:type="TS" value="00001231"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Connolly SJ, Pogue J, Eikelboom J, Flaker G, Commerford P, Franzosi MG, Healey JS, Yusuf S, ACTIVE W Investigators. Benefit of oral anticoagulant over antiplatelet therapy in atrial fibrillation depends on the quality of international normalized ratio control achieved by centers and countries as measured by time in therapeutic range. Circulation 2008 Nov 11;118(20):2029-37. [21 references] PubMed</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Rose A. Staff physician, Bedford VA Medical Center. Investigator, VA Center for Health Quality, Outcomes, and Economic Research at the Bedford VA. Assistant Professor, Boston University School of Medicine. Percent time in therapeutic INR range (TTR). 2010 Oct 7. 8 p.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Rose AJ, Berlowitz DR, Frayne SM, Hylek EM. Measuring quality of oral anticoagulation care: extending quality measurement to a new field. Jt Comm J Qual Patient Saf 2009 Mar;35(3):146-55. [115 references] PubMed</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Rosendaal FR, Cannegieter SC, van der Meer FJ, Briet E. A method to determine the optimal intensity of oral anticoagulant therapy. Thromb Haemost 1993 Mar 1;69(3):236-9. PubMed</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Van Leeuwen Y, Rosendaal FR, Cannegieter SC. Prediction of hemorrhagic and thrombotic events in patients with mechanical heart valve prostheses treated with oral anticoagulants. J Thromb Haemost 2008 Mar;6(3):451-6. PubMed</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Van Walraven C, Jennings A, Oake N, Fergusson D, Forster AJ. Effect of study setting on anticoagulation control: a systematic review and metaregression. Chest 2006 May;129(5):1155-66. [97 references] PubMed</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Veeger NJ, Piersma-Wichers M, Tijssen JG, Hillege HL, van der Meer J. Individual time within target range in patients treated with vitamin K antagonists: main determinant of quality of anticoagulation and predictor of clinical outcome. A retrospective study of 2300 consecutive patients with venous thromboembolism. Br J Haematol 2005 Feb;128(4):513-9. PubMed</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">White HD, Gruber M, Feyzi J, Kaatz S, Tse HF, Husted S, Albers GW. Comparison of outcomes among patients randomized to warfarin therapy according to anticoagulant control: results from SPORTIF III and V. Arch Intern Med 2007 Feb 12;167(3):239-45.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Hirsh J, Guyatt G, Albers GW, Harrington R, Schunemann HJ. Antithrombotic and Thrombolytic Therapy: American College of Chest Physicians Evidence-Based Clinical Practice Guidelines (8th Edition). CHEST 2008; 133(6_suppl);110S-112S.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Ansell J, Hirsh J, Hylek E, Jacobson A, Crowther M, Palareti G. Pharmacology and management of the vitamin K antagonists: American College of Chest Physicians Evidence-Based Clinical Practice Guidelines (8th Edition). Chest. 2008; 133: 160S-98S.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Holbrook A, Schulman S, Witt DM, Vandvik PO, Fish J, Kovacs MJ, Svensson PJ, Veenstra DL, Crowther M, Guyatt GH. Evidence-Based Management of Anticoagulant Therapy: Antithrombotic Therapy and Prevention of Thrombosis, 9th ed: American College of Chest Physicians Evidence-Based Clinical Practice Guidelines. Chest. 2012; 141: e152S-e84S.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Rose AJ, Ozonoff A, Berlowitz DR, Ash AS, Reisman JI, Hylek EM. Reexamining the recommended follow-up interval after obtaining an in-range international normalized ratio value: results from the Veterans Affairs study to improve anticoagulation. Chest. 2011; 140: 359-65. chest.10-2738 [pii]. 10.1378/chest.10-2738.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4" displayName="Reference"/>
+         <value xsi:type="ED" mediaType="text/plain">Schulman S, Parpia S, Stewart C, Rudd-Scott L, Julian JA, Levine M. Warfarin dose assessment every 4 weeks versus every 12 weeks in patients with stable international normalized ratios: a randomized trial. Ann Intern Med. 2011; 155: 653-9. 155/10/653 [pii]. 10.1059/0003-4819-155-10-201111150-00003.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DEF" codeSystem="2.16.840.1.113883.3.560" displayName="Definition"/>
+         <value xsi:type="ED" mediaType="text/plain">CUMULATIVE MEDICATION DURATION is the total number of calendar days that an individual has active medications that contain the same drug ingredient of interest. In this measure, the active drug ingredient is warfarin. The number of active days of an occurrence of a medication (e.g., a medication order or an entry in a patient's medication list) is calculated by taking the difference (in calendar days) between the date that the medication became active and the date that the medication stopped being active. The cumulative medication duration is calculated as the sum of the number of active calendar days for each occurrence of a medication that contains the same active ingredient over a set period of time, excluding any gaps during which a medication was not active. All of the entries in the value set for warfarin (OID: 2.16.840.1.113883.3.117.1.7.1.232) must be included in determining the cumulative medication duration. All medication occurrences considered for the calculation of cumulative medication duration for this measure must be active within 200 days immediately prior to the measurement period. This lookback period of 200 days is based on the original warfarin TTR measure used by the Veterans Affairs health care system. Please refer to the supplemental file named “CMS179v2_Supplemental_SQL_Logic_Reference.pdf” for this logic.&#xD;
+&#xD;
+A VALID INR INTERVAL is two INR values separated by 56 days or less. INR values must be obtained in outpatient care settings; INR values while the patient is admitted to a hospital for more than 23 hours should not be included.&#xD;
+&#xD;
+THERAPEUTIC RANGE: for patients with atrial fibrillation and no valvular involvement, the target INR result = 2.0 – 3.0.&#xD;
+&#xD;
+PERCENT OF TIME IN THERAPEUTIC RANGE (TTR) is the percentage of time during which the interpolated INR values lie between 2.0 and 3.0. This can be from 0% to 100%. TTR percentage should be calculated for each patient that meets the criteria for the Measure Population. The average of these values is reported as the Measure Observation. The calculation for TTR is provided in the supplemental file named “CMS179v2 _Supplemental_SQL_Logic_Reference.pdf”.&#xD;
+&#xD;
+INTERPOLATED INR VALUES are obtained through the use of linear interpolation to assign an INR value to each day between successive observed INR values. The Rosendaal linear interpolation methodology used in this measure assumes a linear relationship between two INR values and allows the assignment of a specific INR to each day for each patient.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="GUIDE" codeSystem="2.16.840.1.113883.5.4" displayName="Guidance"/>
+         <value xsi:type="ED" mediaType="text/plain">Please note that the logic expressions in the body section of the HQMF of this measure should *not* be used to calculate this clinical quality measure. They are only provided to represent the data elements needed for the calculation. In order to calculate this clinical quality measure correctly, only use the narrative specifications contained in the header section of the HQMF and the annotated database query found in the supplemental file named “CMS179v2_Supplemental_SQL_Logic_Reference.pdf”. &#xD;
+&#xD;
+The calculation of TTR should include all available INR values for a given patient during the measurement period. When generating a QRDA-1 document for this measure, all available INR values during the measurement period should be included.&#xD;
+&#xD;
+The following filters are applied to each patient’s INRs in order to calculate a patient-level TTR. INR values must be at least 0.8. Values less than 0.8 may represent aberrant results. INR values greater than 10 (i.e., outliers) must be replaced with a value of 10. An INR of 10 represents an abnormally high INR and would skew the results of the calculated TTR less than extreme values would (i.e., INR &gt; 10). The INR value closest to "2.5" is used to calculate TTR, when there are more than one INR result on a single date.&#xD;
+&#xD;
+In this measure, the active drug ingredient of primary interest is warfarin. CUMULATIVE MEDICATION DURATION should be calculated for all active warfarin-containing medications. All of the entries in the value set for warfarin must be included when determining the cumulative medication duration. All medication occurrences considered for the calculation of cumulative medication duration for this measure must be active within 200 days immediately prior to the measurement period. This lookback period of 200 days is based on the original warfarin TTR measure used by the Veterans Affairs health care system. Please refer to the supplemental file named “CMS179v2 _Supplemental_SQL_Logic_Reference.pdf” for this logic.&#xD;
+&#xD;
+To be excluded from the initial patient population, patients must have an active diagnosis of valvular heart disease during the measurement period.&#xD;
+&#xD;
+To determine the proportion of patients with atrial fibrillation who are on chronic warfarin therapy and have sufficient INR monitoring to calculate a TTR, the reporting provider can divide the Measure Population by the Initial Patient Population.&#xD;
+&#xD;
+The calculation for TTR is provided in the supplemental file named “CMS179v2 _Supplemental_SQL_Logic_Reference.pdf”.&#xD;
+&#xD;
+The Measure Observation is the average of all patients’ percent TTR, which can be calculated by dividing the sum of all patients’ percent TTR by the number of patients in the Measure Population.</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Transmission Format</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">None</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IPP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Initial Patient Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Patients aged 18 and older with atrial fibrillation without valvular heart disease who had been on chronic warfarin therapy for at least 180 days before the start of and during the measurement period. Patient should have at least one outpatient visit during the measurement period</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENOM" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Denominator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="NUMER" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Numerator</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Numerator Exclusions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Denominator Exceptions</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Not Applicable</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.1063">
+            <originalText>Measure Population</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Equals All in Initial Patient Population with sufficient international normalized ratio (INR) results to calculate a warfarin time in therapeutic range (TTR)</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Measure Observations</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">Average percentage of time that patients in the measure population have INR results within the therapeutic range (i.e., TTR)</value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText>Supplemental Data Elements</originalText>
+         </code>
+         <value xsi:type="ED" mediaType="text/plain">For every patient evaluated by this measure also identify payer, race, ethnicity and sex.</value>
+      </measureAttribute>
+   </subjectOf>
+   <componentOf>
+      <qualityMeasureSet classCode="ACT">
+         <id root="3714d891-489c-4c54-b040-12898e2756b6"/>
+         <title>Clinical Quality Measure Set 2011-2012</title>
+      </qualityMeasureSet>
+   </componentOf>
+         
+      <!--
+         **************************************************************   
+         Population Criteria Section
+         **************************************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Population criteria"/>
+         <title>Population criteria</title>
+         <text>
+            <list>
+               <item>
+                  <content styleCode="Bold">Initial Patient Population =</content>
+                  <list>
+                     <item>AND: "Patient Characteristic Birthdate: birth date"  &gt;= 18 year(s) starts before start of "Measurement Period"</item>
+                     <item>AND: <list>
+                           <item>AND NOT: "Occurrence A of Diagnosis, Active: Atrial Fibrillation/Flutter" ends before start of "Measurement Period"</item>
+                           <item>AND: "Occurrence A of Diagnosis, Active: Atrial Fibrillation/Flutter" starts before start of "Measurement Period"</item>
+                        </list>
+                     </item>
+                     <item>AND: <list>
+                           <item>AND: "Medication, Active: Warfarin (cumulative medication duration &gt;= 180 day(s))" starts before start of "Measurement Period"</item>
+                           <item>AND: <list>
+                                 <item>AND NOT: "Occurrence A of Medication, Active: Warfarin" ends before start of "Measurement Period"</item>
+                                 <item>AND: "Occurrence A of Medication, Active: Warfarin" starts before or during "Measurement Period"</item>
+                              </list>
+                           </item>
+                        </list>
+                     </item>
+                     <item>AND: <list>
+                           <item>OR: "Encounter, Performed: Face-to-Face Interaction"</item>
+                           <item>OR: "Encounter, Performed: Office Visit"</item>
+                           <item> during "Measurement Period"</item>
+                        </list>
+                     </item>
+                     <item>AND: <list>
+                           <item>OR NOT: "Occurrence A of Diagnosis, Active: Valvular Heart Disease" starts before or during "Measurement Period"</item>
+                           <item>OR: "Occurrence A of Diagnosis, Active: Valvular Heart Disease" ends before start of "Measurement Period"</item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+               <item>
+                  <content styleCode="Bold">Measure Population =</content>
+                  <list>
+                     <item>AND: "Initial Patient Population"</item>
+                     <item>AND: Count &gt;= 3  of:"Laboratory Test, Result: INR (result)" during "Measurement Period"</item>
+                  </list>
+               </item>
+            </list>
+         </text>
+         <!--
+            **************************************************************   
+            Population Criteria Section: population 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="5EF92FDE-636A-4FDB-BFFB-45FE61A803EA"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="IPP" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Initial Patient Population"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+                     <id root="10ee3b50-3f6d-4bb9-bc5d-232422eff5f2"/>
+                     <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                           <title>Patient Characteristic Birthdate: birth date</title>
+                           <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                                  codeSystem="2.16.840.1.113883.3.560.101.1"
+                                  displayName="birth date LOINC Value Set"/>
+                           <sourceOf typeCode="SBS">
+                              <pauseQuantity xsi:type="IVL_PQ">
+                                 <low value="18" unit="a" inclusive="true"/>
+                              </pauseQuantity>
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="f1d220b1-4751-4b5a-8b04-77ae116ed50b"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="AND"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                           <id root="fdae1fcf-e88b-4553-9735-02685936da8f"/>
+                           <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                 <title>Occurrence A of Diagnosis, Active: Atrial Fibrillation/Flutter</title>
+                                 <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.202"
+                                        displayName="Atrial Fibrillation/Flutter Grouping Value Set"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                       <value xsi:type="CD" code="55561003" displayName="active"
+                                              codeSystem="2.16.840.1.113883.6.96"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="EBS">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="f1d220b1-4751-4b5a-8b04-77ae116ed50b"/>
+                                       <title>Measurement Period</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="AND"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                           <id root="fdae1fcf-e88b-4553-9735-02685936da8f"/>
+                           <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                 <title>Occurrence A of Diagnosis, Active: Atrial Fibrillation/Flutter</title>
+                                 <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.202"
+                                        displayName="Atrial Fibrillation/Flutter Grouping Value Set"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                       <value xsi:type="CD" code="55561003" displayName="active"
+                                              codeSystem="2.16.840.1.113883.6.96"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="SBS">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="f1d220b1-4751-4b5a-8b04-77ae116ed50b"/>
+                                       <title>Measurement Period</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="AND"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.13"/>
+                           <id root="dedff97f-f93a-4e70-b747-e466d0706769"/>
+                           <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                                 <title>Medication, Active: Warfarin (cumulative medication duration &gt;= 180  day(s))</title>
+                                 <participant typeCode="CSM">
+                                    <roleParticipant classCode="MANU">
+                                       <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                          <code code="2.16.840.1.113883.3.117.1.7.1.232"
+                                                displayName="Warfarin RxNorm Value Set"
+                                                codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                       </playingMaterial>
+                                    </roleParticipant>
+                                 </participant>
+                                 <sourceOf typeCode="SUBJ">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <templateId root="2.16.840.1.113883.3.560.1.1001.3"/>
+                                       <code code="363819003" codeSystem="2.16.840.1.113883.6.96"
+                                             displayName="cumulative medication duration"
+                                             codeSystemName="SNOMED-CT"/>
+                                       <value xsi:type="IVL_PQ">
+                                          <low value="180" unit="d" inclusive="true"/>
+                                       </value>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="33999-4" displayName="Status" codeSystem="2.16.840.1.113883.6.1"/>
+                                       <value xsi:type="CD" code="55561003" displayName="Active"
+                                              codeSystem="2.16.840.1.113883.6.96"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="SBS">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="f1d220b1-4751-4b5a-8b04-77ae116ed50b"/>
+                                       <title>Measurement Period</title>
+                                    </observation>
+                                 </sourceOf>
+                              </substanceAdministration>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="AND"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Medication, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.13"/>
+                                 <id root="0fcac255-c9e5-4b75-b47e-ff33a8250d26"/>
+                                 <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                                 <sourceOf typeCode="COMP">
+                                    <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                                       <title>Occurrence A of Medication, Active: Warfarin</title>
+                                       <participant typeCode="CSM">
+                                          <roleParticipant classCode="MANU">
+                                             <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                <code code="2.16.840.1.113883.3.117.1.7.1.232"
+                                                      displayName="Warfarin RxNorm Value Set"
+                                                      codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             </playingMaterial>
+                                          </roleParticipant>
+                                       </participant>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <code code="33999-4" displayName="Status" codeSystem="2.16.840.1.113883.6.1"/>
+                                             <value xsi:type="CD" code="55561003" displayName="Active"
+                                                    codeSystem="2.16.840.1.113883.6.96"/>
+                                          </observation>
+                                       </sourceOf>
+                                       <sourceOf typeCode="EBS">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <id root="f1d220b1-4751-4b5a-8b04-77ae116ed50b"/>
+                                             <title>Measurement Period</title>
+                                          </observation>
+                                       </sourceOf>
+                                    </substanceAdministration>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                           <sourceOf typeCode="PRCN">
+                              <conjunctionCode code="AND"/>
+                              <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.13"/>
+                                 <id root="0fcac255-c9e5-4b75-b47e-ff33a8250d26"/>
+                                 <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+                                 <sourceOf typeCode="COMP">
+                                    <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                                       <title>Occurrence A of Medication, Active: Warfarin</title>
+                                       <participant typeCode="CSM">
+                                          <roleParticipant classCode="MANU">
+                                             <playingMaterial classCode="MMAT" determinerCode="KIND">
+                                                <code code="2.16.840.1.113883.3.117.1.7.1.232"
+                                                      displayName="Warfarin RxNorm Value Set"
+                                                      codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                             </playingMaterial>
+                                          </roleParticipant>
+                                       </participant>
+                                       <sourceOf typeCode="REFR">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <code code="33999-4" displayName="Status" codeSystem="2.16.840.1.113883.6.1"/>
+                                             <value xsi:type="CD" code="55561003" displayName="Active"
+                                                    codeSystem="2.16.840.1.113883.6.96"/>
+                                          </observation>
+                                       </sourceOf>
+                                       <sourceOf typeCode="EAS" inversionInd="true">
+                                          <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                             <id root="f1d220b1-4751-4b5a-8b04-77ae116ed50b"/>
+                                             <title>Measurement Period</title>
+                                          </observation>
+                                       </sourceOf>
+                                    </substanceAdministration>
+                                 </sourceOf>
+                              </act>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="c972d2ca-6d46-4f97-b4b9-fd9b54963fb1"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.1003.101.12.1048"
+                                       displayName="Face-to-Face Interaction Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Encounter, Performed: Face-to-Face Interaction</title>
+                                 <statusCode code="completed"/>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+                           <id root="e5d99794-1933-4b38-8397-4c6a28bc5440"/>
+                           <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+                           <sourceOf typeCode="COMP">
+                              <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.464.1003.101.12.1001"
+                                       displayName="Office Visit Grouping Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Encounter, Performed: Office Visit</title>
+                                 <statusCode code="completed"/>
+                              </encounter>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="DURING">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <id root="f1d220b1-4751-4b5a-8b04-77ae116ed50b"/>
+                           <title>Measurement Period</title>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true">
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true" actionNegationInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                           <id root="eec3e48e-e27b-444e-9eee-10b870bf81ea"/>
+                           <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                 <title>Occurrence A of Diagnosis, Active: Valvular Heart Disease</title>
+                                 <value xsi:type="CD" code="2.16.840.1.113883.3.464.1003.104.12.1017"
+                                        displayName="Valvular Heart Disease Grouping Value Set"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                       <value xsi:type="CD" code="55561003" displayName="active"
+                                              codeSystem="2.16.840.1.113883.6.96"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="EAS" inversionInd="true">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="f1d220b1-4751-4b5a-8b04-77ae116ed50b"/>
+                                       <title>Measurement Period</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                     <sourceOf typeCode="PRCN">
+                        <conjunctionCode code="OR"/>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+                           <id root="eec3e48e-e27b-444e-9eee-10b870bf81ea"/>
+                           <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                                 <title>Occurrence A of Diagnosis, Active: Valvular Heart Disease</title>
+                                 <value xsi:type="CD" code="2.16.840.1.113883.3.464.1003.104.12.1017"
+                                        displayName="Valvular Heart Disease Grouping Value Set"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                                       <value xsi:type="CD" code="55561003" displayName="active"
+                                              codeSystem="2.16.840.1.113883.6.96"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="EBS">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="f1d220b1-4751-4b5a-8b04-77ae116ed50b"/>
+                                       <title>Measurement Period</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+         <!--
+            **************************************************************   
+            Population Criteria Section: measurePopulation 
+            **************************************************************
+      --><entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+               <id root="E4AB5947-4C0D-4790-9ADD-AF6A59D334C1"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="CD" code="MSRPOPL" codeSystem="2.16.840.1.113883.5.1063"
+                      codeSystemName="HL7 Observation Value"
+                      displayName="Measure Population"/>
+               <!--  top and/or --><sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="5EF92FDE-636A-4FDB-BFFB-45FE61A803EA"/>
+                     <title>Initial Patient Population</title>
+                  </observation>
+               </sourceOf>
+               <sourceOf typeCode="PRCN">
+                  <conjunctionCode code="AND"/>
+                  <observation classCode="OBS" moodCode="DEF">
+                     <templateId root="2.16.840.1.113883.3.560.1.10017"/>
+                     <id root="49f6f3bd-dd95-405c-85a3-576005e3c19b"/>
+                     <code>
+                        <originalText>Count &gt;= 3 </originalText>
+                     </code>
+                     <derivationExpr>COUNT(var1.result id  )</derivationExpr>
+                     <value xsi:type="IVL_PQ">
+                        <low value="3" inclusive="true"/>
+                     </value>
+                     <sourceOf typeCode="DRIV">
+                        <localVariableName>var1</localVariableName>
+                        <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.12"/>
+                           <id root="c3011062-ef92-456a-8eba-749bba1a9581"/>
+                           <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                           <sourceOf typeCode="COMP">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <code code="2.16.840.1.113883.3.117.1.7.1.213" displayName="INR LOINC Value Set"
+                                       codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                                 <title>Laboratory Test, Result: INR (result)</title>
+                                 <statusCode code="completed"/>
+                                 <sourceOf typeCode="REFR">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <templateId root="2.16.840.1.113883.3.560.1.1019.1"/>
+                                       <code code="385676005" codeSystem="2.16.840.1.113883.6.96" displayName="result"
+                                             codeSystemName="SNOMED-CT"/>
+                                       <value xsi:type="ANYNonNull"/>
+                                    </observation>
+                                 </sourceOf>
+                                 <sourceOf typeCode="DURING">
+                                    <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                       <id root="f1d220b1-4751-4b5a-8b04-77ae116ed50b"/>
+                                       <title>Measurement Period</title>
+                                    </observation>
+                                 </sourceOf>
+                              </observation>
+                           </sourceOf>
+                        </act>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+            
+         <!--
+            **************************************************************   
+            Measure Observations Section
+            **************************************************************
+         --><component typeCode="COMP">
+      <section>
+         <code code="57027-5" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Measure observations"/>
+         <title>Measure observations</title>
+         <text>
+            <list>
+               <item>Average of:"Laboratory Test, Result: Computed Value INR percent TTR" during "Measurement Period"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.10015"/>
+               <id root="b8a3ef21-8600-4335-976e-6bdf5999092f"/>
+               <code>
+                  <originalText>Average</originalText>
+               </code>
+               <derivationExpr>AVG(var1 )</derivationExpr>
+               <value xsi:type="ANYNonNull"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>var1</localVariableName>
+                  <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.12"/>
+                     <id root="64afe096-b421-4933-94f4-782ea1539d59"/>
+                     <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+                     <sourceOf typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="2.16.840.1.113883.3.464.1003.104.12.1018"
+                                 displayName="Computed Value INR percent TTR Grouping Value Set"
+                                 codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           <title>Laboratory Test, Result: Computed Value INR percent TTR</title>
+                           <statusCode code="completed"/>
+                           <sourceOf typeCode="DURING">
+                              <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                                 <id root="f1d220b1-4751-4b5a-8b04-77ae116ed50b"/>
+                                 <title>Measurement Period</title>
+                              </observation>
+                           </sourceOf>
+                        </observation>
+                     </sourceOf>
+                  </act>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Data Criteria Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="57025-9" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Data criteria (QDM Data Elements)"/>
+         <title>Data criteria (QDM Data Elements)</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Diagnosis, Active: Atrial Fibrillation/Flutter"</content> using "Atrial Fibrillation/Flutter Grouping Value Set (2.16.840.1.113883.3.117.1.7.1.202)"</item>
+               <item>
+                  <content>"Diagnosis, Active: Valvular Heart Disease"</content> using "Valvular Heart Disease Grouping Value Set (2.16.840.1.113883.3.464.1003.104.12.1017)"</item>
+               <item>
+                  <content>"Encounter, Performed: Face-to-Face Interaction"</content> using "Face-to-Face Interaction Grouping Value Set (2.16.840.1.113883.3.464.1003.101.12.1048)"</item>
+               <item>
+                  <content>"Encounter, Performed: Office Visit"</content> using "Office Visit Grouping Value Set (2.16.840.1.113883.3.464.1003.101.12.1001)"</item>
+               <item>
+                  <content>"Laboratory Test, Result: Computed Value INR percent TTR"</content> using "Computed Value INR percent TTR Grouping Value Set (2.16.840.1.113883.3.464.1003.104.12.1018)"</item>
+               <item>
+                  <content>"Laboratory Test, Result: INR"</content> using "INR LOINC Value Set (2.16.840.1.113883.3.117.1.7.1.213)"</item>
+               <item>
+                  <content>"Medication, Active: Warfarin"</content> using "Warfarin RxNorm Value Set (2.16.840.1.113883.3.117.1.7.1.232)"</item>
+               <item>
+                  <content>"Patient Characteristic Birthdate: birth date"</content> using "birth date LOINC Value Set (2.16.840.1.113883.3.560.100.4)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="e5d99794-1933-4b38-8397-4c6a28bc5440"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.1003.101.12.1001"
+                           displayName="Office Visit Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Office Visit</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="b40b69b9-3c52-4227-9e5a-aaee0ad46a46"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: Atrial Fibrillation/Flutter</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.117.1.7.1.202"
+                            displayName="Atrial Fibrillation/Flutter Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active"
+                                  codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Birthdate pattern --><templateId root="2.16.840.1.113883.3.560.1.400"/>
+               <id root="10ee3b50-3f6d-4bb9-bc5d-232422eff5f2"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" displayName="Birth date"/>
+                     <title>Patient Characteristic Birthdate: birth date</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.560.100.4"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="birth date LOINC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Diagnosis, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="33980fc4-8158-40f0-ab95-734062ebf0d1"/>
+               <code code="11450-4" displayName="Problem" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                     <title>Diagnosis, Active: Valvular Heart Disease</title>
+                     <value xsi:type="CD" code="2.16.840.1.113883.3.464.1003.104.12.1017"
+                            displayName="Valvular Heart Disease Grouping Value Set"/>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" displayName="Status"/>
+                           <value xsi:type="CD" code="55561003" displayName="active"
+                                  codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.12"/>
+               <id root="c3011062-ef92-456a-8eba-749bba1a9581"/>
+               <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.117.1.7.1.213" displayName="INR LOINC Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Laboratory Test, Result: INR</title>
+                     <statusCode code="completed"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Encounter, Performed pattern --><templateId root="2.16.840.1.113883.3.560.1.79"/>
+               <id root="c972d2ca-6d46-4f97-b4b9-fd9b54963fb1"/>
+               <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" displayName="Encounter list"/>
+               <sourceOf typeCode="COMP">
+                  <encounter classCode="ENC" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.1003.101.12.1048"
+                           displayName="Face-to-Face Interaction Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Encounter, Performed: Face-to-Face Interaction</title>
+                     <statusCode code="completed"/>
+                  </encounter>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Medication, Active pattern --><templateId root="2.16.840.1.113883.3.560.1.13"/>
+               <id root="dedff97f-f93a-4e70-b747-e466d0706769"/>
+               <code code="10160-0" displayName="Medications" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <substanceAdministration classCode="SBADM" moodCode="EVN" isCriterionInd="true">
+                     <title>Medication, Active: Warfarin</title>
+                     <participant typeCode="CSM">
+                        <roleParticipant classCode="MANU">
+                           <playingMaterial classCode="MMAT" determinerCode="KIND">
+                              <code code="2.16.840.1.113883.3.117.1.7.1.232"
+                                    displayName="Warfarin RxNorm Value Set"
+                                    codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                           </playingMaterial>
+                        </roleParticipant>
+                     </participant>
+                     <sourceOf typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                           <code code="33999-4" displayName="Status" codeSystem="2.16.840.1.113883.6.1"/>
+                           <value xsi:type="CD" code="55561003" displayName="Active"
+                                  codeSystem="2.16.840.1.113883.6.96"/>
+                        </observation>
+                     </sourceOf>
+                  </substanceAdministration>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Laboratory Test, Result pattern --><templateId root="2.16.840.1.113883.3.560.1.12"/>
+               <id root="64afe096-b421-4933-94f4-782ea1539d59"/>
+               <code code="30954-2" displayName="Results" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="2.16.840.1.113883.3.464.1003.104.12.1018"
+                           displayName="Computed Value INR percent TTR Grouping Value Set"
+                           codeSystem="2.16.840.1.113883.3.560.101.1"/>
+                     <title>Laboratory Test, Result: Computed Value INR percent TTR</title>
+                     <statusCode code="completed"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="fdae1fcf-e88b-4553-9735-02685936da8f"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>Atrial Fibrillation/Flutter</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="b40b69b9-3c52-4227-9e5a-aaee0ad46a46"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.2"/>
+               <id root="eec3e48e-e27b-444e-9eee-10b870bf81ea"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>Valvular Heart Disease</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="33980fc4-8158-40f0-ab95-734062ebf0d1"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+         <entry typeCode="COMP">
+            <observation classCode="OBS" moodCode="DEF">
+               <templateId root="2.16.840.1.113883.3.560.1.13"/>
+               <id root="0fcac255-c9e5-4b75-b47e-ff33a8250d26"/>
+               <sourceOf typeCode="DRIV">
+                  <localVariableName>Warfarin</localVariableName>
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <id root="dedff97f-f93a-4e70-b747-e466d0706769"/>
+                  </observation>
+               </sourceOf>
+            </observation>
+         </entry>
+      </section>
+   </component>
+            
+         <!--
+            **************************************************************   
+            Stratification Section
+            **************************************************************
+         --><component typeCode="COMP">
+      <section>
+         <code code="69669-0" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Population stratification description"/>
+         <title>Reporting Stratification</title>
+         <text>
+            <list>
+               <item>None</item>
+            </list>
+         </text>
+      </section>
+   </component>
+         
+      <!--
+         ******************************************   
+         Supplemental Data Elements Section
+         ******************************************
+      --><component typeCode="COMP">
+      <section>
+         <code code="69670-8" codeSystem="2.16.840.1.113883.6.1"
+               displayName="Supplemental Data Elements"/>
+         <title>Supplemental Data Elements</title>
+         <text>
+            <list>
+               <item>
+                  <content>"Patient Characteristic Ethnicity: Ethnicity"</content> using "Ethnicity CDC Value Set (2.16.840.1.114222.4.11.837)"</item>
+               <item>
+                  <content>"Patient Characteristic Payer: Payer"</content> using "Payer Source of Payment Typology Value Set (2.16.840.1.114222.4.11.3591)"</item>
+               <item>
+                  <content>"Patient Characteristic Race: Race"</content> using "Race CDC Value Set (2.16.840.1.114222.4.11.836)"</item>
+               <item>
+                  <content>"Patient Characteristic Sex: ONC Administrative Sex"</content> using "ONC Administrative Sex Administrative Sex Value Set (2.16.840.1.113762.1.4.1)"</item>
+            </list>
+         </text>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Sex pattern --><templateId root="2.16.840.1.113883.3.560.1.402"/>
+               <id root="53b909c7-3f47-45f0-9b1f-f6c0aa442e2f"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="263495000" codeSystem="2.16.840.1.113883.6.96" displayName="Sex"/>
+                     <title>Patient Characteristic Sex: ONC Administrative Sex</title>
+                     <value xsi:type="CD" code="2.16.840.1.113762.1.4.1"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="ONC Administrative Sex Administrative Sex Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Race pattern --><templateId root="2.16.840.1.113883.3.560.1.406"/>
+               <id root="665d9acf-cc5e-4890-a845-7110bdc9bd1c"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="32624-9" codeSystem="2.16.840.1.113883.6.1" displayName="Race"/>
+                     <title>Patient Characteristic Race: Race</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.836"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Race CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Ethnicity pattern --><templateId root="2.16.840.1.113883.3.560.1.403"/>
+               <id root="13bfa838-2fb1-46c7-a6cc-8cca0f11c63e"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="54133-4" codeSystem="2.16.840.1.113883.6.1" displayName="Ethnicity"/>
+                     <title>Patient Characteristic Ethnicity: Ethnicity</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.837"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Ethnicity CDC Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+         <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN" isCriterionInd="true"><!-- Patient Characteristic Payer pattern --><templateId root="2.16.840.1.113883.3.560.1.405"/>
+               <id root="c7725eb6-8dff-4555-8753-ffb6388adc00"/>
+               <code code="45970-1" displayName="Demographics" codeSystem="2.16.840.1.113883.6.1"/>
+               <sourceOf typeCode="COMP">
+                  <observation classCode="OBS" moodCode="EVN" isCriterionInd="true">
+                     <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" displayName="Payer"/>
+                     <title>Patient Characteristic Payer: Payer</title>
+                     <value xsi:type="CD" code="2.16.840.1.114222.4.11.3591"
+                            codeSystem="2.16.840.1.113883.3.560.101.1"
+                            displayName="Payer Source of Payment Typology Value Set"/>
+                  </observation>
+               </sourceOf>
+            </act>
+         </entry>
+      </section>
+   </component>
+</QualityMeasureDocument>

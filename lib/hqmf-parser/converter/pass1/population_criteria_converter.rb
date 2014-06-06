@@ -29,6 +29,8 @@ module HQMF
       observs = @population_criteria_by_id.select {|key, value| value.type == HQMF::PopulationCriteria::OBSERV}
       excls = @population_criteria_by_id.select {|key, value| value.type == HQMF::PopulationCriteria::DENEX}
       denexcs = @population_criteria_by_id.select {|key, value| value.type == HQMF::PopulationCriteria::DENEXCEP}
+
+      stratifications = @population_criteria_by_id.values.select {|value| value.type == HQMF::PopulationCriteria::STRAT}
       
       if (ipps.size<=1 and denoms.size<=1 and nums.size<=1 and excls.size<=1 and denexcs.size<=1 and msrpopls.size<=1 and observs.size<=1 )
         sub_measure = {}
@@ -70,22 +72,38 @@ module HQMF
               reference = @population_criteria_by_id[reference_id] if reference_id
               if (reference)
                 criteria = @population_criteria_by_key[sub[reference.type]]
-                value['stratification'] = criteria.stratification_id if criteria.stratification_id
-                value = nil if (sub[reference.type] != reference.id and criteria.stratification_id.nil?)
+                value = nil if (sub[reference.type] != reference.id)
               end
             end
           end
           keep << value if (value)
         end
         
-        keep.each_with_index do |sub, i|
-          sub['title'] = "Population #{i+1}"
-          sub['id'] = "Population#{i+1}"
-        end
-        
         @sub_measures = keep
         
       end
+
+      # add stratifications if we have them
+      if (stratifications.size > 0)
+        strat_subs = []
+        @sub_measures.each do |sub|
+          stratifications.each do |stratification|
+            new_sub = sub.dup
+            new_sub[HQMF::PopulationCriteria::STRAT] = stratification.id
+            new_sub['stratification'] = stratification.hqmf_id
+            strat_subs << new_sub
+          end
+        end
+        @sub_measures.concat strat_subs
+      end
+
+      if (@sub_measures.length > 1)
+        @sub_measures.each_with_index do |sub, i|
+          sub['title'] = "Population #{i+1}"
+          sub['id'] = "Population#{i+1}"
+        end
+      end
+
     end
     
     # source are things like exceptions or exclusions, target are IPP, or denom
@@ -151,8 +169,6 @@ module HQMF
       title = population_criteria[:title]
 
       criteria = HQMF::Converter::SimplePopulationCriteria.new(key, hqmf_id, type, preconditions, title)
-      # mark the 2.0 simple population criteria as a stratification... this allows us to create the cartesian product for this in the populations
-      criteria.stratification_id = population_criteria[:stratification_id]
       
       @population_criteria_by_id[id] = criteria
       @population_reference[key] = reference
