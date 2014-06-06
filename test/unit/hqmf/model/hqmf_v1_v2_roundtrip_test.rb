@@ -13,6 +13,11 @@ class HQMFV1V2RoundtripTest < Test::Unit::TestCase
   counter = 0
   Dir.glob(measure_files).each do | measure_filename |
     next if measure_filename.ends_with? 'ep_0405.xml' # skipped due to id mismatches, test a different one
+    next if measure_filename.ends_with? 'eh_0528.xml' # slow test
+    next if measure_filename.ends_with? 'eh_0147.xml' # slow test
+    next if measure_filename.ends_with? 'eh_0527.xml' # slow test
+    next if measure_filename.ends_with? 'ep_0038.xml' # slow test
+    next if measure_filename.ends_with? 'eh_0373.xml' # slow test
     counter += 1
     if counter % 10 == 0  
       measure_name = /.*[\/\\]((ep|eh)_.*)\.xml/.match(measure_filename)[1]
