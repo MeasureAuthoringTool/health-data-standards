@@ -89,12 +89,6 @@ class HQMFV1V2RoundtripTest < Test::Unit::TestCase
       end
     end
 
-    # drop the CMS ID since it does not go into the HQMF v2
-    if v1_json['cms_id']
-      puts "\t CMS ID ignored in hqmf v2"
-      v1_json['cms_id'] = nil
-    end
-
     # v2 switches negated preconditions non-negated equivalents (atLeastOneTrue[negated] -> allFalse)
     fix_precondition_negations(v1_json['population_criteria'])
 
