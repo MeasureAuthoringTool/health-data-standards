@@ -73,6 +73,11 @@ module HQMF2
           end
         end
 
+        # Handle the cms_id
+        if name == "eMeasure Identifier"
+           @cms_id = "CMS#{value}v#{@hqmf_version_number}"
+        end
+
         HQMF::Attribute.new(id, code, value, nil, name, id_obj, code_obj, value_obj)
       end
       
@@ -243,7 +248,7 @@ module HQMF2
       dcs = all_data_criteria.collect {|dc| dc.to_model}
       pcs = all_population_criteria.collect {|pc| pc.to_model}
       sdc = source_data_criteria.collect{|dc| dc.to_model}
-      HQMF::Document.new(id, id, hqmf_set_id, hqmf_version_number, nil, title, description, pcs, dcs, sdc, attributes, measure_period.to_model, populations)
+      HQMF::Document.new(id, id, hqmf_set_id, hqmf_version_number, @cms_id, title, description, pcs, dcs, sdc, attributes, measure_period.to_model, populations)
     end
     
     private
