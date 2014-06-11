@@ -233,6 +233,8 @@ module HQMF2
         field_values[@definition.upcase] = HQMF::Coded.for_code_list(field_code_list_id, title)
       end
 
+      field_values = nil if field_values.empty?
+
       HQMF::DataCriteria.new(id, title, nil, description, code_list_id, children_criteria, 
         derivation_operator, @definition, status, mv, field_values, met, inline_code_list, 
         @negation, @negation_code_list_id, mtr, mso, @specific_occurrence, 
