@@ -8,6 +8,11 @@
         <methodCode>
             <item code="<%= observation.aggregator %>" codeSystem="2.16.840.1.113883.5.84" />
         </methodCode>
+       <%- if observation.preconditions.present? && observation.preconditions.length > 0 -%>
+            <%- observation.preconditions.each do |precondition| -%>
+          <%= xml_for_precondition_cv(precondition) %>
+            <%- end -%>
+          <%- end -%>
         <precondition typeCode="PRCN">
           <join moodCode="DEF" classCode="OBS">
             <templateId>
@@ -16,10 +21,5 @@
             <value/>
           </join>
         </precondition>
-       <%- if observation.preconditions.present? && observation.preconditions.length > 0 -%>
-            <%- observation.preconditions.each do |precondition| -%>
-          <%= xml_for_precondition_cv(precondition) %>
-            <%- end -%>
-          <%- end -%>
       </measureObservationDefinition>
     </definition>
