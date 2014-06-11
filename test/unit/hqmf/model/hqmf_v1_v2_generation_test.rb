@@ -20,7 +20,7 @@ class HQMFV1V2GenerationTest < Test::Unit::TestCase
     next if measure_filename.ends_with? 'ep_0038.xml' # slow test
     next if measure_filename.ends_with? 'eh_0373.xml' # slow test
     counter += 1
-    if counter % 10 == 0  
+    if (counter % 10 == 0) || (measure_filename.ends_with? 'eh_0495.xml') # at least one CV
       measure_name = /.*[\/\\]((ep|eh)_.*)\.xml/.match(measure_filename)[1]
       define_method("test_#{measure_name}") do
         do_validation_test(measure_filename, measure_name)
@@ -34,8 +34,6 @@ class HQMFV1V2GenerationTest < Test::Unit::TestCase
   def do_validation_test(measure_filename, measure_name)
     # open the v1 file and generate a v2.1 xml string
     v1_model = HQMF::Parser::V1Parser.new.parse(File.open(measure_filename).read)
-
-    skip('Continuous Variable measures currently not supported') if v1_model.population_criteria('MSRPOPL')
 
     hqmf_xml = HQMF2::Generator::ModelProcessor.to_hqmf(v1_model)
 
