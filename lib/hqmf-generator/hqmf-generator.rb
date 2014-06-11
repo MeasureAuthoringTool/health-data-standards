@@ -148,7 +148,11 @@ module HQMF2
         end
         subsets_xml.join()
       end
-      
+
+      def xml_for_precondition_cv(precondition)
+        HQMF2::Generator.render_template('precondition_cv', {'doc' => doc, 'precondition' => precondition})
+      end
+
       def xml_for_precondition(precondition)
         HQMF2::Generator.render_template('precondition', {'doc' => doc, 'precondition' => precondition})
       end

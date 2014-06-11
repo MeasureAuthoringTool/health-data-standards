@@ -1,21 +1,24 @@
     <definition typeCode="INST">
       <measureObservationDefinition classCode="OBS" moodCode="DEF">
-        <id root="2.16.840.1.113883.3.100.1" extension="<%= observation.hqmf_id%>"/>
+        <typeId root="2.16.840.1.113883.3.100.1" extension="<%= observation.hqmf_id%>"/>
         <code code="AGGREGATE" codeSystem="2.16.840.1.113883.5.4"> </code>
-        <value>
+        <value xsi:type="PQ">
           <expression value="<%= expression_for_observation(doc,observation) %>"/>
         </value>
         <methodCode>
             <item code="<%= observation.aggregator %>" codeSystem="2.16.840.1.113883.5.84" />
         </methodCode>
-        <component>
-          <criteriaReference>
-            <id root="c75181d0-73eb-11de-8a39-0800200c9a66" extension="<%= msrpopl.hqmf_id %>"/>
-          </criteriaReference>
-        </component>
+        <precondition typeCode="PRCN">
+          <join moodCode="DEF" classCode="OBS">
+            <templateId>
+              <item root="c75181d0-73eb-11de-8a39-0800200c9a66" extension="<%= msrpopl.hqmf_id %>"/>
+            </templateId>
+            <value/>
+          </join>
+        </precondition>
        <%- if observation.preconditions.present? && observation.preconditions.length > 0 -%>
             <%- observation.preconditions.each do |precondition| -%>
-          <%= xml_for_precondition(precondition) %>
+          <%= xml_for_precondition_cv(precondition) %>
             <%- end -%>
           <%- end -%>
       </measureObservationDefinition>

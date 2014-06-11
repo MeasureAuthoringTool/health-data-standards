@@ -156,7 +156,7 @@ module HQMF2
         population['id'] = id_def ? id_def.value : "Population#{population_index}"
         title_def = population_def.at_xpath('cda:title/@value', NAMESPACES)
         population['title'] = title_def ? title_def.value : "Population #{population_index}"
-        observation_section = @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:measureObservationSection', NAMESPACES)
+        observation_section = @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:measureObservationsSection', NAMESPACES)
         if !observation_section.empty?
            population['OBSERV'] = 'OBSERV'
         end
@@ -165,7 +165,7 @@ module HQMF2
 
 
       #look for observation data in separate section but create a population for it if it exists
-      observation_section = @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:measureObservationSection', NAMESPACES)
+      observation_section = @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:measureObservationsSection', NAMESPACES)
       if !observation_section.empty?
         observation_section.xpath("cda:definition",NAMESPACES).each do |criteria_def|
           criteria_id = "OBSERV"
