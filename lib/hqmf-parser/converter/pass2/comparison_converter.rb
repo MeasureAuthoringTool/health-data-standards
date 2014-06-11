@@ -62,7 +62,7 @@ module HQMF
                   restriction.converted=true
                 when 'SUBJ'
                   new_data_criteria.field_values ||= {}
-                  new_data_criteria.field_values[operator.field_value_key] = operator.value
+                  new_data_criteria.field_values[operator.field_value_key] = operator.value || HQMF::AnyValue.new
                   restriction.converted=true
                 else
                   puts "\tOperator is unknown: #{operator.type}"
