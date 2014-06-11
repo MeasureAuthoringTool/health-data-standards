@@ -287,7 +287,7 @@ module HQMF2
     end
     
     def extract_specific_or_source
-      specific_def = @entry.at_xpath('./*/cda:outboundRelationship[cda:subsetCode/@code="SPECIFIC"]', HQMF2::Document::NAMESPACES)
+      specific_def = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="OCCR"]', HQMF2::Document::NAMESPACES)
       source_def = @entry.at_xpath('./*/cda:outboundRelationship[cda:subsetCode/@code="SOURCE"]', HQMF2::Document::NAMESPACES)
       if specific_def
         @source_data_criteria = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')

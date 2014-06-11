@@ -13,6 +13,9 @@ module HQMF2
         Precondition.new(precondition, @doc)
       end
       reference_def = @entry.at_xpath('./*/cda:id', HQMF2::Document::NAMESPACES)
+      if !reference_def
+        reference_def = @entry.at_xpath('./cda:join/cda:templateId/cda:item', HQMF2::Document::NAMESPACES)
+      end
       if reference_def
         @reference = Reference.new(reference_def)
       end
