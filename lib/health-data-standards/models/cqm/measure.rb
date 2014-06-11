@@ -11,6 +11,7 @@ module HealthDataStandards
       field :sub_id, type: String
       field :cms_id, type: String
       field :name, type: String
+      field :description, type: String
       field :subtitle, type: String
       field :short_subtitle, type: String
       field :hqmf_id, type: String
@@ -30,7 +31,10 @@ module HealthDataStandards
       field :populations, type: Array
       field :preconditions, type: Hash
       field :hqmf_document, type: Hash
-
+      field :map_fn, type: String
+      field :continuous_variable, type: Boolean
+      field :episode_of_care, type: Boolean
+      
       embeds_many :prefilters
 
       scope :top_level_by_type , ->(type){where({"type"=> type}).any_of({"sub_id" => nil}, {"sub_id" => "a"})}
