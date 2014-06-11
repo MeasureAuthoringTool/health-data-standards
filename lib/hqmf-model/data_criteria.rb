@@ -10,6 +10,10 @@ module HQMF
     XPRODUCT = 'XPRODUCT'
     UNION = 'UNION'
 
+    SATISFIES_ALL = 'satisfies_all'
+    SATISFIES_ANY = 'satisfies_any'
+    VARIABLE = 'variable'
+
     FIELDS = {'SEVERITY' => {title:'Severity', coded_entry_method: :severity, code: 'SEV', code_system:'2.16.840.1.113883.5.4', template_id: '2.16.840.1.113883.3.560.1.1021.2', field_type: :value},
              'ORDINAL' => {title:'Ordinal', coded_entry_method: :ordinality, code: '117363000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1012.2', field_type: :value},
              'REASON' => {title:'Reason', coded_entry_method: :reason, code: '410666004', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1017.2', field_type: :value},
@@ -32,9 +36,6 @@ module HQMF
              'REMOVAL_DATETIME' => {title:'Removal Date/Time', coded_entry_method: :removal_time, code: '118292001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1032.1', field_type: :timestamp},
              'TRANSFER_TO' => {title:'Transfer To', coded_entry_method: :transfer_to, code: 'TRANSFER_TO', template_id: '2.16.840.1.113883.3.560.1.72', field_type: :value},
              'TRANSFER_FROM' => {title:'Transfer From', coded_entry_method: :transfer_from, code: 'TRANSFER_FROM', template_id: '2.16.840.1.113883.3.560.1.71', field_type: :value},
-             'DUMMY_VARIABLE_dummy' => {title:'Dummy', coded_entry_method: :transfer_from, code: 'DUMMY', template_id: '0.1.2.3.4.5.6.7.8.9.1', field_type: :value},
-             'DUMMY_SATISFIES_ALL_dummy' => {title:'Dummy', coded_entry_method: :transfer_from, code: 'DUMMY', template_id: '0.1.2.3.4.5.6.7.8.9.2', field_type: :value},
-             'DUMMY_SATISFIES_ANY_dummy' => {title:'Dummy', coded_entry_method: :transfer_from, code: 'DUMMY', template_id: '0.1.2.3.4.5.6.7.8.9.3', field_type: :value}
              }
              
     VALUE_FIELDS = {'SEV'      => 'SEVERITY',
@@ -117,13 +118,6 @@ module HQMF
       settings = HQMF::DataCriteria.get_settings_for_definition(category, sub_category)
       HQMF::DataCriteria.new(id, title, nil, description, code_list_id, nil, nil, settings['definition'], settings['status'], nil, nil, nil, nil, negation, negation_code_list_id, nil, nil, nil,nil)
     end
-    
-    def standard_category
-      @settings['standard_category']
-    end
-    def qds_data_type
-      @settings['qds_data_type']
-    end
     def type
       @settings['category'].to_sym
     end
@@ -181,7 +175,7 @@ module HQMF
 
     def base_json
       x = nil
-      json = build_hash(self, [:title,:display_name,:description,:standard_category,:qds_data_type,:code_list_id,:children_criteria, :derivation_operator, :property, :type, :definition, :status, :hard_status, :negation, :negation_code_list_id,:specific_occurrence,:specific_occurrence_const,:source_data_criteria])
+      json = build_hash(self, [:title,:display_name,:description,:code_list_id,:children_criteria, :derivation_operator, :property, :type, :definition, :status, :hard_status, :negation, :negation_code_list_id,:specific_occurrence,:specific_occurrence_const,:source_data_criteria])
       json[:children_criteria] = @children_criteria unless @children_criteria.nil? || @children_criteria.empty?
       json[:value] = ((@value.is_a? String) ? @value : @value.to_json) if @value
       json[:field_values] = @field_values.inject({}) {|memo,(k,v)| memo[k] = (!v.nil? ? v.to_json : nil); memo} if @field_values
