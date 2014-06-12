@@ -56,7 +56,9 @@ module HQMF
                     '91723000'  => 'ANATOMICAL_STRUCTURE',
                     '397898000' => 'STOP_DATETIME',
                     '34896006'  => 'INCISION_DATETIME',
-                    '118292001' =>'REMOVAL_DATETIME'
+                    '118292001' =>'REMOVAL_DATETIME',
+                    'SDLOC_ARRIVAL'   => 'FACILITY_LOCATION_ARRIVAL_DATETIME',
+                    'SDLOC_DEPARTURE' => 'FACILITY_LOCATION_DEPARTURE_DATETIME'
                    }
     
 
