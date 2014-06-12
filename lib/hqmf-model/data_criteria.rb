@@ -9,6 +9,7 @@ module HQMF
     
     XPRODUCT = 'XPRODUCT'
     UNION = 'UNION'
+    INTERSECT = 'INTERSECT'
 
     SATISFIES_ALL = 'satisfies_all'
     SATISFIES_ANY = 'satisfies_any'

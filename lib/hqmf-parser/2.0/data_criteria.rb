@@ -149,6 +149,7 @@ module HQMF2
           return true
         elsif template_id == VARIABLE_TEMPLATE
           @definition = HQMF::DataCriteria::VARIABLE
+          @derivation_operator = HQMF::DataCriteria::INTERSECT if @derivation_operator == HQMF::DataCriteria::XPRODUCT
           @negation = false
           return true
         elsif template_id == SATISFIES_ANY_TEMPLATE
@@ -157,6 +158,7 @@ module HQMF2
           return true
         elsif template_id == SATISFIES_ALL_TEMPLATE
           @definition = HQMF::DataCriteria::SATISFIES_ALL
+          @derivation_operator = HQMF::DataCriteria::INTERSECT
           @negation = false
           return true
         end
