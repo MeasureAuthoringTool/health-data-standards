@@ -140,14 +140,12 @@ module HealthDataStandards
 
         def self.unpack_and_store_valuesets(zip, bundle)
           entries = zip.glob(SOURCE_ROOTS[:valuesets])
-          bulk = []
           entries.each_with_index do |entry, index|
             vs = HealthDataStandards::SVS::ValueSet.new(unpack_json(entry))
             vs['bundle_id'] = bundle.id
-            bulk << vs
+            HealthDataStandards::SVS::ValueSet.collection.insert(vs.as_document)
             report_progress('Value Sets', (index*100/entries.length)) if index%10 == 0
           end
-          HealthDataStandards::SVS::ValueSet.collection.insert(bulk.map {|vs| vs.as_document}) unless bulk.empty?
           puts "\rLoading: Value Sets Complete          "
         end
 
