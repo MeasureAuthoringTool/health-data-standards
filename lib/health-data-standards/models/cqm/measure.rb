@@ -35,7 +35,7 @@ module HealthDataStandards
       field :map_fn, type: String
       field :continuous_variable, type: Boolean
       field :episode_of_care, type: Boolean
-
+      field :aggregator, type: String
       embeds_many :prefilters
 
       scope :top_level_by_type , ->(type){where({"type"=> type}).any_of({"sub_id" => nil}, {"sub_id" => "a"})}
