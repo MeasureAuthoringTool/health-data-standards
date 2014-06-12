@@ -63,6 +63,7 @@ module HealthDataStandards
                                   cms_id: {"$first" => "$cms_id"},
                                   hqmf_id: {"$first" => "$hqmf_id"},
                                   continuous_variable: {"$first" => "$continuous_variable"},
+                                  episode_of_care: {"$first" => "$episode_of_care"},
                                   category: {'$first' => "$category"}}}
 
         pipeline << {'$group' => {_id: "$category",
@@ -74,7 +75,8 @@ module HealthDataStandards
                                              'nqf_id' => "$nqf_id",
                                              'cms_id' => "$cms_id",
                                              'hqmf_id' => "$hqmf_id",
-                                             'continuous_variable' => "$continuous_variable"
+                                             'continuous_variable' => "$continuous_variable",
+                                             'episode_of_care' => "$episode_of_care"
                                             }}}}
 
         pipeline << {'$project' => {'category' => '$_id', 'measures' => 1, '_id' => 0}}
