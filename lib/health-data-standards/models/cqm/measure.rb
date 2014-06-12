@@ -11,6 +11,7 @@ module HealthDataStandards
       field :sub_id, type: String
       field :cms_id, type: String
       field :name, type: String
+      field :title, type: String
       field :description, type: String
       field :subtitle, type: String
       field :short_subtitle, type: String
@@ -34,7 +35,7 @@ module HealthDataStandards
       field :map_fn, type: String
       field :continuous_variable, type: Boolean
       field :episode_of_care, type: Boolean
-      
+      field :aggregator, type: String
       embeds_many :prefilters
 
       scope :top_level_by_type , ->(type){where({"type"=> type}).any_of({"sub_id" => nil}, {"sub_id" => "a"})}
@@ -60,6 +61,7 @@ module HealthDataStandards
                                   sub_ids: {'$push' => "$sub_id"},
                                   nqf_id: {"$first" => "$nqf_id"},
                                   cms_id: {"$first" => "$cms_id"},
+                                  hqmf_id: {"$first" => "$hqmf_id"},
                                   continuous_variable: {"$first" => "$continuous_variable"},
                                   category: {'$first' => "$category"}}}
 
@@ -71,6 +73,7 @@ module HealthDataStandards
                                              'sub_ids' => "$sub_ids",
                                              'nqf_id' => "$nqf_id",
                                              'cms_id' => "$cms_id",
+                                             'hqmf_id' => "$hqmf_id",
                                              'continuous_variable' => "$continuous_variable"
                                             }}}}
 
