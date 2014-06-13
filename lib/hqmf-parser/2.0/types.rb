@@ -60,6 +60,7 @@ module HQMF2
     attr_accessor :low, :high, :width
     
     def initialize(entry, type=nil)
+#, HQFM2::Document::NAMESPACES);
       @type = type
       @entry = entry
       if @entry
@@ -77,7 +78,11 @@ module HQMF2
       lm = low ? low.to_model : nil
       hm = high ? high.to_model : nil
       wm = width ? width.to_model : nil
-      HQMF::Range.new(type, lm, hm, wm)
+      model_type = type
+      if @entry.at_xpath('./cda:uncertainRange', HQMF2::Document::NAMESPACES)
+        model_type = 'IVL_PQ'
+      end
+      HQMF::Range.new(model_type, lm, hm, wm)
     end
     
     private
