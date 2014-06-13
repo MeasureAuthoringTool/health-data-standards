@@ -46,5 +46,5 @@
 <%- elsif value.class==HQMF::GenericValueContainer -%>
   <<%= name %> <%="xsi:type=\"#{value.type}\"" if value.type %> value="<%=ERB::Util::h value.value %>"/>
 <%- elsif value.class==HQMF::AnyValue -%>
-  <<%= name %> xsi:type="ANY" nullFlavor="NI"/>
+  <<%= name %> xsi:type="ANY" flavorId="ANY.NONNULL"/>
 <%- end -%>
