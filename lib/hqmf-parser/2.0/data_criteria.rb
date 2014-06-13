@@ -235,6 +235,8 @@ module HQMF2
         field_values[@definition.upcase] = HQMF::Coded.for_code_list(field_code_list_id, title)
       end
 
+      field_values = nil if field_values.empty?
+
       HQMF::DataCriteria.new(id, title, nil, description, code_list_id, children_criteria, 
         derivation_operator, @definition, status, mv, field_values, met, inline_code_list, 
         @negation, @negation_code_list_id, mtr, mso, @specific_occurrence, 
@@ -309,14 +311,6 @@ module HQMF2
         value = DataCriteria.parse_value(field, './*/cda:value')
         fields[code_id] = value if value && code_id
       end
-      # special case for facility location which uses a very different structure
-      @entry.xpath('./*/cda:outboundRelationship[*/cda:participation]', HQMF2::Document::NAMESPACES).each do |field|
-        code = HQMF2::Utilities.attr_val(field, './*/cda:participation/cda:role/@classCode')
-        code_id = HQMF::DataCriteria::VALUE_FIELDS[code]
-        value = Coded.new(field.at_xpath('./*/cda:participation/cda:role/cda:code', HQMF2::Document::NAMESPACES))
-        fields[code_id] = value if value && code_id
-      end
-      
       fields
     end
     
