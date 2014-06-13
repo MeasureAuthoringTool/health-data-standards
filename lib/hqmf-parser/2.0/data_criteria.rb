@@ -342,7 +342,7 @@ module HQMF2
             value = Value.new(value_def, 'PQ', true)
           when 'TS'
             value = Value.new(value_def)
-          when 'IVL_PQ', 'IVL_INT', 'PQ'
+          when 'IVL_PQ', 'IVL_INT'
             value = Range.new(value_def)
           when 'CD'
             value = Coded.new(value_def)
