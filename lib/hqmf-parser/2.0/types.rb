@@ -60,7 +60,6 @@ module HQMF2
     attr_accessor :low, :high, :width
     
     def initialize(entry, type=nil)
-#, HQFM2::Document::NAMESPACES);
       @type = type
       @entry = entry
       if @entry
