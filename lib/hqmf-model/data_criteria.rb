@@ -168,7 +168,7 @@ module HQMF
       specific_occurrence_const = json['specific_occurrence_const'] if json['specific_occurrence_const']
       source_data_criteria = json['source_data_criteria'] if json['source_data_criteria']
       comments = json['comments'] if json['comments']
-      variable = json['variable'] if json['variable']
+      variable = json['variable'] || false
 
       HQMF::DataCriteria.new(id, title, display_name, description, code_list_id, children_criteria, derivation_operator, definition, status, value, field_values,
                              effective_time, inline_code_list, negation, negation_code_list_id, temporal_references, subset_operators,specific_occurrence,specific_occurrence_const,source_data_criteria, comments, variable)
