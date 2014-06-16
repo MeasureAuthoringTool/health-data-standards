@@ -23,9 +23,12 @@ with the existing approach (in HQMF R1) and thus should be easier to transition 
 
 ## General Approach
 * Use one data criteria as the "target" that all specific occurrences of it point to
-* Specific occurrences are represented like normal data criteria, but they have an `outboundRelationship` to the 
-  "target" data criteria
-* The `outboundRelationship` should use the `OCCR` typeCode
+    * The "target" is never directly referenced from measure logic-- it is only referenced from specific occurrences
+* Specific occurrences are represented as separate data criteria of the same type as the "target"
+    * _With_ an `id` and any other restrictions applied to the specific occurrence
+    * _Without_ `templateId`, `code`, `title`, or `statusCode` (these are inherited from the "target")
+* Specific occurrences point to the "target" with an `outboundRelationship` of typeCode `OCCR`
+    * NOTE: `OCCR` is currently under review for applicability.  It is subject to change.
 
 ## Example Using OutboundRelationship and OCCR
 
@@ -82,15 +85,7 @@ are represented as expected (referring to the individual occurrence data criteri
     <entry typeCode="DRIV">
         <localVariableName value="occAofEncounterPerformedED"/>
         <encounterCriteria classCode="ENC" moodCode="EVN">
-            <templateId>
-                <item root="2.16.840.1.113883.10.20.28.3.5"/>
-            </templateId>
             <id root="d7fbe089-ff04-4f58-b604-cb6d5ebce4cc" extension="occAofEncounterPerformedED"/>
-            <code valueSet="2.16.840.1.113883.3.464.1003.101.12.1061">
-                <displayName value="Ambulatory/ED Visit Grouping Value Set"/>
-            </code>
-            <title value="Encounter, Performed"/>
-            <statusCode code="completed"/>
             <outboundRelationship typeCode="OCCR">
                 <criteriaReference classCode="ENC" moodCode="EVN">
                     <id root="d7fbe089-ff04-4f58-b604-cb6d5ebce4cc" extension="refObjOccAofEncounterPerformedED"/>
@@ -103,15 +98,7 @@ are represented as expected (referring to the individual occurrence data criteri
     <entry typeCode="DRIV">
         <localVariableName value="occAofEncounterPerformedEDDuringMeasurementPeriod"/>
         <encounterCriteria classCode="ENC" moodCode="EVN">
-            <templateId>
-                <item root="2.16.840.1.113883.10.20.28.3.5"/>
-            </templateId>
             <id root="d7fbe089-ff04-4f58-b604-cb6d5ebce4cc" extension="occAofEncounterPerformedEDDuringMeasurementPeriod"/>
-            <code valueSet="2.16.840.1.113883.3.464.1003.101.12.1061">
-                <displayName value="Ambulatory/ED Visit Grouping Value Set"/>
-            </code>
-            <title value="Encounter, Performed"/>
-            <statusCode code="completed"/>
             <temporallyRelatedInformation typeCode="DURING">
                 <qdm:temporalInformation precisionUnit="min"/>
                 <criteriaReference classCode="OBS" moodCode="EVN">
@@ -163,15 +150,7 @@ are represented as expected (referring to the individual occurrence data criteri
     <entry typeCode="DRIV">
         <localVariableName value="occAofEncounterPerformedEDDuringMeasurementPeriod"/>
         <encounterCriteria classCode="ENC" moodCode="EVN">
-            <templateId>
-                <item root="2.16.840.1.113883.10.20.28.3.5"/>
-            </templateId>
             <id root="d7fbe089-ff04-4f58-b604-cb6d5ebce4cc" extension="occAofEncounterPerformedEDDuringMeasurementPeriod"/>
-            <code valueSet="2.16.840.1.113883.3.464.1003.101.12.1061">
-                <displayName value="Ambulatory/ED Visit Grouping Value Set"/>
-            </code>
-            <title value="Encounter, Performed"/>
-            <statusCode code="completed"/>
             <temporallyRelatedInformation typeCode="DURING">
                 <qdm:temporalInformation precisionUnit="min"/>
                 <criteriaReference classCode="OBS" moodCode="EVN">
