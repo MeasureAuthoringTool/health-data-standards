@@ -39,8 +39,8 @@ module HQMF2
       @id_xpath = './*/cda:id/@extension'
       @code_list_xpath = './*/cda:code'
       @value_xpath = './*/cda:value'
-      @comments = @entry.xpath("./#{CRITERIA_GLOB}/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()", HQMF2::Document::NAMESPACES)
-                        .map{ |v| v.content }
+      @comments = @entry.xpath("./#{CRITERIA_GLOB}/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()", HQMF2::Document::NAMESPACES).map{ |v| v.content }
+      @variable = false
 
       # Try to determine what kind of data criteria we are dealing with
       # First we look for a template id and if we find one just use the definition
@@ -88,10 +88,9 @@ module HQMF2
     def extract_type_from_definition
       if @entry.at_xpath("./cda:grouperCriteria") 
         if @local_variable_name && @local_variable_name.match(/qdm_/)
-          @definition = "variable"
-        else
-          @definition = 'derived'
+          @variable = true
         end
+        @definition = 'derived'
         return 
       end
       # See if we can find a match for the entry definition value and status.
@@ -139,6 +138,7 @@ module HQMF2
       if template_ids.include?(HQMF::DataCriteria::SOURCE_DATA_CRITERIA_TEMPLATE_ID)
         @is_source_data_criteria = true
       end
+      found = false
       template_ids.each do |template_id|
         defs = HQMF::DataCriteria.definition_for_template_id(template_id)
         
@@ -146,12 +146,13 @@ module HQMF2
           @definition = defs['definition']
           @status = defs['status'].length > 0 ? defs['status'] : nil
           @negation = defs['negation']
-          return true
+          found ||= true
         elsif template_id == VARIABLE_TEMPLATE
-          @definition = HQMF::DataCriteria::VARIABLE
           @derivation_operator = HQMF::DataCriteria::INTERSECT if @derivation_operator == HQMF::DataCriteria::XPRODUCT
+          @definition ||= 'derived'
           @negation = false
-          return true
+          @variable = true
+          found ||= true
         elsif template_id == SATISFIES_ANY_TEMPLATE
           @definition = HQMF::DataCriteria::SATISFIES_ANY
           @negation = false
@@ -160,10 +161,10 @@ module HQMF2
           @definition = HQMF::DataCriteria::SATISFIES_ALL
           @derivation_operator = HQMF::DataCriteria::INTERSECT
           @negation = false
-          return true
+          found ||= true
         end
       end
-      false
+      found
     end
     
     def to_s
@@ -240,7 +241,7 @@ module HQMF2
       HQMF::DataCriteria.new(id, title, nil, description, code_list_id, children_criteria, 
         derivation_operator, @definition, status, mv, field_values, met, inline_code_list, 
         @negation, @negation_code_list_id, mtr, mso, @specific_occurrence, 
-        @specific_occurrence_const, @source_data_criteria, @comments)
+        @specific_occurrence_const, @source_data_criteria, @comments, @variable)
     end
     
     private
