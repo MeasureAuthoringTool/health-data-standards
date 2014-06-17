@@ -12,10 +12,10 @@ module HealthDataStandards
 				@password = password
 			end
 
-
-			def get_valueset(oid, effective_date=nil, &block)
+			def get_valueset(oid, effective_date=nil, include_draft=false, &block)
 				params = {id: oid, ticket: get_ticket}
 				params[:effectiveDate] = effective_date if effective_date
+				params[:includeDraft] = 'yes' if include_draft
 				vs = RestClient.get api_url, {:params=>params}
 				yield oid,vs if block_given?
 				vs
