@@ -311,6 +311,13 @@ module HQMF2
         value = DataCriteria.parse_value(field, './*/cda:value')
         fields[code_id] = value if value && code_id
       end
+      @entry.xpath('./*/cda:outboundRelationship[*/cda:participation]', HQMF2::Document::NAMESPACES).each do |field|
+        code = HQMF2::Utilities.attr_val(field, './*/cda:participation/cda:role/@classCode')
+        code_id = HQMF::DataCriteria::VALUE_FIELDS[code]
+        value = DataCriteria.parse_value(field, './*/cda:participation/cda:role/cda:code')
+        fields[code_id] = value if value && code_id
+      end
+
       fields
     end
     
