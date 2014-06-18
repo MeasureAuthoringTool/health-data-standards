@@ -189,7 +189,7 @@ module HQMF
       json[:inline_code_list] = @inline_code_list if @inline_code_list
       json[:temporal_references] = x if x = json_array(@temporal_references)
       json[:subset_operators] = x if x = json_array(@subset_operators)
-      json[:comments] = x if x = json_array(@comments)
+      json[:comments] = @comments if @comments
       json
     end
 

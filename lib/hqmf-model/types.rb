@@ -221,7 +221,7 @@ module HQMF
   class TemporalReference
     include HQMF::Conversion::Utilities
     
-    TYPES = ['DURING','SBS','SAS','SBE','SAE','EBS','EAS','EBE','EAE','SDU','EDU','ECW','ECWS','SCW','SCWE','CONCURRENT']
+    TYPES = ['DURING','OVERLAP','SBS','SAS','SBE','SAE','EBS','EAS','EBE','EAE','SDU','EDU','ECW','SCW','ECWS','SCWE','SBCW','SBCWE','SACW','SACWE','SBDU','EBCW','EBCWS','EACW','EACWS','EADU','CONCURRENT']
     INVERSION = {'SBS' => 'SAS','EAE' => 'EBE','SAS' => 'SBS','EBE' => 'EAE','SBE' => 'EAS','EAS' => 'SBE','SAE' => 'EBS','EBS' => 'SAE'}
     
     attr_reader :type, :reference, :range
