@@ -248,8 +248,28 @@ module HQMF2
       dcs = all_data_criteria.collect {|dc| dc.to_model}
       pcs = all_population_criteria.collect {|pc| pc.to_model}
       sdc = source_data_criteria.collect{|dc| dc.to_model}
+      dcs = update_data_criteria(dcs, sdc)
       HQMF::Document.new(id, id, hqmf_set_id, hqmf_version_number, @cms_id, title, description, pcs, dcs, sdc, attributes, measure_period.to_model, populations)
     end
+
+    # Update the data criteria to handle variables properly
+    def update_data_criteria(data_criteria, source_data_criteria)
+       # step through each criteria and look for groupers (type derived) with one child
+       data_criteria.map do |criteria|
+         if criteria.type == "derived".to_sym && criteria.children_criteria.length == 1
+           source_data_criteria.each do |source_criteria|
+             if source_criteria.title == criteria.children_criteria[0]
+               criteria.children_criteria = source_criteria.children_criteria
+               #if criteria.is_same_type?(source_criteria)
+               criteria.update_copy( source_criteria.hard_status, source_criteria.title, source_criteria.description,
+                                     source_criteria.derivation_operator, source_criteria.definition )#, occur_letter )
+             end
+           end
+         end
+         criteria
+       end
+    end
+
     
     private
     

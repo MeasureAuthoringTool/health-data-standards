@@ -33,7 +33,6 @@ module HQMF
       @title = title
       @description = description
       @population_criteria = population_criteria
-      data_criteria = update_data_criteria(data_criteria, source_data_criteria)
       @data_criteria = data_criteria
       @source_data_criteria = source_data_criteria
       @attributes = attributes
@@ -49,24 +48,6 @@ module HQMF
       @measure_period = measure_period
     end
     
-    # Update the data criteria to handle variables properly
-    def update_data_criteria(data_criteria, source_data_criteria)
-       # step through each criteria and look for groupers (type derived) with one child
-       data_criteria.map do |criteria|
-         if criteria.type == "derived".to_sym && criteria.children_criteria.length == 1
-           source_data_criteria.each do |source_criteria|
-             if source_criteria.title == criteria.children_criteria[0]
-               criteria.children_criteria = source_criteria.children_criteria
-               #if criteria.is_same_type?(source_criteria)
-               criteria.update_copy( source_criteria.hard_status, source_criteria.title, source_criteria.description,
-                                     source_criteria.derivation_operator, source_criteria.definition )#, occur_letter )
-             end
-           end
-         end
-         criteria
-       end
-    end
-
     # Create a new HQMF::Document from a JSON hash keyed with symbols
     def self.from_json(json)
       id = json["id"]
