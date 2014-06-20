@@ -62,8 +62,8 @@ module HQMF
                    }
     
 
-    attr_reader :title, :description, :code_list_id, :children_criteria, :derivation_operator , :specific_occurrence, :specific_occurrence_const, :source_data_criteria, :variable
-    attr_accessor :id, :value, :field_values, :effective_time, :status, :temporal_references, :subset_operators, :definition, :inline_code_list, :negation_code_list_id, :negation, :display_name, :comments
+    attr_reader :title, :description, :code_list_id, :derivation_operator , :specific_occurrence, :specific_occurrence_const, :source_data_criteria, :variable
+    attr_accessor :id, :value, :field_values, :children_criteria, :effective_time, :status, :temporal_references, :subset_operators, :definition, :inline_code_list, :negation_code_list_id, :negation, :display_name, :comments
   
     # Create a new data criteria instance
     # @param [String] id
@@ -135,7 +135,13 @@ module HQMF
     def hard_status
       @settings['hard_status']
     end
-    
+    def update_copy(hard_status, title, description, derivation_operator, definition)
+      @settings['hard_status'] = hard_status
+      @title = title
+      @description = description
+      @derivation_operator = derivation_operator
+      @definition = definition
+    end
     def definition=(definition)
       @definition = definition
       @settings = HQMF::DataCriteria.get_settings_for_definition(@definition, @status)
@@ -172,6 +178,11 @@ module HQMF
 
       HQMF::DataCriteria.new(id, title, display_name, description, code_list_id, children_criteria, derivation_operator, definition, status, value, field_values,
                              effective_time, inline_code_list, negation, negation_code_list_id, temporal_references, subset_operators,specific_occurrence,specific_occurrence_const,source_data_criteria, comments, variable)
+    end
+
+    def is_same_type?(criteria)
+       return @definition == criteria.definition && @hard_status == criteria.hard_status && 
+              @negation == criteria.negation && all_code_set_oids.sort == criteria.all_code_set_oids.sort
     end
 
     def to_json

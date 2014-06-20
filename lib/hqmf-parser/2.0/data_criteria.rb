@@ -298,6 +298,10 @@ module HQMF2
         @source_data_criteria = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')
         @specific_occurrence_const = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationRoot')
         @specific_occurrence = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationExtension')
+        if !@specific_occurrence
+          @specific_occurrence = "A"
+          @specific_occurrence_const = @source_data_criteria.upcase
+        end
       elsif source_def
         @source_data_criteria = HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@extension')
       end
