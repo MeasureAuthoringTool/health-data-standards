@@ -62,8 +62,8 @@ module HQMF
                    }
     
 
-    attr_reader :title, :description, :code_list_id, :children_criteria, :derivation_operator , :specific_occurrence, :specific_occurrence_const, :source_data_criteria
-    attr_accessor :id, :value, :field_values, :effective_time, :status, :temporal_references, :subset_operators, :definition, :inline_code_list, :negation_code_list_id, :negation, :display_name, :comments
+    attr_reader :title, :description, :code_list_id, :derivation_operator , :specific_occurrence, :specific_occurrence_const, :source_data_criteria, :variable
+    attr_accessor :id, :value, :field_values, :children_criteria, :effective_time, :status, :temporal_references, :subset_operators, :definition, :inline_code_list, :negation_code_list_id, :negation, :display_name, :comments
   
     # Create a new data criteria instance
     # @param [String] id
@@ -88,7 +88,8 @@ module HQMF
     # @param [String] specific_occurrence_const
     # @param [String] source_data_criteria (id for the source data criteria, important for specific occurrences)
     # @param [String] user comments for the criteria 
-    def initialize(id, title, display_name, description, code_list_id, children_criteria, derivation_operator, definition, status, value, field_values, effective_time, inline_code_list, negation, negation_code_list_id, temporal_references, subset_operators, specific_occurrence, specific_occurrence_const, source_data_criteria=nil, comments=nil)
+    # @param [Boolean] variable defines if the element is a QDM variable
+    def initialize(id, title, display_name, description, code_list_id, children_criteria, derivation_operator, definition, status, value, field_values, effective_time, inline_code_list, negation, negation_code_list_id, temporal_references, subset_operators, specific_occurrence, specific_occurrence_const, source_data_criteria=nil, comments=nil, variable=false)
 
       status = normalize_status(definition, status)
       @settings = HQMF::DataCriteria.get_settings_for_definition(definition, status)
@@ -114,6 +115,7 @@ module HQMF
       @specific_occurrence_const = specific_occurrence_const
       @source_data_criteria = source_data_criteria || id
       @comments = comments
+      @variable = variable
     end
     
     # create a new data criteria given a category and sub_category.  A sub category can either be a status or a sub category
@@ -133,7 +135,13 @@ module HQMF
     def hard_status
       @settings['hard_status']
     end
-    
+    def update_copy(hard_status, title, description, derivation_operator, definition)
+      @settings['hard_status'] = hard_status
+      @title = title
+      @description = description
+      @derivation_operator = derivation_operator
+      @definition = definition
+    end
     def definition=(definition)
       @definition = definition
       @settings = HQMF::DataCriteria.get_settings_for_definition(@definition, @status)
@@ -165,10 +173,16 @@ module HQMF
       specific_occurrence = json['specific_occurrence'] if json['specific_occurrence']
       specific_occurrence_const = json['specific_occurrence_const'] if json['specific_occurrence_const']
       source_data_criteria = json['source_data_criteria'] if json['source_data_criteria']
-      comments = json['comments'] if json['comments']    
+      comments = json['comments'] if json['comments']
+      variable = json['variable'] || false
 
       HQMF::DataCriteria.new(id, title, display_name, description, code_list_id, children_criteria, derivation_operator, definition, status, value, field_values,
-                             effective_time, inline_code_list, negation, negation_code_list_id, temporal_references, subset_operators,specific_occurrence,specific_occurrence_const,source_data_criteria, comments)
+                             effective_time, inline_code_list, negation, negation_code_list_id, temporal_references, subset_operators,specific_occurrence,specific_occurrence_const,source_data_criteria, comments, variable)
+    end
+
+    def is_same_type?(criteria)
+       return @definition == criteria.definition && @hard_status == criteria.hard_status && 
+              @negation == criteria.negation && all_code_set_oids.sort == criteria.all_code_set_oids.sort
     end
 
     def to_json
@@ -178,7 +192,7 @@ module HQMF
 
     def base_json
       x = nil
-      json = build_hash(self, [:title,:display_name,:description,:code_list_id,:children_criteria, :derivation_operator, :property, :type, :definition, :status, :hard_status, :negation, :negation_code_list_id,:specific_occurrence,:specific_occurrence_const,:source_data_criteria])
+      json = build_hash(self, [:title,:display_name,:description,:code_list_id,:children_criteria, :derivation_operator, :property, :type, :definition, :status, :hard_status, :negation, :negation_code_list_id,:specific_occurrence,:specific_occurrence_const,:source_data_criteria,:variable])
       json[:children_criteria] = @children_criteria unless @children_criteria.nil? || @children_criteria.empty?
       json[:value] = ((@value.is_a? String) ? @value : @value.to_json) if @value
       json[:field_values] = @field_values.inject({}) {|memo,(k,v)| memo[k] = (!v.nil? ? v.to_json : nil); memo} if @field_values
@@ -186,7 +200,7 @@ module HQMF
       json[:inline_code_list] = @inline_code_list if @inline_code_list
       json[:temporal_references] = x if x = json_array(@temporal_references)
       json[:subset_operators] = x if x = json_array(@subset_operators)
-      json[:comments] = x if x = json_array(@comments)
+      json[:comments] = @comments if @comments
       json
     end
 

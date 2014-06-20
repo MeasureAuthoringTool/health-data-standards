@@ -9,7 +9,7 @@ class HQMFV2NewOperators < Test::Unit::TestCase
   Dir.mkdir RESULTS_DIR
 
   # Automatically generate one test method per measure file
-  measure_files = File.join('test', 'fixtures', '2.1', 'measures', '*.xml')
+  measure_files = File.join('test', 'fixtures', '2.1', 'measures', '*variable*.xml')
   Dir.glob(measure_files).each do | measure_file |
     measure_name = /.*[\/\\]((ep|eh)_.*)\.xml/.match(measure_file)[1]
     measure_updated_file = measure_file.gsub(/\/measures\//, '/measures_updated/')
