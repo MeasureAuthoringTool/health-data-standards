@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module GreenC32
-  class AllergyImporterTest < MiniTest::Unit::TestCase
+  class AllergyImporterTest < Minitest::Test
     
     def setup
       @allergy = Nokogiri::XML(File.new('test/fixtures/green_c32_fragments/allergy.xml'))

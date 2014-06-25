@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class HQMFTemplateHelperTest < MiniTest::Unit::TestCase
+class HQMFTemplateHelperTest < Minitest::Test
   def test_definition_for_template_id
     definition = HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id("2.16.840.1.113883.3.560.1.31")
     assert_equal "communication_from_provider_to_patient", definition['definition']

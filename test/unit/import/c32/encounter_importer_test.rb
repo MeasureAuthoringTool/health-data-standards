@@ -1,7 +1,7 @@
 
 require 'test_helper'
 
-class EncounterImporterTest < MiniTest::Unit::TestCase
+class EncounterImporterTest < Minitest::Test
   def test_encounter_importing
     doc = Nokogiri::XML(File.new('test/fixtures/NISTExampleC32.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')

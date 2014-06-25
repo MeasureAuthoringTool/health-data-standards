@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RecordTest < MiniTest::Unit::TestCase
+class RecordTest < Minitest::Test
 
   def test_entries_for_oid
     record = FactoryGirl.create(:bigger_record)

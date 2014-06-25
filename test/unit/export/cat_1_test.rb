@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Cat1Test < MiniTest::Unit::TestCase
+class Cat1Test < Minitest::Test
   include HealthDataStandards::Export::Helper::Cat1ViewHelper
 
   def setup

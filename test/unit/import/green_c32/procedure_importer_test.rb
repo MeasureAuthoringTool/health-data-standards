@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module GreenC32
-  class ProcedureImporterTest < MiniTest::Unit::TestCase
+  class ProcedureImporterTest < Minitest::Test
 
     def setup
       @procedure = Nokogiri::XML(File.new('test/fixtures/green_c32_fragments/procedure.xml'))

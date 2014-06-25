@@ -1,6 +1,6 @@
 require_relative '../../test_helper'
 
-class ParseTest < Test::Unit::TestCase
+class ParseTest < Minitest::Test
   
   def setup
     @hqmf_contents_v1 = File.open("test/fixtures/1.0/NQF_Retooled_Measure_0043.xml").read

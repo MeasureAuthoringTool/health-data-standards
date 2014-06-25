@@ -1,6 +1,6 @@
 require 'test_helper'
 module GreenC32
-  class SupportImporterTest < MiniTest::Unit::TestCase
+  class SupportImporterTest < Minitest::Test
     def setup
       @support = Nokogiri::XML(File.new('test/fixtures/green_c32_fragments/support.xml'))
       @si = HealthDataStandards::Import::GreenC32::SupportImporter.instance

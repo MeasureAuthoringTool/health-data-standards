@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Cat3Test < MiniTest::Unit::TestCase
+class Cat3Test < Minitest::Test
   def setup
     collection_fixtures('query_cache')
 

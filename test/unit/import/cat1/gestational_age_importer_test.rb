@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class GestationalAgeImporterTest < MiniTest::Unit::TestCase
+class GestationalAgeImporterTest < Minitest::Test
   def test_gestational_age_importing
     doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/gestational_age_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')

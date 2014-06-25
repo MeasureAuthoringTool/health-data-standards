@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProviderTest < MiniTest::Unit::TestCase
+class ProviderTest < Minitest::Test
   
   def test_valid_npi_value
     assert_equal "3", Provider.luhn_checksum('7992739871')

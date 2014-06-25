@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module CCR
-  class ProviderImporterTest < MiniTest::Unit::TestCase
+  class ProviderImporterTest < Minitest::Test
   
     def setup
       Provider.all.each(&:destroy)

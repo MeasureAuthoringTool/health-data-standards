@@ -1,7 +1,7 @@
 require_relative '../../../test_helper'
 module HQMFModel
 
-  class PopulationCriteriaTest  < Test::Unit::TestCase
+  class PopulationCriteriaTest  < Minitest::Test
     def setup
     end
   

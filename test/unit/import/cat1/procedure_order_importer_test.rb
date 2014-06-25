@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProcedureOrderImporterTest < MiniTest::Unit::TestCase
+class ProcedureOrderImporterTest < Minitest::Test
   def test_procedure_order
    	doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/procedure_order_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')

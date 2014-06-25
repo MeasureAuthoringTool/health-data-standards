@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class InsuranceProviderImporterTest < MiniTest::Unit::TestCase
+class InsuranceProviderImporterTest < Minitest::Test
   
   def test_insurance_providers
     doc = Nokogiri::XML(File.new('test/fixtures/NISTExampleC32.xml'))

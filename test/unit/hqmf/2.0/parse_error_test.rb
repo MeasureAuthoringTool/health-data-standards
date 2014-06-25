@@ -2,7 +2,7 @@ require_relative '../../../test_helper'
 
 module HQMF2
 
-  class ParseErrorTest < Test::Unit::TestCase
+  class ParseErrorTest < Minitest::Test
 
     def test_unknown_demographic
       hqmf_contents = File.open("test/fixtures/2.0/earlyRelease/invalid/unknown_demographic_entry.xml").read

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PatientImporterTest < MiniTest::Unit::TestCase
+class PatientImporterTest < Minitest::Test
 
   def test_care_goal
     patient = build_record_from_xml('test/fixtures/cat1_fragments/care_goal_fragment.xml')

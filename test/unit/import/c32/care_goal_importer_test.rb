@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CareGoalImporterTest < MiniTest::Unit::TestCase
+class CareGoalImporterTest < Minitest::Test
   
   def setup
     doc = Nokogiri::XML(File.new('test/fixtures/c32_fragments/plan_of_care.xml'))

@@ -1,5 +1,5 @@
 require 'test_helper'
-class DateShiftTest  < MiniTest::Unit::TestCase
+class DateShiftTest  < Minitest::Test
 
 ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 							{start_time: 1, end_time: 1, time: 1},

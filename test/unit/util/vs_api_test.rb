@@ -1,6 +1,6 @@
 require 'test_helper'
 require 'webmock'
-class EntryTest < MiniTest::Unit::TestCase
+class EntryTest < Minitest::Test
   include WebMock::API
   
 	def test_api

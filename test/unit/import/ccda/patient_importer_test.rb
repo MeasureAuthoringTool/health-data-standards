@@ -1,6 +1,6 @@
 require 'test_helper'
 module CCDA
-  class PatientImporterTest < MiniTest::Unit::TestCase
+  class PatientImporterTest < Minitest::Test
     
     def setup
       @doc = Nokogiri::XML(File.new('test/fixtures/sample_ccda.xml'))

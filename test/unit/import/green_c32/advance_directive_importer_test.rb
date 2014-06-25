@@ -1,6 +1,6 @@
 require 'test_helper'
 module GreenC32
-  class AdvanceDirectiveImporterTest < MiniTest::Unit::TestCase
+  class AdvanceDirectiveImporterTest < Minitest::Test
     def setup
       @ad = Nokogiri::XML(File.new('test/fixtures/green_c32_fragments/advance_directive.xml'))
       @adi = HealthDataStandards::Import::GreenC32::AdvanceDirectiveImporter.instance

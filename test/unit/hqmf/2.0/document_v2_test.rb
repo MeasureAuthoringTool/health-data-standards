@@ -1,6 +1,6 @@
 require_relative '../../../test_helper'
 
-class DocumentV2Test < Test::Unit::TestCase
+class DocumentV2Test < Minitest::Test
   def setup
     # Parse the sample file and convert to the model
     hqmf_xml = File.open("test/fixtures/2.1/CMS_30_HQMF_R2_Updated.xml").read

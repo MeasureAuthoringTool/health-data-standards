@@ -2,7 +2,7 @@ require_relative '../../../test_helper'
 
 module HQMF
 
-  class PreconditionExtractorTest  < Test::Unit::TestCase
+  class PreconditionExtractorTest  < Minitest::Test
 
     def setup
       @data_criteria_converter_stub = OpenStruct.new({ v1_data_criteria_by_id: {

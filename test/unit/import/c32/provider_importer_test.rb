@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProviderImporterTest < MiniTest::Unit::TestCase
+class ProviderImporterTest < Minitest::Test
   
   def setup
     Provider.all.each(&:destroy)

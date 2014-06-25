@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module GreenC32
-  class MedicalEquipmentImporterTest < MiniTest::Unit::TestCase
+  class MedicalEquipmentImporterTest < Minitest::Test
     
     def setup
       @equipment = Nokogiri::XML(File.new('test/fixtures/green_c32_fragments/medical_equipment.xml'))

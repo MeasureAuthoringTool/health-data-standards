@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class HTMLTest < MiniTest::Unit::TestCase
+class HTMLTest < Minitest::Test
   def test_scooped_html
     collection_fixtures('measures')
     collection_fixtures('records', '_id')

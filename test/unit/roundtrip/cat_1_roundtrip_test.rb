@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Cat1RoundtripTest < MiniTest::Unit::TestCase
+class Cat1RoundtripTest < Minitest::Test
   include HealthDataStandards::Export::Helper::Cat1ViewHelper
 
   # This test class compares a record in Mongoid to itself after being exported

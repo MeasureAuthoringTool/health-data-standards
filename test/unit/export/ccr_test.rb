@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CCRTest < MiniTest::Unit::TestCase
+class CCRTest < Minitest::Test
   def test_ccr
     collection_fixtures('records', '_id')
     record = Record.find('4dcbecdb431a5f5878000004')

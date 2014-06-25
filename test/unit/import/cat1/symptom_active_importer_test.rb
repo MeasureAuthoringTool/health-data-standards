@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SymptomActiveImporterTest < MiniTest::Unit::TestCase
+class SymptomActiveImporterTest < Minitest::Test
   def test_symptom_active_importing
     doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/symptom_active_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')

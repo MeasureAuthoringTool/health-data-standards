@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PatientImporterTest < MiniTest::Unit::TestCase
+class PatientImporterTest < Minitest::Test
   def test_get_demographics
     doc = Nokogiri::XML(File.new('test/fixtures/c32_fragments/demographics.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')

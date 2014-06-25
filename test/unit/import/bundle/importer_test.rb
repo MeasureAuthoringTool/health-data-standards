@@ -1,7 +1,7 @@
 require 'test_helper'
 
 
-class ImporterTest< MiniTest::Unit::TestCase
+class ImporterTest< Minitest::Test
   
   def setup
     @db = Mongoid.default_session

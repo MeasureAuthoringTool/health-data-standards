@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EntryTemplateResolverTest < MiniTest::Unit::TestCase
+class EntryTemplateResolverTest < Minitest::Test
   def test_qrda_oid_exist
     assert HealthDataStandards::Export::QRDA::EntryTemplateResolver.qrda_oid_exist?("2.16.840.1.113883.10.20.24.3.1")
   end
