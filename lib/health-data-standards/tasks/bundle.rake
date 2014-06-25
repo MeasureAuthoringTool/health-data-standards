@@ -6,7 +6,7 @@ namespace :bundle do
 
   desc 'Activate/Inactivate a measure bundle'
   task :activate,[:version,:active] => [:environment] do |task, args|
-    bundle = Bundle.where({version: args.version})
+    bundle = HealthDataStandards::CQM::Bundle.where({version: args.version})
     if bundle.count == 0
       puts "Cannot find bundle with version number #{args.version}"
       return
@@ -23,7 +23,7 @@ namespace :bundle do
 
   desc 'List bundles'
   task :list  => [:environment] do
-     Bundle.where({}).each do |b|
+     HealthDataStandards::CQM::Bundle.where({}).each do |b|
       puts "Bundle #{b.title} - #{b.version}  active: #{b.active}"
      end
   end
