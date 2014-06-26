@@ -50,7 +50,7 @@ class Cat1Test < Minitest::Test
 
   def test_patient_data_section_export
     med_dispensed = @doc.at_xpath('//cda:supply[cda:templateId/@root="2.16.840.1.113883.10.20.24.3.45"]')
-    assert med_dispensed
+    assert med_dispensed, "med_dispensed is nil"
     assert_equal "Multivitamin", med_dispensed.at_xpath('./cda:text').text
   end
 

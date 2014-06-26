@@ -22,6 +22,7 @@ end
 MONGO_DB = Mongoid.default_session
 
 class Minitest::Test
+  extend Minitest::Spec::DSL
   # Add more helper methods to be used by all tests here...
 
   def collection_fixtures(collection, *id_attributes)

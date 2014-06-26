@@ -14,7 +14,7 @@ class Cat1RoundtripTest < Minitest::Test
     measure = HealthDataStandards::CQM::Measure.where({name: "Mary Berry's Wacky Wild Measure"}).first
     qrda_xml = HealthDataStandards::Export::Cat1.new.export(patient, [measure], start_date, end_date)
 
-    # Import 
+    # Import
     doc_import = Nokogiri::XML(qrda_xml)
     doc_import.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     doc_import.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
@@ -58,7 +58,7 @@ class Cat1RoundtripTest < Minitest::Test
 
 
 
-  private 
+  private
 
   def assert_contains_all(a1,a2,msg=nil)
     contains = a2.reject{ |x| a1.include?(x) }.empty?
