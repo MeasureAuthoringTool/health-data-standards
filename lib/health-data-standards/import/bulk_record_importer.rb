@@ -10,9 +10,9 @@ module HealthDataStandards
            BulkRecordImporter.import_file(file,File.new(file).read,failed_dir)
         end
       end
-      
-      def self.import_archive(file, failed_dir=nil) 
-        begin 
+
+      def self.import_archive(file, failed_dir=nil)
+        begin
         failed_dir ||=File.join(File.dirname(file))
         Zip::ZipFile.open(file.path) do |zipfile|
           zipfile.entries.each do |entry|
@@ -54,15 +54,22 @@ module HealthDataStandards
 
       def self.import_json(data,provider_map = {})
         json = JSON.parse(data,:max_nesting=>100)
-        Record.update_or_create(Record.new(json))
+        record = Record.update_or_create(Record.new(json))
+        providers = record.provider_performances
+        providers.each do |prov|
+          prov.provider.ancestors.each do |ancestor|
+            record.provider_performances.push(ProviderPerformance.new(start_date: prov.start_date, end_date: prov.end_date, provider: ancestor))
+          end
+        end
+        record.save!
       end
-      
+
       def self.import(xml_data, provider_map = {})
         doc = Nokogiri::XML(xml_data)
-        
+
         providers = []
         root_element_name = doc.root.name
-        
+
         if root_element_name == 'ClinicalDocument'
           doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
           doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
@@ -77,7 +84,7 @@ module HealthDataStandards
             STDERR.puts("Unable to determinate document template/type of CDA document")
             return {status: 'error', message: "Document templateId does not identify it as a C32 or CCDA", status_code: 400}
           end
-          
+
           begin
             providers = CDA::ProviderImporter.instance.extract_providers(doc)
           rescue Exception => e
@@ -89,9 +96,9 @@ module HealthDataStandards
 
         record = Record.update_or_create(patient_data)
         record.provider_performances = providers
-        providers.each do |prov| 
+        providers.each do |prov|
           prov.provider.ancestors.each do |ancestor|
-            record.provider_performances.push(ProviderPerformance.new(start_date: prov.start_date, end_date: prov.end_date, provider: ancestor))  
+            record.provider_performances.push(ProviderPerformance.new(start_date: prov.start_date, end_date: prov.end_date, provider: ancestor))
           end
         end
         record.save
