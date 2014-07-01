@@ -85,7 +85,7 @@ class Provider
   # exists.  If this method call return nil an attempt will be made to discover
   # the Provider by name matching and if that fails a Provider will be created
   # in the db based on the information in the parsed hash.
-  def self.resolve_provider(provider_hash)
+  def self.resolve_provider(provider_hash, patient=nil)
     Provider.where(:npi => nil).first
   end
 end

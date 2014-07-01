@@ -85,8 +85,10 @@ module HealthDataStandards
             return {status: 'error', message: "Document templateId does not identify it as a C32 or CCDA", status_code: 400}
           end
 
+          record = Record.update_or_create(patient_data)
+
           begin
-            providers = CDA::ProviderImporter.instance.extract_providers(doc)
+            providers = CDA::ProviderImporter.instance.extract_providers(doc, record)
           rescue Exception => e
             STDERR.puts "error extracting providers"
           end
@@ -94,7 +96,6 @@ module HealthDataStandards
           return {status: 'error', message: 'Unknown XML Format', status_code: 400}
         end
 
-        record = Record.update_or_create(patient_data)
         record.provider_performances = providers
         providers.each do |prov|
           prov.provider.ancestors.each do |ancestor|
