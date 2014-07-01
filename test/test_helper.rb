@@ -25,8 +25,9 @@ MONGO_DB = Mongoid.default_session
 class Minitest::Test
   extend Minitest::Spec::DSL
   Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
-  # Add more helper methods to be used by all tests here...
 
+  # Add more helper methods to be used by all tests here...
+  
   def collection_fixtures(collection, *id_attributes)
     Mongoid.session(:default)[collection].drop
     Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', collection, '*.json')).each do |json_fixture_file|

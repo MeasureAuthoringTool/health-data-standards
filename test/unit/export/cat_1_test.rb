@@ -5,6 +5,7 @@ class Cat1Test < Minitest::Test
 
   def setup
     unless @initialized
+      dump_database
       collection_fixtures('records')
       @patient = Record.where({first: "Barry"}).first
 
@@ -17,6 +18,8 @@ class Cat1Test < Minitest::Test
 
       @start_date = Time.now.years_ago(1)
       @end_date = Time.now
+
+      collection_fixtures('health_data_standards_svs_value_sets', '_id')
 
       collection_fixtures('measures')
       @measures = HealthDataStandards::CQM::Measure.all

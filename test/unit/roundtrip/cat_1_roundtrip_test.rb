@@ -6,6 +6,13 @@ class Cat1RoundtripTest < Minitest::Test
   # This test class compares a record in Mongoid to itself after being exported
   # and imported.
 
+  def setup
+    dump_database
+    collection_fixtures('records', '_id')
+    collection_fixtures('health_data_standards_svs_value_sets', '_id')
+    collection_fixtures('measures')
+  end
+
   def test_round_trip
     # Export
     patient = Record.where({first: "Mary"}).first
