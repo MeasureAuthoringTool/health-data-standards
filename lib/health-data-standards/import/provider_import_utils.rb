@@ -5,7 +5,7 @@ module ProviderImportUtils
     find_or_create_provider(provider_data)
   end
 
-  def find_or_create_provider(provider_hash)
+  def find_or_create_provider(provider_hash, patient=nil)
     provider = Provider.by_npi(provider_hash[:npi]).first if provider_hash[:npi] && !provider_hash[:npi].empty?
     unless provider
       if provider_hash[:npi]
@@ -22,7 +22,7 @@ module ProviderImportUtils
                             :family_name=> provider_hash[:family_name],
                             :specialty => provider_hash[:specialty]}
         provider ||= Provider.where(provider_query).first
-        provider ||= Provider.resolve_provider(provider_hash)
+        provider ||= Provider.resolve_provider(provider_hash, patient)
         provider ||= Provider.create(provider_hash)
       end
     end

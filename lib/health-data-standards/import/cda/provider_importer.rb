@@ -18,11 +18,11 @@ module HealthDataStandards
         # @param [Nokogiri::XML::Document] doc It is expected that the root node of this document
         #        will have the "cda" namespace registered to "urn:hl7-org:v3"
         # @return [Array] an array of providers found in the document
-        def extract_providers(doc)
+        def extract_providers(doc, patient=nil)
           performers = doc.xpath("//cda:documentationOf/cda:serviceEvent/cda:performer")
           performers.map do |performer|
             provider_perf = extract_provider_data(performer, true)
-            ProviderPerformance.new(start_date: provider_perf.delete(:start), end_date: provider_perf.delete(:end), provider: find_or_create_provider(provider_perf))
+            ProviderPerformance.new(start_date: provider_perf.delete(:start), end_date: provider_perf.delete(:end), provider: find_or_create_provider(provider_perf, patient))
           end
         end
 
