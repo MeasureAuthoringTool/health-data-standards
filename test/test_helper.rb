@@ -8,6 +8,7 @@ require_relative File.join(PROJECT_ROOT, 'lib', 'hqmf-parser')
 require 'pry'
 
 require 'minitest/autorun'
+require "minitest/reporters"
 
 require 'bundler/setup'
 
@@ -23,6 +24,7 @@ MONGO_DB = Mongoid.default_session
 
 class Minitest::Test
   extend Minitest::Spec::DSL
+  Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
   # Add more helper methods to be used by all tests here...
 
   def collection_fixtures(collection, *id_attributes)
