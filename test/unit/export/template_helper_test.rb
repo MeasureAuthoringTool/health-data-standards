@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TemplateHelperTest < MiniTest::Unit::TestCase
+class TemplateHelperTest < Minitest::Test
   def test_template_finding
     @template_helper = HealthDataStandards::Export::TemplateHelper.new('c32', 'c32')
     erb = @template_helper.template 'show'

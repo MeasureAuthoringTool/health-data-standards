@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class C32Test < MiniTest::Unit::TestCase
+class C32Test < Minitest::Test
   
   def setup
     collection_fixtures('records', '_id')

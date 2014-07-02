@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DiagnosticStudyOrderImporterTest < MiniTest::Unit::TestCase
+class DiagnosticStudyOrderImporterTest < Minitest::Test
   def test_encounter_order_importing
     doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/diagnostic_study_order_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')

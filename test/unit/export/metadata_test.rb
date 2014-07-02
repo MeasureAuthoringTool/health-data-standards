@@ -1,7 +1,7 @@
 require_relative '../../test_helper'
 
 module Export
-  class MetadataTest < MiniTest::Unit::TestCase
+  class MetadataTest < Minitest::Test
     def setup
       @md = FactoryGirl.build("metadata")
       @md.original_creation_time = Time.now

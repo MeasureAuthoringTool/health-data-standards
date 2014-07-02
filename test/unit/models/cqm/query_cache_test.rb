@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class QueryCacheTest < MiniTest::Unit::TestCase
+class QueryCacheTest < Minitest::Test
   def test_aggregate_measure
     collection_fixtures('query_cache')
     aggregate_count = HealthDataStandards::CQM::QueryCache.aggregate_measure("8A4D92B2-397A-48D2-0139-C648B33D5582" ,1356998340)

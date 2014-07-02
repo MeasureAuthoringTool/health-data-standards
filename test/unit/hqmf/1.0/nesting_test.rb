@@ -1,7 +1,7 @@
 require_relative '../../../test_helper'
 module HQMF1
 
-  class NestingTest  < Test::Unit::TestCase
+  class NestingTest  < Minitest::Test
     def setup
       path = File.expand_path("../../../../fixtures/1.0/precondition_nesting.xml", __FILE__)
       doc = Nokogiri::XML(File.open(path).read)

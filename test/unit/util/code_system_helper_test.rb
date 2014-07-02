@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CodeSystemHelperTest < MiniTest::Unit::TestCase
+class CodeSystemHelperTest < Minitest::Test
   def test_oid_lookup
     assert_equal HealthDataStandards::Util::CodeSystemHelper.code_system_for('2.16.840.1.113883.6.88'), 'RxNorm'
     assert_equal HealthDataStandards::Util::CodeSystemHelper.code_system_for('2.16.840.1.113883.6.59'), 'CVX'

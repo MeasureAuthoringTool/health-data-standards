@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EntryTest < MiniTest::Unit::TestCase
+class EntryTest < Minitest::Test
   def test_timestamp_to_integer
     ts = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20100821')
     assert_equal Time.gm(2010, 8, 21).to_i, ts

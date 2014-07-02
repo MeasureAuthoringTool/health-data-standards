@@ -2,7 +2,7 @@ require 'test_helper'
 require "fileutils"
 
 module GreenC32
-  class RecordTest < MiniTest::Unit::TestCase
+  class RecordTest < Minitest::Test
 
     def setup
       

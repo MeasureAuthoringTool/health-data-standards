@@ -1,7 +1,8 @@
 require 'test_helper'
 
-class ProcedureImporterTest < MiniTest::Unit::TestCase
+class ProcedureImporterTest < Minitest::Test
   def setup
+    collection_fixtures('providers', '_id')
     @si = HealthDataStandards::Import::CDA::ProcedureImporter.new(HealthDataStandards::Import::CDA::EntryFinder.new('/cda:simple/cda:entry'))
     @doc = Nokogiri::XML(File.new('test/fixtures/section_importer.xml'))
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')

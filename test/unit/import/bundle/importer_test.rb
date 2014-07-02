@@ -1,8 +1,8 @@
 require 'test_helper'
 
 
-class ImporterTest< MiniTest::Unit::TestCase
-  
+class ImporterTest< Minitest::Test
+
   def setup
     @db = Mongoid.default_session
     @bundle_root = File.join("test","fixtures","bundles")
@@ -10,17 +10,24 @@ class ImporterTest< MiniTest::Unit::TestCase
     @b_2_0_2 = File.join(@bundle_root,"bundle_version_2.0.2.zip")
     @b_no_version = File.join(@bundle_root,"bundle_no_version.zip")
   	dump_database
+    assert_clean_db
+  end
+
+  def after_tests
+    dump_database
+    collection_fixtures('records', '_id')
+    collection_fixtures('health_data_standards_svs_value_sets', '_id')
+    collection_fixtures('measures')
   end
 
   def assert_clean_db
   	["records","measures","bundles","patient_cache","query_cache"].each do |collection|
-  		assert_equal @db[collection].where({}).count , 0, "Should be 0 #{collection} in the db"
+  		assert_equal 0, @db[collection].where({}).count , "Should be 0 #{collection} in the db"
   	end
-  	
+
   end
 
  def test_no_version
-  assert_clean_db
   loader = HealthDataStandards::Import::Bundle::Importer
   begin
     bundle = loader.import(File.new(@b_no_version), {delete_existing: false})
@@ -31,7 +38,6 @@ class ImporterTest< MiniTest::Unit::TestCase
  end
 
   def test_load_same_version_no_delete
-    assert_clean_db
     loader = HealthDataStandards::Import::Bundle::Importer
     begin
       bundle = loader.import(File.new(@b_2_0_1), {delete_existing: false})
@@ -41,10 +47,7 @@ class ImporterTest< MiniTest::Unit::TestCase
     end
   end
 
-
-
   def test_load_same_version_with_delete
-    assert_clean_db
     loader = HealthDataStandards::Import::Bundle::Importer
     begin
       bundle = loader.import(File.new(@b_2_0_1), {delete_existing: true})
@@ -63,7 +66,6 @@ class ImporterTest< MiniTest::Unit::TestCase
   end
 
   def test_load_with_update
-    assert_clean_db
     loader = HealthDataStandards::Import::Bundle::Importer
     bundle = loader.import(File.new(@b_2_0_1), {delete_existing: false})
     measure = bundle.measures.where({:nqf_id => "0002"}).first
@@ -73,7 +75,6 @@ class ImporterTest< MiniTest::Unit::TestCase
     measure.reload
     assert_equal "Name: 0002", measure["name"] , "Measure name should be Name: 0002"
   end
-
 
   def test_load_without_update
 
@@ -89,10 +90,7 @@ class ImporterTest< MiniTest::Unit::TestCase
     assert_equal  name , measure["name"] , "Measure name #{name} should equal #{measure.name} and should not have been updated"
   end
 
-
-
   def test_load
-  	assert_clean_db
   	loader = HealthDataStandards::Import::Bundle::Importer
   	bundle = loader.import(File.new(@b_2_0_1), {delete_existing: false})
   	assert_equal  1,  HealthDataStandards::CQM::Bundle.count , "Should be 1 bundle in the db"
@@ -111,7 +109,7 @@ class ImporterTest< MiniTest::Unit::TestCase
   	assert_equal  4780*2 , @db["patient_cache"].where({}).count , "Should be 0 entries in the patient_cache "
   	assert  @db["query_cache"].where({}).count > 0 ,"Should be 0 more than  entries in the query_cache "
 
-  
+
   	measure_0002 = HealthDataStandards::CQM::Measure.where({"nqf_id" => "0002"})
     assert_equal 2, measure_0002.count, "There should be 2 instances of measure 0002 in the db. One for each bundle"
   	measure_0003 =  HealthDataStandards::CQM::Measure.where({"nqf_id" => "0003"})
@@ -119,14 +117,7 @@ class ImporterTest< MiniTest::Unit::TestCase
     measure_0004 =  HealthDataStandards::CQM::Measure.where({"nqf_id" => "0004"})
     assert_equal 1,measure_0004.count ,  "There should only be 1 measure 0004 in the db"
     assert_equal bundle2.id, measure_0004.first["bundle_id"], "Measure 0003 bundle should equal the bundle it was loaded from"
-  	
 
-
-
-    
   end
-
-
-
 
 end

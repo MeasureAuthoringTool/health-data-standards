@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ValueSetTest < MiniTest::Unit::TestCase
+class ValueSetTest < Minitest::Test
   def test_load_from_xml
     doc = Nokogiri::XML(File.new('test/fixtures/value_sets/value_sets.xml'))
     vs = HealthDataStandards::SVS::ValueSet.load_from_xml(doc)

@@ -3,7 +3,7 @@ module HQMF1
   
   # 0033 has patient characteristic gender, so it is used to verify the backfilling of the gender as part of the conversion
 
-  class NQF0033Test  < Test::Unit::TestCase
+  class NQF0033Test  < Minitest::Test
     def setup
       path = File.expand_path("../../../../fixtures/1.0/0033/0033.xml", __FILE__)
       @hqmf_contents = File.open(path).read

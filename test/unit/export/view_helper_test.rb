@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ViewHelperTest < MiniTest::Unit::TestCase
+class ViewHelperTest < Minitest::Test
   include HealthDataStandards::Export::ViewHelper
 
   def test_code_display

@@ -1,12 +1,17 @@
 require 'test_helper'
 
-class MedicationImporterTest < MiniTest::Unit::TestCase
+class MedicationImporterTest < Minitest::Test
+
+  def setup
+    collection_fixtures('providers', '_id')
+  end
+
   def test_medication_importing
     doc = Nokogiri::XML(File.new('test/fixtures/NISTExampleC32.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     pi = HealthDataStandards::Import::C32::PatientImporter.instance
     patient = pi.parse_c32(doc)
-    
+
     medication = patient.medications[0]
     assert medication.codes['RxNorm'].include? '307782'
     assert_equal 6, medication.administration_timing['period']['value']

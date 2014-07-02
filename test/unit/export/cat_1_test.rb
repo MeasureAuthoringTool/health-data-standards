@@ -1,10 +1,11 @@
 require 'test_helper'
 
-class Cat1Test < MiniTest::Unit::TestCase
+class Cat1Test < Minitest::Test
   include HealthDataStandards::Export::Helper::Cat1ViewHelper
 
   def setup
     unless @initialized
+      dump_database
       collection_fixtures('records')
       @patient = Record.where({first: "Barry"}).first
 
@@ -17,6 +18,8 @@ class Cat1Test < MiniTest::Unit::TestCase
 
       @start_date = Time.now.years_ago(1)
       @end_date = Time.now
+
+      collection_fixtures('health_data_standards_svs_value_sets', '_id')
 
       collection_fixtures('measures')
       @measures = HealthDataStandards::CQM::Measure.all
@@ -50,7 +53,7 @@ class Cat1Test < MiniTest::Unit::TestCase
 
   def test_patient_data_section_export
     med_dispensed = @doc.at_xpath('//cda:supply[cda:templateId/@root="2.16.840.1.113883.10.20.24.3.45"]')
-    assert med_dispensed
+    assert med_dispensed, "med_dispensed is nil"
     assert_equal "Multivitamin", med_dispensed.at_xpath('./cda:text').text
   end
 

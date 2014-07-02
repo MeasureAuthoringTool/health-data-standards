@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CCDATest < MiniTest::Unit::TestCase
+class CCDATest < Minitest::Test
   
   def setup
     collection_fixtures('records', '_id')

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class LabResultImporterTest < MiniTest::Unit::TestCase
+class LabResultImporterTest < Minitest::Test
   def test_lab_result_importing
     doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/lab_result_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EntryTest < MiniTest::Unit::TestCase
+class EntryTest < Minitest::Test
   def setup
     @entry = Entry.new
     @entry.codes = {'SNOMED-CT' => ['1234', '5678', 'AABB'],

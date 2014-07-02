@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class BulkRecordImporterTest < MiniTest::Unit::TestCase
+class BulkRecordImporterTest < Minitest::Test
 
   def setup
     Record.all.delete

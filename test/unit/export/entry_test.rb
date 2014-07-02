@@ -2,7 +2,7 @@ require 'test_helper'
 require 'pry'
 
 module GreenC32
-  class EntryTest < MiniTest::Unit::TestCase
+  class EntryTest < Minitest::Test
 
     def setup
       collection_fixtures('records', '_id')

@@ -8,10 +8,9 @@ require_relative File.join(PROJECT_ROOT, 'lib', 'hqmf-parser')
 require 'pry'
 
 require 'minitest/autorun'
+require "minitest/reporters"
 
 require 'bundler/setup'
-require 'test/unit'
-require 'turn'
 
 FactoryGirl.find_definitions
 
@@ -23,7 +22,10 @@ end
 
 MONGO_DB = Mongoid.default_session
 
-class MiniTest::Unit::TestCase
+class Minitest::Test
+  extend Minitest::Spec::DSL
+  Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
+
   # Add more helper methods to be used by all tests here...
   
   def collection_fixtures(collection, *id_attributes)
@@ -43,7 +45,7 @@ class MiniTest::Unit::TestCase
   # Delete all collections from the database.
   def dump_database
     Mongoid.session(:default).collections.each do |collection|
-      collection.drop unless collection.name.include?('system.') 
+      collection.drop unless collection.name.include?('system.')
     end
   end
 
@@ -91,7 +93,7 @@ end
 
 
 HealthDataStandards.logger.outputters = Log4r::FileOutputter.new('Health Data Standards', filename: 'test.log', trunc: true)
-  
+
 def collection_fixtures(collection, *id_attributes)
   Mongoid.session(:default)[collection].drop
   Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', collection, '*.json')).each do |json_fixture_file|
@@ -111,7 +113,7 @@ end
 
 # make sure there's nothing left over from previous runs
 Mongoid.session(:default).collections.each do |collection|
-  collection.drop unless collection.name.include?('system.') 
+  collection.drop unless collection.name.include?('system.')
 end
 
 collection_fixtures('records', '_id')

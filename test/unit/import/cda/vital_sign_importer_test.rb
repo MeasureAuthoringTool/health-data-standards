@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class VitalSignImporterTest < MiniTest::Unit::TestCase
+class VitalSignImporterTest < Minitest::Test
   
   def test_vital_sign_importing
     doc = Nokogiri::XML(File.new('test/fixtures/NISTExampleC32.xml'))

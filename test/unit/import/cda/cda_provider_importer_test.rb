@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CDAProviderImporterTest < MiniTest::Unit::TestCase
+class CDAProviderImporterTest < Minitest::Test
 
 	def setup
     Provider.where({}).delete

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SectionImporterTest < MiniTest::Unit::TestCase
+class SectionImporterTest < Minitest::Test
   def setup
     @si = HealthDataStandards::Import::CDA::SectionImporter.new(HealthDataStandards::Import::CDA::EntryFinder.new('/cda:simple/cda:entry'))
     @si.status_xpath = './cda:status'

@@ -1,10 +1,17 @@
 require 'test_helper'
 
-class Cat1RoundtripTest < MiniTest::Unit::TestCase
+class Cat1RoundtripTest < Minitest::Test
   include HealthDataStandards::Export::Helper::Cat1ViewHelper
 
   # This test class compares a record in Mongoid to itself after being exported
   # and imported.
+
+  def setup
+    dump_database
+    collection_fixtures('records', '_id')
+    collection_fixtures('health_data_standards_svs_value_sets', '_id')
+    collection_fixtures('measures')
+  end
 
   def test_round_trip
     # Export
@@ -14,7 +21,7 @@ class Cat1RoundtripTest < MiniTest::Unit::TestCase
     measure = HealthDataStandards::CQM::Measure.where({name: "Mary Berry's Wacky Wild Measure"}).first
     qrda_xml = HealthDataStandards::Export::Cat1.new.export(patient, [measure], start_date, end_date)
 
-    # Import 
+    # Import
     doc_import = Nokogiri::XML(qrda_xml)
     doc_import.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     doc_import.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
@@ -58,7 +65,7 @@ class Cat1RoundtripTest < MiniTest::Unit::TestCase
 
 
 
-  private 
+  private
 
   def assert_contains_all(a1,a2,msg=nil)
     contains = a2.reject{ |x| a1.include?(x) }.empty?

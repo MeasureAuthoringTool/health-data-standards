@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TobaccoUseImporterTest < MiniTest::Unit::TestCase
+class TobaccoUseImporterTest < Minitest::Test
   def test_tobacco_use
    	doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/tobacco_use_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')

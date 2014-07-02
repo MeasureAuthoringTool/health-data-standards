@@ -1,7 +1,7 @@
 require_relative '../../../test_helper'
 module HQMF
 
-  class PreconditionConverterTest  < Test::Unit::TestCase
+  class PreconditionConverterTest  < Minitest::Test
     def setup
     end
   

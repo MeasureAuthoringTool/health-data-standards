@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module GreenC32
-  class EncounterImporterTest < MiniTest::Unit::TestCase
+  class EncounterImporterTest < Minitest::Test
 
     def setup
       @encounter = Nokogiri::XML(File.new('test/fixtures/green_c32_fragments/encounter.xml'))

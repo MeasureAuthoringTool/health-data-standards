@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AllergyImporterTest < MiniTest::Unit::TestCase
+class AllergyImporterTest < Minitest::Test
   def test_allergy_importing
     doc = Nokogiri::XML(File.new('test/fixtures/NISTExampleC32.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')

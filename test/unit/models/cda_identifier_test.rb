@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CDAIdentifierTest < MiniTest::Unit::TestCase
+class CDAIdentifierTest < Minitest::Test
   def test_equality
     id1 = CDAIdentifier.new(root: '1.2.3.4', extension: 'abcdef')
     id2 = CDAIdentifier.new(root: '1.2.3.4', extension: 'abcdef')

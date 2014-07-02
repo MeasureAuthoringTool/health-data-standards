@@ -1,7 +1,7 @@
 require 'fileutils'
 require_relative '../../../test_helper'
 
-class HQMFV1V2RoundtripTest < Test::Unit::TestCase
+class HQMFV1V2RoundtripTest < Minitest::Test
   RESULTS_DIR = 'tmp/hqmf_r2.1_roundtrip_diffs'
 
   # Create a blank folder for the errors

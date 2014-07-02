@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MedicationActiveImporterTest < MiniTest::Unit::TestCase
+class MedicationActiveImporterTest < Minitest::Test
   include HealthDataStandards::Import
 
   def test_medication_active

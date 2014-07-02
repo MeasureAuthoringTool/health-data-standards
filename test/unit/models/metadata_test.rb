@@ -1,6 +1,6 @@
 require "test_helper"
 
-class MetaDataTest < MiniTest::Unit::TestCase
+class MetaDataTest < Minitest::Test
 
   # Called before every test method runs. Can be used
   # to set up fixture information.

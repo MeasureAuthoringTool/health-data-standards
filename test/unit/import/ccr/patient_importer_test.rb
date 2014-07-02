@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module CCR
-  class PatientImporterTest < MiniTest::Unit::TestCase
+  class PatientImporterTest < Minitest::Test
     
     def setup
       @ccr = Nokogiri::XML(File.new('test/fixtures/ccr_fragments/sample_ccr.xml'))

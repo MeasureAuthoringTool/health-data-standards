@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ExportGeneratorTest < MiniTest::Unit::TestCase
+class ExportGeneratorTest < Minitest::Test
   def setup
     collection_fixtures('records', '_id')
     @record = Record.first

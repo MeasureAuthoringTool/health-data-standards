@@ -1,6 +1,6 @@
 require 'test_helper'
 module GreenC32
-  class ConditionImporterTest < MiniTest::Unit::TestCase
+  class ConditionImporterTest < Minitest::Test
 
     def setup
       @condition = Nokogiri::XML(File.new('test/fixtures/green_c32_fragments/condition.xml'))

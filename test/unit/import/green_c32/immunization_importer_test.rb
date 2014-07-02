@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module GreenC32
-  class ImmunizationImporterTest < MiniTest::Unit::TestCase
+  class ImmunizationImporterTest < Minitest::Test
     
   def setup
     @immunization = Nokogiri::XML(File.new('test/fixtures/green_c32_fragments/immunization.xml'))

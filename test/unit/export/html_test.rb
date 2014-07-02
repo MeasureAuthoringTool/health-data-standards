@@ -1,13 +1,20 @@
 require 'test_helper'
 
-class HTMLTest < MiniTest::Unit::TestCase
-  def test_scooped_html
-    collection_fixtures('measures')
+class HTMLTest < Minitest::Test
+
+  def setup
+    dump_database
     collection_fixtures('records', '_id')
-    record = Record.find('4dcbecdb431a5f5878000004')
+    collection_fixtures('health_data_standards_svs_value_sets', '_id')
+    collection_fixtures('measures')
+
+    @record = Record.find('4dcbecdb431a5f5878000004')
+  end
+  
+  def test_scooped_html
 
     pneumonia_measures = HealthDataStandards::CQM::Measure.where(nqf_id: '0043')
-    result = HealthDataStandards::Export::HTML.new.export(record, pneumonia_measures)
+    result = HealthDataStandards::Export::HTML.new.export(@record, pneumonia_measures)
 
     assert !(result.match /Rosa/).nil? # first
     assert !(result.match /Vasquez/).nil? # last
@@ -33,14 +40,12 @@ class HTMLTest < MiniTest::Unit::TestCase
     assert (result.match /Severity/).nil? # severity on primigravidia
     assert (result.match /6736007/).nil? # severity on primigravidia
     assert !(result.match /Blue\ Cross\/Blue\ Shield/).nil? #insurance provider
-  end    
+  end
 
   def test_html
-    collection_fixtures('records', '_id')
-    record = Record.find('4dcbecdb431a5f5878000004')
 
-    result = HealthDataStandards::Export::HTML.new.export(record)
-    
+    result = HealthDataStandards::Export::HTML.new.export(@record)
+
     assert !(result.match /Rosa/).nil? # first
     assert !(result.match /Vasquez/).nil? # last
     assert !(result.match /13 Credibility Street/).nil? # street address
@@ -65,12 +70,12 @@ class HTMLTest < MiniTest::Unit::TestCase
     assert !(result.match /Severity/).nil? # severity on primigravidia
     assert !(result.match /6736007/).nil? # severity on primigravidia
     assert !(result.match /Blue\ Cross\/Blue\ Shield/).nil? #insurance provider
-    
+
     # require 'fileutils'
     # FileUtils.mkdir_p File.join(".","tmp")
     # outfile = File.join(".","tmp","patient.html")
     # File.open(outfile, 'w') {|f| f.write(result) }
-    
+
   end
-  
+
 end
