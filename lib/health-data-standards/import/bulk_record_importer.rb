@@ -14,13 +14,26 @@ module HealthDataStandards
       def self.import_archive(file, failed_dir=nil)
         begin
         failed_dir ||=File.join(File.dirname(file))
+        patient_id_list = nil
         Zip::ZipFile.open(file.path) do |zipfile|
           zipfile.entries.each do |entry|
+            if entry.name.split("/").last == "patient_manifest.txt"
+              patient_id_list = zipfile.read(entry.name)
+              next
+            end
             next if entry.directory?
             data = zipfile.read(entry.name)
             BulkRecordImporter.import_file(entry.name,data,failed_dir)
           end
         end
+        missing_patients = []
+        patient_id_list.split("\n").each do |id|
+          patient = Record.where(:medical_record_number => id).first
+          if patient == nil
+            missing_patients << id
+          end
+        end
+        missing_patients
       rescue
         FileUtils.mkdir_p(failed_dir)
         File.cp(file,File.join(failed_dir,file))
