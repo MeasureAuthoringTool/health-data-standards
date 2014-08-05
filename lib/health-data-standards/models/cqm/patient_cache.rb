@@ -6,6 +6,7 @@ module HealthDataStandards
       store_in collection: 'patient_cache'
       index "value.last" => 1
       index "bundle_id" => 1
+      index "value.medical_record_id" => 1
       embeds_one :value, class_name: "HealthDataStandards::CQM::PatientCacheValue", inverse_of: :patient_cache
 
       def record
