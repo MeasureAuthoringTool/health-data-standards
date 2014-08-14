@@ -19,7 +19,7 @@ class HQMFV1V2RoundtripTest < Minitest::Test
     next if measure_filename.ends_with? 'ep_0038.xml' # slow test
     next if measure_filename.ends_with? 'eh_0373.xml' # slow test
     counter += 1
-    if counter % 10 == 0  
+    if counter % 10 == 0
       measure_name = /.*[\/\\]((ep|eh)_.*)\.xml/.match(measure_filename)[1]
       define_method("test_#{measure_name}") do
         do_roundtrip_test(measure_filename, measure_name)
@@ -35,7 +35,7 @@ class HQMFV1V2RoundtripTest < Minitest::Test
     #skip('Continuous Variable measures currently not supported') if v1_model.population_criteria('MSRPOPL')
 
     hqmf_xml = HQMF2::Generator::ModelProcessor.to_hqmf(v1_model)
-    
+
     begin
       v2_model = HQMF::Parser::V2Parser.new.parse(hqmf_xml)
 
@@ -75,7 +75,7 @@ class HQMFV1V2RoundtripTest < Minitest::Test
     # remove measure period width
     #v1_json['measure_period']['width'] = nil
     v1_json['measure_period']['width']['inclusive?'] = false
-    
+
     # remove embedded whitespace formatting in values
     if v1_json['description']
       regex_clean!(v1_json['description'])
@@ -88,9 +88,6 @@ class HQMFV1V2RoundtripTest < Minitest::Test
         regex_clean!(attr['value_obj']['value'])
       end
     end
-
-    # v2 switches negated preconditions non-negated equivalents (atLeastOneTrue[negated] -> allFalse)
-    fix_precondition_negations(v1_json['population_criteria'])
   end
 
   def update_v2_json(v2_json)
@@ -106,21 +103,5 @@ class HQMFV1V2RoundtripTest < Minitest::Test
         regex_clean!(attr['value_obj']['value'])
       end
     end
-  end 
-
-  def fix_precondition_negations(root)
-    if (HQMF::Precondition::NEGATIONS.keys.include?(root['conjunction_code']) && root['negation'])
-      root['conjunction_code'] = HQMF::Precondition::NEGATIONS[root['conjunction_code']]
-      root.delete('negation')
-    end
-
-    root.each_value do |value|
-      if value.is_a? Hash
-        fix_precondition_negations(value)
-      elsif value.is_a? Array
-        value.each {|entry| fix_precondition_negations(entry) if entry.is_a? Hash}
-      end
-    end
   end
-
 end
