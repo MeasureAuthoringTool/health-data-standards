@@ -28,7 +28,24 @@ class RecordTest < Minitest::Test
     assert_equal 3, record.encounters.size
   end
 
-  def test_dedup_procedure_section
+  def test_dedup_encounters_section
+    record = Record.new
+    identifier = CDAIdentifier.new(root: '1.2.3.4')
+    value_a = PhysicalQuantityResultValue.new(scalar: 10)
+    value_b = PhysicalQuantityResultValue.new(scalar: 20)
+    record.encounters << Encounter.new(cda_identifier: identifier, codes: {:x => {:y => "z"}}, values: [value_a])
+    record.encounters << Encounter.new(cda_identifier: identifier, codes: {:a => "b", :x => {:z => "a"}}, values: [value_b])
+
+    assert_equal 2, record.encounters.size
+
+    record.dedup_section! :encounters
+
+    assert_equal 1, record.encounters.size
+    assert_equal({:x => {:y => "z", :z => "a"}, :a => "b"}, record.encounters[0].codes)
+    assert_equal([value_a, value_b], record.encounters[0].values)
+  end
+
+  def test_dedup_procedures_section
     record = Record.new
     identifier = CDAIdentifier.new(root: '1.2.3.4')
     value_a = PhysicalQuantityResultValue.new(scalar: 10)
