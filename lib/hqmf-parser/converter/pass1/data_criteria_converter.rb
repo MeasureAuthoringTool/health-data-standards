@@ -176,9 +176,9 @@ module HQMF
       if (specific_occurrence)
         if status
           statusText = ", #{status.titleize}"
-        else
+        elsif definition == 'laboratory_test'
           # laboratory_test without a status is actually a Result
-          statusText = ", Result" if definition == 'laboratory_test'
+          statusText = ", Result"
         end
         description = "#{definition.titleize}#{statusText}: #{description}" 
         specific_occurrence_const = (description.gsub(/\W/,' ').split.collect {|word| word.strip.upcase }).join '_'
