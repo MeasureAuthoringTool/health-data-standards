@@ -174,9 +174,12 @@ module HQMF
       
       # specific occurrences do not properly set the description, so we want to add the definition and status
       if (specific_occurrence)
-        statusText = ", #{status.titleize}" if status
-        # laboratory_test without a status is actually a Result
-        statusText = ", Result" if definition == 'laboratory_test' and status.blank?
+        if status
+          statusText = ", #{status.titleize}"
+        else
+          # laboratory_test without a status is actually a Result
+          statusText = ", Result" if definition == 'laboratory_test'
+        end
         description = "#{definition.titleize}#{statusText}: #{description}" 
         specific_occurrence_const = (description.gsub(/\W/,' ').split.collect {|word| word.strip.upcase }).join '_'
       end
