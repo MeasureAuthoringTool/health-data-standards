@@ -74,6 +74,7 @@ module HealthDataStandards
                       measures: {
                         '$push' =>  measure_properties.inject({
                                       'id' => "$_id",
+                                      'hqmf_id' => "$_id",
                                       'subs' => "$subs",
                                       'sub_ids' => "$sub_ids"
                                     }) do |h, prop|
