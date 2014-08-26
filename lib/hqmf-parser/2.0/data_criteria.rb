@@ -1,11 +1,11 @@
 module HQMF2
   # Represents a data criteria specification
   class DataCriteria
-  
+
     include HQMF2::Utilities
-    
+
     attr_reader :property, :type, :status, :value, :effective_time, :section
-    attr_reader :temporal_references, :subset_operators, :children_criteria 
+    attr_reader :temporal_references, :subset_operators, :children_criteria
     attr_reader :derivation_operator, :negation, :negation_code_list_id, :description
     attr_reader :field_values, :source_data_criteria, :specific_occurrence_const
     attr_reader :specific_occurrence, :is_source_data_criteria, :comments
@@ -18,7 +18,7 @@ module HQMF2
       'OR' => 'UNION',
       'AND' => 'XPRODUCT'
     }
-    
+
     CRITERIA_GLOB = "*[substring(name(),string-length(name())-7) = \'Criteria\']"
 
     # Create a new instance based on the supplied HQMF entry
@@ -50,11 +50,11 @@ module HQMF2
         # the definition element
         extract_type_from_definition()
       end
-      
+
       patch_xpaths_for_criteria_type()
     end
 
-    def patch_xpaths_for_criteria_type  
+    def patch_xpaths_for_criteria_type
       # Patch xpaths when necessary, HQMF data criteria are irregular in structure so
       # the same information is found in different places depending on the type of
       # criteria
@@ -86,12 +86,12 @@ module HQMF2
     end
 
     def extract_type_from_definition
-      if @entry.at_xpath("./cda:grouperCriteria") 
+      if @entry.at_xpath("./cda:grouperCriteria")
         if @local_variable_name && @local_variable_name.match(/qdm_/)
           @variable = true
         end
         @definition = 'derived'
-        return 
+        return
       end
       # See if we can find a match for the entry definition value and status.
       entry_type = attr_val('./*/cda:definition/*/cda:id/@extension')
@@ -130,7 +130,7 @@ module HQMF2
         end
       end
     end
-    
+
     def extract_type_from_template_id
       template_ids = @entry.xpath('./*/cda:templateId/cda:item', HQMF2::Document::NAMESPACES).collect do |template_def|
         HQMF2::Utilities.attr_val(template_def, '@root')
@@ -141,11 +141,10 @@ module HQMF2
       found = false
       template_ids.each do |template_id|
         defs = HQMF::DataCriteria.definition_for_template_id(template_id)
-        
+
         if defs
           @definition = defs['definition']
           @status = defs['status'].length > 0 ? defs['status'] : nil
-          @negation = defs['negation']
           found ||= true
         elsif template_id == VARIABLE_TEMPLATE
           @derivation_operator = HQMF::DataCriteria::INTERSECT if @derivation_operator == HQMF::DataCriteria::XPRODUCT
@@ -166,7 +165,7 @@ module HQMF2
       end
       found
     end
-    
+
     def to_s
       props = {
         :property => property,
@@ -176,30 +175,30 @@ module HQMF2
       }
       "DataCriteria#{props.to_s}"
     end
-    
+
     # Get the identifier of the criteria, used elsewhere within the document for referencing
     # @return [String] the identifier of this data criteria
     def id
       attr_val(@id_xpath)
     end
-    
+
     # Get the title of the criteria, provides a human readable description
     # @return [String] the title of this data criteria
     def title
-      dispValue = attr_val("#{@code_list_xpath}/cda:displayName/@value") 
+      dispValue = attr_val("#{@code_list_xpath}/cda:displayName/@value")
       desc = nil
       if @description && (@description.include? ":")
          desc = @description.match(/.*:\s+(.+)/)[1]
       end
       dispValue || desc || id
     end
-    
+
     # Get the code list OID of the criteria, used as an index to the code list database
     # @return [String] the code list identifier of this data criteria
     def code_list_id
       attr_val("#{@code_list_xpath}/@valueSet")
     end
-    
+
     def inline_code_list
       codeSystem = attr_val("#{@code_list_xpath}/@codeSystem")
       if codeSystem
@@ -214,7 +213,7 @@ module HQMF2
         nil
       end
     end
-    
+
     def to_model
 
       mv = value ? value.to_model : nil
@@ -227,7 +226,7 @@ module HQMF2
       end
 
       # Model transfers as a field
-      if ['transfer_to', 'transfer_from'].include? @definition 
+      if ['transfer_to', 'transfer_from'].include? @definition
         field_values ||= {}
         field_code_list_id = @code_list_id
         if !field_code_list_id
@@ -238,14 +237,14 @@ module HQMF2
 
       field_values = nil if field_values.empty?
 
-      HQMF::DataCriteria.new(id, title, nil, description, code_list_id, children_criteria, 
-        derivation_operator, @definition, status, mv, field_values, met, inline_code_list, 
-        @negation, @negation_code_list_id, mtr, mso, @specific_occurrence, 
+      HQMF::DataCriteria.new(id, title, nil, description, code_list_id, children_criteria,
+        derivation_operator, @definition, status, mv, field_values, met, inline_code_list,
+        @negation, @negation_code_list_id, mtr, mso, @specific_occurrence,
         @specific_occurrence_const, @source_data_criteria, @comments, @variable)
     end
-    
+
     private
-    
+
     def extract_negation
       negation = attr_val('./*/@actionNegationInd')
       @negation = (negation=='true')
@@ -255,13 +254,13 @@ module HQMF2
         @negation_code_list_id = nil
       end
     end
-    
+
     def extract_child_criteria
       @entry.xpath("./*/cda:outboundRelationship[@typeCode='COMP']/cda:criteriaReference/cda:id", HQMF2::Document::NAMESPACES).collect do |ref|
         Reference.new(ref).id
       end.compact
     end
-    
+
     def extract_effective_time
       effective_time_def = @entry.at_xpath('./*/cda:effectiveTime', HQMF2::Document::NAMESPACES)
       if effective_time_def
@@ -270,13 +269,13 @@ module HQMF2
         nil
       end
     end
-    
+
     def all_subset_operators
       @entry.xpath('./*/cda:excerpt', HQMF2::Document::NAMESPACES).collect do |subset_operator|
         SubsetOperator.new(subset_operator)
       end
     end
-    
+
     def extract_derivation_operator
       codes = @entry.xpath("./*/cda:outboundRelationship[@typeCode='COMP']/cda:conjunctionCode/@code", HQMF2::Document::NAMESPACES)
       codes.inject(nil) do | d_op, code |
@@ -284,13 +283,13 @@ module HQMF2
         CONJUNCTION_CODE_TO_DERIVATION_OP[code.value]
       end
     end
-    
+
     def extract_subset_operators
       all_subset_operators.select do |operator|
         operator.type != 'UNION' && operator.type != 'XPRODUCT'
       end
     end
-    
+
     def extract_specific_or_source
       specific_def = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="OCCR"]', HQMF2::Document::NAMESPACES)
       source_def = @entry.at_xpath('./*/cda:outboundRelationship[cda:subsetCode/@code="SOURCE"]', HQMF2::Document::NAMESPACES)
@@ -306,7 +305,7 @@ module HQMF2
         @source_data_criteria = HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@extension')
       end
     end
-    
+
     def extract_field_values
       fields = {}
       # extract most fields which use the same structure
@@ -325,17 +324,17 @@ module HQMF2
       end
       fields
     end
-    
+
     def extract_temporal_references
       @entry.xpath('./*/cda:temporallyRelatedInformation', HQMF2::Document::NAMESPACES).collect do |temporal_reference|
         TemporalReference.new(temporal_reference)
       end
     end
-    
+
     def extract_value()
       DataCriteria.parse_value(@entry, @value_xpath)
     end
-    
+
     def self.parse_value(node, xpath)
       value = nil
       value_def = node.at_xpath(xpath, HQMF2::Document::NAMESPACES)
@@ -361,7 +360,7 @@ module HQMF2
       end
       value
     end
-    
+
     def definition_for_demographic
       demographic_type = attr_val('./cda:observationCriteria/cda:code/@code')
       case demographic_type
@@ -380,9 +379,9 @@ module HQMF2
       else
         raise "Unknown demographic identifier [#{demographic_type}]"
       end
-      
+
     end
 
   end
-  
+
 end
