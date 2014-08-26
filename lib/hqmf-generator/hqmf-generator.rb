@@ -1,14 +1,14 @@
 module HQMF2
   module Generator
-  
+
     def self.render_template(name, params)
       template_path = File.expand_path(File.join('..', "#{name}.xml.erb"), __FILE__)
       template_str = File.read(template_path)
       template = ERB.new(template_str, nil, '-', "_templ#{HQMF::Counter.instance.next}")
       context = ErbContext.new(params)
-      template.result(context.get_binding)        
+      template.result(context.get_binding)
     end
-  
+
     # Class to serialize HQMF::Document as HQMF V2 XML
     class ModelProcessor
       # Convert the supplied model instance to XML
@@ -18,24 +18,24 @@ module HQMF2
         HQMF2::Generator.render_template('document', {'doc' => doc})
       end
     end
-  
+
     # Utility class used to supply a binding to Erb. Contains utility functions used
     # by the erb templates that are used to generate the HQMF document.
     class ErbContext < OpenStruct
-      
+
 
       def initialize(vars)
         super(vars)
         @local_var_names = {}
         @local_var_counter = {}
       end
-      
+
       # Get a binding that contains all the instance variables
       # @return [Binding]
       def get_binding
         binding
       end
-      
+
       def xml_for_local_variable(criteria)
         name = @local_var_names[criteria.id]
         unless name
@@ -53,15 +53,15 @@ module HQMF2
         reference = HQMF::Reference.new(id)
         xml_for_reference(reference)
       end
-      
+
       def xml_for_reference(reference)
         HQMF2::Generator.render_template('reference', {'doc' => doc, 'reference' => reference})
       end
-      
+
       def xml_for_attribute(attribute)
         HQMF2::Generator.render_template('attribute', {'attribute' => attribute})
       end
-      
+
       def xml_for_fields(criteria)
         fields = []
         if criteria.field_values
@@ -83,15 +83,15 @@ module HQMF2
         end
         fields.join
       end
-      
+
       def xml_for_value(value, element_name='value', include_type=true)
         HQMF2::Generator.render_template('value', {'doc' => doc, 'value' => value, 'name' => element_name, 'include_type' => include_type})
       end
-      
+
       def xml_for_code(criteria, element_name='code', include_type=true)
         HQMF2::Generator.render_template('code', {'doc' => doc, 'criteria' => criteria, 'name' => element_name, 'include_type' => include_type})
       end
-           
+
       def xml_for_derivation(data_criteria)
         xml = ''
         if data_criteria.derivation_operator
@@ -99,7 +99,7 @@ module HQMF2
         end
         xml
       end
-      
+
       def xml_for_effective_time(data_criteria)
         xml = ''
         if data_criteria.effective_time
@@ -107,7 +107,7 @@ module HQMF2
         end
         xml
       end
-      
+
       def xml_for_reason(data_criteria)
         xml = ''
         if data_criteria.negation && data_criteria.negation_code_list_id
@@ -115,12 +115,12 @@ module HQMF2
         end
         xml
       end
-      
+
       def xml_for_template(data_criteria, is_source_data_criteria)
         xml = ''
         templates = []
         # Add a template ID if one is defined for this data criteria
-        template_id = HQMF::DataCriteria.template_id_for_definition(data_criteria.definition, data_criteria.status, data_criteria.negation)
+        template_id = HQMF::DataCriteria.template_id_for_definition(data_criteria.definition, data_criteria.status, false, "r2")
         if template_id
           templates << {:id => template_id, :title => HQMF::DataCriteria.title_for_template_id(template_id)}
         end
@@ -135,7 +135,7 @@ module HQMF2
         end
         xml
       end
-      
+
       def xml_for_description(data_criteria)
         xml = ''
         if data_criteria.description
@@ -143,7 +143,7 @@ module HQMF2
         end
         xml
       end
-      
+
       def xml_for_subsets(data_criteria)
         subsets_xml = []
         if data_criteria.subset_operators
@@ -161,11 +161,11 @@ module HQMF2
       def xml_for_precondition(precondition)
         HQMF2::Generator.render_template('precondition', {'doc' => doc, 'precondition' => precondition})
       end
-      
+
       def xml_for_data_criteria(data_criteria, is_source_data_criteria)
         HQMF2::Generator.render_template(data_criteria_template_name(data_criteria), {'doc' => doc, 'criteria' => data_criteria, 'is_source_data_criteria' => is_source_data_criteria})
       end
-      
+
       def xml_for_population_criteria(population, criteria_id)
         xml = ''
         population_criteria = doc.population_criteria(population[criteria_id])
@@ -174,7 +174,7 @@ module HQMF2
         end
         xml
       end
-      
+
       def xml_for_temporal_references(criteria)
         refs = []
         if criteria.temporal_references
@@ -201,16 +201,16 @@ module HQMF2
         return true unless criteria.subset_operators
         criteria.subset_operators.all? {|o| o.supports_grouper_criteria?}
       end
-      
+
       def oid_for_name(code_system_name)
         HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(code_system_name)
       end
-      
+
       def reference_element_name(id)
         referenced_criteria = doc.data_criteria(id)
         element_name_prefix(referenced_criteria)
       end
-      
+
       def reference_type_name(id)
         referenced_criteria = doc.data_criteria(id)
         type = nil
@@ -241,7 +241,7 @@ module HQMF2
           end
         end
       end
-      
+
       def code_for_characteristic(characteristic)
         case characteristic
         when :birthtime
@@ -260,7 +260,7 @@ module HQMF2
           raise "Unknown demographic code [#{characteristic}]"
         end
       end
-   
+
       def is_transfer(code)
         if code == "TRANSFER_TO" || code == "TRANSFER_FROM"
           true
@@ -268,7 +268,7 @@ module HQMF2
           false
         end
       end
-   
+
       def oid_for_characteristic(characteristic)
         case characteristic
         when :birthtime
@@ -277,12 +277,12 @@ module HQMF2
           '2.16.840.1.113883.6.96'
         end
       end
-      
+
       def data_criteria_template_name(data_criteria)
         case data_criteria.definition
         when 'diagnosis', 'diagnosis_family_history'
           'condition_criteria'
-        when 'encounter' 
+        when 'encounter'
           'encounter_criteria'
         when 'procedure', 'risk_category_assessment', 'physical_exam', 'communication_from_patient_to_provider', 'communication_from_provider_to_provider', 'device', 'diagnostic_study', 'intervention'
           if data_criteria.value.nil?
@@ -335,7 +335,7 @@ module HQMF2
           end
         end
       end
-      
+
       def population_element_prefix(population_criteria_code)
         case population_criteria_code
         when HQMF::PopulationCriteria::IPP
@@ -349,16 +349,16 @@ module HQMF2
         when HQMF::PopulationCriteria::DENEX
           'denominatorExclusion'
         when HQMF::PopulationCriteria::MSRPOPL
-          'measurePopulation'  
+          'measurePopulation'
         when HQMF::PopulationCriteria::OBSERV
-           'measureObservation'  
+           'measureObservation'
         when HQMF::PopulationCriteria::STRAT
-           'stratifier'  
-        else  
+           'stratifier'
+        else
           raise "Unknown population criteria type #{population_criteria_code}"
         end
       end
     end
-    
+
   end
 end
