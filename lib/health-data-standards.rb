@@ -28,6 +28,7 @@ require_relative 'health-data-standards/export/c32'
 require_relative 'health-data-standards/export/ccda'
 require_relative 'health-data-standards/export/csv'
 require_relative 'health-data-standards/export/hdata/metadata'
+require_relative 'health-data-standards/export/exceptions'
 
 require_relative 'health-data-standards/import/provider_import_utils'
 require_relative 'health-data-standards/import/hdata/metadata_importer'
