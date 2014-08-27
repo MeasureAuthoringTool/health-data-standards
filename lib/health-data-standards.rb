@@ -29,6 +29,7 @@ require_relative 'health-data-standards/export/ccda'
 require_relative 'health-data-standards/export/ccr'
 require_relative 'health-data-standards/export/csv'
 require_relative 'health-data-standards/export/hdata/metadata'
+require_relative 'health-data-standards/export/exceptions'
 
 require_relative 'health-data-standards/export/helper/gc32_view_helper'
 require_relative 'health-data-standards/export/green_c32/record'
