@@ -21,7 +21,8 @@ module HealthDataStandards
                                              generate_importer(DiagnosisActiveImporter, nil, '2.16.840.1.113883.3.560.1.2', 'active'),
                                              generate_importer(CDA::ConditionImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.54']", '2.16.840.1.113883.3.560.1.404'), # patient characteristic age
                                              generate_importer(CDA::ConditionImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.14']", '2.16.840.1.113883.3.560.1.24', 'resolved'), #diagnosis resolved
-                                             generate_importer(DiagnosisInactiveImporter, nil, '2.16.840.1.113883.3.560.1.23', 'inactive')] #diagnosis inactive
+                                             generate_importer(DiagnosisInactiveImporter, nil, '2.16.840.1.113883.3.560.1.23', 'inactive'), #diagnosis inactive
+                                             generate_importer(ClinicalTrialParticipantImporter, nil, '2.16.840.1.113883.3.560.1.401')]
   
           
           @section_importers[:medications] = [generate_importer(CDA::MedicationImporter, "./cda:entry/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.105']/cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.41']", '2.16.840.1.113883.3.560.1.199', 'discharge'), #discharge medication active
@@ -72,7 +73,6 @@ module HealthDataStandards
           record = Record.new
           HealthDataStandards::Import::C32::PatientImporter.instance.get_demographics(record, doc)
           import_sections(record, doc)
-          get_clinical_trial_participant(record, doc)
           get_patient_expired(record, doc)
           record.dedup_record!
           record
@@ -88,11 +88,6 @@ module HealthDataStandards
               record.send(section) << entry_package.package_entries(context, nrh)
             end
           end
-        end
-
-        def get_clinical_trial_participant(record, doc)
-          entry_elements = doc.xpath("./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.51']")
-          record.clinicalTrialParticipant = true unless entry_elements.blank?
         end
 
         def get_patient_expired(record, doc)
