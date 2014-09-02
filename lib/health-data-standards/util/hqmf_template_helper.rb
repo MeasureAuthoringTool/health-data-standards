@@ -10,18 +10,15 @@ module HealthDataStandards
       def self.template_id_map(version)
         case version
         when "r1"
-          if @id_map.blank?
-            template_id_file = File.expand_path('../hqmf_template_oid_map.json', __FILE__)
-            @id_map = JSON.parse(File.read(template_id_file))
-          end
-          @id_map
+          path = '../hqmf_template_oid_map.json'
         when "r2"
-          if @id_map.blank?
-            template_id_file = File.expand_path('../hqmfr2_template_oid_map.json', __FILE__)
-            @id_map = JSON.parse(File.read(template_id_file))
-          end
-          @id_map
+          path = '../hqmfr2_template_oid_map.json'
         end
+        if @id_map.blank?
+          template_id_file = File.expand_path(path, __FILE__)
+          @id_map = JSON.parse(File.read(template_id_file))
+        end
+        @id_map
       end
 
       def self.template_id_by_definition_and_status(definition, status, negation=false, version="r1")
@@ -30,19 +27,14 @@ module HealthDataStandards
           kv_pair = template_id_map(version).find {|k, v| v['definition'] == definition &&
                                                  v['status'] == status &&
                                                  v['negation'] == negation}
-          if kv_pair
-            kv_pair.first
-          else
-            nil
-          end
         when "r2"
           kv_pair = template_id_map(version).find {|k, v| v['definition'] == definition &&
                                                  v['status'] == status}
-          if kv_pair
-            kv_pair.first
-          else
-            nil
-          end
+        end
+        if kv_pair
+          kv_pair.first
+        else
+          nil
         end
       end
     end
