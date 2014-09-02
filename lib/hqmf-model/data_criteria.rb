@@ -6,7 +6,7 @@ module HQMF
 
     SOURCE_DATA_CRITERIA_TEMPLATE_ID = '2.16.840.1.113883.3.100.1.1'
     SOURCE_DATA_CRITERIA_TEMPLATE_TITLE = 'Source data criteria'
-    
+
     XPRODUCT = 'XPRODUCT'
     UNION = 'UNION'
     INTERSECT = 'INTERSECT'
@@ -38,7 +38,7 @@ module HQMF
              'TRANSFER_TO' => {title:'Transfer To', coded_entry_method: :transfer_to, code: 'TRANSFER_TO', template_id: '2.16.840.1.113883.3.560.1.72', field_type: :value},
              'TRANSFER_FROM' => {title:'Transfer From', coded_entry_method: :transfer_from, code: 'TRANSFER_FROM', template_id: '2.16.840.1.113883.3.560.1.71', field_type: :value},
              }
-             
+
     VALUE_FIELDS = {'SEV'      => 'SEVERITY',
                     '117363000' => 'ORDINAL',
                     '410666004' => 'REASON',
@@ -60,11 +60,11 @@ module HQMF
                     'SDLOC_ARRIVAL'   => 'FACILITY_LOCATION_ARRIVAL_DATETIME',
                     'SDLOC_DEPARTURE' => 'FACILITY_LOCATION_DEPARTURE_DATETIME'
                    }
-    
+
 
     attr_reader :title, :description, :code_list_id, :derivation_operator , :specific_occurrence, :specific_occurrence_const, :source_data_criteria, :variable
     attr_accessor :id, :value, :field_values, :children_criteria, :effective_time, :status, :temporal_references, :subset_operators, :definition, :inline_code_list, :negation_code_list_id, :negation, :display_name, :comments
-  
+
     # Create a new data criteria instance
     # @param [String] id
     # @param [String] title
@@ -87,7 +87,7 @@ module HQMF
     # @param [String] specific_occurrence
     # @param [String] specific_occurrence_const
     # @param [String] source_data_criteria (id for the source data criteria, important for specific occurrences)
-    # @param [String] user comments for the criteria 
+    # @param [String] user comments for the criteria
     # @param [Boolean] variable defines if the element is a QDM variable
     def initialize(id, title, display_name, description, code_list_id, children_criteria, derivation_operator, definition, status, value, field_values, effective_time, inline_code_list, negation, negation_code_list_id, temporal_references, subset_operators, specific_occurrence, specific_occurrence_const, source_data_criteria=nil, comments=nil, variable=false)
 
@@ -117,7 +117,7 @@ module HQMF
       @comments = comments
       @variable = variable
     end
-    
+
     # create a new data criteria given a category and sub_category.  A sub category can either be a status or a sub category
     def self.create_from_category(id, title, description, code_list_id, category, sub_category=nil, negation=false, negation_code_list_id=nil)
       settings = HQMF::DataCriteria.get_settings_for_definition(category, sub_category)
@@ -153,7 +153,7 @@ module HQMF
 
     # Create a new data criteria instance from a JSON hash keyed with symbols
     def self.from_json(id, json)
-    
+
       title = json["title"] if json["title"]
       display_name = json["display_name"] if json["display_name"]
       description = json["description"] if json["description"]
@@ -181,7 +181,7 @@ module HQMF
     end
 
     def is_same_type?(criteria)
-       return @definition == criteria.definition && @hard_status == criteria.hard_status && 
+       return @definition == criteria.definition && @hard_status == criteria.hard_status &&
               @negation == criteria.negation && all_code_set_oids.sort == criteria.all_code_set_oids.sort
     end
 
@@ -210,13 +210,13 @@ module HQMF
     def has_subset(subset_operator)
       @subset_operators.reduce(false) {|found, item| found ||= item == subset_operator }
     end
-    
+
     def self.statuses_by_definition
       settings_file = File.expand_path('../data_criteria.json', __FILE__)
       settings_map = JSON.parse(File.read(settings_file))
       all_defs = (settings_map.map {|key, value| {category: value['category'],definition:value['definition'],status:(value['status'].empty? ? nil : value['status']), sub_category: value['sub_category'],title:value['title']} unless value['not_supported']}).compact
       by_categories = {}
-      all_defs.each do |definition| 
+      all_defs.each do |definition|
         by_categories[definition[:category]]||={}
         status = definition[:status]
         def_key = definition[:definition]
@@ -239,7 +239,7 @@ module HQMF
       referenced = []
       if (@children_criteria)
         @children_criteria.each do |id|
-          dc = document.data_criteria(id) 
+          dc = document.data_criteria(id)
           referenced << id
           referenced.concat(dc.referenced_data_criteria(document))
         end
@@ -248,7 +248,7 @@ module HQMF
         @temporal_references.each do |tr|
           id = tr.reference.id
           if (id != HQMF::Document::MEASURE_PERIOD_ID)
-            dc = document.data_criteria(id) 
+            dc = document.data_criteria(id)
             referenced << id
             referenced.concat(dc.referenced_data_criteria(document))
           end
@@ -256,25 +256,25 @@ module HQMF
       end
       referenced
     end
-    
+
     def all_code_set_oids
-      
+
       # root oid
       referenced_oids = [code_list_id]
-      
+
       # value oid
       referenced_oids << value.code_list_id if value != nil and value.type == 'CD'
-      
+
       # negation oid
       referenced_oids << negation_code_list_id if negation_code_list_id != nil
-      
+
       # field oids
       if field_values != nil
         referenced_oids.concat (field_values.map {|key,field| field.code_list_id if field != nil and field.type == 'CD'})
       end
-      
+
       referenced_oids
-      
+
     end
 
     def self.get_settings_map
@@ -288,7 +288,7 @@ module HQMF
       settings_map = get_settings_map
       key = definition + ((status.nil? || status.empty?) ? '' : "_#{status}")
       settings = settings_map[key]
-      
+
       raise "data criteria is not supported #{key}" if settings.nil? || settings["not_supported"]
 
       settings
@@ -298,8 +298,8 @@ module HQMF
       get_template_id_map()[template_id]
     end
 
-    def self.template_id_for_definition(definition, status, negation)
-      get_template_id_map().key({'definition' => definition, 'status' => status || '', 'negation' => negation})
+    def self.template_id_for_definition(definition, status, negation, version="r1")
+      get_template_id_map(version).key({'definition' => definition, 'status' => status || '', 'negation' => negation})
     end
 
     def self.title_for_template_id(template_id)
@@ -316,15 +316,15 @@ module HQMF
       end
     end
 
-    def self.get_template_id_map
-      @@template_id_map ||= read_template_id_map
+    def self.get_template_id_map(version="r1")
+      @@template_id_map ||= read_template_id_map(version)
       @@template_id_map
     end
-    
+
     private
-    
-    def self.read_template_id_map
-      HealthDataStandards::Util::HQMFTemplateHelper.template_id_map
+
+    def self.read_template_id_map(version)
+      HealthDataStandards::Util::HQMFTemplateHelper.template_id_map(version)
     end
 
     def normalize_status(definition, status)
