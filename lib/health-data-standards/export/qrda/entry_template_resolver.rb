@@ -22,6 +22,7 @@ module HealthDataStandards
             oid_tuple = hqmf_qrda_oid_map.find {|map_tuple| map_tuple['hqmf_oid'] == hqmf_oid }
             if oid_tuple.nil?
               puts "no qrda oid for #{hqmf_oid}"
+              raise "No QRDA template available for OID #{hqmf_oid}: #{__FILE__} line #{__LINE__}"
             end
             oid_tuple['qrda_oid']
           end
@@ -33,16 +34,20 @@ module HealthDataStandards
           # This is a special case. This HQMF OID maps to more than one QRDA OID.
           # So we need to try to figure out what template we should use based on the
           # content of the entry
-          if vs_oid == '2.16.840.1.113883.3.526.3.1279'
+          case vs_oid
+          when '2.16.840.1.113883.3.526.3.1279'
             # Patient Characteristic Observation Assertion template for
             # Patient Characteristic: ECOG Performance Status-Poor
             '2.16.840.1.113883.10.20.24.3.103'
-          elsif ["2.16.840.1.113883.3.117.1.7.1.402" , "2.16.840.1.113883.3.117.1.7.1.403" , "2.16.840.1.113883.3.117.1.7.1.287" ,"2.16.840.1.113883.3.117.1.7.1.307"].index(vs_oid)
+          when '2.16.840.1.113883.3.117.1.7.1.402', '2.16.840.1.113883.3.117.1.7.1.403',
+               '2.16.840.1.113883.3.117.1.7.1.287', '2.16.840.1.113883.3.117.1.7.1.307'
             # Patient Charasteristic Gestational Age
             '2.16.840.1.113883.10.20.24.3.101'
-          elsif vs_oid == "2.16.840.1.113883.3.526.3.1189" || vs_oid == "2.16.840.1.113883.3.526.3.1170" || vs_oid == '2.16.840.1.113883.3.600.2390'
+          when '2.16.840.1.113883.3.526.3.1189', '2.16.840.1.113883.3.526.3.1170', '2.16.840.1.113883.3.600.2390'
             # Patient Characteristic Tobacco User/Non-User
             '2.16.840.1.113883.10.20.22.4.85'
+          else
+            raise "Unknown value set OID #{vs_oid} for HQMF patient characteristic: #{__FILE__} line #{__LINE__}"
           end
         end
 

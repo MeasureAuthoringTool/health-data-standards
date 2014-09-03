@@ -2,23 +2,35 @@ module HealthDataStandards
   module Util
     # General helpers for working with codes and code systems
     class HQMFTemplateHelper
-      
-      def self.definition_for_template_id(template_id)
-        template_id_map[template_id]
+
+      def self.definition_for_template_id(template_id, version="r1")
+        template_id_map(version)[template_id]
       end
-      
-      def self.template_id_map
+
+      def self.template_id_map(version)
+        case version
+        when "r1"
+          path = '../hqmf_template_oid_map.json'
+        when "r2"
+          path = '../hqmfr2_template_oid_map.json'
+        end
         if @id_map.blank?
-          template_id_file = File.expand_path('../hqmf_template_oid_map.json', __FILE__)
-          @id_map = JSON.parse(File.read(template_id_file))  
+          template_id_file = File.expand_path(path, __FILE__)
+          @id_map = JSON.parse(File.read(template_id_file))
         end
         @id_map
       end
 
-      def self.template_id_by_definition_and_status(definition, status, negation=false)
-        kv_pair = template_id_map.find {|k, v| v['definition'] == definition && 
-                                               v['status'] == status && 
-                                               v['negation'] == negation}
+      def self.template_id_by_definition_and_status(definition, status, negation=false, version="r1")
+        case version
+        when "r1"
+          kv_pair = template_id_map(version).find {|k, v| v['definition'] == definition &&
+                                                 v['status'] == status &&
+                                                 v['negation'] == negation}
+        when "r2"
+          kv_pair = template_id_map(version).find {|k, v| v['definition'] == definition &&
+                                                 v['status'] == status}
+        end
         if kv_pair
           kv_pair.first
         else
@@ -28,5 +40,3 @@ module HealthDataStandards
     end
   end
 end
-
-
