@@ -352,9 +352,6 @@ In addition, we are requesting that the following codes be added to the set of v
                     <id>
                         <item root="439a6db0-f359-4dad-976a-892ab3ab7d20"/>
                     </id>
-                    <code valueSet="2.16.840.1.113883.1.11.20275">
-                        <displayName value="Healthcare Service Delivery Location" />
-                    </code>
                 </role>
             </participation>
             <temporallyRelatedInformation typeCode="SBS">
