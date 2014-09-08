@@ -117,7 +117,7 @@ module HQMF2
         # Add a template ID if one is defined for this data criteria
         template_id = HQMF::DataCriteria.template_id_for_definition(data_criteria.definition, data_criteria.status, false, "r2")
         if template_id
-          templates << {:id => template_id, :title => HQMF::DataCriteria.title_for_template_id(template_id)}
+          templates << {:id => template_id, :title => HQMF::DataCriteria.title_for_template_id(template_id, 'r2')}
         end
         # Add our own template id if this is a source data criteria from HQMF V1. Source
         # data criteria are the 'raw' HQMF V1 data criteria before any restrictions are applied
