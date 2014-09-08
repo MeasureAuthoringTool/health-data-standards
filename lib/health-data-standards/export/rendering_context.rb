@@ -52,7 +52,7 @@ module HealthDataStandards
               rendering_context.extend(extension)
             end
           end
-            erb.result(rendering_context.my_binding)
+          erb.result(rendering_context.my_binding)
         end.join
       end
     end
