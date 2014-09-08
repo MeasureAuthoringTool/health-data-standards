@@ -294,8 +294,8 @@ module HQMF
       settings
     end
 
-    def self.definition_for_template_id(template_id)
-      get_template_id_map()[template_id]
+    def self.definition_for_template_id(template_id, version='r1')
+      get_template_id_map(version)[template_id]
     end
 
     def self.template_id_for_definition(definition, status, negation, version="r1")
