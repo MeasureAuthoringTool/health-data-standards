@@ -140,7 +140,7 @@ module HQMF2
       end
       found = false
       template_ids.each do |template_id|
-        defs = HQMF::DataCriteria.definition_for_template_id(template_id)
+        defs = HQMF::DataCriteria.definition_for_template_id(template_id, 'r2')
 
         if defs
           @definition = defs['definition']
