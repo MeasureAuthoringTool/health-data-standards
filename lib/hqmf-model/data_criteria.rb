@@ -317,8 +317,7 @@ module HQMF
     end
 
     def self.get_template_id_map(version="r1")
-      @@template_id_map ||= read_template_id_map(version)
-      @@template_id_map
+      read_template_id_map(version)
     end
 
     private
