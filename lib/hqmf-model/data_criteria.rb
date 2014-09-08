@@ -302,8 +302,8 @@ module HQMF
       get_template_id_map(version).key({'definition' => definition, 'status' => status || '', 'negation' => negation})
     end
 
-    def self.title_for_template_id(template_id)
-      value = get_template_id_map()[template_id]
+    def self.title_for_template_id(template_id, version='r1')
+      value = get_template_id_map(version)[template_id]
       if value
         settings = self.get_settings_for_definition(value['definition'], value['status'])
         if settings
