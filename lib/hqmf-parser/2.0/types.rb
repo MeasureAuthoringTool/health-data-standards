@@ -177,10 +177,25 @@ module HQMF2
     include HQMF2::Utilities
 
     attr_reader :type, :value
+    ORDER_SUBSETS = ['FIRST','SECOND','THIRD','FOURTH','FIFTH']
+    LAST_SUBSETS = ['LAST', 'RECENT']
+    TIME_SUBSETS = ['DATEDIFF', 'TIMEDIFF']
+    QDM_TYPE_MAP = {'QDM_LAST:'=>'RECENT', 'QDM_SUM:SUM' => 'COUNT'}
 
     def initialize(entry)
       @entry = entry
-      @type = attr_val('./cda:subsetCode/@code')
+
+      sequence_number = attr_val('./cda:sequenceNumber/@value')
+      qdm_subset_code = attr_val('./qdm:subsetCode/@code')
+      subset_code = attr_val('./cda:subsetCode/@code')
+      if (sequence_number)
+        @type = ORDER_SUBSETS[sequence_number.to_i-1]
+      else
+        @type = translate_type(subset_code, qdm_subset_code)
+      end
+
+      binding.pry if @type == 'SUM'
+
       value_def = @entry.at_xpath('./*/cda:repeatNumber', HQMF2::Document::NAMESPACES)
       if !value_def
         value_def = @entry.at_xpath('./*/cda:value', HQMF2::Document::NAMESPACES)
@@ -195,6 +210,16 @@ module HQMF2
       if value_def && !@value
         @value = HQMF2::Range.new(value_def, 'IVL_PQ')
       end
+    end
+
+    def translate_type(subset_code, qdm_subset_code)
+      combined = "#{qdm_subset_code}:#{subset_code}"
+      if (QDM_TYPE_MAP[combined])
+        QDM_TYPE_MAP[combined]
+      else
+        subset_code
+      end
+
     end
 
     def to_model

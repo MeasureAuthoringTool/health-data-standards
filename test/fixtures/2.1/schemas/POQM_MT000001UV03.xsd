@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:ex="urn:hl7-org/v3-example"
+           xmlns:qdm="urn:hhs-qdm:hqmf-r2-extensions:v1"
            targetNamespace="urn:hl7-org:v3"
-           elementFormDefault="qualified"><!--
+           elementFormDefault="qualified">
+<xs:import namespace="urn:hhs-qdm:hqmf-r2-extensions:v1" schemaLocation="hhs-qdm-hqmfr2-ext-v1.xsd"/>
+<!--
 *****************************************************************************************************************
 * XML schema for message type POQM_MT000001UV03.
 * Source information:
@@ -641,6 +644,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:element name="sequenceNumber" type="INT" minOccurs="0" maxOccurs="1"/>
          <xs:element name="localVariableName" type="ST" minOccurs="0" maxOccurs="1"/>
          <xs:element name="subsetCode" type="CS" minOccurs="0" maxOccurs="1"/>
+         <xs:element ref="qdm:subsetCode" minOccurs="0" maxOccurs="1"/>
          <xs:choice>
             <xs:element name="actCriteria" type="POQM_MT000001UV03.ActCriteria" nillable="true"
                         minOccurs="1"
