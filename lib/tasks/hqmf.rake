@@ -111,6 +111,35 @@ namespace :hqmf do
     puts "wrote result to: #{outfile}"
     
   end
+
+  desc 'Convert specified HQMF V1 xml file to HQMF V2 and save it to ./tmp'
+  task :upgrade_all, [:dir] do |t, args|
+    outdir = File.join(".","tmp",'xml','upgrade')
+    FileUtils.mkdir_p outdir
+    
+    raise "You must specify the HQMF XML directory to convert" unless args.dir
+    
+
+    Dir.glob(File.join(args.dir,'**','*.xml')) do |file|
+      version = HQMF::Parser::HQMF_VERSION_1
+      file = File.expand_path(file)
+      filename = "#{Pathname.new(file).basename('.*')}_R2.xml"
+
+      doc = HQMF::Parser::V1Parser.new.parse(File.open(file).read, version)
+      
+      hqmf_xml = HQMF2::Generator::ModelProcessor.to_hqmf(doc)
+      xml = Nokogiri.XML(hqmf_xml) do |config|
+        config.default_xml.noblanks
+      end
+
+      outfile = File.join(outdir,"#{filename}")
+      File.open(outfile, 'w') {|f| f.write(xml.to_xml(:indent => 2)) }
+      
+      puts "wrote result to: #{outfile}"
+    end
+
+    
+  end
   
   desc 'Roundtrip specified HQMF V2 xml file through the model and back to HQMF V2 and save it to ./tmp'
   task :roundtrip, [:file] do |t, args|

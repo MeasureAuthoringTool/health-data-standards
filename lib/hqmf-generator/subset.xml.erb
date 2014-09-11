@@ -1,5 +1,19 @@
           <excerpt typeCode="XCRPT">
+
+          <!-- Subset operator for: <%= subset.type %> -->
+          <% if HQMF2::SubsetOperator::ORDER_SUBSETS.include? subset.type  %>
+            <sequenceNumber value="<%= (HQMF2::SubsetOperator::ORDER_SUBSETS.index subset.type) + 1%>"/>
+          <% elsif HQMF2::SubsetOperator::LAST_SUBSETS.include? subset.type %>
+            <qdm:subsetCode code="QDM_LAST"/>
+          <% elsif subset.type == 'COUNT' %>
+            <subsetCode code="SUM"/>
+            <qdm:subsetCode code="QDM_SUM"/>
+          <% else %>
+            <% if HQMF2::SubsetOperator::TIME_SUBSETS.include? subset.type %>
+              <!-- NOTE: DATEDIFF and TIMEDIFF are not valid in population criteria... measure requires rewrite -->
+            <%end%>
             <subsetCode code="<%= subset.type %>"/>
+          <% end %>
             <<%= element_name_prefix(criteria) %>Criteria moodCode="EVN" classCode="<%= reference_type_name(criteria.id) %>">
             <id root="2.16.840.1.113883.3.100.1" extension="<%= criteria.id %>"/>
             <%- if subset && subset.value -%>
@@ -18,4 +32,5 @@
               <%- end -%>
             <%- end -%>
             </<%= element_name_prefix(criteria) %>Criteria>
+
           </excerpt>
