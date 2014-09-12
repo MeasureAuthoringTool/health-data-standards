@@ -7,8 +7,8 @@
         <%= xml_for_value(value.high, 'high') if value.high -%>
       </uncertainRange>
     <%- else -%>
-      <%= xml_for_value(value.low, 'low', false) if value.low -%>
-      <%= xml_for_value(value.high, 'high', false) if value.high -%>
+      <%- if value.low -%><%= xml_for_value(value.low, 'low', false) -%><%- else -%><low nullFlavor="NINF"/><%- end -%>
+      <%- if value.high -%><%= xml_for_value(value.high, 'high', false) -%><%- else -%><high nullFlavor="PINF"/><%- end -%>
     <%- end -%>
   </<%= name %>>
 <%- elsif value.class==HQMF::Coded -%>

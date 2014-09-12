@@ -64,7 +64,9 @@ module HQMF2
       @entry = entry
       if @entry
         @low = optional_value("#{default_element_name}/cda:low", default_bounds_type)
+        @low = nil unless @low.try(:value)
         @high = optional_value("#{default_element_name}/cda:high", default_bounds_type)
+        @high = nil unless @high.try(:value)
         @width = optional_value("#{default_element_name}/cda:width", 'PQ')
       end
     end
@@ -237,9 +239,9 @@ module HQMF2
       @entry = entry
       @type = attr_val('./@typeCode')
       @reference = Reference.new(@entry.at_xpath('./*/cda:id', HQMF2::Document::NAMESPACES))
-      range_def = @entry.at_xpath('./cda:pauseQuantity', HQMF2::Document::NAMESPACES)
+      range_def = @entry.at_xpath('./qdm:temporalInformation/qdm:delta', HQMF2::Document::NAMESPACES)
       if range_def
-        @range = HQMF2::Range.new(range_def, 'PQ')
+        @range = HQMF2::Range.new(range_def, 'IVL_PQ')
       end
     end
     
