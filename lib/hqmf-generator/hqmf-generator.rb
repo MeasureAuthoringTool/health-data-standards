@@ -68,6 +68,7 @@ module HQMF2
           criteria.field_values.each_pair do |key, value|
             details = HQMF::DataCriteria::FIELDS[key]
             details[:code_system_name] = HealthDataStandards::Util::CodeSystemHelper.code_system_for(details[:code_system])
+            details[:id] = "#{criteria.id}_#{key}"
             fields << HQMF2::Generator.render_template('field', {'details' => details, 'value' => value})
           end
         end
@@ -174,10 +175,38 @@ module HQMF2
         refs = []
         if criteria.temporal_references
           refs = criteria.temporal_references.collect do |reference|
-            HQMF2::Generator.render_template('temporal_relationship', {'doc' => doc, 'relationship' => reference})
+            HQMF2::Generator.render_template('temporal_relationship', {'doc' => doc, 'relationship' => reference, 'criteria' => criteria})
           end
         end
         refs.join
+      end
+
+      def xml_for_temporal_relationship_attribute(criteria, relationship)
+        targetCriteria = doc.data_criteria(relationship.reference.id)
+        if (criteria.field_values || targetCriteria.try(:field_values))
+          sourceKeys = (criteria.field_values || {}).keys.select {|key| [:timestamp, :nested_timestamp].include? HQMF::DataCriteria::FIELDS[key][:field_type]}
+          targetKeys = (targetCriteria.try(:field_values) || {}).keys.select {|key| [:timestamp, :nested_timestamp].include? HQMF::DataCriteria::FIELDS[key][:field_type]}
+          if (!sourceKeys.empty? || !targetKeys.empty?)
+            data = {
+              sourceKeys: sourceKeys,
+              targetKeys: targetKeys
+            }
+
+            HQMF2::Generator.render_template('temporal_relationship_attribute', {'doc' => doc, 'criteria' => criteria, 'targetCriteria'=>targetCriteria, 'data'=> data})
+          end
+        end
+
+      end
+
+      def temporal_relationship_attribute_effective_time(field)
+        {facility_arrival: 'low',
+        facility_departure: 'high',
+        discharge_time: 'high',
+        admit_time: 'low',
+        start_date: 'low',
+        end_date: 'high',
+        incision_time: 'low',
+        removal_time: 'high'}[HQMF::DataCriteria::FIELDS[field][:coded_entry_method]]
       end
 
       def xml_for_measure_observation_definition(doc)
@@ -195,6 +224,11 @@ module HQMF2
         return false unless criteria.definition == 'derived'
         return true unless criteria.subset_operators
         criteria.subset_operators.all? {|o| o.supports_grouper_criteria?}
+      end
+
+      def percision_unit_for_range(relationship)
+        percision_map = {'a'=>'d', 'mo'=>'d', 'wk'=>'d', 'd'=>'d', 'h'=>'min', 'min'=>'min', 's'=>'s'}
+        percision_map[relationship.try(:range).try(:high).try(:unit) || relationship.try(:range).try(:low).try(:unit) || "min"]
       end
 
       def oid_for_name(code_system_name)
