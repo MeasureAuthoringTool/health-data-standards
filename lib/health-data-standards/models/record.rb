@@ -111,7 +111,7 @@ class Record
     unique_entries = {}
     self.send(section).each do |entry|
       if unique_entries[entry.identifier]
-        unique_entries[entry.identifier].codes = unique_entries[entry.identifier].codes.deep_merge(entry.codes)
+        unique_entries[entry.identifier].codes = unique_entries[entry.identifier].codes.deep_merge(entry.codes){ |key, old, new| Array.wrap(old) + Array.wrap(new) }
         unique_entries[entry.identifier].values.concat(entry.values)
       else
         unique_entries[entry.identifier] = entry
