@@ -3,7 +3,7 @@ module HQMF2
   class Document
 
     include HQMF2::Utilities
-    NAMESPACES = {'cda' => 'urn:hl7-org:v3', 'xsi' => 'http://www.w3.org/2001/XMLSchema-instance'}
+    NAMESPACES = {'cda' => 'urn:hl7-org:v3', 'xsi' => 'http://www.w3.org/2001/XMLSchema-instance', 'qdm'=>'urn:hhs-qdm:hqmf-r2-extensions:v1'}
 
     attr_reader :measure_period, :id, :hqmf_set_id, :hqmf_version_number, :populations, :attributes, :source_data_criteria
       
