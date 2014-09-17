@@ -24,13 +24,13 @@ module HealthDataStandards
           all_data_criteria = measures.map {|measure| measure.all_data_criteria}.flatten
           mapped_data_criteria = {}
           all_data_criteria.each do |data_criteria|
-            data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition, 
+            data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                               (data_criteria.status || ""),
                                                                               data_criteria.negation)
             value_set_oid = data_criteria.code_list_id
             dc = {'data_criteria_oid' => data_criteria_oid, 'value_set_oid' => value_set_oid}
             mapping = mapped_data_criteria[dc] ||= {'result_oids' => [], 'field_oids' =>{}, 'data_criteria' => data_criteria}
-            
+
             if data_criteria.field_values
               data_criteria.field_values.each_pair do |field,descr|
                 if descr && descr.type == "CD"
@@ -53,7 +53,7 @@ module HealthDataStandards
         def entry_matches_criteria(entry, data_criteria_info_list)
           data_criteria_info_list.each do |data_criteria_info|
             data_criteria = data_criteria_info['data_criteria']
-            data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition, 
+            data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                                         data_criteria.status || '',
                                                                                         data_criteria.negation)
             if entry.respond_to?(:oid) && (entry.oid == data_criteria_oid)
@@ -67,13 +67,13 @@ module HealthDataStandards
               end
             end
           end
-          
+
           false
         end
-        
+
         # Find all of the entries on a patient that match the given data criteria
         def entries_for_data_criteria(data_criteria, patient)
-          data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition, 
+          data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                                       data_criteria.status || '',
                                                                                        data_criteria.negation)
           HealthDataStandards.logger.warn("Looking for dc [#{data_criteria_oid}]")
@@ -90,21 +90,21 @@ module HealthDataStandards
             entries.concat patient.entries_for_oid(data_criteria_oid)
 
               case data_criteria_oid
-              when '2.16.840.1.113883.3.560.1.5' 
+              when '2.16.840.1.113883.3.560.1.5'
                 #special case handling for Lab Test: Performed being implicitly available through a Lab Test: Result
                 entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.12')
               when '2.16.840.1.113883.3.560.1.12'
-                entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.5')  
-              when '2.16.840.1.113883.3.560.1.6' 
+                entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.5')
+              when '2.16.840.1.113883.3.560.1.6'
                  entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.63')
-              when  '2.16.840.1.113883.3.560.1.63' 
+              when  '2.16.840.1.113883.3.560.1.63'
                  entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.6')
-              when '2.16.840.1.113883.3.560.1.3' 
+              when '2.16.840.1.113883.3.560.1.3'
                  entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.11')
-              when  '2.16.840.1.113883.3.560.1.11' 
+              when  '2.16.840.1.113883.3.560.1.11'
                  entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.3')
               end
- 
+
             codes = (value_set_map(patient["bundle_id"])[data_criteria.code_list_id] || [])
             if codes.empty?
               HealthDataStandards.logger.warn("No codes for #{data_criteria.code_list_id}")
@@ -129,7 +129,7 @@ module HealthDataStandards
 
         def handle_clinical_trial_participant(patient)
           if patient.clinical_trial_participant
-            [{dummy_entry: true}]
+            [Entry.new]
           else
             []
           end
