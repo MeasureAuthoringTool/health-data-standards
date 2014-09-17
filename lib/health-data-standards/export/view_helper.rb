@@ -126,7 +126,13 @@ module HealthDataStandards
           elsif codes['scalar']
             return "#{codes['scalar']} #{codes['units']}"
           else
-            return codes.map {|hashcode_set, hashcodes| "#{hashcode_set}: #{(hashcodes.respond_to? :join) ? hashcodes.join(', ') : hashcodes.to_s}"}.join(' ')
+            return codes.map do |hashcode_set, hashcodes| 
+              if hashcodes.is_a? Hash
+                "#{hashcode_set}: #{convert_field_to_hash(hashcode_set, hashcodes)}"
+              else
+                "#{hashcode_set}: #{(hashcodes.respond_to? :join) ? hashcodes.join(', ') : hashcodes.to_s}"
+              end
+            end.join(' ')
           end
             
           clean_hash
