@@ -131,7 +131,7 @@ module HealthDataStandards
             
           clean_hash
         else
-          if codes && (field.match(/Time$/) || field.match(/\_time$/)) 
+          if codes && (field.match(/Time$/) || field.match(/\_time$/) || field.match(/Date$/)) 
             Entry.time_to_s(codes)
           else
             codes.to_s
