@@ -349,7 +349,7 @@ module HQMF
       case type
         when 'TS', 'PQ'
           value = HQMF::Value.from_json(json)
-        when 'IVL_PQ'
+        when 'IVL_PQ', 'IVL_TS'
           value = HQMF::Range.from_json(json)
         when 'CD'
           value = HQMF::Coded.from_json(json)
