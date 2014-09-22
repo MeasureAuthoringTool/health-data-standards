@@ -196,8 +196,6 @@ module HQMF2
         @type = translate_type(subset_code, qdm_subset_code)
       end
 
-      binding.pry if @type == 'SUM'
-
       value_def = @entry.at_xpath('./*/cda:repeatNumber', HQMF2::Document::NAMESPACES)
       if !value_def
         value_def = @entry.at_xpath('./*/cda:value', HQMF2::Document::NAMESPACES)
