@@ -84,15 +84,17 @@ module HQMF2
       # Extract the data criteria
       @data_criteria = []
       @source_data_criteria = []
+      occurrence_source_map = build_occurrence_source_map()
+
       @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:dataCriteriaSection/cda:entry', NAMESPACES).each do |entry|
-        criteria = DataCriteria.new(entry)
+        criteria = DataCriteria.new(entry, occurrence_source_map)
         if criteria.is_source_data_criteria
           @source_data_criteria << criteria
         else
           @data_criteria << criteria
         end
       end
-      
+
       # Extract the population criteria and population collections
       @populations = []
       @population_criteria = []
@@ -272,6 +274,26 @@ module HQMF2
 
     
     private
+
+    def build_occurrence_source_map()
+      criteria_map = {}
+      source_map = {}
+      @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:dataCriteriaSection/cda:entry', NAMESPACES).each do |entry|
+        criteria = DataCriteria.new(entry)
+        criteria_map[criteria.id] = criteria
+      end
+      criteria_map.values.each do |criteria|
+        if (criteria.specific_occurrence && !source_map[criteria.id])
+          source = criteria_map[criteria.source_data_criteria]
+          if (source)
+            source.instance_variable_set(:@specific_occurrence,criteria.specific_occurrence)
+            source.instance_variable_set(:@specific_occurrence_const,criteria.specific_occurrence_const)
+            source_map[source.id] = source
+          end
+        end
+      end
+      source_map
+    end
     
     def find(collection, attribute, value)
       collection.find {|e| e.send(attribute)==value}

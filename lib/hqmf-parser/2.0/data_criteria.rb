@@ -4,7 +4,7 @@ module HQMF2
 
     include HQMF2::Utilities
 
-    attr_reader :property, :type, :status, :value, :effective_time, :section
+    attr_reader :property, :type, :definition, :status, :value, :effective_time, :section, :description
     attr_reader :temporal_references, :subset_operators, :children_criteria
     attr_reader :derivation_operator, :negation, :negation_code_list_id, :description
     attr_reader :field_values, :source_data_criteria, :specific_occurrence_const
@@ -23,8 +23,9 @@ module HQMF2
 
     # Create a new instance based on the supplied HQMF entry
     # @param [Nokogiri::XML::Element] entry the parsed HQMF entry
-    def initialize(entry)
+    def initialize(entry, occurrence_source_map = {})
       @entry = entry
+      @occurrence_source_map = occurrence_source_map
       @local_variable_name = extract_local_variable_name
       @status = attr_val('./*/cda:statusCode/@code')
       @description = attr_val("./#{CRITERIA_GLOB}/cda:text/@value")
@@ -46,12 +47,17 @@ module HQMF2
       # First we look for a template id and if we find one just use the definition
       # status and negation associated with that
       if !extract_type_from_template_id()
-        # If no template id or not one we recognize then try to determine type from
-        # the definition element
-        extract_type_from_definition()
+        if (@specific_occurrence && @occurrence_source_map[@source_data_criteria])
+          copy_details_from_source(@occurrence_source_map[@source_data_criteria])
+        else
+          # If no template id or not one we recognize then try to determine type from
+          # the definition element
+          extract_type_from_definition()
+        end
       end
 
       patch_xpaths_for_criteria_type()
+      extract_specific_or_source() unless @source_data_criteria # run it again to fill out source data criteria specific occurrences
     end
 
     def patch_xpaths_for_criteria_type
@@ -196,7 +202,7 @@ module HQMF2
     # Get the code list OID of the criteria, used as an index to the code list database
     # @return [String] the code list identifier of this data criteria
     def code_list_id
-      attr_val("#{@code_list_xpath}/@valueSet")
+      @code_list_id || attr_val("#{@code_list_xpath}/@valueSet")
     end
 
     def inline_code_list
@@ -228,7 +234,7 @@ module HQMF2
       # Model transfers as a field
       if ['transfer_to', 'transfer_from'].include? @definition
         field_values ||= {}
-        field_code_list_id = @code_list_id
+        field_code_list_id = code_list_id
         if !field_code_list_id
           field_code_list_id = attr_val("./#{CRITERIA_GLOB}/cda:outboundRelationship/#{CRITERIA_GLOB}/cda:value/@valueSet")
         end
@@ -244,6 +250,13 @@ module HQMF2
     end
 
     private
+
+    def copy_details_from_source(source)
+      @definition = source.definition
+      @status = source.status
+      @description = source.description
+      @code_list_id = source.code_list_id
+    end
 
     def extract_negation
       negation = attr_val('./*/@actionNegationInd')
@@ -293,7 +306,11 @@ module HQMF2
     def extract_specific_or_source
       specific_def = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="OCCR"]', HQMF2::Document::NAMESPACES)
       source_def = @entry.at_xpath('./*/cda:outboundRelationship[cda:subsetCode/@code="SOURCE"]', HQMF2::Document::NAMESPACES)
-      if specific_def
+      source = @occurrence_source_map[id]
+      if source
+        @specific_occurrence_const = source.specific_occurrence_const
+        @specific_occurrence = source.specific_occurrence
+      elsif specific_def
         @source_data_criteria = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')
         @specific_occurrence_const = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationRoot')
         @specific_occurrence = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationExtension')
