@@ -98,7 +98,7 @@ class Cat1Test < Minitest::Test
     measure_entries = @doc.xpath('//cda:section[cda:templateId/@root="2.16.840.1.113883.10.20.24.2.3"]/cda:entry')
     assert_equal @measures.length, measure_entries.size
     measure = measure_entries.find do |measure_entry|
-      measure_entry.at_xpath('./cda:organizer/cda:reference/cda:externalDocument/cda:id[@root="0001"]').present?
+      measure_entry.at_xpath('./cda:organizer/cda:reference/cda:externalDocument/cda:id[@extension="0001"]').present?
     end
     assert measure
   end
