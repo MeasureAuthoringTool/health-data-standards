@@ -12,7 +12,7 @@
       <low <%= value_or_null_flavor(entry.start_time) %>/>
     </effectiveTime>
     <entryRelationship typeCode="SUBJ">
-      <substanceAdministration moodCode="EVN" classCode="SBADM">
+      <substanceAdministration moodCode="EVN" classCode="SBADM" <%== negation_indicator(entry) %>>
         <!-- Medication Activity (consolidation) template -->
         <templateId root="2.16.840.1.113883.10.20.22.4.16"/> 
         <!-- Medication, Active template -->
@@ -54,6 +54,7 @@
             </manufacturerOrganization>
           </manufacturedProduct>
         </consumable>
+        <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"]}) %>
       </substanceAdministration>
     </entryRelationship>
   </act>
