@@ -2,4 +2,6 @@ This directory contains resources for implementation of HQMF R2.1
 
 Links
 ===========
-	https://github.com/projectcypress/health-data-standards/tree/master/resources
+[HQMF R2.1 Implementation Guide](https://github.com/projectcypress/health-data-standards/tree/master/resources)
+[HQMF R2.1 Examples](https://github.com/projectcypress/health-data-standards/blob/master/resources/2014_update_HQMFr2_1.zip?raw=true)
+[HQMF R2.1 QDM Patterns](https://github.com/projectcypress/health-data-standards/tree/master/resources/qdm_hqmf_r2.1_patterns)
