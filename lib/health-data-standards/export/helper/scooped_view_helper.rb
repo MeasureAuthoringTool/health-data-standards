@@ -23,10 +23,17 @@ module HealthDataStandards
         def unique_data_criteria(measures)
           all_data_criteria = measures.map {|measure| measure.all_data_criteria}.flatten
           mapped_data_criteria = {}
+
           all_data_criteria.each do |data_criteria|
             data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                               (data_criteria.status || ""),
                                                                               data_criteria.negation)
+
+            # change a transfer to an encounter since we pull back and write encounters
+            if ['2.16.840.1.113883.3.560.1.71', '2.16.840.1.113883.3.560.1.72'].include? data_criteria_oid
+              data_criteria_oid = '2.16.840.1.113883.3.560.1.79'
+            end
+
             value_set_oid = data_criteria.code_list_id
             dc = {'data_criteria_oid' => data_criteria_oid, 'value_set_oid' => value_set_oid}
             mapping = mapped_data_criteria[dc] ||= {'result_oids' => [], 'field_oids' =>{}, 'data_criteria' => data_criteria}
@@ -87,23 +94,30 @@ module HealthDataStandards
           else
             entries.concat patient.entries_for_oid(data_criteria_oid)
 
-              case data_criteria_oid
-              when '2.16.840.1.113883.3.560.1.5'
-                #special case handling for Lab Test: Performed being implicitly available through a Lab Test: Result
-                entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.12')
-              when '2.16.840.1.113883.3.560.1.12'
-                entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.5')
-              when '2.16.840.1.113883.3.560.1.6'
-                 entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.63')
-              when  '2.16.840.1.113883.3.560.1.63'
-                 entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.6')
-              when '2.16.840.1.113883.3.560.1.3'
-                 entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.11')
-              when  '2.16.840.1.113883.3.560.1.11'
-                 entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.3')
+            case data_criteria_oid
+            when '2.16.840.1.113883.3.560.1.5'
+              #special case handling for Lab Test: Performed being implicitly available through a Lab Test: Result
+              entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.12')
+            when '2.16.840.1.113883.3.560.1.12'
+              entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.5')
+            when '2.16.840.1.113883.3.560.1.6'
+               entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.63')
+            when  '2.16.840.1.113883.3.560.1.63'
+               entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.6')
+            when '2.16.840.1.113883.3.560.1.3'
+               entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.11')
+            when  '2.16.840.1.113883.3.560.1.11'
+               entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.3')
+            when '2.16.840.1.113883.3.560.1.71' || '2.16.840.1.113883.3.560.1.72'
+              # transfers
+              entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.79')
+              if (data_criteria.field_values)
+                code_list_id = data_criteria.field_values['TRANSFER_FROM'].try(:code_list_id) || data_criteria.field_values['TRANSFER_TO'].try(:code_list_id)
+                codes = (value_set_map(patient["bundle_id"])[code_list_id] || [])
               end
+            end
 
-            codes = (value_set_map(patient["bundle_id"])[data_criteria.code_list_id] || [])
+            codes ||= (value_set_map(patient["bundle_id"])[data_criteria.code_list_id] || [])
             if codes.empty?
               HealthDataStandards.logger.warn("No codes for #{data_criteria.code_list_id}")
             end
@@ -112,6 +126,16 @@ module HealthDataStandards
               # This special case is for when the code list is a reason
               if data_criteria.code_list_id =~ /2\.16\.840\.1\.113883\.3\.526\.3\.100[7-9]/
                 entry.negation_reason.present? && codes.first['values'].include?(entry.negation_reason['code'])
+              elsif data_criteria_oid == '2.16.840.1.113883.3.560.1.71'
+                if (entry.transferFrom)
+                  entry.transferFrom.codes[entry.transferFrom.code_system] = [entry.transferFrom.code]
+                  !entry.transferFrom.codes_in_code_set(codes).empty?
+                end
+              elsif data_criteria_oid == '2.16.840.1.113883.3.560.1.72'
+                if (entry.transferTo)
+                  entry.transferTo.codes[entry.transferTo.code_system] = [entry.transferTo.code]
+                  !entry.transferTo.codes_in_code_set(codes).empty?
+                end
               else
                 # The !! hack makes sure that negation_ind is a boolean
                 entry.is_in_code_set?(codes) && !!entry.negation_ind == data_criteria.negation
