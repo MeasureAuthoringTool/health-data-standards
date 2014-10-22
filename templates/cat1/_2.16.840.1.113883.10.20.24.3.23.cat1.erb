@@ -55,21 +55,36 @@
 
     <% if entry.respond_to?(:transferFrom) && entry.transferFrom.present? -%>
     <participant typeCode="ORG">
+      <!-- Transfer From (Destination) template --> 
+      <templateId root="2.16.840.1.113883.10.20.24.3.81"/> 
       <time value="<%= entry.transferFrom.time %>"/> 
       <participantRole classCode="LOCE">
-        <templateId root="2.16.840.1.113883.10.20.24.3.81"/> 
-        <%== code_display(entry.transferFrom, 'value_set_map' => value_set_map, 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+        <% 
+           entry.transferFrom.codes[entry.transferFrom.code_system] = [entry.transferFrom.code]
+           transfer_vs_map = [{"set"=>entry.transferFrom.code_system, "values"=>[entry.transferFrom.code]}]
+           transfer_oid = (data_criteria.field_values || {})['TRANSFER_FROM'].try(:code_list_id)
+           options = {'value_set_map' => transfer_vs_map, 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT']}
+           options['extra_content'] = "sdtc:valueSet=\"#{transfer_oid}\"" if transfer_oid
+        %>
+        <%== code_display(entry.transferFrom, options) %>
       </participantRole> 
     </participant>
     <% end -%>
 
     <% if entry.respond_to?(:transferTo) && entry.transferTo.present? -%>
     <participant typeCode="DST">
+      <!-- Transfer To (Destination) template --> 
+      <templateId root="2.16.840.1.113883.10.20.24.3.82"/> 
       <time value="<%= entry.transferTo.time %>"/> 
       <participantRole classCode="LOCE">
-        <!-- Transfer To (Destination) template --> 
-        <templateId root="2.16.840.1.113883.10.20.24.3.82"/> 
-        <%== code_display(entry.transferTo, 'value_set_map' => value_set_map, 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+        <% 
+           entry.transferTo.codes[entry.transferTo.code_system] = [entry.transferTo.code]
+           transfer_vs_map = [{"set"=>entry.transferTo.code_system, "values"=>[entry.transferTo.code]}]
+           transfer_oid = (data_criteria.field_values || {})['TRANSFER_TO'].try(:code_list_id)
+           options = {'value_set_map' => transfer_vs_map, 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT']}
+           options['extra_content'] = "sdtc:valueSet=\"#{transfer_oid}\"" if transfer_oid
+        %>
+        <%== code_display(entry.transferTo, options) %>
       </participantRole> 
     </participant>
     <% end -%>
