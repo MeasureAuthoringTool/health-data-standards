@@ -108,7 +108,7 @@ module HealthDataStandards
                entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.11')
             when  '2.16.840.1.113883.3.560.1.11' 
                entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.3')
-            when '2.16.840.1.113883.3.560.1.71' || '2.16.840.1.113883.3.560.1.72'
+            when '2.16.840.1.113883.3.560.1.71', '2.16.840.1.113883.3.560.1.72'
               # transfers
               entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.79')
               if (data_criteria.field_values)
