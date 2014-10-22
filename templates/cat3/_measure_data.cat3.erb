@@ -116,10 +116,7 @@
          payer_supplimental_data.each do |payer, count| -%>
 
  <!--         PAYER Supplemental Data Reporting   for<%= population.type %>  <%= population.id %>   -->        
-  <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Payer Supplemental Data', 
-                :template_id => '2.16.840.1.113883.10.20.27.3.9', :supplemental_data_code => '48768-6',
-                :supplemental_data_code_system => '2.16.840.1.113883.6.1', :supplemental_data_value_code => payer,
-                :supplemental_data_value_code_system => '2.16.840.1.113883.3.221.5', :count => count} %>   
+<%== render partial: "supplemental_data_payer", :locals => {:payer => payer, :count => count} %>
       <% end -%>
     <% end -%>
   <% end -%>
