@@ -151,7 +151,7 @@ module HealthDataStandards
 
         def handle_patient_expired(patient)
           if patient.expired
-            [OpenStruct.new(start_date: patient.deathdate, id: UUID.generate)]
+            [OpenStruct.new(start_time: patient.deathdate, id: UUID.generate)]
           else
             []
           end
