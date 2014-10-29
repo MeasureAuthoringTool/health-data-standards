@@ -13,6 +13,7 @@ module HealthDataStandards
           ip = InsuranceProvider.new
           value_element = payer_element.at_xpath('cda:value')
           ip.codes = { 'SOP' => [value_element['code']] } if value_element
+          extract_dates(payer_element, ip)
           ip
         end
 
