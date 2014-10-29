@@ -101,15 +101,15 @@ module HealthDataStandards
         entry_populations = []
         cache_entry.population_ids.each do |population_type, population_id|
           population = populations.find{|pop| pop.id == population_id}
-          if population.nil? && population_type != 'stratification'
+          if population.nil? && population_type != 'stratification' && population_type != 'STRAT'
             population = Population.new
             population.type = population_type
             population.id = population_id
             populations << population
           end
-          unless population_type == 'stratification'
+          unless population_type == 'stratification' || population_type == 'STRAT'
             if cache_entry.is_stratification?
-              strat_id = cache_entry.population_ids['stratification']
+              strat_id = cache_entry.population_ids['STRAT']
               population.add_stratification(strat_id,cache_entry[population_type])
             else
               population.value = cache_entry[population_type]

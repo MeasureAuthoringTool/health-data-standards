@@ -36,7 +36,7 @@ module HealthDataStandards
       end
 
       def is_stratification?
-        population_ids.has_key?('stratification')
+        population_ids.has_key?('stratification') || population_ids.has_key?('STRAT')
       end
 
       def is_cv?
