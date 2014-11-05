@@ -43,12 +43,13 @@
               <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
               <!-- This is the templateId for eMeasure Reference QDM -->
               <templateId root="2.16.840.1.113883.10.20.24.3.97"/>
+              <id extension="<%= measure['id'] %>"/>
               <statusCode code="completed"/>
               <!-- Containing isBranch external references -->
               <reference typeCode="REFR">
                 <externalDocument classCode="DOC" moodCode="EVN">
                   <!-- SHALL: This is the version specific identifier for eMeasure: QualityMeasureDocument/id it is a GUID-->
-                  <id root="<%= measure.hqmf_id %>"/>
+                  <id root="2.16.840.1.113883.4.738" extension="<%= measure.hqmf_id %>"/>
                   <!-- SHOULD This is the title of the eMeasure -->
                   <text><%= measure.title %></text>
                   <!-- SHOULD: setId is the eMeasure version neutral id  -->

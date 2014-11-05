@@ -3,11 +3,17 @@
   <entryRelationship typeCode="COMP">
     <observation classCode="OBS" moodCode="EVN">
       <!-- <%= template_name %> -->
-      <templateId root="<%= template_id %>"/>
+      <% template_ids.each do |tid| %>
+        <templateId root="<%= tid %>"/>
+      <% end %>
         <id nullFlavor="NA" />
       <code code="<%= supplemental_data_code %>" 
             codeSystem="<%= supplemental_data_code_system %>"/>
       <statusCode code="completed"/>
+      <effectiveTime>
+        <low nullFlavor="NA"/>
+        <high nullFlavor="NA"/>
+      </effectiveTime>
       <% if supplemental_data_value_code == "" || supplemental_data_value_code == "UNK" -%>
       <value xsi:type="CD" 
              nullFlavor="UNK" />

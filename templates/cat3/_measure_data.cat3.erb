@@ -82,7 +82,7 @@
    <!--    SEX Supplemental Data Reporting for <%= population.type %>  <%= population.id %>      --> 
          
   <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Sex Supplemental Data', 
-                :template_id => '2.16.840.1.113883.10.20.27.3.6', :supplemental_data_code => '184100006',
+                :template_ids => ['2.16.840.1.113883.10.20.27.3.6'], :supplemental_data_code => '184100006',
                 :supplemental_data_code_system => '2.16.840.1.113883.6.96', :supplemental_data_value_code => sex,
                 :supplemental_data_value_code_system => '2.16.840.1.113883.5.1', :count => count} %>   
       <% end -%>
@@ -94,7 +94,7 @@
     <!--     ETHNICITY Supplemental Data Reporting  for <%= population.type %>  <%= population.id %>     --> 
 
   <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Ethnicity Supplemental Data', 
-                :template_id => '2.16.840.1.113883.10.20.27.3.7', :supplemental_data_code => '364699009',
+                :template_ids => ['2.16.840.1.113883.10.20.27.3.7'], :supplemental_data_code => '364699009',
                 :supplemental_data_code_system => '2.16.840.1.113883.6.96', :supplemental_data_value_code => ethnicity,
                 :supplemental_data_value_code_system => '2.16.840.1.113883.6.238', :count => count} %>   
       <% end -%>
@@ -106,7 +106,7 @@
    <!--      RACE Supplemental Data Reporting  for <%= population.type %>  <%= population.id %> --> 
 
   <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Race Supplemental Data', 
-                :template_id => '2.16.840.1.113883.10.20.27.3.8', :supplemental_data_code => '103579009',
+                :template_ids => ['2.16.840.1.113883.10.20.27.3.8'], :supplemental_data_code => '103579009',
                 :supplemental_data_code_system => '2.16.840.1.113883.6.96', :supplemental_data_value_code => race,
                 :supplemental_data_value_code_system => '2.16.840.1.113883.6.238', :count => count} %>   
       <% end -%>
@@ -116,8 +116,8 @@
          payer_supplimental_data.each do |payer, count| -%>
 
  <!--         PAYER Supplemental Data Reporting   for<%= population.type %>  <%= population.id %>   -->        
-  <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Payer Supplemental Data', 
-                :template_id => '2.16.840.1.113883.10.20.27.3.9', :supplemental_data_code => '48768-6',
+ <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Payer Supplemental Data', 
+                :template_ids => ['2.16.840.1.113883.10.20.27.3.9', '2.16.840.1.113883.10.20.24.3.55'], :supplemental_data_code => '48768-6',
                 :supplemental_data_code_system => '2.16.840.1.113883.6.1', :supplemental_data_value_code => payer,
                 :supplemental_data_value_code_system => '2.16.840.1.113883.3.221.5', :count => count} %>   
       <% end -%>

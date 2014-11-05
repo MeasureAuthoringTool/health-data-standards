@@ -36,6 +36,9 @@ class Cat1Test < Minitest::Test
      xsd = Nokogiri::XML::Schema(open("./resources/schema/infrastructure/cda/CDA_SDTC.xsd"))
      valid_measures = @measures.select { |m| m.hqmf_id.length > 4 } #make sure there is a valid hqmf_id
      Record.all.each do |record|
+      insurance_provider = InsuranceProvider.new(start_time: Time.new(2008,1,1).to_i,
+                                                 codes: {"SOP" => 349})
+      record.insurance_providers << insurance_provider
       puts "Testing Cat I for #{record.first} #{record.last}"
       doc = Nokogiri::XML(HealthDataStandards::Export::Cat1.new.export(record,valid_measures,@start_date,@end_date, @header))
       assert_equal [], xsd.validate(doc), "Invalid Cat I for #{record.first} #{record.last}"
@@ -98,7 +101,7 @@ class Cat1Test < Minitest::Test
     measure_entries = @doc.xpath('//cda:section[cda:templateId/@root="2.16.840.1.113883.10.20.24.2.3"]/cda:entry')
     assert_equal @measures.length, measure_entries.size
     measure = measure_entries.find do |measure_entry|
-      measure_entry.at_xpath('./cda:organizer/cda:reference/cda:externalDocument/cda:id[@root="0001"]').present?
+      measure_entry.at_xpath('./cda:organizer/cda:reference/cda:externalDocument/cda:id[@extension="0001"]').present?
     end
     assert measure
   end
