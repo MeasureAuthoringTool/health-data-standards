@@ -27,7 +27,7 @@ class Minitest::Test
   Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
   # Add more helper methods to be used by all tests here...
-  
+
   def collection_fixtures(collection, *id_attributes)
     Mongoid.session(:default)[collection].drop
     Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', collection, '*.json')).each do |json_fixture_file|
@@ -116,6 +116,6 @@ Mongoid.session(:default).collections.each do |collection|
   collection.drop unless collection.name.include?('system.')
 end
 
-collection_fixtures('records', '_id')
+collection_fixtures('health_data_standards_records', '_id')
 collection_fixtures('health_data_standards_svs_value_sets', '_id')
 collection_fixtures('measures')

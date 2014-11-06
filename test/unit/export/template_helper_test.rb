@@ -23,7 +23,7 @@ class TemplateHelperTest < Minitest::Test
     template_helper = HealthDataStandards::Export::TemplateHelper.new('c32', 'c32')
     rendering_context = HealthDataStandards::Export::RenderingContext.new
     rendering_context.template_helper = template_helper
-    entry = Entry.new(:description => 'An allergy', :time => 1234,
+    entry = HealthDataStandards::Entry.new(:description => 'An allergy', :time => 1234,
                       :codes => {"CPT" => ['1234']})
     xml = rendering_context.render(:partial => 'allergies', :locals => {:entries => [entry]})
     assert xml

@@ -2,7 +2,7 @@ module HealthDataStandards
   module Import
     module CDA
       class ConditionImporter < SectionImporter
-        
+
         def initialize(entry_finder=EntryFinder.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.103']/cda:entry/cda:act/cda:entryRelationship/cda:observation"))
           @entry_finder = entry_finder
           @code_xpath = "./cda:value"
@@ -12,7 +12,7 @@ module HealthDataStandards
           @description_xpath = "./cda:text/cda:reference[@value]"
           @provider_xpath = "./cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:performer"
           @priority_xpath = "../cda:sequenceNumber"
-          @entry_class = Condition
+          @entry_class = HealthDataStandards::Condition
           @value_xpath = nil
         end
 

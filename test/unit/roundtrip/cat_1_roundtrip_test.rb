@@ -8,14 +8,14 @@ class Cat1RoundtripTest < Minitest::Test
 
   def setup
     dump_database
-    collection_fixtures('records', '_id')
+    collection_fixtures('health_data_standards_records', '_id')
     collection_fixtures('health_data_standards_svs_value_sets', '_id')
     collection_fixtures('measures')
   end
 
   def test_round_trip
     # Export
-    patient = Record.where({first: "Mary"}).first
+    patient = HealthDataStandards::Record.where({first: "Mary"}).first
     start_date = Time.now.years_ago(1)
     end_date = Time.now
     measure = HealthDataStandards::CQM::Measure.where({name: "Mary Berry's Wacky Wild Measure"}).first
@@ -25,7 +25,7 @@ class Cat1RoundtripTest < Minitest::Test
     doc_import = Nokogiri::XML(qrda_xml)
     doc_import.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     doc_import.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
-    patient_import = Record.new
+    patient_import = HealthDataStandards::Record.new
     HealthDataStandards::Import::C32::PatientImporter.instance.get_demographics(patient_import, doc_import)
     HealthDataStandards::Import::Cat1::PatientImporter.instance.import_sections(patient_import, doc_import)
     encounter = patient.encounters.first

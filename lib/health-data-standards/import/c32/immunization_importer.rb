@@ -7,7 +7,7 @@ module HealthDataStandards
           super(entry_finder)
           @code_xpath = "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code"
           @description_xpath = "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code/cda:originalText/cda:reference[@value]"
-          @entry_class = Immunization
+          @entry_class = HealthDataStandards::Immunization
         end
 
         def create_entry(entry_element, nrh = CDA::NarrativeReferenceHandler.new)
@@ -16,9 +16,9 @@ module HealthDataStandards
           extract_performer(entry_element, immunization)
           immunization
         end
-    
+
         private
-    
+
         def extract_performer(parent_element, immunization)
           performer_element = parent_element.at_xpath("./cda:performer")
           immunization.performer = import_actor(performer_element) if performer_element

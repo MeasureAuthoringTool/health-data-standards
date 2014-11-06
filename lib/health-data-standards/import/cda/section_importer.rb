@@ -15,12 +15,12 @@ module HealthDataStandards
           @priority_xpath = nil
           @description_xpath = "./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value]"
           @check_for_usable = true
-          @entry_class = Entry
+          @entry_class = HealthDataStandards::Entry
           @value_xpath = 'cda:value'
         end
 
         # Traverses an HL7 CDA document passed in and creates an Array of Entry
-        # objects based on what it finds                          
+        # objects based on what it finds
         # @param [Nokogiri::XML::Document] doc It is expected that the root node of this document
         #        will have the "cda" namespace registered to "urn:hl7-org:v3"
         #        measure definition
@@ -66,7 +66,7 @@ module HealthDataStandards
         def extract_id(parent_element, entry)
           id_element = parent_element.at_xpath(@id_xpath)
           if id_element
-            identifier = CDAIdentifier.new
+            identifier = HealthDataStandards::CDAIdentifier.new
             identifier.root = id_element['root']
             identifier.extension = id_element['extension']
             entry.cda_identifier = identifier
@@ -121,7 +121,7 @@ module HealthDataStandards
               unit = value_element['unit']
               entry.set_value(value.strip, unit)
             elsif value_element['code'].present?
-              crv = CodedResultValue.new
+              crv = HealthDataStandards::CodedResultValue.new
               add_code_if_present(value_element, crv)
               entry.values << crv
             else
@@ -129,21 +129,21 @@ module HealthDataStandards
               unit = value_element['unit']
               entry.set_value(value.strip, unit)
             end
-            
+
           end
         end
-        
+
         def import_actor(actor_element)
           return ProviderImporter.instance.extract_provider(actor_element)
         end
-        
+
         def import_organization(organization_element)
           return OrganizationImporter.instance.extract_organization(organization_element)
         end
 
         def import_person(person_element)
           return unless person_element
-          person = Person.new
+          person = HealthDataStandards::Person.new
           name_element = person_element.at_xpath("./cda:name")
           if name_element
             person.title = name_element.at_xpath("./cda:title").try(:text)
@@ -151,7 +151,7 @@ module HealthDataStandards
             person.family_name = name_element.at_xpath("./cda:family").try(:text)
           end
           person.addresses = person_element.xpath("./cda:addr").map { |addr| import_address(addr) }
-          person.telecoms = person_element.xpath("./cda:telecom").map { |tele| import_telecom(tele) } 
+          person.telecoms = person_element.xpath("./cda:telecom").map { |tele| import_telecom(tele) }
           return person
         end
 
@@ -170,7 +170,7 @@ module HealthDataStandards
             end
           end
         end
-    
+
         def extract_code(parent_element, code_xpath, code_system=nil)
           code_element = parent_element.at_xpath(code_xpath)
           code_hash = nil

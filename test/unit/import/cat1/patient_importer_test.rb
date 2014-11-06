@@ -181,13 +181,13 @@ class PatientImporterTest < Minitest::Test
   end
 
   def test_condition_expired
-    dead_patient = Record.new
+    dead_patient = HealthDataStandards::Record.new
     doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/condition_expired_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     HealthDataStandards::Import::Cat1::PatientImporter.instance.get_patient_expired(dead_patient, cat1_patient_data_section(doc))
     assert dead_patient.expired
 
-    alive_patient = Record.new
+    alive_patient = HealthDataStandards::Record.new
     doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/functional_status_result_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     HealthDataStandards::Import::Cat1::PatientImporter.instance.get_patient_expired(alive_patient, cat1_patient_data_section(doc))
@@ -205,7 +205,7 @@ class PatientImporterTest < Minitest::Test
   end
 
   def test_clinical_trial_participant
-    patient = Record.new
+    patient = HealthDataStandards::Record.new
     doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/clinical_trial_participant_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     HealthDataStandards::Import::Cat1::PatientImporter.instance.get_clinical_trial_participant(patient, cat1_patient_data_section(doc))
@@ -213,7 +213,7 @@ class PatientImporterTest < Minitest::Test
   end
 
   def test_not_clinical_trial_participant
-    patient = Record.new
+    patient = HealthDataStandards::Record.new
     doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/care_goal_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     HealthDataStandards::Import::Cat1::PatientImporter.instance.get_clinical_trial_participant(patient, cat1_patient_data_section(doc))
@@ -277,7 +277,7 @@ class PatientImporterTest < Minitest::Test
     doc = Nokogiri::XML(File.new(xml_file))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
-    patient = Record.new
+    patient = HealthDataStandards::Record.new
     HealthDataStandards::Import::Cat1::PatientImporter.instance.import_sections(patient, cat1_patient_data_section(doc))
     patient
   end

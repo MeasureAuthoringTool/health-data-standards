@@ -20,10 +20,10 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 		date_shift = 1
 		values = ENTRY_VALUES.clone
 	  values.each do |vals|
-	  	entry = Entry.new(vals)
+	  	entry = HealthDataStandards::Entry.new(vals)
 			entry.shift_dates(date_shift)
 			entry_shift_assertions(vals,date_shift, entry)
-	  end						
+	  end
 
 
 	end
@@ -35,11 +35,11 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 		values.each do |vals|
 			con_values.each do |con_val|
 				e_vals = vals.merge con_val
-		  	entry = Condition.new(e_vals)
+		  	entry = HealthDataStandards::Condition.new(e_vals)
 				entry.shift_dates(date_shift)
 				entry_shift_assertions(e_vals,date_shift, entry)
 			end
-	  end				
+	  end
 	end
 
 	def test_encounter_shift
@@ -50,18 +50,18 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 												{admitTime: nil}, {dischargeTime: nil},
 												{admitTime: nil}, {dischargeTime: nil}]
 		facility_values = [{start_time: nil, end_time: 20}]
-												
+
 		values.each do |vals|
 			encounter_values.each do |enc_vals|
 				facility_values.each do |fac_vals|
 					e_vals = vals.merge enc_vals
-			  	entry = Encounter.new(e_vals)
-			  	entry.facility = Facility.new(fac_vals)
+			  	entry = HealthDataStandards::Encounter.new(e_vals)
+			  	entry.facility = HealthDataStandards::Facility.new(fac_vals)
 					entry.shift_dates(date_shift)
 					entry_shift_assertions(e_vals,date_shift, entry) {|ev,ds,ent| entry_shift_assertions(fac_vals,ds,entry.facility)}
 				end
 			end
-	  end				
+	  end
 
 	end
 
@@ -73,7 +73,7 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 												{start_time: nil, end_time: 1},
 												{start_time: 1, end_time: 1}]
 		facility_values.each do |fac_vals|
-			facility = Facility.new(fac_vals)
+			facility = HealthDataStandards::Facility.new(fac_vals)
 			facility.shift_dates(date_shift)
 			entry_shift_assertions(fac_vals,date_shift, facility)
 		end
@@ -84,7 +84,7 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
   	date_shift = 12
   	full_values = [{dispense_date: nil}, {dispense_date: 15}]
   	full_values.each do |vals|
-  		fullfillment = FulfillmentHistory.new(vals)
+  		fullfillment = HealthDataStandards::FulfillmentHistory.new(vals)
   		fullfillment.shift_dates(date_shift)
   		entry_shift_assertions(vals,date_shift, fullfillment)
   	end
@@ -98,7 +98,7 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 												{start_time: nil, end_time: 1},
 												{start_time: 1, end_time: 1}]
 		values.each do |vals|
-			entry = Guarantor.new(vals)
+			entry = HealthDataStandards::Guarantor.new(vals)
 			entry.shift_dates(date_shift)
 			entry_shift_assertions(vals,date_shift, entry)
 		end
@@ -112,9 +112,9 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 												{start_time: nil, end_time: 1},
 												{start_time: 1, end_time: 1}]
 		values.each do |vals|
-			entry = InsuranceProvider.new(vals)
+			entry = HealthDataStandards::InsuranceProvider.new(vals)
 			g_vals = {start_time: nil, end_time: 1}
-			g = Guarantor.new(g_vals)
+			g = HealthDataStandards::Guarantor.new(g_vals)
 			entry.guarantors << g
 			entry.shift_dates(date_shift)
 			entry_shift_assertions(vals,date_shift, entry) {|v,ds,e| entry_shift_assertions(g_vals,date_shift, e.guarantors[0])}
@@ -129,12 +129,12 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 		values.each do |vals|
 			con_values.each do |con_val|
 				e_vals = vals.merge con_val
-		  	entry = MedicalEquipment.new(e_vals)
+		  	entry = HealthDataStandards::MedicalEquipment.new(e_vals)
 				entry.shift_dates(date_shift)
 				entry_shift_assertions(e_vals,date_shift, entry)
 			end
-	  end				
-	end	
+	  end
+	end
 
 	def test_medication_shift
 
@@ -143,18 +143,18 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 		ful_hist ={dispense_date: 15}
 		order_inf = {orderDateTime: nil, orderExpirationDateTime: 10}
 		values.each do |vals|
-		  	entry = Medication.new(vals)
-		  	entry.fulfillmentHistory << FulfillmentHistory.new(ful_hist)
-		  	entry.orderInformation << OrderInformation.new(order_inf)
+		  	entry = HealthDataStandards::Medication.new(vals)
+		  	entry.fulfillmentHistory << HealthDataStandards::FulfillmentHistory.new(ful_hist)
+		  	entry.orderInformation << HealthDataStandards::OrderInformation.new(order_inf)
 				entry.shift_dates(date_shift)
 				entry_shift_assertions(vals,date_shift, entry) do |vals,ds,ent|
 					entry_shift_assertions(ful_hist,date_shift,entry.fulfillmentHistory[0])
 					entry_shift_assertions(order_inf,date_shift,entry.orderInformation[0])
 				end
-	  end				
+	  end
 
 
-	end	
+	end
 
 	def test_order_information_shift
 
@@ -164,7 +164,7 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 								{orderDateTime: 10, orderExpirationDateTime: nil},
 								{orderDateTime: 12, orderExpirationDateTime: 10}]
 		values.each do |vals|
-			entry = OrderInformation.new(vals)
+			entry = HealthDataStandards::OrderInformation.new(vals)
 			entry.shift_dates(date_shift)
 			entry_shift_assertions(vals,date_shift, entry)
 		end
@@ -179,11 +179,11 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 		values.each do |vals|
 			pro_values.each do |pro_val|
 				e_vals = vals.merge pro_val
-		  	entry = Procedure.new(e_vals)
+		  	entry = HealthDataStandards::Procedure.new(e_vals)
 				entry.shift_dates(date_shift)
 				entry_shift_assertions(e_vals,date_shift, entry)
 			end
-	  end				
+	  end
 	end
 
 	def test_provider_performance_shift
@@ -194,7 +194,7 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 												{start_date: nil, end_date: 1},
 												{start_date: 1, end_date: 1}]
 		values.each do |vals|
-			entry = ProviderPerformance.new(vals)
+			entry = HealthDataStandards::ProviderPerformance.new(vals)
 			entry.shift_dates(date_shift)
 			entry_shift_assertions(vals,date_shift, entry)
 		end
@@ -210,11 +210,11 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 												{birthdate: 1, deathdate: 1}]
 
 		values.each do |vals|
-			entry = Record.new(vals)
+			entry = HealthDataStandards::Record.new(vals)
 			entry.shift_dates(date_shift)
 			entry_shift_assertions(vals,date_shift, entry)
 		end
-			
+
 	end
 
 

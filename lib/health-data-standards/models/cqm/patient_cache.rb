@@ -10,7 +10,7 @@ module HealthDataStandards
       embeds_one :value, class_name: "HealthDataStandards::CQM::PatientCacheValue", inverse_of: :patient_cache
 
       def record
-        Record.where(:medical_record_number => value['medical_record_id'], :test_id => value["test_id"]).first
+        HealthDataStandards::Record.where(:medical_record_number => value['medical_record_id'], :test_id => value["test_id"]).first
       end
 
       def self.smoking_gun_rational(hqmf_id, sub_ids=nil, filter ={})

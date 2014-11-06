@@ -4,7 +4,7 @@ module HealthDataStandards
       class ProcedureOrderImporter < CDA::SectionImporter
         def initialize(entry_finder=CDA::EntryFinder.new("./cda:entry/cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.63']"))
           super(entry_finder)
-          @entry_class = Procedure
+          @entry_class = HealthDataStandards::Procedure
         end
 
         def create_entry(entry_element, nrh = CDA::NarrativeReferenceHandler.new)

@@ -6,7 +6,7 @@ module HealthDataStandards
           super(entry_finder)
           @code_xpath = "./cda:participant/cda:participantRole/cda:playingDevice/cda:code"
           @anatomical_xpath = "./cda:targetSiteCode"
-          @entry_class = MedicalEquipment
+          @entry_class = HealthDataStandards::MedicalEquipment
         end
 
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)

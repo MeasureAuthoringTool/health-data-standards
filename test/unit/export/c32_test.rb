@@ -1,21 +1,21 @@
 require 'test_helper'
 
 class C32Test < Minitest::Test
-  
+
   def setup
-    collection_fixtures('records', '_id')
+    collection_fixtures('health_data_standards_records', '_id')
     @pi = HealthDataStandards::Import::C32::PatientImporter.instance
-    @record = Record.find('4dcbecdb431a5f5878000004')
+    @record = HealthDataStandards::Record.find('4dcbecdb431a5f5878000004')
     c32 = HealthDataStandards::Export::C32.new.export(@record)
     @doc = Nokogiri::XML(c32)
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     @patient = @pi.parse_c32(@doc)
   end
-  
+
   def test_demographics
     doc = Nokogiri::XML(HealthDataStandards::Export::C32.new.export(@record))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-    parsed = Record.new
+    parsed = HealthDataStandards::Record.new
     @pi.get_demographics(parsed, doc)
 
     assert_equal 'Rosa', parsed.first
@@ -34,25 +34,25 @@ class C32Test < Minitest::Test
     assert_equal 'HP', parsed.telecoms[0].use
     assert_equal 'tel:+10000000000', parsed.telecoms[0].value
   end
-  
+
   def test_encounters
     encounter = @patient.encounters[0]
     assert_equal 1267322332, encounter.time
     assert_equal({"CPT" => ["99201"]}, encounter.codes)
   end
-  
+
   def test_allergies
     allergy = @patient.allergies[0]
     assert_equal 1271810257, allergy.as_point_in_time
     assert_equal({"RxNorm" => ["70618"]}, allergy.codes)
   end
-  
+
   def test_conditions
     condition = @patient.conditions[0]
     assert_equal 1269776601, condition.as_point_in_time
     assert_equal({"SNOMED-CT" => ["160603005"]}, condition.codes)
   end
-  
+
   def test_vitals
     vital = @patient.vital_signs[0]
     assert_equal 1266664414, vital.time
@@ -70,7 +70,7 @@ class C32Test < Minitest::Test
     assert_equal 1, @doc.xpath("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.14']/cda:value[@value = 'true'  and @xsi:type = 'BL']").length
 
   end
-  
+
   def test_procedures
     procedure = @patient.procedures[0]
     assert_equal 1273150428, procedure.time
@@ -106,7 +106,7 @@ class C32Test < Minitest::Test
     assert_equal 1265778000, social_history.time
     assert_equal({"ICD-9-CM" => ["250"]}, social_history.codes)
   end
-  
+
   def test_medical_equipment
     medical_equipment = @patient.medical_equipment[0]
     assert_equal 1279252800, medical_equipment.time

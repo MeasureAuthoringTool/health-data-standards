@@ -15,7 +15,7 @@ class ImporterTest< Minitest::Test
 
   def after_tests
     dump_database
-    collection_fixtures('records', '_id')
+    collection_fixtures('health_data_standards_records', '_id')
     collection_fixtures('health_data_standards_svs_value_sets', '_id')
     collection_fixtures('measures')
   end
@@ -52,7 +52,7 @@ class ImporterTest< Minitest::Test
     begin
       bundle = loader.import(File.new(@b_2_0_1), {delete_existing: true})
       m_count = HealthDataStandards::CQM::Measure.count
-      r_count = Record.count
+      r_count = HealthDataStandards::Record.count
 
       bundle = loader.import(File.new(@b_2_0_1), {delete_existing: true})
       assert_equal 1, HealthDataStandards::CQM::Bundle.count, "Should only be 1 bundle in the db "
@@ -96,7 +96,7 @@ class ImporterTest< Minitest::Test
   	assert_equal  1,  HealthDataStandards::CQM::Bundle.count , "Should be 1 bundle in the db"
   	assert_equal  2,  HealthDataStandards::CQM::Measure.count ,  "Should be 12 measure in the db"
     assert_equal   HealthDataStandards::CQM::Measure.count, bundle.measures.count, "Number of measures total measures should equal number of measures in the db"
-  	assert_equal  57 ,Record.count , "Should be 0 records in the db"
+  	assert_equal  57 , HealthDataStandards::Record.count , "Should be 0 records in the db"
   	assert_equal  4780, @db["patient_cache"].where({}).count , "Should be 0 entries in the patient_cache "
   	#assert_equal  0, @db["query_cache"].where({}).count ,"Should be 0 entries in the query_cache "
 
@@ -105,7 +105,7 @@ class ImporterTest< Minitest::Test
   	bundle2 = loader.import(File.new(@b_2_0_2),{delete_existing: false})
   	assert_equal 2 , HealthDataStandards::CQM::Bundle.count ,  "Should be 2 bundle in the db"
   	assert_equal 5,  HealthDataStandards::CQM::Measure.count , "Should be 4 measure in the db"
-  	assert_equal 114, Record.count ,  "Should be 114 records in the db"
+  	assert_equal 114, HealthDataStandards::Record.count ,  "Should be 114 records in the db"
   	assert_equal  4780*2 , @db["patient_cache"].where({}).count , "Should be 0 entries in the patient_cache "
   	assert  @db["query_cache"].where({}).count > 0 ,"Should be 0 more than  entries in the query_cache "
 

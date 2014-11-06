@@ -1,4 +1,6 @@
-class CodedResultValue < ResultValue
-  include ThingWithCodes
-  field :description, type: String
+module HealthDataStandards
+  class CodedResultValue < HealthDataStandards::ResultValue
+    include HealthDataStandards::ThingWithCodes
+    field :description, type: String
+  end
 end

@@ -3,7 +3,7 @@ require 'test_helper'
 class MedicationImporterTest < Minitest::Test
 
   def setup
-    collection_fixtures('providers', '_id')
+    collection_fixtures('health_data_standards_providers', '_id')
   end
 
   def test_medication_importing

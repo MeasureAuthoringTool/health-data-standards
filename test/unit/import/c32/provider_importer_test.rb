@@ -3,8 +3,8 @@ require 'test_helper'
 class ProviderImporterTest < Minitest::Test
 
   def setup
-    Provider.all.each(&:destroy)
-    collection_fixtures('providers', '_id')
+    HealthDataStandards::Provider.all.each(&:destroy)
+    collection_fixtures('health_data_standards_providers', '_id')
     @doc = Nokogiri::XML(File.new("test/fixtures/provider_importer_sample.xml"))
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
 

@@ -1,42 +1,42 @@
 require 'test_helper'
 
 class CCDATest < Minitest::Test
-  
+
   def setup
-    collection_fixtures('records', '_id')
+    collection_fixtures('health_data_standards_records', '_id')
     @pi = HealthDataStandards::Import::CCDA::PatientImporter.instance
-    @record = Record.find('4dcbecdb431a5f5878000004')
+    @record = HealthDataStandards::Record.find('4dcbecdb431a5f5878000004')
     ccda = HealthDataStandards::Export::CCDA.new.export(@record)
     @doc = Nokogiri::XML(ccda)
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     @patient = @pi.parse_ccda(@doc)
   end
-  
+
   def test_demographics
     assert_equal 'Rosa', @patient.first
     assert_equal 'Vasquez', @patient.last
     assert_equal 'F', @patient.gender
     assert_equal 345426614, @patient.birthdate
   end
-  
+
   def test_encounters
     encounter = @patient.encounters[0]
     assert_equal 1267322332, encounter.time
     assert_equal({"CPT" => ["99201"]}, encounter.codes)
   end
-  
+
   def test_allergies
     allergy = @patient.allergies[0]
     assert_equal 1271810257, allergy.as_point_in_time
     assert_equal({"RxNorm" => ["70618"]}, allergy.codes)
   end
-  
+
   def test_conditions
     condition = @patient.conditions[0]
     assert_equal 1269776601, condition.as_point_in_time
     assert_equal({"SNOMED-CT" => ["160603005"]}, condition.codes)
   end
-  
+
   def test_vitals
     vital = @patient.vital_signs[0]
     assert_equal 1266664414, vital.time
@@ -47,14 +47,14 @@ class CCDATest < Minitest::Test
     assert_equal "true", vital.values[0][:scalar]
 
     vital = @patient.vital_signs[2]
-    assert_equal "testing", vital.values[0][:scalar] 
+    assert_equal "testing", vital.values[0][:scalar]
     # Make sure that the paths to string, physical quantity, and boolean type values is valid
     assert_equal 1, @doc.xpath("//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.27']/cda:value[. = 'testing' and @xsi:type = 'ST']").length
     assert_equal 1, @doc.xpath("//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.27']/cda:value[@value = '26'  and @xsi:type = 'PQ']").length
     assert_equal 1, @doc.xpath("//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.27']/cda:value[@value = 'true'  and @xsi:type = 'BL']").length
 
   end
-  
+
   def test_procedures
     procedure = @patient.procedures[0]
     assert_equal 1273150428, procedure.time
@@ -88,7 +88,7 @@ class CCDATest < Minitest::Test
     assert_equal 1265778000, social_history.time
     assert_equal({"ICD-9-CM" => ["250"]}, social_history.codes)
   end
-  
+
   def test_medical_equipment
     medical_equipment = @patient.medical_equipment[0]
     assert_equal 1279252800, medical_equipment.time
