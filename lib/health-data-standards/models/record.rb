@@ -151,7 +151,6 @@ class Record
       if other_val != []
         my_val = self.send(section) || []
         self.send("#{section}=", my_val.concat(other_val))
-        self.dedup_section!(section) unless my_val == []
       end
     end
   end
