@@ -64,6 +64,10 @@ module HealthDataStandards
       def is_bool?(str)
         return ["true","false"].include? (str || "").downcase
       end
+
+      def identifier_for(obj)
+        Digest::MD5.hexdigest(obj.to_s).upcase
+      end
       
       def convert_field_to_hash(field, codes)
         codes = codes[0] if codes.is_a? Array
