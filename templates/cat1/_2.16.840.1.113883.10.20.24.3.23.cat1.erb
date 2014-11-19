@@ -75,20 +75,7 @@
     <% end -%>
 
     <% if entry.reason.present? -%>
-    <entryRelationship typeCode="RSON">
-      <observation classCode="OBS" moodCode="EVN">
-        <templateId root="2.16.840.1.113883.10.20.24.3.88"/>  
-        <code code="410666004" 
-              codeSystem="2.16.840.1.113883.6.96"
-              displayName="reason" 
-              codeSystemName="SNOMED CT"/>
-        <statusCode code="completed"/>
-        <effectiveTime <%= value_or_null_flavor(entry.start_time) %>/>
-        <value xsi:type="CD" 
-             code="<%= entry.reason['code'] %>" 
-             codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.reason['codeSystem'] ||  entry.reason['code_system']) %>"/>
-      </observation>
-    </entryRelationship>
+      <%= render partial: "reason", locals: {entry: entry} %>
     <% end -%>
   </encounter>
 </entry>
