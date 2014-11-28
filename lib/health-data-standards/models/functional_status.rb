@@ -5,7 +5,7 @@
 # In the previously mentioned specifications, functional status may represented
 # using either a condition or result. Having "mixed" types of entries in a section
 # is currently not well supported in the existing Record class
-# 
+#
 # Additionally, there is a mismatch between the data needed to calculate Stage 2
 # Meaningful Use Quailty Measures and the data contained in patient summary
 # standards. The CQMs are checking to see if a functional status represented by
@@ -17,9 +17,11 @@
 # into this class. This model supports the information needed to calculate
 # Stage 2 MU CQMs. If importers are created from C32 or CCDA, the information
 # can be stored here, but it will be a lossy transformation.
-class FunctionalStatus < Entry
-  # Either "condition" or "result"
-  field :type, type: String
-  # A coded value. Like a code for patient supplied.
-  field :source, type: Hash
+module HealthDataStandards
+  class FunctionalStatus < HealthDataStandards::Entry
+    # Either "condition" or "result"
+    field :type, type: String
+    # A coded value. Like a code for patient supplied.
+    field :source, type: Hash
+  end
 end

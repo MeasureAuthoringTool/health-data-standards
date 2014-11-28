@@ -4,13 +4,13 @@ class HTMLTest < Minitest::Test
 
   def setup
     dump_database
-    collection_fixtures('records', '_id')
+    collection_fixtures('health_data_standards_records', '_id')
     collection_fixtures('health_data_standards_svs_value_sets', '_id')
     collection_fixtures('measures')
 
-    @record = Record.find('4dcbecdb431a5f5878000004')
+    @record = HealthDataStandards::Record.find('4dcbecdb431a5f5878000004')
   end
-  
+
   def test_scooped_html
 
     pneumonia_measures = HealthDataStandards::CQM::Measure.where(nqf_id: '0043')

@@ -30,7 +30,7 @@ module HealthDataStandards
       end
 
       def records
-        Record.where(bundle_id: self._id, test_id: nil).order_by([["last", :asc]])
+        HealthDataStandards::Record.where(bundle_id: self._id, test_id: nil).order_by([["last", :asc]])
       end
 
       def value_sets

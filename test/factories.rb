@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :allergy do |f|
+  factory :allergy, class: HealthDataStandards::Allergy do |f|
     f.codes {{"RxNorm" => ["70618"]}}
     f.start_time 1264529050
     f.type {{"SNOMED-CT" => ["416098002"]}}
@@ -7,7 +7,7 @@ FactoryGirl.define do
     f.severity {{"SNOMED-CT" => ["39579001"]}}
   end
 
-  factory :condition do |f|
+  factory :condition, class: HealthDataStandards::Condition do |f|
     f.codes           { { "SNOMED-CT" => ["16356006"] } }
     f.cause_of_death  false
     f.start_time      1269776601
@@ -19,7 +19,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :encounter do |f|
+  factory :encounter, class: HealthDataStandards::Encounter do |f|
     f.codes           { { "CPT" => ["99201"] } }
     f.start_time      1267322332
     f.end_time        1267323432
@@ -31,21 +31,21 @@ FactoryGirl.define do
       "1.2.3.#{n}"
     end
   end
-  
-  factory :entry do |f|
+
+  factory :entry, class: HealthDataStandards::Entry do |f|
     f.codes           { { "SNOMED-CT" => ["12341234"] } }
     f.start_time      1267322332
     f.end_time        1267323432
   end
-  
-  factory :medical_equipment, class: "MedicalEquipment" do |f|
+
+  factory :medical_equipment, class: HealthDataStandards::MedicalEquipment do |f|
     f.codes           { { "SNOMED-CT" => ["598721"] } }
     f.start_time      1267322332
     f.end_time        1267323432
     f.values  { [FactoryGirl.build(:physical_quantity_result_value)]}
   end
-  
-  factory :support do |f|
+
+  factory :support, class: HealthDataStandards::Support do |f|
     f.given_name "Bob"
     f.family_name "Loblaw"
     f.relationship "Brother"
@@ -54,7 +54,7 @@ FactoryGirl.define do
     f.telecom { FactoryGirl.build(:telecom) }
   end
 
-  factory :orderInformation do |f|
+  factory :orderInformation, class: HealthDataStandards::OrderInformation do |f|
     f.order_number "5"
     f.fills 4
     f.quantity_ordered {{"value" => "500", "unit" => "mg"}}
@@ -62,7 +62,7 @@ FactoryGirl.define do
     f.order_expiration_date_time 1267432332
   end
 
-  factory :fulfillment_history do |f|
+  factory :fulfillment_history, class: HealthDataStandards::FulfillmentHistory do |f|
     f.prescription_number "B324"
     f.dispense_date 1267332349
     f.quantity_dispensed {{"value" => 200, "unit" => "pills"}}
@@ -70,18 +70,18 @@ FactoryGirl.define do
     f.fill_status "aborted"
   end
 
-  factory :organization do |f|
+  factory :organization, class: HealthDataStandards::Organization do |f|
     f.name "Doctor Worm & Associates"
   end
 
-  factory :address do |f|
+  factory :address, class: HealthDataStandards::Address do |f|
     f.sequence(:street) { |n| ["#{n} Sesame Street", "Apt #{n}"]  }
     f.city "Bedford"
     f.state "MA"
     f.zip "01730"
   end
 
-  factory :telecom do |f|
+  factory :telecom, class: HealthDataStandards::Telecom do |f|
     f.sequence(:value) { |n| 18005555555 + n }
     f.use { %w(fax phone mobile).sample }
     f.preferred { [true, false].sample }
@@ -91,15 +91,15 @@ FactoryGirl.define do
     f.type { { "SNOMED-CT" => ["398705004"]}}
     f.codes { { "SNOMED-CT" => ["363908000"]}}
   end
-  
-  factory :advance_directive, class: Entry do |f|
+
+  factory :advance_directive, class: HealthDataStandards::Entry do |f|
     f.codes { { "SNOMED-CT" => ["4234322"]}}
     f.start_time { 1.month.ago }
     f.end_time { Time.now }
     f.description "Go insane"
   end
 
-  factory :immunization do |f|
+  factory :immunization, class: HealthDataStandards::Immunization do |f|
     f.codes           { { "RxNorm" => ["854931"] } }
     f.time            1264529050
     f.description     "Pneumonia Vaccine"
@@ -110,10 +110,10 @@ FactoryGirl.define do
   FactoryGirl.define do
 
   end
-  factory :lab_result do |f|
+  factory :lab_result, class: HealthDataStandards::LabResult do |f|
   end
 
-  factory :medication do |f|
+  factory :medication, class: HealthDataStandards::Medication do |f|
     f.codes           { { "RxNorm" => ["105075"] } }
     f.description     "Tobacco Cessation Agent"
     f.start_time 1267332332
@@ -137,31 +137,31 @@ FactoryGirl.define do
     f.order_information { [FactoryGirl.build(:orderInformation)]}
   end
 
-  factory :order_information do |f|
+  factory :order_information, class: HealthDataStandards::OrderInformation do |f|
   end
-  
-  factory :physical_quantity_result_value do |f|
+
+  factory :physical_quantity_result_value, class: HealthDataStandards::PhysicalQuantityResultValue do |f|
     f.scalar 5
     f.units "strips"
   end
 
-  factory :procedure do |f|
+  factory :procedure, class: HealthDataStandards::Procedure do |f|
     f.codes           { { "SNOMED-CT" => ["171055003"] } }
     f.start_time      1257901150
     f.end_time        1258901150
     f.site {{ "SNOMED-CT" => ["12341234"]}}
   end
 
-  factory :record do |f|
+  factory :record, class: HealthDataStandards::Record do |f|
     f.encounters { |e| [FactoryGirl.build(:encounter)]}
   end
 
-  factory 'bigger_record', class: Record do |f|
+  factory 'bigger_record', class: HealthDataStandards::Record do |f|
     f.encounters { |e| FactoryGirl.build_list(:encounter, 3)}
     f.conditions { |c| FactoryGirl.build_list(:condition, 3)}
   end
 
-  factory :vital_sign do |f|
+  factory :vital_sign, class: HealthDataStandards::VitalSign do |f|
     f.codes           { { "SNOMED-CT" => ["225171007"] } }
     f.time            1266664414
     f.description     "BMI"
@@ -172,16 +172,16 @@ FactoryGirl.define do
     l.href          "http://t1.x.y.com"
     l.extension     "abc"
   end
-  
+
   factory "pedigree", class: Metadata::Pedigree do |p|
     p.author { FactoryGirl.build(:author) }
     p.organization  "Health Care Inc"
   end
-  
+
   factory "author", class: Metadata::Author do |a|
     a.name "John Smith"
   end
-  # 
+  #
   # factory "metadata/record_date" do |r|
   #   r.operation           "MODIFIED"
   #   r.operation_time      { Time.at(Time.now.to_i - rand(10000000)) }
@@ -189,13 +189,13 @@ FactoryGirl.define do
   #     FactoryGirl.build("metadata/pedigree")
   #   end
   # end
-  # 
+  #
   factory "metadata", class: Metadata::Base do |m|
     m.original_creation_time Time.now
     m.pedigrees { [FactoryGirl.build(:pedigree)] }
     m.linked_documents { [FactoryGirl.build("metadata/link_info")] }
     m.confidentiality "<hmd:a>text</hmd:a><hmd:c>embedded element</hmd:c>"
   end
-  
+
 end
 

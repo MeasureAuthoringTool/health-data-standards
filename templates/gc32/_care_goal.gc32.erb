@@ -2,7 +2,7 @@
 type = case care_goal
        when LabResult then "result"
        else
-         care_goal.class.name.underscore
+         care_goal.class.name.demodulize.underscore
        end
 %>
 <%== render partial: type, locals: {type => care_goal} %>

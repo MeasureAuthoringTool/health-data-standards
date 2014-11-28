@@ -1,16 +1,18 @@
-class ProviderPerformance
-  include Mongoid::Document
-  include Mongoid::Attributes::Dynamic
-  
-  field :start_date, type: Integer
-  field :end_date, type: Integer
-  
-  belongs_to :provider
-  embedded_in :record
-  
+module HealthDataStandards
+  class ProviderPerformance
+    include Mongoid::Document
+    include Mongoid::Attributes::Dynamic
 
-  def shift_dates(date_diff)
-    self.start_date = self.start_date.nil? ? nil : self.start_date + date_diff
-    self.end_date = self.end_date.nil? ? nil : self.end_date + date_diff
+    field :start_date, type: Integer
+    field :end_date, type: Integer
+
+    belongs_to :provider
+    embedded_in :record, class_name: "HealthDataStandards::Record"
+
+
+    def shift_dates(date_diff)
+      self.start_date = self.start_date.nil? ? nil : self.start_date + date_diff
+      self.end_date = self.end_date.nil? ? nil : self.end_date + date_diff
+    end
   end
 end

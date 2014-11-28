@@ -11,10 +11,10 @@ module HealthDataStandards
       class PatientImporter
 
         include Singleton
-        
+
         Gender = {"male" => "M", "female" => "F"}
-        
-        # Creates a new PatientImporter with the following XPath expressions used to find content in 
+
+        # Creates a new PatientImporter with the following XPath expressions used to find content in
         # an ASTM CCR
         #
         # Encounter entries
@@ -22,7 +22,7 @@ module HealthDataStandards
         # Procedure entries
         #    //ccr:Procedures/ccr:Procedure
         #
-        # Result entries - 
+        # Result entries -
         #    //ccr:Results/ccr:Result
         #
         # Vital sign entries
@@ -37,7 +37,7 @@ module HealthDataStandards
         # Condition entries
         #    //ccr:Problems/ccr:Problem
         #
-        # Social History entries 
+        # Social History entries
         #    //ccr:SocialHistory/ccr:SocialHistoryElement
         #
         # Care Goal entries
@@ -51,7 +51,7 @@ module HealthDataStandards
         #
         # Codes for immunizations are found in the substanceAdministration with the following relative XPath
         #    ./ccr:Product
-      
+
         def initialize (check_usable = true)
           @measure_importers = {}
           @section_importers = {}
@@ -68,8 +68,8 @@ module HealthDataStandards
           @section_importers[:immunizations] = ProductImporter.new("//ccr:Immunizations/ccr:Immunization",:immunizations)
         end
 
- 
-        # @param [boolean] value for check_usable_entries...importer uses true, stats uses false 
+
+        # @param [boolean] value for check_usable_entries...importer uses true, stats uses false
         def check_usable(check_usable_entries)
           @section_importers.each_pair do |section, importer|
             importer.check_for_usable = check_usable_entries
@@ -86,9 +86,9 @@ module HealthDataStandards
           entries = create_hash(doc)
           get_demographics(ccr_patient, doc, patient_id_xpath)
           process_events(ccr_patient, entries)
-          Record.new(ccr_patient)
+          HealthDataStandards::Record.new(ccr_patient)
         end
-        # 
+        #
         # # Parses a patient hash containing demographic and event information
         # #
         # # @param [Hash] patient_hash patient data
@@ -188,9 +188,9 @@ module HealthDataStandards
           patientActor = doc.at_xpath("//ccr:ContinuityOfCareRecord/ccr:Actors/ccr:Actor[ccr:ActorObjectID = \"#{patientActorID}\"]")
           patientID = patientActor.at_xpath(patient_id_xpath).try(:content)
           patientID ||= patientActorID
-          
+
           name_element = patientActor.at_xpath('./ccr:Person/ccr:Name')
-          
+
           if name_element
             if name_element.at_xpath("./ccr:CurrentName")
               patient['first'] = name_element.at_xpath('./ccr:CurrentName/ccr:Given').try(:content)
@@ -202,34 +202,34 @@ module HealthDataStandards
               patient['last'] = last.strip
             end
           end
-              
-          
+
+
           birthdate = patientActor.at_xpath('./ccr:Person//ccr:DateOfBirth/ccr:ExactDateTime | ./ccr:Person//ccr:DateOfBirth/ccr:ApproximateDateTime')
           patient['birthdate'] = Time.parse(birthdate.content).to_i if birthdate
-          
+
           gender_string = patientActor.at_xpath('./ccr:Person/ccr:Gender/ccr:Text').content.downcase
           patient['gender'] =  Gender[gender_string.downcase]
           #race_node = doc.at_xpath('/ccr:placeholder')    #how do you find this?
           race = doc.at_xpath('//ccr:SocialHistory/ccr:SocialHistoryElement[./ccr:Type/ccr:Text = "Race"]/ccr:Description/ccr:Code[./ccr:CodingSystem = "CDC-RE"]/ccr:Value')
           ethnicity = doc.at_xpath('//ccr:SocialHistory/ccr:SocialHistoryElement[./ccr:Type/ccr:Text = "Ethnicity"]/ccr:Description/ccr:Code[./ccr:CodingSystem = "CDC-RE"]/ccr:Value')
-          
+
           if ethnicity
             patient[:ethnicity] = {"code" => ethnicity.text, "codeSystem" => 'CDC-RE'}
           end
-         
-          
+
+
           if race
              patient[:race] = {"code" => race.text, "codeSystem" => 'CDC-RE'}
           end
 
-         
-         
+
+
           #ethnicity_node = doc.at_xpath()
-          
+
 
           # languages = doc.at_xpath()
           patient['languages'] = nil
- 
+
           patient['medical_record_number'] = patientID
         end
       end

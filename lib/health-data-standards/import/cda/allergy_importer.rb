@@ -2,7 +2,7 @@ module HealthDataStandards
   module Import
     module CDA
       class AllergyImporter < SectionImporter
-    
+
         def initialize(entry_finder=EntryFinder.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.1.18']"))
           @entry_finder = entry_finder
           @code_xpath = "./cda:participant/cda:participantRole/cda:playingEntity/cda:code"
@@ -11,9 +11,9 @@ module HealthDataStandards
           @reaction_xpath = "./cda:entryRelationship[@typeCode='MFST']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.1.54']/cda:value"
           @severity_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.1.55']/cda:value"
           @status_xpath   = "./cda:entryRelationship[@typeCode='REFR']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.1.39']/cda:value"
-          @entry_class = Allergy
+          @entry_class = HealthDataStandards::Allergy
         end
-    
+
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
           allergy = super
           extract_negation(entry_element, allergy)
@@ -23,7 +23,7 @@ module HealthDataStandards
 
           allergy
         end
-        
+
       end
     end
   end

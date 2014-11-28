@@ -36,7 +36,7 @@ module HealthDataStandards
         #if there was a patient manifest, theres a patient id list we need to load
         if patient_id_list
           patient_id_list.split("\n").each do |id|
-            patient = Record.where(:medical_record_number => id).first
+            patient = HealthDataStandards::Record.where(:medical_record_number => id).first
             if patient == nil
               missing_patients << id
             end
@@ -78,11 +78,11 @@ module HealthDataStandards
 
       def self.import_json(data,provider_map = {})
         json = JSON.parse(data,:max_nesting=>100)
-        record = Record.update_or_create(Record.new(json))
+        record = HealthDataStandards::Record.update_or_create(Record.new(json))
         providers = record.provider_performances
         providers.each do |prov|
           prov.provider.ancestors.each do |ancestor|
-            record.provider_performances.push(ProviderPerformance.new(start_date: prov.start_date, end_date: prov.end_date, provider: ancestor))
+            record.provider_performances.push(HealthDataStandards::ProviderPerformance.new(start_date: prov.start_date, end_date: prov.end_date, provider: ancestor))
           end
         end
         record.save!
@@ -109,7 +109,7 @@ module HealthDataStandards
             return {status: 'error', message: "Document templateId does not identify it as a C32 or CCDA", status_code: 400}
           end
 
-          record = Record.update_or_create(patient_data)
+          record = HealthDataStandards::Record.update_or_create(patient_data)
 
           begin
             providers = CDA::ProviderImporter.instance.extract_providers(doc, record)
@@ -123,7 +123,7 @@ module HealthDataStandards
         record.provider_performances = providers
         providers.each do |prov|
           prov.provider.ancestors.each do |ancestor|
-            record.provider_performances.push(ProviderPerformance.new(start_date: prov.start_date, end_date: prov.end_date, provider: ancestor))
+            record.provider_performances.push(HealthDataStandards::ProviderPerformance.new(start_date: prov.start_date, end_date: prov.end_date, provider: ancestor))
           end
         end
         record.save

@@ -13,7 +13,7 @@ module HealthDataStandards
         include HealthDataStandards::Util
         include HealthDataStandards::Import::CDA::LocatableImportUtils
 
-        # Creates a new PatientImporter with the following XPath expressions used to find content in 
+        # Creates a new PatientImporter with the following XPath expressions used to find content in
         # a HITSP C32:
         #
         # Encounter entries
@@ -69,7 +69,7 @@ module HealthDataStandards
           @section_importers[:insurance_providers] = InsuranceProviderImporter.new
         end
 
-        # @param [boolean] value for check_usable_entries...importer uses true, stats uses false 
+        # @param [boolean] value for check_usable_entries...importer uses true, stats uses false
         def check_usable(check_usable_entries)
           @section_importers.each_pair do |section, importer|
             importer.check_for_usable = check_usable_entries
@@ -82,14 +82,14 @@ module HealthDataStandards
         #        will have the "cda" namespace registered to "urn:hl7-org:v3"
         # @return [Record] a Mongoid model representing the patient
         def parse_c32(doc)
-          c32_patient = Record.new
+          c32_patient = HealthDataStandards::Record.new
           get_demographics(c32_patient, doc)
           create_c32_hash(c32_patient, doc)
           check_for_cause_of_death(c32_patient)
-          
+
           c32_patient
         end
-        
+
         # Checks the conditions to see if any of them have a cause of death set. If they do,
         # it will set the expired field on the Record. This is done here rather than replacing
         # the expried method on Record because other formats may actully tell you whether
@@ -138,7 +138,7 @@ module HealthDataStandards
           patient.gender = gender_node['code']
           id_node = patient_role_element.at_xpath('./cda:id')
           patient.medical_record_number = id_node['extension']
-          
+
           # parse race, ethnicity, and spoken language
           race_node = patient_element.at_xpath('cda:raceCode')
           patient.race = { code: race_node['code'], code_set: 'CDC-RE' } if race_node
@@ -150,10 +150,10 @@ module HealthDataStandards
           patient.religious_affiliation = {code: ra_node['code'], code_set: "Religious Affiliation"} if ra_node
           languages = patient_element.search('languageCommunication').map {|lc| lc.at_xpath('cda:languageCode')['code'] }
           patient.languages = languages unless languages.empty?
-          
+
           patient.addresses = patient_role_element.xpath("./cda:addr").map { |addr| import_address(addr) }
           patient.telecoms = patient_role_element.xpath("./cda:telecom").map { |tele| import_telecom(tele) }
-          
+
         end
       end
     end

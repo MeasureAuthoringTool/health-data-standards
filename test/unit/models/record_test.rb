@@ -14,12 +14,12 @@ class RecordTest < Minitest::Test
   end
 
   def test_dedup_section
-    record = Record.new
-    identifier = CDAIdentifier.new(root: '1.2.3.4')
-    record.encounters << Encounter.new
-    record.encounters << Encounter.new(cda_identifier: identifier)
-    record.encounters << Encounter.new(cda_identifier: identifier)
-    record.encounters << Encounter.new(cda_identifier: CDAIdentifier.new(root: 'abcd'))
+    record = HealthDataStandards::Record.new
+    identifier = HealthDataStandards::CDAIdentifier.new(root: '1.2.3.4')
+    record.encounters << HealthDataStandards::Encounter.new
+    record.encounters << HealthDataStandards::Encounter.new(cda_identifier: identifier)
+    record.encounters << HealthDataStandards::Encounter.new(cda_identifier: identifier)
+    record.encounters << HealthDataStandards::Encounter.new(cda_identifier: HealthDataStandards::CDAIdentifier.new(root: 'abcd'))
 
     assert_equal 4, record.encounters.size
 
@@ -29,12 +29,12 @@ class RecordTest < Minitest::Test
   end
 
   def test_dedup_encounters_section
-    record = Record.new
-    identifier = CDAIdentifier.new(root: '1.2.3.4')
-    value_a = PhysicalQuantityResultValue.new(scalar: 10)
-    value_b = PhysicalQuantityResultValue.new(scalar: 20)
-    record.encounters << Encounter.new(cda_identifier: identifier, codes: {:x => {:y => "z", :z => ["c"]}}, values: [value_a])
-    record.encounters << Encounter.new(cda_identifier: identifier, codes: {:a => "b", :x => {:z => "a"}}, values: [value_b])
+    record = HealthDataStandards::Record.new
+    identifier = HealthDataStandards::CDAIdentifier.new(root: '1.2.3.4')
+    value_a = HealthDataStandards::PhysicalQuantityResultValue.new(scalar: 10)
+    value_b = HealthDataStandards::PhysicalQuantityResultValue.new(scalar: 20)
+    record.encounters << HealthDataStandards::Encounter.new(cda_identifier: identifier, codes: {:x => {:y => "z", :z => ["c"]}}, values: [value_a])
+    record.encounters << HealthDataStandards::Encounter.new(cda_identifier: identifier, codes: {:a => "b", :x => {:z => "a"}}, values: [value_b])
 
     assert_equal 2, record.encounters.size
 
@@ -46,12 +46,12 @@ class RecordTest < Minitest::Test
   end
 
   def test_dedup_procedures_section
-    record = Record.new
-    identifier = CDAIdentifier.new(root: '1.2.3.4')
-    value_a = PhysicalQuantityResultValue.new(scalar: 10)
-    value_b = PhysicalQuantityResultValue.new(scalar: 20)
-    record.procedures << Procedure.new(cda_identifier: identifier, codes: {:x => {:y => "z"}}, values: [value_a])
-    record.procedures << Procedure.new(cda_identifier: identifier, codes: {:a => "b", :x => {:z => "a"}}, values: [value_b])
+    record = HealthDataStandards::Record.new
+    identifier = HealthDataStandards::CDAIdentifier.new(root: '1.2.3.4')
+    value_a = HealthDataStandards::PhysicalQuantityResultValue.new(scalar: 10)
+    value_b = HealthDataStandards::PhysicalQuantityResultValue.new(scalar: 20)
+    record.procedures << HealthDataStandards::Procedure.new(cda_identifier: identifier, codes: {:x => {:y => "z"}}, values: [value_a])
+    record.procedures << HealthDataStandards::Procedure.new(cda_identifier: identifier, codes: {:a => "b", :x => {:z => "a"}}, values: [value_b])
 
     assert_equal 2, record.procedures.size
 
@@ -63,12 +63,12 @@ class RecordTest < Minitest::Test
   end
 
   def test_dedup_results_section
-    record = Record.new
-    identifier = CDAIdentifier.new(root: '1.2.3.4')
-    value_a = PhysicalQuantityResultValue.new(scalar: 10)
-    value_b = PhysicalQuantityResultValue.new(scalar: 20)
-    record.results << LabResult.new(cda_identifier: identifier, codes: {:x => {:y => "z"}}, values: [value_a])
-    record.results << LabResult.new(cda_identifier: identifier, codes: {:a => "b", :x => {:z => "a"}}, values: [value_b])
+    record = HealthDataStandards::Record.new
+    identifier = HealthDataStandards::CDAIdentifier.new(root: '1.2.3.4')
+    value_a = HealthDataStandards::PhysicalQuantityResultValue.new(scalar: 10)
+    value_b = HealthDataStandards::PhysicalQuantityResultValue.new(scalar: 20)
+    record.results << HealthDataStandards::LabResult.new(cda_identifier: identifier, codes: {:x => {:y => "z"}}, values: [value_a])
+    record.results << HealthDataStandards::LabResult.new(cda_identifier: identifier, codes: {:a => "b", :x => {:z => "a"}}, values: [value_b])
 
     assert_equal 2, record.results.size
 
@@ -80,12 +80,12 @@ class RecordTest < Minitest::Test
   end
 
   def test_dedup_record
-    record = Record.new
-    identifier = CDAIdentifier.new(root: '1.2.3.4')
-    record.encounters << Encounter.new
-    record.encounters << Encounter.new(cda_identifier: identifier)
-    record.encounters << Encounter.new(cda_identifier: identifier)
-    record.encounters << Encounter.new(cda_identifier: CDAIdentifier.new(root: 'abcd'))
+    record = HealthDataStandards::Record.new
+    identifier = HealthDataStandards::CDAIdentifier.new(root: '1.2.3.4')
+    record.encounters << HealthDataStandards::Encounter.new
+    record.encounters << HealthDataStandards::Encounter.new(cda_identifier: identifier)
+    record.encounters << HealthDataStandards::Encounter.new(cda_identifier: identifier)
+    record.encounters << HealthDataStandards::Encounter.new(cda_identifier: HealthDataStandards::CDAIdentifier.new(root: 'abcd'))
 
     assert_equal 4, record.encounters.size
 

@@ -1,3 +1,5 @@
-class TreatingProvider < Entry
-  field :treatingProviderID, type: Integer
+module HealthDataStandards
+  class TreatingProvider < HealthDataStandards::Entry
+    field :treatingProviderID, type: Integer
+  end
 end

@@ -4,9 +4,9 @@ module HealthDataStandards
       class ResultImporter < SectionImporter
         def initialize(entry_finder=EntryFinder.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.15.1'] | //cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.15']"))
           super(entry_finder)
-          @entry_class = LabResult
+          @entry_class = HealthDataStandards::LabResult
         end
-        
+
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
           result = super
           extract_interpretation(entry_element, result)
@@ -15,7 +15,7 @@ module HealthDataStandards
           extract_reason_description(entry_element, result, nrh)
           result
         end
-    
+
         private
         def extract_interpretation(parent_element, result)
           interpretation_element = parent_element.at_xpath("./cda:interpretationCode")
@@ -29,7 +29,7 @@ module HealthDataStandards
         def extract_reference_range(parent_element, result)
           result.reference_range = parent_element.at_xpath("./cda:referenceRange/cda:observationRange/cda:text").try(:text)
         end
-    
+
       end
     end
   end

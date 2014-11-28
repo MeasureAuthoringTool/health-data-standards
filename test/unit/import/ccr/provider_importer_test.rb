@@ -2,19 +2,19 @@ require 'test_helper'
 
 module CCR
   class ProviderImporterTest < Minitest::Test
-  
+
     def setup
-      Provider.all.each(&:destroy)
+      HealthDataStandards::Provider.all.each(&:destroy)
       @ccr = Nokogiri::XML(File.new('test/fixtures/ccr_fragments/patient_with_providers.xml'))
       @ccr.root.add_namespace_definition('ccr', 'urn:astm-org:CCR')
       @pi = HealthDataStandards::Import::CCR::ProviderImporter.instance
     end
-    
+
     def test_provider_extraction
      results =  @pi.extract_providers(@ccr)
-     
+
      npi_provider = results.map(&:provider).detect { |pv| pv.npi != nil }
-     
+
      assert npi_provider
 
      assert_equal "Sam", npi_provider.given_name

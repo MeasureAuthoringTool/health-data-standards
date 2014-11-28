@@ -6,11 +6,11 @@ class Cat1Test < Minitest::Test
   def setup
     unless @initialized
       dump_database
-      collection_fixtures('records')
-      @patient = Record.where({first: "Barry"}).first
+      collection_fixtures('health_data_standards_records')
+      @patient = HealthDataStandards::Record.where({first: "Barry"}).first
 
-      pp = ProviderPerformance.new(start_date: Time.new(2012).to_i, end_date: Time.new(2012, 12, 31).to_i)
-      provider = Provider.new(first: 'Hiram', last: 'McDaniels')
+      pp = HealthDataStandards::ProviderPerformance.new(start_date: Time.new(2012).to_i, end_date: Time.new(2012, 12, 31).to_i)
+      provider = HealthDataStandards::Provider.new(first: 'Hiram', last: 'McDaniels')
       provider.npi = '111111111'
       provider.save!
       pp.provider = provider
@@ -35,8 +35,8 @@ class Cat1Test < Minitest::Test
   def test_schema_validation
      xsd = Nokogiri::XML::Schema(open("./resources/schema/infrastructure/cda/CDA_SDTC.xsd"))
      valid_measures = @measures.select { |m| m.hqmf_id.length > 4 } #make sure there is a valid hqmf_id
-     Record.all.each do |record|
-      insurance_provider = InsuranceProvider.new(start_time: Time.new(2008,1,1).to_i,
+     HealthDataStandards::Record.all.each do |record|
+      insurance_provider = HealthDataStandards::InsuranceProvider.new(start_time: Time.new(2008,1,1).to_i,
                                                  codes: {"SOP" => 349})
       record.insurance_providers << insurance_provider
       puts "Testing Cat I for #{record.first} #{record.last}"

@@ -1,4 +1,6 @@
-class Person
-  include Personable
-  
+module HealthDataStandards
+  class Person
+    include HealthDataStandards::Personable
+
+  end
 end

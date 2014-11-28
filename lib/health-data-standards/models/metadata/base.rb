@@ -4,13 +4,13 @@ module Metadata
 
   class Base
     include Mongoid::Document
- 
+
     field :mime_types, type: Array
     field :confidentiality, type: String
     field :original_creation_time, type: Time
-    
-    embedded_in :entry
-    
+
+    embedded_in :entry, class_name: "HealthDataStandards::Entry"
+
     embeds_many :pedigrees, class_name: "Metadata::Pedigree"
     embeds_many :modified_dates, class_name: "Metadata::ChangeInfo"
     embeds_many :copied_dates, class_name: "Metadata::ChangeInfo"

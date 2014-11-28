@@ -1,4 +1,6 @@
-class PhysicalQuantityResultValue < ResultValue
-  field :scalar
-  field :units, type: String
+module HealthDataStandards
+  class PhysicalQuantityResultValue < HealthDataStandards::ResultValue
+    field :scalar
+    field :units, type: String
+  end
 end

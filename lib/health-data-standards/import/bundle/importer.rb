@@ -130,7 +130,7 @@ module HealthDataStandards
         def self.unpack_and_store_patients(zip, type, bundle)
           entries = zip.glob(File.join(SOURCE_ROOTS[:patients],type || '**','json','*.json'))
           entries.each_with_index do |entry, index|
-            patient = Record.new(unpack_json(entry))
+            patient = HealthDataStandards::Record.new(unpack_json(entry))
             patient['bundle_id'] = bundle.id
             patient.save
             report_progress('patients', (index*100/entries.length)) if index%10 == 0
@@ -166,7 +166,7 @@ module HealthDataStandards
                 # Set the patient_id to the actual _id of
                 # newly created patient record
                 medical_record_id = document['value']['medical_record_id']
-                if patient = Record.by_patient_id(medical_record_id).first
+                if patient = HealthDataStandards::Record.by_patient_id(medical_record_id).first
                   document['value']['patient_id'] = patient.id
                 end
               end

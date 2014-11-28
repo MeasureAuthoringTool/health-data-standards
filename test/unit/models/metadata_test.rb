@@ -14,7 +14,7 @@ class MetaDataTest < Minitest::Test
   # down fixture information.
 
   def teardown
-    Record.delete_all
+    HealthDataStandards::Record.delete_all
   end
 
   # Fake test
@@ -23,7 +23,7 @@ class MetaDataTest < Minitest::Test
     @doc = Nokogiri::XML(File.new('test/fixtures/hdata_fragments/metadata.xml'))
     @doc.root.add_namespace_definition('hrf-md', 'http://www.hl7.org/schemas/hdata/2009/11/metadata')
 
-    meta = @mi.import(@doc) 
+    meta = @mi.import(@doc)
     refute_nil meta
     assert meta.mime_types.include?("application/json")
     assert meta.mime_types.include?("application/xml")
@@ -46,7 +46,7 @@ class MetaDataTest < Minitest::Test
     refute_nil m_date.timestamp
     assert m_date.timestamp.is_a?(Time)
     refute_nil m_date.pedigree
-    
+
     refute_nil meta.copied_dates.first
   end
 end
