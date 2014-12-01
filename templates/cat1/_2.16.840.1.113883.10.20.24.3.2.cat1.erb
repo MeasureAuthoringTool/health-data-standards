@@ -1,5 +1,5 @@
 <entry>
-  <act classCode="ACT" moodCode="EVN">
+  <act classCode="ACT" moodCode="EVN" <%== negation_indicator(entry) %>>
     <!-- Communication from patient to provider -->
     <templateId root="2.16.840.1.113883.10.20.24.3.2"/>
     <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>  
@@ -10,6 +10,7 @@
       <low <%= value_or_null_flavor(entry.start_time) %>/>
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
+    <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"]}) %>
 
     <participant typeCode="AUT">
       <participantRole classCode="PAT">
