@@ -222,7 +222,7 @@ class PatientImporterTest < Minitest::Test
 
   def test_diagnostic_study_result
     patient = build_record_from_xml('test/fixtures/cat1_fragments/diagnostic_study_result_fragment.xml')
-    diag_study_result = patient.results.first
+    diag_study_result = patient.procedures.first
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19890923063243')
     expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19890923101231')
     assert diag_study_result.codes['LOINC'].include?('71485-7')
