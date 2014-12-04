@@ -66,6 +66,14 @@ module HealthDataStandards
        end
       end
 
+      def dose_quantity(codes, dose)
+        if (codes["RxNorm"].present?)
+          return "value='1'"
+        else
+          return "value=#{dose['value']} unit=#{dose['unit']}" 
+        end
+      end
+
       def time_if_not_nil(*args)
         args.compact.map {|t| Time.at(t).utc}.first
       end
@@ -83,13 +91,11 @@ module HealthDataStandards
       end
       
       def convert_field_to_hash(field, codes)
-<<<<<<< HEAD
-=======
+
         if codes.is_a? Array
           return codes.collect{ |code| convert_field_to_hash(field, convert_field_to_hash(field, code))}.join("<br>")
         end
 
->>>>>>> f9f49b9... Updated the view_helper and _entry template to facilitate arrays of fulfillment histories for CMD
         if (codes.is_a? Hash)
           clean_hash = {}
           
