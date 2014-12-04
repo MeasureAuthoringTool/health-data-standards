@@ -49,6 +49,14 @@ module HealthDataStandards
        end
       end
 
+      def dose_quantity(codes, dose)
+        if (codes["RxNorm"].present?)
+          return "value='1'"
+        else
+          return "value=#{dose['value']} unit=#{dose['unit']}" 
+        end
+      end
+
       def time_if_not_nil(*args)
         args.compact.map {|t| Time.at(t).utc}.first
       end
