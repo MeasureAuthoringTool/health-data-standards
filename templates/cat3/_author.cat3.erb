@@ -4,6 +4,7 @@
     <time value="<%= author.time.to_formatted_s(:number) %>"/>
     <assignedAuthor>
       <!-- Registry author ID -->
+      <!-- TODO: force only one author (CONF:711240) -->
       <%== render :partial=>"id", :collection=>author.ids, :id=>"identifier" %>
       <%== render :partial=>"address" , :collection=>author.addresses %>
       <%== render :partial=>"telecom" , :collection=>author.telecoms %>
