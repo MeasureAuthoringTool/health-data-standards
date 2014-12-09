@@ -11,5 +11,5 @@
 <% end -%>
 
 <% if entry.respond_to?(:dose) && entry.dose.present? -%>
-<doseQuantity value="<%= entry.dose['value']%>"/>
+<doseQuantity <%= dose_quantity(entry.codes, entry.dose) %>/>
 <% end -%>

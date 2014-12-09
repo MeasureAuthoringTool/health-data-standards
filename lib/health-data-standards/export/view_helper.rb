@@ -40,6 +40,14 @@ module HealthDataStandards
         end
       end
 
+      def fulfillment_quantity(codes, fulfillmentHistory, dose)
+        if (codes["RxNorm"].present?)
+          doses = (fulfillmentHistory.quantity_dispensed['value'].to_f / dose['value'].to_f ).to_i
+          return "value='#{doses}'"
+        else
+          return "value='#{fulfillmentHistory.quantity_dispensed['value']}' unit='#{fulfillmentHistory.quantity_dispensed['unit']}'"
+        end
+      end
            
       def value_or_null_flavor(time)
         if time 
@@ -47,6 +55,14 @@ module HealthDataStandards
         else 
          return "nullFlavor='UNK'"
        end
+      end
+
+      def dose_quantity(codes, dose)
+        if (codes["RxNorm"].present?)
+          return "value='1'"
+        else
+          return "value=#{dose['value']} unit=#{dose['unit']}" 
+        end
       end
 
       def time_if_not_nil(*args)
