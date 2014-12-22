@@ -21,7 +21,16 @@ module HealthDataStandards
         # Returns an Array of Hashes. Hashes will have a three key/value pairs. One for the data criteria oid,
         # one for the value set oid and one for the data criteria itself
         def unique_data_criteria(measures)
-          all_data_criteria = measures.map {|measure| measure.all_data_criteria}.flatten
+          all_data_criteria = measures.map do |measure|
+            extras = [#'PatientCharacteristicRaceRace', 'PatientCharacteristicEthnicityEthnicity',
+                      #'PatientCharacteristicSexOncAdministrativeSex',
+                      'PatientCharacteristicPayerPayer']
+            extra_crit = extras.map do |x|
+              entry = measure.hqmf_document['data_criteria'][x]
+              HQMF::DataCriteria.from_json(entry['code_list_id'],JSON.parse(entry.to_json))
+            end
+            measure.all_data_criteria.concat extra_crit
+          end.flatten
           mapped_data_criteria = {}
           all_data_criteria.each do |data_criteria|
             data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
@@ -42,9 +51,8 @@ module HealthDataStandards
             if data_criteria.value && data_criteria.value.type == "CD"
               mapping["result_oids"] << data_criteria.value.code_list_id
             end
-
-            # {'data_criteria_oid' => data_criteria_oid, 'value_set_oid' => value_set_oid, 'data_criteria' => data_criteria}
           end
+
           # unioned_data_criteria.uniq_by {|thingy| [thingy['data_criteria_oid'], thingy['value_set_oid']]}
           mapped_data_criteria.collect{|dc| dc[0].merge dc[1] }
         end
