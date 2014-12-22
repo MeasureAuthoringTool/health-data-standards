@@ -7,7 +7,8 @@ class Cat3Test < Minitest::Test
     @start_date = Time.now.years_ago(1)
     @end_date = Time.now
     @header = generate_header
-    measure = {'hqmf_id' => "8A4D92B2-397A-48D2-0139-C648B33D5582", 'hqmf_set_id' => "AAAAAAAA-397A-48D2-0139-C648B33D5582"}
+    @measure_id = "8A4D92B2-397A-48D2-0139-C648B33D5582"
+    measure = {'hqmf_id' => @measure_id, 'hqmf_set_id' => "AAAAAAAA-397A-48D2-0139-C648B33D5582"}
     @qrda_xml = HealthDataStandards::Export::Cat3.new.export([measure],@header, 1356998340, @start_date, @end_date)
     @doc = Nokogiri::XML(@qrda_xml)
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
@@ -16,6 +17,12 @@ class Cat3Test < Minitest::Test
   def test_top_level_count
     ipp_count = @doc.at_xpath("//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.27.3.5' and cda:value/@code='IPP']/cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.27.3.3']/cda:value")['value']
     assert_equal 3, ipp_count.to_i
+  end
+
+  def test_measures
+    measure = @doc.at_xpath("//cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.27.3.1']/cda:reference/cda:externalDocument/cda:id[@root='2.16.840.1.113883.4.738']/@extension")
+    refute_nil measure
+    assert_equal @measure_id, measure.value
   end
 
   def test_strat_count
