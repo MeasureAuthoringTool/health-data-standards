@@ -9,6 +9,7 @@ module Qrda
     embeds_many :performers, class_name: "Provider"
 
     field  :time , type: DateTime, default: Time.now
+    field  :submission_type, type: String, default: "PQRS_MU_INDIVIDUAL"
   end
   
 end

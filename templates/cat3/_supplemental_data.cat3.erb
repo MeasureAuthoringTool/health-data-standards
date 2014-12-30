@@ -4,7 +4,9 @@
     <observation classCode="OBS" moodCode="EVN">
       <!-- <%= template_name %> -->
       <templateId root="<%= template_id %>"/>
-        <id nullFlavor="NA" />
+      <!-- CMS template id -->
+      <templateId root="<%= cms_template_id %>"/>
+       <id nullFlavor="NA" />
       <code code="<%= supplemental_data_code %>" 
             codeSystem="<%= supplemental_data_code_system %>"/>
       <statusCode code="completed"/>
@@ -12,19 +14,44 @@
       <value xsi:type="CD" 
              nullFlavor="UNK" />
       <% else -%>
-      
-      <value xsi:type="CD" 
-             code="<%= supplemental_data_value_code %>"
-             codeSystem="<%= supplemental_data_value_code_system %>"/>
+      <% if cms_template_id == '2.16.840.1.113883.10.20.27.3.18' %>
+              <!-- CMS Prefers to group the insurances more broadly than the
+                Source of Payment Typology allows. Therefore, nullFlavor of OTH will
+                be used and CMS local codes used to identify groupings-->
+              <% leading_digit = supplemental_data_value_code.to_s[0].to_i
+                 case leading_digit
+                 when 1
+                   cms_payor_id = 'A'
+                 when 2
+                   cms_payor_id = 'B'
+                 when 5..6
+                   cms_payor_id = 'C'
+                 else
+                   cms_payor_id = 'D'
+                 end %>
+          <value xsi:type="CD" nullFlavor="OTH">
+            <translation code="<%= cms_payor_id %>" displayName="Medicare"
+                         codeSystem="2.16.840.1.113883.3.249.12"
+                         codeSystemName="CMS Clinical Codes"/>
+          </value>
+      <%else%>
+          <value xsi:type="CD"
+                 code="<%= supplemental_data_value_code %>"
+                 codeSystem="<%= supplemental_data_value_code_system %>"/>
+      <%end%>
       <% end %>       
       <entryRelationship typeCode="SUBJ" inversionInd="true">
         <!-- Aggregate Count template -->
         <observation classCode="OBS" moodCode="EVN">
           <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <!-- Aggregate Count (CMS EP) template ID CONF:711263. -->
+          <templateId root="2.16.840.1.113883.10.20.27.3.24"/>
           <code code="MSRAGG" 
                 displayName="rate aggregation" 
                 codeSystem="2.16.840.1.113883.5.4" 
                 codeSystemName="ActCode"/>
+          <!-- (CONF:711245) -->
+          <statusCode code="completed"/>
           <value xsi:type="INT" value="<%= count.round %>"/>
           <methodCode code="COUNT" 
                       displayName="Count" 

@@ -27,7 +27,7 @@
   <!-- SHALL  -->
   <effectiveTime value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
 
-  <!-- (CONF:711246) -->
+  <!-- (CONF:711174) -->
   <confidentialityCode codeSystem="2.16.840.1.113883.5.25" code="N"/>
 
   <!-- (CONF:711173) -->
@@ -53,6 +53,13 @@
       <%== render :partial=>"organization", :locals=>{organization: header.custodian.organization, tag_name: "representedCustodianOrganization"} %>
     </assignedCustodian>
   </custodian>
+
+  <!-- CONF:711158 -->
+  <informationRecipient>
+    <intendedRecipient>
+      <id root="2.16.840.1.113883.3.249.7" extension="<%= header.submission_type %>"/>
+    </intendedRecipient>
+  </informationRecipient>
   <!-- The legal authenticator of the CDA document is a single person who is at the
     same organization as the custodian in this example. This element must be present. -->
   <!-- SHALL -->
@@ -75,6 +82,17 @@
       <%== render :partial=>"organization", :locals=>{organization: header.legal_authenticator.organization, tag_name: "representedOrganization"} %>
     </assignedEntity>
   </legalAuthenticator>
+
+  <!-- (CONF:18300) -->
+  <participant typeCode="DEV">
+    <associatedEntity classCode="RGPR">
+      <!-- Commented as not required & would require user input
+      Note: this causes an SEVT error?
+      <id root="2.16.840.1.113883.3.2074.1" extension="IG-3478-14-0108"/>
+      -->
+      <code code="129465004" displayName="medical record, device" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+    </associatedEntity>
+  </participant>
 
   <%== render :partial=>"providers", :locals=>{providers: header.performers, start_date: start_date, end_date: end_date} %>
 
@@ -104,6 +122,8 @@ Measure Section
           <!-- In this case the query is using an eMeasure -->
           <!-- QRDA Category III Measure Section template -->
           <templateId root="2.16.840.1.113883.10.20.27.2.1"/>
+          <!-- CMS EP QRDA Category III Measure Section template (CONF:711142). -->
+          <templateId root="2.16.840.1.113883.10.20.27.2.3"/>
           <code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
           <title>Measure Section</title>
           <text>
@@ -116,6 +136,8 @@ Measure Section
               <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
               <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
               <templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+              <!-- (CONF:711269) -->
+              <templateId root="2.16.840.1.113883.10.20.27.3.17"/>
               <statusCode code="completed"/>
               <reference typeCode="REFR">
                 <externalDocument classCode="DOC" moodCode="EVN">
@@ -136,18 +158,18 @@ Measure Section
                  unless result.is_cv?
                   result.population_groups.each do |pg|
               -%>
-              <component>
-              <%== render :partial => 'performance_rate', :locals => {:population_group => pg} %>
-              </component>
-              <% end
+                  <component>
+                  <%== render :partial => 'performance_rate', :locals => {:population_group => pg} %>
+                  </component>
+                  <% end
                 end -%>
               <% result.populations.each do |pop|
-                   unless pop.type == 'OBSERV' -%>
-              <component>
-              <%== render :partial => 'measure_data', :locals => {:aggregate_count => result, :population => pop} %>
-              </component>
+                       unless pop.type == 'OBSERV' -%>
+                      <component>
+                      <%== render :partial => 'measure_data', :locals => {:aggregate_count => result, :population => pop} %>
+                      </component>
               <%   end
-                 end -%>
+             end -%>
             </organizer>
           </entry>
           <% end %>
