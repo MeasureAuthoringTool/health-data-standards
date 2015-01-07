@@ -75,6 +75,13 @@ module HealthDataStandards
       end
       
       def convert_field_to_hash(field, codes)
+<<<<<<< HEAD
+=======
+        if codes.is_a? Array
+          return codes.collect{ |code| convert_field_to_hash(field, convert_field_to_hash(field, code))}.join("<br>")
+        end
+
+>>>>>>> f9f49b9... Updated the view_helper and _entry template to facilitate arrays of fulfillment histories for CMD
         if (codes.is_a? Hash)
           clean_hash = {}
           
