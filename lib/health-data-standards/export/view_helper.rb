@@ -86,7 +86,10 @@ module HealthDataStandards
       end
       
       def convert_field_to_hash(field, codes)
-        codes = codes[0] if codes.is_a? Array
+        if codes.is_a? Array
+          return codes.collect{ |code| convert_field_to_hash(field, convert_field_to_hash(field, code))}.join("<br>")
+        end
+
         if (codes.is_a? Hash)
           clean_hash = {}
           
