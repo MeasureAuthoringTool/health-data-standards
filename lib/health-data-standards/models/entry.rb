@@ -9,7 +9,7 @@ class Entry
   embedded_in :record
   embeds_one :cda_identifier, class_name: "CDAIdentifier", as: :cda_identifiable
   embeds_many :values, class_name: "ResultValue"
-  
+  embeds_many :references
   field :description, type: String
   field :specifics, type: String
   field :time, type: Integer
@@ -27,6 +27,10 @@ class Entry
   attr_protected :created_at
   attr_protected :updated_at
   
+  def add_reference(entry, type)
+    references.build(type: type, referenced_type: entry.class, referenced_id: entry.id)
+  end
+
   def times_to_s(nil_string='UNK')
     if start_time.present? || end_time.present?
       start_string = start_time ? Entry.time_to_s(start_time) : nil_string
