@@ -9,6 +9,7 @@ module HQMF2
     attr_reader :derivation_operator, :negation, :negation_code_list_id, :description
     attr_reader :field_values, :source_data_criteria, :specific_occurrence_const
     attr_reader :specific_occurrence, :is_source_data_criteria, :comments
+    attr_reader :id
 
     VARIABLE_TEMPLATE = "0.1.2.3.4.5.6.7.8.9.1"
     SATISFIES_ANY_TEMPLATE = "0.1.2.3.4.5.6.7.8.9.2"
@@ -27,7 +28,7 @@ module HQMF2
       @entry = entry
       @local_variable_name = extract_local_variable_name
       @status = attr_val('./*/cda:statusCode/@code')
-      @description = attr_val("./#{CRITERIA_GLOB}/cda:text/@value")
+      @description = attr_val("./#{CRITERIA_GLOB}/cda:text/@value") || attr_val("./#{CRITERIA_GLOB}/cda:title/@value") || attr_val("./#{CRITERIA_GLOB}/cda:id/@extension")
       extract_negation()
       extract_specific_or_source()
       @effective_time = extract_effective_time
@@ -37,10 +38,11 @@ module HQMF2
       @subset_operators = extract_subset_operators
       @children_criteria = extract_child_criteria
       @id_xpath = './*/cda:id/@extension'
+      @id = attr_val(@id_xpath)
       @code_list_xpath = './*/cda:code'
       @value_xpath = './*/cda:value'
       @comments = @entry.xpath("./#{CRITERIA_GLOB}/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()", HQMF2::Document::NAMESPACES).map{ |v| v.content }
-      @variable = false
+      @variable = extract_variable
 
       # Try to determine what kind of data criteria we are dealing with
       # First we look for a template id and if we find one just use the definition
@@ -94,6 +96,7 @@ module HQMF2
         return
       end
       # See if we can find a match for the entry definition value and status.
+      # FIXME: Resolve issue with improperly defined data criteria
       entry_type = attr_val('./*/cda:definition/*/cda:id/@extension')
       begin
         settings = HQMF::DataCriteria.get_settings_for_definition(entry_type, @status)
@@ -176,11 +179,12 @@ module HQMF2
       "DataCriteria#{props.to_s}"
     end
 
+    # TODO: Remove id method if id attribute is sufficient
     # Get the identifier of the criteria, used elsewhere within the document for referencing
     # @return [String] the identifier of this data criteria
-    def id
-      attr_val(@id_xpath)
-    end
+    # def id
+    #   attr_val(@id_xpath)
+    # end
 
     # Get the title of the criteria, provides a human readable description
     # @return [String] the title of this data criteria
@@ -241,6 +245,24 @@ module HQMF2
         derivation_operator, @definition, status, mv, field_values, met, inline_code_list,
         @negation, @negation_code_list_id, mtr, mso, @specific_occurrence,
         @specific_occurrence_const, @source_data_criteria, @comments, @variable)
+    end
+
+    # Return a new DataCriteria instance with only source data criteria attributes set
+    def extract_source_data_criteria
+      DataCriteria.new(@entry).extract_as_source_data_criteria(@source_data_criteria || @id)
+    end
+
+    # Set this data criteria's specific attributes to empty/nil
+    # SHOULD only be called on the source data criteria instance
+    def extract_as_source_data_criteria(id)
+      @field_values = {}
+      @temporal_references = []
+      @subset_operators = []
+      @is_source_data_criteria = true
+      @specific_occurrence = nil
+      @specific_occurrence_const = nil
+      @id = id
+      self
     end
 
     private
@@ -384,6 +406,13 @@ module HQMF2
         raise "Unknown demographic identifier [#{demographic_type}]"
       end
 
+    end
+
+    # Determine if this instance is a qdm variable
+    def extract_variable
+      variable = @local_variable_name.start_with? "qdm_var_" unless @local_variable_name.blank?
+      variable ||= @id.start_with? "qdm_var_" unless @id.blank?
+      variable ||= false
     end
 
   end
