@@ -1,9 +1,9 @@
 module HQMF
   class Parser
-    
+
     HQMF_VERSION_1 = "1.0"
     HQMF_VERSION_2 = "2.0"
-    
+
     class V2Parser
       def initialize
       end
@@ -34,7 +34,7 @@ module HQMF
 
       def self.valid?(xml_contents)
          doc = HQMF2::Document.parse(xml_contents)
-        !doc.at_xpath("/cda:QualityMeasureDocument/cda:typeId[@root='2.16.840.1.113883.1.3' and @extension='POQM_MT000001UV03']").nil?
+        !doc.at_xpath("/cda:QualityMeasureDocument/cda:typeId[@root='2.16.840.1.113883.1.3' and @extension='POQM_HD000001UV02']").nil?
       end
 
     end
@@ -73,5 +73,5 @@ module HQMF
     end
 
   end
-  
+
 end

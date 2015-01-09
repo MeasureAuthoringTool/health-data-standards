@@ -2,11 +2,11 @@ module HQMF2
   # Represents an HQMF population criteria, also supports all the same methods as
   # HQMF2::Precondition
   class PopulationCriteria
-  
+
     include HQMF2::Utilities
-    
+
     attr_reader :preconditions, :id, :hqmf_id, :title, :aggregator, :comments
-    #need to do this to allow for setting the type to OBSERV for 
+    #need to do this to allow for setting the type to OBSERV for
     attr_accessor :type
     # Create a new population criteria from the supplied HQMF entry
     # @param [Nokogiri::XML::Element] the HQMF entry
@@ -14,8 +14,9 @@ module HQMF2
       @doc = doc
       @entry = entry
       @hqmf_id = attr_val('./*/cda:id/@extension') || attr_val('./*/cda:typeId/@extension')
-      @title = attr_val('./*/cda:code/cda:displayName/@value') 
+      @title = attr_val('./*/cda:code/cda:displayName/@value')
       @type = attr_val('./*/cda:code/@code')
+      @type = 'IPP' if @type == 'IPOP'
       @aggregator = nil
       @comments = @entry.xpath("./*/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()", HQMF2::Document::NAMESPACES)
                         .map{ |v| v.content }
@@ -31,11 +32,11 @@ module HQMF2
         Precondition.new(precondition, @doc)
       end
     end
-    
+
     def create_human_readable_id(id)
       @id = id
     end
-    
+
     # Return true of this precondition represents a conjunction with nested preconditions
     # or false of this precondition is a reference to a data criteria
     def conjunction?
@@ -54,12 +55,12 @@ module HQMF2
         raise "Unknown population type [#{@type}]"
       end
     end
-    
+
     def to_model
       mps = preconditions.collect {|p| p.to_model}
       HQMF::PopulationCriteria.new(id, hqmf_id, type, mps, title, aggregator, comments)
     end
 
   end
-  
+
 end
