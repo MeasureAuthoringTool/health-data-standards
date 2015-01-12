@@ -43,7 +43,11 @@ module HealthDataStandards
           elsif vs_oid == "2.16.840.1.113883.3.526.3.1189" || vs_oid == "2.16.840.1.113883.3.526.3.1170" || vs_oid == '2.16.840.1.113883.3.600.2390'
             # Patient Characteristic Tobacco User/Non-User
             '2.16.840.1.113883.10.20.22.4.85'
+          else
+            # return generic pc observation template for anything not specificly mapped to its own template
+            '2.16.840.1.113883.10.20.24.3.103'
           end
+
         end
 
         alias :partial_for :qrda_oid_for_hqmf_oid

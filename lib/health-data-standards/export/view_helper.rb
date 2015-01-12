@@ -6,7 +6,16 @@ module HealthDataStandards
         options['attribute'] ||= :codes
         options['exclude_null_flavor'] ||= false
         code_string = nil
-        preferred_code = entry.preferred_code(options['preferred_code_sets'], options['attribute'], options['value_set_map'])
+        # allowing wild card matching of any code system for generic templates
+        #valueset filtering should filter out a decent code 
+        pcs = if options['preferred_code_sets'] && options['preferred_code_sets'].index("*")
+          #all of the code_systems that we know about
+          HealthDataStandards::Util::CodeSystemHelper::CODE_SYSTEMS.values | HealthDataStandards::Util::CodeSystemHelper::CODE_SYSTEM_ALIASES.keys 
+        else
+          options['preferred_code_sets']
+        end
+
+        preferred_code = entry.preferred_code(pcs, options['attribute'], options['value_set_map'])
         if preferred_code
           code_system_oid = HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(preferred_code['code_set'])
           code_string = "<#{options['tag_name']} code=\"#{preferred_code['code']}\" codeSystem=\"#{code_system_oid}\" #{options['extra_content']}>"
