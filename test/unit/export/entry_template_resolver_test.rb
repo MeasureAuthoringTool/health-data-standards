@@ -19,6 +19,8 @@ class EntryTemplateResolverTest < MiniTest::Unit::TestCase
     assert_equal '2.16.840.1.113883.10.20.24.3.101', HealthDataStandards::Export::QRDA::EntryTemplateResolver.qrda_oid_for_hqmf_patient_characteristic('2.16.840.1.113883.3.117.1.7.1.403')
     assert_equal '2.16.840.1.113883.10.20.22.4.85', HealthDataStandards::Export::QRDA::EntryTemplateResolver.qrda_oid_for_hqmf_patient_characteristic('2.16.840.1.113883.3.526.3.1189')
     assert_equal '2.16.840.1.113883.10.20.22.4.85', HealthDataStandards::Export::QRDA::EntryTemplateResolver.qrda_oid_for_hqmf_patient_characteristic('2.16.840.1.113883.3.526.3.1170')
+    # any non mapped vs_oid should return the generic patient characteristic observation template
+    assert_equal '2.16.840.1.113883.10.20.24.3.103', HealthDataStandards::Export::QRDA::EntryTemplateResolver.qrda_oid_for_hqmf_patient_characteristic('any_other_vs_oid')
 
   end
 

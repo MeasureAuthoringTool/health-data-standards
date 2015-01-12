@@ -5,7 +5,7 @@
     <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4" />
     <statusCode code="completed" />
     <effectiveTime <%= value_or_null_flavor(entry.start_time) %>/>
-    <%== code_display(entry, 'preferred_code_sets' => ['SNOMED-CT'],
+    <%== code_display(entry, 'preferred_code_sets' => ['*'],
                              'tag_name' => 'value','value_set_map' => value_set_map,
                              'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
     <text><%= entry.description %></text>
