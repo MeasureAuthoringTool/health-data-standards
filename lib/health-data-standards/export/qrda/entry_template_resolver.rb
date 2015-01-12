@@ -47,8 +47,10 @@ module HealthDataStandards
             # Patient Characteristic Tobacco User/Non-User
             '2.16.840.1.113883.10.20.22.4.85'
           else
-            raise "Unknown value set OID #{vs_oid} for HQMF patient characteristic: #{__FILE__} line #{__LINE__}"
-          end
+            # return generic pc observation template for anything not specificly mapped to its own template
+            '2.16.840.1.113883.10.20.24.3.103'
+           end
+
         end
 
         alias :partial_for :qrda_oid_for_hqmf_oid
