@@ -47,7 +47,7 @@ module HealthDataStandards
       index category: 1
       index sub_id: 1
       index _id: 1, sub_id: 1
-      index bundle_id: 1
+      index({bundle_id: 1, hqmf_id: 1, sub_id: 1})
 
       validates_presence_of :id
       validates_presence_of :name
