@@ -11,6 +11,7 @@ module HQMF2
     # @param [String] path the path to the HQMF document
     def initialize(hqmf_contents)
       @doc = @entry = Document.parse(hqmf_contents)
+      remove_popultaion_preconditions(@doc)
       @id = attr_val('cda:QualityMeasureDocument/cda:id/@extension')
       @hqmf_set_id = attr_val('cda:QualityMeasureDocument/cda:setId/@extension')
       @hqmf_version_number = attr_val('cda:QualityMeasureDocument/cda:versionNumber/@value').to_i
@@ -270,7 +271,14 @@ module HQMF2
        end
     end
 
-    
+    def remove_popultaion_preconditions(doc)
+      #population sections
+      pop_ids = doc.xpath("//cda:populationCriteriaSection/cda:component[@typeCode='COMP']/*/cda:id",NAMESPACES) 
+      #find the population entries and get their ids
+      pop_ids.each do |p_id|
+        doc.xpath("//cda:precondition[./cda:criteriaReference/cda:id[@extension='#{p_id["extension"]}' and @root='#{p_id["root"]}']]",NAMESPACES).remove
+      end
+    end
     private
     
     def find(collection, attribute, value)

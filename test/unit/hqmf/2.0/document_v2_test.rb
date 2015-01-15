@@ -13,6 +13,20 @@ class DocumentV2Test < Test::Unit::TestCase
     @model = doc.to_model
   end
 
+
+  def test_remove_population_preconditions
+     path = File.expand_path("../../../../fixtures/2.1/measures/fulfills.xml", __FILE__)
+     hqmf_contents = File.open(path).read
+     xml = Nokogiri::XML(hqmf_contents)
+     #find the precondition in the parsed document
+     precon = xml.xpath("//cda:precondition[./cda:criteriaReference/cda:id[@extension='initialPopulation' and @root='05CB5EF9-FB0E-498F-98FD-805F14AA2B66']]",HQMF2::Document::NAMESPACES)
+     assert_equal 1, precon.length
+     doc = HQMF2::Document.new(hqmf_contents)
+     doc_xml = doc.instance_variable_get("@doc")
+     precon2 = doc_xml.xpath("//cda:precondition[./cda:criteriaReference/cda:id[@extension='initialPopulation' and @root='05CB5EF9-FB0E-498F-98FD-805F14AA2B66']]",HQMF2::Document::NAMESPACES)
+     assert_equal 0, precon2.length
+  end
+
   def test_roundtrip
     assert_equal 'foo', @model.id
     assert_equal "Statin Prescribed at Discharge", @model.title.strip
