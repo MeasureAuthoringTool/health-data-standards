@@ -85,13 +85,15 @@ module HQMF2
       # Extract the data criteria
       @data_criteria = []
       @source_data_criteria = []
+      @data_criteria_references = {}
       @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:dataCriteriaSection/cda:entry', NAMESPACES).each do |entry|
-        criteria = DataCriteria.new(entry)
+        criteria = DataCriteria.new(entry, @data_criteria_references)
         if criteria.is_source_data_criteria
           @source_data_criteria << criteria
         else
           @data_criteria << criteria
         end
+        @data_criteria_references[criteria.id] = criteria if criteria
       end
 
       # Extract the source data criteria from data criteria

@@ -9,11 +9,11 @@ module HQMF2
     attr_reader :derivation_operator, :negation, :negation_code_list_id, :description
     attr_reader :field_values, :source_data_criteria, :specific_occurrence_const
     attr_reader :specific_occurrence, :is_source_data_criteria, :comments
-    attr_reader :id
+    attr_reader :id, :entry, :definition
 
     VARIABLE_TEMPLATE = "0.1.2.3.4.5.6.7.8.9.1"
-    SATISFIES_ANY_TEMPLATE = "0.1.2.3.4.5.6.7.8.9.2"
-    SATISFIES_ALL_TEMPLATE = "0.1.2.3.4.5.6.7.8.9.3"
+    SATISFIES_ANY_TEMPLATE = "2.16.840.1.113883.10.20.28.3.108"
+    SATISFIES_ALL_TEMPLATE = "2.16.840.1.113883.10.20.28.3.109"
 
     CONJUNCTION_CODE_TO_DERIVATION_OP = {
       'OR' => 'UNION',
@@ -24,8 +24,9 @@ module HQMF2
 
     # Create a new instance based on the supplied HQMF entry
     # @param [Nokogiri::XML::Element] entry the parsed HQMF entry
-    def initialize(entry)
+    def initialize(entry, data_criteria_references = nil)
       @entry = entry
+      @data_criteria_references = data_criteria_references
       @local_variable_name = extract_local_variable_name
       @status = attr_val('./*/cda:statusCode/@code')
       @description = attr_val("./#{CRITERIA_GLOB}/cda:text/@value") || attr_val("./#{CRITERIA_GLOB}/cda:title/@value") || attr_val("./#{CRITERIA_GLOB}/cda:id/@extension")
@@ -96,7 +97,6 @@ module HQMF2
         return
       end
       # See if we can find a match for the entry definition value and status.
-      # FIXME: Resolve issue with improperly defined data criteria
       entry_type = attr_val('./*/cda:definition/*/cda:id/@extension')
       begin
         settings = HQMF::DataCriteria.get_settings_for_definition(entry_type, @status)
@@ -127,7 +127,14 @@ module HQMF2
         when 'Derived'
           @definition = 'derived'
         when nil
-          @definition = 'variable'
+          reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
+          reference_criteria = @data_criteria_references[HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')] if reference
+          if reference_criteria
+            @definition = reference_criteria.definition
+            @status = reference_criteria.status
+          else
+            @definition = 'variable'
+          end
         else
           raise "Unknown data criteria template identifier [#{entry_type}]"
         end
@@ -241,6 +248,12 @@ module HQMF2
 
       field_values = nil if field_values.empty?
 
+      if @specific_occurrence
+        @description = @description.split('_').drop(1).join('_')
+      else
+        @description = "#{@description}#{' ' + @local_variable_name.split('_')[0] if @local_variable_name}"
+      end
+
       HQMF::DataCriteria.new(id, title, nil, description, code_list_id, children_criteria,
         derivation_operator, @definition, status, mv, field_values, met, inline_code_list,
         @negation, @negation_code_list_id, mtr, mso, @specific_occurrence,
@@ -249,7 +262,7 @@ module HQMF2
 
     # Return a new DataCriteria instance with only source data criteria attributes set
     def extract_source_data_criteria
-      DataCriteria.new(@entry).extract_as_source_data_criteria(@source_data_criteria || @id)
+      DataCriteria.new(@entry, @data_criteria_references).extract_as_source_data_criteria(@source_data_criteria || @id)
     end
 
     # Set this data criteria's specific attributes to empty/nil
@@ -259,8 +272,8 @@ module HQMF2
       @temporal_references = []
       @subset_operators = []
       @is_source_data_criteria = true
-      @specific_occurrence = nil
-      @specific_occurrence_const = nil
+      # @specific_occurrence = nil
+      # @specific_occurrence_const = nil
       @id = id
       self
     end
