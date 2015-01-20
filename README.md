@@ -29,6 +29,10 @@ Change Log
 
 * Upgrading to mongoid 4
 
+3.5.3 - January 20, 2015
+
+* Support for 2014 QRDA Errata Release
+
 3.4.6 - May 15, 2014
 
 * QRDA Cat I export now exports medical record number if present
