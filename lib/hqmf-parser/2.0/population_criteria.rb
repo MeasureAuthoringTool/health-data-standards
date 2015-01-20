@@ -28,8 +28,19 @@ module HQMF2
       if(!@hqmf_id) # The id extension is not required, if it's not provided use the code
         @hqmf_id = @type
       end
-      @preconditions = @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES).collect do |precondition|
-        Precondition.new(precondition, @doc)
+
+      # Nest multiple preconditions under a single root precondition
+      if @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES).length>0
+        root = nil
+        @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES).collect do |precondition|
+          root ||= precondition.dup
+          root << precondition
+        end
+        @preconditions = [Precondition.new(root, @doc, @type)]
+      else
+        @preconditions = @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES).collect do |precondition|
+          Precondition.new(precondition, @doc, @type)
+        end
       end
     end
 
