@@ -6,19 +6,28 @@ module HQMF2
 
     attr_reader :preconditions, :reference
 
-    def initialize(entry, doc)
+    def initialize(entry, doc, population_criteria_type=nil)
       @doc = doc
       @entry = entry
       @negation = false
-      @preconditions = @entry.xpath('./*/cda:precondition', HQMF2::Document::NAMESPACES).collect do |precondition|
+      precondition_entries = @entry.xpath('./*/cda:precondition', HQMF2::Document::NAMESPACES)
+      precondition_entries = @entry.xpath('cda:precondition', HQMF2::Document::NAMESPACES) unless !precondition_entries.blank?
+      @preconditions = precondition_entries.collect do |precondition|
         Precondition.new(precondition, @doc)
       end
+
       reference_def = @entry.at_xpath('./*/cda:id', HQMF2::Document::NAMESPACES)
       if !reference_def
         reference_def = @entry.at_xpath('./cda:join/cda:templateId/cda:item', HQMF2::Document::NAMESPACES)
       end
       if reference_def
         @reference = Reference.new(reference_def)
+      end
+      if population_criteria_type
+        @conj = case population_criteria_type
+          when "STRAT", "IPP", "DENOM", "NUMER", "MSRPOPL" then "allTrue"
+          when "DENEXCEP", "DENEXCL", "NUMEX", "MSRPOPLEX" then "atLeastOneTrue"
+        end
       end
     end
 
@@ -54,7 +63,7 @@ module HQMF2
     def to_model
       pcs = preconditions.collect {|p| p.to_model}
       mr = reference ? reference.to_model : nil
-      cc = conjunction_code
+      cc = @conj || conjunction_code
       HQMF::Precondition.new(nil, pcs, mr, cc, @negation)
     end
   end
