@@ -55,6 +55,12 @@ module HQMF2
       end
 
       patch_xpaths_for_criteria_type()
+
+      # prefix ids that start with numerical values, and strip tokens from others
+      if @id =~ /^[0-9]/ then @id = "prefix_#{strip_tokens(@id)}" else @id = strip_tokens(@id) end
+      @children_criteria.map! {|cc| if cc =~ /^[0-9]/ then cc = "prefix_#{strip_tokens(cc)}" else strip_tokens(cc) end }
+      @source_data_criteria = strip_tokens(@source_data_criteria) unless @source_data_criteria.nil?
+      @specific_occurrence_const = strip_tokens(@specific_occurrence_const) unless @specific_occurrence_const.nil?
     end
 
     def patch_xpaths_for_criteria_type
@@ -128,7 +134,7 @@ module HQMF2
           @definition = 'derived'
         when nil
           reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
-          reference_criteria = @data_criteria_references[HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')] if reference
+          reference_criteria = @data_criteria_references[strip_tokens(HQMF2::Utilities.attr_val(reference, 'cda:id/@extension'))] if reference
           if reference_criteria
             @definition = reference_criteria.definition
             @status = reference_criteria.status
@@ -274,7 +280,7 @@ module HQMF2
       @is_source_data_criteria = true
       # @specific_occurrence = nil
       # @specific_occurrence_const = nil
-      @id = id
+      @id = strip_tokens(id)
       self
     end
 
