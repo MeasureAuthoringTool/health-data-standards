@@ -10,6 +10,9 @@ class Entry
   embeds_one :cda_identifier, class_name: "CDAIdentifier", as: :cda_identifiable
   embeds_many :values, class_name: "ResultValue"
   embeds_many :references
+  embeds_many :provider_preference
+  embeds_many :patient_preference
+  
   field :description, type: String
   field :specifics, type: String
   field :time, type: Integer
