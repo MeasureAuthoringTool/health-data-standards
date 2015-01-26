@@ -364,6 +364,7 @@ module HQMF2
         fields[code_id] = value if value && code_id
       end
 
+      fields.merge! HQMF2::FieldValueHelper.parse_field_values(@entry)
       # special case for fulfills operator.  assuming there is only a possibility of having one of these
       fulfils = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="FLFS"]/cda:criteriaReference', HQMF2::Document::NAMESPACES)
       fields["FLFS"] =  TypedReference.new(fulfils) if fulfils

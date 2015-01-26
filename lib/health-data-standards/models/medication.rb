@@ -8,7 +8,7 @@ class Medication < Entry
   embeds_many :orderInformation, class_name: 'OrderInformation'
 
   field :route, type: Hash
-  field :site, type: Hash
+  field :anatomical_approach, type: Hash
   field :doseRestriction, as: :dose_restriction, type: Hash
   field :fulfillmentInstructions, as: :fulfillment_instructions, type: String
   field :indication, type: Hash
@@ -18,6 +18,10 @@ class Medication < Entry
   field :deliveryMethod, as: :delivery_method, type: Hash
   field :patientInstructions, as: :patient_instructions, type: String
   field :doseIndicator, as: :dose_indicator, type: String
+
+  field :method ,   type: Hash 
+  field :active_datetime ,  type: Integer
+  field :signed_datetime ,  type: Integer
 
   # There are currently no importers that support this field
   # It is expected to be a scalar and value, such as 7 days

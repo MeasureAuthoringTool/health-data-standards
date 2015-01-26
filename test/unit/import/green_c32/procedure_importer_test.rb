@@ -21,9 +21,9 @@ module GreenC32
 
       assert_equal "completed", procedure.status
       
-      code_system = procedure.site.keys[0]
+      code_system = procedure.anatomical_target.keys[0]
       assert_equal "SNOMED-CT", code_system
-      assert_equal ["42650002"],  procedure.site[code_system]
+      assert_equal ["42650002"],  procedure.anatomical_target[code_system]
     end
   end 
 end
