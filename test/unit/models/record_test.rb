@@ -93,4 +93,26 @@ class RecordTest < Minitest::Test
 
     assert_equal 3, record.encounters.size
   end
+
+  def test_merge_record
+    first = Record.new
+    first.first = "Joe"
+    first.expired = false
+    identifier = CDAIdentifier.new(root: '1.2.3.4')
+    first.encounters << Encounter.new
+    first.encounters << Encounter.new(cda_identifier: identifier)
+    first.encounters << Encounter.new(cda_identifier: CDAIdentifier.new(root: 'abcd'))
+
+    second = Record.new
+    second.first = "Ben"
+    second.expired = true
+    #second.encounters << Encounter.new
+    second.encounters << Encounter.new(cda_identifier: identifier)
+    second.encounters << Encounter.new(cda_identifier: CDAIdentifier.new(root: 'foo'))
+
+    first.merge! second
+    assert_equal 4, first.encounters.size
+    assert_equal "Ben", first.first
+    assert_equal true, first.expired
+  end
 end

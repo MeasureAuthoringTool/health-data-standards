@@ -7,7 +7,7 @@ module HealthDataStandards
         failed_dir ||= File.join(source_dir, '../', 'failed_imports')
         files = Dir.glob(File.join(source_dir, '*.*'))
         files.each do |file|
-           BulkRecordImporter.import_file(file,File.new(file).read,failed_dir)
+          self.import_file(file,File.new(file).read,failed_dir)
         end
       end
 
@@ -27,7 +27,7 @@ module HealthDataStandards
             end
             next if entry.directory?
             data = zipfile.read(entry.name)
-            BulkRecordImporter.import_file(entry.name,data,failed_dir)
+            self.import_file(entry.name,data,failed_dir)
           end
         end
 
@@ -60,9 +60,9 @@ module HealthDataStandards
         begin
           ext = File.extname(name)
           if ext == ".json"
-            BulkRecordImporter.import_json(data)
+            self.import_json(data)
           else
-            BulkRecordImporter.import(data)
+            self.import(data)
           end
         rescue
           FileUtils.mkdir_p(File.dirname(File.join(failed_dir,name)))
@@ -88,9 +88,7 @@ module HealthDataStandards
         record.save!
       end
 
-      def self.import(xml_data, provider_map = {})
-        doc = Nokogiri::XML(xml_data)
-
+      def self.import(xml_data, provider_map = {}, doc = Nokogiri::XML(xml_data))
         providers = []
         root_element_name = doc.root.name
 
