@@ -97,7 +97,7 @@ module HQMF2
       end
 
       # Extract the source data criteria from data criteria
-      @source_data_criteria = @data_criteria.map{|dc| dc.extract_source_data_criteria}.uniq! { |sdc| sdc.id }
+      @source_data_criteria = @data_criteria.map{|dc| dc.extract_source_data_criteria}.uniq { |sdc| sdc.id }
 
       # Extract the population criteria and population collections
       @populations = []
@@ -136,7 +136,7 @@ module HQMF2
               # this section constructs a human readable id.  The first IPP will be IPP, the second will be IPP_1, etc.  This allows the populations to be
               # more readable.  The alternative would be to have the hqmf ids in the populations, which would work, but is difficult to read the populations.
               if ids_by_hqmf_id["#{criteria.hqmf_id}-#{population['stratification']}"]
-                criteria.create_human_readable_id(ids_by_hqmf_id[criteria.hqmf_id])
+                criteria.create_human_readable_id(ids_by_hqmf_id["#{criteria.hqmf_id}-#{population['stratification']}"])
               else
                 if population_counters[criteria_id]
                   population_counters[criteria_id] += 1
