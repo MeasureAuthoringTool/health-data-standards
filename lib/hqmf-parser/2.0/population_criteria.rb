@@ -33,7 +33,11 @@ module HQMF2
       if @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES).length>0
         root = nil
         @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES).collect do |precondition|
-          root ||= precondition.dup
+          if !root
+            root ||= precondition.dup
+            root.children.each { |c| c.remove }
+            root.name = "#{type}-root-precondition"
+          end
           root << precondition
         end
         @preconditions = [Precondition.new(root, @doc, @type)]

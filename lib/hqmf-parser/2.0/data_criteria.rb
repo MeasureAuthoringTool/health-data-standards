@@ -257,7 +257,7 @@ module HQMF2
       if @specific_occurrence
         @description = @description.split('_').drop(1).join('_')
       else
-        @description = "#{@description}#{' ' + @local_variable_name.split('_')[0] if @local_variable_name}"
+        @description = "#{@description}#{' ' + @local_variable_name.split('_')[0] if @local_variable_name}" unless @variable
       end
 
       HQMF::DataCriteria.new(id, title, nil, description, code_list_id, children_criteria,
@@ -268,12 +268,12 @@ module HQMF2
 
     # Return a new DataCriteria instance with only source data criteria attributes set
     def extract_source_data_criteria
-      DataCriteria.new(@entry, @data_criteria_references).extract_as_source_data_criteria(@source_data_criteria || @id)
+      DataCriteria.new(@entry, @data_criteria_references).extract_as_source_data_criteria(@id, @source_data_criteria)
     end
 
     # Set this data criteria's specific attributes to empty/nil
     # SHOULD only be called on the source data criteria instance
-    def extract_as_source_data_criteria(id)
+    def extract_as_source_data_criteria(id, source_data_criteria)
       @field_values = {}
       @temporal_references = []
       @subset_operators = []
@@ -429,8 +429,8 @@ module HQMF2
 
     # Determine if this instance is a qdm variable
     def extract_variable
-      variable = @local_variable_name.start_with? "qdm_var_" unless @local_variable_name.blank?
-      variable ||= @id.start_with? "qdm_var_" unless @id.blank?
+      variable = !(@local_variable_name =~ /.*qdm_var_/).nil? unless @local_variable_name.blank?
+      variable ||= !(@id =~ /.*qdm_var_/).nil? unless @id.blank?
       variable ||= false
     end
 
