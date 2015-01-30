@@ -26,7 +26,7 @@ module HQMF2
       if population_criteria_type
         @conj = case population_criteria_type
           when "STRAT", "IPP", "DENOM", "NUMER", "MSRPOPL" then "allTrue"
-          when "DENEXCEP", "DENEXCL", "NUMEX", "MSRPOPLEX" then "atLeastOneTrue"
+          when "DENEXCEP", "DENEX", "NUMEX", "MSRPOPLEX" then "atLeastOneTrue"
         end
       end
     end
@@ -53,7 +53,7 @@ module HQMF2
           "allTrue"
         else
           @negation = false
-          conj
+          @conj || conj
         end
       else
         nil
