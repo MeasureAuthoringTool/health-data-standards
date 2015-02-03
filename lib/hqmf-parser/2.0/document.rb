@@ -61,14 +61,19 @@ module HQMF2
           type = attribute.at_xpath('./cda:value/@xsi:type', NAMESPACES).try(:value)
           case type
           when 'II'
-            value_obj = HQMF::Identifier.new(type, attribute.at_xpath('./cda:value/@root', NAMESPACES).try(:value), attribute.at_xpath('./cda:value/@extension', NAMESPACES).try(:value))
+            value_obj = HQMF::Identifier.new(type,
+              attribute.at_xpath('./cda:value/@root', NAMESPACES).try(:value),
+              attribute.at_xpath('./cda:value/@extension', NAMESPACES).try(:value))
             if value == nil
               value = attribute.at_xpath('./cda:value/@extension', NAMESPACES).try(:value)
             end
           when 'ED'
             value_obj = HQMF::ED.new(type, value, attribute.at_xpath('./cda:value/@mediaType', NAMESPACES).try(:value))
           when 'CD'
-            value_obj = HQMF::Coded.new('CD', attribute.at_xpath('./cda:value/@codeSystem', NAMESPACES).try(:value), attribute.at_xpath('./cda:value/@code', NAMESPACES).try(:value), attribute.at_xpath('./cda:value/@valueSet', NAMESPACES).try(:value), attribute.at_xpath('./cda:value/cda:displayName/@value', NAMESPACES).try(:value))
+            value_obj = HQMF::Coded.new('CD', attribute.at_xpath('./cda:value/@codeSystem', NAMESPACES).try(:value),
+              attribute.at_xpath('./cda:value/@code', NAMESPACES).try(:value),
+              attribute.at_xpath('./cda:value/@valueSet', NAMESPACES).try(:value),
+              attribute.at_xpath('./cda:value/cda:displayName/@value', NAMESPACES).try(:value))
           else
             value_obj = value.present? ? HQMF::GenericValueContainer.new(type, value) : HQMF::AnyValue.new(type)
           end
@@ -126,6 +131,8 @@ module HQMF2
           if criteria_def
 
             criteria = PopulationCriteria.new(criteria_def, self)
+            # ignore empty STRAT populations
+            next if criteria_element_name == 'stratifierCriteria' && criteria.preconditions.blank?
 
             # check to see if we have an identical population criteria.
             # this can happen since the hqmf 2.0 will export a DENOM, NUMER, etc for each population, even if identical.
@@ -156,7 +163,6 @@ module HQMF2
             end
           end
         end
-
 
         id_def = population_def.at_xpath('cda:id/@extension', NAMESPACES)
         population['id'] = id_def ? id_def.value : "Population#{population_index}"
@@ -199,7 +205,7 @@ module HQMF2
           @populations << population
           end
       end
-
+      detect_unstratified
     end
 
     # Get the title of the measure
@@ -289,6 +295,36 @@ module HQMF2
 
     def find(collection, attribute, value)
       collection.find {|e| e.send(attribute)==value}
+    end
+
+    def detect_unstratified
+      missing_populations = []
+      # populations are keyed off of values rather than the codes
+      existing_populations = @populations.map{|p| p.except("id","title").values.join('-')}.uniq
+      @populations.each do |population|
+        keys = population.keys - ['STRAT','stratification', 'id', 'title']
+        missing_populations |= [population.values_at(*keys).compact.join('-')]
+      end
+
+      missing_populations -= existing_populations
+
+      # reverse the order and prepend them to @populations
+      missing_populations.reverse.each do |population|
+        p = {}
+        population.split('-').each do |code|
+          p[code.split('_').first] = code
+        end
+        @populations.unshift p
+      end
+
+      # fix population ids and titles
+      @populations.each_with_index do |population, population_index|
+        population['id'] ||= "Population#{population_index+1}"
+        population['title'] ||= "Population #{population_index+1}"
+        population['id'].gsub! /\d+\z/, "#{population_index+1}"
+        population['title'].gsub! /\d+\z/, "#{population_index+1}"
+      end
+
     end
   end
 end

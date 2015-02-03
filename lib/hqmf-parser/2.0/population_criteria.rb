@@ -36,11 +36,24 @@ module HQMF2
           if !root
             root ||= precondition.dup
             root.children.each { |c| c.remove }
-            root.name = "#{type}-root-precondition"
+            root.name = "#{@type}-root-precondition"
+          end
+          # exclude Supplemental Data Criteria from STRAT preconditions
+          if @type == 'STRAT'
+            supplemental_data_criteria = [
+              "Ethnicity_PatientCharacteristicEthnicity",
+              "ONCAdministrativeSex_PatientCharacteristicSex",
+              "Payer_PatientCharacteristicPayer",
+              "Race_PatientCharacteristicRace"]
+            next if supplemental_data_criteria.include? precondition.at_xpath('cda:criteriaReference/cda:id/@extension', HQMF2::Document::NAMESPACES).try(:value)
           end
           root << precondition
         end
-        @preconditions = [Precondition.new(root, @doc, @type)]
+        if root.children.blank?
+          @preconditions = []
+        else
+          @preconditions = [Precondition.new(root, @doc, @type)]
+        end
       else
         @preconditions = @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES).collect do |precondition|
           Precondition.new(precondition, @doc, @type)
