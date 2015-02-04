@@ -107,7 +107,7 @@ module HQMF2
       #and high is stop datetime.  This changes for certain elements
       template_ids = extract_template_ids(entry)
       low = entry.at_xpath("./cda:effectiveTime/cda:low/..")
-      high = entry.at_xpath("./cda:effectiveTime/cda:low/..")
+      high = entry.at_xpath("./cda:effectiveTime/cda:high/..")
       if low
         field = "START_DATETIME"
         if !template_ids.index('2.16.840.1.113883.10.20.28.3.51').nil?
