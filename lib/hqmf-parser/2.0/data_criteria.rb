@@ -364,7 +364,7 @@ module HQMF2
         fields[code_id] = value if value && code_id
       end
 
-      fields.merge! HQMF2::FieldValueHelper.parse_field_values(@entry)
+      fields.merge! HQMF2::FieldValueHelper.parse_field_values(@entry, @negation)
       # special case for fulfills operator.  assuming there is only a possibility of having one of these
       fulfils = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="FLFS"]/cda:criteriaReference', HQMF2::Document::NAMESPACES)
       if fulfils
@@ -381,13 +381,17 @@ module HQMF2
     end
 
     def extract_value()
-      DataCriteria.parse_value(@entry, @value_xpath)
+      # need to look in both places for result criteria because 
+      #procedureCriteria does not have a value element while observationCriteria does
+      DataCriteria.parse_value(@entry, "./*/cda:value") || 
+      DataCriteria.parse_value(@entry, "./*/cda:outboundRelationship/cda:code[@code='394617004']/../cda:value")
     end
 
     def self.parse_value(node, xpath)
       value = nil
       value_def = node.at_xpath(xpath, HQMF2::Document::NAMESPACES)
       if value_def
+        return AnyValue.new if value_def.at_xpath('@flavorId') == "ANY.NONNULL"
         value_type_def = value_def.at_xpath('@xsi:type', HQMF2::Document::NAMESPACES)
         if value_type_def
           value_type = value_type_def.value
