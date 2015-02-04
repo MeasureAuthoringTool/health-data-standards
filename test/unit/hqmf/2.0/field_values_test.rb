@@ -66,11 +66,11 @@ class FieldValuesTest <  Test::Unit::TestCase
   end
 
   def test_patient_preference
-    assert_field_value("","PATIENT_PREFERENCE")
+
   end
 
   def test_provider_preference
-    assert_field_value("","PROVIDER_PREFERENCE")
+
   end
 
   def test_refills
@@ -82,7 +82,7 @@ class FieldValuesTest <  Test::Unit::TestCase
   end
 
   def test_realted_to
-    assert_field_value("","RELTATED_TO")
+ 
   end
 
   def assert_field_value(criteria, field)

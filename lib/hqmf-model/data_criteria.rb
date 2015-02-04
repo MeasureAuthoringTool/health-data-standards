@@ -45,7 +45,7 @@ module HQMF
               "TARGET_OUTCOME" => {title:'Target Outcome', coded_entry_method: :target_outcome, code: '385676005', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
               "ANATOMICAL_APPROACH_SITE" => {title:'Anatomical Approach Site', coded_entry_method: :anatomical_approach,  field_type: :value},
               "ANATOMICAL_TARGET_SITE" => {title:'Anatomical Target Site', coded_entry_method: :anatomical_target,  field_type: :value},
-              "METHOD" => {title:"Method", coded_entry_method: :method, code: '', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
+              "METHOD" => {title:"Method", coded_entry_method: :method, template_id: '', field_type: :value},
               "REFILLS" => {title:'Refills', coded_entry_method: '',  field_type: :value},
               "ACTIVE_DATETIME" => {title:'Active Datetime', coded_entry_method: :active_datetime, field_type: :timestamp},
               "RADIATION_DURATION" => {title:"Radiation Duration", coded_entry_method: :radiation_duration, code: '306751006', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
@@ -54,7 +54,7 @@ module HQMF
               "PATIENT_PREFERENCE" => {title:'Patient Preference', coded_entry_method: :patient_preferences,  code: "PAT" , code_system: "2.16.840.1.113883.5.8", field_type: :value},
               "PROVIDER_PREFERENCE" => {title:'Provider Preference', coded_entry_method: :provider_preference, code: "103323008" , code_system: '2.16.840.1.113883.6.96',  field_type: :value},
               "RELATED_TO" => {title:'Related To', coded_entry_method: :related_to,  code: "REL", codeSystem: "2.16.840.1.113883.1.11.11603", field_type: :value},
-              "SINGED_DATEDTIME" =>  {title:'Signed Datetime', coded_entry_method: :singed_datetime, code: '', code_system:'2.16.840.1.113883.6.96',  field_type: :timestamp}
+              "SIGNED_DATEDTIME" =>  {title:'Signed Datetime', coded_entry_method: :singed_datetime, field_type: :timestamp}
           }
 
     VALUE_FIELDS = {'SEV'      => 'SEVERITY',
