@@ -30,7 +30,10 @@ module HQMF2
       end
 
       # Nest multiple preconditions under a single root precondition
-      if @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES).length>0
+      entry_preconditions = @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES)
+      missing_conjunctions = @entry.xpath('./*/cda:precondition[not(@nullFlavor)]/cda:allTrue', HQMF2::Document::NAMESPACES).empty? &&
+        @entry.xpath('./*/cda:precondition[not(@nullFlavor)]/cda:atLeastOneTrue', HQMF2::Document::NAMESPACES).empty?
+      if entry_preconditions.length>0 && missing_conjunctions
         root = nil
         @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES).collect do |precondition|
           if !root
