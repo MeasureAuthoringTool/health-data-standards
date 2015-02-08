@@ -275,7 +275,8 @@ module HQMF2
     end
 
     def reference
-      strip_tokens attr_val('./cda:id/@extension')
+      id = strip_tokens attr_val('./cda:id/@extension')
+      if id =~ /^[0-9]/ then "prefix_#{id}" else id end
     end
 
     def type
@@ -301,10 +302,10 @@ module HQMF2
     end
 
     def id
-      id = attr_val('./@extension')
+      id = strip_tokens attr_val('./@extension')
       # Handle MeasurePeriod references for calculation code
       id = 'MeasurePeriod' if id == 'measureperiod'
-      strip_tokens id
+      if id =~ /^[0-9]/ then "prefix_#{id}" else id end
     end
 
     def to_model

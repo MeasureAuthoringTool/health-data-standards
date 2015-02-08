@@ -123,44 +123,30 @@ module HQMF2
           HQMF::PopulationCriteria::NUMER => 'numeratorCriteria',
           HQMF::PopulationCriteria::DENEXCEP => 'denominatorExceptionCriteria',
           HQMF::PopulationCriteria::DENEX => 'denominatorExclusionCriteria',
-          HQMF::PopulationCriteria::STRAT => 'stratifierCriteria',
-          HQMF::PopulationCriteria::MSRPOPL => 'measurePopulationCriteria'
+          HQMF::PopulationCriteria::MSRPOPL => 'measurePopulationCriteria',
+          HQMF::PopulationCriteria::STRAT => 'stratifierCriteria'
         }.each_pair do |criteria_id, criteria_element_name|
           criteria_def = population_def.at_xpath("cda:component[cda:#{criteria_element_name}]", NAMESPACES)
 
           if criteria_def
 
-            criteria = PopulationCriteria.new(criteria_def, self)
-            # ignore empty STRAT populations
-            next if criteria_element_name == 'stratifierCriteria' && criteria.preconditions.blank?
+            # split up multiple STRAT preconditions into unqiue criteria
+            if criteria_element_name == 'stratifierCriteria' && criteria_def.xpath('./*/cda:precondition').length>1
 
-            # check to see if we have an identical population criteria.
-            # this can happen since the hqmf 2.0 will export a DENOM, NUMER, etc for each population, even if identical.
-            # if we have identical, just re-use it rather than creating DENOM_1, NUMER_1, etc.
-            identical = @population_criteria.select {|pc| pc.to_model.base_json.to_json == criteria.to_model.base_json.to_json}
-
-            if (identical.empty?)
-              # this section constructs a human readable id.  The first IPP will be IPP, the second will be IPP_1, etc.  This allows the populations to be
-              # more readable.  The alternative would be to have the hqmf ids in the populations, which would work, but is difficult to read the populations.
-              if ids_by_hqmf_id["#{criteria.hqmf_id}-#{population['stratification']}"]
-                criteria.create_human_readable_id(ids_by_hqmf_id["#{criteria.hqmf_id}-#{population['stratification']}"])
-              else
-                if population_counters[criteria_id]
-                  population_counters[criteria_id] += 1
-                  criteria.create_human_readable_id("#{criteria_id}_#{population_counters[criteria_id]}")
-                else
-                  population_counters[criteria_id] = 0
-                  criteria.create_human_readable_id(criteria_id)
-                end
-                ids_by_hqmf_id["#{criteria.hqmf_id}-#{population['stratification']}"] = criteria.id
+              # clone each STRAT with unique preconditions
+              criteria_def.xpath('./*/cda:precondition').each_with_index do |strat_prcn, strat_index|
+                cloned_strat = criteria_def.dup
+                cloned_strat.xpath('./*/cda:precondition')[0].replace(strat_prcn.to_s)
+                cloned_strat.xpath('./*/cda:precondition').drop(1).each{|p| p.remove}
+                cloned_strat.xpath('./*/cda:id').first['extension'] = "#{criteria_id}-#{strat_index}" if strat_index>=1
+                build_population_criteria(cloned_strat, criteria_id, criteria_element_name, ids_by_hqmf_id, population, population_counters)
+                @populations << population.dup unless strat_index == criteria_def.xpath('./*/cda:precondition').length-1
               end
 
-
-              @population_criteria << criteria
-              population[criteria_id] = criteria.id
             else
-              population[criteria_id] = identical.first.id
+              build_population_criteria(criteria_def, criteria_id, criteria_element_name, ids_by_hqmf_id, population, population_counters)
             end
+
           end
         end
 
@@ -170,13 +156,14 @@ module HQMF2
         population['title'] = title_def ? title_def.value : "Population #{population_index}"
         observation_section = @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:measureObservationsSection', NAMESPACES)
         if !observation_section.empty?
-           population['OBSERV'] = 'OBSERV'
+          population['OBSERV'] = 'OBSERV'
         end
         @populations << population
       end
 
 
       #look for observation data in separate section but create a population for it if it exists
+      # FIXME: Replace 'measureObservationsSection' with 'measureObservationSection' to enable OBSERV parsing
       observation_section = @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:measureObservationsSection', NAMESPACES)
       if !observation_section.empty?
         observation_section.xpath("cda:definition",NAMESPACES).each do |criteria_def|
@@ -288,6 +275,40 @@ module HQMF2
       #find the population entries and get their ids
       pop_ids.each do |p_id|
         doc.xpath("//cda:precondition[./cda:criteriaReference/cda:id[@extension='#{p_id["extension"]}' and @root='#{p_id["root"]}']]",NAMESPACES).remove
+      end
+    end
+
+    def build_population_criteria(criteria_def, criteria_id, criteria_element_name, ids_by_hqmf_id, population, population_counters)
+      criteria = PopulationCriteria.new(criteria_def, self)
+      # ignore empty STRAT populations
+      return if criteria_element_name == 'stratifierCriteria' && criteria.preconditions.blank?
+
+      # check to see if we have an identical population criteria.
+      # this can happen since the hqmf 2.0 will export a DENOM, NUMER, etc for each population, even if identical.
+      # if we have identical, just re-use it rather than creating DENOM_1, NUMER_1, etc.
+      identical = @population_criteria.select {|pc| pc.to_model.base_json.to_json == criteria.to_model.base_json.to_json}
+
+      if (identical.empty?)
+        # this section constructs a human readable id.  The first IPP will be IPP, the second will be IPP_1, etc.  This allows the populations to be
+        # more readable.  The alternative would be to have the hqmf ids in the populations, which would work, but is difficult to read the populations.
+        if ids_by_hqmf_id["#{criteria.hqmf_id}-#{population['stratification']}"]
+          criteria.create_human_readable_id(ids_by_hqmf_id["#{criteria.hqmf_id}-#{population['stratification']}"])
+        else
+          if population_counters[criteria_id]
+            population_counters[criteria_id] += 1
+            criteria.create_human_readable_id("#{criteria_id}_#{population_counters[criteria_id]}")
+          else
+            population_counters[criteria_id] = 0
+            criteria.create_human_readable_id(criteria_id)
+          end
+          ids_by_hqmf_id["#{criteria.hqmf_id}-#{population['stratification']}"] = criteria.id
+        end
+
+
+        @population_criteria << criteria
+        population[criteria_id] = criteria.id
+      else
+        population[criteria_id] = identical.first.id
       end
     end
 
