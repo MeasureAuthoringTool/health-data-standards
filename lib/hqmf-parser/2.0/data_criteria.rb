@@ -32,7 +32,6 @@ module HQMF2
       @description = attr_val("./#{CRITERIA_GLOB}/cda:text/@value") || attr_val("./#{CRITERIA_GLOB}/cda:title/@value") || attr_val("./#{CRITERIA_GLOB}/cda:id/@extension")
       extract_negation()
       extract_specific_or_source()
-      @effective_time = extract_effective_time
       @temporal_references = extract_temporal_references
       @derivation_operator = extract_derivation_operator
       @field_values = extract_field_values
@@ -302,14 +301,6 @@ module HQMF2
       end.compact
     end
 
-    def extract_effective_time
-      effective_time_def = @entry.at_xpath('./*/cda:effectiveTime', HQMF2::Document::NAMESPACES)
-      if effective_time_def
-        EffectiveTime.new(effective_time_def)
-      else
-        nil
-      end
-    end
 
     def all_subset_operators
       @entry.xpath('./*/cda:excerpt', HQMF2::Document::NAMESPACES).collect do |subset_operator|
