@@ -130,6 +130,9 @@ module HQMF2
 
           if criteria_def
 
+            # skip parsing of Supplemental Data Elements
+            next if criteria_def.at_xpath('./*/cda:component/cda:measureAttribute/cda:code/cda:displayName/@value').try(:value) == "Supplemental Data Element"
+
             # split up multiple STRAT preconditions into unqiue criteria
             if criteria_element_name == 'stratifierCriteria' && criteria_def.xpath('./*/cda:precondition').length>1
 

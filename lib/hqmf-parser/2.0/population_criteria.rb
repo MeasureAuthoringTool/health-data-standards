@@ -31,8 +31,9 @@ module HQMF2
 
       # Nest multiple preconditions under a single root precondition
       entry_preconditions = @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES)
-      missing_conjunctions = @entry.xpath('./*/cda:precondition[not(@nullFlavor)]/cda:allTrue', HQMF2::Document::NAMESPACES).empty? &&
-        @entry.xpath('./*/cda:precondition[not(@nullFlavor)]/cda:atLeastOneTrue', HQMF2::Document::NAMESPACES).empty?
+      missing_conjunctions = entry_preconditions.any? do |entry_prcn|
+        entry_prcn.xpath('./cda:allTrue', HQMF2::Document::NAMESPACES).empty? && entry_prcn.xpath('./cda:atLeastOneTrue', HQMF2::Document::NAMESPACES).empty?
+      end
       if entry_preconditions.length>0 && missing_conjunctions
         root = nil
         @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES).collect do |precondition|
