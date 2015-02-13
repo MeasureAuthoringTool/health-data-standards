@@ -17,8 +17,8 @@ module HQMF2
       "2.16.840.1.113883.10.20.28.3.18" => {valueset_path:"./*/cda:value", result_path: nil },
       "2.16.840.1.113883.10.20.28.3.19" => {valueset_path:"./*/cda:value", result_path: nil },
       "2.16.840.1.113883.10.20.28.3.20" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:observationCriteria/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.21" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:observationCriteria/cda:code", result_path: nil }, 
-      "2.16.840.1.113883.10.20.28.3.22" => {valueset_path:"./*/cda:code", result_path: nil },  
+      "2.16.840.1.113883.10.20.28.3.21" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:observationCriteria/cda:code", result_path: nil },
+      "2.16.840.1.113883.10.20.28.3.22" => {valueset_path:"./*/cda:code", result_path: nil },
       "2.16.840.1.113883.10.20.28.3.23" => {valueset_path:"./*/cda:code", result_path: "./*/cda:value"},
       "2.16.840.1.113883.10.20.28.3.24" => {valueset_path:"./*/cda:code", result_path: nil },
       "2.16.840.1.113883.10.20.28.3.26" => {valueset_path:"./*/cda:code", result_path: nil },
@@ -154,7 +154,7 @@ module HQMF2
         if mapping && mapping[:valueset_path] && @entry.at_xpath(mapping[:valueset_path])
           @code_list_xpath = mapping[:valueset_path]
           @value = DataCriteria.parse_value(@entry,mapping[:result_path]) if mapping[:result_path]
-        end  
+        end
        end
 
     end
@@ -274,11 +274,7 @@ module HQMF2
     # @return [String] the title of this data criteria
     def title
       dispValue = attr_val("#{@code_list_xpath}/cda:displayName/@value")
-      desc = nil
-      if @description && (@description.include? ":")
-         desc = @description.match(/.*:\s+(.+)/)[1]
-      end
-      dispValue || desc || id
+      dispValue || @description || id
     end
 
     # Get the code list OID of the criteria, used as an index to the code list database
@@ -325,10 +321,9 @@ module HQMF2
 
       field_values = nil if field_values.empty?
 
-      if @specific_occurrence
-        @description = @description.split('_').drop(1).join('_')
-      else
-        @description = "#{@description}#{' ' + @local_variable_name.split('_')[0] if @local_variable_name}" unless @variable
+      unless @variable || @derivation_operator
+        exact_desc = title.split(' ')[0...-3].join(' ')
+        @description = "#{@description}: #{exact_desc}"
       end
 
       HQMF::DataCriteria.new(id, title, nil, description, code_list_id, children_criteria,
@@ -441,9 +436,9 @@ module HQMF2
     end
 
     def extract_value()
-      # need to look in both places for result criteria because 
+      # need to look in both places for result criteria because
       #procedureCriteria does not have a value element while observationCriteria does
-      DataCriteria.parse_value(@entry, "./*/cda:value") || 
+      DataCriteria.parse_value(@entry, "./*/cda:value") ||
       DataCriteria.parse_value(@entry, "./*/cda:outboundRelationship/cda:code[@code='394617004']/../cda:value")
     end
 
