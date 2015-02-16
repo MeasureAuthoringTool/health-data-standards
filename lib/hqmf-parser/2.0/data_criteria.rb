@@ -107,6 +107,7 @@ module HQMF2
     # @param [Nokogiri::XML::Element] entry the parsed HQMF entry
     def initialize(entry, data_criteria_references = nil)
       @entry = entry
+      @template_ids = extract_template_ids
       @data_criteria_references = data_criteria_references
       @local_variable_name = extract_local_variable_name
       @status = attr_val('./*/cda:statusCode/@code')
@@ -141,15 +142,13 @@ module HQMF2
       @children_criteria.map! {|cc| if cc =~ /^[0-9]/ then cc = "prefix_#{strip_tokens(cc)}" else strip_tokens(cc) end }
       @source_data_criteria = strip_tokens(@source_data_criteria) unless @source_data_criteria.nil?
       @specific_occurrence_const = strip_tokens(@specific_occurrence_const) unless @specific_occurrence_const.nil?
+      set_intersection
     end
 
 
     def set_code_list_path_and_result_value
-       template_ids = @entry.xpath('./*/cda:templateId/cda:item', HQMF2::Document::NAMESPACES).collect do |template_def|
-        HQMF2::Utilities.attr_val(template_def, '@root')
-      end
 
-       template_ids.each do |t|
+       @template_ids.each do |t|
         mapping = VALUESET_MAP[t]
         if mapping && mapping[:valueset_path] && @entry.at_xpath(mapping[:valueset_path])
           @code_list_xpath = mapping[:valueset_path]
@@ -219,16 +218,13 @@ module HQMF2
     end
 
     def extract_type_from_template_id
-      template_ids = @entry.xpath('./*/cda:templateId/cda:item', HQMF2::Document::NAMESPACES).collect do |template_def|
-        HQMF2::Utilities.attr_val(template_def, '@root')
-      end
-      if template_ids.include?(HQMF::DataCriteria::SOURCE_DATA_CRITERIA_TEMPLATE_ID)
+      if @template_ids.include?(HQMF::DataCriteria::SOURCE_DATA_CRITERIA_TEMPLATE_ID)
         @is_source_data_criteria = true
       end
       found = false
-      template_ids.each do |template_id|
-        defs = HQMF::DataCriteria.definition_for_template_id(template_id, 'r2')
 
+      @template_ids.each do |template_id|
+        defs = HQMF::DataCriteria.definition_for_template_id(template_id, 'r2')
         if defs
           @definition = defs['definition']
           @status = defs['status'].length > 0 ? defs['status'] : nil
@@ -250,8 +246,19 @@ module HQMF2
           found ||= true
         end
       end
+
       found
     end
+
+    def set_intersection
+       # Need to handle grouper criteria that do not have template ids -- these will be union of and intersection criteria
+      if @template_ids.empty?
+        # Change the XPRODUCT to an INTERSECT otherwise leave it as a UNION
+        @derivation_operator = HQMF::DataCriteria::INTERSECT if @derivation_operator == HQMF::DataCriteria::XPRODUCT
+        @description ||= (@derivation_operator == HQMF::DataCriteria::INTERSECT) ? "Intersect" : "Union"
+      end
+    end
+
 
     def to_s
       props = {
@@ -497,6 +504,11 @@ module HQMF2
       variable ||= false
     end
 
+    def extract_template_ids 
+      @entry.xpath('./*/cda:templateId/cda:item', HQMF2::Document::NAMESPACES).collect do |template_def|
+        HQMF2::Utilities.attr_val(template_def, '@root')
+      end
+    end
   end
 
 end
