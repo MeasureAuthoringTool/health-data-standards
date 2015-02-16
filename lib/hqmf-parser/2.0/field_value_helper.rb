@@ -9,7 +9,7 @@ module HQMF2
       fields = {}
       #negation is handeled in the data criteria parsing class and not as a field value
       parse_dset_cd(criteria.at_xpath('./cda:reasonCode', HQMF2::Document::NAMESPACES), 'REASON', fields) unless negated 
-      parse_dset_cd(criteria.at_xpath('./cda:priorityCode', HQMF2::Document::NAMESPACES),'ORDINALITY', fields)
+      parse_dset_cd(criteria.at_xpath('./cda:priorityCode', HQMF2::Document::NAMESPACES),'ORDINAL', fields)
       parse_date_fields(criteria,fields)
 
       case criteria.name
@@ -134,9 +134,8 @@ module HQMF2
     end
 
     def self.parse_substance_administration_fields(entry,fields)
-
       parse_dset_cd(entry.at_xpath('./cda:methodCode', HQMF2::Document::NAMESPACES),'METHOD', fields)
-      parse_dset_cd(entry.at_xpath('./cda:approachSiteCode', HQMF2::Document::NAMESPACES),'ANTOMICAL_APPROACH_SITE', fields)
+      parse_dset_cd(entry.at_xpath('./cda:approachSiteCode', HQMF2::Document::NAMESPACES),'ANATOMICAL_APPROACH_SITE', fields)
       parse_dset_cd(entry.at_xpath('./cda:targetSiteCode', HQMF2::Document::NAMESPACES),'ANATOMICAL_TARGET_SITE', fields)
       parse_cd(entry.at_xpath('./cda:routeCode', HQMF2::Document::NAMESPACES),'ROUTE', fields)
       parse_pq(entry.at_xpath('./cda:doseQuantity', HQMF2::Document::NAMESPACES),'DOSE', fields)
