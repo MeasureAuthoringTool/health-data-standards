@@ -96,9 +96,10 @@ module HQMF2
         if criteria.is_source_data_criteria
           @source_data_criteria << criteria
         else
-          @data_criteria << criteria
+          @data_criteria << criteria unless criteria.variable
         end
         @data_criteria_references[criteria.id] = criteria if criteria
+        handle_variable(criteria) if criteria.variable
       end
 
       # Extract the source data criteria from data criteria
@@ -252,6 +253,16 @@ module HQMF2
       sdc = source_data_criteria.collect{|dc| dc.to_model}
       dcs = update_data_criteria(dcs, sdc)
       HQMF::Document.new(id, id, hqmf_set_id, hqmf_version_number, @cms_id, title, description, pcs, dcs, sdc, attributes, measure_period.to_model, populations)
+    end
+
+    # Create grouper data criteria for encapsulating variable data criteria
+    # and update document data criteria list and references map
+    def handle_variable(data_criteria)
+      grouper_data_criteria = data_criteria.extract_variable_grouper
+      @data_criteria_references[data_criteria.id] = data_criteria
+      @data_criteria_references[grouper_data_criteria.id] = grouper_data_criteria
+      @data_criteria << data_criteria
+      @data_criteria << grouper_data_criteria
     end
 
     # Update the data criteria to handle variables properly
