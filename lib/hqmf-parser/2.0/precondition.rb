@@ -4,66 +4,57 @@ module HQMF2
 
     include HQMF2::Utilities
 
-    attr_reader :preconditions, :reference
+    attr_reader :preconditions, :reference, :conjunction
 
-    def initialize(entry, doc, population_criteria_type=nil)
-      @doc = doc
-      @entry = entry
-      @negation = false
-      precondition_entries = @entry.xpath('./*/cda:precondition', HQMF2::Document::NAMESPACES)
-      precondition_entries = @entry.xpath('cda:precondition', HQMF2::Document::NAMESPACES) unless !precondition_entries.blank?
-      @preconditions = precondition_entries.collect do |precondition|
-        Precondition.new(precondition, @doc)
+
+    def self.parse(entry, doc, population_criteria_type=nil)
+      doc = doc
+      entry = entry
+      negation = false
+      aggregation = entry.at_xpath('./cda:allTrue | ./cda:atLeastOneTrue | ./cda:allFalse | ./cda:atLeastOneFalse', HQMF2::Document::NAMESPACES)
+      conjuntion = nil 
+      preconditions = []
+      if aggregation
+        precondition_entries = entry.xpath('./*/cda:precondition', HQMF2::Document::NAMESPACES)
+        preconditions = precondition_entries.collect do |precondition|
+         Precondition.parse(precondition, doc)
+        end
+        conjunction = aggregation.name
+        case conjunction
+          when "allFalse"
+          negation = true
+          conjunction = "atLeastOneTrue"
+          when "atLeastOneFalse"
+          negation = true
+          conjunction = "allTrue"
+        else
+        end
+
       end
 
-      reference_def = @entry.at_xpath('./*/cda:id', HQMF2::Document::NAMESPACES)
+      reference_def = entry.at_xpath('./*/cda:id', HQMF2::Document::NAMESPACES)
       if !reference_def
-        reference_def = @entry.at_xpath('./cda:join/cda:templateId/cda:item', HQMF2::Document::NAMESPACES)
+        reference_def = entry.at_xpath('./cda:join/cda:templateId/cda:item', HQMF2::Document::NAMESPACES)
       end
       if reference_def
-        @reference = Reference.new(reference_def)
+        reference = Reference.new(reference_def)
       end
-      if population_criteria_type
-        @conj = case population_criteria_type
-          when "STRAT", "IPP", "DENOM", "NUMER", "MSRPOPL" then "allTrue"
-          when "DENEXCEP", "DENEX", "NUMEX", "MSRPOPLEX" then "atLeastOneTrue"
-        end
-      end
+      self.new(conjunction,preconditions,negation,reference)
     end
 
-    # Return true of this precondition represents a conjunction with nested preconditions
-    # or false of this precondition is a reference to a data criteria
-    def conjunction?
-      @preconditions.length>0
+    def initialize(conjunction,preconditions=[],negation=false,reference=nil)
+      @preconditions=preconditions
+      @conjunction = conjunction
+      @reference = reference
+      @negation = negation
     end
 
-    # Get the conjunction code, e.g. allTrue, allFalse
-    # @return [String] conjunction code
-    #allFalse -> negated atLeastOneTrue
-    #atLeastOneFalse -> negated allTrue
-    def conjunction_code
-      if conjunction?
-        conj = @entry.at_xpath('./*[1]', HQMF2::Document::NAMESPACES).name
-        case conj
-        when "allFalse"
-          @negation = true
-          "atLeastOneTrue"
-        when "atLeastOneFalse"
-          @negation = true
-          "allTrue"
-        else
-          @negation = false
-          @conj || conj
-        end
-      else
-        nil
-      end
-    end
+
 
     def to_model
-      pcs = preconditions.collect {|p| p.to_model}
-      mr = reference ? reference.to_model : nil
-      cc = @conj || conjunction_code
+      pcs = @preconditions.collect {|p| p.to_model}
+      mr = @reference ? @reference.to_model : nil
+      cc = @conjunction
       HQMF::Precondition.new(nil, pcs, mr, cc, @negation)
     end
   end
