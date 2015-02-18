@@ -16,7 +16,7 @@ module HQMF2
       @hqmf_id = attr_val('./*/cda:id/@extension') || attr_val('./*/cda:typeId/@extension')
       @title = attr_val('./*/cda:code/cda:displayName/@value')
       @type = attr_val('./*/cda:code/@code')
-      @type = 'IPP' if @type == 'IPOP'
+      @type = 'IPP' if ( @type == 'IPOP' || @type == 'IPPOP' )
       @aggregator = nil
       @comments = @entry.xpath("./*/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()", HQMF2::Document::NAMESPACES)
                         .map{ |v| v.content }
@@ -30,37 +30,13 @@ module HQMF2
       end
 
       # Nest multiple preconditions under a single root precondition
-      entry_preconditions = @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES)
-      missing_conjunctions = entry_preconditions.any? do |entry_prcn|
-        entry_prcn.xpath('./cda:allTrue', HQMF2::Document::NAMESPACES).empty? && entry_prcn.xpath('./cda:atLeastOneTrue', HQMF2::Document::NAMESPACES).empty?
+      @preconditions = @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES).collect do |pre|
+        Precondition.parse(pre,@doc)
       end
-      if entry_preconditions.length>0 && missing_conjunctions
-        root = nil
-        @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES).collect do |precondition|
-          if !root
-            root ||= precondition.dup
-            root.children.each { |c| c.remove }
-            root.name = "#{@type}-root-precondition"
-          end
-          # exclude Supplemental Data Criteria from STRAT preconditions
-          if @type == 'STRAT'
-            supplemental_data_criteria = [
-              "Ethnicity_PatientCharacteristicEthnicity",
-              "ONCAdministrativeSex_PatientCharacteristicSex",
-              "Payer_PatientCharacteristicPayer",
-              "Race_PatientCharacteristicRace"]
-            next if supplemental_data_criteria.include? precondition.at_xpath('cda:criteriaReference/cda:id/@extension', HQMF2::Document::NAMESPACES).try(:value)
-          end
-          root << precondition
-        end
-        if root.children.blank?
-          @preconditions = []
-        else
-          @preconditions = [Precondition.new(root, @doc, @type)]
-        end
-      else
-        @preconditions = @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES).collect do |precondition|
-          Precondition.new(precondition, @doc, @type)
+      if @type != "AGGREGATE"
+        if @preconditions.length > 1 ||
+           ( @preconditions.length == 1 && @preconditions[0].conjunction != conjunction_code)
+          @precondtions = Precondition.new(conjunction_code, @preconditions)
         end
       end
     end
@@ -79,7 +55,7 @@ module HQMF2
     # @return [String] conjunction code
     def conjunction_code
       case @type
-      when HQMF::PopulationCriteria::IPP, HQMF::PopulationCriteria::DENOM, HQMF::PopulationCriteria::NUMER,HQMF::PopulationCriteria::MSRPOPL
+      when HQMF::PopulationCriteria::IPP, HQMF::PopulationCriteria::DENOM, HQMF::PopulationCriteria::NUMER,HQMF::PopulationCriteria::MSRPOPL,HQMF::PopulationCriteria::STRAT
         HQMF::Precondition::ALL_TRUE
       when HQMF::PopulationCriteria::DENEXCEP, HQMF::PopulationCriteria::DENEX
         HQMF::Precondition::AT_LEAST_ONE_TRUE
