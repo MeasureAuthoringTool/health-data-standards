@@ -26,6 +26,9 @@ module HQMF2
       @unit = attr_val('./@unit')
       @value = attr_val('./@value')
       @force_inclusive = force_inclusive
+
+      # FIXME: Remove below when lengthOfStayQuantity unit is fixed
+      @unit = 'd' if @unit=='days'
     end
 
     def inclusive?
