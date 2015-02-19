@@ -32,7 +32,7 @@ module HQMF2
     end
 
     def inclusive?
-      attr_val("../@#{@entry.name}Closed") == 'true' || @force_inclusive
+      attr_val("../@#{@entry.name}Closed") != 'false' || @force_inclusive
     end
 
     def derived?
