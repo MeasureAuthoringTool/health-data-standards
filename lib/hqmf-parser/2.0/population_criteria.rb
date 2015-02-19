@@ -38,7 +38,7 @@ module HQMF2
       if @type != "AGGREGATE"
         if @preconditions.length > 1 ||
            ( @preconditions.length == 1 && @preconditions[0].conjunction != conjunction_code)
-          @precondtions = [Precondition.new(id_generator.next_id,conjunction_code, @preconditions)]
+          @preconditions = [Precondition.new(id_generator.next_id,conjunction_code, @preconditions)]
         end
       end
     end

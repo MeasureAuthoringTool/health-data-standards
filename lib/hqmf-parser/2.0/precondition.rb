@@ -12,24 +12,22 @@ module HQMF2
       entry = entry
       negation = false
       aggregation = entry.at_xpath('./cda:allTrue | ./cda:atLeastOneTrue | ./cda:allFalse | ./cda:atLeastOneFalse', HQMF2::Document::NAMESPACES)
-      conjuntion = nil 
+      conjunction = nil
       preconditions = []
       if aggregation
         precondition_entries = entry.xpath('./*/cda:precondition', HQMF2::Document::NAMESPACES)
         preconditions = precondition_entries.collect do |precondition|
-         Precondition.parse(precondition, doc, id_generator)
+          Precondition.parse(precondition, doc, id_generator)
         end
         conjunction = aggregation.name
         case conjunction
-          when "allFalse"
+        when "allFalse"
           negation = true
           conjunction = "atLeastOneTrue"
-          when "atLeastOneFalse"
+        when "atLeastOneFalse"
           negation = true
           conjunction = "allTrue"
-        else
         end
-
       end
 
       reference_def = entry.at_xpath('./*/cda:id', HQMF2::Document::NAMESPACES)
@@ -49,8 +47,6 @@ module HQMF2
       @negation = negation
       @id = id
     end
-
-
 
     def to_model
       pcs = @preconditions.collect {|p| p.to_model}
