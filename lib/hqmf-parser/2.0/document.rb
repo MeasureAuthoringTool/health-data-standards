@@ -10,6 +10,7 @@ module HQMF2
     # Create a new HQMF2::Document instance by parsing at file at the supplied path
     # @param [String] path the path to the HQMF document
     def initialize(hqmf_contents)
+      @idgenerator = IdGenerator.new
       @doc = @entry = Document.parse(hqmf_contents)
       remove_popultaion_preconditions(@doc)
       @id = attr_val('cda:QualityMeasureDocument/cda:id/@extension') || attr_val('cda:QualityMeasureDocument/cda:id/@root').upcase
@@ -173,7 +174,7 @@ module HQMF2
         observation_section.xpath("cda:definition",NAMESPACES).each do |criteria_def|
           criteria_id = "OBSERV"
           population = {}
-          criteria = PopulationCriteria.new(criteria_def, self)
+          criteria = PopulationCriteria.new(criteria_def, self,@idgenerator)
           criteria.type="OBSERV"
           # this section constructs a human readable id.  The first IPP will be IPP, the second will be IPP_1, etc.  This allows the populations to be
           # more readable.  The alternative would be to have the hqmf ids in the populations, which would work, but is difficult to read the populations.
@@ -293,7 +294,7 @@ module HQMF2
     end
 
     def build_population_criteria(criteria_def, criteria_id, criteria_element_name, ids_by_hqmf_id, population, population_counters)
-      criteria = PopulationCriteria.new(criteria_def, self)
+      criteria = PopulationCriteria.new(criteria_def, self,@idgenerator)
       # ignore empty STRAT populations
       return if criteria_element_name == 'stratifierCriteria' && criteria.preconditions.blank?
 

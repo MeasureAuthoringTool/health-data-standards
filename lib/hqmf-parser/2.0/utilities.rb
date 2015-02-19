@@ -32,5 +32,16 @@ module HQMF2
       value.gsub('-','_').gsub(',','_')
     end
 
+    class IdGenerator
+      def initialize()
+        @current_id = 0
+      end
+
+      def next_id
+        @current_id += 1
+        @current_id
+      end
+    end
+
   end
 end

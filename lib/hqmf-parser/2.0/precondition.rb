@@ -4,10 +4,10 @@ module HQMF2
 
     include HQMF2::Utilities
 
-    attr_reader :preconditions, :reference, :conjunction
+    attr_reader :preconditions, :reference, :conjunction,:id
 
 
-    def self.parse(entry, doc, population_criteria_type=nil)
+    def self.parse(entry, doc, id_generator)
       doc = doc
       entry = entry
       negation = false
@@ -17,7 +17,7 @@ module HQMF2
       if aggregation
         precondition_entries = entry.xpath('./*/cda:precondition', HQMF2::Document::NAMESPACES)
         preconditions = precondition_entries.collect do |precondition|
-         Precondition.parse(precondition, doc)
+         Precondition.parse(precondition, doc, id_generator)
         end
         conjunction = aggregation.name
         case conjunction
@@ -39,14 +39,15 @@ module HQMF2
       if reference_def
         reference = Reference.new(reference_def)
       end
-      self.new(conjunction,preconditions,negation,reference)
+      self.new(id_generator.next_id,conjunction,preconditions,negation,reference)
     end
 
-    def initialize(conjunction,preconditions=[],negation=false,reference=nil)
+    def initialize(id,conjunction,preconditions=[],negation=false,reference=nil)
       @preconditions=preconditions
       @conjunction = conjunction
       @reference = reference
       @negation = negation
+      @id = id
     end
 
 
@@ -55,7 +56,7 @@ module HQMF2
       pcs = @preconditions.collect {|p| p.to_model}
       mr = @reference ? @reference.to_model : nil
       cc = @conjunction
-      HQMF::Precondition.new(nil, pcs, mr, cc, @negation)
+      HQMF::Precondition.new(@id, pcs, mr, cc, @negation)
     end
   end
 
