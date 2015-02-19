@@ -4,7 +4,7 @@ class ParseTest < Test::Unit::TestCase
   
   def setup
     @hqmf_contents_v1 = File.open("test/fixtures/1.0/NQF_Retooled_Measure_0043.xml").read
-    @hqmf_contents_v2 = File.open("test/fixtures/2.0/earlyRelease/NQF59New.xml").read
+    @hqmf_contents_v2 = File.open("test/fixtures/2.1/CMS_30_HQMF_R2_Updated.xml").read
   end
   
   def test_basic_parse_v1
@@ -18,7 +18,7 @@ class ParseTest < Test::Unit::TestCase
 
     parsed = HQMF::Parser::V2Parser.new.parse(@hqmf_contents_v2)
     
-    parsed.title.must_equal "Sample Quality Measure Document"
+    parsed.title.must_equal "Statin Prescribed at Discharge"
   end
   
 end

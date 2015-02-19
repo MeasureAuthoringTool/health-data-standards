@@ -43,7 +43,7 @@ module HQMF2
       doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
       doc.root.add_namespace_definition('xsi', 'http://www.w3.org/2001/XMLSchema-instance')
       exception = assert_raise RuntimeError do
-        criteria = HQMF2::PopulationCriteria.new(doc.root, nil)
+        criteria = HQMF2::PopulationCriteria.new(doc.root, nil,HQMF2::Utilities::IdGenerator.new)
         conjunction = criteria.conjunction_code
       end
       assert_equal 'Unknown population type [Foo]', exception.message
