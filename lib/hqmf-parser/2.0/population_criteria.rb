@@ -10,13 +10,15 @@ module HQMF2
     attr_accessor :type
     # Create a new population criteria from the supplied HQMF entry
     # @param [Nokogiri::XML::Element] the HQMF entry
-    def initialize(entry, doc)
+    def initialize(entry, doc, id_generator)
+
       @doc = doc
       @entry = entry
       @hqmf_id = attr_val('./*/cda:id/@extension') || attr_val('./*/cda:typeId/@extension')
       @title = attr_val('./*/cda:code/cda:displayName/@value')
       @type = attr_val('./*/cda:code/@code')
       @type = 'IPP' if ( @type == 'IPOP' || @type == 'IPPOP' )
+      id_generator = IdGenerator.new()
       @aggregator = nil
       @comments = @entry.xpath("./*/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()", HQMF2::Document::NAMESPACES)
                         .map{ |v| v.content }
@@ -31,12 +33,12 @@ module HQMF2
 
       # Nest multiple preconditions under a single root precondition
       @preconditions = @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES).collect do |pre|
-        Precondition.parse(pre,@doc)
+        Precondition.parse(pre,@doc,id_generator)
       end
       if @type != "AGGREGATE"
         if @preconditions.length > 1 ||
            ( @preconditions.length == 1 && @preconditions[0].conjunction != conjunction_code)
-          @precondtions = Precondition.new(conjunction_code, @preconditions)
+          @precondtions = [Precondition.new(id_generator.next_id,conjunction_code, @preconditions)]
         end
       end
     end
