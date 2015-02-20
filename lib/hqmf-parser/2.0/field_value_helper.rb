@@ -8,7 +8,8 @@ module HQMF2
       return {} if criteria.nil?
       fields = {}
       #negation is handeled in the data criteria parsing class and not as a field value
-      parse_dset_cd(criteria.at_xpath('./cda:reasonCode', HQMF2::Document::NAMESPACES), 'REASON', fields) unless negated 
+      #  Not using the reasonCode element becuase the QDM HQMF ig states that reason is in an outboud relationship
+      # parse_dset_cd(criteria.at_xpath('./cda:reasonCode', HQMF2::Document::NAMESPACES), 'REASON', fields) unless negated 
       parse_dset_cd(criteria.at_xpath('./cda:priorityCode', HQMF2::Document::NAMESPACES),'ORDINAL', fields)
       parse_date_fields(criteria,fields)
 

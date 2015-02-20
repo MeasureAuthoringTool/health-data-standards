@@ -406,7 +406,7 @@ module HQMF2
       negation = attr_val('./*/@actionNegationInd')
       @negation = (negation=='true')
       if @negation
-        @negation_code_list_id = attr_val('./*/cda:reasonCode/cda:item/@valueSet')
+        @negation_code_list_id =  @entry.at_xpath('./*/cda:outboundRelationship/*/cda:code[@code="410666004"]/../cda:value/@valueSet', HQMF2::Document::NAMESPACES)
       else
         @negation_code_list_id = nil
       end
@@ -461,8 +461,10 @@ module HQMF2
       @entry.xpath('./*/cda:outboundRelationship[*/cda:code]', HQMF2::Document::NAMESPACES).each do |field|
         code = HQMF2::Utilities.attr_val(field, './*/cda:code/@code')
         code_id = HQMF::DataCriteria::VALUE_FIELDS[code]
-        value = DataCriteria.parse_value(field, './*/cda:value')
-        fields[code_id] = value if value && code_id
+        unless @negation && code_id == "REASON"
+         value = DataCriteria.parse_value(field, './*/cda:value')
+         fields[code_id] = value if value && code_id
+       end
       end
       # special case for facility location which uses a very different structure
       @entry.xpath('./*/cda:outboundRelationship[*/cda:participation]', HQMF2::Document::NAMESPACES).each do |field|
