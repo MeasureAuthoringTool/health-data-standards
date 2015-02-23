@@ -344,7 +344,10 @@ module HQMF2
       field_values = nil if field_values.empty?
 
       unless @variable || @derivation_operator
+        # drop "* Value Set" from titles
         exact_desc = title.split(' ')[0...-3].join(' ')
+        # don't drop anything for patient characterstic titles
+        exact_desc = title if @definition.start_with? "patient_characteristic"
         @description = "#{@description}: #{exact_desc}"
       end
 
@@ -400,13 +403,22 @@ module HQMF2
       self
     end
 
+    # Patch this data criteria's title and description using id/source data criteria
+    def patch_descriptions(data_criteria_references)
+      return unless title.include? "_"
+      ref_id = @source_data_criteria || @id
+      reference = data_criteria_references[ref_id] if !ref_id.blank?
+      @title = reference.title if reference
+      @description = reference.description if reference
+    end
+
     private
 
     def extract_negation
       negation = attr_val('./*/@actionNegationInd')
       @negation = (negation=='true')
       if @negation
-        @negation_code_list_id =  @entry.at_xpath('./*/cda:outboundRelationship/*/cda:code[@code="410666004"]/../cda:value/@valueSet', HQMF2::Document::NAMESPACES)
+        @negation_code_list_id =  @entry.at_xpath('./*/cda:outboundRelationship/*/cda:code[@code="410666004"]/../cda:value/@valueSet', HQMF2::Document::NAMESPACES).value
       else
         @negation_code_list_id = nil
       end

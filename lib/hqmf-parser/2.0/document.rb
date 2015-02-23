@@ -106,6 +106,10 @@ module HQMF2
       # Extract the source data criteria from data criteria
       @source_data_criteria = @data_criteria.map{|dc| dc.extract_source_data_criteria}.uniq { |sdc| sdc.id }
 
+      # Patch descriptions for all data criteria and source data criteria
+      @data_criteria.each { |dc| dc.patch_descriptions(@data_criteria_references) }
+      @source_data_criteria.each { |sdc| sdc.patch_descriptions(@data_criteria_references) }
+
       # Extract the population criteria and population collections
       @populations = []
       @population_criteria = []
