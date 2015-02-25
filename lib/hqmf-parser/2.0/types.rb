@@ -32,7 +32,8 @@ module HQMF2
     end
 
     def inclusive?
-      attr_val("../@#{@entry.name}Closed") != 'false' || @force_inclusive
+      v = attr_val("../@#{@entry.name}Closed") 
+      v == nil || v != 'false' || @force_inclusive
     end
 
     def derived?
@@ -316,4 +317,28 @@ module HQMF2
     end
   end
 
+  class DataCriteriaWrapper
+
+    attr_accessor  :status, :value, :effective_time
+    attr_accessor :temporal_references, :subset_operators, :children_criteria
+    attr_accessor :derivation_operator, :negation, :negation_code_list_id, :description
+    attr_accessor :field_values, :source_data_criteria, :specific_occurrence_const
+    attr_accessor :specific_occurrence, :comments
+    attr_accessor :id, :title, :definition, :variable, :code_list_id, :value, :inline_code_list
+
+    def initialize(opts={})
+     opts.each { |k,v| instance_variable_set("@#{k}", v) }
+    end
+ 
+    def to_model
+      mv = @value ? @value.to_model : nil
+      met = @effective_time ? @effective_time.to_model : nil
+      mtr = @temporal_references 
+      mso = @subset_operators
+      HQMF::DataCriteria.new(@id, @title, nil, @description, @code_list_id, @children_criteria,
+        @derivation_operator, @definition, @status, @value, field_values, @met, @inline_code_list,
+        @negation, @negation_code_list_id, mtr, mso, @specific_occurrence,
+        @specific_occurrence_const, @source_data_criteria, @comments, @variable)
+    end
+  end
 end

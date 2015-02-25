@@ -18,7 +18,6 @@ module HQMF2
       @title = attr_val('./*/cda:code/cda:displayName/@value')
       @type = attr_val('./*/cda:code/@code')
       @type = 'IPP' if ( @type == 'IPOP' || @type == 'IPPOP' )
-      id_generator = IdGenerator.new()
       @aggregator = nil
       @comments = @entry.xpath("./*/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()", HQMF2::Document::NAMESPACES)
                         .map{ |v| v.content }
@@ -40,7 +39,34 @@ module HQMF2
            ( @preconditions.length == 1 && @preconditions[0].conjunction != conjunction_code)
           @preconditions = [Precondition.new(id_generator.next_id,conjunction_code, @preconditions)]
         end
+      else
+        dc = handle_observation_critiera
+        @preconditions = [Precondition.new(id_generator.next_id,nil, nil, HQMF2::Reference(dc.id))]
       end
+    end
+
+
+    def handle_observation_critiera
+      exp = @entry.at_xpath("./cda:measureObservationDefinition/cda:expression/@value")
+      parts = exp.split("-")
+      if parts.length != 2
+        raise "Has an error here :: todo make more descriptive"
+      end
+      children = parts.collect{|p| p.split(".")[0]}
+      _id ="GROUP_TIMEDIFF_#{ @idgenerator.next_id}"
+      dc = HQMF2::DataCriteriaWrapper.new(id: _id, 
+                                          title: _id ,
+                                          subset_operators: [HQMF::SubsetOperator.new("TIMEDIFF", HQMF::AnyValue.new("ANYNonNull"))],
+                                          children_criteria: children,
+                                          derivation_operator: HQMF::DataCriteria::XPRODUCT,
+                                          type: "derived" ,
+                                          definition: "derived" ,
+                                          negation: false,
+                                          source_data_criteria: _id,
+                                           )
+      @doc.data_criteria << dc
+      dc
+
     end
 
     def create_human_readable_id(id)
