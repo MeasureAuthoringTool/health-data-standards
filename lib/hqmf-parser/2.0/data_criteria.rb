@@ -90,7 +90,7 @@ module HQMF2
     attr_reader :derivation_operator, :negation, :negation_code_list_id, :description
     attr_reader :field_values, :source_data_criteria, :specific_occurrence_const
     attr_reader :specific_occurrence, :is_source_data_criteria, :comments
-    attr_reader :id, :entry, :definition, :variable
+    attr_reader :id, :entry, :definition, :variable, :local_variable_name
 
     VARIABLE_TEMPLATE = "0.1.2.3.4.5.6.7.8.9.1"
     SATISFIES_ANY_TEMPLATE = "2.16.840.1.113883.10.20.28.3.108"

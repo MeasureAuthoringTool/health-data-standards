@@ -151,6 +151,20 @@ module HQMF2
     def self.parse_encounter_fields(entry,fields)
       parse_pq(entry.at_xpath('./cda:lengthOfStayQuantity', HQMF2::Document::NAMESPACES),'LENGTH_OF_STAY', fields)
       parse_cd(entry.at_xpath('./cda:dischargeDispositionCode', HQMF2::Document::NAMESPACES),'DISCHARGE_STATUS',fields)
+      
+      loc =  entry.at_xpath("./cda:participation[@typeCode='LOC']/cda:role[@classCode='SDLOC']", HQMF2::Document::NAMESPACES)
+      if loc 
+        #does it have an effective time?
+        low = loc.at_xpath("./cda:effectiveTime/cda:low/..")
+        high = loc.at_xpath("./cda:effectiveTime/cda:high/..")
+        code = loc.at_xpath("./cda:code")
+        # looking at the 2.4.0 measure bundle these values are set to null if they exist 
+        # so that is what I am doing for now
+        fields['FACILITY_LOCATION_ARRIVAL_DATETIME'] = AnyValue.new if low
+        fields['FACILITY_LOCATION_DEPARTURE_DATETIME'] = AnyValue.new if high
+        fields['FACILITY_LOCATION'] = Value.new(code) if code
+
+      end
     end
 
     def self.parse_procedure_fields(entry,fields)

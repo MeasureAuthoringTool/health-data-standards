@@ -68,9 +68,9 @@ module HQMF2
       @entry = entry
       if @entry
         @low = optional_value("#{default_element_name}/cda:low", default_bounds_type)
-        @low = nil unless @low.try(:value)
+        @low = nil unless (@low.try(:value) || @low.kind_of?( HQMF2::AnyValue))
         @high = optional_value("#{default_element_name}/cda:high", default_bounds_type)
-        @high = nil unless @high.try(:value)
+        @high = nil unless (@high.try(:value) || @low.kind_of?(HQMF2::AnyValue))
         @width = optional_value("#{default_element_name}/cda:width", 'PQ')
         detect_period
       end
@@ -96,7 +96,11 @@ module HQMF2
     def optional_value(xpath, type)
       value_def = @entry.at_xpath(xpath, HQMF2::Document::NAMESPACES)
       if value_def
-        Value.new(value_def, type)
+        if value_def["flavorId"] == "ANY.NONNULL"
+          AnyValue.new
+        else
+          Value.new(value_def, type)
+        end
       else
         nil
       end
@@ -306,10 +310,14 @@ module HQMF2
     end
 
     def id
-      id = strip_tokens attr_val('./@extension')
-      # Handle MeasurePeriod references for calculation code
-      id = 'MeasurePeriod' if id == 'measureperiod'
-      if id =~ /^[0-9]/ then "prefix_#{id}" else id end
+      if @entry.kind_of? String
+        @entry
+      else
+        id = strip_tokens attr_val('./@extension')
+        # Handle MeasurePeriod references for calculation code
+        id = 'MeasurePeriod' if id == 'measureperiod'
+        if id =~ /^[0-9]/ then "prefix_#{id}" else id end
+      end
     end
 
     def to_model
