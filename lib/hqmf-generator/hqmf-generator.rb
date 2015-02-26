@@ -220,7 +220,14 @@ module HQMF2
       end
 
       def expression_for_observation(doc,observation)
-        "NOT IMPLEMENTED"
+        pre = observation.preconditions[0]
+        if pre && pre.reference 
+          dc = doc.data_criteria(pre.reference.id)
+          children = dc.children_criteria
+          if children && children.length == 2
+            return "#{children[0]} - #{children[1]}"
+          end
+        end
       end
 
       def data_criteria_should_be_grouper?(criteria)

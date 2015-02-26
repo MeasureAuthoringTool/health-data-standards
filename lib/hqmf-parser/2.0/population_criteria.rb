@@ -11,7 +11,7 @@ module HQMF2
     # Create a new population criteria from the supplied HQMF entry
     # @param [Nokogiri::XML::Element] the HQMF entry
     def initialize(entry, doc, id_generator)
-
+      @id_generator = id_generator
       @doc = doc
       @entry = entry
       @hqmf_id = attr_val('./*/cda:id/@extension') || attr_val('./*/cda:typeId/@extension')
@@ -41,19 +41,22 @@ module HQMF2
         end
       else
         dc = handle_observation_critiera
-        @preconditions = [Precondition.new(id_generator.next_id,nil, nil, HQMF2::Reference(dc.id))]
+        @preconditions = [Precondition.new(id_generator.next_id,nil, nil, HQMF2::Reference.new(dc.id))]
       end
     end
 
 
     def handle_observation_critiera
-      exp = @entry.at_xpath("./cda:measureObservationDefinition/cda:expression/@value")
-      parts = exp.split("-")
+ 
+      exp = @entry.at_xpath("./cda:measureObservationDefinition/cda:value/cda:expression/@value", HQMF2::Document::NAMESPACES)
+      raise "No Expression " if exp.nil?
+
+      parts = exp.to_s.split("-") 
       if parts.length != 2
         raise "Has an error here :: todo make more descriptive"
       end
       children = parts.collect{|p| p.split(".")[0]}
-      _id ="GROUP_TIMEDIFF_#{ @idgenerator.next_id}"
+      _id ="GROUP_TIMEDIFF_#{ @id_generator.next_id}"
       dc = HQMF2::DataCriteriaWrapper.new(id: _id, 
                                           title: _id ,
                                           subset_operators: [HQMF::SubsetOperator.new("TIMEDIFF", HQMF::AnyValue.new("ANYNonNull"))],
@@ -64,7 +67,7 @@ module HQMF2
                                           negation: false,
                                           source_data_criteria: _id,
                                            )
-      @doc.data_criteria << dc
+      @doc.add_data_criteria(dc)
       dc
 
     end
