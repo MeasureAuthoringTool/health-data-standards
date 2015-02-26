@@ -172,13 +172,12 @@ module HQMF2
 
 
       #look for observation data in separate section but create a population for it if it exists
-      # FIXME: Replace 'measureObservationsSection' with 'measureObservationSection' to enable OBSERV parsing
       observation_section = @doc.xpath('/cda:QualityMeasureDocument/cda:component/cda:measureObservationSection', NAMESPACES)
       if !observation_section.empty?
         observation_section.xpath("cda:definition",NAMESPACES).each do |criteria_def|
           criteria_id = "OBSERV"
           population = {}
-          criteria = PopulationCriteria.new(criteria_def, self,@idgenerator)
+          criteria = PopulationCriteria.new(criteria_def, self, @idgenerator)
           criteria.type="OBSERV"
           # this section constructs a human readable id.  The first IPP will be IPP, the second will be IPP_1, etc.  This allows the populations to be
           # more readable.  The alternative would be to have the hqmf ids in the populations, which would work, but is difficult to read the populations.
@@ -243,7 +242,7 @@ module HQMF2
       find(@data_criteria, :id, id)
     end
 
-    #needed so data criteria can be added to a document form other objects
+    #needed so data criteria can be added to a document from other objects
     def add_data_criteria(dc)
       @data_criteria << dc
     end

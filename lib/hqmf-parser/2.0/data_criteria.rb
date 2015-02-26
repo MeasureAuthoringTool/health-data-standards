@@ -405,11 +405,22 @@ module HQMF2
 
     # Patch this data criteria's title and description using id/source data criteria
     def patch_descriptions(data_criteria_references)
-      return unless title.include? "_"
-      ref_id = @source_data_criteria || @id
-      reference = data_criteria_references[ref_id] if !ref_id.blank?
-      @title = reference.title if reference
-      @description = reference.description if reference
+      return unless title.include?("_") || title.include?("-")
+      if @specific_occurrence && !@id.include?("Occurrence")
+        # This hack is for finding the correct source data criteria for resolving
+        # calculation issues with TIMEDIFF and specific occurrence references
+        ref_id = @source_data_criteria || @id
+        ref_id = "Occurrence#{@specific_occurrence}_#{ref_id}"
+        reference = data_criteria_references[ref_id] if !ref_id.blank?
+        @title = reference.title if reference
+        @description = reference.description if reference
+        @source_data_criteria = reference.id if reference
+      else
+        ref_id = @source_data_criteria || @id
+        reference = data_criteria_references[ref_id] if !ref_id.blank?
+        @title = reference.title if reference
+        @description = reference.description if reference
+      end
     end
 
     private
@@ -419,7 +430,7 @@ module HQMF2
       @negation = (negation=='true')
       if @negation
         res =  @entry.at_xpath('./*/cda:outboundRelationship/*/cda:code[@code="410666004"]/../cda:value/@valueSet', HQMF2::Document::NAMESPACES)
-        @negation_code_list_id =  res.value if res 
+        @negation_code_list_id =  res.value if res
       else
         @negation_code_list_id = nil
       end
