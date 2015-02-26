@@ -418,7 +418,8 @@ module HQMF2
       negation = attr_val('./*/@actionNegationInd')
       @negation = (negation=='true')
       if @negation
-        @negation_code_list_id =  @entry.at_xpath('./*/cda:outboundRelationship/*/cda:code[@code="410666004"]/../cda:value/@valueSet', HQMF2::Document::NAMESPACES).value
+        res =  @entry.at_xpath('./*/cda:outboundRelationship/*/cda:code[@code="410666004"]/../cda:value/@valueSet', HQMF2::Document::NAMESPACES)
+        @negation_code_list_id =  res.value if res 
       else
         @negation_code_list_id = nil
       end

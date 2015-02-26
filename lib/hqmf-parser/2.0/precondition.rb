@@ -41,7 +41,7 @@ module HQMF2
     end
 
     def initialize(id,conjunction,preconditions=[],negation=false,reference=nil)
-      @preconditions=preconditions
+      @preconditions=preconditions || []
       @conjunction = conjunction
       @reference = reference
       @negation = negation

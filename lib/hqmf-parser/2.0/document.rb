@@ -243,6 +243,11 @@ module HQMF2
       find(@data_criteria, :id, id)
     end
 
+    #needed so data criteria can be added to a document form other objects
+    def add_data_criteria(dc)
+      @data_criteria << dc
+    end
+
    # Parse an XML document from the supplied contents
     # @return [Nokogiri::XML::Document]
     def self.parse(hqmf_contents)
