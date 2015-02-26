@@ -41,7 +41,7 @@ module HQMF2
         end
       else
         dc = handle_observation_critiera
-        @preconditions = [Precondition.new(id_generator.next_id,nil, nil, HQMF2::Reference.new(dc.id))]
+        @preconditions = [Precondition.new(id_generator.next_id,nil, nil, false, HQMF2::Reference.new(dc.id))]
       end
     end
 
@@ -55,7 +55,7 @@ module HQMF2
       if parts.length != 2
         raise "Has an error here :: todo make more descriptive"
       end
-      children = parts.collect{|p| p.split(".")[0]}
+      children = parts.collect{|p| @doc.find_criteria_by_lvn(p.strip.split(".")[0]).id}
       _id ="GROUP_TIMEDIFF_#{ @id_generator.next_id}"
       dc = HQMF2::DataCriteriaWrapper.new(id: _id, 
                                           title: _id ,
