@@ -57,7 +57,7 @@
     <participant typeCode="ORG">
       <!-- Transfer From (Destination) template --> 
       <templateId root="2.16.840.1.113883.10.20.24.3.81"/> 
-      <time value="<%= value_or_null_flavor(entry.transferFrom.time) %>"/>
+      <time <%= value_or_null_flavor(entry.transferFrom.time) %>/>
       <participantRole classCode="LOCE">
         <% 
            entry.transferFrom.codes[entry.transferFrom.code_system] = [entry.transferFrom.code]
@@ -75,7 +75,7 @@
     <participant typeCode="DST">
       <!-- Transfer To (Destination) template --> 
       <templateId root="2.16.840.1.113883.10.20.24.3.82"/> 
-      <time value="<%= value_or_null_flavor(entry.transferTo.time) %>"/>
+      <time <%= value_or_null_flavor(entry.transferTo.time) %>/>
       <participantRole classCode="LOCE">
         <% 
            entry.transferTo.codes[entry.transferTo.code_system] = [entry.transferTo.code]
