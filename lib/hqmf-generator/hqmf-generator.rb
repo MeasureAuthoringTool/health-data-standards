@@ -223,6 +223,24 @@ module HQMF2
         "NOT IMPLEMENTED"
       end
 
+      def fixed_so_source_data_criteria(doc)
+        source_data_criteria = []
+
+        doc.source_data_criteria.each do |dc|
+          if dc.specific_occurrence
+            base_json = JSON.parse(dc.base_json.to_json)
+            cloned = HQMF::DataCriteria.from_json(dc.id, base_json)
+            cloned.instance_variable_set(:@specific_occurrence, nil)
+            cloned.instance_variable_set(:@specific_occurrence_const, nil)
+            cloned.instance_variable_set(:@source_data_criteria, nil)
+            source_data_criteria << cloned
+          else
+            source_data_criteria << dc
+          end
+        end
+        source_data_criteria
+      end
+
       def data_criteria_should_be_grouper?(criteria)
         return false unless criteria
         return false unless criteria.definition == 'derived'
@@ -314,34 +332,34 @@ module HQMF2
       def data_criteria_template_name(data_criteria)
         case data_criteria.definition
         when 'diagnosis', 'diagnosis_family_history'
-          'condition_criteria'
+          'criteria/condition_criteria'
         when 'encounter'
-          'encounter_criteria'
+          'criteria/encounter_criteria'
         when 'procedure', 'risk_category_assessment', 'physical_exam', 'communication_from_patient_to_provider', 'communication_from_provider_to_provider', 'device', 'diagnostic_study', 'intervention'
           if data_criteria.value.nil?
-            'procedure_criteria'
+            'criteria/procedure_criteria'
           else
-            'observation_criteria'
+            'criteria/observation_criteria'
           end
         when 'medication'
           case data_criteria.status
           when 'dispensed', 'ordered'
-            'supply_criteria'
+            'criteria/supply_criteria'
           else # active or administered
-            'substance_criteria'
+            'criteria/substance_criteria'
           end
         when 'patient_characteristic', 'patient_characteristic_birthdate', 'patient_characteristic_clinical_trial_participant', 'patient_characteristic_expired', 'patient_characteristic_gender', 'patient_characteristic_age', 'patient_characteristic_languages', 'patient_characteristic_marital_status', 'patient_characteristic_race'
-          'characteristic_criteria'
+          'criteria/characteristic_criteria'
         when 'variable'
-          'variable_criteria'
+          'criteria/variable_criteria'
         when 'derived'
           if data_criteria_should_be_grouper?(data_criteria)
-            'grouper_criteria'
+            'criteria/grouper_criteria'
           else
-            'observation_criteria'
+            'criteria/observation_criteria'
           end
         else
-          'observation_criteria'
+          'criteria/observation_criteria'
         end
       end
 
