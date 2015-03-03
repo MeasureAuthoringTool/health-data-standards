@@ -369,8 +369,8 @@ module HQMF2
       @populations.each_with_index do |population, population_index|
         population['id'] ||= "Population#{population_index+1}"
         population['title'] ||= "Population #{population_index+1}"
-        population['id'].gsub! /\d+\z/, "#{population_index+1}"
-        population['title'].gsub! /\d+\z/, "#{population_index+1}"
+        population['id'].gsub!(/\d+\z/, "#{population_index+1}")
+        population['title'].gsub!(/\d+\z/, "#{population_index+1}")
       end
 
     end
