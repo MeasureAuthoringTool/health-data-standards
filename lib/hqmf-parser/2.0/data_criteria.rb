@@ -190,7 +190,8 @@ module HQMF2
       # See if we can find a match for the entry definition value and status.
       entry_type = attr_val('./*/cda:definition/*/cda:id/@extension')
       begin
-        settings = HQMF::DataCriteria.get_settings_for_definition(entry_type, @status)
+        # settings is required to trigger exceptions, which set the definition
+        HQMF::DataCriteria.get_settings_for_definition(entry_type, @status)
         @definition = entry_type
       rescue
         # if no exact match then try a string match just using entry definition value
@@ -488,7 +489,7 @@ module HQMF2
         unless @negation && code_id == "REASON"
          value = DataCriteria.parse_value(field, './*/cda:value')
          fields[code_id] = value if value && code_id
-       end
+        end
       end
       # special case for facility location which uses a very different structure
       @entry.xpath('./*/cda:outboundRelationship[*/cda:participation]', HQMF2::Document::NAMESPACES).each do |field|

@@ -32,7 +32,7 @@ module HQMF2
     end
 
     def inclusive?
-      v = attr_val("../@#{@entry.name}Closed") 
+      v = attr_val("../@#{@entry.name}Closed")
       v == nil || v != 'false' || @force_inclusive
     end
 
@@ -70,7 +70,9 @@ module HQMF2
         @low = optional_value("#{default_element_name}/cda:low", default_bounds_type)
         @low = nil unless (@low.try(:value) || @low.kind_of?( HQMF2::AnyValue))
         @high = optional_value("#{default_element_name}/cda:high", default_bounds_type)
-        @high = nil unless (@high.try(:value) || @low.kind_of?(HQMF2::AnyValue))
+        @high = nil unless (@high.try(:value) || @high.kind_of?(HQMF2::AnyValue))
+        # Unset low bound to resolve verbose value bounds descriptions
+        @low = nil if @high.try(:value) && @high.value.try(:to_i) > 0 && @low.try(:value) && @low.value.try(:to_i) == 0
         @width = optional_value("#{default_element_name}/cda:width", 'PQ')
         detect_period
       end
@@ -95,7 +97,7 @@ module HQMF2
 
     def optional_value(xpath, type)
       value_def = @entry.at_xpath(xpath, HQMF2::Document::NAMESPACES)
-      if value_def
+      if value_def # && (!value_def["value"].blank? && value_def["value"].to_i > 0)
         if value_def["flavorId"] == "ANY.NONNULL"
           AnyValue.new
         else
@@ -337,14 +339,14 @@ module HQMF2
     def initialize(opts={})
      opts.each { |k,v| instance_variable_set("@#{k}", v) }
     end
- 
+
     def to_model
       mv = @value ? @value.to_model : nil
       met = @effective_time ? @effective_time.to_model : nil
-      mtr = @temporal_references 
+      mtr = @temporal_references
       mso = @subset_operators
       HQMF::DataCriteria.new(@id, @title, nil, @description, @code_list_id, @children_criteria,
-        @derivation_operator, @definition, @status, @value, field_values, @met, @inline_code_list,
+        @derivation_operator, @definition, @status, mv, field_values, met, @inline_code_list,
         @negation, @negation_code_list_id, mtr, mso, @specific_occurrence,
         @specific_occurrence_const, @source_data_criteria, @comments, @variable)
     end
