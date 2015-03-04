@@ -348,7 +348,7 @@ module HQMF2
         # drop "* Value Set" from titles
         exact_desc = title.split(' ')[0...-3].join(' ')
         # don't drop anything for patient characterstic titles
-        exact_desc = title if @definition.start_with? "patient_characteristic"
+        exact_desc = title if @definition.start_with?("patient_characteristic") && !title.end_with?("Value Set")
         @description = "#{@description}: #{exact_desc}"
       end
 
