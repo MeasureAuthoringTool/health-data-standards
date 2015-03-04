@@ -399,6 +399,7 @@ module HQMF2
       @subset_operators = []
       @derivation_operator = HQMF::DataCriteria::UNION
       @definition = 'derived'
+      @status = nil
       @children_criteria = ["GROUP_#{@id}"]
       @source_data_criteria = @id
       self
