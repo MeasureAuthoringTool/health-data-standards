@@ -39,7 +39,7 @@ module HQMF2
       def xml_for_local_variable(criteria)
         name = @local_var_names[criteria.id]
         unless name
-          if criteria.specific_occurrence
+          if criteria.specific_occurrence && !criteria.id.starts_with?("Occurrence#{criteria.specific_occurrence}")
             name = "Occurrence#{criteria.specific_occurrence}#{criteria.id}"
           else
             name = criteria.id
