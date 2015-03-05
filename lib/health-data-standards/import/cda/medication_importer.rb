@@ -1,7 +1,7 @@
 module HealthDataStandards
   module Import
     module CDA
-      
+
       # TODO: Coded Product Name, Free Text Product Name, Coded Brand Name and Free Text Brand name need to be pulled out separatelty
       #       This would mean overriding extract_codes
       # TODO: Patient Instructions needs to be implemented. Will likely be a reference to the narrative section
@@ -24,26 +24,26 @@ module HealthDataStandards
 
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
           medication = super
-          
+
           extract_administration_timing(entry_element, medication)
-          
+
           medication.route = extract_code(entry_element, "./cda:routeCode")
           medication.dose = extract_scalar(entry_element, "./cda:doseQuantity")
           medication.site = extract_code(entry_element, "./cda:approachSiteCode", 'SNOMED-CT')
-          
+
           extract_dose_restriction(entry_element, medication)
-          
+
           medication.product_form = extract_code(entry_element, "./cda:administrationUnitCode", 'NCI Thesaurus')
           medication.delivery_method = extract_code(entry_element, "./cda:code", 'SNOMED-CT')
           medication.type_of_medication = extract_code(entry_element, @type_of_med_xpath, 'SNOMED-CT') if @type_of_med_xpath
           medication.indication = extract_code(entry_element, @indication_xpath, 'SNOMED-CT')
           medication.vehicle = extract_code(entry_element, @vehicle_xpath, 'SNOMED-CT')
-          
+
           extract_order_information(entry_element, medication)
-          
+
           extract_fulfillment_history(entry_element, medication)
           extract_negation(entry_element, medication)
-          
+
           medication
         end
 
@@ -68,20 +68,20 @@ module HealthDataStandards
             end
           end
         end
-    
+
         def extract_order_information(parent_element, medication)
           order_elements = parent_element.xpath("./cda:entryRelationship[@typeCode='REFR']/cda:supply[@moodCode='INT']")
           if order_elements
             order_elements.each do |order_element|
               order_information = OrderInformation.new
               actor_element = order_element.at_xpath('./cda:author')
-              if actor_element
+              if actor_element && Mongoid.configured? # Also make sure we can look up providers
                 order_information.provider = ProviderImporter.instance.extract_provider(actor_element, "assignedAuthor")
               end
               order_information.order_number = order_element.at_xpath('./cda:id').try(:[], 'root')
               order_information.fills = order_element.at_xpath('./cda:repeatNumber').try(:[], 'value').try(:to_i)
               order_information.quantity_ordered = extract_scalar(order_element, "./cda:quantity")
-          
+
               medication.orderInformation << order_information
             end
           end
