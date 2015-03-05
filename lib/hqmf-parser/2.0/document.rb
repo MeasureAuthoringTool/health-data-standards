@@ -38,12 +38,12 @@ module HQMF2
           nullFlavor = attribute.at_xpath('./cda:code/@nullFlavor', NAMESPACES).try(:value)
           oText = attribute.at_xpath('./cda:code/cda:originalText', NAMESPACES) ? attribute.at_xpath('./cda:code/cda:originalText/@value', NAMESPACES).try(:value) : nil
           code_obj = HQMF::Coded.new(attribute.at_xpath('./cda:code/@xsi:type', NAMESPACES).try(:value) || 'CD',
-                                 attribute.at_xpath('./cda:code/@codeSystem', NAMESPACES).try(:value),
-                                 code,
-                                 attribute.at_xpath('./cda:code/@valueSet', NAMESPACES).try(:value),
-                                 name,
-                                 nullFlavor,
-                                 oText)
+                                     attribute.at_xpath('./cda:code/@codeSystem', NAMESPACES).try(:value),
+                                     code,
+                                     attribute.at_xpath('./cda:code/@valueSet', NAMESPACES).try(:value),
+                                     name,
+                                     nullFlavor,
+                                     oText)
 
 
           # Mapping for nil values to align with 1.0 parsing
@@ -63,8 +63,8 @@ module HQMF2
           case type
           when 'II'
             value_obj = HQMF::Identifier.new(type,
-              attribute.at_xpath('./cda:value/@root', NAMESPACES).try(:value),
-              attribute.at_xpath('./cda:value/@extension', NAMESPACES).try(:value))
+                                             attribute.at_xpath('./cda:value/@root', NAMESPACES).try(:value),
+                                             attribute.at_xpath('./cda:value/@extension', NAMESPACES).try(:value))
             if value == nil
               value = attribute.at_xpath('./cda:value/@extension', NAMESPACES).try(:value)
             end
@@ -72,9 +72,9 @@ module HQMF2
             value_obj = HQMF::ED.new(type, value, attribute.at_xpath('./cda:value/@mediaType', NAMESPACES).try(:value))
           when 'CD'
             value_obj = HQMF::Coded.new('CD', attribute.at_xpath('./cda:value/@codeSystem', NAMESPACES).try(:value),
-              attribute.at_xpath('./cda:value/@code', NAMESPACES).try(:value),
-              attribute.at_xpath('./cda:value/@valueSet', NAMESPACES).try(:value),
-              attribute.at_xpath('./cda:value/cda:displayName/@value', NAMESPACES).try(:value))
+                                        attribute.at_xpath('./cda:value/@code', NAMESPACES).try(:value),
+                                        attribute.at_xpath('./cda:value/@valueSet', NAMESPACES).try(:value),
+                                        attribute.at_xpath('./cda:value/cda:displayName/@value', NAMESPACES).try(:value))
           else
             value_obj = value.present? ? HQMF::GenericValueContainer.new(type, value) : HQMF::AnyValue.new(type)
           end
@@ -82,7 +82,7 @@ module HQMF2
 
         # Handle the cms_id
         if name.include? "eMeasure Identifier"
-           @cms_id = "CMS#{value}v#{@hqmf_version_number}"
+          @cms_id = "CMS#{value}v#{@hqmf_version_number}"
         end
 
         HQMF::Attribute.new(id, code, value, nil, name, id_obj, code_obj, value_obj)
@@ -116,73 +116,18 @@ module HQMF2
 
       population_counters = {}
       ids_by_hqmf_id = {}
-
-      @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:populationCriteriaSection', NAMESPACES).each_with_index do |population_def, population_index|
-        population = {}
-
-        stratifier_id_def = population_def.at_xpath('cda:templateId/cda:item[@root="'+HQMF::Document::STRATIFIED_POPULATION_TEMPLATE_ID+'"]/@controlInformationRoot', NAMESPACES)
-        population['stratification'] = stratifier_id_def.value if stratifier_id_def
-
-        {
-          HQMF::PopulationCriteria::IPP => 'initialPopulationCriteria',
-          HQMF::PopulationCriteria::DENOM => 'denominatorCriteria',
-          HQMF::PopulationCriteria::NUMER => 'numeratorCriteria',
-          HQMF::PopulationCriteria::DENEXCEP => 'denominatorExceptionCriteria',
-          HQMF::PopulationCriteria::DENEX => 'denominatorExclusionCriteria',
-          HQMF::PopulationCriteria::MSRPOPL => 'measurePopulationCriteria',
-          HQMF::PopulationCriteria::STRAT => 'stratifierCriteria'
-        }.each_pair do |criteria_id, criteria_element_name|
-          criteria_def = population_def.at_xpath("cda:component[cda:#{criteria_element_name}]", NAMESPACES)
-
-          if criteria_def
-
-            # skip parsing of Supplemental Data Elements
-            next if criteria_def.at_xpath('./*/cda:component/cda:measureAttribute/cda:code/cda:displayName/@value').try(:value) == "Supplemental Data Element"
-
-            # split up multiple STRAT preconditions into unqiue criteria
-            if criteria_element_name == 'stratifierCriteria' && criteria_def.xpath('./*/cda:precondition').length>1
-
-              # clone each STRAT with unique preconditions
-              criteria_def.xpath('./*/cda:precondition').each_with_index do |strat_prcn, strat_index|
-                cloned_strat = criteria_def.dup
-                cloned_strat.xpath('./*/cda:precondition')[0].replace(strat_prcn.to_s)
-                cloned_strat.xpath('./*/cda:precondition').drop(1).each{|p| p.remove}
-                cloned_strat.xpath('./*/cda:id').first['extension'] = "#{criteria_id}-#{strat_index}" if strat_index>=1
-                build_population_criteria(cloned_strat, criteria_id, criteria_element_name, ids_by_hqmf_id, population, population_counters)
-                @populations << population.dup unless strat_index == criteria_def.xpath('./*/cda:precondition').length-1
-              end
-
-            else
-              build_population_criteria(criteria_def, criteria_id, criteria_element_name, ids_by_hqmf_id, population, population_counters)
-            end
-
-          end
-        end
-
-        id_def = population_def.at_xpath('cda:id/@extension', NAMESPACES)
-        population['id'] = id_def ? id_def.value : "Population#{population_index}"
-        title_def = population_def.at_xpath('cda:title/@value', NAMESPACES)
-        population['title'] = title_def ? title_def.value : "Population #{population_index}"
-        observation_section = @doc.xpath('/cda:QualityMeasureDocument/cda:component/cda:measureObservationSection', NAMESPACES)
-        if !observation_section.empty?
-          population['OBSERV'] = 'OBSERV'
-        end
-        @populations << population
-      end
-
-
-      #look for observation data in separate section but create a population for it if it exists
+      has_observation = false
+       #look for observation data in separate section but create a population for it if it exists
       observation_section = @doc.xpath('/cda:QualityMeasureDocument/cda:component/cda:measureObservationSection', NAMESPACES)
       if !observation_section.empty?
         observation_section.xpath("cda:definition",NAMESPACES).each do |criteria_def|
           criteria_id = "OBSERV"
-          population = {}
           criteria = PopulationCriteria.new(criteria_def, self, @idgenerator)
           criteria.type="OBSERV"
           # this section constructs a human readable id.  The first IPP will be IPP, the second will be IPP_1, etc.  This allows the populations to be
           # more readable.  The alternative would be to have the hqmf ids in the populations, which would work, but is difficult to read the populations.
           if ids_by_hqmf_id["#{criteria.hqmf_id}"]
-             criteria.create_human_readable_id(ids_by_hqmf_id[criteria.hqmf_id])
+            criteria.create_human_readable_id(ids_by_hqmf_id[criteria.hqmf_id])
           else
             if population_counters[criteria_id]
               population_counters[criteria_id] += 1
@@ -195,12 +140,64 @@ module HQMF2
           end
 
           @population_criteria << criteria
-
-          population[criteria_id] = criteria.id
-          @populations << population
-          end
+          has_observation = true
+        end
       end
-      detect_unstratified
+      document_populations = @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:populationCriteriaSection', NAMESPACES)
+      number_of_populations = document_populations.length
+      document_populations.each_with_index do |population_def, population_index|
+        population = {}
+
+        {
+          HQMF::PopulationCriteria::IPP => 'initialPopulationCriteria',
+          HQMF::PopulationCriteria::DENOM => 'denominatorCriteria',
+          HQMF::PopulationCriteria::NUMER => 'numeratorCriteria',
+          HQMF::PopulationCriteria::DENEXCEP => 'denominatorExceptionCriteria',
+          HQMF::PopulationCriteria::DENEX => 'denominatorExclusionCriteria',
+          HQMF::PopulationCriteria::MSRPOPL => 'measurePopulationCriteria'
+        }.each_pair do |criteria_id, criteria_element_name|
+          criteria_def = population_def.at_xpath("cda:component[cda:#{criteria_element_name}]", NAMESPACES)
+          if criteria_def
+            build_population_criteria(criteria_def, criteria_id, criteria_element_name, ids_by_hqmf_id, population, population_counters)
+          end
+        end
+
+        id_def = population_def.at_xpath('cda:id/@extension', NAMESPACES)
+        population['id'] = id_def ? id_def.value : "Population#{population_index}"
+        title_def = population_def.at_xpath('cda:title/@value', NAMESPACES)
+        population['title'] = title_def ? title_def.value : "Population #{population_index}"
+        
+        if has_observation
+          population['OBSERV'] = 'OBSERV'
+        end
+        @populations << population
+
+
+
+        # handle stratifications
+        population_def.xpath("cda:component/cda:stratifierCriteria[not(cda:component/cda:measureAttribute/cda:code[@code  = 'SDE'])]/..", NAMESPACES).each do |criteria_def|
+          # clone each STRAT with unique preconditions
+          stratifications = criteria_def.xpath('./*/cda:precondition')
+          stratifications.each_with_index do |strat_prcn, strat_index|
+            index =  number_of_populations + ((population_index - 1) * stratifications.length) + strat_index
+            pop = population.dup
+            # TODO : figure out what to do about stratification ids, where are they coming from
+            #pop['stratification'] = 
+            criteria_id = HQMF::PopulationCriteria::STRAT
+            cloned_strat = criteria_def.dup
+            cloned_strat.xpath('./*/cda:precondition')[0].replace(strat_prcn.to_s)
+            cloned_strat.xpath('./*/cda:precondition').drop(1).each{|p| p.remove}
+            build_population_criteria(cloned_strat, criteria_id, 'stratifierCriteria', ids_by_hqmf_id, pop, population_counters)
+           
+            pop['id'] = id_def ? "#{id_def.value} - Stratification #{strat_index+1}": "Population#{index}"
+            title_def = population_def.at_xpath('cda:title/@value', NAMESPACES)
+            pop['title'] = title_def ? "#{title_def.value} - Stratification #{strat_index+1}" : "Population #{index}"
+            @populations << pop
+          end
+        end
+      end
+     
+
     end
 
     # Get the title of the measure
@@ -251,7 +248,7 @@ module HQMF2
       find(@data_criteria, :local_variable_name, lvn)
     end
 
-   # Parse an XML document from the supplied contents
+    # Parse an XML document from the supplied contents
     # @return [Nokogiri::XML::Document]
     def self.parse(hqmf_contents)
       doc = hqmf_contents.kind_of?(Nokogiri::XML::Document) ? hqmf_contents : Nokogiri::XML(hqmf_contents)
@@ -280,20 +277,20 @@ module HQMF2
 
     # Update the data criteria to handle variables properly
     def update_data_criteria(data_criteria, source_data_criteria)
-       # step through each criteria and look for groupers (type derived) with one child
-       data_criteria.map do |criteria|
-         if criteria.type == "derived".to_sym && criteria.children_criteria.length == 1
-           source_data_criteria.each do |source_criteria|
-             if source_criteria.title == criteria.children_criteria[0]
-               criteria.children_criteria = source_criteria.children_criteria
-               #if criteria.is_same_type?(source_criteria)
-               criteria.update_copy( source_criteria.hard_status, source_criteria.title, source_criteria.description,
-                                     source_criteria.derivation_operator, source_criteria.definition )#, occur_letter )
-             end
-           end
-         end
-         criteria
-       end
+      # step through each criteria and look for groupers (type derived) with one child
+      data_criteria.map do |criteria|
+        if criteria.type == "derived".to_sym && criteria.children_criteria.length == 1
+          source_data_criteria.each do |source_criteria|
+            if source_criteria.title == criteria.children_criteria[0]
+              criteria.children_criteria = source_criteria.children_criteria
+              #if criteria.is_same_type?(source_criteria)
+              criteria.update_copy( source_criteria.hard_status, source_criteria.title, source_criteria.description,
+                                    source_criteria.derivation_operator, source_criteria.definition )#, occur_letter )
+            end
+          end
+        end
+        criteria
+      end
     end
 
     def remove_popultaion_preconditions(doc)
@@ -313,7 +310,7 @@ module HQMF2
       # check to see if we have an identical population criteria.
       # this can happen since the hqmf 2.0 will export a DENOM, NUMER, etc for each population, even if identical.
       # if we have identical, just re-use it rather than creating DENOM_1, NUMER_1, etc.
-      identical = @population_criteria.select {|pc| pc.to_model.base_json.to_json == criteria.to_model.base_json.to_json}
+      identical = @population_criteria.select {|pc| pc.to_model.hqmf_id == criteria.to_model.hqmf_id}
 
       if (identical.empty?)
         # this section constructs a human readable id.  The first IPP will be IPP, the second will be IPP_1, etc.  This allows the populations to be
