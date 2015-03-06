@@ -22,6 +22,12 @@ module HealthDataStandards
         end
 
         def validate(document,data = {})
+          file_errors = document.errors.select { |e| e.fatal? || e.error? }
+          if file_errors
+            file_errors.each do |error|
+              build_error(error, '/', data[:file_name])
+            end
+          end
           errors = get_errors(document).root.xpath("//svrl:failed-assert",NAMESPACE).map do |el|
             build_error(el.xpath('svrl:text',NAMESPACE).text, el['location'], data[:file_name])
           end
