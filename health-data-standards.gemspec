@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'erubis', '~> 2.7.0'
   s.add_dependency 'mongoid', '~> 4.0.0'
   s.add_dependency 'mongoid-tree', '~> 1.0.4'
-  s.add_dependency 'activesupport', '~> 4.1.1'
+  s.add_dependency 'activesupport', '~> 4.2.0'
   s.add_dependency 'protected_attributes', '~> 1.0.5'
   s.add_dependency 'uuid', '~> 2.3.7'
   s.add_dependency 'builder', '~> 3.1'
