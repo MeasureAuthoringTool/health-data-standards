@@ -166,7 +166,7 @@ module HQMF2
         population['id'] = id_def ? id_def.value : "Population#{population_index}"
         title_def = population_def.at_xpath('cda:title/@value', NAMESPACES)
         population['title'] = title_def ? title_def.value : "Population #{population_index}"
-        
+
         if has_observation
           population['OBSERV'] = 'OBSERV'
         end
@@ -182,13 +182,14 @@ module HQMF2
             index =  number_of_populations + ((population_index - 1) * stratifications.length) + strat_index
             pop = population.dup
             # TODO : figure out what to do about stratification ids, where are they coming from
-            #pop['stratification'] = 
+            #pop['stratification'] =
             criteria_id = HQMF::PopulationCriteria::STRAT
             cloned_strat = criteria_def.dup
             cloned_strat.xpath('./*/cda:precondition')[0].replace(strat_prcn.to_s)
             cloned_strat.xpath('./*/cda:precondition').drop(1).each{|p| p.remove}
+            cloned_strat.xpath('./*/cda:id').first['extension'] = "#{criteria_id}-#{strat_index}" if strat_index>=1
             build_population_criteria(cloned_strat, criteria_id, 'stratifierCriteria', ids_by_hqmf_id, pop, population_counters)
-           
+
             pop['id'] = id_def ? "#{id_def.value} - Stratification #{strat_index+1}": "Population#{index}"
             title_def = population_def.at_xpath('cda:title/@value', NAMESPACES)
             pop['title'] = title_def ? "#{title_def.value} - Stratification #{strat_index+1}" : "Population #{index}"
@@ -196,7 +197,7 @@ module HQMF2
           end
         end
       end
-     
+
 
     end
 
