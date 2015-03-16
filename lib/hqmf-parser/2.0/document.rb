@@ -187,7 +187,11 @@ module HQMF2
             cloned_strat = criteria_def.dup
             cloned_strat.xpath('./*/cda:precondition')[0].replace(strat_prcn.to_s)
             cloned_strat.xpath('./*/cda:precondition').drop(1).each{|p| p.remove}
+            # TODO : replace below with stratification ids
             cloned_strat.xpath('./*/cda:id').first['extension'] = "#{criteria_id}-#{strat_index}" if strat_index>=1
+
+            # Skip this Stratification if any precondition doesn't contain any preconditions
+            next unless PopulationCriteria.new(cloned_strat, self, @idgenerator).preconditions.all?{|prcn| prcn.preconditions.length>0}
             build_population_criteria(cloned_strat, criteria_id, 'stratifierCriteria', ids_by_hqmf_id, pop, population_counters)
 
             pop['id'] = id_def ? "#{id_def.value} - Stratification #{strat_index+1}": "Population#{index}"
@@ -304,7 +308,7 @@ module HQMF2
     end
 
     def build_population_criteria(criteria_def, criteria_id, criteria_element_name, ids_by_hqmf_id, population, population_counters)
-      criteria = PopulationCriteria.new(criteria_def, self,@idgenerator)
+      criteria = PopulationCriteria.new(criteria_def, self, @idgenerator)
       # ignore empty STRAT populations
       return if criteria_element_name == 'stratifierCriteria' && criteria.preconditions.blank?
 
