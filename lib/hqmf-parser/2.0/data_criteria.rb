@@ -368,7 +368,6 @@ module HQMF2
       return unless @variable
       @variable = false
       @id = "GROUP_#{@id}"
-      @title = "GROUP_#{title}"
       @specific_occurrence = nil
       @specific_occurrence_const = nil
       DataCriteria.new(@entry, @data_criteria_references).extract_as_grouper
