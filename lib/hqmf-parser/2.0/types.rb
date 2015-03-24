@@ -304,8 +304,9 @@ module HQMF2
 
     # Create a new HQMF::Reference
     # @param [String] id
-    def initialize(entry)
+    def initialize(entry, type=nil)
       @entry = entry
+      @type = type || attr_val('./@classCode')
     end
 
     def reference
@@ -313,16 +314,12 @@ module HQMF2
       if id =~ /^[0-9]/ then "prefix_#{id}" else id end
     end
 
-    def type
-       attr_val('./@classCode')
-    end
-
     def mood
        attr_val('./@moodCode')
     end
 
     def to_model
-      HQMF::TypedReference.new(reference,type,mood)
+      HQMF::TypedReference.new(reference,@type,mood)
     end
 
   end

@@ -165,25 +165,24 @@ module HQMF2
     end
 
     def extract_type_from_definition
+      
+     # if we have a specific occurrence of a variable, pull attributes from the reference
+      if @variable && @specific_occurrence
+        reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
+        ref_id = strip_tokens(HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')) if reference
+        reference_criteria = @data_criteria_references[ref_id] if ref_id
+        if reference_criteria && reference_criteria.definition == 'derived'
+          reference_criteria = @data_criteria_references["GROUP_#{ref_id}"]
+        end
+        if reference_criteria
+          @children_criteria = reference_criteria.children_criteria
+          @derivation_operator = reference_criteria.derivation_operator
+          @definition = reference_criteria.definition
+          @status = reference_criteria.status
+        end
+      end
+
       if @entry.at_xpath("./cda:grouperCriteria")
-        if @local_variable_name && @local_variable_name.match(/qdm_/)
-          @variable = true
-        end
-        # if we have a specific occurrence of a variable, pull attributes from the reference
-        if @variable && @specific_occurrence
-          reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
-          ref_id = strip_tokens(HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')) if reference
-          reference_criteria = @data_criteria_references[ref_id] if ref_id
-          if reference_criteria && reference_criteria.definition == 'derived'
-            reference_criteria = @data_criteria_references["GROUP_#{ref_id}"]
-          end
-          if reference_criteria
-            @children_criteria = reference_criteria.children_criteria
-            @derivation_operator = reference_criteria.derivation_operator
-            @definition = reference_criteria.definition
-            @status = reference_criteria.status
-          end
-        end
         @definition ||= 'derived'
         return
       end
@@ -397,7 +396,7 @@ module HQMF2
       @temporal_references = []
       @subset_operators = []
       @derivation_operator = HQMF::DataCriteria::UNION
-      @definition = 'derived'
+      @definition = 'derived' if !@children_criteria.empty?
       @status = nil
       @children_criteria = ["GROUP_#{@id}"]
       @source_data_criteria = @id
@@ -502,7 +501,7 @@ module HQMF2
       fields.merge! HQMF2::FieldValueHelper.parse_field_values(@entry, @negation)
       # special case for fulfills operator.  assuming there is only a possibility of having one of these
       fulfils = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="FLFS"]/cda:criteriaReference', HQMF2::Document::NAMESPACES)
-      fields["FLFS"] =  TypedReference.new(fulfils) if fulfils
+      fields["FLFS"] =  TypedReference.new(fulfils, 'FLFS') if fulfils
       fields
     end
 
