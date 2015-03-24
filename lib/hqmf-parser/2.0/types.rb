@@ -304,7 +304,7 @@ module HQMF2
 
     # Create a new HQMF::Reference
     # @param [String] id
-    def initialize(entry)
+    def initialize(entry, type=nil)
       @entry = entry
       @type = type || attr_val('./@classCode')
       @mood = attr_val('./@moodCode')
