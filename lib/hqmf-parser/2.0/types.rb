@@ -257,9 +257,33 @@ module HQMF2
 
     attr_reader :type, :reference, :range
 
+    # Use updated mappings to HDS temporal reference types (as used in SimpleXML Parser) 
+    # https://github.com/projecttacoma/simplexml_parser/blob/fa0f589d98059b88d77dc3cb465b62184df31671/lib/model/types.rb#L167
+    UPDATED_TYPES = {
+      "EAOCW" => "EACW",
+      "EAEORECW" => "EACW",
+      "EAOCWSO" => "EACWS",
+      "EASORECWS" => "EACWS",
+      "EBOCW" => "EBCW",
+      "EBEORECW" => "EBCW",
+      "EBOCWSO" => "EBCWS",
+      "EBSORECWS" => "EBCWS",
+      "ECWSO" => "ECWS",
+      "SAOCWEO" => "SACWE",
+      "SAEORSCWE" => "SACWE",
+      "SAOCW" => "SACW",
+      "SASORSCW" => "SACW",
+      "SBOCWEO" => "SBCWE",
+      "SBEORSCWE" => "SBCWE",
+      "SBOCW" => "SBCW",
+      "SBSORSCW" => "SBCW",
+      "SCWEO" => "SCWE",
+      "OVERLAPS" => "OVERLAP"
+    }
+
     def initialize(entry)
       @entry = entry
-      @type = attr_val('./@typeCode')
+      @type = UPDATED_TYPES[attr_val('./@typeCode')] || attr_val('./@typeCode')
       @reference = Reference.new(@entry.at_xpath('./*/cda:id', HQMF2::Document::NAMESPACES))
       range_def = @entry.at_xpath('./qdm:temporalInformation/qdm:delta', HQMF2::Document::NAMESPACES)
       if range_def
