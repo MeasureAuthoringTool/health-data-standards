@@ -181,6 +181,8 @@ require_relative 'health-data-standards/import/bundle/importer'
 
 require_relative 'health-data-standards/import/bulk_record_importer'
 
+require_relative 'health-data-standards/validate/validators'
+
 module HealthDataStandards
   class << self
     attr_accessor :logger
