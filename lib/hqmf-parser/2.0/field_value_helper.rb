@@ -162,7 +162,7 @@ module HQMF2
         # so that is what I am doing for now
         fields['FACILITY_LOCATION_ARRIVAL_DATETIME'] = AnyValue.new if low
         fields['FACILITY_LOCATION_DEPARTURE_DATETIME'] = AnyValue.new if high
-        fields['FACILITY_LOCATION'] = Value.new(code) if code
+        fields['FACILITY_LOCATION'] = Coded.new(code) if code
 
       end
     end
