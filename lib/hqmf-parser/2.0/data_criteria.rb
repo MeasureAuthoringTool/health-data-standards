@@ -170,7 +170,7 @@ module HQMF2
           @variable = true
         end
         # if we have a specific occurrence of a variable, pull attributes from the reference
-        if @variable
+        if @variable && @specific_occurrence
           reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
           ref_id = strip_tokens(HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')) if reference
           reference_criteria = @data_criteria_references[ref_id] if ref_id
