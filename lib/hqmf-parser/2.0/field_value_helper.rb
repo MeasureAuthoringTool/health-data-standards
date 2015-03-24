@@ -100,7 +100,7 @@ module HQMF2
       times.each do |e|
         date = entry.at_xpath("cda:participation[@typeCode='AUT']/cda:role/cda:id/cda:item[@extension = '#{e[:key]}']/../../../cda:time")
         if date
-          fields[e[:field]] = Range.new(date)
+          fields[e[:field]] = Range.new(date,'IVL_PQ')
         end
       end
 
