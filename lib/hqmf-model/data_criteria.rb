@@ -19,7 +19,7 @@ module HQMF
              'ORDINAL' => {title:'Ordinal', coded_entry_method: :ordinality, code: '117363000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1012.2', field_type: :value},
              'REASON' => {title:'Reason', coded_entry_method: :reason, code: '410666004', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1017.2', field_type: :value},
              'SOURCE' => {title:'Source', coded_entry_method: :source, code: '260753009', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.2001.2', field_type: :value},
-             'CUMULATIVE_MEDICATION_DURATION' => {title:'Cumulative Medication Duration', coded_entry_method: :cumulative_medication_duration, code: '363819003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1001.3', field_type: :value},
+             'CUMULATIVE_MEDICATION_DURATION' => {title:'Cumulative Medication Duration', coded_entry_method: :cumulative_medication_duration, code: '261773006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1001.3', field_type: :value},
              'FLFS' => {title:'Fulfills', coded_entry_method: :fulfills, code: 'FLFS', field_type: :reference},
              'FACILITY_LOCATION' => {title:'Facility Location', coded_entry_method: :facility, code: 'SDLOC', field_type: :value},
              'FACILITY_LOCATION_ARRIVAL_DATETIME' => {title:'Facility Location Arrival Date/Time', coded_entry_method: :facility_arrival, code: 'SDLOC_ARRIVAL', field_type: :nested_timestamp},
@@ -39,14 +39,29 @@ module HQMF
              'TRANSFER_TO' => {title:'Transfer To', coded_entry_method: :transfer_to, code: 'TRANSFER_TO', template_id: '2.16.840.1.113883.3.560.1.72', field_type: :value},
              'TRANSFER_TO_DATETIME' => {title:'Transfer To Date/Time', coded_entry_method: :transfer_to_time, code: 'DST_TIME', template_id: '2.16.840.1.113883.3.560.1.72', field_type: :nested_timestamp},
              'TRANSFER_FROM' => {title:'Transfer From', coded_entry_method: :transfer_from, code: 'TRANSFER_FROM', template_id: '2.16.840.1.113883.3.560.1.71', field_type: :value},
-             'TRANSFER_FROM_DATETIME' => {title:'Transfer From Date/Time', coded_entry_method: :transfer_from_time, code: 'ORG_TIME', template_id: '2.16.840.1.113883.3.560.1.71', field_type: :nested_timestamp}
-             }
-
+             'TRANSFER_FROM_DATETIME' => {title:'Transfer From Date/Time', coded_entry_method: :transfer_from_time, code: 'ORG_TIME', template_id: '2.16.840.1.113883.3.560.1.71', field_type: :nested_timestamp},      
+             # updated from hqmf 2.1 and QDM 4.x
+              "REACTION"=> {title:'Reaction', coded_entry_method: :raction, code: '263851003', code_system:'2.16.840.1.113883.6.96',  field_type: :value},
+              "TARGET_OUTCOME" => {title:'Target Outcome', coded_entry_method: :target_outcome, code: '385676005', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
+              "ANATOMICAL_APPROACH_SITE" => {title:'Anatomical Approach Site', coded_entry_method: :anatomical_approach,  field_type: :value},
+              "ANATOMICAL_TARGET_SITE" => {title:'Anatomical Target Site', coded_entry_method: :anatomical_target,  field_type: :value},
+              "METHOD" => {title:"Method", coded_entry_method: :method, template_id: '', field_type: :value},
+              "REFILLS" => {title:'Refills', coded_entry_method: '',  field_type: :value},
+              "ACTIVE_DATETIME" => {title:'Active Datetime', coded_entry_method: :active_datetime, field_type: :timestamp},
+              "RADIATION_DURATION" => {title:"Radiation Duration", coded_entry_method: :radiation_duration, code: '306751006', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
+              "RADIATION_DOSE" => {title:'Radiation Dose', coded_entry_method: :radiation_dose, code: '228815006', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
+              "LATERALITY" => {title:'Laterality', coded_entry_method: :laterality, code: '272741003', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
+              "PATIENT_PREFERENCE" => {title:'Patient Preference', coded_entry_method: :patient_preferences,  code: "PAT" , code_system: "2.16.840.1.113883.5.8", field_type: :value},
+              "PROVIDER_PREFERENCE" => {title:'Provider Preference', coded_entry_method: :provider_preference, code: "103323008" , code_system: '2.16.840.1.113883.6.96',  field_type: :value},
+              "RELATED_TO" => {title:'Related To', coded_entry_method: :related_to,  code: "REL", codeSystem: "2.16.840.1.113883.1.11.11603", field_type: :value},
+              "SIGNED_DATEDTIME" =>  {title:'Signed Datetime', coded_entry_method: :singed_datetime, field_type: :timestamp}
+          }
+    
     VALUE_FIELDS = {'SEV'      => 'SEVERITY',
                     '117363000' => 'ORDINAL',
                     '410666004' => 'REASON',
                     '260753009' => 'SOURCE',
-                    '363819003' => 'CUMULATIVE_MEDICATION_DURATION',
+                    '261773006' => 'CUMULATIVE_MEDICATION_DURATION',
                     'SDLOC'     => 'FACILITY_LOCATION',
                     '442864001' => 'DISCHARGE_DATETIME',
                     '309039003' => 'DISCHARGE_STATUS',
@@ -61,7 +76,15 @@ module HQMF
                     '34896006'  => 'INCISION_DATETIME',
                     '118292001' =>'REMOVAL_DATETIME',
                     'SDLOC_ARRIVAL'   => 'FACILITY_LOCATION_ARRIVAL_DATETIME',
-                    'SDLOC_DEPARTURE' => 'FACILITY_LOCATION_DEPARTURE_DATETIME'
+                    'SDLOC_DEPARTURE' => 'FACILITY_LOCATION_DEPARTURE_DATETIME',
+                    '263851003' => 'REACTION',
+                    '385676005' => 'TARGET_OUTCOME',
+                    '228815006' => 'RADIATION_DOSE',
+                    '306751006' => 'RADIATION_DURATION',
+                    '272741003' => 'LATERALITY',
+                    'PAT'       => 'PATIENT_PREFERENCE',
+                    '103323008' => 'PROVIDER_PREFERENCE',
+                    'REL'       => 'RELATED_TO'
                    }
 
 
