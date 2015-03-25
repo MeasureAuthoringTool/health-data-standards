@@ -16,11 +16,18 @@ module HQMF2
       @id = attr_val('cda:QualityMeasureDocument/cda:id/@extension') || attr_val('cda:QualityMeasureDocument/cda:id/@root').upcase
       @hqmf_set_id = attr_val('cda:QualityMeasureDocument/cda:setId/@extension') || attr_val('cda:QualityMeasureDocument/cda:setId/@root').upcase
       @hqmf_version_number = attr_val('cda:QualityMeasureDocument/cda:versionNumber/@value').to_i
-      measure_period_def = @doc.at_xpath('cda:QualityMeasureDocument/cda:controlVariable/cda:measurePeriod/cda:value', NAMESPACES)
-      if measure_period_def
-        @measure_period = EffectiveTime.new(measure_period_def)
-      end
+      # measure_period_def = @doc.at_xpath('cda:QualityMeasureDocument/cda:controlVariable/cda:measurePeriod/cda:value', NAMESPACES)
+      # if measure_period_def
+      #   @measure_period = EffectiveTime.new(measure_period_def)
+      # end
 
+      #TODO -- figure out if this is the correct thing to do -- probably not.  Currently
+      # defaulting measure period to a period of 1 year from 2012 to 2013 this is overriden during 
+      # calculation with correct year information .  Need to investigate parsing mp from meaures.
+      mp_low = HQMF::Value.new('TS',nil, '201201010000',nil, nil, nil)
+      mp_high = HQMF::Value.new('TS',nil,'201212312359',nil, nil, nil)
+      mp_width = HQMF::Value.new('PQ','a','1',nil, nil, nil)
+      @measure_period = HQMF::EffectiveTime.new(mp_low,mp_high,mp_width)
       # Extract measure attributes
       @attributes = @doc.xpath('/cda:QualityMeasureDocument/cda:subjectOf/cda:measureAttribute', NAMESPACES).collect do |attribute|
         id = attribute.at_xpath('./cda:id/@root', NAMESPACES).try(:value)
@@ -267,7 +274,7 @@ module HQMF2
       pcs = all_population_criteria.collect {|pc| pc.to_model}
       sdc = source_data_criteria.collect{|dc| dc.to_model}
       dcs = update_data_criteria(dcs, sdc)
-      HQMF::Document.new(id, id, hqmf_set_id, hqmf_version_number, @cms_id, title, description, pcs, dcs, sdc, attributes, measure_period.to_model, populations)
+      HQMF::Document.new(id, id, hqmf_set_id, hqmf_version_number, @cms_id, title, description, pcs, dcs, sdc, attributes, measure_period, populations)
     end
 
     # Create grouper data criteria for encapsulating variable data criteria
