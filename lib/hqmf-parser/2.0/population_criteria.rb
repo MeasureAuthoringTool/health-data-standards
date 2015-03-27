@@ -14,7 +14,7 @@ module HQMF2
       @id_generator = id_generator
       @doc = doc
       @entry = entry
-      @hqmf_id = attr_val('./*/cda:id/@extension') || attr_val('./*/cda:typeId/@extension')
+      @hqmf_id = attr_val('./*/cda:id/@root') || attr_val('./*/cda:typeId/@extension')
       @title = attr_val('./*/cda:code/cda:displayName/@value')
       @type = attr_val('./*/cda:code/@code')
       @type = 'IPP' if ( @type == 'IPOP' || @type == 'IPPOP' )

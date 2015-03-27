@@ -323,7 +323,6 @@ module HQMF2
       # this can happen since the hqmf 2.0 will export a DENOM, NUMER, etc for each population, even if identical.
       # if we have identical, just re-use it rather than creating DENOM_1, NUMER_1, etc.
       identical = @population_criteria.select {|pc| pc.to_model.hqmf_id == criteria.to_model.hqmf_id}
-
       if (identical.empty?)
         # this section constructs a human readable id.  The first IPP will be IPP, the second will be IPP_1, etc.  This allows the populations to be
         # more readable.  The alternative would be to have the hqmf ids in the populations, which would work, but is difficult to read the populations.

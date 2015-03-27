@@ -2,86 +2,86 @@ module HQMF2
   # Represents a data criteria specification
   class DataCriteria
 
-  VALUESET_MAP = {"2.16.840.1.113883.10.20.28.3.7" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.8" => {valueset_path:"./*/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.9" => {valueset_path:"./*/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.10" => {valueset_path:"./*/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.11" => {valueset_path:"./*/cda:participation[@typeCode='PRD']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.12" => {valueset_path:"./*/cda:participation[@typeCode='PRD']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.13" => {valueset_path:"./*/cda:participation[@typeCode='DEV']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.14" => {valueset_path:"./*/cda:participation[@typeCode='PRD']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.15" => {valueset_path:"./*/cda:participation[@typeCode='DEV']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.16" => {valueset_path:"./*/cda:participation[@typeCode='DEV']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.1" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.17" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.18" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.19" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.20" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:observationCriteria/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.21" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:observationCriteria/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.22" => {valueset_path:"./*/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.23" => {valueset_path:"./*/cda:code", result_path: "./*/cda:value"},
-      "2.16.840.1.113883.10.20.28.3.24" => {valueset_path:"./*/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.26" => {valueset_path:"./*/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.27" => {valueset_path:"./*/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.5 " => {valueset_path:"./*/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.28" => {valueset_path:"./*/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.29" => {valueset_path:"./*/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.30" => {valueset_path:"./*/cda:code", result_path: "./*/cda:value"},
-      "2.16.840.1.113883.10.20.28.3.31" => {valueset_path:"./*/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.33" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS' and @inversionId=true]/cda:procedureCriteria/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.34" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:actCriteria/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.35" => {valueset_path:"./*/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.36" => {valueset_path:"./*/cda:code", result_path: "./*/cda:outboundRelationship[@typeCode='REFR']//cda:code[@code='394617004']/../cda:value"},
-      "2.16.840.1.113883.10.20.28.3.37" => {valueset_path:"./*/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.39" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:observationCriteria/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.40" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:observationCriteria/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.41" => {valueset_path:"./*/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.42" => {valueset_path:"./*/cda:code", result_path: "./*/cda:value"},
-      "2.16.840.1.113883.10.20.28.3.43" => {valueset_path:"./*/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.44" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role/cda:playingMaterial[@classCode='MMAT']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.45" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingManufacturedMaterial[@classCode='MMAT']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.46" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingEntity[@classCode='MMAT']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.47" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingEntity[@classCode='MMAT']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.48" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingManufacturedMaterial[@classCode='MMAT']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.49" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingMaterial[@classCode='MMAT']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.50" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingMaterial[@classCode='MMAT']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.51" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingMaterial[@classCode='MMAT']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.52" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.53" => {valueset_path:"./*/cda:code", result_path: "./*/cda:value"},
-      "2.16.840.1.113883.10.20.28.3.6" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.54" => {valueset_path: nil,  result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.56" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.57" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.58" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.59" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.55" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.86" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.61" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.62" => {valueset_path:"./*/cda:value", result_path: "./*/cda:outboundRelationship[@typeCode='REFR']//cda:code[@code='394617004']/../cda:value"},
-      "2.16.840.1.113883.10.20.28.3.63" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.64" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS' and @inversionId=true]/cda:procedureCriteria/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.65" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS' and @inversionId=true]/cda:procedureCriteria/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.66" => {valueset_path:"./*/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.67" => {valueset_path:"./*/cda:code", result_path:"./*/cda:outboundRelationship[@typeCode='REFR']//cda:code[@code='394617004']/../cda:value"},
-      "2.16.840.1.113883.10.20.28.3.68" => {valueset_path:"./*/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.70" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.71" => {valueset_path:"./*/cda:participation/cda:role[@classCode='ASSIGNED']/cda:playingDevice[@classCode='DEV' and @determinerCode='KIND']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.87" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.72" => {valueset_path:"./*/cda:code", result_path: "./*/cda:value"},
-      "2.16.840.1.113883.10.20.28.3.93" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.73" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='ADMM']/cda:playingMaterial[@classCode='MAT' and @determinerCode='KIND']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.74" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='ADMM']/cda:playingMaterial[@classCode='MAT' and @determinerCode='KIND']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.75" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='ADMM']/cda:playingMaterial[@classCode='MAT' and @determinerCode='KIND']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.76" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='ADMM']/cda:playingMaterial[@classCode='MAT' and @determinerCode='KIND']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.77" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='ADMM']/cda:playingMaterial[@classCode='MAT' and @determinerCode='KIND']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.78" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingMaterial[@classCode='MMAT' and @determinerCode='KIND']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.79" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.80" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.81" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.82" => {valueset_path:"./*/cda:value", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.84" => {valueset_path:"./*/cda:participation[@typeCode='ORG']/cda:role[@classCode='LOCE']/cda:code", result_path: nil },
-      "2.16.840.1.113883.10.20.28.3.85" => {valueset_path:"./*/cda:participation[@typeCode='ORG']/cda:role[@classCode='LOCE']/cda:code", result_path: nil }
-       }
+    VALUESET_MAP = {"2.16.840.1.113883.10.20.28.3.7" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.8" => {valueset_path:"./*/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.9" => {valueset_path:"./*/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.10" => {valueset_path:"./*/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.11" => {valueset_path:"./*/cda:participation[@typeCode='PRD']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.12" => {valueset_path:"./*/cda:participation[@typeCode='PRD']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.13" => {valueset_path:"./*/cda:participation[@typeCode='DEV']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.14" => {valueset_path:"./*/cda:participation[@typeCode='PRD']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.15" => {valueset_path:"./*/cda:participation[@typeCode='DEV']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.16" => {valueset_path:"./*/cda:participation[@typeCode='DEV']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.1" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.17" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.18" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.19" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.20" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:observationCriteria/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.21" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:observationCriteria/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.22" => {valueset_path:"./*/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.23" => {valueset_path:"./*/cda:code", result_path: "./*/cda:value"},
+                    "2.16.840.1.113883.10.20.28.3.24" => {valueset_path:"./*/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.26" => {valueset_path:"./*/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.27" => {valueset_path:"./*/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.5" => {valueset_path:"./*/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.28" => {valueset_path:"./*/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.29" => {valueset_path:"./*/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.30" => {valueset_path:"./*/cda:code", result_path: "./*/cda:value"},
+                    "2.16.840.1.113883.10.20.28.3.31" => {valueset_path:"./*/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.33" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS' and @inversionId=true]/cda:procedureCriteria/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.34" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:actCriteria/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.35" => {valueset_path:"./*/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.36" => {valueset_path:"./*/cda:code", result_path: "./*/cda:outboundRelationship[@typeCode='REFR']//cda:code[@code='394617004']/../cda:value"},
+                    "2.16.840.1.113883.10.20.28.3.37" => {valueset_path:"./*/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.39" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:observationCriteria/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.40" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:observationCriteria/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.41" => {valueset_path:"./*/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.42" => {valueset_path:"./*/cda:code", result_path: "./*/cda:value"},
+                    "2.16.840.1.113883.10.20.28.3.43" => {valueset_path:"./*/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.44" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role/cda:playingMaterial[@classCode='MMAT']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.45" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingManufacturedMaterial[@classCode='MMAT']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.46" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingEntity[@classCode='MMAT']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.47" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingEntity[@classCode='MMAT']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.48" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingManufacturedMaterial[@classCode='MMAT']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.49" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingMaterial[@classCode='MMAT']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.50" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingMaterial[@classCode='MMAT']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.51" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingMaterial[@classCode='MMAT']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.52" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.53" => {valueset_path:"./*/cda:code", result_path: "./*/cda:value"},
+                    "2.16.840.1.113883.10.20.28.3.6" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.54" => {valueset_path: nil,  result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.56" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.57" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.58" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.59" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.55" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.86" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.61" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.62" => {valueset_path:"./*/cda:value", result_path: "./*/cda:outboundRelationship[@typeCode='REFR']//cda:code[@code='394617004']/../cda:value"},
+                    "2.16.840.1.113883.10.20.28.3.63" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.64" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS' and @inversionId=true]/cda:procedureCriteria/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.65" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS' and @inversionId=true]/cda:procedureCriteria/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.66" => {valueset_path:"./*/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.67" => {valueset_path:"./*/cda:code", result_path:"./*/cda:outboundRelationship[@typeCode='REFR']//cda:code[@code='394617004']/../cda:value"},
+                    "2.16.840.1.113883.10.20.28.3.68" => {valueset_path:"./*/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.70" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.71" => {valueset_path:"./*/cda:participation/cda:role[@classCode='ASSIGNED']/cda:playingDevice[@classCode='DEV' and @determinerCode='KIND']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.87" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.72" => {valueset_path:"./*/cda:code", result_path: "./*/cda:value"},
+                    "2.16.840.1.113883.10.20.28.3.93" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.73" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='ADMM']/cda:playingMaterial[@classCode='MAT' and @determinerCode='KIND']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.74" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='ADMM']/cda:playingMaterial[@classCode='MAT' and @determinerCode='KIND']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.75" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='ADMM']/cda:playingMaterial[@classCode='MAT' and @determinerCode='KIND']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.76" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='ADMM']/cda:playingMaterial[@classCode='MAT' and @determinerCode='KIND']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.77" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='ADMM']/cda:playingMaterial[@classCode='MAT' and @determinerCode='KIND']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.78" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingMaterial[@classCode='MMAT' and @determinerCode='KIND']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.79" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.80" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.81" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.82" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.84" => {valueset_path:"./*/cda:participation[@typeCode='ORG']/cda:role[@classCode='LOCE']/cda:code", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.85" => {valueset_path:"./*/cda:participation[@typeCode='ORG']/cda:role[@classCode='LOCE']/cda:code", result_path: nil }
+                    }
 
     include HQMF2::Utilities
 
@@ -148,14 +148,21 @@ module HQMF2
 
     def set_code_list_path_and_result_value
 
-       @template_ids.each do |t|
-        mapping = VALUESET_MAP[t]
-        if mapping && mapping[:valueset_path] && @entry.at_xpath(mapping[:valueset_path])
-          @code_list_xpath = mapping[:valueset_path]
-          @value = DataCriteria.parse_value(@entry,mapping[:result_path]) if mapping[:result_path]
+      if @template_ids.empty? && @specific_occurrence
+        template = @entry.document.at_xpath("//cda:id[@root='#{@source_data_criteria_root}' and @extension='#{@source_data_criteria}']/../cda:templateId/cda:item/@root")
+        if template
+          mapping = VALUESET_MAP[template.to_s]
+          @value = DataCriteria.parse_value(@entry,mapping[:result_path]) if mapping && mapping[:result_path]
         end
-       end
-
+      else
+        @template_ids.each do |t|
+          mapping = VALUESET_MAP[t]
+          if mapping && mapping[:valueset_path] && @entry.at_xpath(mapping[:valueset_path])
+            @code_list_xpath = mapping[:valueset_path]
+            @value = DataCriteria.parse_value(@entry,mapping[:result_path]) if mapping[:result_path]
+          end
+        end
+      end
     end
 
 
@@ -165,8 +172,7 @@ module HQMF2
     end
 
     def extract_type_from_definition
-
-     # if we have a specific occurrence of a variable, pull attributes from the reference
+      # if we have a specific occurrence of a variable, pull attributes from the reference
       if @variable && @specific_occurrence
         reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
         ref_id = strip_tokens(HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')) if reference
@@ -266,7 +272,7 @@ module HQMF2
     end
 
     def set_intersection
-       # Need to handle grouper criteria that do not have template ids -- these will be union of and intersection criteria
+      # Need to handle grouper criteria that do not have template ids -- these will be union of and intersection criteria
       if @template_ids.empty?
         # Change the XPRODUCT to an INTERSECT otherwise leave it as a UNION
         @derivation_operator = HQMF::DataCriteria::INTERSECT if @derivation_operator == HQMF::DataCriteria::XPRODUCT
@@ -352,9 +358,9 @@ module HQMF2
       end
 
       HQMF::DataCriteria.new(id, title, nil, description, code_list_id, children_criteria,
-        derivation_operator, @definition, status, mv, field_values, met, inline_code_list,
-        @negation, @negation_code_list_id, mtr, mso, @specific_occurrence,
-        @specific_occurrence_const, @source_data_criteria, @comments, @variable)
+                             derivation_operator, @definition, status, mv, field_values, met, inline_code_list,
+                             @negation, @negation_code_list_id, mtr, mso, @specific_occurrence,
+                             @specific_occurrence_const, @source_data_criteria, @comments, @variable)
     end
 
     # Return a new DataCriteria instance with only source data criteria attributes set
@@ -476,6 +482,7 @@ module HQMF2
       source_def = @entry.at_xpath('./*/cda:outboundRelationship[cda:subsetCode/@code="SOURCE"]', HQMF2::Document::NAMESPACES)
       if specific_def
         @source_data_criteria = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')
+        @source_data_criteria_root = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@root')
         @specific_occurrence_const = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationRoot')
         @specific_occurrence = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationExtension')
         if !@specific_occurrence
@@ -494,8 +501,8 @@ module HQMF2
         code = HQMF2::Utilities.attr_val(field, './*/cda:code/@code')
         code_id = HQMF::DataCriteria::VALUE_FIELDS[code]
         unless @negation && code_id == "REASON"
-         value = DataCriteria.parse_value(field, './*/cda:value')
-         fields[code_id] = value if value && code_id
+          value = DataCriteria.parse_value(field, './*/cda:value')
+          fields[code_id] = value if value && code_id
         end
       end
       # special case for facility location which uses a very different structure
@@ -523,7 +530,7 @@ module HQMF2
       # need to look in both places for result criteria because
       #procedureCriteria does not have a value element while observationCriteria does
       DataCriteria.parse_value(@entry, "./*/cda:value") ||
-      DataCriteria.parse_value(@entry, "./*/cda:outboundRelationship/cda:code[@code='394617004']/../cda:value")
+        DataCriteria.parse_value(@entry, "./*/cda:outboundRelationship/cda:code[@code='394617004']/../cda:value")
     end
 
     def self.parse_value(node, xpath)
