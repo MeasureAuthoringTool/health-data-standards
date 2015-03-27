@@ -165,7 +165,7 @@ module HQMF2
     end
 
     def extract_type_from_definition
-      
+
      # if we have a specific occurrence of a variable, pull attributes from the reference
       if @variable && @specific_occurrence
         reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
@@ -302,7 +302,7 @@ module HQMF2
     # Get the code list OID of the criteria, used as an index to the code list database
     # @return [String] the code list identifier of this data criteria
     def code_list_id
-      attr_val("#{@code_list_xpath}/@valueSet")
+      @code_list_id || attr_val("#{@code_list_xpath}/@valueSet")
     end
 
     def inline_code_list
@@ -405,6 +405,7 @@ module HQMF2
 
     # Patch this data criteria's title and description using id/source data criteria
     def patch_descriptions(data_criteria_references)
+      patch_code_list_id(data_criteria_references)
       return unless title.include?("_") || title.include?("-")
       if @specific_occurrence && !@id.include?("Occurrence")
         # This hack is for finding the correct source data criteria for resolving
@@ -421,6 +422,13 @@ module HQMF2
         @title = reference.title if reference
         @description = reference.description if reference
       end
+    end
+
+    # Patch specific occurrence code_list_id values using source_data_criteria
+    def patch_code_list_id(data_criteria_references)
+      return unless @specific_occurrence
+      reference = data_criteria_references[@source_data_criteria]
+      @code_list_id = reference.code_list_id if reference
     end
 
     private
