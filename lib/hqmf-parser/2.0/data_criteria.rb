@@ -402,7 +402,7 @@ module HQMF2
       @temporal_references = []
       @subset_operators = []
       @derivation_operator = HQMF::DataCriteria::UNION
-      @definition = 'derived' if !@children_criteria.empty?
+      @definition = 'derived'
       @status = nil
       @children_criteria = ["GROUP_#{@id}"]
       @source_data_criteria = @id
@@ -412,6 +412,7 @@ module HQMF2
     # Patch this data criteria's title and description using id/source data criteria
     def patch_descriptions(data_criteria_references)
       patch_code_list_id(data_criteria_references)
+      patch_variable_name
       return unless title.include?("_") || title.include?("-")
       if @specific_occurrence && !@id.include?("Occurrence")
         # This hack is for finding the correct source data criteria for resolving
@@ -435,6 +436,11 @@ module HQMF2
       return unless @specific_occurrence
       reference = data_criteria_references[@source_data_criteria]
       @code_list_id = reference.code_list_id if reference
+    end
+
+    # Do the best we can with the variable name; currently, the actual name is not available in the HQMF
+    def patch_variable_name
+      @description = attr_val("./#{CRITERIA_GLOB}/cda:id/@extension") if @variable
     end
 
     private
