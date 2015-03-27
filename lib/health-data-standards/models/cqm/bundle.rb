@@ -19,6 +19,8 @@ module HealthDataStandards
 
       validates_presence_of :version
 
+      has_many :value_sets, class_name: "HealthDataStandards::SVS::ValueSet", inverse_of: :bundle
+
       scope :active, -> {where(active: true)}
 
       def self.latest_bundle_id
@@ -33,9 +35,9 @@ module HealthDataStandards
         Record.where(bundle_id: self._id, test_id: nil).order_by([["last", :asc]])
       end
 
-      def value_sets
-        HealthDataStandards::SVS::ValueSet.in(bundle_id: self.id)
-      end
+      # def value_sets
+      #   HealthDataStandards::SVS::ValueSet.in(bundle_id: self.id)
+      # end
 
       def delete
         self.measures.destroy

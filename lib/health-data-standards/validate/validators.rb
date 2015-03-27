@@ -5,6 +5,7 @@ if RUBY_PLATFORM != "java"
   require_relative 'schema_validator'
   require_relative 'schematron_validator'
   require_relative 'measure_validator'
+  require_relative 'valueset_validator'
 
   module HealthDataStandards
     module Validate
