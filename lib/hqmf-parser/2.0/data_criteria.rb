@@ -177,14 +177,25 @@ module HQMF2
         reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
         ref_id = strip_tokens(HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')) if reference
         reference_criteria = @data_criteria_references[ref_id] if ref_id
+        # if the reference is derived, pull from the original variable
         if reference_criteria && reference_criteria.definition == 'derived'
           reference_criteria = @data_criteria_references["GROUP_#{ref_id}"]
         end
         if reference_criteria
-          @children_criteria = reference_criteria.children_criteria
-          @derivation_operator = reference_criteria.derivation_operator
-          @definition = reference_criteria.definition
-          @status = reference_criteria.status
+          # if there are no referenced children, then it's a variable representing
+          # a single data criteria, so just reference it
+          if reference_criteria.children_criteria.empty?
+            @children_criteria = [reference_criteria.id]
+          # otherwise pull all the data criteria info from the reference
+          else
+            @field_values = reference_criteria.field_values
+            @temporal_references = reference_criteria.temporal_references
+            @subset_operators = reference_criteria.subset_operators
+            @derivation_operator = reference_criteria.derivation_operator
+            @definition = reference_criteria.definition
+            @status = reference_criteria.status
+            @children_criteria = reference_criteria.children_criteria
+          end
         end
       end
 
@@ -357,10 +368,14 @@ module HQMF2
         @description = "#{@description}: #{exact_desc}"
       end
 
-      HQMF::DataCriteria.new(id, title, nil, description, code_list_id, children_criteria,
+      # prevent json model generation of empty children and comments
+      cc = !children_criteria.blank? ? children_criteria : nil
+      comments = !@comments.blank? ? @comments : nil
+
+      HQMF::DataCriteria.new(id, title, nil, description, code_list_id, cc,
                              derivation_operator, @definition, status, mv, field_values, met, inline_code_list,
                              @negation, @negation_code_list_id, mtr, mso, @specific_occurrence,
-                             @specific_occurrence_const, @source_data_criteria, @comments, @variable)
+                             @specific_occurrence_const, @source_data_criteria, comments, @variable)
     end
 
     # Return a new DataCriteria instance with only source data criteria attributes set
