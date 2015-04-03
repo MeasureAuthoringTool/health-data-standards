@@ -4,6 +4,7 @@ if RUBY_PLATFORM != "java"
   require_relative 'base_validator'
   require_relative 'schema_validator'
   require_relative 'schematron_validator'
+  require_relative 'measure_validator'
 
   module HealthDataStandards
     module Validate
@@ -12,6 +13,24 @@ if RUBY_PLATFORM != "java"
       QRDA_CAT1_SCHEMATRON = 'resources/schematron/qrda/cat_1/QRDA Category I Release 2.sch'
       QRDA_CAT3_SCHEMATRON = 'resources/schematron/qrda/cat_3/QRDA Category III.sch'
       BASE_DIR = File.expand_path("../../../../", __FILE__)
+
+      class Cat1Measure < MeasureValidator
+        include Singleton
+
+        def initialize()
+          super("2.16.840.1.113883.10.20.24.3.97")
+        end
+
+      end
+
+      class Cat3Measure < MeasureValidator
+        include Singleton
+
+        def initialize()
+          super("2.16.840.1.113883.10.20.27.3.1")
+        end
+
+      end
 
       class CDA < Schema::Validator
         include Singleton
