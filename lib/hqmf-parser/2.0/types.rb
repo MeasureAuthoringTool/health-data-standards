@@ -74,7 +74,6 @@ module HQMF2
         # Unset low bound to resolve verbose value bounds descriptions
         @low = nil if @high.try(:value) && @high.value.try(:to_i) > 0 && @low.try(:value) && @low.value.try(:to_i) == 0
         @width = optional_value("#{default_element_name}/cda:width", 'PQ')
-        detect_period
       end
     end
 
@@ -125,19 +124,6 @@ module HQMF2
         'TS'
       else
         'PQ'
-      end
-    end
-
-    # TODO: Update this to actually compute the correct end time for the period
-    def detect_period
-      if @low && @high.nil?
-        period = optional_value("cda:period", default_bounds_type)
-        if period.try(:unit) == 'a' && period.try(:value) == '1'
-          high_entry = @entry.at_xpath("#{default_element_name}/cda:low", HQMF2::Document::NAMESPACES).dup
-          high_entry.attributes["value"].value = '20151231' if @low.value == '20150101'
-          @high = Value.new(high_entry, default_bounds_type, attr_val("cda:phase/@highClosed") == 'true')
-          @high = nil unless @high.try(:value)
-        end
       end
     end
   end
@@ -222,6 +208,9 @@ module HQMF2
 
       value_def = @entry.at_xpath('./*/cda:repeatNumber', HQMF2::Document::NAMESPACES)
       if !value_def
+        # TODO: HQMF needs better differentiation between SUM & COUNT...
+        # currently using presence of repeatNumber...
+        @type = "SUM" if @type == "COUNT"
         value_def = @entry.at_xpath('./*/cda:value', HQMF2::Document::NAMESPACES)
       end
       if value_def
@@ -229,6 +218,11 @@ module HQMF2
         if String.try_convert(value_type) ==  "ANY"
           @value = HQMF2::AnyValue.new()
         end
+      end
+
+      # TODO: Resolve extracting values embedded in criteria within outboundRel's
+      if @type=="SUM"
+        value_def = @entry.at_xpath('./*/*/*/cda:value', HQMF2::Document::NAMESPACES)
       end
 
       if value_def && !@value
@@ -257,7 +251,7 @@ module HQMF2
 
     attr_reader :type, :reference, :range
 
-    # Use updated mappings to HDS temporal reference types (as used in SimpleXML Parser) 
+    # Use updated mappings to HDS temporal reference types (as used in SimpleXML Parser)
     # https://github.com/projecttacoma/simplexml_parser/blob/fa0f589d98059b88d77dc3cb465b62184df31671/lib/model/types.rb#L167
     UPDATED_TYPES = {
       "EAOCW" => "EACW",
