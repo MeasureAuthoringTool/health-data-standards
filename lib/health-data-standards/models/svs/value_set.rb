@@ -1,12 +1,12 @@
 module HealthDataStandards
   module SVS
     class ValueSet
-
       include Mongoid::Document
-      include Mongoid::Attributes::Dynamic
       field :oid, type: String
       field :display_name, type: String
       field :version, type: String
+
+      belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle", inverse_of: :value_sets
 
       index({oid: 1})
       index({display_name: 1})
