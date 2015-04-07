@@ -27,10 +27,9 @@ namespace :bundle do
     nlm_user    - the nlm username to authenticate to the server - will prompt is not supplied
     nlm_passwd  - the nlm password for authenticating to the server - will prompt if not supplied
     version     - the version of the bundle to download. This will default to the version
-		  declared in the config/cypress.yml file or to the latest version if one does not exist there"
 
    example usage:
-    rake cypress:bundle_download nlm_name=username nlm_passwd=password version=2.1.0-latest
+    rake bundle:download nlm_name=username nlm_passwd=password version=2.1.0-latest
   }
   task :download => :environment do
     nlm_user = ENV["nlm_user"]
@@ -88,13 +87,12 @@ namespace :bundle do
     nlm_user    - the nlm username to authenticate to the server - will prompt is not supplied
     nlm_passwd  - the nlm password for authenticating to the server - will prompt if not supplied
     version     - the version of the bundle to download. This will default to the version
-		  declared in the config/cypress.yml file or to the latest version if one does not exist there"
     delete_existing - delete any existing bundles with the same version and reinstall - default is false - will cause error if same version already exists
     update_measures - update any existing measures with the same hqmf_id to those contained in this bundle.
 		      Will only work for bundle versions greater than that of the installed version - default is false
     type -  type of measures to be installed from bundle. A bundle may have measures of different types such as ep or eh.  This will constrain the types installed, defautl is all types
    example usage:
-    rake cypress:bundle_download_and_install nlm_name=username nlm_passwd=password version=2.1.0-latest  type=ep
+    rake budnle:download_and_install nlm_name=username nlm_passwd=password version=2.1.0-latest  type=ep
   }
   task :download_and_install => [:download] do
     de = ENV['delete_existing'] || false
