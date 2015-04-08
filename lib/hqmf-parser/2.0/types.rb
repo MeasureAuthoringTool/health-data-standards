@@ -34,18 +34,18 @@ module HQMF2
     def inclusive?
       # FIXME: NINF is used instead of 0 sometimes...? (not in the IG)
       # FIXME: Given nullFlavor, but IG uses it and nullValue everywhere...
-      # Not always given highClosed=false for '<', so we can only default to '<='
-      less_than_equal_or_equiv = attr_val("../@lowClosed")!='false' &&
-        attr_val("../@highClosed")!='false' &&
+      less_than_equal = attr_val("../@lowClosed")=='true' &&
+        attr_val("../@highClosed")=='true' &&
         ( attr_val("../cda:low/@value")=="0" ||
-          attr_val("../cda:low/@nullFlavor")=="NINF" ||
-          attr_val("../cda:low/@value")==attr_val("../cda:high/@value"))
-      greater_than_equal = attr_val("../@lowClosed")!='false' &&
-        attr_val("../@highClosed")=='false' &&
+          attr_val("../cda:low/@nullFlavor")=="NINF" )
+      greater_than_equal = attr_val("../cda:high/@nullFlavor")=="PINF" &&
         attr_val("../cda:low/@value")!="0" &&
-        attr_val("../cda:high/@nullFlavor")=="PINF"
+        attr_val("../@lowClosed")=='true'
+      equivalent = attr_val("../@lowClosed")=='true' &&
+        attr_val("../@highClosed")=='true' &&
+        attr_val("../cda:low/@value")==attr_val("../cda:high/@value")
 
-      less_than_equal_or_equiv || greater_than_equal || @force_inclusive
+      less_than_equal || greater_than_equal || equivalent || @force_inclusive
     end
 
     def derived?
