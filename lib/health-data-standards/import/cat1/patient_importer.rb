@@ -85,7 +85,6 @@ module HealthDataStandards
           nrh.build_id_map(doc)
           @section_importers.each do |section, entry_packages|
             entry_packages.each do |entry_package|
-              # binding.pry if section == :results
               record.send(section) << entry_package.package_entries(context, nrh)
             end
           end

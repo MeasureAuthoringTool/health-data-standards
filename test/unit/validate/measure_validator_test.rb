@@ -12,25 +12,25 @@ class MeasureValidatorTest < ActiveSupport::TestCase
     end
 
     test "should have no errors if measure id is valid (cat 1)" do
-      doc = File.open('test/fixtures/qrda/cat1_good.xml')
+      doc = File.new('test/fixtures/qrda/cat1_good.xml')
       errors = @cat1.validate(doc)
       assert_equal [], errors
     end
 
     test "should have an error if measure id is invalid (cat 1)" do
-      doc = File.open('test/fixtures/qrda/cat1_bad_measure_id.xml')
+      doc = File.new('test/fixtures/qrda/cat1_bad_measure_id.xml')
       errors = @cat1.validate(doc)
       assert_equal 1, errors.length
     end
 
     test "should have no errors if measure id is valid (cat 3)" do
-      doc = File.open('test/fixtures/qrda/cat3_good.xml')
+      doc = File.new('test/fixtures/qrda/cat3_good.xml')
       errors = @cat3.validate(doc)
       assert_equal [], errors
     end
 
     test "should have an error if measure id is invalid (cat 3)" do
-      doc = File.open('test/fixtures/qrda/cat3_bad_measure_id.xml')
+      doc = File.new('test/fixtures/qrda/cat3_bad_measure_id.xml')
       errors = @cat3.validate(doc)
       assert_equal 1, errors.length
     end
