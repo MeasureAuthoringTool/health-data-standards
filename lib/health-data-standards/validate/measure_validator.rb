@@ -8,7 +8,7 @@ module HealthDataStandards
       end
 
       def validate(file, data={})
-        doc = get_document(file.read)
+        doc = get_document(file)
         doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
         measure_ids = HealthDataStandards::CQM::Measure.all.map(&:hqmf_id)
         doc_measure_ids = doc.xpath(measure_selector).map(&:value)
