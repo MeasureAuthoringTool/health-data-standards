@@ -105,13 +105,18 @@ module HQMF2
 
     # Create a new instance based on the supplied HQMF entry
     # @param [Nokogiri::XML::Element] entry the parsed HQMF entry
-    def initialize(entry, data_criteria_references = nil)
+    def initialize(entry, data_criteria_references = nil, occurrences_map = nil)
       @entry = entry
       @template_ids = extract_template_ids
       @data_criteria_references = data_criteria_references
+      @occurrences_map = occurrences_map
       @local_variable_name = extract_local_variable_name
       @status = attr_val('./*/cda:statusCode/@code')
       @description = attr_val("./#{CRITERIA_GLOB}/cda:text/@value") || attr_val("./#{CRITERIA_GLOB}/cda:title/@value") || attr_val("./#{CRITERIA_GLOB}/cda:id/@extension")
+      @id_xpath = './*/cda:id/@extension'
+      @id = attr_val(@id_xpath)
+      @code_list_xpath = './*/cda:code'
+      @value_xpath = './*/cda:value'
       extract_negation()
       extract_specific_or_source()
       @temporal_references = extract_temporal_references
@@ -119,10 +124,6 @@ module HQMF2
       @field_values = extract_field_values
       @subset_operators = extract_subset_operators
       @children_criteria = extract_child_criteria
-      @id_xpath = './*/cda:id/@extension'
-      @id = attr_val(@id_xpath)
-      @code_list_xpath = './*/cda:code'
-      @value_xpath = './*/cda:value'
       @comments = @entry.xpath("./#{CRITERIA_GLOB}/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()", HQMF2::Document::NAMESPACES).map{ |v| v.content }
       @variable = extract_variable
 
@@ -380,7 +381,7 @@ module HQMF2
 
     # Return a new DataCriteria instance with only source data criteria attributes set
     def extract_source_data_criteria
-      DataCriteria.new(@entry, @data_criteria_references).extract_as_source_data_criteria(@id, @source_data_criteria)
+      DataCriteria.new(@entry, @data_criteria_references, @occurrences_map).extract_as_source_data_criteria(@id, @source_data_criteria)
     end
 
     # Return a new DataCriteria instance with only grouper attributes set
@@ -390,7 +391,7 @@ module HQMF2
       @id = "GROUP_#{@id}"
       @specific_occurrence = nil
       @specific_occurrence_const = nil
-      DataCriteria.new(@entry, @data_criteria_references).extract_as_grouper
+      DataCriteria.new(@entry, @data_criteria_references, @occurrences_map).extract_as_grouper
     end
 
     # Set this data criteria's attributes for extraction as a source data criteria
@@ -506,10 +507,31 @@ module HQMF2
         @source_data_criteria_root = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@root')
         @specific_occurrence_const = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationRoot')
         @specific_occurrence = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationExtension')
-        if !@specific_occurrence
-          @specific_occurrence = "A"
-          @specific_occurrence_const = @source_data_criteria.upcase
+
+        # FIXME: Remove debug statements after cleaning up occurrence handling
+        # build regex for extracting alpha-index of specific occurrences
+        occurrenceRegex = extract_variable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]_'
+        # puts "Checking #{"#{occurrenceRegex}#{@source_data_criteria}"} against #{@id}"
+        if !(@id =~ /^#{occurrenceRegex}#{@source_data_criteria}/).nil?
+          # if it doesn't exist, add extracted occurrence to the map
+          # puts "\tSetting #{@source_data_criteria}-#{@source_data_criteria_root} to #{@id[10]}"
+          @occurrences_map[@source_data_criteria] ||= {}
+          @occurrences_map[@source_data_criteria][@source_data_criteria_root] ||= @id[10]
+          @specific_occurrence ||= @id[10]
+          @specific_occurrence_const = "#{@source_data_criteria}_#{@source_data_criteria_root}".upcase
+        else
+          # create variable occurrences that do not already exist
+          if extract_variable
+            # puts "\tSetting #{@source_data_criteria}-#{@source_data_criteria_root} to #{@id[3]}"
+            @occurrences_map[@source_data_criteria] ||= {}
+            @occurrences_map[@source_data_criteria][@source_data_criteria_root] ||= @id[3]
+          end
+          # puts "\tUsing #{@occurrences_map[@source_data_criteria][@source_data_criteria_root]} for #{@id}"
+          @specific_occurrence ||= @occurrences_map[@source_data_criteria][@source_data_criteria_root]
         end
+
+        @specific_occurrence = "A" unless @specific_occurrence
+        @specific_occurrence_const = @source_data_criteria.upcase unless @specific_occurrence_const
       elsif source_def
         @source_data_criteria = HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@extension')
       end

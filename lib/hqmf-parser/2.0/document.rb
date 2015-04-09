@@ -22,7 +22,7 @@ module HQMF2
       # end
 
       #TODO -- figure out if this is the correct thing to do -- probably not.  Currently
-      # defaulting measure period to a period of 1 year from 2012 to 2013 this is overriden during 
+      # defaulting measure period to a period of 1 year from 2012 to 2013 this is overriden during
       # calculation with correct year information .  Need to investigate parsing mp from meaures.
       mp_low = HQMF::Value.new('TS',nil, '201201010000',nil, nil, nil)
       mp_high = HQMF::Value.new('TS',nil,'201212312359',nil, nil, nil)
@@ -99,8 +99,9 @@ module HQMF2
       @data_criteria = []
       @source_data_criteria = []
       @data_criteria_references = {}
+      @occurrences_map = {}
       @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:dataCriteriaSection/cda:entry', NAMESPACES).each do |entry|
-        criteria = DataCriteria.new(entry, @data_criteria_references)
+        criteria = DataCriteria.new(entry, @data_criteria_references, @occurrences_map)
         if criteria.is_source_data_criteria
           @source_data_criteria << criteria
         else
