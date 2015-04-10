@@ -152,6 +152,9 @@ module HQMF2
         end
       end
       document_populations = @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:populationCriteriaSection', NAMESPACES)
+      # Sort the populations based on the id/extension, since the populations may be out of order; there doesn't seem to
+      # be any other way that order is indicated in the HQMF
+      document_populations = document_populations.sort_by { |pop| pop.at_xpath('cda:id/@extension', NAMESPACES).value }
       number_of_populations = document_populations.length
       document_populations.each_with_index do |population_def, population_index|
         population = {}
