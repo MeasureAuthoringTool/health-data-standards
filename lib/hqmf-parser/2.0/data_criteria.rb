@@ -510,21 +510,33 @@ module HQMF2
 
         # FIXME: Remove debug statements after cleaning up occurrence handling
         # build regex for extracting alpha-index of specific occurrences
-        occurrenceRegex = extract_variable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]_'
-        # puts "Checking #{"#{occurrenceRegex}#{@source_data_criteria}"} against #{@id}"
-        if !(@id =~ /^#{occurrenceRegex}#{@source_data_criteria}/).nil?
+        occurrenceIdRegex = extract_variable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]_'
+        occurrenceLVNRegex = extract_variable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]of'
+        occurrenceIdentifier = ""
+        occIndex = extract_variable ? 3 : 10
+
+        # TODO: What should happen is neither @id or @lvn has occurrence label?
+        # puts "Checking #{"#{occurrenceIdRegex}#{@source_data_criteria}"} against #{@id}"
+        # puts "Checking #{"#{occurrenceLVNRegex}#{@source_data_criteria}"} against #{@local_variable_name}"
+        if !(@id =~ /^#{occurrenceIdRegex}#{@source_data_criteria}/).nil?
+          occurrenceIdentifier = @id[occIndex]
+        elsif !(@local_variable_name =~ /^#{occurrenceLVNRegex}#{@source_data_criteria}/).nil?
+          occurrenceIdentifier = @local_variable_name[occIndex]
+        end
+
+        if !occurrenceIdentifier.blank?
           # if it doesn't exist, add extracted occurrence to the map
-          # puts "\tSetting #{@source_data_criteria}-#{@source_data_criteria_root} to #{@id[10]}"
+          # puts "\tSetting #{@source_data_criteria}-#{@source_data_criteria_root} to #{occurrenceIdentifier}"
           @occurrences_map[@source_data_criteria] ||= {}
-          @occurrences_map[@source_data_criteria][@source_data_criteria_root] ||= @id[10]
-          @specific_occurrence ||= @id[10]
+          @occurrences_map[@source_data_criteria][@source_data_criteria_root] ||= occurrenceIdentifier
+          @specific_occurrence ||= occurrenceIdentifier
           @specific_occurrence_const = "#{@source_data_criteria}_#{@source_data_criteria_root}".upcase
         else
           # create variable occurrences that do not already exist
           if extract_variable
-            # puts "\tSetting #{@source_data_criteria}-#{@source_data_criteria_root} to #{@id[3]}"
+            # puts "\tSetting #{@source_data_criteria}-#{@source_data_criteria_root} to #{occurrenceIdentifier}"
             @occurrences_map[@source_data_criteria] ||= {}
-            @occurrences_map[@source_data_criteria][@source_data_criteria_root] ||= @id[3]
+            @occurrences_map[@source_data_criteria][@source_data_criteria_root] ||= occurrenceIdentifier
           end
           # puts "\tUsing #{@occurrences_map[@source_data_criteria][@source_data_criteria_root]} for #{@id}"
           @specific_occurrence ||= @occurrences_map[@source_data_criteria][@source_data_criteria_root]
