@@ -46,12 +46,14 @@ module HQMF2
         attr_val("../@highClosed")=='true' &&
         attr_val("../cda:low/@value")==attr_val("../cda:high/@value")
 
-      # lengthOfStay - EH111
-      less_than_equal_los = attr_val("../cda:low/@nullFlavor")=="NINF"
+      # lengthOfStay - EH111, EH108
+      less_than_equal_los = attr_val("../cda:low/@nullFlavor")=="NINF" &&
+        attr_val("../@highClosed")!='false'
 
-      # subset - EP128
+      # subset - EP128, EH108
       greater_than_equal_ss = attr_val("../cda:low/@value")!="0" &&
-        !attr_val("../cda:high/@value")
+        !attr_val("../cda:high/@value") &&
+        attr_val("../@lowClosed")!='false'
 
       less_than_equal_tr || less_than_equal_los || greater_than_equal_tr || greater_than_equal_ss || equivalent || @force_inclusive
     end
