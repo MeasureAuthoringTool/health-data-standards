@@ -510,18 +510,29 @@ module HQMF2
 
         # FIXME: Remove debug statements after cleaning up occurrence handling
         # build regex for extracting alpha-index of specific occurrences
-        occurrenceIdRegex = extract_variable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]_'
-        occurrenceLVNRegex = extract_variable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]of'
+        isVariable = extract_variable
+        occurrenceIdRegex = isVariable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]_'
+        occurrenceLVNRegex = isVariable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]of'
         occurrenceIdentifier = ""
-        occIndex = extract_variable ? 3 : 10
+        occIndex = isVariable ? 3 : 10
+        escapedSDC = Regexp.escape(@source_data_criteria)
 
         # TODO: What should happen is neither @id or @lvn has occurrence label?
-        # puts "Checking #{"#{occurrenceIdRegex}#{@source_data_criteria}"} against #{@id}"
-        # puts "Checking #{"#{occurrenceLVNRegex}#{@source_data_criteria}"} against #{@local_variable_name}"
-        if !(@id =~ /^#{occurrenceIdRegex}#{@source_data_criteria}/).nil?
+        # puts "Checking #{"#{occurrenceIdRegex}#{escapedSDC}"} against #{@id}"
+        # puts "Checking #{"#{occurrenceLVNRegex}#{escapedSDC}"} against #{@local_variable_name}"
+        if !(@id =~ /^#{occurrenceIdRegex}#{escapedSDC}/).nil?
           occurrenceIdentifier = @id[occIndex]
-        elsif !(@local_variable_name =~ /^#{occurrenceLVNRegex}#{@source_data_criteria}/).nil?
+        elsif !(@local_variable_name =~ /^#{occurrenceLVNRegex}#{escapedSDC}/).nil?
           occurrenceIdentifier = @local_variable_name[occIndex]
+        end
+
+        # TODO: Handle specific occurrences of variables that don't self-reference?
+        if occurrenceIdentifier.blank? && isVariable
+          if !(@id =~ /^#{occurrenceIdRegex}qdm_var_/).nil?
+            occurrenceIdentifier = @id[occIndex]
+          elsif !(@local_variable_name =~ /^#{occurrenceLVNRegex}qdm_var/).nil?
+            occurrenceIdentifier = @local_variable_name[occIndex]
+          end
         end
 
         if !occurrenceIdentifier.blank?
@@ -533,17 +544,21 @@ module HQMF2
           @specific_occurrence_const = "#{@source_data_criteria}_#{@source_data_criteria_root}".upcase
         else
           # create variable occurrences that do not already exist
-          if extract_variable
+          if isVariable
             # puts "\tSetting #{@source_data_criteria}-#{@source_data_criteria_root} to #{occurrenceIdentifier}"
             @occurrences_map[@source_data_criteria] ||= {}
             @occurrences_map[@source_data_criteria][@source_data_criteria_root] ||= occurrenceIdentifier
           end
-          # puts "\tUsing #{@occurrences_map[@source_data_criteria][@source_data_criteria_root]} for #{@id}"
-          @specific_occurrence ||= @occurrences_map[@source_data_criteria][@source_data_criteria_root]
+          occurrence = @occurrences_map.try(:[], @source_data_criteria).try(:[], @source_data_criteria_root)
+          raise "Could not find occurrence mapping for #{@source_data_criteria}, #{@source_data_criteria_root}" unless occurrence
+          # puts "\tUsing #{occurrence} for #{@id}"
+          @specific_occurrence ||= occurrence
         end
 
         @specific_occurrence = "A" unless @specific_occurrence
         @specific_occurrence_const = @source_data_criteria.upcase unless @specific_occurrence_const
+
+        # puts "Using #{@specific_occurrence} for #{@id}"
       elsif source_def
         @source_data_criteria = HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@extension')
       end
