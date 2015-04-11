@@ -144,6 +144,7 @@ module HQMF2
       @source_data_criteria = strip_tokens(@source_data_criteria) unless @source_data_criteria.nil?
       @specific_occurrence_const = strip_tokens(@specific_occurrence_const) unless @specific_occurrence_const.nil?
       set_intersection
+      handle_specific_variables
     end
 
 
@@ -291,7 +292,6 @@ module HQMF2
         @description ||= (@derivation_operator == HQMF::DataCriteria::INTERSECT) ? "Intersect" : "Union"
       end
     end
-
 
     def to_s
       props = {
@@ -563,6 +563,14 @@ module HQMF2
         # puts "Using #{@specific_occurrence} for #{@id}"
       elsif source_def
         @source_data_criteria = HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@extension')
+      end
+    end
+
+    # TODO: Why are specific occurrences of variables not building children?
+    def handle_specific_variables
+      if @definition == 'derived' && @children_criteria.empty?
+        # puts "Fixing SO grouper empty children for #{@id} with #{@source_data_criteria}"
+        @children_criteria << @source_data_criteria
       end
     end
 
