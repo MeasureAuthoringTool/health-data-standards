@@ -348,11 +348,13 @@ module HQMF2
       @field_values.each_pair do |id, val|
         field_values[id] = val.to_model
       end
+      @code_list_id ||= code_list_id
 
       # Model transfers as a field
       if ['transfer_to', 'transfer_from'].include? @definition
         field_values ||= {}
         field_code_list_id = @code_list_id
+        @code_list_id = nil
         if !field_code_list_id
           field_code_list_id = attr_val("./#{CRITERIA_GLOB}/cda:outboundRelationship/#{CRITERIA_GLOB}/cda:value/@valueSet")
         end
@@ -373,7 +375,7 @@ module HQMF2
       cc = !children_criteria.blank? ? children_criteria : nil
       comments = !@comments.blank? ? @comments : nil
 
-      HQMF::DataCriteria.new(id, title, nil, description, code_list_id, cc,
+      HQMF::DataCriteria.new(id, title, nil, description, @code_list_id, cc,
                              derivation_operator, @definition, status, mv, field_values, met, inline_code_list,
                              @negation, @negation_code_list_id, mtr, mso, @specific_occurrence,
                              @specific_occurrence_const, @source_data_criteria, comments, @variable)
