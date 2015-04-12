@@ -40,7 +40,7 @@ module HQMF2
         attr_val("../@highClosed")=='true' &&
         attr_val("../cda:low/@value")=="0"
       greater_than_equal_tr = attr_val("../cda:high/@nullFlavor")=="PINF" &&
-        attr_val("../cda:low/@value")!="0" &&
+        attr_val("../cda:low/@value") &&
         attr_val("../@lowClosed")=='true'
       equivalent = attr_val("../@lowClosed")=='true' &&
         attr_val("../@highClosed")=='true' &&
