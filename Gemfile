@@ -5,7 +5,7 @@ gemspec :development_group => :test
 group :development do
   gem 'rake'
   gem 'pry', '~> 0.9.10'
-  gem 'pry-nav', '~> 0.2.2'
+  gem 'pry-nav', '~> 0.2.2', platforms: [:ruby_20, :ruby_21, :ruby_22]
 
 end
 
