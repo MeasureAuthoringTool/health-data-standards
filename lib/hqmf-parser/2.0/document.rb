@@ -7,6 +7,8 @@ module HQMF2
 
     attr_reader :measure_period, :id, :hqmf_set_id, :hqmf_version_number, :populations, :attributes, :source_data_criteria
 
+    # TODO: Clean up debug print statements!
+
     # Create a new HQMF2::Document instance by parsing at file at the supplied path
     # @param [String] path the path to the HQMF document
     def initialize(hqmf_contents)
@@ -213,7 +215,7 @@ module HQMF2
         end
       end
 
-
+      handle_verbose_references
     end
 
     # Get the title of the measure
@@ -295,7 +297,8 @@ module HQMF2
     def update_data_criteria(data_criteria, source_data_criteria)
       # step through each criteria and look for groupers (type derived) with one child
       data_criteria.map do |criteria|
-        if criteria.type == "derived".to_sym && criteria.children_criteria.length == 1
+        puts "Missing children criteria: #{p criteria}" if criteria.type=="derived".to_sym && !criteria.children_criteria.try(:length)
+        if criteria.type == "derived".to_sym && criteria.children_criteria.try(:length) == 1
           source_data_criteria.each do |source_criteria|
             if source_criteria.title == criteria.children_criteria[0]
               criteria.children_criteria = source_criteria.children_criteria
@@ -385,6 +388,59 @@ module HQMF2
         population['title'].gsub!(/\d+\z/, "#{population_index+1}")
       end
 
+    end
+
+    # Detect missing references and update to use extension & root values
+    def handle_verbose_references
+      criteria_ids = @data_criteria.map(&:id)
+      referenced_criteria_ids = []
+      ref_prcns = []
+
+      @population_criteria.each do |criteria|
+        criteria.preconditions.each do |c_prcn|
+          extract_preconditions(c_prcn, ref_prcns)
+          ref_prcns << c_prcn if c_prcn.reference
+        end
+      end
+
+      ref_prcns.each do |ref_prcn|
+        referenced_criteria_ids << ref_prcn.reference.id
+        if !criteria_ids.include?(ref_prcn.reference.id)
+          # puts "\t updating PRCN REF: #{ref_prcn.reference.id}"
+          ref_prcn.reference.update_verbose(true)
+        end
+      end
+
+      temporal_references = @data_criteria.map(&:temporal_references).flatten
+      ref_trs = []
+      temporal_references.each do |tr|
+        ref_trs << tr if tr.reference
+      end
+
+      ref_trs.each do |ref_tr|
+        referenced_criteria_ids << ref_tr.reference.id
+        if !criteria_ids.include?(ref_tr.reference.id)
+          # puts "\t updating TR REF: #{ref_tr.reference.id}"
+          ref_tr.reference.update_verbose(true)
+        end
+      end
+
+      children_criteria = @data_criteria.map(&:children_criteria).flatten
+      children_criteria.each do |cc|
+        referenced_criteria_ids << cc
+      end
+
+      puts "Missing references: "
+      puts referenced_criteria_ids.uniq - criteria_ids
+    end
+
+    def extract_preconditions(precondition, list)
+      unless precondition.preconditions.empty?
+        precondition.preconditions.each do |prcn|
+          extract_preconditions prcn, list
+          list << prcn if prcn.reference
+        end
+      end
     end
   end
 end

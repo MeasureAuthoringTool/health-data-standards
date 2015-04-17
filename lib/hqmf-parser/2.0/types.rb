@@ -1,4 +1,7 @@
 module HQMF2
+
+  # TODO: Clean up debug print statements!
+
   # Used to represent 'any value' in criteria that require a value be present but
   # don't specify any restrictions on that value
   class AnyValue
@@ -320,16 +323,22 @@ module HQMF2
 
     # Create a new HQMF::Reference
     # @param [String] id
-    def initialize(entry, type=nil)
+    def initialize(entry, type=nil, verbose=false)
       @entry = entry
       @type = type || attr_val('./@classCode')
       @mood = attr_val('./@moodCode')
       @entry = entry.elements.first unless entry.at_xpath('./@extension')
+      @verbose = verbose
     end
 
     def reference
-      id = strip_tokens attr_val('./@extension')
-      if id =~ /^[0-9]/ then "prefix_#{id}" else id end
+      if @verbose
+        value = "#{attr_val('./@extension')}_#{attr_val('./@root')}"
+        # puts "Using verbose typed reference for #{value}"
+      else
+        value = attr_val('./@extension')
+      end
+      strip_tokens value
     end
 
     def to_model
@@ -342,19 +351,30 @@ module HQMF2
   class Reference
     include HQMF2::Utilities
 
-    def initialize(entry)
+    def initialize(entry, verbose=false)
       @entry = entry
+      @verbose = verbose
     end
 
     def id
       if @entry.kind_of? String
         @entry
       else
-        id = strip_tokens attr_val('./@extension')
+        if @verbose
+          value = "#{attr_val('./@extension')}_#{attr_val('./@root')}"
+          # puts "Using verbose reference for #{value}"
+        else
+          value = attr_val('./@extension')
+        end
+        id = strip_tokens value
         # Handle MeasurePeriod references for calculation code
-        id = 'MeasurePeriod' if id == 'measureperiod'
-        if id =~ /^[0-9]/ then "prefix_#{id}" else id end
+        id = 'MeasurePeriod' if id.start_with?('measureperiod')
+        id
       end
+    end
+
+    def update_verbose(verbose=false)
+      @verbose = verbose
     end
 
     def to_model

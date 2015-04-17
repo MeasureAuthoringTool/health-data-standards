@@ -103,6 +103,8 @@ module HQMF2
 
     CRITERIA_GLOB = "*[substring(name(),string-length(name())-7) = \'Criteria\']"
 
+    # TODO: Clean up debug print statements!
+
     # Create a new instance based on the supplied HQMF entry
     # @param [Nokogiri::XML::Element] entry the parsed HQMF entry
     def initialize(entry, data_criteria_references = nil, occurrences_map = nil)
@@ -115,6 +117,7 @@ module HQMF2
       @description = attr_val("./#{CRITERIA_GLOB}/cda:text/@value") || attr_val("./#{CRITERIA_GLOB}/cda:title/@value") || attr_val("./#{CRITERIA_GLOB}/cda:id/@extension")
       @id_xpath = './*/cda:id/@extension'
       @id = attr_val(@id_xpath)
+      handle_variable_subsets
       @code_list_xpath = './*/cda:code'
       @value_xpath = './*/cda:value'
       extract_negation()
@@ -139,14 +142,35 @@ module HQMF2
       set_code_list_path_and_result_value()
 
       # prefix ids that start with numerical values, and strip tokens from others
-      if @id =~ /^[0-9]/ then @id = "prefix_#{strip_tokens(@id)}" else @id = strip_tokens(@id) end
-      @children_criteria.map! {|cc| if cc =~ /^[0-9]/ then cc = "prefix_#{strip_tokens(cc)}" else strip_tokens(cc) end }
+      @id = strip_tokens @id
+      @children_criteria.map! { |cc| strip_tokens cc }
       @source_data_criteria = strip_tokens(@source_data_criteria) unless @source_data_criteria.nil?
       @specific_occurrence_const = strip_tokens(@specific_occurrence_const) unless @specific_occurrence_const.nil?
       set_intersection
       handle_specific_variables
     end
 
+    def handle_variable_subsets
+      isGrouper = @entry.at_xpath("./cda:grouperCriteria")
+      reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
+      if reference
+        ref_id = strip_tokens(HQMF2::Utilities.attr_val(reference, 'cda:id/@extension'))
+        verbose_ref_id = strip_tokens("#{HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')}_#{HQMF2::Utilities.attr_val(reference, 'cda:id/@root')}")
+        reference_criteria = @data_criteria_references[ref_id] if ref_id
+        reference_criteria = @data_criteria_references[verbose_ref_id] if verbose_ref_id && !reference_criteria
+        unless reference_criteria
+          puts "MISSING_DC_REF: #{ref_id} & #{verbose_ref_id}"
+        end
+      end
+      if isGrouper && reference_criteria.variable
+        idExtension_xpath = './*/cda:id/@extension'
+        idRoot_xpath = './*/cda:id/@root'
+        return if !(attr_val(idExtension_xpath) =~ /^occ[A-Z]of_qdm_var_/).nil?
+        @id = "#{attr_val(idExtension_xpath)}_#{attr_val(idRoot_xpath)}"
+        @verbose_reference = true
+        # puts "Updated grouper: #{@id} #{@verbose_reference}"
+      end
+    end
 
     def set_code_list_path_and_result_value
 
@@ -178,10 +202,13 @@ module HQMF2
       if @variable && @specific_occurrence
         reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
         ref_id = strip_tokens(HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')) if reference
+        verbose_ref_id = strip_tokens("#{HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')}_#{HQMF2::Utilities.attr_val(reference, 'cda:id/@root')}") if reference
         reference_criteria = @data_criteria_references[ref_id] if ref_id
+        reference_criteria = @data_criteria_references[verbose_ref_id] if verbose_ref_id && !reference_criteria
         # if the reference is derived, pull from the original variable
         if reference_criteria && reference_criteria.definition == 'derived'
           reference_criteria = @data_criteria_references["GROUP_#{ref_id}"]
+          reference_criteria = @data_criteria_references["GROUP_#{verbose_ref_id}"] if verbose_ref_id && !reference_criteria
         end
         if reference_criteria
           # if there are no referenced children, then it's a variable representing
@@ -238,11 +265,15 @@ module HQMF2
           @definition = 'derived'
         when nil
           reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
-          reference_criteria = @data_criteria_references[strip_tokens(HQMF2::Utilities.attr_val(reference, 'cda:id/@extension'))] if reference
+          ref_id = HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')
+          verbose_ref_id = "#{HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')}_#{HQMF2::Utilities.attr_val(reference, 'cda:id/@root')}"
+          reference_criteria = @data_criteria_references[strip_tokens(ref_id)] if reference
+          reference_criteria = @data_criteria_references[strip_tokens(verbose_ref_id)] if verbose_ref_id && !reference_criteria
           if reference_criteria
             @definition = reference_criteria.definition
             @status = reference_criteria.status
           else
+            puts "MISSING_DC_REF: #{ref_id} & #{verbose_ref_id}" unless @variable
             @definition = 'variable'
           end
         else
@@ -431,6 +462,7 @@ module HQMF2
     def patch_descriptions(data_criteria_references)
       patch_code_list_id(data_criteria_references)
       patch_variable_name
+      patch_variable_subsets
       return unless title.include?("_") || title.include?("-")
       if @specific_occurrence && !@id.include?("Occurrence")
         # This hack is for finding the correct source data criteria for resolving
@@ -461,6 +493,21 @@ module HQMF2
       @description = attr_val("./#{CRITERIA_GLOB}/cda:id/@extension") if @variable
     end
 
+    # Patch variable flag and children_criteria for variables with subset ops
+    def patch_variable_subsets
+      if @verbose_reference
+        @variable = true
+        @children_criteria.map! { |cc|
+          if !cc.start_with?("GROUP_") && (cc =~ /.*qdm_var_/)
+            "GROUP_#{cc}"
+          else
+            cc
+          end
+        }
+        # puts "Patched #{@id}: #{@children_criteria}, #{@variable}"
+      end
+    end
+
     private
 
     def extract_negation
@@ -476,7 +523,13 @@ module HQMF2
 
     def extract_child_criteria
       @entry.xpath("./*/cda:outboundRelationship[@typeCode='COMP']/cda:criteriaReference/cda:id", HQMF2::Document::NAMESPACES).collect do |ref|
-        Reference.new(ref).id
+        child_ref = Reference.new(ref)
+        unless @data_criteria_references.keys.include?(child_ref.id)
+          # puts "Updated CC: #{child_ref.id}"
+          child_ref.update_verbose(true)
+          puts "ERROR\t Could not find verbose CC: #{child_ref.id}" unless @data_criteria_references.keys.include?(child_ref.id)
+        end
+        child_ref.id
       end.compact
     end
 
@@ -505,8 +558,8 @@ module HQMF2
       specific_def = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="OCCR"]', HQMF2::Document::NAMESPACES)
       source_def = @entry.at_xpath('./*/cda:outboundRelationship[cda:subsetCode/@code="SOURCE"]', HQMF2::Document::NAMESPACES)
       if specific_def
-        @source_data_criteria = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')
-        @source_data_criteria_root = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@root')
+        @source_data_criteria = strip_tokens HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')
+        @source_data_criteria_root = strip_tokens HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@root')
         @specific_occurrence_const = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationRoot')
         @specific_occurrence = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationExtension')
 
@@ -543,7 +596,7 @@ module HQMF2
           @occurrences_map[@source_data_criteria] ||= {}
           @occurrences_map[@source_data_criteria][@source_data_criteria_root] ||= occurrenceIdentifier
           @specific_occurrence ||= occurrenceIdentifier
-          @specific_occurrence_const = "#{@source_data_criteria}_#{@source_data_criteria_root}".upcase
+          @specific_occurrence_const = "#{@source_data_criteria}".upcase
         else
           # create variable occurrences that do not already exist
           if isVariable
@@ -560,7 +613,14 @@ module HQMF2
         @specific_occurrence = "A" unless @specific_occurrence
         @specific_occurrence_const = @source_data_criteria.upcase unless @specific_occurrence_const
 
-        # puts "Using #{@specific_occurrence} for #{@id}"
+        if @verbose_reference
+          unless @data_criteria_references.keys.include?(@source_data_criteria)
+            # puts "Updated SDC: #{@source_data_criteria}"
+            @source_data_criteria = "#{@source_data_criteria}_#{@source_data_criteria_root}"
+            @specific_occurrence_const = @source_data_criteria.upcase
+            puts "ERROR\t Could not find verbose SDC: #{@source_data_criteria}" unless @data_criteria_references.keys.include?(@source_data_criteria)
+          end
+        end
       elsif source_def
         @source_data_criteria = HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@extension')
       end
