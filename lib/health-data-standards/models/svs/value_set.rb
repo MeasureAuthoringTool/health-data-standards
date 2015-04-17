@@ -5,6 +5,7 @@ module HealthDataStandards
       field :oid, type: String
       field :display_name, type: String
       field :version, type: String
+      field :user_id, type: String # Eventually we need to delete this from bundles when exporting
 
       belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle", inverse_of: :value_sets
 

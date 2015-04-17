@@ -15,7 +15,7 @@ module HealthDataStandards
         else
           input
         end
-        Nokogiri::XML(doc.to_s)
+        Nokogiri::XML(doc.to_s) { |conf| conf.strict.nonet.noblanks } #grumble, grumble nokogiri java @SS 
       end
     end
 
