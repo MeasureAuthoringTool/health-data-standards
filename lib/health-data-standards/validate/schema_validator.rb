@@ -13,7 +13,7 @@ module HealthDataStandards
         # Validate the document against the configured schema
         def validate(document,data={})
           doc = get_document(document)
-          @xsd.validate(doc).map do |error|File
+          @xsd.validate(doc).map do |error|
             build_error(error.message, "/", data[:file_name])
           end
         end
