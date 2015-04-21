@@ -1,13 +1,15 @@
 require 'test_helper'
-class ValuesetValidatorTest < ActiveSupport::TestCase
+class DataValidatorTest < ActiveSupport::TestCase
   include HealthDataStandards::Validate
   
   setup do
     collection_fixtures('bundles', '_id')
+    collection_fixtures('measures')
     collection_fixtures('health_data_standards_svs_value_sets', '_id',)
     HealthDataStandards::SVS::ValueSet.all.update_all(bundle_id: "4fdb62e01d41c820f6000001")
     @bundle = HealthDataStandards::CQM::Bundle.find("4fdb62e01d41c820f6000001")
-    @validator = HealthDataStandards::Validate::ValuesetValidator.new(@bundle)
+    measures = @bundle.measures
+    @validator = HealthDataStandards::Validate::DataValidator.new(@bundle, measures.map(&:hqmf_id))
   end
 
   test "Should produce errors for unknown valuesets or values not found in vs" do
