@@ -504,7 +504,8 @@ module HQMF2
             cc
           end
         }
-        # puts "Patched #{@id}: #{@children_criteria}, #{@variable}"
+        @derivation_operator = "UNION"
+        # puts "Patched #{@id}: #{@children_criteria}, #{@variable}, #{@derivation_operator}"
       end
     end
 
