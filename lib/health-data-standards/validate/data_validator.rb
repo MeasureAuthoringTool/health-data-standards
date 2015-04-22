@@ -50,7 +50,7 @@ module HealthDataStandards
 
       def initialize(bundle, measure_ids)
         @bundle = bundle
-        measures = @bundle.measures.in(hqmf_id: [measure_ids])
+        measures = @bundle.measures.in(hqmf_id: measure_ids)
 
         @oids = measures.collect{|m| m.oids}.flatten.uniq + HL7_QRDA_OIDS
       end
@@ -61,19 +61,19 @@ module HealthDataStandards
         
         doc.xpath("//*[@sdtc:valueSet]").inject([]) do |errors, node|
           oid = node.at_xpath("@sdtc:valueSet")
-          vs = @bundle.value_sets.where({"oid" => oid})
+          vs = @bundle.value_sets.where({"oid" => oid}).first
           code = node.at_xpath("@code")
           code_system = node.at_xpath("@codeSystem")
           null_flavor = node.at_xpath("@nullFlavor")
           if !vs
-            errors << build_error("The valueset #{oid} declared in the document cannot be found", node.path, data[:file_name])
+            errors << build_error("The valueset #{oid} declared in the document cannot be found", node.path, options[:file_name])
           elsif !@oids.include?(oid)
             errors << build_error("File appears to contain data criteria outside that required by the measures. Valuesets in file not in measures tested #{oid}'",
                         node.path, options[:file_name])
           elsif vs.concepts.where({"code" => code, "code_system"=>code_system}).count() == 0
             if !null_flavor
               errors << build_error("The code #{code} in codeSystem #{code_system} cannot be found in the declared valueset #{oid}",
-                node.path, data[:file_name])
+                node.path, options[:file_name])
             end
           end
         end
