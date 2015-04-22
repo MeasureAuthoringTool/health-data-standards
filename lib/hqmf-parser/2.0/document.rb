@@ -123,6 +123,7 @@ module HQMF2
       # Extract the population criteria and population collections
       @populations = []
       @population_criteria = []
+      @stratifications = []
 
       population_counters = {}
       ids_by_hqmf_id = {}
@@ -185,36 +186,26 @@ module HQMF2
         end
         @populations << population
 
+        # handle stratifications (EP137, EP155)
+        population_def.xpath("cda:component/cda:stratifierCriteria[not(cda:component/cda:measureAttribute/cda:code[@code  = 'SDE'])]/..", NAMESPACES).each_with_index do |criteria_def, criteria_def_index|
+          index =  number_of_populations + ((population_index - 1) * criteria_def.xpath('./*/cda:precondition').length) + criteria_def_index
+          criteria_id = HQMF::PopulationCriteria::STRAT
+          stratified_population = population.dup
+          stratified_population['stratification'] = criteria_def.at_xpath("./*/cda:id/@root").try(:value) || "#{criteria_id}-#{criteria_def_index}"
 
+          # Skip this Stratification if any precondition doesn't contain any preconditions
+          next unless PopulationCriteria.new(criteria_def, self, @idgenerator).preconditions.all?{|prcn| prcn.preconditions.length>0}
+          build_population_criteria(criteria_def, criteria_id, 'stratifierCriteria', ids_by_hqmf_id, stratified_population, population_counters)
 
-        # handle stratifications
-        population_def.xpath("cda:component/cda:stratifierCriteria[not(cda:component/cda:measureAttribute/cda:code[@code  = 'SDE'])]/..", NAMESPACES).each do |criteria_def|
-          # clone each STRAT with unique preconditions
-          stratifications = criteria_def.xpath('./*/cda:precondition')
-          stratifications.each_with_index do |strat_prcn, strat_index|
-            index =  number_of_populations + ((population_index - 1) * stratifications.length) + strat_index
-            pop = population.dup
-            # TODO : figure out what to do about stratification ids, where are they coming from
-            #pop['stratification'] =
-            criteria_id = HQMF::PopulationCriteria::STRAT
-            cloned_strat = criteria_def.dup
-            cloned_strat.xpath('./*/cda:precondition')[0].replace(strat_prcn.to_s)
-            cloned_strat.xpath('./*/cda:precondition').drop(1).each{|p| p.remove}
-            # TODO : replace below with stratification ids
-            cloned_strat.xpath('./*/cda:id').first['extension'] = "#{criteria_id}-#{strat_index}" if strat_index>=1
-
-            # Skip this Stratification if any precondition doesn't contain any preconditions
-            next unless PopulationCriteria.new(cloned_strat, self, @idgenerator).preconditions.all?{|prcn| prcn.preconditions.length>0}
-            build_population_criteria(cloned_strat, criteria_id, 'stratifierCriteria', ids_by_hqmf_id, pop, population_counters)
-
-            pop['id'] = id_def ? "#{id_def.value} - Stratification #{strat_index+1}": "Population#{index}"
-            title_def = population_def.at_xpath('cda:title/@value', NAMESPACES)
-            pop['title'] = title_def ? "#{title_def.value} - Stratification #{strat_index+1}" : "Population #{index}"
-            @populations << pop
-          end
+          stratified_population['id'] = id_def ? "#{id_def.value} - Stratification #{criteria_def_index+1}": "Population#{index}"
+          title_def = population_def.at_xpath('cda:title/@value', NAMESPACES)
+          stratified_population['title'] = title_def ? "#{title_def.value} - Stratification #{criteria_def_index+1}" : "Population #{index}"
+          @stratifications << stratified_population
         end
       end
 
+      # Push in the stratification populations after the unstratified populations
+      @populations.push *@stratifications
       handle_verbose_references
     end
 
