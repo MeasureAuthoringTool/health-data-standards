@@ -33,4 +33,29 @@ class MeasureValidatorTest < ActiveSupport::TestCase
     errors = @cat3.validate(doc)
     assert_equal 1, errors.length
   end
+
+  test "should have no errors if set id is valid (cat 1)" do
+    doc = File.new('test/fixtures/qrda/cat1_setId_good.xml')
+    errors = @cat1.validate(doc)
+    assert_equal [], errors
+  end
+
+  test "should have an error if set id is invalid (cat 1)" do
+    doc = File.new('test/fixtures/qrda/cat1_setId_bad.xml')
+    errors = @cat1.validate(doc)
+    assert_equal 1, errors.length
+  end
+
+  test "should have an error if set id is valid but for different measure (cat 1)" do
+    doc = File.new('test/fixtures/qrda/cat1_setId_wrong.xml')
+    errors = @cat1.validate(doc)
+    assert_equal 1, errors.length
+  end
+
+  test "should have multiple errors for invalid and wrong set ids (cat 1)" do
+    doc = File.new('test/fixtures/qrda/cat1_setId_1good_1bad_1wrong_1missing.xml')
+    errors = @cat1.validate(doc)
+    assert_equal 2, errors.length
+  end
+
 end
