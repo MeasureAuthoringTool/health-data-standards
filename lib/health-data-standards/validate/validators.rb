@@ -3,7 +3,6 @@ require_relative 'base_validator'
 require_relative 'schema_validator'
 require_relative 'schematron_validator'
 require_relative 'measure_validator'
-# require_relative 'valueset_validator'
 require_relative 'data_validator'
 
 module HealthDataStandards
