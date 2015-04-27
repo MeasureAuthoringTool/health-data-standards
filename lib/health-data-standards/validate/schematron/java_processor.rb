@@ -26,9 +26,18 @@ module HealthDataStandards
         ISO_SCHEMATRON2 = File.join(DIR, 'resources/schematron/iso-schematron-xslt2/iso_svrl_for_xslt2.xsl')
 
         def get_errors(document)
-          document_j = document.is_a?(File) ? java.io.File.new(document.path) : StringReader.new(document)
+          document_j = get_document_j(document)
           output = build_transformer(StringReader.new(processor), StreamSource.new(document_j))
           Nokogiri::XML(output)
+        end
+
+        def get_document_j(doc)
+          case doc
+          when File
+            java.io.File.new(doc.path)
+          else 
+            StringReader.new(doc.to_s)
+          end
         end
 
         def processor
