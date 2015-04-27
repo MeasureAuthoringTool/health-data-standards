@@ -67,7 +67,7 @@ module HealthDataStandards
           null_flavor = node.at_xpath("@nullFlavor")
           if !vs
             errors << build_error("The valueset #{oid} declared in the document cannot be found", node.path, options[:file_name])
-          elsif !@oids.include?(oid)
+          elsif !@oids.include?(oid.value)
             errors << build_error("File appears to contain data criteria outside that required by the measures. Valuesets in file not in measures tested #{oid}'",
                         node.path, options[:file_name])
           elsif vs.concepts.where({"code" => code, "code_system"=>code_system}).count() == 0
