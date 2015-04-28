@@ -45,7 +45,15 @@ module HealthDataStandards
         end
 
         def schematron_file
-          dbf = DocumentBuilderFactory.new_instance
+          # this allows us to run the validation utility app in jBoss/TorqueBox
+          # for some reason it breaks the first time you call DocumentBuilderFactory,
+          # so the solution is to catch the error and retry
+          # TODO: pull this out when the above is no longer the case.
+          begin
+            dbf = DocumentBuilderFactory.new_instance
+          rescue Exception => ex
+            retry
+          end
           dbf.setIgnoringElementContentWhitespace(true);
           db = dbf.new_document_builder
           document = db.parse(java.io.File.new(@schematron_file))
