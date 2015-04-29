@@ -58,7 +58,6 @@ module HealthDataStandards
       def validate(file, options={})
         doc = get_document(file)
 
-        
         doc.xpath("//*[@sdtc:valueSet]").inject([]) do |errors, node|
           oid = node.at_xpath("@sdtc:valueSet")
           vs = @bundle.value_sets.where({"oid" => oid}).first
@@ -76,6 +75,7 @@ module HealthDataStandards
                 node.path, options[:file_name])
             end
           end
+          errors
         end
       end
 
