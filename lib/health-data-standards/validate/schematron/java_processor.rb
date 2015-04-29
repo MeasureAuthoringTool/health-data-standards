@@ -25,9 +25,23 @@ module HealthDataStandards
 
         ISO_SCHEMATRON2 = File.join(DIR, 'resources/schematron/iso-schematron-xslt2/iso_svrl_for_xslt2.xsl')
 
+        class HdsUrlResolver
+          include javax.xml.transform.URIResolver
+
+          def initialize(schematron)
+            @file = schematron
+          end
+
+          def resolve(href, base)
+            path = File.join(File.dirname(@file), href)
+            return StreamSource.new(java.io.File.new(path))
+          end
+
+        end
+
         def get_errors(document)
           document_j = get_document_j(document)
-          output = build_transformer(StringReader.new(processor), StreamSource.new(document_j))
+          output = build_transformer(StringReader.new(processor), StreamSource.new(document_j), true)
           Nokogiri::XML(output)
         end
 
@@ -64,9 +78,10 @@ module HealthDataStandards
           DOMSource.new(root)
         end
 
-        def build_transformer(xslt, input_file)
-          @factory ||= TransformerFactory.newInstance(TRANSFORMER_FACTORY_IMPL, nil)
-          transformer = @factory.newTransformer(StreamSource.new(xslt))
+        def build_transformer(xslt, input_file, url=false)
+          factory = TransformerFactory.newInstance(TRANSFORMER_FACTORY_IMPL, nil)
+          factory.uri_resolver = HdsUrlResolver.new(@schematron_file) if url
+          transformer = factory.new_transformer(StreamSource.new(xslt))
           sw = StringWriter.new
           output = StreamResult.new(sw)
           transformer.transform(input_file, output)
