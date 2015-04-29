@@ -13,12 +13,13 @@ module HealthDataStandards
 	@doc = get_document(file)
 	@doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
 	measure_ids = HealthDataStandards::CQM::Measure.all.map(&:hqmf_id)
-	doc_measure_ids = @doc.xpath(measure_selector).map(&:value).map(&:upcase)
+	doc_measure_ids = @doc.xpath(measure_selector).map(&:value)
 	#list of all of the set ids in the QRDA
-	doc_neutral_ids = @doc.xpath(neutral_measure_selector).map(&:value).map(&:upcase).sort
+	doc_neutral_ids = @doc.xpath(neutral_measure_selector).map(&:value).sort
 	#list of all of the setids in the QRDA that are also in the bundle, includes duplicates if code appears twice in document
 	bundle_neutral_ids = HealthDataStandards::CQM::Measure.distinct(:hqmf_set_id)
 	doc_bundle_neutral_ids = doc_neutral_ids - (doc_neutral_ids - bundle_neutral_ids)
+
 	validate_measure_ids(doc_measure_ids, measure_ids, data)
 	validate_set_ids(doc_neutral_ids, doc_bundle_neutral_ids, data)
 	validate_measure_ids_set_ids_usage(doc_bundle_neutral_ids, doc_measure_ids, data)
@@ -85,8 +86,7 @@ module HealthDataStandards
       def location_of_set_id(set_id,index)
 	"count(//cda:entry[cda:organizer[./cda:templateId[@root='#{@template_oid}']]" +
 	"/cda:reference[@typeCode='REFR']/cda:externalDocument[@classCode='DOC']" +
-    "/cda:setId[@root[contains(translate(.,'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLOMNOPQRSTUVWXYZ')" +
-    ",'#{set_id}')]]][#{index}]/preceding-sibling::*)+1"
+	"/cda:setId[@root='#{set_id}']][#{index}]/preceding-sibling::*)+1"
       end
 
     end
