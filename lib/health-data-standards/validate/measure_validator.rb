@@ -51,6 +51,8 @@ module HealthDataStandards
 	  #iterates through multiple instances of the same setId
 	  if previous == hqmf_set_id
 	    index = index + 1
+      else
+        index = 1
 	  end
 	  measure_id_entry = doc_measure_ids[(@doc.xpath(location_of_set_id(hqmf_set_id,index)) - entries_start_position)]
 	  previous = hqmf_set_id
