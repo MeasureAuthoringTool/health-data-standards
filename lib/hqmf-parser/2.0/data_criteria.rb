@@ -152,8 +152,10 @@ module HQMF2
 
     def handle_variable_subsets
       isGrouper = @entry.at_xpath("./cda:grouperCriteria")
-      reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
-      if reference
+      references = @entry.xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
+      reference = references.first
+      # TODO: Figure out when exactly to handle variable references as verbose
+      if reference && references.length==1
         ref_id = strip_tokens(HQMF2::Utilities.attr_val(reference, 'cda:id/@extension'))
         verbose_ref_id = strip_tokens("#{HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')}_#{HQMF2::Utilities.attr_val(reference, 'cda:id/@root')}")
         reference_criteria = @data_criteria_references[ref_id] if ref_id
@@ -162,7 +164,7 @@ module HQMF2
           puts "MISSING_DC_REF: #{ref_id} & #{verbose_ref_id}"
         end
       end
-      if isGrouper && reference_criteria.variable
+      if isGrouper && reference_criteria.try(:variable)
         idExtension_xpath = './*/cda:id/@extension'
         idRoot_xpath = './*/cda:id/@root'
         return if !(attr_val(idExtension_xpath) =~ /^occ[A-Z]of_qdm_var_/).nil?
@@ -559,8 +561,8 @@ module HQMF2
       specific_def = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="OCCR"]', HQMF2::Document::NAMESPACES)
       source_def = @entry.at_xpath('./*/cda:outboundRelationship[cda:subsetCode/@code="SOURCE"]', HQMF2::Document::NAMESPACES)
       if specific_def
-        @source_data_criteria = strip_tokens HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')
-        @source_data_criteria_root = strip_tokens HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@root')
+        @source_data_criteria = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')
+        @source_data_criteria_root = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@root')
         @specific_occurrence_const = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationRoot')
         @specific_occurrence = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationExtension')
 
@@ -571,23 +573,25 @@ module HQMF2
         occurrenceLVNRegex = isVariable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]of'
         occurrenceIdentifier = ""
         occIndex = isVariable ? 3 : 10
-        escapedSDC = Regexp.escape(@source_data_criteria)
+        strippedSDC = strip_tokens @source_data_criteria
+        strippedId = strip_tokens @id
+        strippedLVN = strip_tokens @local_variable_name
 
         # TODO: What should happen is neither @id or @lvn has occurrence label?
-        # puts "Checking #{"#{occurrenceIdRegex}#{escapedSDC}"} against #{@id}"
-        # puts "Checking #{"#{occurrenceLVNRegex}#{escapedSDC}"} against #{@local_variable_name}"
-        if !(@id =~ /^#{occurrenceIdRegex}#{escapedSDC}/).nil?
-          occurrenceIdentifier = @id[occIndex]
-        elsif !(@local_variable_name =~ /^#{occurrenceLVNRegex}#{escapedSDC}/).nil?
-          occurrenceIdentifier = @local_variable_name[occIndex]
+        # puts "Checking #{"#{occurrenceIdRegex}#{strippedSDC}"} against #{strippedId}"
+        # puts "Checking #{"#{occurrenceLVNRegex}#{strippedSDC}"} against #{strippedLVN}"
+        if !(strippedId =~ /^#{occurrenceIdRegex}#{strippedSDC}/).nil?
+          occurrenceIdentifier = strippedId[occIndex]
+        elsif !(strippedLVN =~ /^#{occurrenceLVNRegex}#{strippedSDC}/).nil?
+          occurrenceIdentifier = strippedLVN[occIndex]
         end
 
         # TODO: Handle specific occurrences of variables that don't self-reference?
         if occurrenceIdentifier.blank? && isVariable
-          if !(@id =~ /^#{occurrenceIdRegex}qdm_var_/).nil?
-            occurrenceIdentifier = @id[occIndex]
-          elsif !(@local_variable_name =~ /^#{occurrenceLVNRegex}qdm_var/).nil?
-            occurrenceIdentifier = @local_variable_name[occIndex]
+          if !(strippedId =~ /^#{occurrenceIdRegex}qdm_var_/).nil?
+            occurrenceIdentifier = strippedId[occIndex]
+          elsif !(strippedLVN =~ /^#{occurrenceLVNRegex}qdm_var/).nil?
+            occurrenceIdentifier = strippedLVN[occIndex]
           end
         end
 

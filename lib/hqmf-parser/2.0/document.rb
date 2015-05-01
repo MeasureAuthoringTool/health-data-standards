@@ -421,8 +421,9 @@ module HQMF2
         referenced_criteria_ids << cc
       end
 
-      puts "Missing references: "
-      puts referenced_criteria_ids.uniq - criteria_ids
+      # TODO: Resolve missing references, if required
+      # puts "Missing references: "
+      # puts referenced_criteria_ids.uniq - criteria_ids
     end
 
     def extract_preconditions(precondition, list)
