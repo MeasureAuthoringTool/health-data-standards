@@ -402,7 +402,7 @@ module HQMF2
         end
       end
 
-      temporal_references = @data_criteria.map(&:temporal_references).flatten
+      temporal_references = @data_criteria.map(&:temporal_references).flatten.compact
       ref_trs = []
       temporal_references.each do |tr|
         ref_trs << tr if tr.reference
