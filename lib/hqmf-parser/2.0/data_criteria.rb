@@ -326,7 +326,11 @@ module HQMF2
 
       # special case for fulfills operator.  assuming there is only a possibility of having one of these
       fulfils = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="FLFS"]/cda:criteriaReference', HQMF2::Document::NAMESPACES)
-      fields["FLFS"] =  TypedReference.new(fulfils) if fulfils
+      if fulfils
+        # grab the child element if we don't have a reference
+        fulfils = fulfils.elements.first unless fulfils.at_xpath('./@extension')
+        fields["FLFS"] =  TypedReference.new(fulfils, 'FLFS')
+      end
       fields
     end
     
