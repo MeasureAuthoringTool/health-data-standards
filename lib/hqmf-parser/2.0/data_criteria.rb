@@ -470,13 +470,13 @@ module HQMF2
         # This hack is for finding the correct source data criteria for resolving
         # calculation issues with TIMEDIFF and specific occurrence references
         ref_id = @source_data_criteria || @id
-        ref_id = "Occurrence#{@specific_occurrence}_#{ref_id}"
+        ref_id = strip_tokens "Occurrence#{@specific_occurrence}_#{ref_id}"
         reference = data_criteria_references[ref_id] if !ref_id.blank?
         @title = reference.title if reference
         @description = reference.description if reference
         @source_data_criteria = reference.id if reference
       else
-        ref_id = @source_data_criteria || @id
+        ref_id = strip_tokens @source_data_criteria || @id
         reference = data_criteria_references[ref_id] if !ref_id.blank?
         @title = reference.title if reference
         @description = reference.description if reference
@@ -487,7 +487,7 @@ module HQMF2
     # Patch specific occurrence code_list_id values using source_data_criteria
     def patch_code_list_id(data_criteria_references)
       return unless @specific_occurrence
-      reference = data_criteria_references[@source_data_criteria]
+      reference = data_criteria_references[(strip_tokens @source_data_criteria)]
       @code_list_id = reference.code_list_id if reference
     end
 
@@ -515,7 +515,7 @@ module HQMF2
     def patch_specific_occurrences(data_criteria_references)
       # only consider non-variable specific occurrences
       return unless @specific_occurrence && !@variable && !@id.start_with?("GROUP_")
-      reference = data_criteria_references[@source_data_criteria]
+      reference = data_criteria_references[(strip_tokens @source_data_criteria)]
       if reference && !reference.specific_occurrence && @specific_occurrence
         # puts "Patching #{@id} from #{@source_data_criteria} to #{@id}."
         @source_data_criteria = @id
@@ -538,10 +538,10 @@ module HQMF2
     def extract_child_criteria
       @entry.xpath("./*/cda:outboundRelationship[@typeCode='COMP']/cda:criteriaReference/cda:id", HQMF2::Document::NAMESPACES).collect do |ref|
         child_ref = Reference.new(ref)
-        unless @data_criteria_references.keys.include?(child_ref.id)
+        unless @data_criteria_references.keys.include?(strip_tokens child_ref.id)
           # puts "Updated CC: #{child_ref.id}"
           child_ref.update_verbose(true)
-          puts "ERROR\t Could not find verbose CC: #{child_ref.id}" unless @data_criteria_references.keys.include?(child_ref.id)
+          puts "ERROR\t Could not find verbose CC: #{child_ref.id}" unless @data_criteria_references.keys.include?(strip_tokens child_ref.id)
         end
         child_ref.id
       end.compact
@@ -630,11 +630,11 @@ module HQMF2
         @specific_occurrence_const = @source_data_criteria.upcase unless @specific_occurrence_const
 
         if @verbose_reference
-          unless @data_criteria_references.keys.include?(@source_data_criteria)
+          unless @data_criteria_references.keys.include?(strip_tokens @source_data_criteria)
             # puts "Updated SDC: #{@source_data_criteria}"
             @source_data_criteria = "#{@source_data_criteria}_#{@source_data_criteria_root}"
             @specific_occurrence_const = @source_data_criteria.upcase
-            puts "ERROR\t Could not find verbose SDC: #{@source_data_criteria}" unless @data_criteria_references.keys.include?(@source_data_criteria)
+            puts "ERROR\t Could not find verbose SDC: #{@source_data_criteria}" unless @data_criteria_references.keys.include?(strip_tokens @source_data_criteria)
           end
         end
       elsif source_def
