@@ -481,6 +481,7 @@ module HQMF2
         @title = reference.title if reference
         @description = reference.description if reference
       end
+      patch_specific_occurrences(data_criteria_references)
     end
 
     # Patch specific occurrence code_list_id values using source_data_criteria
@@ -508,6 +509,16 @@ module HQMF2
         }
         @derivation_operator = "UNION"
         # puts "Patched #{@id}: #{@children_criteria}, #{@variable}, #{@derivation_operator}"
+      end
+    end
+
+    def patch_specific_occurrences(data_criteria_references)
+      # only consider non-variable specific occurrences
+      return unless @specific_occurrence && !@variable && !@id.start_with?("GROUP_")
+      reference = data_criteria_references[@source_data_criteria]
+      if reference && !reference.specific_occurrence && @specific_occurrence
+        # puts "Patching #{@id} from #{@source_data_criteria} to #{@id}."
+        @source_data_criteria = @id
       end
     end
 
