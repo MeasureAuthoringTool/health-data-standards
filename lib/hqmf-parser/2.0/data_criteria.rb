@@ -607,6 +607,11 @@ module HQMF2
           end
         end
 
+        # Handle correct specific occurrence references
+        if occurrenceIdentifier.blank? && !(strippedId =~ /^#{strippedSDC}/).nil?
+          occurrenceIdentifier = strippedId[occIndex]
+        end
+
         if !occurrenceIdentifier.blank?
           # if it doesn't exist, add extracted occurrence to the map
           # puts "\tSetting #{@source_data_criteria}-#{@source_data_criteria_root} to #{occurrenceIdentifier}"
