@@ -481,7 +481,8 @@ module HQMF2
         @title = reference.title if reference
         @description = reference.description if reference
       end
-      patch_specific_occurrences(data_criteria_references)
+      # FIXME: Back out fix for EP141 to resolve EH109 calculations
+      # patch_specific_occurrences(data_criteria_references)
     end
 
     # Patch specific occurrence code_list_id values using source_data_criteria
