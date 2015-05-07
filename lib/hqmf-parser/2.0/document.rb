@@ -120,6 +120,9 @@ module HQMF2
       @data_criteria.each { |dc| dc.patch_descriptions(@data_criteria_references) }
       @source_data_criteria.each { |sdc| sdc.patch_descriptions(@data_criteria_references) }
 
+      # Detect missing specific occurrences and clone source data criteria
+      detect_missing_specifics
+
       # Extract the population criteria and population collections
       @populations = []
       @population_criteria = []
@@ -379,6 +382,33 @@ module HQMF2
         population['title'].gsub!(/\d+\z/, "#{population_index+1}")
       end
 
+    end
+
+    # If we have a specific occurrence that references a source data criteria
+    # that doesn't have an occurrence on it, just clone the sdc and add it
+    def detect_missing_specifics
+      source_data_criteria_references = {}
+      @source_data_criteria.each { |sdc| source_data_criteria_references[sdc.id] = sdc }
+      specifics_map = {}
+      @data_criteria.each do |dc|
+        next unless dc.specific_occurrence
+        sdc = source_data_criteria_references[dc.source_data_criteria]
+        next if sdc.specific_occurrence == dc.specific_occurrence
+        specifics_map[dc.source_data_criteria] ||= []
+        specifics_map[dc.source_data_criteria] << dc.specific_occurrence
+        cloned_sdc = "Occurrence#{dc.specific_occurrence}_#{dc.source_data_criteria}"
+        # puts "Updated #{dc.id} SDC from #{dc.source_data_criteria} to #{cloned_sdc}"
+        dc.patch_sdc_clone(nil, cloned_sdc, nil, dc.source_data_criteria.upcase)
+      end
+      specifics_map.each do |sdc_id, occurrences|
+        existing = @data_criteria_references[sdc_id]
+        occurrences.uniq.each do |occr|
+          sdc_clone = existing.extract_source_data_criteria
+          sdc_clone.patch_sdc_clone("Occurrence#{occr}_#{sdc_clone.id}", nil, occr, nil)
+          # puts "Created SDC clone #{sdc_clone.id} with OCCR #{sdc_clone.specific_occurrence}"
+          @source_data_criteria << sdc_clone
+        end
+      end
     end
 
     # Detect missing references and update to use extension & root values

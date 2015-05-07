@@ -523,6 +523,14 @@ module HQMF2
       end
     end
 
+    # Helper method called by specific occurrence handler to set ids
+    def patch_sdc_clone(id, sdc, s_occr, s_occr_const)
+      @id = id if id
+      @source_data_criteria = sdc if sdc
+      @specific_occurrence = s_occr if s_occr
+      @specific_occurrence_const = s_occr_const if s_occr_const
+    end
+
     private
 
     def extract_negation
