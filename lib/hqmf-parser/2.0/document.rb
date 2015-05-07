@@ -391,7 +391,8 @@ module HQMF2
       @source_data_criteria.each { |sdc| source_data_criteria_references[sdc.id] = sdc }
       specifics_map = {}
       @data_criteria.each do |dc|
-        next unless dc.specific_occurrence
+        # skip data criteria that aren't specific and skip variables
+        next unless dc.specific_occurrence && !dc.variable && !dc.id.start_with?("GROUP_")
         sdc = source_data_criteria_references[dc.source_data_criteria]
         next if sdc.specific_occurrence == dc.specific_occurrence
         specifics_map[dc.source_data_criteria] ||= []
