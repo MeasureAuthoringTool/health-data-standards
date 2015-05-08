@@ -77,10 +77,12 @@
       <%- end -%>
     </populationCriteriaSection>
   </component>
- <%- if doc.is_cv? -%>
+ 
+  <%- end -%>
+  <%- if doc.is_cv? -%>
 
    <component>
-    <measureObservationsSection>
+    <measureObservationSection>
       <templateId>
         <item root="2.16.840.1.113883.10.20.28.2.4" />
       </templateId>
@@ -90,9 +92,8 @@
       <title value="Measure Observation Section" />
       <text></text>
       <%= xml_for_measure_observation_definition(doc) %>
-    </measureObservationsSection>
+    </measureObservationSection>
   </component>
 
-  <%- end -%>
   <%- end -%>
 </QualityMeasureDocument>

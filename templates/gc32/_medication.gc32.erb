@@ -8,8 +8,8 @@
   <% if medication.route %>
   <%== gc32_code_display medication, "tag_name" => "route", "attribute" => "route", "preferred_code_sets" => ["NCI Thesaurus"] %>
   <% end %> 
-  <% if medication.site %>
-  <%== gc32_code_display medication, "tag_name" => "site", "attribute" => "site", "preferred_code_sets" => ["SNOMED-CT"] %>
+  <% if medication.anatomical_approach %>
+  <%== gc32_code_display medication, "tag_name" => "site", "attribute" => "anatomical_approach", "preferred_code_sets" => ["SNOMED-CT"] %>
   <% end %>
   <%== quantity_display medication.dose, :dose %>
   <% if medication.dose_indicator %>

@@ -102,7 +102,7 @@ module GreenC32
       assert_equal procedure.start_time,  procedure2.start_time
       assert_equal procedure.end_time,    procedure2.end_time
       assert_equal procedure.codes,       procedure2.codes
-      assert_equal procedure.site,        procedure2.site
+      assert_equal procedure.anatomical_target,        procedure2.anatomical_target
     end
     
     #-------------------------------------------------------------------------------

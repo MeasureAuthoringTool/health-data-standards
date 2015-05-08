@@ -14,9 +14,9 @@
       <high <%= value_or_null_flavor(entry.removal_time || entry.end_time) %>/>
     </effectiveTime>
     
-    <% if entry.respond_to?(:anatomical_structure) && entry.anatomical_structure.present? -%>
-    <targetSiteCode code="<%= entry.anatomical_structure['code'] %>" 
-                    codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.anatomical_structure['code_system']) %>"/>
+    <% if entry.respond_to?(:anatomical_target) && entry.anatomical_target.present? -%>
+    <targetSiteCode code="<%= entry.anatomical_target['code'] %>" 
+                    codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.anatomical_target['code_system']) %>"/>
     <% end -%>
     <participant typeCode="DEV">
       <participantRole classCode="MANU">

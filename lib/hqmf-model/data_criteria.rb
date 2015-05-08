@@ -39,7 +39,7 @@ module HQMF
              'TRANSFER_TO' => {title:'Transfer To', coded_entry_method: :transfer_to, code: 'TRANSFER_TO', template_id: '2.16.840.1.113883.3.560.1.72', field_type: :value},
              'TRANSFER_TO_DATETIME' => {title:'Transfer To Date/Time', coded_entry_method: :transfer_to_time, code: 'DST_TIME', template_id: '2.16.840.1.113883.3.560.1.72', field_type: :nested_timestamp},
              'TRANSFER_FROM' => {title:'Transfer From', coded_entry_method: :transfer_from, code: 'TRANSFER_FROM', template_id: '2.16.840.1.113883.3.560.1.71', field_type: :value},
-             'TRANSFER_FROM_DATETIME' => {title:'Transfer From Date/Time', coded_entry_method: :transfer_from_time, code: 'ORG_TIME', template_id: '2.16.840.1.113883.3.560.1.71', field_type: :nested_timestamp},      
+             'TRANSFER_FROM_DATETIME' => {title:'Transfer From Date/Time', coded_entry_method: :transfer_from_time, code: 'ORG_TIME', template_id: '2.16.840.1.113883.3.560.1.71', field_type: :nested_timestamp},
              # updated from hqmf 2.1 and QDM 4.x
               "REACTION"=> {title:'Reaction', coded_entry_method: :raction, code: '263851003', code_system:'2.16.840.1.113883.6.96',  field_type: :value},
               "TARGET_OUTCOME" => {title:'Target Outcome', coded_entry_method: :target_outcome, code: '385676005', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
@@ -56,7 +56,7 @@ module HQMF
               "RELATED_TO" => {title:'Related To', coded_entry_method: :related_to,  code: "REL", codeSystem: "2.16.840.1.113883.1.11.11603", field_type: :value},
               "SIGNED_DATEDTIME" =>  {title:'Signed Datetime', coded_entry_method: :singed_datetime, field_type: :timestamp}
           }
-    
+
     VALUE_FIELDS = {'SEV'      => 'SEVERITY',
                     '117363000' => 'ORDINAL',
                     '410666004' => 'REASON',

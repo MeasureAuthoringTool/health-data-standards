@@ -15,7 +15,7 @@ module HealthDataStandards
           extract_med_code_attribute(med_element, medication, :type, :typeOfMedication)
           extract_med_code_attribute(med_element, medication, :statusOfMedication)
           extract_med_code_attribute(med_element, medication, :route)
-          extract_med_code_attribute(med_element, medication, :site)
+          extract_med_code_attribute(med_element, medication, :site, :anatomical_approach)
           extract_dose_restriction(med_element, medication)
           extract_med_code_attribute(med_element, medication, :indication)
           extract_med_code_attribute(med_element, medication, :productForm)

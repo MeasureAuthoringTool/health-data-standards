@@ -6,11 +6,11 @@ class Condition < Entry
   field :name,              type: String
   field :ordinality,        type: Hash
   field :severity,          type: Hash # Currently unsupported by any importers
-  field :laterality,        type: Hash 
-  field :anatomical_target, type: Hash 
-  
+  field :laterality,        type: Hash
+  field :anatomical_target, type: Hash
+
   embeds_many :treating_provider,  class_name: "Provider"
-  
+
   alias   :cause_of_death         :causeOfDeath
   alias   :cause_of_death=        :causeOfDeath=
 

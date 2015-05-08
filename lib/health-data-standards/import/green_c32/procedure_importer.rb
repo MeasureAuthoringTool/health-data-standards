@@ -17,7 +17,7 @@ module HealthDataStandards
           procedure = Procedure.new
           
           extract_entry(procedure_element, procedure)
-          extract_code(procedure_element, procedure, xpath="./gc32:site", attribute=:site)
+          extract_code(procedure_element, procedure, xpath="./gc32:site", attribute=:anatomical_target)
           procedure
         end
 

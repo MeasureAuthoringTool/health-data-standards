@@ -39,7 +39,7 @@ module HQMF2
       def xml_for_local_variable(criteria)
         name = @local_var_names[criteria.id]
         unless name
-          if criteria.specific_occurrence
+          if criteria.specific_occurrence && !criteria.id.starts_with?("Occurrence#{criteria.specific_occurrence}")
             name = "Occurrence#{criteria.specific_occurrence}#{criteria.id}"
           else
             name = criteria.id
@@ -220,7 +220,14 @@ module HQMF2
       end
 
       def expression_for_observation(doc,observation)
-        "NOT IMPLEMENTED"
+        pre = observation.preconditions[0]
+        if pre && pre.reference 
+          dc = doc.data_criteria(pre.reference.id)
+          children = dc.children_criteria
+          if children && children.length == 2
+            return "#{children[0]} - #{children[1]}"
+          end
+        end
       end
 
       def data_criteria_should_be_grouper?(criteria)
