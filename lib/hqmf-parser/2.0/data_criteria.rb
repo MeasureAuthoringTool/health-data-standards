@@ -465,6 +465,7 @@ module HQMF2
       patch_code_list_id(data_criteria_references)
       patch_variable_name
       patch_variable_subsets
+      patch_variable_data_criteria
       return unless title.include?("_") || title.include?("-")
       if @specific_occurrence && !@id.include?("Occurrence")
         # This hack is for finding the correct source data criteria for resolving
@@ -527,6 +528,15 @@ module HQMF2
         @derivation_operator = "UNION"
         # puts "Patched #{@id}: #{@children_criteria}, #{@variable}, #{@derivation_operator}"
       end
+    end
+
+    # Patch SDC variables that are single data criteria by embedding the grouper
+    def patch_variable_data_criteria
+      return unless @variable && @is_source_data_criteria && !@derivation_operator
+      @derivation_operator = HQMF::DataCriteria::UNION
+      @definition = 'derived'
+      @status = nil
+      @children_criteria = ["GROUP_#{@id}"]
     end
 
     def patch_specific_occurrences(data_criteria_references)
