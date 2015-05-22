@@ -470,14 +470,30 @@ module HQMF2
         # This hack is for finding the correct source data criteria for resolving
         # calculation issues with TIMEDIFF and specific occurrence references
         ref_id = @source_data_criteria || @id
-        ref_id = strip_tokens "Occurrence#{@specific_occurrence}_#{ref_id}"
+        ref_id = strip_tokens "Occurrence#{@specific_occurrence}_#{ref_id}" unless ref_id.start_with?("Occurrence")
         reference = data_criteria_references[ref_id] if !ref_id.blank?
+
+        # if the reference is a specific occurrence
+        if reference && reference.specific_occurrence && reference.id.start_with?("Occurrence")
+          # just reference the root data criteria that it is an occurrence of
+          ref_id = reference.id.gsub(/Occurrence[A-Z]_/,'')
+          reference = data_criteria_references[ref_id] if !ref_id.blank?
+        end
+
         @title = reference.title if reference
         @description = reference.description if reference
         @source_data_criteria = reference.id if reference
       else
         ref_id = strip_tokens @source_data_criteria || @id
         reference = data_criteria_references[ref_id] if !ref_id.blank?
+
+        # if the reference is a specific occurrence
+        if reference && reference.specific_occurrence && reference.id.start_with?("Occurrence")
+          # just reference the root data criteria that it is an occurrence of
+          ref_id = reference.id.gsub(/Occurrence[A-Z]_/,'')
+          reference = data_criteria_references[ref_id] if !ref_id.blank?
+        end
+
         @title = reference.title if reference
         @description = reference.description if reference
       end
