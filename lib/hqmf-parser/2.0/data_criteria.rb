@@ -465,19 +465,36 @@ module HQMF2
       patch_code_list_id(data_criteria_references)
       patch_variable_name
       patch_variable_subsets
+      patch_variable_data_criteria
       return unless title.include?("_") || title.include?("-")
       if @specific_occurrence && !@id.include?("Occurrence")
         # This hack is for finding the correct source data criteria for resolving
         # calculation issues with TIMEDIFF and specific occurrence references
         ref_id = @source_data_criteria || @id
-        ref_id = strip_tokens "Occurrence#{@specific_occurrence}_#{ref_id}"
+        ref_id = strip_tokens "Occurrence#{@specific_occurrence}_#{ref_id}" unless ref_id.start_with?("Occurrence")
         reference = data_criteria_references[ref_id] if !ref_id.blank?
+
+        # if the reference is a specific occurrence
+        if reference && reference.specific_occurrence && reference.id.start_with?("Occurrence")
+          # just reference the root data criteria that it is an occurrence of
+          ref_id = reference.id.gsub(/Occurrence[A-Z]_/,'')
+          reference = data_criteria_references[ref_id] if !ref_id.blank?
+        end
+
         @title = reference.title if reference
         @description = reference.description if reference
         @source_data_criteria = reference.id if reference
       else
         ref_id = strip_tokens @source_data_criteria || @id
         reference = data_criteria_references[ref_id] if !ref_id.blank?
+
+        # if the reference is a specific occurrence
+        if reference && reference.specific_occurrence && reference.id.start_with?("Occurrence")
+          # just reference the root data criteria that it is an occurrence of
+          ref_id = reference.id.gsub(/Occurrence[A-Z]_/,'')
+          reference = data_criteria_references[ref_id] if !ref_id.blank?
+        end
+
         @title = reference.title if reference
         @description = reference.description if reference
       end
@@ -511,6 +528,15 @@ module HQMF2
         @derivation_operator = "UNION"
         # puts "Patched #{@id}: #{@children_criteria}, #{@variable}, #{@derivation_operator}"
       end
+    end
+
+    # Patch SDC variables that are single data criteria by embedding the grouper
+    def patch_variable_data_criteria
+      return unless @variable && @is_source_data_criteria && !@derivation_operator
+      @derivation_operator = HQMF::DataCriteria::UNION
+      @definition = 'derived'
+      @status = nil
+      @children_criteria = ["GROUP_#{@id}"]
     end
 
     def patch_specific_occurrences(data_criteria_references)
