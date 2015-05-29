@@ -109,7 +109,18 @@ module HQMF2
         else
           @data_criteria << criteria unless criteria.variable
         end
-        @data_criteria_references[criteria.id] = criteria if criteria
+
+        # Sometimes there are multiple criteria with the same ID, even though they're different; in the HQMF
+        # criteria refer to parent criteria via outboundRelationship, using an extension (aka ID) and a root;
+        # we use just the extension to follow the reference, and build the lookup hash using that; since they
+        # can repeat, we wind up overwriting some content. This becomes important when we want, for example,
+        # the code_list_id and we overwrite the parent with the code_list_id with a child with the same ID
+        # without the code_list_id. As a temporary approach, we only overwrite a data criteria reference if
+        # it doesn't have a code_list_id. As a longer term approach we may want to use the root for lookups.
+        if criteria && (@data_criteria_references[criteria.id].nil? || @data_criteria_references[criteria.id].code_list_id.nil?)
+          @data_criteria_references[criteria.id] = criteria
+        end
+
         handle_variable(criteria) if criteria.variable
       end
 
