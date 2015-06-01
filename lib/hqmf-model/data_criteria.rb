@@ -62,6 +62,8 @@ module HQMF
                     '410666004' => 'REASON',
                     '260753009' => 'SOURCE',
                     '261773006' => 'CUMULATIVE_MEDICATION_DURATION',
+                    # map pre-AU2015 CMD code to current CMD field definition
+                    '363819003' => 'CUMULATIVE_MEDICATION_DURATION',
                     'SDLOC'     => 'FACILITY_LOCATION',
                     '442864001' => 'DISCHARGE_DATETIME',
                     '309039003' => 'DISCHARGE_STATUS',
