@@ -4,13 +4,14 @@
            xmlns:qdm="urn:hhs-qdm:hqmf-r2-extensions:v1"
            targetNamespace="urn:hl7-org:v3"
            elementFormDefault="qualified">
-   <!--
+<xs:import namespace="urn:hhs-qdm:hqmf-r2-extensions:v1" schemaLocation="hhs-qdm-hqmfr2-ext-v1.xsd"/>
+<!--
 *****************************************************************************************************************
 * XML schema for message type POQM_MT000001UV03.
 * Source information:
 *     Rendered by: Visio to MIF transform
 *     Rendered on: 
-* Saved in XML file by RMIM Designer in Visio at 2014-05-16T17:03:07
+* Saved in XML file by RMIM Designer in Visio at 2014-04-09T12:33:23
  Flat to Serialization Transform: $Id: MIFStaticModelFlatToSerialization.xsl 8529 2011-02-09 20:49:58Z lloyd_mckenzie $
  Fix Names Transform: $Id: FixMifNames.xsl 8355 2009-10-07 03:16:34Z lloyd_mckenzie $
   Base transform: $Id: ConvertBase.xsl 8870 2011-09-14 18:32:56Z woody_beeler $
@@ -46,10 +47,9 @@
 *  SUCH DAMAGE.
 *
 ********************************************************************************************************************
-	  -->
-   <xs:annotation>
+	  --><xs:annotation>
       <xs:documentation>Generated using schema builder version 3.4.7. Stylesheets:
-Saved in XML file by RMIM Designer in Visio at 2014-05-16T17:03:07
+Saved in XML file by RMIM Designer in Visio at 2014-04-09T12:33:23
  Flat to Serialization Transform: $Id: MIFStaticModelFlatToSerialization.xsl 8529 2011-02-09 20:49:58Z lloyd_mckenzie $
  Fix Names Transform: $Id: FixMifNames.xsl 8355 2009-10-07 03:16:34Z lloyd_mckenzie $
   Base transform: $Id: ConvertBase.xsl 8870 2011-09-14 18:32:56Z woody_beeler $
@@ -58,7 +58,6 @@ Saved in XML file by RMIM Designer in Visio at 2014-05-16T17:03:07
 StaticMifToXsd.xsl version 2.0</xs:documentation>
    </xs:annotation>
    <xs:include schemaLocation="../coreschemas/infrastructureRoot-r2.xsd"/>
-   <xs:import namespace="urn:hhs-qdm:hqmf-r2-extensions:v1" schemaLocation="hhs-qdm-hqmfr2-ext-v1.xsd"/>
    <xs:complexType name="POQM_MT000001UV03.ActCriteria">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
@@ -206,8 +205,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
                         nillable="true"
                         minOccurs="1"
                         maxOccurs="1"/>
-            <xs:element name="measureObservationSection"
-                        type="POQM_MT000001UV03.MeasureObservationSection"
+            <xs:element name="measureObservationsSection"
+                        type="POQM_MT000001UV03.MeasureObservationsSection"
                         nillable="true"
                         minOccurs="1"
                         maxOccurs="1"/>
@@ -308,7 +307,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="POQM_MT000001UV03.Component7">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="criteriaReference" type="POQM_MT000001UV03.CriteriaReference"
+         <xs:element name="measureObservationDefinition"
+                     type="POQM_MT000001UV03.MeasureObservationDefinition"
                      nillable="true"
                      minOccurs="1"
                      maxOccurs="1"/>
@@ -352,6 +352,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
                      nillable="true"
                      minOccurs="0"
                      maxOccurs="unbounded"/>
+         <xs:element name="component" type="POQM_MT000001UV03.Component7" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="1"/>
          <xs:element name="excerpt" type="POQM_MT000001UV03.ExcerptFrom" nillable="true" minOccurs="0"
                      maxOccurs="unbounded"/>
       </xs:sequence>
@@ -849,14 +852,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="POQM_MT000001UV03.MeasureObservationDefinition">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="id" type="II" minOccurs="0" maxOccurs="1"/>
          <xs:element name="code" type="CD" minOccurs="1" maxOccurs="1"/>
          <xs:element name="value" type="QTY" minOccurs="1" maxOccurs="1"/>
          <xs:element name="methodCode" type="DSET_CD" minOccurs="0" maxOccurs="1"/>
          <xs:element name="precondition" type="POQM_MT000001UV03.Precondition20" nillable="true"
-                     minOccurs="0"
-                     maxOccurs="unbounded"/>
-         <xs:element name="componentOf" type="POQM_MT000001UV03.Component7" nillable="true"
                      minOccurs="0"
                      maxOccurs="unbounded"/>
       </xs:sequence>
@@ -865,7 +864,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:attribute name="classCode" type="ActClass" use="optional" fixed="OBS"/>
       <xs:attribute name="moodCode" type="ActMood" use="optional" fixed="DEF"/>
    </xs:complexType>
-   <xs:complexType name="POQM_MT000001UV03.MeasureObservationSection">
+   <xs:complexType name="POQM_MT000001UV03.MeasureObservationsSection">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="1"/>
@@ -1963,7 +1962,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
             <xs:element name="supplyCriteria" type="POQM_MT000001UV03.SupplyCriteria" nillable="true"
                         minOccurs="1"
                         maxOccurs="1"/>
-            <xs:element name="grouperCriteria" type="POQM_MT000001UV03.GrouperCriteria" nillable="true"
+            <xs:element name="grouperCriteria" type="POQM_MT000001UV03.GrouperCriteria"
+                        nillable="true"
                         minOccurs="1"
                         maxOccurs="1"/>
          </xs:choice>
@@ -2075,7 +2075,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
                <xs:element name="supplyCriteria" type="POQM_MT000001UV03.SupplyCriteria" nillable="true"
                            minOccurs="1"
                            maxOccurs="1"/>
-               <xs:element name="grouperCriteria" type="POQM_MT000001UV03.GrouperCriteria" nillable="true"
+               <xs:element name="grouperCriteria" type="POQM_MT000001UV03.GrouperCriteria"
+                           nillable="true"
                            minOccurs="1"
                            maxOccurs="1"/>
             </xs:choice>
