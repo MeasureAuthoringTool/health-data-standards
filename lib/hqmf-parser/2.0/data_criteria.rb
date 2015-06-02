@@ -267,8 +267,8 @@ module HQMF2
           @definition = 'derived'
         when nil
           reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
-          ref_id = HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')
-          verbose_ref_id = "#{HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')}_#{HQMF2::Utilities.attr_val(reference, 'cda:id/@root')}"
+          ref_id = HQMF2::Utilities.attr_val(reference, 'cda:id/@extension') if reference
+          verbose_ref_id = "#{HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')}_#{HQMF2::Utilities.attr_val(reference, 'cda:id/@root')}" if reference
           reference_criteria = @data_criteria_references[strip_tokens(ref_id)] if reference
           reference_criteria = @data_criteria_references[strip_tokens(verbose_ref_id)] if verbose_ref_id && !reference_criteria
           if reference_criteria
