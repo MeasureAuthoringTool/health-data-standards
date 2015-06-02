@@ -4,7 +4,7 @@ require_relative '../../../test_helper'
 class HQMFV1V2GenerationTest < Test::Unit::TestCase
   RESULTS_DIR = 'tmp/hqmf_r2.1_results'
   SUMMARY_FILE = "#{RESULTS_DIR}/summary.txt"
-  XSD = Nokogiri::XML.Schema(File.open('test/fixtures/2.1/schemas/EMeasure.xsd'))
+  XSD = Nokogiri::XML.Schema(File.open('test/fixtures/2.1/schemas/EMeasure_QDM.xsd'))
 
   # Create a blank folder for the errors
   FileUtils.rm_rf(RESULTS_DIR) if File.directory?(RESULTS_DIR)
@@ -52,8 +52,8 @@ class HQMFV1V2GenerationTest < Test::Unit::TestCase
         end
       end
     end
-    
+
     # finally do the actual assertion so we fail if there are errors
     errors.length.must_equal 0
-  end  
+  end
 end
