@@ -18,7 +18,7 @@ class ParseTest < Minitest::Test
   def test_basic_parse_v2
 
     parsed = HQMF::Parser::V2Parser.new.parse(@hqmf_contents_v2)
-    
+
     parsed.title.must_equal "Statin Prescribed at Discharge"
   end
 
