@@ -227,12 +227,16 @@ module HQMF2
 # Represents a HQMF reference to a data criteria that has a given type
   class TypedReference
     include HQMF2::Utilities
-    attr_accessor :id
-    
+    attr_accessor :id, :type, :mood
+
     # Create a new HQMF::Reference
     # @param [String] id
     def initialize(entry)
       @entry = entry
+      @type = type || attr_val('./@classCode')
+      @mood = attr_val('./@moodCode')
+      @entry = entry.elements.first unless entry.at_xpath('./@extension')
+      @verbose = verbose
     end
 
     def reference
@@ -243,14 +247,10 @@ module HQMF2
        attr_val('./@classCode')
     end
 
-    def mood
-       attr_val('./@moodCode')
-    end
-    
     def to_model
-      HQMF::TypedReference.new(reference,type,mood)
-    end  
-    
+      HQMF::TypedReference.new(reference,@type,@mood)
+    end
+
   end
 
   # Represents a HQMF reference from a precondition to a data criteria

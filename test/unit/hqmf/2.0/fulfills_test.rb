@@ -3,7 +3,7 @@ require_relative '../../../test_helper'
 class FulfillsTest <  Test::Unit::TestCase
 
 
-  
+
   def test_fulfills
 
      path = File.expand_path("../../../../fixtures/2.1/measures/fulfills.xml", __FILE__)
