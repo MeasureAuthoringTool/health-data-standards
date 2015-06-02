@@ -171,7 +171,7 @@ module HQMF2
       document_populations = @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:populationCriteriaSection', NAMESPACES)
       # Sort the populations based on the id/extension, since the populations may be out of order; there doesn't seem to
       # be any other way that order is indicated in the HQMF
-      document_populations = document_populations.sort_by { |pop| pop.at_xpath('cda:id/@extension', NAMESPACES).value }
+      document_populations = document_populations.sort_by { |pop| pop.at_xpath('cda:id/@extension', NAMESPACES).try(:value) }
       number_of_populations = document_populations.length
       document_populations.each_with_index do |population_def, population_index|
         population = {}
@@ -302,7 +302,7 @@ module HQMF2
     def update_data_criteria(data_criteria, source_data_criteria)
       # step through each criteria and look for groupers (type derived) with one child
       data_criteria.map do |criteria|
-        puts "Missing children criteria: #{p criteria}" if criteria.type=="derived".to_sym && !criteria.children_criteria.try(:length)
+        puts "Missing children criteria: #{criteria.id}" if criteria.type=="derived".to_sym && !criteria.children_criteria.try(:length)
         if criteria.type == "derived".to_sym && criteria.children_criteria.try(:length) == 1
           source_data_criteria.each do |source_criteria|
             if source_criteria.title == criteria.children_criteria[0]
