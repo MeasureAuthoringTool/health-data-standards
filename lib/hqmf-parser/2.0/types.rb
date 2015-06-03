@@ -38,7 +38,7 @@ module HQMF2
       # FIXME: NINF is used instead of 0 sometimes...? (not in the IG)
       # FIXME: Given nullFlavor, but IG uses it and nullValue everywhere...
 
-      # temporal referencs
+      # temporal references
       less_than_equal_tr = attr_val("../@lowClosed")=='true' &&
         attr_val("../@highClosed")=='true' &&
         attr_val("../cda:low/@value")=="0"
@@ -369,7 +369,7 @@ module HQMF2
         end
         id = strip_tokens value
         # Handle MeasurePeriod references for calculation code
-        id = 'MeasurePeriod' if id.start_with?('measureperiod')
+        id = 'MeasurePeriod' if id.try(:start_with?,'measureperiod')
         id
       end
     end
