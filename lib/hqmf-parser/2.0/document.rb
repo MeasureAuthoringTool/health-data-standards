@@ -405,7 +405,7 @@ module HQMF2
         # skip data criteria that aren't specific and skip variables
         next unless dc.specific_occurrence && !dc.variable && !dc.id.start_with?("GROUP_")
         sdc = source_data_criteria_references[dc.source_data_criteria]
-        next if sdc.specific_occurrence == dc.specific_occurrence
+        next if sdc.try(:specific_occurrence) == dc.specific_occurrence
         specifics_map[dc.source_data_criteria] ||= []
         specifics_map[dc.source_data_criteria] << dc.specific_occurrence
         cloned_sdc = "Occurrence#{dc.specific_occurrence}_#{dc.source_data_criteria}"
