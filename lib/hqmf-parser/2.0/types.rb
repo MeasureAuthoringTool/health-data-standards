@@ -38,7 +38,7 @@ module HQMF2
       # FIXME: NINF is used instead of 0 sometimes...? (not in the IG)
       # FIXME: Given nullFlavor, but IG uses it and nullValue everywhere...
 
-      # temporal referencs
+      # temporal references
       less_than_equal_tr = attr_val("../@lowClosed")=='true' &&
         attr_val("../@highClosed")=='true' &&
         attr_val("../cda:low/@value")=="0"
@@ -319,13 +319,15 @@ module HQMF2
 # Represents a HQMF reference to a data criteria that has a given type
   class TypedReference
     include HQMF2::Utilities
-    attr_accessor :id
+    attr_accessor :id, :type, :mood
 
     # Create a new HQMF::Reference
     # @param [String] id
     def initialize(entry, type=nil, verbose=false)
       @entry = entry
       @type = type || attr_val('./@classCode')
+      @mood = attr_val('./@moodCode')
+      @entry = entry.elements.first unless entry.at_xpath('./@extension')
       @verbose = verbose
     end
 
@@ -340,12 +342,8 @@ module HQMF2
       id
     end
 
-    def mood
-       attr_val('./@moodCode')
-    end
-
     def to_model
-      HQMF::TypedReference.new(reference,@type,mood)
+      HQMF::TypedReference.new(reference,@type,@mood)
     end
 
   end
@@ -371,7 +369,7 @@ module HQMF2
         end
         id = strip_tokens value
         # Handle MeasurePeriod references for calculation code
-        id = 'MeasurePeriod' if id.start_with?('measureperiod')
+        id = 'MeasurePeriod' if id.try(:start_with?,'measureperiod')
         id
       end
     end

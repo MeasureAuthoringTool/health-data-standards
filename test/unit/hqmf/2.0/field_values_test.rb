@@ -30,7 +30,7 @@ class FieldValuesTest <  Test::Unit::TestCase
   end
 
   def test_radiation_dose
-    assert_field_value("DiagnosticStudyAERadiationDose","RADIATION_DOSE")
+    assert_field_value("DiagnosticStudyAERadiationDose","RADIATION_DOSAGE")
   end
 
   def test_radiation_duration
@@ -42,8 +42,8 @@ class FieldValuesTest <  Test::Unit::TestCase
   end
 
 
-  def test_anatomical_target
-    assert_field_value("DeviceAppliedAnatomicalLocationSite","ANATOMICAL_TARGET_SITE")
+  def test_anatomical_location
+    assert_field_value("DeviceAppliedAnatomicalLocationSite","ANATOMICAL_LOCATION_SITE")
   end
 
   def test_anatomical_approach
@@ -82,7 +82,7 @@ class FieldValuesTest <  Test::Unit::TestCase
   end
 
   def test_realted_to
- 
+
   end
 
   def assert_field_value(criteria, field)

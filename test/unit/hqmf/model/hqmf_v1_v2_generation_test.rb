@@ -52,8 +52,8 @@ class HQMFV1V2GenerationTest < Test::Unit::TestCase
         end
       end
     end
-    
+
     # finally do the actual assertion so we fail if there are errors
     errors.length.must_equal 0
-  end  
+  end
 end

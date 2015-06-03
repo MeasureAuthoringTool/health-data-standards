@@ -101,7 +101,7 @@ class DocumentV2Test < Test::Unit::TestCase
     criteria = @model.data_criteria('principalActiveDiagnosis_AMI')
     assert criteria.status, "performed"
     assert criteria.title, "Problem"
- 
+
     criteria = @model.data_criteria('inpatientEncounterAMI')
     assert criteria.status, "performed"
     assert criteria.title, "Encounter Inpatient SNOMED-CT Value Set"
@@ -141,7 +141,7 @@ class DocumentV2Test < Test::Unit::TestCase
     criteria = @model.data_criteria('noStatinsWithMedicalReason')
     assert_nil criteria.status
     assert criteria.title, "noStatinsWithMedicalReason"
-    
+
 =begin
     for x in @model.all_data_criteria
       puts ">>> #{x.id} -- #{x.title}"
@@ -274,10 +274,10 @@ class DocumentV2Test < Test::Unit::TestCase
     assert criteria.effective_time.high
     assert_equal true, criteria.effective_time.high.derived?
     assert_equal "EndDate.add(new PQ(-2,'a'))", criteria.effective_time.high.expression
-      
+
     all_population_criteria = @model.all_population_criteria
     assert_equal 8, all_population_criteria.length
-  
+
     codes = all_population_criteria.collect {|p| p.id}
     %w(IPP DENOM NUMER DENEXCEP).each do |c|
       assert codes.include?(c)
@@ -300,7 +300,7 @@ class DocumentV2Test < Test::Unit::TestCase
     assert_equal 2, den.preconditions[0].preconditions[0].preconditions.length
     assert_equal false, den.preconditions[0].preconditions[0].preconditions[0].conjunction?
     assert_equal 'HasDiabetes', den.preconditions[0].preconditions[0].preconditions[0].reference.id
-  
+
     num = @model.population_criteria('NUMER')
     assert_equal 1, num.preconditions.length
     assert_equal false, num.preconditions[0].conjunction?
@@ -326,7 +326,7 @@ class DocumentV2Test < Test::Unit::TestCase
     assert_equal nil, @model.populations[1]['DENEX']
 =end
   end
-  
+
   def test_schema_valid
     doc = Nokogiri.XML(@hqmf_xml)
     xsd_file = File.open("test/fixtures/2.1/schemas/EMeasure.xsd")
