@@ -34,6 +34,7 @@ module HQMF
               'LENGTH_OF_STAY' => {title:'Length of Stay', coded_entry_method: :length_of_stay, code: '183797002', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1029.3', field_type: :value},
               'METHOD' => {title:'Method', coded_entry_method: :method, template_id: '', field_type: :value},
               # Negation Rationale isn't encoded
+              'ORDINAL' => {title:'Ordinality', coded_entry_method: :ordinality, code: '117363000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1012.2', field_type: :value}, # previous
               'ORDINALITY' => {title:'Ordinality', coded_entry_method: :ordinality, code: '117363000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1012.2', field_type: :value},
               'PATIENT_PREFERENCE' => {title:'Patient Preference', coded_entry_method: :patient_preference,  code: 'PAT', code_system: '2.16.840.1.113883.5.8', template_id: '2.16.840.1.113883.10.20.24.3.83', field_type: :value},
               'PROVIDER_PREFERENCE' => {title:'Provider Preference', coded_entry_method: :provider_preference, code: '103323008', code_system: '2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.84', field_type: :value},

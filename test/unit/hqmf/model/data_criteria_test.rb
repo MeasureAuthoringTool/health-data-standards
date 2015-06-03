@@ -16,8 +16,8 @@ module HQMFModel
         mismatches << field_title unless field == title
       end
 
-      # ignore custom fulfills field value
-      mismatches -= ["FLFS - FULFILLS"]
+      # ignore custom fulfills and previous ordinal field values
+      mismatches -= ["FLFS - FULFILLS", "ORDINAL - ORDINALITY"]
 
       assert mismatches.empty?, "Mismatches found: #{mismatches}."
 
@@ -46,6 +46,9 @@ module HQMFModel
         entry = "#{value[:code]} -> #{field}"
         mismatches << entry unless values[value[:code]] && values[value[:code]] == field
       end
+
+      # ignore previous ordinal value
+      mismatches -= ["117363000 -> ORDINAL"]
 
       assert mismatches.empty?, "Mismatches found: #{mismatches}."
 
