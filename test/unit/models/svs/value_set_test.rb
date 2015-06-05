@@ -5,7 +5,8 @@ class ValueSetTest < Minitest::Test
     doc = Nokogiri::XML(File.new('test/fixtures/value_sets/value_sets.xml'))
     vs = HealthDataStandards::SVS::ValueSet.load_from_xml(doc)
     assert_equal '1.3.6.1.4.1.33895.1.3.0.45', vs.oid
-    assert vs.concepts.any? {|c| c.code == "103735009"}
+    assert vs.concepts.any? {|c| c.code == "385763009"}
+    assert vs.concepts.any? {|c| c.code_system_version == '2014-09'}
   end
 
   def test_code_set_map
@@ -15,6 +16,6 @@ class ValueSetTest < Minitest::Test
     assert code_set_map
     assert_equal 1, code_set_map.length
     assert_equal code_set_map[0]['set'], 'SNOMED-CT'
-    assert_includes code_set_map[0]['values'], "103735009"
+    assert_includes code_set_map[0]['values'], "385763009"
   end
 end
