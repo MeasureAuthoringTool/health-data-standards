@@ -44,7 +44,7 @@ module HealthDataStandards
             code_system_name = HealthDataStandards::Util::CodeSystemHelper::CODE_SYSTEMS[con["codeSystem"]] || con["codeSystemName"]
             Concept.new(code: con["code"], 
                         code_system_name: code_system_name,
-                        code_system_version: con["code_system_version"],
+                        code_system_version: con["codeSystemVersion"],
                         display_name: con["displayName"], code_system: con["codeSystem"])
           end
           vs.concepts = concepts
