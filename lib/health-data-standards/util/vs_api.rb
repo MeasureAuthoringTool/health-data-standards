@@ -2,6 +2,9 @@ require 'rest_client'
 require 'uri'
 module HealthDataStandards
   module Util
+  		class VSNotFoundError < StandardError
+  		end
+
 		class VSApi			
 			attr_accessor :api_url, :ticket_url, :username, :password
 
@@ -12,18 +15,22 @@ module HealthDataStandards
 				@password = password
 			end
 
-			def get_valueset(oid, effective_date=nil, include_draft=false, &block)
+			def get_valueset(oid, version=nil, include_draft=nil, &block)
 				params = {id: oid, ticket: get_ticket}
-				params[:effectiveDate] = effective_date if effective_date
+				params[:version] = version if version
 				params[:includeDraft] = 'yes' if include_draft
-				vs = RestClient.get api_url, {:params=>params}
+				begin
+					vs = RestClient.get api_url, {:params=>params}
+				rescue RestClient::ResourceNotFound
+					raise VSNotFoundError, "No ValueSet found for oid '#{oid}'"
+				end
 				yield oid,vs if block_given?
 				vs
 			end
 
-			def process_valuesets(oids, effective_date=nil, &block)
+			def process_valuesets(oids, version=nil, &block)
 				oids.each do |oid|
-		     		vs = get_valueset(oid,effective_date)
+		     		vs = get_valueset(oid,version)
 		     		yield oid,vs
 				end
 			end
