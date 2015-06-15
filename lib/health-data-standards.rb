@@ -80,6 +80,7 @@ require_relative 'health-data-standards/models/metadata/link_info'
 require_relative 'health-data-standards/models/metadata/pedigree'
 require_relative 'health-data-standards/models/provider_preference'
 require_relative 'health-data-standards/models/patient_preference'
+require_relative 'health-data-standards/models/care_goal'
 
 require_relative 'health-data-standards/models/qrda/id'
 require_relative 'health-data-standards/models/qrda/device'
