@@ -622,8 +622,10 @@ module HQMF2
         strippedSDC = strip_tokens @source_data_criteria
         strippedId = strip_tokens @id
         strippedLVN = strip_tokens @local_variable_name
+        # remove any occurrence prefix(es) to resolve regex parsing issues
+        strippedSDC = strippedSDC.split(/#{occurrenceIdRegex}/).try(:last)
 
-        # TODO: What should happen is neither @id or @lvn has occurrence label?
+        # TODO: What should happen if neither @id or @lvn has occurrence label?
         # puts "Checking #{"#{occurrenceIdRegex}#{strippedSDC}"} against #{strippedId}"
         # puts "Checking #{"#{occurrenceLVNRegex}#{strippedSDC}"} against #{strippedLVN}"
         if !(strippedId =~ /^#{occurrenceIdRegex}#{strippedSDC}/).nil?
