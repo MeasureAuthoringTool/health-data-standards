@@ -412,10 +412,11 @@ module HQMF2
         unless dc.source_data_criteria.split(/Occurrence[A-Z]_/).length > 1
           cloned_sdc = "Occurrence#{dc.specific_occurrence}_#{dc.source_data_criteria}"
           cloned_s_occr_const = dc.source_data_criteria.upcase
+        else
+          # otherwise use the supplied sdc and non-prefixed s_occr_const
+          cloned_sdc = dc.source_data_criteria
+          cloned_s_occr_const = dc.source_data_criteria.split(/Occurrence[A-Z]_/).last.try(:upcase)
         end
-        # by default we will use the supplied sdc and non-prefixed s_occr_const
-        cloned_sdc ||= dc.source_data_criteria
-        cloned_s_occr_const ||= dc.source_data_criteria.split(/Occurrence[A-Z]_/).try(:last).try(:upcase)
         # puts "Updated #{dc.id} SDC from #{dc.source_data_criteria} to #{cloned_sdc}"
         dc.patch_sdc_clone(nil, cloned_sdc, nil, cloned_s_occr_const)
       end

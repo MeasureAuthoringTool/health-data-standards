@@ -348,7 +348,7 @@ module HQMF2
     def title
       dispValue = attr_val("#{@code_list_xpath}/cda:displayName/@value")
       # filter out occurrence prefix from titles
-      dispValue = dispValue.split(/Occurrence [A-Z]_/).try(:last) if dispValue
+      dispValue = dispValue.split(/Occurrence [A-Z]_/).last if dispValue
       @title || dispValue || @description || id # allow defined titles to take precedence
     end
 
@@ -625,7 +625,7 @@ module HQMF2
         strippedId = strip_tokens @id
         strippedLVN = strip_tokens @local_variable_name
         # remove any occurrence prefix(es) to resolve regex parsing issues
-        strippedSDC = strippedSDC.split(/#{occurrenceIdRegex}/).try(:last)
+        strippedSDC = strippedSDC.split(/#{occurrenceIdRegex}/).last
 
         # TODO: What should happen if neither @id or @lvn has occurrence label?
         # puts "Checking #{"#{occurrenceIdRegex}#{strippedSDC}"} against #{strippedId}"
