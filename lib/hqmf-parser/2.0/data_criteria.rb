@@ -347,6 +347,8 @@ module HQMF2
     # @return [String] the title of this data criteria
     def title
       dispValue = attr_val("#{@code_list_xpath}/cda:displayName/@value")
+      # filter out occurrence prefix from titles
+      dispValue = dispValue.split(/Occurrence [A-Z]_/).try(:last) if dispValue
       @title || dispValue || @description || id # allow defined titles to take precedence
     end
 
