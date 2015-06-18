@@ -13,7 +13,7 @@ module HealthDataStandards
 	@doc = get_document(file)
 	@doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
 	measure_ids = HealthDataStandards::CQM::Measure.all.map(&:hqmf_id)
-	doc_measure_ids = @doc.xpath(measure_selector).map(&:value)
+	doc_measure_ids = @doc.xpath(measure_selector).map(&:value).map(&:upcase)
 	#list of all of the set ids in the QRDA
 	doc_neutral_ids = @doc.xpath(neutral_measure_selector).map(&:value).sort
 	#list of all of the setids in the QRDA that are also in the bundle, includes duplicates if code appears twice in document
@@ -23,11 +23,21 @@ module HealthDataStandards
 	validate_measure_ids(doc_measure_ids, measure_ids, data)
 	validate_set_ids(doc_neutral_ids, doc_bundle_neutral_ids, data)
 	validate_measure_ids_set_ids_usage(doc_bundle_neutral_ids, doc_measure_ids, data)
+	validate_no_repeating_measure_population_ids(data)
 
 	@errors
       end
 
       private
+
+		def validate_no_repeating_measure_population_ids(data={})
+	      doc_population_ids = @doc.xpath(measure_population_selector).map(&:value).map(&:upcase).sort
+	      duplicates = doc_population_ids.group_by{ |e| e }.select { |k, v| v.size > 1 }.map(&:first)
+	      duplicates.each do |duplicate|
+	        measureId = @doc.xpath(find_measure_node_for_population(duplicate)).at_xpath("cda:reference/cda:externalDocument/cda:id[./@root='2.16.840.1.113883.4.738']/@extension")
+	        @errors << build_error("Population #{duplicate} for Measure #{measureId.value} reported more than once", "/", data[:file_name])
+	      end
+	  end
 
       def validate_measure_ids(doc_measure_ids, measure_ids, data={})
 	(doc_measure_ids - measure_ids).map do |hqmf_id|
@@ -89,6 +99,20 @@ module HealthDataStandards
 	"/cda:setId[@root='#{set_id}']][#{index}]/preceding-sibling::*)+1"
       end
 
+	  
+	  def measure_population_selector
+	  "/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/cda:entry" +
+	  "/cda:organizer[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.1']]/cda:component" +
+	  "/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.5']]/cda:reference" + 
+	  "/cda:externalObservation/cda:id/@root"
+	  end
+
+	  def find_measure_node_for_population(id)
+	  "/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/cda:entry" +
+	  "/cda:organizer[ ./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.1']" +
+	  "and ./cda:component/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.5']]/cda:reference" +
+	  "/cda:externalObservation/cda:id[@root='#{id.upcase}']]"
+	  end
     end
   end
 
