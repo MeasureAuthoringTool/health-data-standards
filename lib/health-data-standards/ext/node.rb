@@ -10,7 +10,6 @@ if RUBY_PLATFORM.include?('java')
       NAMESPACES = {'cda' => 'urn:hl7-org:v3',
                 'sdtc' => 'urn:hl7-org:sdtc',
                 'gc32' => 'urn:hl7-org:greencda:c32',
-                'ccr' => 'urn:astm-org:CCR',
                 'vs' => 'urn:ihe:iti:svs:2008',
                 'xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
                 'hrf-md' => 'http://www.hl7.org/schemas/hdata/2009/11/metadata',
