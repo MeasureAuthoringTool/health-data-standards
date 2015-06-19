@@ -8,12 +8,12 @@ module ReportedResultExtractor
       # returns a hash with the values of the populations filled out along with the population_ids added to the result
 
 
-      def extract_results_by_ids(measure_id, ids)
+      def extract_results_by_ids(measure_id, ids, doc)
         results = nil
         _ids = ids.dup
         stratification = _ids.delete("stratification")
         errors = []
-        nodes = find_measure_node(measure_id)
+        nodes = find_measure_node(measure_id, doc)
 
         if nodes.nil? || nodes.empty?
           # short circuit and return nil
@@ -29,11 +29,11 @@ module ReportedResultExtractor
         results
       end
 
-      def find_measure_node(id)
+      def find_measure_node(id, doc)
          xpath_measures = %Q{/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section
           /cda:entry/cda:organizer[ ./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.1"]
           and ./cda:reference/cda:externalDocument/cda:id[#{translate("@extension")}='#{id.upcase}' and #{translate("@root")}='2.16.840.1.113883.4.738']]}
-         return @document.xpath(xpath_measures)
+         return doc.xpath(xpath_measures)
       end
 
       def get_measure_components(n,ids, stratification)

@@ -14,22 +14,25 @@ module HealthDataStandards
 
     # Nothing to see here - Move along
     def validate(file, data = {})
-      @errors = []
-      @document = get_document(file)
+      errorsList = []
+      document = get_document(file)
       #grab measure IDs from QRDA file
-      measure_ids = @document.xpath(measure_selector).map(&:value).map(&:upcase)
+      measure_ids = document.xpath(measure_selector).map(&:value).map(&:upcase)
       measure_ids.each do |measure_id|
         measures = HealthDataStandards::CQM::Measure.where(id: measure_id)
         measures.each do |measure|
           result_key = measure["population_ids"].dup
-          reported_result, errors = extract_results_by_ids(measure['id'], result_key)
+          reported_result, errors = extract_results_by_ids(measure['id'], result_key, document)
           #only check performace rate when there is one
           if reported_result['PR'] != nil
-            check_performance_rates(reported_result, result_key, measure['id'], data)
+            error = check_performance_rates(reported_result, result_key, measure['id'], data)
+            if error != nil
+              errorsList << error
+            end
           end
         end
       end
-      @errors
+      errorsList
     end
 
     def calculate_performance_rates(reported_result)
@@ -65,14 +68,14 @@ module HealthDataStandards
       _ids = population_ids
       if expected == "NA"
         if reported_result['PR']['nullFlavor'] != "NA"
-          @errors << build_error("Reported Performance Rate for Numerator #{_ids['NUMER']} should be NA", "/", data[:file_name])
+          return build_error("Reported Performance Rate for Numerator #{_ids['NUMER']} should be NA", "/", data[:file_name])
         end
       else
         if reported_result['PR']['nullFlavor'] == "NA"
-          @errors << build_error("Reported Performance Rate for Numerator #{_ids['NUMER']} should not be NA", "/", data[:file_name])
+          return build_error("Reported Performance Rate for Numerator #{_ids['NUMER']} should not be NA", "/", data[:file_name])
         else 
           if (reported_result['PR']['value'].to_f - expected.to_f).abs > 0.000001
-            @errors << build_error("Reported Performance Rate of #{reported_result['PR']['value']} for Numerator #{_ids['NUMER']} does not match expected value of #{expected}.", "/", data[:file_name])
+            return build_error("Reported Performance Rate of #{reported_result['PR']['value']} for Numerator #{_ids['NUMER']} does not match expected value of #{expected}.", "/", data[:file_name])
           end
         end
       end
