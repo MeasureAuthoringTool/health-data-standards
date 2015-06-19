@@ -23,27 +23,39 @@ module HealthDataStandards
         measures.each do |measure|
           result_key = measure["population_ids"].dup
           reported_result, errors = extract_results_by_ids(measure['id'], result_key)
-          check_performance_rates(reported_result, result_key, measure['id'], data)
+          #only check performace rate when there is one
+          if reported_result['PR'] != nil
+            check_performance_rates(reported_result, result_key, measure['id'], data)
+          end
         end
       end
       @errors
     end
 
     def calculate_performance_rates(reported_result)
+      #Just in case a measure does not report these populations
       denex = 0
       denexcep = 0
+      denom = 0
+      numer = 0
       if reported_result['DENEX'] != nil
         denex = reported_result['DENEX']
       end
       if reported_result['DENEXCEP'] != nil
         denexcep = reported_result['DENEXCEP']
       end
-      denom = reported_result['DENOM'] -  denex - denexcep
+      if reported_result['DENOM'] != nil
+        denom = reported_result['DENOM']
+      end
+      if reported_result['NUMER'] != nil
+        numer = reported_result['NUMER']
+      end
+      denom = denom -  denex - denexcep
       pr = 0
       if denom == 0
         pr = "NA"
       else
-        pr = reported_result['NUMER'] / denom.to_f
+        pr = numer / denom.to_f
       end
       return pr
     end
@@ -53,19 +65,13 @@ module HealthDataStandards
       _ids = population_ids
       if expected == "NA"
         if reported_result['PR']['nullFlavor'] != "NA"
-          #err = "Reported Performance Rate for Numerator #{_ids['NUMER']} should be NA"
-          #logger.call(err, _ids['NUMER'])
           @errors << build_error("Reported Performance Rate for Numerator #{_ids['NUMER']} should be NA", "/", data[:file_name])
         end
       else
         if reported_result['PR']['nullFlavor'] == "NA"
-          #err = "Reported Performance Rate for Numerator #{_ids['NUMER']} should not be NA"
-          #logger.call(err, _ids['NUMER'])
           @errors << build_error("Reported Performance Rate for Numerator #{_ids['NUMER']} should not be NA", "/", data[:file_name])
         else 
-          if reported_result['PR']['value'].to_f - expected.to_f > 0.000001
-            #err = "Reported Performance Rate of #{reported_result['PR']['value']} for Numerator #{_ids['NUMER']} does not match expected value of #{expected}."
-            #logger.call(err, _ids['NUMER'])
+          if (reported_result['PR']['value'].to_f - expected.to_f).abs > 0.000001
             @errors << build_error("Reported Performance Rate of #{reported_result['PR']['value']} for Numerator #{_ids['NUMER']} does not match expected value of #{expected}.", "/", data[:file_name])
           end
         end

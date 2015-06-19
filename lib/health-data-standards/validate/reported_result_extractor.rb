@@ -27,7 +27,6 @@ module ReportedResultExtractor
         return nil if results.nil?
         results[:population_ids] = ids.dup
         results
-
       end
 
       def find_measure_node(id)
@@ -88,7 +87,8 @@ module ReportedResultExtractor
         else
           val = get_aggregate_count(cv)
         end
-        if code == "NUMER"
+        #Performance rate is only applicable for unstratified values
+        if code == "NUMER" && strata == nil
           pref_rate_value = extract_performance_rate(node,code,id)
         end
         return val,(strata.nil? ?  extract_supplemental_data(cv) : nil),pref_rate_value
@@ -101,11 +101,13 @@ module ReportedResultExtractor
         if perf_rate != nil
           if perf_rate.at_xpath("./@nullFlavor")
             pref_rate_value["nullFlavor"] = "NA"
+            return pref_rate_value
           else
             pref_rate_value["value"] = perf_rate.at_xpath("./@value").value
+            return pref_rate_value
           end
         end
-        return pref_rate_value
+        return nil
       end
           # convert numbers in value nodes to Int / Float as necessary TODO add more types other than 'REAL'
       def convert_value(value_node)
