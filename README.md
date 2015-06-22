@@ -1,11 +1,11 @@
-This is a project to generate and consume HITSP C32, ASTM CCR, QRDA Category I, QRDA Category III and PQRI.
+This is a project to generate and consume HITSP C32, QRDA Category I, and QRDA Category III.
 
 In addition this project also contains libraries for parsing HQMF documents and for dealing with NLM valuesets.
 
 Environment
 ===========
 
-This project currently uses Ruby 1.9.3, Ruby 2.0.0, Ruby 2.1.1 and JRuby 1.7.11 and is built using [Bundler](http://gembundler.com/). To get all of the dependencies for the project, first install bundler:
+This project currently uses Ruby 2.0.0, Ruby 2.1.1, Ruby 2.2.1, and JRuby 1.7.11 and is built using [Bundler](http://gembundler.com/). To get all of the dependencies for the project, first install bundler:
 
     gem install bundler
 
