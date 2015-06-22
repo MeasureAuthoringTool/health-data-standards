@@ -4,6 +4,7 @@ require_relative 'schema_validator'
 require_relative 'schematron_validator'
 require_relative 'measure_validator'
 require_relative 'data_validator'
+require_relative 'performance_rate_validator'
 
 module HealthDataStandards
   module Validate
@@ -55,6 +56,15 @@ module HealthDataStandards
       def initialize
         super("QRDA Cat 3 Validator", File.join(BASE_DIR, QRDA_CAT3_SCHEMATRON))
       end
+    end
+
+    class Cat3PerformanceRate < PerformanceRateValidator
+      include Singleton
+
+      #def initialize
+      #  super("Performance Rate Validator", File.join(BASE_DIR, CDA_SDTC_SCHEMA))
+      #end
+
     end
   end
 end
