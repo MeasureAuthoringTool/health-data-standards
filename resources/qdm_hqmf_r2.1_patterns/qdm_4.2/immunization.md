@@ -80,7 +80,7 @@ substanceAdministrationCriteria (identifier: urn:hl7ii:TBD:TBD)
 Immunization, Administered Example
 ----------------------------------
 
-```
+```xml
 <substanceAdministrationCriteria classCode="SBADM" moodCode="EVN">
     <templateId>
         <item root="TBD" extension="TBD"/>
@@ -130,8 +130,8 @@ Immunization, Order Contexts
 |:---------------------------------|:---------|
 | Data Criteria Section (optional) | Reason   |
 
-Immunization, Administered Constraints Overview
------------------------------------------------
+Immunization, Order Constraints Overview
+----------------------------------------
 
 substanceAdministrationCriteria (identifier: urn:hl7ii:TBD:TBD)
 
@@ -177,10 +177,10 @@ substanceAdministrationCriteria (identifier: urn:hl7ii:TBD:TBD)
 | &nbsp; @typeCode                         | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = RSON                  |                                                 |
 | &nbsp; observationCriteria               | 1..1  | SHALL  |           | Reason (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28 3.88:2014-11-24) | reason                                          |
 
-Immunization, Administered Example
-----------------------------------
+Immunization, Order Example
+---------------------------
 
-```
+```xml
 <substanceAdministrationCriteria classCode="SBADM" moodCode="RQO">
     <templateId>
         <item root="TBD" extension="TBD"/>
@@ -213,15 +213,15 @@ The `Immunization, Allergy` data type contains the following attributes:
 
 Note that this template is a simple subset of the `Medication, Allergy` template. There are no distinguishing characteristics of an `Immunization, Allergy` entry except for the `templateId` and that the `participation/role/playingManufacturedMaterial/code/@valueset` expansion will contain CVX codes.
 
-Immunization, Administered Contexts
------------------------------------
+Immunization, Allergy Contexts
+------------------------------
 
 | Contained By                     | Contains |
 |:---------------------------------|:---------|
 | Data Criteria Section (optional) | Reaction |
 
-Immunization, Administered Constraints Overview
------------------------------------------------
+Immunization, Allergy Constraints Overview
+------------------------------------------
 
 observationCriteria (identifier: urn:hl7ii:TBD:TBD)
 
@@ -263,7 +263,7 @@ observationCriteria (identifier: urn:hl7ii:TBD:TBD)
 Immunization, Allergy Example
 -----------------------------
 
-```
+```xml
 <observationCriteria classCode="OBS" moodCode="EVN">
     <templateId>
         <item root="TBD" extension="TBD"/>
@@ -349,7 +349,7 @@ observationCriteria (identifier: urn:hl7ii:TBD:TBD)
 Immunization, Intolerance Example
 ---------------------------------
 
-```
+```xml
 <observationCriteria classCode="OBS" moodCode="EVN">
     <templateId>
         <item root="TBD" extension="TBD"/>

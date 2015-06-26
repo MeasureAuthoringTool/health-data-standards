@@ -58,7 +58,7 @@ Laboratory Test, Performed w/ Reference Range Example
 
 The following checks that a `reference range high` exists. If you need to apply a comparison against a `reference range high` value (e.g., `reference range high < 10%`), then you would use an `uncertainRange` as a child of the `high` element.
 
-```
+```xml
 <observationCriteria classCode="OBS" moodCode="EVN">
     <templateId>
         <item root="2.16.840.1.113883.10.20.28.3.42" extension="TBD"/>

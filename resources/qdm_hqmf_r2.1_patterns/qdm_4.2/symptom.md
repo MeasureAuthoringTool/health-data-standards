@@ -57,7 +57,7 @@ observationCriteria (identifier: urn:hl7ii:TBD:TBD)
 Symptom Example
 ---------------
 
-```
+```xml
 <observationCriteria classCode="OBS" moodCode="EVN">
     <templateId>
         <item root="TBD" extension="TBD"/>

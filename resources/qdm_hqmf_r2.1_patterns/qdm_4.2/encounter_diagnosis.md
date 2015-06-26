@@ -65,7 +65,7 @@ actCriteria (identifier: urn:hl7ii:TBD:TBD)
 Encounter, Performed w/ Principal Diagnosis Example
 ---------------------------------------------------
 
-```
+```xml
 <encounterCriteria classCode="ENC" moodCode="EVN">
     <templateId>
         <item root="2.16.840.1.113883.10.20.28.3.5" extension="TBD"/>
