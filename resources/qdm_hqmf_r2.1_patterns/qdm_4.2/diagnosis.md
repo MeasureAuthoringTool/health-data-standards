@@ -28,41 +28,43 @@ The new `Diagnosis` data type is most similar to the old `Diagnosis, Active` dat
 Diagnosis Contexts
 ------------------
 
-| Contained By                     | Contains             |
-|:---------------------------------|:---------------------|
-| Data Criteria Section (optional) | Severity Observation |
+Note that the "Contained By" also includes the new templates introduced by support for encounter diagnoses.
+
+| Contained By                                                                                 | Contains             |
+|:---------------------------------------------------------------------------------------------|:---------------------|
+| Data Criteria Section (optional) <br> Encounter Principal Diagnosis <br> Encounter Diagnosis | Severity Observation |
 
 Diagnosis Constraints Overview
 ------------------------------
 
 observationCriteria (identifier: urn:hl7ii:TBD:TBD)
 
-| XPath                      | Card. | Verb   | Data Type | Value                                                                                  | QDM Attribute                       |
-|:---------------------------|:------|:-------|:----------|:---------------------------------------------------------------------------------------|:------------------------------------|
-| @classCode                 | 1..1  | SHALL  |           | OBS                                                                                    |                                     |
-| @moodCode                  | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                                               |                                     |
-| templateId                 | 1..1  | SHALL  |           |                                                                                        |                                     |
-| &nbsp; item                | 1..1  | SHALL  |           |                                                                                        |                                     |
-| &nbsp;&nbsp; @root         | 1..1  | SHALL  |           | TBD                                                                                    |                                     |
-| &nbsp;&nbsp; @extension    | 1..1  | SHALL  |           | TBD                                                                                    |                                     |
-| id                         | 1..1  | SHALL  |           |                                                                                        |                                     |
-| code                       | 1..1  | SHALL  |           |                                                                                        |                                     |
-| &nbsp; @code               | 1..1  | SHALL  |           | 282291009                                                                              |                                     |
-| &nbsp; @codeSystem         | 1..1  | SHALL  |           | 2.16.840.1.113883.6.96 (SNOMED CT)                                                     |                                     |
-| title                      | 1..1  | SHALL  |           |                                                                                        |                                     |
-| statusCode                 | 1..1  | SHALL  |           |                                                                                        |                                     |
-| &nbsp; @code               | 1..1  | SHALL  |           | 2.16.840.1.113883.5.14 (ActStatus) = completed                                         |                                     |
-| effectiveTime              | 0..1  | MAY    | IVL_TS    |                                                                                        |                                     |
-| &nbsp; low                 | 0..1  | MAY    |           |                                                                                        | onset datetime *(default start)*    |
-| &nbsp; high                | 0..1  | MAY    |           |                                                                                        | abatement datetime *(default stop)* |
-| value                      | 1..1  | SHALL  | CD        |                                                                                        |                                     |
-| &nbsp; @valueSet           | 0..1  | SHOULD |           |                                                                                        | {$QDMElementValueSetOID}            |
-| targetSiteCode             | 0..1  | MAY    |           |                                                                                        |                                     |
-| &nbsp; item                | 0..1  | SHOULD |           |                                                                                        |                                     |
-| &nbsp;&nbsp; @valueSet     | 0..1  | SHOULD |           |                                                                                        | anatomical location site            |
-| outboundRelationship       | 0..1  | MAY    |           |                                                                                        |                                     |
-| &nbsp; @typeCode           | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = REFR                               |                                     |
-| &nbsp; observationCriteria | 1..1  | SHALL  |           | Severity Observation (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.93:2014-11-24 | severity                            |
+| XPath                      | Card. | Verb   | Data Type | Value                                                                                   | QDM Attribute                       |
+|:---------------------------|:------|:-------|:----------|:----------------------------------------------------------------------------------------|:------------------------------------|
+| @classCode                 | 1..1  | SHALL  |           | OBS                                                                                     |                                     |
+| @moodCode                  | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                                                |                                     |
+| templateId                 | 1..1  | SHALL  |           |                                                                                         |                                     |
+| &nbsp; item                | 1..1  | SHALL  |           |                                                                                         |                                     |
+| &nbsp;&nbsp; @root         | 1..1  | SHALL  |           | TBD                                                                                     |                                     |
+| &nbsp;&nbsp; @extension    | 1..1  | SHALL  |           | TBD                                                                                     |                                     |
+| id                         | 1..1  | SHALL  |           |                                                                                         |                                     |
+| code                       | 1..1  | SHALL  |           |                                                                                         |                                     |
+| &nbsp; @code               | 1..1  | SHALL  |           | 282291009                                                                               |                                     |
+| &nbsp; @codeSystem         | 1..1  | SHALL  |           | 2.16.840.1.113883.6.96 (SNOMED CT)                                                      |                                     |
+| title                      | 1..1  | SHALL  |           |                                                                                         |                                     |
+| statusCode                 | 1..1  | SHALL  |           |                                                                                         |                                     |
+| &nbsp; @code               | 1..1  | SHALL  |           | 2.16.840.1.113883.5.14 (ActStatus) = completed                                          |                                     |
+| effectiveTime              | 0..1  | MAY    | IVL_TS    |                                                                                         |                                     |
+| &nbsp; low                 | 0..1  | MAY    |           |                                                                                         | onset datetime *(default start)*    |
+| &nbsp; high                | 0..1  | MAY    |           |                                                                                         | abatement datetime *(default stop)* |
+| value                      | 1..1  | SHALL  | CD        |                                                                                         |                                     |
+| &nbsp; @valueSet           | 0..1  | SHOULD |           |                                                                                         | {$QDMElementValueSetOID}            |
+| targetSiteCode             | 0..1  | MAY    |           |                                                                                         |                                     |
+| &nbsp; item                | 0..1  | SHOULD |           |                                                                                         |                                     |
+| &nbsp;&nbsp; @valueSet     | 0..1  | SHOULD |           |                                                                                         | anatomical location site            |
+| outboundRelationship       | 0..1  | MAY    |           |                                                                                         |                                     |
+| &nbsp; @typeCode           | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = REFR                                |                                     |
+| &nbsp; observationCriteria | 1..1  | SHALL  |           | Severity Observation (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.93:2014-11-24) | severity                            |
 
 Diagnosis Example
 -----------------
@@ -87,8 +89,17 @@ Deprecated Templates
 
 This change deprecates the following templates:
 
-| Template Name       | Template ID                                          |
-|:--------------------|:-----------------------------------------------------|
-| Diagnosis, Active   | urn:hl7ii:2.16.840.1.113883.10.20.28.3.1:2014-11-24  |
-| Diagnosis, Inactive | urn:hl7ii:2.16.840.1.113883.10.20.28.3.18:2014-11-24 |
-| Diagnosis, Resolved | urn:hl7ii:2.16.840.1.113883.10.20.28.3.19:2014-11-24 |
+| Template Name       | Template ID                                |
+|:--------------------|:-------------------------------------------|
+| Diagnosis, Active   | 2.16.840.1.113883.10.20.28.3.1:2014-11-24  |
+| Diagnosis, Inactive | 2.16.840.1.113883.10.20.28.3.18:2014-11-24 |
+| Diagnosis, Resolved | 2.16.840.1.113883.10.20.28.3.19:2014-11-24 |
+| Laterality          | 2.16.840.1.113883.10.20.28.3.98:2014-11-24 |
+
+Along with the `Symptom` changes, these changes also deprecate the following templates:
+
+| Template Name    | Template ID                                |
+|:-----------------|:-------------------------------------------|
+| Status, Active   | 2.16.840.1.113883.10.20.28.3.95:2014-11-24 |
+| Status, Inactive | 2.16.840.1.113883.10.20.28.3.96:2014-11-24 |
+| Status, Resolved | 2.16.840.1.113883.10.20.28.3.97:2014-11-24 |

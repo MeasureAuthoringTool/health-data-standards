@@ -20,11 +20,11 @@ Additional Laboratory Test, Performed Constraints
 
 observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.42:TBD)
 
-| XPath                      | Card. | Verb  | Data Type | Value                                                                             | QDM Attribute                             |
-|:---------------------------|:------|:------|:----------|:----------------------------------------------------------------------------------|:------------------------------------------|
-| outboundRelationship       | 0..1  | MAY   |           |                                                                                   |                                           |
-| &nbsp; @typeCode           | 1..1  | SHALL |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = REFV                          |                                           |
-| &nbsp; observationCriteria | 1..1  | SHALL |           | Reference Range (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.93:2014-11-24 | reference range low, reference range high |
+| XPath                      | Card. | Verb  | Data Type | Value                                                    | QDM Attribute                             |
+|:---------------------------|:------|:------|:----------|:---------------------------------------------------------|:------------------------------------------|
+| outboundRelationship       | 0..1  | MAY   |           |                                                          |                                           |
+| &nbsp; @typeCode           | 1..1  | SHALL |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = REFV |                                           |
+| &nbsp; observationCriteria | 1..1  | SHALL |           | Reference Range (identifier: urn:hl7ii:TBD:TBD)          | reference range low, reference range high |
 
 Reference Range Contexts
 ------------------------
@@ -73,6 +73,7 @@ The following checks that a `reference range high` exists. If you need to apply 
                 <item root="TBD" extension="TBD"/>
             </templateId>
             <id root="9f751ae5-edb2-4fb3-b49c-d0f0fdef3999"/>
+            <title value="Reference Range"/>
             <value xsi:type="IVL_PQ">
               <high xsi:type="ANY" flavorId="ANY.NONNULL" />
             </value>

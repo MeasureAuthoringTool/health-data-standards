@@ -67,7 +67,7 @@ observationCriteria (identifier: urn:hl7ii:TBD:TBD)
 | &nbsp;&nbsp;&nbsp; @valueSet | 1..1  | SHALL  |           |                                                               | relationship                       |
 | outboundRelationship         | 0..1  | MAY    |           |                                                               |                                    |
 | &nbsp; @typeCode             | 1..1  | SHALL  |           | urn:oid:2.16.840.1.113883.5.1002 (ActRelationshipType) = SUBJ |                                    |
-| &nbsp; observationCriteria   | 1..1  | SHALL  |           | Age Observation (identifier: urn:hl7ii:TBD:TBD                | onset age                          |
+| &nbsp; observationCriteria   | 1..1  | SHALL  |           | Age Observation (identifier: urn:hl7ii:TBD:TBD)               | onset age                          |
 
 Family History Example
 ----------------------
@@ -144,6 +144,6 @@ Deprecated Templates
 
 This change deprecates the following templates:
 
-| Template Name             | Template ID                                          |
-|:--------------------------|:-----------------------------------------------------|
-| Diagnosis, Family History | urn:hl7ii:2.16.840.1.113883.10.20.28.3.17:2014-11-24 |
+| Template Name             | Template ID                                |
+|:--------------------------|:-------------------------------------------|
+| Diagnosis, Family History | 2.16.840.1.113883.10.20.28.3.17:2014-11-24 |

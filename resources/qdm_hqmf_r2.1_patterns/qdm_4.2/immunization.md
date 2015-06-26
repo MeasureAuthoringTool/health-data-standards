@@ -42,40 +42,40 @@ Immunization, Administered Constraints Overview
 
 substanceAdministrationCriteria (identifier: urn:hl7ii:TBD:TBD)
 
-| XPath                                    | Card. | Verb   | Data Type | Value                                                                    | QDM Attribute            |
-|:-----------------------------------------|:------|:-------|:----------|:-------------------------------------------------------------------------|:-------------------------|
-| @classCode                               | 1..1  | SHALL  |           | SBADM                                                                    |                          |
-| @moodCode                                | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                                 |                          |
-| @actionNegationInd                       | 0..1  | MAY    |           |                                                                          | negation rationale       |
-| templateId                               | 1..1  | SHALL  |           |                                                                          |                          |
-| &nbsp; item                              | 1..1  | SHALL  |           |                                                                          |                          |
-| &nbsp;&nbsp; @root                       | 1..1  | SHALL  |           | TBD                                                                      |                          |
-| &nbsp;&nbsp; @extension                  | 1..1  | SHALL  |           | TBD                                                                      |                          |
-| id                                       | 1..1  | SHALL  |           |                                                                          |                          |
-| code                                     | 1..1  | SHALL  |           |                                                                          |                          |
-| &nbsp; @code                             | 1..1  | SHALL  |           | 416118004                                                                |                          |
-| &nbsp; @codeSystem                       | 1..1  | SHALL  |           | 2.16.840.1.113883.6.96 (SNOMED CT)                                       |                          |
-| title                                    | 1..1  | SHALL  |           |                                                                          |                          |
-| statusCode                               | 1..1  | SHALL  |           |                                                                          |                          |
-| &nbsp; @code                             | 1..1  | SHALL  |           | 2.16.840.1.113883.5.14 (ActStatus) = completed                           |                          |
-| effectiveTime                            | 0..1  | MAY    | IVL_TS    |                                                                          |                          |
-| &nbsp; low                               | 0..1  | MAY    |           |                                                                          | start datetime           |
-| &nbsp; high                              | 0..1  | MAY    |           |                                                                          | stop datetime            |
-| routeCode                                | 0..1  | MAY    |           |                                                                          |                          |
-| &nbsp; @valueSet                         | 0..1  | SHOULD |           |                                                                          | route                    |
-| doseQuantity                             | 0..1  | MAY    |           |                                                                          | dose                     |
-| participation                            | 1..1  | SHALL  |           |                                                                          |                          |
-| &nbsp; @typeCode                         | 1..1  | SHALL  |           | 2.16.840.1.113883.5.90 (HL7ParticipationType) = CSM                      |                          |
-| &nbsp; role                              | 1..1  | SHALL  |           |                                                                          |                          |
-| &nbsp;&nbsp; @classCode                  | 1..1  | SHALL  |           | 2.16.840.1.113883.5.110 (RoleClass) = MANU                               |                          |
-| &nbsp;&nbsp; playingManufacturedMaterial | 1..1  | SHALL  |           |                                                                          |                          |
-| &nbsp;&nbsp;&nbsp; @classCode            | 1..1  | SHALL  |           | 2.16.840.1.113883.5.41 (EntityClass) = MMAT                              |                          |
-| &nbsp;&nbsp;&nbsp; @determinerCode       | 1..1  | SHALL  |           | 2.16.840.1.113883.5.30 (HL7EntityDeterminer) = KIND                      |                          |
-| &nbsp;&nbsp;&nbsp; code                  | 1..1  | SHALL  |           |                                                                          |                          |
-| &nbsp;&nbsp;&nbsp;&nbsp; @valueSet       | 0..1  | SHOULD |           |                                                                          | {$QDMElementValueSetOID} |
-| outboundRelationship                     | 0..1  | MAY    |           |                                                                          |                          |
-| &nbsp; @typeCode                         | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = RSON                 |                          |
-| &nbsp; observationCriteria               | 1..1  | SHALL  |           | Reason (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.88:2014-11-24 | reason                   |
+| XPath                                    | Card. | Verb   | Data Type | Value                                                                     | QDM Attribute            |
+|:-----------------------------------------|:------|:-------|:----------|:--------------------------------------------------------------------------|:-------------------------|
+| @classCode                               | 1..1  | SHALL  |           | SBADM                                                                     |                          |
+| @moodCode                                | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                                  |                          |
+| @actionNegationInd                       | 0..1  | MAY    |           |                                                                           | negation rationale       |
+| templateId                               | 1..1  | SHALL  |           |                                                                           |                          |
+| &nbsp; item                              | 1..1  | SHALL  |           |                                                                           |                          |
+| &nbsp;&nbsp; @root                       | 1..1  | SHALL  |           | TBD                                                                       |                          |
+| &nbsp;&nbsp; @extension                  | 1..1  | SHALL  |           | TBD                                                                       |                          |
+| id                                       | 1..1  | SHALL  |           |                                                                           |                          |
+| code                                     | 1..1  | SHALL  |           |                                                                           |                          |
+| &nbsp; @code                             | 1..1  | SHALL  |           | 416118004                                                                 |                          |
+| &nbsp; @codeSystem                       | 1..1  | SHALL  |           | 2.16.840.1.113883.6.96 (SNOMED CT)                                        |                          |
+| title                                    | 1..1  | SHALL  |           |                                                                           |                          |
+| statusCode                               | 1..1  | SHALL  |           |                                                                           |                          |
+| &nbsp; @code                             | 1..1  | SHALL  |           | 2.16.840.1.113883.5.14 (ActStatus) = completed                            |                          |
+| effectiveTime                            | 0..1  | MAY    | IVL_TS    |                                                                           |                          |
+| &nbsp; low                               | 0..1  | MAY    |           |                                                                           | start datetime           |
+| &nbsp; high                              | 0..1  | MAY    |           |                                                                           | stop datetime            |
+| routeCode                                | 0..1  | MAY    |           |                                                                           |                          |
+| &nbsp; @valueSet                         | 0..1  | SHOULD |           |                                                                           | route                    |
+| doseQuantity                             | 0..1  | MAY    |           |                                                                           | dose                     |
+| participation                            | 1..1  | SHALL  |           |                                                                           |                          |
+| &nbsp; @typeCode                         | 1..1  | SHALL  |           | 2.16.840.1.113883.5.90 (HL7ParticipationType) = CSM                       |                          |
+| &nbsp; role                              | 1..1  | SHALL  |           |                                                                           |                          |
+| &nbsp;&nbsp; @classCode                  | 1..1  | SHALL  |           | 2.16.840.1.113883.5.110 (RoleClass) = MANU                                |                          |
+| &nbsp;&nbsp; playingManufacturedMaterial | 1..1  | SHALL  |           |                                                                           |                          |
+| &nbsp;&nbsp;&nbsp; @classCode            | 1..1  | SHALL  |           | 2.16.840.1.113883.5.41 (EntityClass) = MMAT                               |                          |
+| &nbsp;&nbsp;&nbsp; @determinerCode       | 1..1  | SHALL  |           | 2.16.840.1.113883.5.30 (HL7EntityDeterminer) = KIND                       |                          |
+| &nbsp;&nbsp;&nbsp; code                  | 1..1  | SHALL  |           |                                                                           |                          |
+| &nbsp;&nbsp;&nbsp;&nbsp; @valueSet       | 0..1  | SHOULD |           |                                                                           | {$QDMElementValueSetOID} |
+| outboundRelationship                     | 0..1  | MAY    |           |                                                                           |                          |
+| &nbsp; @typeCode                         | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = RSON                  |                          |
+| &nbsp; observationCriteria               | 1..1  | SHALL  |           | Reason (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.88:2014-11-24) | reason                   |
 
 Immunization, Administered Example
 ----------------------------------
@@ -135,47 +135,47 @@ Immunization, Administered Constraints Overview
 
 substanceAdministrationCriteria (identifier: urn:hl7ii:TBD:TBD)
 
-| XPath                                    | Card. | Verb   | Data Type | Value                                                                    | QDM Attribute                                   |
-|:-----------------------------------------|:------|:-------|:----------|:-------------------------------------------------------------------------|:------------------------------------------------|
-| @classCode                               | 1..1  | SHALL  |           | SBADM                                                                    |                                                 |
-| @moodCode                                | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = RQO                                 |                                                 |
-| @actionNegationInd                       | 0..1  | MAY    |           |                                                                          | negation rationale                              |
-| templateId                               | 1..1  | SHALL  |           |                                                                          |                                                 |
-| &nbsp; item                              | 1..1  | SHALL  |           |                                                                          |                                                 |
-| &nbsp;&nbsp; @root                       | 1..1  | SHALL  |           | TBD                                                                      |                                                 |
-| &nbsp;&nbsp; @extension                  | 1..1  | SHALL  |           | TBD                                                                      |                                                 |
-| id                                       | 1..1  | SHALL  |           |                                                                          |                                                 |
-| code                                     | 1..1  | SHALL  |           |                                                                          |                                                 |
-| &nbsp; @code                             | 1..1  | SHALL  |           | 416118004                                                                |                                                 |
-| &nbsp; @codeSystem                       | 1..1  | SHALL  |           | 2.16.840.1.113883.6.96 (SNOMED CT)                                       |                                                 |
-| title                                    | 1..1  | SHALL  |           |                                                                          |                                                 |
-| statusCode                               | 1..1  | SHALL  |           |                                                                          |                                                 |
-| &nbsp; @code                             | 1..1  | SHALL  |           | 2.16.840.1.113883.5.14 (ActStatus) = active                              |                                                 |
-| effectiveTime                            | 0..1  | MAY    | IVL_TS    |                                                                          |                                                 |
-| &nbsp; low                               | 0..1  | MAY    |           |                                                                          | active datetime                                 |
-| routeCode                                | 0..1  | MAY    |           |                                                                          |                                                 |
-| &nbsp; @valueSet                         | 0..1  | SHOULD |           |                                                                          | route                                           |
-| doseQuantity                             | 0..1  | MAY    |           |                                                                          | dose                                            |
-| participation                            | 1..1  | SHALL  |           |                                                                          |                                                 |
-| &nbsp; @typeCode                         | 1..1  | SHALL  |           | 2.16.840.1.113883.5.90 (HL7ParticipationType) = CSM                      |                                                 |
-| &nbsp; role                              | 1..1  | SHALL  |           |                                                                          |                                                 |
-| &nbsp;&nbsp; @classCode                  | 1..1  | SHALL  |           | 2.16.840.1.113883.5.110 (RoleClass) = MANU                               |                                                 |
-| &nbsp;&nbsp; playingManufacturedMaterial | 1..1  | SHALL  |           |                                                                          |                                                 |
-| &nbsp;&nbsp;&nbsp; @classCode            | 1..1  | SHALL  |           | 2.16.840.1.113883.5.41 (EntityClass) = MMAT                              |                                                 |
-| &nbsp;&nbsp;&nbsp; @determinerCode       | 1..1  | SHALL  |           | 2.16.840.1.113883.5.30 (HL7EntityDeterminer) = KIND                      |                                                 |
-| &nbsp;&nbsp;&nbsp; code                  | 1..1  | SHALL  |           |                                                                          |                                                 |
-| &nbsp;&nbsp;&nbsp;&nbsp; @valueSet       | 0..1  | SHOULD |           |                                                                          | {$QDMElementValueSetOID}                        |
-| participation                            | 0..1  | MAY    |           |                                                                          |                                                 |
-| &nbsp; @typeCode                         | 1..1  | SHALL  |           | 2.16.840.1.113883.5.90 (HL7ParticipationType) = AUT                      |                                                 |
-| &nbsp; time                              | 0..1  | SHOULD |           |                                                                          |                                                 |
-| &nbsp;&nbsp; low                         | 0..1  | MAY    |           |                                                                          | start datetime *(default start)*                |
-| &nbsp;&nbsp; high                        | 0..1  | MAY    |           |                                                                          | signed datetime, stop datetime *(default stop)* |
-| &nbsp; role                              | 1..1  | SHALL  |           |                                                                          |                                                 |
-| &nbsp;&nbsp; @classCode                  | 1..1  | SHALL  |           | ROL                                                                      |                                                 |
-| &nbsp;&nbsp; id                          | 1..1  | SHALL  |           |                                                                          |                                                 |
-| outboundRelationship                     | 0..1  | MAY    |           |                                                                          |                                                 |
-| &nbsp; @typeCode                         | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = RSON                 |                                                 |
-| &nbsp; observationCriteria               | 1..1  | SHALL  |           | Reason (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28 3.88:2014-11-24 | reason                                          |
+| XPath                                    | Card. | Verb   | Data Type | Value                                                                     | QDM Attribute                                   |
+|:-----------------------------------------|:------|:-------|:----------|:--------------------------------------------------------------------------|:------------------------------------------------|
+| @classCode                               | 1..1  | SHALL  |           | SBADM                                                                     |                                                 |
+| @moodCode                                | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = RQO                                  |                                                 |
+| @actionNegationInd                       | 0..1  | MAY    |           |                                                                           | negation rationale                              |
+| templateId                               | 1..1  | SHALL  |           |                                                                           |                                                 |
+| &nbsp; item                              | 1..1  | SHALL  |           |                                                                           |                                                 |
+| &nbsp;&nbsp; @root                       | 1..1  | SHALL  |           | TBD                                                                       |                                                 |
+| &nbsp;&nbsp; @extension                  | 1..1  | SHALL  |           | TBD                                                                       |                                                 |
+| id                                       | 1..1  | SHALL  |           |                                                                           |                                                 |
+| code                                     | 1..1  | SHALL  |           |                                                                           |                                                 |
+| &nbsp; @code                             | 1..1  | SHALL  |           | 416118004                                                                 |                                                 |
+| &nbsp; @codeSystem                       | 1..1  | SHALL  |           | 2.16.840.1.113883.6.96 (SNOMED CT)                                        |                                                 |
+| title                                    | 1..1  | SHALL  |           |                                                                           |                                                 |
+| statusCode                               | 1..1  | SHALL  |           |                                                                           |                                                 |
+| &nbsp; @code                             | 1..1  | SHALL  |           | 2.16.840.1.113883.5.14 (ActStatus) = active                               |                                                 |
+| effectiveTime                            | 0..1  | MAY    | IVL_TS    |                                                                           |                                                 |
+| &nbsp; low                               | 0..1  | MAY    |           |                                                                           | active datetime                                 |
+| routeCode                                | 0..1  | MAY    |           |                                                                           |                                                 |
+| &nbsp; @valueSet                         | 0..1  | SHOULD |           |                                                                           | route                                           |
+| doseQuantity                             | 0..1  | MAY    |           |                                                                           | dose                                            |
+| participation                            | 1..1  | SHALL  |           |                                                                           |                                                 |
+| &nbsp; @typeCode                         | 1..1  | SHALL  |           | 2.16.840.1.113883.5.90 (HL7ParticipationType) = CSM                       |                                                 |
+| &nbsp; role                              | 1..1  | SHALL  |           |                                                                           |                                                 |
+| &nbsp;&nbsp; @classCode                  | 1..1  | SHALL  |           | 2.16.840.1.113883.5.110 (RoleClass) = MANU                                |                                                 |
+| &nbsp;&nbsp; playingManufacturedMaterial | 1..1  | SHALL  |           |                                                                           |                                                 |
+| &nbsp;&nbsp;&nbsp; @classCode            | 1..1  | SHALL  |           | 2.16.840.1.113883.5.41 (EntityClass) = MMAT                               |                                                 |
+| &nbsp;&nbsp;&nbsp; @determinerCode       | 1..1  | SHALL  |           | 2.16.840.1.113883.5.30 (HL7EntityDeterminer) = KIND                       |                                                 |
+| &nbsp;&nbsp;&nbsp; code                  | 1..1  | SHALL  |           |                                                                           |                                                 |
+| &nbsp;&nbsp;&nbsp;&nbsp; @valueSet       | 0..1  | SHOULD |           |                                                                           | {$QDMElementValueSetOID}                        |
+| participation                            | 0..1  | MAY    |           |                                                                           |                                                 |
+| &nbsp; @typeCode                         | 1..1  | SHALL  |           | 2.16.840.1.113883.5.90 (HL7ParticipationType) = AUT                       |                                                 |
+| &nbsp; time                              | 0..1  | SHOULD |           |                                                                           |                                                 |
+| &nbsp;&nbsp; low                         | 0..1  | MAY    |           |                                                                           | start datetime *(default start)*                |
+| &nbsp;&nbsp; high                        | 0..1  | MAY    |           |                                                                           | signed datetime, stop datetime *(default stop)* |
+| &nbsp; role                              | 1..1  | SHALL  |           |                                                                           |                                                 |
+| &nbsp;&nbsp; @classCode                  | 1..1  | SHALL  |           | ROL                                                                       |                                                 |
+| &nbsp;&nbsp; id                          | 1..1  | SHALL  |           |                                                                           |                                                 |
+| outboundRelationship                     | 0..1  | MAY    |           |                                                                           |                                                 |
+| &nbsp; @typeCode                         | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = RSON                  |                                                 |
+| &nbsp; observationCriteria               | 1..1  | SHALL  |           | Reason (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28 3.88:2014-11-24) | reason                                          |
 
 Immunization, Administered Example
 ----------------------------------
@@ -225,40 +225,40 @@ Immunization, Administered Constraints Overview
 
 observationCriteria (identifier: urn:hl7ii:TBD:TBD)
 
-| XPath                              | Card. | Verb   | Data Type | Value                                                                      | QDM Attribute            |
-|:-----------------------------------|:------|:-------|:----------|:---------------------------------------------------------------------------|:-------------------------|
-| @classCode                         | 1..1  | SHALL  |           | OBS                                                                        |                          |
-| @moodCode                          | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                                   |                          |
-| templateId                         | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp; item                        | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp;&nbsp; @root                 | 1..1  | SHALL  |           | TBD                                                                        |                          |
-| &nbsp;&nbsp; @extension            | 1..1  | SHALL  |           | TBD                                                                        |                          |
-| id                                 | 1..1  | SHALL  |           |                                                                            |                          |
-| code                               | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp; @code                       | 1..1  | SHALL  |           | ASSERTION                                                                  |                          |
-| &nbsp; @codeSystem                 | 0..1  | MAY    |           | 2.16.840.1.113883.5.4 (ActCode)                                            |                          |
-| title                              | 1..1  | SHALL  |           |                                                                            |                          |
-| statusCode                         | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp; @code                       | 1..1  | SHALL  |           | 2.16.840.1.113883.5.14 (ActStatus) = completed                             |                          |
-| effectiveTime                      | 0..1  | MAY    | IVL_TS    |                                                                            |                          |
-| &nbsp; low                         | 0..1  | MAY    |           |                                                                            | start datetime           |
-| &nbsp; high                        | 0..1  | MAY    |           |                                                                            | stop datetime            |
-| value                              | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp; @code                       | 1..1  | SHALL  |           | 416098002                                                                  |                          |
-| &nbsp; @codeSystem                 | 0..1  | MAY    |           | 2.16.840.1.113883.6.96 (SNOMED CT)                                         |                          |
-| participation                      | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp; @typeCode                   | 1..1  | SHALL  |           | 2.16.840.1.113883.5.90 (HL7ParticipationType) = CSM                        |                          |
-| &nbsp; role                        | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp;&nbsp; @classCode            | 1..1  | SHALL  |           | 2.16.840.1.113883.5.110 (RoleClass) = MANU                                 |                          |
-| &nbsp;&nbsp; playingEntity         | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp;&nbsp;&nbsp; @classCode      | 1..1  | SHALL  |           | 2.16.840.1.113883.5.41 (EntityClass) = MMAT                                |                          |
-| &nbsp;&nbsp;&nbsp; @determinerCode | 1..1  | SHALL  |           | 2.16.840.1.113883.5.30 (HL7EntityDeterminer) = KIND                        |                          |
-| &nbsp;&nbsp;&nbsp; code            | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp;&nbsp;&nbsp;&nbsp; @valueSet | 0..1  | SHOULD |           |                                                                            | {$QDMElementValueSetOID} |
-| outboundRelationship               | 0..1  | MAY    |           |                                                                            |                          |
-| &nbsp; @typeCode                   | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = MFST                   |                          |
-| &nbsp; @inversionInd               | 1..1  | SHALL  |           | true                                                                       |                          |
-| &nbsp; observationCriteria         | 1..1  | SHALL  |           | Reaction (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.91:2014-11-24 | reaction                 |
+| XPath                              | Card. | Verb   | Data Type | Value                                                                       | QDM Attribute            |
+|:-----------------------------------|:------|:-------|:----------|:----------------------------------------------------------------------------|:-------------------------|
+| @classCode                         | 1..1  | SHALL  |           | OBS                                                                         |                          |
+| @moodCode                          | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                                    |                          |
+| templateId                         | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp; item                        | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp;&nbsp; @root                 | 1..1  | SHALL  |           | TBD                                                                         |                          |
+| &nbsp;&nbsp; @extension            | 1..1  | SHALL  |           | TBD                                                                         |                          |
+| id                                 | 1..1  | SHALL  |           |                                                                             |                          |
+| code                               | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp; @code                       | 1..1  | SHALL  |           | ASSERTION                                                                   |                          |
+| &nbsp; @codeSystem                 | 0..1  | MAY    |           | 2.16.840.1.113883.5.4 (ActCode)                                             |                          |
+| title                              | 1..1  | SHALL  |           |                                                                             |                          |
+| statusCode                         | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp; @code                       | 1..1  | SHALL  |           | 2.16.840.1.113883.5.14 (ActStatus) = completed                              |                          |
+| effectiveTime                      | 0..1  | MAY    | IVL_TS    |                                                                             |                          |
+| &nbsp; low                         | 0..1  | MAY    |           |                                                                             | start datetime           |
+| &nbsp; high                        | 0..1  | MAY    |           |                                                                             | stop datetime            |
+| value                              | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp; @code                       | 1..1  | SHALL  |           | 416098002                                                                   |                          |
+| &nbsp; @codeSystem                 | 0..1  | MAY    |           | 2.16.840.1.113883.6.96 (SNOMED CT)                                          |                          |
+| participation                      | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp; @typeCode                   | 1..1  | SHALL  |           | 2.16.840.1.113883.5.90 (HL7ParticipationType) = CSM                         |                          |
+| &nbsp; role                        | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp;&nbsp; @classCode            | 1..1  | SHALL  |           | 2.16.840.1.113883.5.110 (RoleClass) = MANU                                  |                          |
+| &nbsp;&nbsp; playingEntity         | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp;&nbsp;&nbsp; @classCode      | 1..1  | SHALL  |           | 2.16.840.1.113883.5.41 (EntityClass) = MMAT                                 |                          |
+| &nbsp;&nbsp;&nbsp; @determinerCode | 1..1  | SHALL  |           | 2.16.840.1.113883.5.30 (HL7EntityDeterminer) = KIND                         |                          |
+| &nbsp;&nbsp;&nbsp; code            | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp;&nbsp;&nbsp;&nbsp; @valueSet | 0..1  | SHOULD |           |                                                                             | {$QDMElementValueSetOID} |
+| outboundRelationship               | 0..1  | MAY    |           |                                                                             |                          |
+| &nbsp; @typeCode                   | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = MFST                    |                          |
+| &nbsp; @inversionInd               | 1..1  | SHALL  |           | true                                                                        |                          |
+| &nbsp; observationCriteria         | 1..1  | SHALL  |           | Reaction (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.91:2014-11-24) | reaction                 |
 
 Immunization, Allergy Example
 -----------------------------
@@ -311,40 +311,40 @@ Immunization, Intolerance Constraints Overview
 
 observationCriteria (identifier: urn:hl7ii:TBD:TBD)
 
-| XPath                              | Card. | Verb   | Data Type | Value                                                                      | QDM Attribute            |
-|:-----------------------------------|:------|:-------|:----------|:---------------------------------------------------------------------------|:-------------------------|
-| @classCode                         | 1..1  | SHALL  |           | OBS                                                                        |                          |
-| @moodCode                          | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                                   |                          |
-| templateId                         | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp; item                        | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp;&nbsp; @root                 | 1..1  | SHALL  |           | TBD                                                                        |                          |
-| &nbsp;&nbsp; @extension            | 1..1  | SHALL  |           | TBD                                                                        |                          |
-| id                                 | 1..1  | SHALL  |           |                                                                            |                          |
-| code                               | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp; @code                       | 1..1  | SHALL  |           | ASSERTION                                                                  |                          |
-| &nbsp; @codeSystem                 | 0..1  | MAY    |           | 2.16.840.1.113883.5.4 (ActCode)                                            |                          |
-| title                              | 1..1  | SHALL  |           |                                                                            |                          |
-| statusCode                         | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp; @code                       | 1..1  | SHALL  |           | 2.16.840.1.113883.5.14 (ActStatus) = completed                             |                          |
-| effectiveTime                      | 0..1  | MAY    | IVL_TS    |                                                                            |                          |
-| &nbsp; low                         | 0..1  | MAY    |           |                                                                            | start datetime           |
-| &nbsp; high                        | 0..1  | MAY    |           |                                                                            | stop datetime            |
-| value                              | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp; @code                       | 1..1  | SHALL  |           | 59037007                                                                   |                          |
-| &nbsp; @codeSystem                 | 0..1  | MAY    |           | 2.16.840.1.113883.6.96 (SNOMED CT)                                         |                          |
-| participation                      | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp; @typeCode                   | 1..1  | SHALL  |           | 2.16.840.1.113883.5.90 (HL7ParticipationType) = CSM                        |                          |
-| &nbsp; role                        | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp;&nbsp; @classCode            | 1..1  | SHALL  |           | 2.16.840.1.113883.5.110 (RoleClass) = MANU                                 |                          |
-| &nbsp;&nbsp; playingEntity         | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp;&nbsp;&nbsp; @classCode      | 1..1  | SHALL  |           | 2.16.840.1.113883.5.41 (EntityClass) = MMAT                                |                          |
-| &nbsp;&nbsp;&nbsp; @determinerCode | 1..1  | SHALL  |           | 2.16.840.1.113883.5.30 (HL7EntityDeterminer) = KIND                        |                          |
-| &nbsp;&nbsp;&nbsp; code            | 1..1  | SHALL  |           |                                                                            |                          |
-| &nbsp;&nbsp;&nbsp;&nbsp; @valueSet | 0..1  | SHOULD |           |                                                                            | {$QDMElementValueSetOID} |
-| outboundRelationship               | 0..1  | MAY    |           |                                                                            |                          |
-| &nbsp; @typeCode                   | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = MFST                   |                          |
-| &nbsp; @inversionInd               | 1..1  | SHALL  |           | true                                                                       |                          |
-| &nbsp; observationCriteria         | 1..1  | SHALL  |           | Reaction (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.91:2014-11-24 | reaction                 |
+| XPath                              | Card. | Verb   | Data Type | Value                                                                       | QDM Attribute            |
+|:-----------------------------------|:------|:-------|:----------|:----------------------------------------------------------------------------|:-------------------------|
+| @classCode                         | 1..1  | SHALL  |           | OBS                                                                         |                          |
+| @moodCode                          | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                                    |                          |
+| templateId                         | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp; item                        | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp;&nbsp; @root                 | 1..1  | SHALL  |           | TBD                                                                         |                          |
+| &nbsp;&nbsp; @extension            | 1..1  | SHALL  |           | TBD                                                                         |                          |
+| id                                 | 1..1  | SHALL  |           |                                                                             |                          |
+| code                               | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp; @code                       | 1..1  | SHALL  |           | ASSERTION                                                                   |                          |
+| &nbsp; @codeSystem                 | 0..1  | MAY    |           | 2.16.840.1.113883.5.4 (ActCode)                                             |                          |
+| title                              | 1..1  | SHALL  |           |                                                                             |                          |
+| statusCode                         | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp; @code                       | 1..1  | SHALL  |           | 2.16.840.1.113883.5.14 (ActStatus) = completed                              |                          |
+| effectiveTime                      | 0..1  | MAY    | IVL_TS    |                                                                             |                          |
+| &nbsp; low                         | 0..1  | MAY    |           |                                                                             | start datetime           |
+| &nbsp; high                        | 0..1  | MAY    |           |                                                                             | stop datetime            |
+| value                              | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp; @code                       | 1..1  | SHALL  |           | 59037007                                                                    |                          |
+| &nbsp; @codeSystem                 | 0..1  | MAY    |           | 2.16.840.1.113883.6.96 (SNOMED CT)                                          |                          |
+| participation                      | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp; @typeCode                   | 1..1  | SHALL  |           | 2.16.840.1.113883.5.90 (HL7ParticipationType) = CSM                         |                          |
+| &nbsp; role                        | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp;&nbsp; @classCode            | 1..1  | SHALL  |           | 2.16.840.1.113883.5.110 (RoleClass) = MANU                                  |                          |
+| &nbsp;&nbsp; playingEntity         | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp;&nbsp;&nbsp; @classCode      | 1..1  | SHALL  |           | 2.16.840.1.113883.5.41 (EntityClass) = MMAT                                 |                          |
+| &nbsp;&nbsp;&nbsp; @determinerCode | 1..1  | SHALL  |           | 2.16.840.1.113883.5.30 (HL7EntityDeterminer) = KIND                         |                          |
+| &nbsp;&nbsp;&nbsp; code            | 1..1  | SHALL  |           |                                                                             |                          |
+| &nbsp;&nbsp;&nbsp;&nbsp; @valueSet | 0..1  | SHOULD |           |                                                                             | {$QDMElementValueSetOID} |
+| outboundRelationship               | 0..1  | MAY    |           |                                                                             |                          |
+| &nbsp; @typeCode                   | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = MFST                    |                          |
+| &nbsp; @inversionInd               | 1..1  | SHALL  |           | true                                                                        |                          |
+| &nbsp; observationCriteria         | 1..1  | SHALL  |           | Reaction (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.91:2014-11-24) | reaction                 |
 
 Immunization, Intolerance Example
 ---------------------------------
