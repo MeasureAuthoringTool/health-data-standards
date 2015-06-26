@@ -20,16 +20,15 @@ One advantage of this approach is that it can support future QDM updates that mi
 Additional Encounter, Performed Constraints
 -------------------------------------------
 
+Note that in C-CDA R2 and QRDA Cat I R3, the `entryRelationship` from the encounter to encounter diagnosis does *not* have a `typeCode` specified. In HQMF R2.1, `outboundRelationship` *must* have a `typeCode`. I've opted to use the general `REFR` type code, but am open to other suggestions. Among those also considered: `COMP`, `DIAG` (not chosen because I think it relates to the *initial* identification of the condition), `RSON` (for principal only), and `TREAT`.
+
 encounterCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.5:TBD)
 
-| XPath                | Card. | Verb  | Data Type | Value                                                        | QDM Attribute                  |
-|:---------------------|:------|:------|:----------|:-------------------------------------------------------------|:-------------------------------|
-| outboundRelationship | 0..1  | MAY   |           |                                                              |                                |
-| &nbsp; @typeCode     | 1..1  | SHALL |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = REFR     |                                |
-| &nbsp; actCriteria   | 1..1  | SHALL |           | Encounter Diagnosis (identifier: urn:hl7ii:TBD:TBD           | principal diagnosis            |
-| outboundRelationship | 0..1  | MAY   |           |                                                              |                                |
-| &nbsp; @typeCode     | 1..1  | SHALL |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = REFR     |                                |
-| &nbsp; actCriteria   | 1..1  | SHALL |           | Encounter Principal Diagnosis (identifier: urn:hl7ii:TBD:TBD | diagnosis, principal diagnosis |
+| XPath                | Card. | Verb  | Data Type | Value                                                    | QDM Attribute                  |
+|:---------------------|:------|:------|:----------|:---------------------------------------------------------|:-------------------------------|
+| outboundRelationship | 0..1  | MAY   |           |                                                          |                                |
+| &nbsp; @typeCode     | 1..1  | SHALL |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = REFR |                                |
+| &nbsp; actCriteria   | 1..1  | SHALL |           | Encounter Diagnosis (identifier: urn:hl7ii:TBD:TBD       | diagnosis, principal diagnosis |
 
 Encounter Diagnosis Contexts
 ----------------------------
