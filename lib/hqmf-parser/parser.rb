@@ -13,13 +13,13 @@ module HQMF
         HQMF2::Document.new(xml_contents).to_model
       end
 
-      def parse_fileds(xml_contents)
+      def parse_fields(xml_contents)
         result = {}
         doc = HQMF2::Document.parse(xml_contents)
         type = doc.at_xpath('/cda:QualityMeasureDocument/cda:code/@code').value
         if type == '57024-2'
           id = doc.at_xpath('cda:QualityMeasureDocument/cda:id/@extension', HQMF2::Document::NAMESPACES).value.upcase
-          set_id = doc.at_xpath('cda:QualityMeasureDocument/cda:setId/@extension').value.upcase
+          set_id = doc.at_xpath('cda:QualityMeasureDocument/cda:setId/@root').value.upcase
           version_number = doc.at_xpath('cda:QualityMeasureDocument/cda:versionNumber/@value').value.to_i
           title = doc.at_xpath('cda:QualityMeasureDocument/cda:title/@value').inner_text
           description = doc.at_xpath('cda:QualityMeasureDocument/cda:text/@value').inner_text
