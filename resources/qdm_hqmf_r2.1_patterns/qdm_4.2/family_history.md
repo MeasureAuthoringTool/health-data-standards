@@ -44,7 +44,7 @@ observationCriteria (identifier: urn:hl7ii:TBD:TBD)
 | &nbsp;&nbsp; @extension      | 1..1  | SHALL  |           | TBD                                                           |                                    |
 | id                           | 1..1  | SHALL  |           |                                                               |                                    |
 | code                         | 1..1  | SHALL  |           |                                                               |                                    |
-| &nbsp; @code                 | 1..1  | SHALL  |           | 10157-6                                                       |                                    |
+| &nbsp; @code                 | 1..1  | SHALL  |           | 75314-5                                                       |                                    |
 | &nbsp; @codeSystem           | 1..1  | SHALL  |           | 2.16.840.1.113883.6.1 (LOINC)                                 |                                    |
 | title                        | 1..1  | SHALL  |           |                                                               |                                    |
 | statusCode                   | 1..1  | SHALL  |           |                                                               |                                    |
@@ -64,7 +64,7 @@ observationCriteria (identifier: urn:hl7ii:TBD:TBD)
 | &nbsp; role                  | 1..1  | SHALL  |           |                                                               |                                    |
 | &nbsp;&nbsp; @classCode      | 1..1  | SHALL  |           | PRS                                                           |                                    |
 | &nbsp;&nbsp; code            | 1..1  | SHALL  |           |                                                               |                                    |
-| &nbsp;&nbsp;&nbsp; @valueSet | 1..1  | SHALL  |           |                                                               | relationship                       |
+| &nbsp;&nbsp;&nbsp; @valueSet | 0..1  | SHOULD |           |                                                               | relationship                       |
 | outboundRelationship         | 0..1  | MAY    |           |                                                               |                                    |
 | &nbsp; @typeCode             | 1..1  | SHALL  |           | urn:oid:2.16.840.1.113883.5.1002 (ActRelationshipType) = SUBJ |                                    |
 | &nbsp; observationCriteria   | 1..1  | SHALL  |           | Age Observation (identifier: urn:hl7ii:TBD:TBD)               | onset age                          |

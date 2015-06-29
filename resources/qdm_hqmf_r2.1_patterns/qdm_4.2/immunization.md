@@ -186,7 +186,7 @@ Immunization, Order Example
         <item root="TBD" extension="TBD"/>
     </templateId>
     <id root="27beb8e3-7c86-48cf-b430-235b72786dea"/>
-    <title value="Medication, Order"/>
+    <title value="Immunization, Order"/>
     <statusCode code="active"/>
     <participation typeCode="CSM">
         <role classCode="MANU">
@@ -356,7 +356,7 @@ Immunization, Intolerance Example
     </templateId>
     <id root="D48AB4EA-0589-4E8C-A747-9B7946D5A22E"/>
     <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
-    <title value="Medication, Intolerance"/>
+    <title value="Immunization, Intolerance"/>
     <statusCode code="completed"/>
     <value xsi:type="CD" code="59037007" codeSystem="2.16.840.1.113883.6.96">
         <displayName value="Drug Intolerance"/>

@@ -75,7 +75,7 @@ The following checks that a `reference range high` exists. If you need to apply 
             <id root="9f751ae5-edb2-4fb3-b49c-d0f0fdef3999"/>
             <title value="Reference Range"/>
             <value xsi:type="IVL_PQ">
-              <high xsi:type="ANY" flavorId="ANY.NONNULL" />
+              <high flavorId="ANY.NONNULL" />
             </value>
         </observationCriteria>
     </outboundRelationship>
