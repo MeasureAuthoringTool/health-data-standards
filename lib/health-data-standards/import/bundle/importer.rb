@@ -132,10 +132,72 @@ module HealthDataStandards
           entries.each_with_index do |entry, index|
             patient = Record.new(unpack_json(entry))
             patient['bundle_id'] = bundle.id
+
+            #index
+            source_data_with_references = Array.new
+            source_data_reference_id_hash = Hash.new
+            source_data_id_hash = Hash.new
+            index = 0
+            #loops through source data criteria, if there are references adds ids to hash
+            patient['source_data_criteria'].each do |data_criteria|
+              source_data_id_hash[data_criteria['criteria_id']] = index
+              if data_criteria['references'] != nil
+                source_data_with_references.push(index)
+                reference_ids = Array.new
+                data_criteria['references'].each do |reference|
+                  reference_ids.push(reference['reference_id'])
+                end
+                source_data_reference_id_hash[data_criteria['criteria_id']] = reference_ids
+              end
+              index = index + 1
+            end
+            #if there are references, id references are reestablished
+            if source_data_with_references.size > 0
+              reconnect_references(patient, source_data_with_references, source_data_reference_id_hash, source_data_id_hash)
+            end
             patient.save
             report_progress('patients', (index*100/entries.length)) if index%10 == 0
           end
           puts "\rLoading: Patients Complete          "
+        end
+
+        #bit of a hack here, equality is made by date and codes
+        def self.compare_and_update_entries(patient, reference_id, start_date, end_date, codes)
+          patient.entries.each do |entry|
+            # if dates and codes match then replace id with original
+            if compare_dates(entry, start_date, end_date)
+              if entry.codes == codes
+                entry._id = BSON::ObjectId.from_string(reference_id)
+              end
+            end
+          end
+        end
+
+        def self.compare_dates(entry, start_date, end_date)
+          if entry.start_time * 1000 ==  start_date
+            if entry.end_time == nil 
+              if end_date == nil
+                return true
+              else 
+                return false
+              end
+            else entry.end_time * 1000 == end_date
+              return true   
+            end
+          end
+          return false
+        end
+
+        def self.reconnect_references(patient, source_data_with_references, source_data_reference_id_hash, source_data_id_hash)
+
+          source_data_with_references.each do |source_data_with_reference|
+            #only do this with the references
+            sdc = patient['source_data_criteria'][source_data_with_reference]
+            source_data_reference_id_hash[sdc['criteria_id']].each do |ref_criteria_id|
+              ref_sdc = patient['source_data_criteria'][source_data_id_hash[ref_criteria_id]]
+              compare_and_update_entries(patient, ref_sdc['coded_entry_id'],ref_sdc['start_date'],ref_sdc['end_date'],ref_sdc['codes'])
+            end
+          end
         end
 
         def self.unpack_and_store_valuesets(zip, bundle)
