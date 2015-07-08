@@ -236,15 +236,10 @@ module HQMF2
       @type = type || attr_val('./@classCode')
       @mood = attr_val('./@moodCode')
       @entry = entry.elements.first unless entry.at_xpath('./@extension')
-      @verbose = verbose
     end
 
     def reference
-      attr_val('./cda:id/@extension')
-    end
-
-    def type
-       attr_val('./@classCode')
+      attr_val('./@extension')
     end
 
     def to_model

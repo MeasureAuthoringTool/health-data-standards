@@ -1,6 +1,6 @@
 require_relative '../../../test_helper'
 
-class FulfillsTest <  Test::Unit::TestCase
+class FulfillsTest <  Minitest::Test
 
 
 
