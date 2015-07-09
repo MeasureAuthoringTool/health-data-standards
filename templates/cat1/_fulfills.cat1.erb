@@ -1,0 +1,12 @@
+<% if entry.references.present? 
+  -%>
+  <% entry.references.each do |reference| %>
+  <% if reference.type == "fulfills" %>
+    <sdtc:inFulfillmentOf1 typeCode="FLFS">
+      <sdtc:actReference classCode="ACT" moodCode="RQO">
+        <sdtc:id root="1.3.6.1.4.1.115" extension="<%= reference.referenced_id %>"/>
+      </sdtc:actReference>
+    </sdtc:inFulfillmentOf1>
+    <% end %>
+  <% end %>
+<% end -%>
