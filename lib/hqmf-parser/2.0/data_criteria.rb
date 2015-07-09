@@ -323,6 +323,13 @@ module HQMF2
         value = Coded.new(field.at_xpath('./*/cda:participation/cda:role/cda:code', HQMF2::Document::NAMESPACES))
         fields[code_id] = value if value && code_id
       end
+
+      # special case for fulfills operator.  assuming there is only a possibility of having one of these
+      fulfils = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="FLFS"]/cda:criteriaReference', HQMF2::Document::NAMESPACES)
+      if fulfils
+        # grab the child element if we don't have a reference
+        fields["FLFS"] =  TypedReference.new(fulfils)
+      end
       fields
     end
     
