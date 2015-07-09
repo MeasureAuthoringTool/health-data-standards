@@ -4,7 +4,7 @@
     displayName="Performance Rate" 
     codeSystemName="2.16.840.1.113883.6.1"/>
   <statusCode code="completed"/>
-  <% if population_group.denominator_count - population_group.denominator_exclusions_count - population_group.denominator_exceptions_count > 0 %>
+  <% if population_group.performance_rate_denominator > 0 %>
   <value xsi:type="REAL" value="<%= population_group.performance_rate %>"/>
   <% else %>
     <value xsi:type="REAL" nullFlavor="NA"/>
