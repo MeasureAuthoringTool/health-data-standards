@@ -5,5 +5,6 @@ class ValidationError
     @location = params[:location]
     @message = params[:message]
     @validator = params[:validator]
+    @file_name = params[:file_name]
    end
 end
