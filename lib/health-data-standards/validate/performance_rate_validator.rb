@@ -73,9 +73,11 @@ module HealthDataStandards
       else
         if reported_result['PR']['nullFlavor'] == "NA"
           return build_error("Reported Performance Rate for Numerator #{_ids['NUMER']} should not be NA", "/", data[:file_name])
-        else 
-          if (reported_result['PR']['value'].to_f - expected.to_f).abs > 0.000001
-            return build_error("Reported Performance Rate of #{reported_result['PR']['value']} for Numerator #{_ids['NUMER']} does not match expected value of #{expected}.", "/", data[:file_name])
+        else
+          if (reported_result['PR']['value'].split('.',2).last.size > 6)
+            return build_error("Reported Performance Rate SHALL not have a precision greater than .000001 ", "/", data[:file_name])
+          elsif !reported_result['PR']['value'].split('.',2).last[0,6].match(expected.to_s[2,6])
+            return build_error("Reported Performance Rate of #{reported_result['PR']['value']} for Numerator #{_ids['NUMER']} does not match expected value of #{expected.to_s[0,8]}.", "/", data[:file_name])
           end
         end
       end
