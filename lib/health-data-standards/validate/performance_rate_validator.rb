@@ -76,7 +76,7 @@ module HealthDataStandards
         else
           if (reported_result['PR']['value'].split('.',2).last.size > 6)
             return build_error("Reported Performance Rate SHALL not have a precision greater than .000001 ", "/", data[:file_name])
-          elsif (reported_result['PR']['value'].to_f - expected.to_s[1,7].to_f).abs > 0.0000001
+          elsif (reported_result['PR']['value'].to_f - expected.to_s[0,8].to_f).abs > 0.0000001
             return build_error("Reported Performance Rate of #{reported_result['PR']['value']} for Numerator #{_ids['NUMER']} does not match expected value of #{expected.to_s[0,8]}.", "/", data[:file_name])
           end
         end
