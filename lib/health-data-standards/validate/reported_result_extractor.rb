@@ -12,6 +12,7 @@ module ReportedResultExtractor
         results = nil
         _ids = ids.dup
         stratification = _ids.delete("stratification")
+        stratification ||= _ids.delete("STRAT")
         errors = []
         nodes = find_measure_node(measure_id, doc)
 

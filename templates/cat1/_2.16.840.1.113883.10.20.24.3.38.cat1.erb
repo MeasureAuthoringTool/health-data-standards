@@ -12,5 +12,9 @@
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
     <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"]}) %>
-  </observation>
+
+    <%if !entry.values.empty? %>
+      <%== render(:partial=> 'result_value', :locals => {:values => entry.values}) %>
+    <% end %>
+    </observation>
 </entry>

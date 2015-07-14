@@ -45,7 +45,7 @@ module HealthDataStandards
           extract_codes(entry_element, entry)
           extract_dates(entry_element, entry)
           if @value_xpath
-            extract_value(entry_element, entry)
+            extract_values(entry_element, entry)
           end
           entry.description = entry_element.at_xpath("./cda:text").try("text")
           if @status_xpath
@@ -100,21 +100,26 @@ module HealthDataStandards
 
         def extract_dates(parent_element, entry, element_name="effectiveTime")
           if parent_element.at_xpath("cda:#{element_name}/@value")
-            entry.time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}")['value'])
+            entry[:time] = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}")['value'])
           end
           if parent_element.at_xpath("cda:#{element_name}/cda:low")
-            entry.start_time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:low")['value'])
+            entry[:start_time] = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:low")['value'])
           end
           if parent_element.at_xpath("cda:#{element_name}/cda:high")
-            entry.end_time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:high")['value'])
+            entry[:end_time] = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:high")['value'])
           end
           if parent_element.at_xpath("cda:#{element_name}/cda:center")
-            entry.time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:center")['value'])
+            entry[:time] = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:center")['value'])
           end
         end
 
-        def extract_value(parent_element, entry)
-          value_element = parent_element.at_xpath(@value_xpath)
+        def extract_values(parent_element, entry)
+          parent_element.xpath(@value_xpath).each do |elem|
+            extract_value(parent_element, elem, entry)
+          end
+        end
+
+        def extract_value(parent_element, value_element, entry)
           if value_element
             value = value_element['value']
             if value.present?
@@ -123,6 +128,7 @@ module HealthDataStandards
             elsif value_element['code'].present?
               crv = CodedResultValue.new
               add_code_if_present(value_element, crv)
+              extract_dates(parent_element, crv)
               entry.values << crv
             else
               value = value_element.text
