@@ -21,4 +21,146 @@ class PerformanceRateValidatorTest < ActiveSupport::TestCase
     #2 incorrect performance rates
     assert_equal 2, errors.length
   end
+
+  test "Performance Rate equals NA reported 1" do
+    errorsList = []
+    population_ids = {}
+    population_ids['NUMER'] = "test_numer"
+    reported_result = {}
+    reported_result['DENOM'] = 1
+    reported_result['DENEX'] = 1
+    reported_result['DENEXCEP'] = 0
+    reported_result['NUMER'] = 0
+    reported_result['PR'] = {}
+    reported_result['PR']['nullFlavor'] = "1"
+    errors = @prcat3.check_performance_rates(reported_result, population_ids,nil,file_name: "test")
+    errorsList << errors
+    #1 incorrect performance rates
+    assert_equal 1, errorsList.length
+  end
+
+  test "Performance Rate equals 1 reported 1" do
+    population_ids = {}
+    population_ids['NUMER'] = "test_numer"
+    reported_result = {}
+    reported_result['DENOM'] = 1
+    reported_result['DENEX'] = 0
+    reported_result['DENEXCEP'] = 0
+    reported_result['NUMER'] = 1
+    reported_result['PR'] = {}
+    reported_result['PR']['value'] = "1"
+    errors = @prcat3.check_performance_rates(reported_result, population_ids,nil,file_name: "test")
+    assert_equal nil, errors
+  end
+
+  test "Performance Rate equals 0 reported 0" do
+    population_ids = {}
+    population_ids['NUMER'] = "test_numer"
+    reported_result = {}
+    reported_result['DENOM'] = 1
+    reported_result['DENEX'] = 0
+    reported_result['DENEXCEP'] = 0
+    reported_result['NUMER'] = 0
+    reported_result['PR'] = {}
+    reported_result['PR']['value'] = "0"
+    errors = @prcat3.check_performance_rates(reported_result, population_ids,nil,file_name: "test")
+    assert_equal nil, errors
+  end
+
+  test "Performance Rate equals 1 reported 1.0" do
+    population_ids = {}
+    population_ids['NUMER'] = "test_numer"
+    reported_result = {}
+    reported_result['DENOM'] = 1
+    reported_result['DENEX'] = 0
+    reported_result['DENEXCEP'] = 0
+    reported_result['NUMER'] = 1
+    reported_result['PR'] = {}
+    reported_result['PR']['value'] = "1.0"
+    errors = @prcat3.check_performance_rates(reported_result, population_ids,nil,file_name: "test")
+    assert_equal nil, errors
+  end
+
+  test "Performance Rate equals .285714 reported 0.285714" do
+    population_ids = {}
+    population_ids['NUMER'] = "test_numer"
+    reported_result = {}
+    reported_result['DENOM'] = 7
+    reported_result['DENEX'] = 0
+    reported_result['DENEXCEP'] = 0
+    reported_result['NUMER'] = 2
+    reported_result['PR'] = {}
+    reported_result['PR']['value'] = "0.285714"
+    errors = @prcat3.check_performance_rates(reported_result, population_ids,nil,file_name: "test")
+    assert_equal nil, errors
+  end
+
+  test "Performance Rate equals .285714 reported 1.285714" do
+    errorsList = []
+    population_ids = {}
+    population_ids['NUMER'] = "test_numer"
+    reported_result = {}
+    reported_result['DENOM'] = 7
+    reported_result['DENEX'] = 0
+    reported_result['DENEXCEP'] = 0
+    reported_result['NUMER'] = 2
+    reported_result['PR'] = {}
+    reported_result['PR']['value'] = "1.285714"
+    errors = @prcat3.check_performance_rates(reported_result, population_ids,nil,file_name: "test")
+    errorsList << errors
+    #1 incorrect performance rates
+    assert_equal 1, errorsList.length
+  end
+
+  test "Performance Rate equals .285714 reported .285715" do
+    errorsList = []
+    population_ids = {}
+    population_ids['NUMER'] = "test_numer"
+    reported_result = {}
+    reported_result['DENOM'] = 7
+    reported_result['DENEX'] = 0
+    reported_result['DENEXCEP'] = 0
+    reported_result['NUMER'] = 2
+    reported_result['PR'] = {}
+    reported_result['PR']['value'] = ".285715"
+    errors = @prcat3.check_performance_rates(reported_result, population_ids,nil,file_name: "test")
+    errorsList << errors
+    #1 incorrect performance rates
+    assert_equal 1, errorsList.length
+  end
+
+  test "Performance Rate equals .285714 reported 28.5714" do
+    errorsList = []
+    population_ids = {}
+    population_ids['NUMER'] = "test_numer"
+    reported_result = {}
+    reported_result['DENOM'] = 7
+    reported_result['DENEX'] = 0
+    reported_result['DENEXCEP'] = 0
+    reported_result['NUMER'] = 2
+    reported_result['PR'] = {}
+    reported_result['PR']['value'] = "28.5714"
+    errors = @prcat3.check_performance_rates(reported_result, population_ids,nil,file_name: "test")
+    errorsList << errors
+    #1 incorrect performance rates
+    assert_equal 1, errorsList.length
+  end
+
+  test "Performance Rate equals .285714 reported .2857142857" do
+    errorsList = []
+    population_ids = {}
+    population_ids['NUMER'] = "test_numer"
+    reported_result = {}
+    reported_result['DENOM'] = 7
+    reported_result['DENEX'] = 0
+    reported_result['DENEXCEP'] = 0
+    reported_result['NUMER'] = 2
+    reported_result['PR'] = {}
+    reported_result['PR']['value'] = ".2857142857"
+    errors = @prcat3.check_performance_rates(reported_result, population_ids,nil,file_name: "test")
+    errorsList << errors
+    #1 incorrect performance rates
+    assert_equal 1, errorsList.length
+  end
+
 end
