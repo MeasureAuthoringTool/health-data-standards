@@ -5,7 +5,7 @@
     codeSystemName="2.16.840.1.113883.6.1"/>
   <statusCode code="completed"/>
   <% if population_group.performance_rate_denominator > 0 %>
-  <value xsi:type="REAL" value="<%= population_group.performance_rate %>"/>
+  <value xsi:type="REAL" value="<%= population_group.performance_rate.round(6) %>"/>
   <% else %>
     <value xsi:type="REAL" nullFlavor="NA"/>
   <% end %>

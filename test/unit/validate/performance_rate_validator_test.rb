@@ -163,4 +163,21 @@ class PerformanceRateValidatorTest < ActiveSupport::TestCase
     assert_equal 1, errorsList.length
   end
 
+  test "Performance Rate equals .571429 reported .571428" do
+    errorsList = []
+    population_ids = {}
+    population_ids['NUMER'] = "test_numer"
+    reported_result = {}
+    reported_result['DENOM'] = 7
+    reported_result['DENEX'] = 0
+    reported_result['DENEXCEP'] = 0
+    reported_result['NUMER'] = 4
+    reported_result['PR'] = {}
+    reported_result['PR']['value'] = ".571428"
+    errors = @prcat3.check_performance_rates(reported_result, population_ids,nil,file_name: "test")
+    errorsList << errors
+    #1 incorrect performance rates
+    assert_equal 1, errorsList.length
+  end
+
 end
