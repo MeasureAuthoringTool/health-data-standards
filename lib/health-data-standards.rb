@@ -94,6 +94,7 @@ require_relative 'health-data-standards/export/helper/html_view_helper'
 require_relative 'health-data-standards/export/html'
 require_relative 'health-data-standards/export/helper/cat1_view_helper'
 require_relative 'health-data-standards/export/cat_1'
+require_relative 'health-data-standards/export/cat_1_r2'
 require_relative 'health-data-standards/export/cat_3'
 
 require_relative 'health-data-standards/import/cda/narrative_reference_handler'
