@@ -45,6 +45,42 @@ class Cat1Test < Minitest::Test
     end
   end
 
+  def test_schematron_validation
+     Record.all.each do |record|
+      insurance_provider = InsuranceProvider.new(start_time: Time.new(2008,1,1).to_i,
+						 codes: {"SOP" => 349})
+      record.insurance_providers << insurance_provider
+      puts "Testing Cat I for #{record.first} #{record.last}"
+      doc = Nokogiri::XML(HealthDataStandards::Export::Cat1.new.export(record,@measures,@start_date,@end_date, @header))
+      errors = HealthDataStandards::Validate::Cat1.instance.validate(doc, {file_name: "cat1_good.xml"})
+
+      doc2 = Nokogiri::XML(HealthDataStandards::Export::Cat1.new.export(record,@measures,@start_date,@end_date, nil))
+      errors2 = HealthDataStandards::Validate::Cat1.instance.validate(doc, {file_name: "cat1_good.xml"})
+
+      assert_equal [], errors, "Invalid Cat I for #{record.first} #{record.last} (with header)"
+      assert_equal [], errors2, "Invalid Cat I for #{record.first} #{record.last} (w/o header)"
+
+    end
+  end
+
+  def test_schematron_r2_validation
+     Record.all.each do |record|
+      insurance_provider = InsuranceProvider.new(start_time: Time.new(2008,1,1).to_i,
+             codes: {"SOP" => 349})
+      record.insurance_providers << insurance_provider
+      puts "Testing Cat I for #{record.first} #{record.last}"
+      doc = Nokogiri::XML(HealthDataStandards::Export::Cat1R2.new.export(record,@measures,@start_date,@end_date, @header))
+      errors = HealthDataStandards::Validate::Cat1R2.instance.validate(doc, {file_name: "cat1_good.xml"})
+
+      doc2 = Nokogiri::XML(HealthDataStandards::Export::Cat1R2.new.export(record,@measures,@start_date,@end_date, nil))
+      errors2 = HealthDataStandards::Validate::Cat1R2.instance.validate(doc, {file_name: "cat1_good.xml"})
+
+      assert_equal [], errors, "Invalid Cat I for #{record.first} #{record.last} (with header)"
+      assert_equal [], errors2, "Invalid Cat I for #{record.first} #{record.last} (w/o header)"
+
+    end
+  end
+
   def test_cda_header_export
     first_name = @doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:given').text
     medical_record_assigner = @doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:id/@root').value
@@ -127,18 +163,18 @@ class Cat1Test < Minitest::Test
     header_hash=  {identifier: {root: "2.16.840.1.113883.4.6", extension: "header_ext"},
                    authors: [{ids: [ {root: "2.16.840.1.113883.4.7" , extension: "author_extension"}],
                               device: {name:"dvice_name" , model: "device_mod"},
-                              addresses:[],
-                              telecoms: [],
+                              addresses:[Address.new(street: ["1234 Drury Lane"], city: "Bedford", state: "MA", zip: "01960", country: "USA")],
+			      telecoms: [Telecom.new(use: "WP", value: "555-555-1234")],
                               time: Time.now,
                               organization: {ids: [ {root: "2.16.840.1.113883.4.9" , extension: "authors_organization_ext"}],
                                              name: ""}}],
                    custodian: {ids: [ {root: "custodian_root" , extension: "custodian_ext"}],
                                person: {given: "", family: ""},
                                organization: {ids: [ {root: "2.16.840.1.113883.4.12" , extension: "custodian_organization_ext"}],
-                                              name: ""}},
+					      name: "", addresses:[Address.new(street: ["1234 Drury Lane"], city: "Bedford", state: "MA", zip: "01960", country: "USA")], telecoms: [Telecom.new(use: "WP", value: "555-555-3456")]}},
                    legal_authenticator:{ids: [ {root: "2.16.840.1.113883.4.14" , extension: "legal_authenticator_ext"}],
-                                        addresses: [],
-                                        telecoms:[],
+                                        addresses: [Address.new(street: ["1234 Drury Lane"], city: "Bedford", state: "MA", zip: "01960", country: "USA")],
+					telecoms: [Telecom.new(use: "WP", value: "555-555-2345")],
                                         time: Time.now,
                                         person: {given:"hey", family: "there"},
                                         organization:{ids: [ {root: "2.16.840.1.113883.4.62" , extension: "legal_authenticator_org_ext"}],

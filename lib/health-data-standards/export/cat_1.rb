@@ -9,9 +9,10 @@ module HealthDataStandards
       end
 
       @@vs_map = nil
-      def export(patient, measures, start_date, end_date, header=nil)
+      def export(patient, measures, start_date, end_date, header=nil, r2_compatibility=false)
         @rendering_context.render(:template => 'show', :locals => {:patient => patient, :measures => measures,
-                                                :start_date => start_date, :end_date => end_date, :header => header})
+						:start_date => start_date, :end_date => end_date, :header => header,
+						:r2_compatibility => r2_compatibility})
       end
     end
   end
