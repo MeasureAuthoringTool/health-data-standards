@@ -106,6 +106,9 @@ class Record
   # based on clinical content
   def dedup_section_ignoring_content!(section)
     unique_entries = self.send(section).uniq do |entry|
+      entry.references.each do |ref|
+        ref.resolve_referenced_id
+      end
       entry.identifier
     end
     self.send("#{section}=", unique_entries)
@@ -113,12 +116,16 @@ class Record
   def dedup_section_merging_codes_and_values!(section)
     unique_entries = {}
     self.send(section).each do |entry|
+      entry.references.each do |ref|
+        ref.resolve_referenced_id
+      end
       if unique_entries[entry.identifier]
         unique_entries[entry.identifier].codes = unique_entries[entry.identifier].codes.deep_merge(entry.codes){ |key, old, new| Array.wrap(old) + Array.wrap(new) }
         unique_entries[entry.identifier].values.concat(entry.values)
       else
         unique_entries[entry.identifier] = entry
       end
+      
     end
     self.send("#{section}=", unique_entries.values)
   end

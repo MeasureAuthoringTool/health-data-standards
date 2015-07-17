@@ -149,6 +149,7 @@ require_relative 'health-data-standards/import/cat1/lab_result_importer'
 require_relative 'health-data-standards/import/cat1/ecog_status_importer'
 require_relative 'health-data-standards/import/cat1/symptom_active_importer'
 require_relative 'health-data-standards/import/cat1/insurance_provider_importer'
+require_relative 'health-data-standards/import/cat1/procedure_importer'
 
 require_relative 'health-data-standards/import/bundle/importer'
 
