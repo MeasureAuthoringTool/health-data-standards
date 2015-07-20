@@ -1,0 +1,969 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns="urn:hl7-org:v3"
+ xmlns:cda="urn:hl7-org:v3">
+
+  <!--
+    ********************************************************
+    CDA Header
+    ********************************************************
+  -->
+  <realmCode code="US"/>
+  <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
+  <!-- QRDA Category III Release 1 template ID (this template ID differs from QRDA III comment only template ID). -->
+  <templateId root="2.16.840.1.113883.10.20.27.1.1"/>
+  <id root='341ee9d0-0ede-0133-d082-48d705bc5c31' extension="CypressExtension"/>
+
+
+  <!-- SHALL QRDA III document type code -->
+  <code code="55184-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"
+    displayName="Quality Reporting Document Architecture Calculated Summary Report"/>
+  <!-- SHALL Title, SHOULD have this content -->
+  <title>QRDA Calculated Summary Report</title>
+  <!-- SHALL  -->
+  <effectiveTime value="20150717181853"/>
+  <confidentialityCode codeSystem="2.16.840.1.113883.5.25" code="N"/>
+  <languageCode code="en"/>
+  <!-- SHOULD The version of the file being submitted. -->
+  <versionNumber value="1"/>
+  <!-- SHALL contain recordTarget and ID - but ID is nulled to NA. This is an aggregate summary report. Therefore CDA's required patient identifier is nulled. -->
+  <recordTarget>
+    <patientRole>
+      <id nullFlavor="NA"/>
+    </patientRole>
+  </recordTarget>
+
+   <!-- SHALL have 1..* author. MAY be device or person. 
+    The author of the CDA document in this example is a device at a data submission vendor/registry. -->
+  <author>
+    <time value="20150717141853"/>
+    <assignedAuthor>
+      <!-- Registry author ID -->
+      <id root='authorRoot' extension="authorExtension"/>
+
+      
+      
+
+       <assignedAuthoringDevice>
+         <manufacturerModelName>deviceModel</manufacturerModelName>
+         <softwareName>deviceName</softwareName>
+       </assignedAuthoringDevice>
+     
+     <representedOrganization>
+  <!-- Represents unique registry organization TIN -->
+   <id root='authorsOrganizationRoot' extension="authorsOrganizationExt"/>
+
+  <!-- Contains name - specific registry not required-->
+  <name></name>
+</representedOrganization>
+
+    </assignedAuthor>
+  </author>
+
+  <!-- SHALL have 1..* author. MAY be device or person.
+    The author of the CDA document in this example is a device at a data submission vendor/registry. -->
+
+  <!-- The custodian of the CDA document is the same as the legal authenticator in this
+  example and represents the reporting organization. -->
+  <!-- SHALL -->
+  <custodian>
+    <assignedCustodian>
+      <representedCustodianOrganization>
+  <!-- Represents unique registry organization TIN -->
+   <id root='custodianOrganizationRoot' extension="custodianOrganizationExt"/>
+
+  <!-- Contains name - specific registry not required-->
+  <name></name>
+</representedCustodianOrganization>
+    </assignedCustodian>
+  </custodian>
+  <!-- The legal authenticator of the CDA document is a single person who is at the
+    same organization as the custodian in this example. This element must be present. -->
+  <!-- SHALL -->
+  <legalAuthenticator>
+    <!-- SHALL -->
+    <time value="20150717181853"/>
+    <!-- SHALL -->
+    <signatureCode code="S"/>
+    <assignedEntity>
+      <!-- SHALL ID -->
+      <id root='legalAuthenticatorRoot' extension="legalAuthenticatorExt"/>
+
+      
+      <assignedPerson>
+        <name>
+           <given></given>
+           <family></family>
+        </name>
+     </assignedPerson>
+
+      <representedOrganization>
+  <!-- Represents unique registry organization TIN -->
+   <id root='legalAuthenticatorOrgRoot' extension="legalAuthenticatorOrgExt"/>
+
+  <!-- Contains name - specific registry not required-->
+  <name></name>
+</representedOrganization>
+    </assignedEntity>
+  </legalAuthenticator>
+
+  <documentationOf typeCode="DOC">
+  <serviceEvent classCode="PCPR"> <!-- care provision -->
+    <!-- No provider data found in the patient record
+         putting in a fake provider -->
+    <effectiveTime>
+      <low value="20020716"/>
+      <high value="20150717181853"/>
+    </effectiveTime>
+    <!-- You can include multiple performers, each with an NPI, TIN, CCN. -->
+    <performer typeCode="PRF">
+      <time>
+        <low value="20020716"/>
+        <high value="20150717181853"/>
+      </time>
+      <assignedEntity>
+        <!-- This is the provider NPI -->
+        <id root="2.16.840.1.113883.4.6" extension="111111111" />
+        <representedOrganization>
+          <!-- This is the organization TIN -->
+          <id root="2.16.840.1.113883.4.2" extension="1234567" />
+          <!-- This is the organization CCN -->
+          <id root="2.16.840.1.113883.4.336" extension="54321" />
+        </representedOrganization>
+      </assignedEntity>
+    </performer>
+  </serviceEvent>
+</documentationOf>
+
+
+
+  <!--
+********************************************************
+CDA Body
+********************************************************
+-->
+  <component>
+    <structuredBody>
+      <!--
+********************************************************
+QRDA Category III Reporting Parameters
+********************************************************
+-->
+      <component>
+        <section>
+          <!-- This is the templateId for Reporting Parameters section -->
+          <templateId root="2.16.840.1.113883.10.20.17.2.1"/>
+
+          <!-- This is the templateId for the QRDA III Reporting Parameters Section -->
+          <templateId root="2.16.840.1.113883.10.20.27.2.2"/>
+
+          <code code="55187-9" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Reporting Parameters</title>
+          <text>
+            <list>
+              <item>Reporting period: January 1st, 2014 00:00 - December 31st, 2014 23:59</item>
+            </list>
+          </text>
+          <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN">
+              <!-- This is the templateId for Reporting Parameters Act -->
+              <templateId root="2.16.840.1.113883.10.20.17.3.8"/>
+              <id extension="2D0475AC04A485B34D51CD0976B6C965" />
+              <code code="252116004" codeSystem="2.16.840.1.113883.6.96" displayName="Observation Parameters"/>
+              <effectiveTime>
+                <low value="20140101000000"/>
+                <high value="20141231235959"/>
+              </effectiveTime>
+            </act>
+          </entry>
+        </section>
+      </component>
+      <!--
+********************************************************
+Measure Section
+********************************************************
+-->
+      <component>
+        <section>
+          <!-- Implied template Measure Section templateId -->
+          <templateId root="2.16.840.1.113883.10.20.24.2.2"/>
+          <!-- In this case the query is using an eMeasure -->
+          <!-- QRDA Category III Measure Section template -->
+          <templateId root="2.16.840.1.113883.10.20.27.2.1"/>
+          <code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Measure Section</title>
+          <text>
+
+          </text>
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- Implied template Measure Reference templateId -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
+              <templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+              <id extension="40280381-4C18-79DF-014C-291EF3F90654"/>
+              <statusCode code="completed"/>
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
+                  <!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
+                  <id root="2.16.840.1.113883.4.738" extension="40280381-4C18-79DF-014C-291EF3F90654"/>
+
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text>Median Time from ED Arrival to ED Departure for Discharged ED Patients</text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root="3FD13096-2C8F-40B5-9297-B714E8DE9133"/>
+                  <!-- This is the sequential eMeasure Version number -->
+                  <versionNumber value="1"/>
+                </externalDocument>
+              </reference>
+
+              <component>
+              
+<!--   MEASURE DATA REPORTING FOR    IPP  EAD808CB-A6FA-4824-A204-74F299839396  -->
+<observation classCode="OBS" moodCode="EVN">
+  <!-- Measure Data template -->
+  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+  <code code="ASSERTION" 
+        codeSystem="2.16.840.1.113883.5.4" 
+        displayName="Assertion" 
+        codeSystemName="ActCode"/>
+  <statusCode code="completed"/>
+  <value xsi:type="CD" code="IPP" 
+         codeSystem="2.16.840.1.113883.5.1063"  
+         codeSystemName="ObservationValue"/>
+  <!-- Aggregate Count -->
+  <entryRelationship typeCode="SUBJ" inversionInd="true">
+    <observation classCode="OBS" moodCode="EVN">
+      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+      <code code="MSRAGG" 
+        displayName="rate aggregation" 
+        codeSystem="2.16.840.1.113883.5.4" 
+        codeSystemName="ActCode"/>
+      <value xsi:type="INT" value="9"/>
+      <methodCode code="COUNT" 
+        displayName="Count" 
+        codeSystem="2.16.840.1.113883.5.84" 
+        codeSystemName="ObservationMethod"/>
+    </observation>
+  </entryRelationship>
+
+  <!--  Startification Reporting Template for IPP  EAD808CB-A6FA-4824-A204-74F299839396  Stratification 97B960C2-3AFC-45EC-8A8B-55518C3D35E9   -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+      <code code="ASSERTION" 
+            codeSystem="2.16.840.1.113883.5.4" 
+            displayName="Assertion" 
+            codeSystemName="ActCode"/>
+      <statusCode code="completed"/>
+      <value xsi:type="CD" nullFlavor="OTH">
+       <originalText>Stratum</originalText>
+      </value>
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="9"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+      <reference typeCode="REFR">
+        <externalObservation classCode="OBS" moodCode="EVN">
+          <id root="97B960C2-3AFC-45EC-8A8B-55518C3D35E9"/>
+        </externalObservation>
+      </reference>
+    </observation>
+  </entryRelationship>
+
+  <!--  Startification Reporting Template for IPP  EAD808CB-A6FA-4824-A204-74F299839396  Stratification 44E06049-04E9-43D5-84DD-330296967B86   -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+      <code code="ASSERTION" 
+            codeSystem="2.16.840.1.113883.5.4" 
+            displayName="Assertion" 
+            codeSystemName="ActCode"/>
+      <statusCode code="completed"/>
+      <value xsi:type="CD" nullFlavor="OTH">
+       <originalText>Stratum</originalText>
+      </value>
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="0"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+      <reference typeCode="REFR">
+        <externalObservation classCode="OBS" moodCode="EVN">
+          <id root="44E06049-04E9-43D5-84DD-330296967B86"/>
+        </externalObservation>
+      </reference>
+    </observation>
+  </entryRelationship>
+
+  <!--  Startification Reporting Template for IPP  EAD808CB-A6FA-4824-A204-74F299839396  Stratification 35522F0F-879C-413E-BDF9-512EDA5D691A   -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+      <code code="ASSERTION" 
+            codeSystem="2.16.840.1.113883.5.4" 
+            displayName="Assertion" 
+            codeSystemName="ActCode"/>
+      <statusCode code="completed"/>
+      <value xsi:type="CD" nullFlavor="OTH">
+       <originalText>Stratum</originalText>
+      </value>
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="0"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+      <reference typeCode="REFR">
+        <externalObservation classCode="OBS" moodCode="EVN">
+          <id root="35522F0F-879C-413E-BDF9-512EDA5D691A"/>
+        </externalObservation>
+      </reference>
+    </observation>
+  </entryRelationship>
+   
+   <!--    SEX Supplemental Data Reporting for IPP  EAD808CB-A6FA-4824-A204-74F299839396      --> 
+         
+    <!--                            Supplemental Date Template                                                  -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <!-- Sex Supplemental Data -->
+        <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+        <id nullFlavor="NA" />
+      <code code="184100006" 
+            codeSystem="2.16.840.1.113883.6.96"/>
+      <statusCode code="completed"/>
+      <effectiveTime>
+        <low nullFlavor="NA"/>
+        <high nullFlavor="NA"/>
+      </effectiveTime>
+      
+      <value xsi:type="CD" 
+             code="M"
+             codeSystem="2.16.840.1.113883.5.1"/>
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <!-- Aggregate Count template -->
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="5"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+    </observation>
+  </entryRelationship>    
+
+    <!--     ETHNICITY Supplemental Data Reporting  for IPP  EAD808CB-A6FA-4824-A204-74F299839396     --> 
+
+    <!--                            Supplemental Date Template                                                  -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <!-- Ethnicity Supplemental Data -->
+        <templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+        <id nullFlavor="NA" />
+      <code code="364699009" 
+            codeSystem="2.16.840.1.113883.6.96"/>
+      <statusCode code="completed"/>
+      <effectiveTime>
+        <low nullFlavor="NA"/>
+        <high nullFlavor="NA"/>
+      </effectiveTime>
+      
+      <value xsi:type="CD" 
+             code="2186-5"
+             codeSystem="2.16.840.1.113883.6.238"/>
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <!-- Aggregate Count template -->
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="5"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+    </observation>
+  </entryRelationship>    
+
+   <!--      RACE Supplemental Data Reporting  for IPP  EAD808CB-A6FA-4824-A204-74F299839396 --> 
+
+    <!--                            Supplemental Date Template                                                  -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <!-- Race Supplemental Data -->
+        <templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+        <id nullFlavor="NA" />
+      <code code="103579009" 
+            codeSystem="2.16.840.1.113883.6.96"/>
+      <statusCode code="completed"/>
+      <effectiveTime>
+        <low nullFlavor="NA"/>
+        <high nullFlavor="NA"/>
+      </effectiveTime>
+      
+      <value xsi:type="CD" 
+             code="2028-9"
+             codeSystem="2.16.840.1.113883.6.238"/>
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <!-- Aggregate Count template -->
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="1"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+    </observation>
+  </entryRelationship>    
+
+   <!--      RACE Supplemental Data Reporting  for IPP  EAD808CB-A6FA-4824-A204-74F299839396 --> 
+
+    <!--                            Supplemental Date Template                                                  -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <!-- Race Supplemental Data -->
+        <templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+        <id nullFlavor="NA" />
+      <code code="103579009" 
+            codeSystem="2.16.840.1.113883.6.96"/>
+      <statusCode code="completed"/>
+      <effectiveTime>
+        <low nullFlavor="NA"/>
+        <high nullFlavor="NA"/>
+      </effectiveTime>
+      
+      <value xsi:type="CD" 
+             code="1002-5"
+             codeSystem="2.16.840.1.113883.6.238"/>
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <!-- Aggregate Count template -->
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="4"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+    </observation>
+  </entryRelationship>    
+
+ <!--         PAYER Supplemental Data Reporting   forIPP  EAD808CB-A6FA-4824-A204-74F299839396   -->        
+   <!--                            Supplemental Date Template                                                  -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <!-- Payer Supplemental Data -->
+        <templateId root="2.16.840.1.113883.10.20.27.3.9"/>
+        <templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+        <id nullFlavor="NA" />
+      <code code="48768-6" 
+            codeSystem="2.16.840.1.113883.6.1"/>
+      <statusCode code="completed"/>
+      <effectiveTime>
+        <low nullFlavor="NA"/>
+        <high nullFlavor="NA"/>
+      </effectiveTime>
+      
+      <value xsi:type="CD" 
+             code="349"
+             codeSystem="2.16.840.1.113883.3.221.5"/>
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <!-- Aggregate Count template -->
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="5"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+    </observation>
+  </entryRelationship>    
+  <reference typeCode="REFR">
+     <externalObservation classCode="OBS" moodCode="EVN">
+        <id root="EAD808CB-A6FA-4824-A204-74F299839396"/>
+     </externalObservation>
+  </reference>
+</observation>
+              </component>
+              <component>
+              
+<!--   MEASURE DATA REPORTING FOR    MSRPOPL  7462E67A-5ECB-41D6-AE14-2E89BB55BBDE  -->
+<observation classCode="OBS" moodCode="EVN">
+  <!-- Measure Data template -->
+  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+  <code code="ASSERTION" 
+        codeSystem="2.16.840.1.113883.5.4" 
+        displayName="Assertion" 
+        codeSystemName="ActCode"/>
+  <statusCode code="completed"/>
+  <value xsi:type="CD" code="MSRPOPL" 
+         codeSystem="2.16.840.1.113883.5.1063"  
+         codeSystemName="ObservationValue"/>
+  <!-- Aggregate Count -->
+  <entryRelationship typeCode="SUBJ" inversionInd="true">
+    <observation classCode="OBS" moodCode="EVN">
+      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+      <code code="MSRAGG" 
+        displayName="rate aggregation" 
+        codeSystem="2.16.840.1.113883.5.4" 
+        codeSystemName="ActCode"/>
+      <value xsi:type="INT" value="5"/>
+      <methodCode code="COUNT" 
+        displayName="Count" 
+        codeSystem="2.16.840.1.113883.5.84" 
+        codeSystemName="ObservationMethod"/>
+    </observation>
+  </entryRelationship>
+
+  <!--  Startification Reporting Template for MSRPOPL  7462E67A-5ECB-41D6-AE14-2E89BB55BBDE  Stratification 97B960C2-3AFC-45EC-8A8B-55518C3D35E9   -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+      <code code="ASSERTION" 
+            codeSystem="2.16.840.1.113883.5.4" 
+            displayName="Assertion" 
+            codeSystemName="ActCode"/>
+      <statusCode code="completed"/>
+      <value xsi:type="CD" nullFlavor="OTH">
+       <originalText>Stratum</originalText>
+      </value>
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="5"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+      <entryRelationship typeCode="COMP">
+  <observation classCode="OBS" moodCode="EVN">
+    <templateId root="2.16.840.1.113883.10.20.27.3.2"/>
+    <code nullFlavor="OTH">
+      <originalText>Time Difference</originalText>
+    </code>
+    <statusCode code="completed"/>
+    <value xsi:type="PQ" value="240.0" unit="min"/>
+    <methodCode code="MEDIAN" 
+                displayName="Median" 
+                codeSystem="2.16.840.1.113883.5.84" 
+                codeSystemName="ObservationMethod"/>
+    <reference typeCode="REFR">
+      <!-- reference to the relevant measure observation in the eMeasure -->
+      <externalObservation classCode="OBS" moodCode="EVN">
+        <id root="2D084067-703B-4072-9F43-D50F938F4F9C"/>
+      </externalObservation>
+    </reference>
+  </observation>
+</entryRelationship>  
+      <reference typeCode="REFR">
+        <externalObservation classCode="OBS" moodCode="EVN">
+          <id root="97B960C2-3AFC-45EC-8A8B-55518C3D35E9"/>
+        </externalObservation>
+      </reference>
+    </observation>
+  </entryRelationship>
+
+  <!--  Startification Reporting Template for MSRPOPL  7462E67A-5ECB-41D6-AE14-2E89BB55BBDE  Stratification 44E06049-04E9-43D5-84DD-330296967B86   -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+      <code code="ASSERTION" 
+            codeSystem="2.16.840.1.113883.5.4" 
+            displayName="Assertion" 
+            codeSystemName="ActCode"/>
+      <statusCode code="completed"/>
+      <value xsi:type="CD" nullFlavor="OTH">
+       <originalText>Stratum</originalText>
+      </value>
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="0"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+      <entryRelationship typeCode="COMP">
+  <observation classCode="OBS" moodCode="EVN">
+    <templateId root="2.16.840.1.113883.10.20.27.3.2"/>
+    <code nullFlavor="OTH">
+      <originalText>Time Difference</originalText>
+    </code>
+    <statusCode code="completed"/>
+    <value xsi:type="PQ" value="0.0" unit="min"/>
+    <methodCode code="MEDIAN" 
+                displayName="Median" 
+                codeSystem="2.16.840.1.113883.5.84" 
+                codeSystemName="ObservationMethod"/>
+    <reference typeCode="REFR">
+      <!-- reference to the relevant measure observation in the eMeasure -->
+      <externalObservation classCode="OBS" moodCode="EVN">
+        <id root="2D084067-703B-4072-9F43-D50F938F4F9C"/>
+      </externalObservation>
+    </reference>
+  </observation>
+</entryRelationship>  
+      <reference typeCode="REFR">
+        <externalObservation classCode="OBS" moodCode="EVN">
+          <id root="44E06049-04E9-43D5-84DD-330296967B86"/>
+        </externalObservation>
+      </reference>
+    </observation>
+  </entryRelationship>
+
+  <!--  Startification Reporting Template for MSRPOPL  7462E67A-5ECB-41D6-AE14-2E89BB55BBDE  Stratification 35522F0F-879C-413E-BDF9-512EDA5D691A   -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+      <code code="ASSERTION" 
+            codeSystem="2.16.840.1.113883.5.4" 
+            displayName="Assertion" 
+            codeSystemName="ActCode"/>
+      <statusCode code="completed"/>
+      <value xsi:type="CD" nullFlavor="OTH">
+       <originalText>Stratum</originalText>
+      </value>
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="0"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+      <entryRelationship typeCode="COMP">
+  <observation classCode="OBS" moodCode="EVN">
+    <templateId root="2.16.840.1.113883.10.20.27.3.2"/>
+    <code nullFlavor="OTH">
+      <originalText>Time Difference</originalText>
+    </code>
+    <statusCode code="completed"/>
+    <value xsi:type="PQ" value="0.0" unit="min"/>
+    <methodCode code="MEDIAN" 
+                displayName="Median" 
+                codeSystem="2.16.840.1.113883.5.84" 
+                codeSystemName="ObservationMethod"/>
+    <reference typeCode="REFR">
+      <!-- reference to the relevant measure observation in the eMeasure -->
+      <externalObservation classCode="OBS" moodCode="EVN">
+        <id root="2D084067-703B-4072-9F43-D50F938F4F9C"/>
+      </externalObservation>
+    </reference>
+  </observation>
+</entryRelationship>  
+      <reference typeCode="REFR">
+        <externalObservation classCode="OBS" moodCode="EVN">
+          <id root="35522F0F-879C-413E-BDF9-512EDA5D691A"/>
+        </externalObservation>
+      </reference>
+    </observation>
+  </entryRelationship>
+   
+   <!--    SEX Supplemental Data Reporting for MSRPOPL  7462E67A-5ECB-41D6-AE14-2E89BB55BBDE      --> 
+         
+    <!--                            Supplemental Date Template                                                  -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <!-- Sex Supplemental Data -->
+        <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+        <id nullFlavor="NA" />
+      <code code="184100006" 
+            codeSystem="2.16.840.1.113883.6.96"/>
+      <statusCode code="completed"/>
+      <effectiveTime>
+        <low nullFlavor="NA"/>
+        <high nullFlavor="NA"/>
+      </effectiveTime>
+      
+      <value xsi:type="CD" 
+             code="M"
+             codeSystem="2.16.840.1.113883.5.1"/>
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <!-- Aggregate Count template -->
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="5"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+    </observation>
+  </entryRelationship>    
+
+    <!--     ETHNICITY Supplemental Data Reporting  for MSRPOPL  7462E67A-5ECB-41D6-AE14-2E89BB55BBDE     --> 
+
+    <!--                            Supplemental Date Template                                                  -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <!-- Ethnicity Supplemental Data -->
+        <templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+        <id nullFlavor="NA" />
+      <code code="364699009" 
+            codeSystem="2.16.840.1.113883.6.96"/>
+      <statusCode code="completed"/>
+      <effectiveTime>
+        <low nullFlavor="NA"/>
+        <high nullFlavor="NA"/>
+      </effectiveTime>
+      
+      <value xsi:type="CD" 
+             code="2186-5"
+             codeSystem="2.16.840.1.113883.6.238"/>
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <!-- Aggregate Count template -->
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="5"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+    </observation>
+  </entryRelationship>    
+
+   <!--      RACE Supplemental Data Reporting  for MSRPOPL  7462E67A-5ECB-41D6-AE14-2E89BB55BBDE --> 
+
+    <!--                            Supplemental Date Template                                                  -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <!-- Race Supplemental Data -->
+        <templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+        <id nullFlavor="NA" />
+      <code code="103579009" 
+            codeSystem="2.16.840.1.113883.6.96"/>
+      <statusCode code="completed"/>
+      <effectiveTime>
+        <low nullFlavor="NA"/>
+        <high nullFlavor="NA"/>
+      </effectiveTime>
+      
+      <value xsi:type="CD" 
+             code="2028-9"
+             codeSystem="2.16.840.1.113883.6.238"/>
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <!-- Aggregate Count template -->
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="1"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+    </observation>
+  </entryRelationship>    
+
+   <!--      RACE Supplemental Data Reporting  for MSRPOPL  7462E67A-5ECB-41D6-AE14-2E89BB55BBDE --> 
+
+    <!--                            Supplemental Date Template                                                  -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <!-- Race Supplemental Data -->
+        <templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+        <id nullFlavor="NA" />
+      <code code="103579009" 
+            codeSystem="2.16.840.1.113883.6.96"/>
+      <statusCode code="completed"/>
+      <effectiveTime>
+        <low nullFlavor="NA"/>
+        <high nullFlavor="NA"/>
+      </effectiveTime>
+      
+      <value xsi:type="CD" 
+             code="1002-5"
+             codeSystem="2.16.840.1.113883.6.238"/>
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <!-- Aggregate Count template -->
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="4"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+    </observation>
+  </entryRelationship>    
+
+ <!--         PAYER Supplemental Data Reporting   forMSRPOPL  7462E67A-5ECB-41D6-AE14-2E89BB55BBDE   -->        
+   <!--                            Supplemental Date Template                                                  -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <!-- Payer Supplemental Data -->
+        <templateId root="2.16.840.1.113883.10.20.27.3.9"/>
+        <templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+        <id nullFlavor="NA" />
+      <code code="48768-6" 
+            codeSystem="2.16.840.1.113883.6.1"/>
+      <statusCode code="completed"/>
+      <effectiveTime>
+        <low nullFlavor="NA"/>
+        <high nullFlavor="NA"/>
+      </effectiveTime>
+      
+      <value xsi:type="CD" 
+             code="349"
+             codeSystem="2.16.840.1.113883.3.221.5"/>
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <!-- Aggregate Count template -->
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="5"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+    </observation>
+  </entryRelationship>    
+  <entryRelationship typeCode="COMP">
+  <observation classCode="OBS" moodCode="EVN">
+    <templateId root="2.16.840.1.113883.10.20.27.3.2"/>
+    <code nullFlavor="OTH">
+      <originalText>Time Difference</originalText>
+    </code>
+    <statusCode code="completed"/>
+    <value xsi:type="PQ" value="240.0" unit="min"/>
+    <methodCode code="MEDIAN" 
+                displayName="Median" 
+                codeSystem="2.16.840.1.113883.5.84" 
+                codeSystemName="ObservationMethod"/>
+    <reference typeCode="REFR">
+      <!-- reference to the relevant measure observation in the eMeasure -->
+      <externalObservation classCode="OBS" moodCode="EVN">
+        <id root="2D084067-703B-4072-9F43-D50F938F4F9C"/>
+      </externalObservation>
+    </reference>
+  </observation>
+</entryRelationship>  
+  <reference typeCode="REFR">
+     <externalObservation classCode="OBS" moodCode="EVN">
+        <id root="7462E67A-5ECB-41D6-AE14-2E89BB55BBDE"/>
+     </externalObservation>
+  </reference>
+</observation>
+              </component>
+            </organizer>
+          </entry>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>
