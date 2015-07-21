@@ -408,17 +408,9 @@ module HQMF2
         next if sdc.try(:specific_occurrence) == dc.specific_occurrence
         specifics_map[dc.source_data_criteria] ||= []
         specifics_map[dc.source_data_criteria] << dc.specific_occurrence
-        # only prefix occurrence identifier if it doesn't already exist
-        unless dc.source_data_criteria.split(/Occurrence[A-Z]_/).length > 1
-          cloned_sdc = "Occurrence#{dc.specific_occurrence}_#{dc.source_data_criteria}"
-          cloned_s_occr_const = dc.source_data_criteria.upcase
-        else
-          # otherwise use the supplied sdc and non-prefixed s_occr_const
-          cloned_sdc = dc.source_data_criteria
-          cloned_s_occr_const = dc.source_data_criteria.split(/Occurrence[A-Z]_/).last.try(:upcase)
-        end
+        cloned_sdc = "Occurrence#{dc.specific_occurrence}_#{dc.source_data_criteria}"
         # puts "Updated #{dc.id} SDC from #{dc.source_data_criteria} to #{cloned_sdc}"
-        dc.patch_sdc_clone(nil, cloned_sdc, nil, cloned_s_occr_const)
+        dc.patch_sdc_clone(nil, cloned_sdc, nil, dc.source_data_criteria.upcase)
       end
       specifics_map.each do |sdc_id, occurrences|
         existing = @data_criteria_references[sdc_id]
