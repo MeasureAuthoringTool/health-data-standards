@@ -29,6 +29,14 @@ Change Log
 
 * Upgrading to mongoid 4
 
+* 3.6.0
+
+* Support for QRDA Cat I R3
+* Additional validators for QRDA Cat I/III
+* Removed GC32 & CCR code
+* Support latest QDM changes
+* Additional support for running in JRuby
+
 3.5.3 - January 20, 2015
 
 * Support for 2014 QRDA Errata Release
