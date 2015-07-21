@@ -38,20 +38,22 @@ Reference Range Constraints Overview
 
 observationCriteria (identifier: urn:hl7ii:TBD:TBD)
 
-| XPath                   | Card. | Verb      | Data Type | Value                                    | QDM Attribute        |
-|:------------------------|:------|:----------|:----------|:-----------------------------------------|:---------------------|
-| @classCode              | 1..1  | SHALL     |           | OBS                                      |                      |
-| @moodCode               | 1..1  | SHALL     |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN |                      |
-| templateId              | 1..1  | SHALL     |           |                                          |                      |
-| &nbsp; item             | 1..1  | SHALL     |           |                                          |                      |
-| &nbsp;&nbsp; @root      | 1..1  | SHALL     |           | TBD                                      |                      |
-| &nbsp;&nbsp; @extension | 1..1  | SHALL     |           | TBD                                      |                      |
-| id                      | 1..1  | SHALL     |           |                                          |                      |
-| code                    | 0..0  | SHALL NOT |           |                                          |                      |
-| title                   | 1..1  | SHALL     |           |                                          |                      |
-| value                   | 1..1  | IVL_PQ    |           |                                          |                      |
-| &nbsp; low              | 0..1  | MAY       |           |                                          | reference range low  |
-| &nbsp; high             | 0..1  | MAY       |           |                                          | reference range high |
+| XPath                   | Card. | Verb   | Data Type | Value                                    | QDM Attribute        |
+|:------------------------|:------|:-------|:----------|:-----------------------------------------|:---------------------|
+| @classCode              | 1..1  | SHALL  |           | OBS                                      |                      |
+| @moodCode               | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN |                      |
+| templateId              | 1..1  | SHALL  |           |                                          |                      |
+| &nbsp; item             | 1..1  | SHALL  |           |                                          |                      |
+| &nbsp;&nbsp; @root      | 1..1  | SHALL  |           | TBD                                      |                      |
+| &nbsp;&nbsp; @extension | 1..1  | SHALL  |           | TBD                                      |                      |
+| id                      | 1..1  | SHALL  |           |                                          |                      |
+| code                    | 1..1  | SHALL  |           |                                          |                      |
+| &nbsp; @code            | 1..1  | SHALL  |           | 19147-8                                  |                      |
+| &nbsp; @codeSystem      | 1..1  | SHALL  |           | 2.16.840.1.113883.6.1 (LOINC)            |                      |
+| title                   | 1..1  | SHALL  |           |                                          |                      |
+| value                   | 1..1  | IVL_PQ |           |                                          |                      |
+| &nbsp; low              | 0..1  | MAY    |           |                                          | reference range low  |
+| &nbsp; high             | 0..1  | MAY    |           |                                          | reference range high |
 
 Laboratory Test, Performed w/ Reference Range Example
 -----------------------------------------------------
@@ -73,6 +75,9 @@ The following checks that a `reference range high` exists. If you need to apply 
                 <item root="TBD" extension="TBD"/>
             </templateId>
             <id root="9f751ae5-edb2-4fb3-b49c-d0f0fdef3999"/>
+            <code code="19147-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                <displayName value="Reference lab test reference range"/>
+            </code>
             <title value="Reference Range"/>
             <value xsi:type="IVL_PQ">
               <high flavorId="ANY.NONNULL" />
