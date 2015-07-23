@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'protected_attributes', '~> 1.0.5'
   s.add_dependency 'uuid', '~> 2.3.7'
   s.add_dependency 'builder', '~> 3.1'
-  s.add_dependency 'nokogiri', '~> 1.6.6.2'
+  s.add_dependency 'nokogiri', '~> 1.6.1'
   s.add_dependency 'highline', "~> 1.7.0"
 
   s.add_dependency 'rubyzip', '0.9.9'
@@ -28,5 +28,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'memoist', '~> 0.9.1'
 
   s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/**/*.erb') + Dir.glob('lib/**/*.json') + Dir.glob('lib/**/*.erb') + Dir.glob('lib/health-data-standards/tasks/*.rake') +
-            ["Gemfile", "README.md", "Rakefile"] + Dir.glob('resources/schema/**/*') + Dir.glob('resources/schematron/**/*')
+            Dir.glob('java/*.jar') + ["Gemfile", "README.md", "Rakefile"] + Dir.glob('resources/schema/**/*') + Dir.glob('resources/schematron/**/*')
 end
