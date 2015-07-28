@@ -20,56 +20,34 @@ Note that in C-CDA R2 and QRDA Cat I R3, the `entryRelationship` from the encoun
 
 encounterCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.5:2015-09-30)
 
-| XPath                                      | Card. | Verb   | Data Type | Value                                                    | QDM Attribute          |
-|:-------------------------------------------|:------|:-------|:----------|:---------------------------------------------------------|:-----------------------|
-| outboundRelationship                       | 0..1  | MAY    |           |                                                          |                        |
-| &nbsp; @typeCode                           | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = REFR |                        |
-| &nbsp; actCriteria                         | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp; @classCode                    | 1..1  | SHALL  |           | ACT                                                      |                        |
-| &nbsp;&nbsp; @moodCode                     | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                 |                        |
-| &nbsp;&nbsp; id                            | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp; code                          | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp;&nbsp; @code                   | 1..1  | SHALL  |           | 52534-5                                                  |                        |
-| &nbsp;&nbsp;&nbsp; @codeSystem             | 1..1  | SHALL  |           | 2.16.840.1.113883.6.1 (LOINC)                            |                        |
-| &nbsp;&nbsp; title                         | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp; outboundRelationship          | 1..1  | MAY    |           |                                                          |                        |
-| &nbsp;&nbsp;&nbsp; @typeCode               | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = SUBJ |                        |
-| &nbsp;&nbsp;&nbsp; observationCriteria     | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp; @classCode        | 1..1  | SHALL  |           | OBS                                                      |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp; @moodCode         | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                 |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp; id                | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp; code              | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @code       | 1..1  | SHALL  |           | 282291009                                                |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @codeSystem | 1..1  | SHALL  |           | 2.16.840.1.113883.6.96 (SNOMED CT)                       |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp; title             | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp; statusCode        | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @code       | 1..1  | SHALL  |           | 2.16.840.1.113883.5.14 (ActStatus) = completed           |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp; value             | 1..1  | SHALL  | CD        |                                                          | principal diagnosis    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @valueSet   | 0..1  | SHOULD |           |                                                          | {$PrincipalDxValueSet} |
-| outboundRelationship                       | 0..1  | MAY    |           |                                                          |                        |
-| &nbsp; @typeCode                           | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = REFR |                        |
-| &nbsp; actCriteria                         | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp; @classCode                    | 1..1  | SHALL  |           | ACT                                                      |                        |
-| &nbsp;&nbsp; @moodCode                     | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                 |                        |
-| &nbsp;&nbsp; id                            | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp; code                          | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp;&nbsp; @code                   | 1..1  | SHALL  |           | 29308-4                                                  |                        |
-| &nbsp;&nbsp;&nbsp; @codeSystem             | 1..1  | SHALL  |           | 2.16.840.1.113883.6.1 (LOINC)                            |                        |
-| &nbsp;&nbsp;title                          | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp;outboundRelationship           | 1..1  | MAY    |           |                                                          |                        |
-| &nbsp;&nbsp;&nbsp; @typeCode               | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = SUBJ |                        |
-| &nbsp;&nbsp;&nbsp; observationCriteria     | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp; @classCode        | 1..1  | SHALL  |           | OBS                                                      |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp; @moodCode         | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                 |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp; id                | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp; code              | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @code       | 1..1  | SHALL  |           | 282291009                                                |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @codeSystem | 1..1  | SHALL  |           | 2.16.840.1.113883.6.96 (SNOMED CT)                       |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp; title             | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp; statusCode        | 1..1  | SHALL  |           |                                                          |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @code       | 1..1  | SHALL  |           | 2.16.840.1.113883.5.14 (ActStatus) = completed           |                        |
-| &nbsp;&nbsp;&nbsp;&nbsp; value             | 1..1  | SHALL  | CD        |                                                          | diagnosis              |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @valueSet   | 0..1  | SHOULD |           |                                                          | {$DxValueSet}          |
+| XPath                                  | Card. | Verb  | Data Type | Value                                                                         | QDM Attribute       |
+|:---------------------------------------|:------|:------|:----------|:------------------------------------------------------------------------------|:--------------------|
+| outboundRelationship                   | 0..1  | MAY   |           |                                                                               |                     |
+| &nbsp; @typeCode                       | 1..1  | SHALL |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = REFR                      |                     |
+| &nbsp; actCriteria                     | 1..1  | SHALL |           |                                                                               |                     |
+| &nbsp;&nbsp; @classCode                | 1..1  | SHALL |           | ACT                                                                           |                     |
+| &nbsp;&nbsp; @moodCode                 | 1..1  | SHALL |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                                      |                     |
+| &nbsp;&nbsp; id                        | 1..1  | SHALL |           |                                                                               |                     |
+| &nbsp;&nbsp; code                      | 1..1  | SHALL |           |                                                                               |                     |
+| &nbsp;&nbsp;&nbsp; @code               | 1..1  | SHALL |           | 52534-5                                                                       |                     |
+| &nbsp;&nbsp;&nbsp; @codeSystem         | 1..1  | SHALL |           | 2.16.840.1.113883.6.1 (LOINC)                                                 |                     |
+| &nbsp;&nbsp; title                     | 1..1  | SHALL |           |                                                                               |                     |
+| &nbsp;&nbsp; outboundRelationship      | 1..1  | MAY   |           |                                                                               |                     |
+| &nbsp;&nbsp;&nbsp; @typeCode           | 1..1  | SHALL |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = SUBJ                      |                     |
+| &nbsp;&nbsp;&nbsp; observationCriteria | 1..1  | SHALL |           | Diagnosis (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.110:2015-09-30) | principal diagnosis |
+| outboundRelationship                   | 0..1  | MAY   |           |                                                                               |                     |
+| &nbsp; @typeCode                       | 1..1  | SHALL |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = REFR                      |                     |
+| &nbsp; actCriteria                     | 1..1  | SHALL |           |                                                                               |                     |
+| &nbsp;&nbsp; @classCode                | 1..1  | SHALL |           | ACT                                                                           |                     |
+| &nbsp;&nbsp; @moodCode                 | 1..1  | SHALL |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                                      |                     |
+| &nbsp;&nbsp; id                        | 1..1  | SHALL |           |                                                                               |                     |
+| &nbsp;&nbsp; code                      | 1..1  | SHALL |           |                                                                               |                     |
+| &nbsp;&nbsp;&nbsp; @code               | 1..1  | SHALL |           | 29308-4                                                                       |                     |
+| &nbsp;&nbsp;&nbsp; @codeSystem         | 1..1  | SHALL |           | 2.16.840.1.113883.6.1 (LOINC)                                                 |                     |
+| &nbsp;&nbsp;title                      | 1..1  | SHALL |           |                                                                               |                     |
+| &nbsp;&nbsp;outboundRelationship       | 1..1  | MAY   |           |                                                                               |                     |
+| &nbsp;&nbsp;&nbsp; @typeCode           | 1..1  | SHALL |           | 2.16.840.1.113883.5.1002 (HL7ActRelationshipType) = SUBJ                      |                     |
+| &nbsp;&nbsp;&nbsp; observationCriteria | 1..1  | SHALL |           | Diagnosis (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.110:2015-09-30) | diagnosis           |
 
 Encounter, Performed w/ Principal Diagnosis Example
 ---------------------------------------------------
@@ -92,6 +70,9 @@ Encounter, Performed w/ Principal Diagnosis Example
             <title value="Encounter Principal Diagnosis"/>
             <outboundRelationship typeCode="SUBJ">
               <observationCriteria classCode="OBS" moodCode="EVN">
+                  <templateId>
+                      <item root="2.16.840.1.113883.10.20.28.3.110" extension="2015-09-30"/>
+                  </templateId>
                   <id root="9e4e810d-3c3e-461e-86f8-6fe7a0b1ca2b"/>
                   <code code="282291009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
                       <displayName value="Diagnosis"/>
