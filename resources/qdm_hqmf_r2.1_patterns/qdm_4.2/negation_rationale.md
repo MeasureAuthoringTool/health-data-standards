@@ -15,6 +15,8 @@ The following table identifies the templates that should no longer support `nega
 
 Note that `Encounter, Active` should retain the `outboundRelationship` to `Reason` since it is needed for the QDM `reason` attribute.
 
+For those templates that are affected, the template id's `extension` should be updated to *2015-09-30*.
+
 | Template                                | Remove @actionNegationInd | Remove Reason         |
 |:----------------------------------------|:--------------------------|:----------------------|
 | Care Goal                               | X                         | X                     |

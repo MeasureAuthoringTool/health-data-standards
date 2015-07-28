@@ -1,8 +1,6 @@
 Immunizations ([QDM-87](http://jira.oncprojectracking.org/browse/QDM-87)\)
 ==========================================================================
 
-**NOTE: These patterns should be considered DRAFT, as they are still awaiting confirmation for correctness.**
-
 The QDM User Group has proposed that Immunizations be represented using their own data types (as opposed to using the Medication data types). This introduces new templates for the following data types: `Immunization, Administered`, `Immunization, Order`, `Immunization, Allergy`, and `Immunization, Intolerance`. These will be in a new QDM `Immunization` category.
 
 > Immunization represents vaccines administered to patients in healthcare settings, but does not include non-vaccine agents.
@@ -40,7 +38,7 @@ Immunization, Administered Contexts
 Immunization, Administered Constraints Overview
 -----------------------------------------------
 
-substanceAdministrationCriteria (identifier: urn:hl7ii:TBD:TBD)
+substanceAdministrationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.112:2015-09-30)
 
 | XPath                                    | Card. | Verb   | Data Type | Value                                                                     | QDM Attribute            |
 |:-----------------------------------------|:------|:-------|:----------|:--------------------------------------------------------------------------|:-------------------------|
@@ -49,8 +47,8 @@ substanceAdministrationCriteria (identifier: urn:hl7ii:TBD:TBD)
 | @actionNegationInd                       | 0..1  | MAY    |           |                                                                           | negation rationale       |
 | templateId                               | 1..1  | SHALL  |           |                                                                           |                          |
 | &nbsp; item                              | 1..1  | SHALL  |           |                                                                           |                          |
-| &nbsp;&nbsp; @root                       | 1..1  | SHALL  |           | TBD                                                                       |                          |
-| &nbsp;&nbsp; @extension                  | 1..1  | SHALL  |           | TBD                                                                       |                          |
+| &nbsp;&nbsp; @root                       | 1..1  | SHALL  |           | 2.16.840.1.113883.10.20.28.3.112                                          |                          |
+| &nbsp;&nbsp; @extension                  | 1..1  | SHALL  |           | 2015-09-30                                                                |                          |
 | id                                       | 1..1  | SHALL  |           |                                                                           |                          |
 | code                                     | 1..1  | SHALL  |           |                                                                           |                          |
 | &nbsp; @code                             | 1..1  | SHALL  |           | 416118004                                                                 |                          |
@@ -83,7 +81,7 @@ Immunization, Administered Example
 ```xml
 <substanceAdministrationCriteria classCode="SBADM" moodCode="EVN">
     <templateId>
-        <item root="TBD" extension="TBD"/>
+        <item root="2.16.840.1.113883.10.20.28.3.112" extension="2015-09-30"/>
     </templateId>
     <id root="de28ff02-d2cf-436e-898a-58eb49e15b47"/>
     <code code="416118004" codeSystem="2.16.840.1.113883.6.96">
@@ -133,7 +131,7 @@ Immunization, Order Contexts
 Immunization, Order Constraints Overview
 ----------------------------------------
 
-substanceAdministrationCriteria (identifier: urn:hl7ii:TBD:TBD)
+substanceAdministrationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.113:2015-09-30)
 
 | XPath                                    | Card. | Verb   | Data Type | Value                                                                     | QDM Attribute                                   |
 |:-----------------------------------------|:------|:-------|:----------|:--------------------------------------------------------------------------|:------------------------------------------------|
@@ -142,8 +140,8 @@ substanceAdministrationCriteria (identifier: urn:hl7ii:TBD:TBD)
 | @actionNegationInd                       | 0..1  | MAY    |           |                                                                           | negation rationale                              |
 | templateId                               | 1..1  | SHALL  |           |                                                                           |                                                 |
 | &nbsp; item                              | 1..1  | SHALL  |           |                                                                           |                                                 |
-| &nbsp;&nbsp; @root                       | 1..1  | SHALL  |           | TBD                                                                       |                                                 |
-| &nbsp;&nbsp; @extension                  | 1..1  | SHALL  |           | TBD                                                                       |                                                 |
+| &nbsp;&nbsp; @root                       | 1..1  | SHALL  |           | 2.16.840.1.113883.10.20.28.3.113                                          |                                                 |
+| &nbsp;&nbsp; @extension                  | 1..1  | SHALL  |           | 2015-09-30                                                                |                                                 |
 | id                                       | 1..1  | SHALL  |           |                                                                           |                                                 |
 | code                                     | 1..1  | SHALL  |           |                                                                           |                                                 |
 | &nbsp; @code                             | 1..1  | SHALL  |           | 416118004                                                                 |                                                 |
@@ -183,7 +181,7 @@ Immunization, Order Example
 ```xml
 <substanceAdministrationCriteria classCode="SBADM" moodCode="RQO">
     <templateId>
-        <item root="TBD" extension="TBD"/>
+        <item root="2.16.840.1.113883.10.20.28.3.113" extension="2015-09-30"/>
     </templateId>
     <id root="27beb8e3-7c86-48cf-b430-235b72786dea"/>
     <title value="Immunization, Order"/>
@@ -223,7 +221,7 @@ Immunization, Allergy Contexts
 Immunization, Allergy Constraints Overview
 ------------------------------------------
 
-observationCriteria (identifier: urn:hl7ii:TBD:TBD)
+observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.114:2015-09-30)
 
 | XPath                              | Card. | Verb   | Data Type | Value                                                                       | QDM Attribute            |
 |:-----------------------------------|:------|:-------|:----------|:----------------------------------------------------------------------------|:-------------------------|
@@ -231,8 +229,8 @@ observationCriteria (identifier: urn:hl7ii:TBD:TBD)
 | @moodCode                          | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                                    |                          |
 | templateId                         | 1..1  | SHALL  |           |                                                                             |                          |
 | &nbsp; item                        | 1..1  | SHALL  |           |                                                                             |                          |
-| &nbsp;&nbsp; @root                 | 1..1  | SHALL  |           | TBD                                                                         |                          |
-| &nbsp;&nbsp; @extension            | 1..1  | SHALL  |           | TBD                                                                         |                          |
+| &nbsp;&nbsp; @root                 | 1..1  | SHALL  |           | 2.16.840.1.113883.10.20.28.3.114                                            |                          |
+| &nbsp;&nbsp; @extension            | 1..1  | SHALL  |           | 2015-09-30                                                                  |                          |
 | id                                 | 1..1  | SHALL  |           |                                                                             |                          |
 | code                               | 1..1  | SHALL  |           |                                                                             |                          |
 | &nbsp; @code                       | 1..1  | SHALL  |           | ASSERTION                                                                   |                          |
@@ -266,7 +264,7 @@ Immunization, Allergy Example
 ```xml
 <observationCriteria classCode="OBS" moodCode="EVN">
     <templateId>
-        <item root="TBD" extension="TBD"/>
+        <item root="2.16.840.1.113883.10.20.28.3.114" extension="2015-09-30"/>
     </templateId>
     <id root="DA60953A-89EB-4255-8CCF-058996928FBB"/>
     <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
@@ -309,7 +307,7 @@ Immunization, Intolerance Contexts
 Immunization, Intolerance Constraints Overview
 ----------------------------------------------
 
-observationCriteria (identifier: urn:hl7ii:TBD:TBD)
+observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.115:2015-09-30)
 
 | XPath                              | Card. | Verb   | Data Type | Value                                                                       | QDM Attribute            |
 |:-----------------------------------|:------|:-------|:----------|:----------------------------------------------------------------------------|:-------------------------|
@@ -317,8 +315,8 @@ observationCriteria (identifier: urn:hl7ii:TBD:TBD)
 | @moodCode                          | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                                    |                          |
 | templateId                         | 1..1  | SHALL  |           |                                                                             |                          |
 | &nbsp; item                        | 1..1  | SHALL  |           |                                                                             |                          |
-| &nbsp;&nbsp; @root                 | 1..1  | SHALL  |           | TBD                                                                         |                          |
-| &nbsp;&nbsp; @extension            | 1..1  | SHALL  |           | TBD                                                                         |                          |
+| &nbsp;&nbsp; @root                 | 1..1  | SHALL  |           | 2.16.840.1.113883.10.20.28.3.115                                            |                          |
+| &nbsp;&nbsp; @extension            | 1..1  | SHALL  |           | 2015-09-30                                                                  |                          |
 | id                                 | 1..1  | SHALL  |           |                                                                             |                          |
 | code                               | 1..1  | SHALL  |           |                                                                             |                          |
 | &nbsp; @code                       | 1..1  | SHALL  |           | ASSERTION                                                                   |                          |
@@ -352,7 +350,7 @@ Immunization, Intolerance Example
 ```xml
 <observationCriteria classCode="OBS" moodCode="EVN">
     <templateId>
-        <item root="TBD" extension="TBD"/>
+        <item root="2.16.840.1.113883.10.20.28.3.115" extension="2015-09-30"/>
     </templateId>
     <id root="D48AB4EA-0589-4E8C-A747-9B7946D5A22E"/>
     <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>

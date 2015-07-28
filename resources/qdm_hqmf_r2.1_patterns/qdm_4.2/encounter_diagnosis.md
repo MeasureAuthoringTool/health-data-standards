@@ -1,8 +1,6 @@
 Encounter Diagnosis ([QDM-106](http://jira.oncprojectracking.org/browse/QDM-106)\)
 ==================================================================================
 
-**NOTE: This pattern should be considered DRAFT, as it is still awaiting confirmation for correctness.**
-
 The QDM User Group has proposed that encounter diagnoses (including principal diagnoses) be represented by `diagnosis` and `principal diagnosis` attributes on the `Encounter, Performed` data type.
 
 The following attributes will be added to the `Encounter, Performed` data type:
@@ -20,7 +18,7 @@ Additional Encounter, Performed Constraints
 
 Note that in C-CDA R2 and QRDA Cat I R3, the `entryRelationship` from the encounter to encounter diagnosis does *not* have a `typeCode` specified. In HQMF R2.1, `outboundRelationship` *must* have a `typeCode`. I've opted to use the general `REFR` type code, but am open to other suggestions. Among those also considered: `COMP`, `DIAG` (not chosen because I think it relates to the *initial* identification of the condition), `RSON` (for principal only), and `TREAT`.
 
-encounterCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.5:TBD)
+encounterCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.5:2015-09-30)
 
 | XPath                                      | Card. | Verb   | Data Type | Value                                                    | QDM Attribute          |
 |:-------------------------------------------|:------|:-------|:----------|:---------------------------------------------------------|:-----------------------|
@@ -79,7 +77,7 @@ Encounter, Performed w/ Principal Diagnosis Example
 ```xml
 <encounterCriteria classCode="ENC" moodCode="EVN">
     <templateId>
-        <item root="2.16.840.1.113883.10.20.28.3.5" extension="TBD"/>
+        <item root="2.16.840.1.113883.10.20.28.3.5" extension="2015-09-30"/>
     </templateId>
     <id root="d7fbe089-ff04-4f58-b604-cb6d5ebce4cc"/>
     <code valueSet="{$QDMElementValueSetOID}"/>

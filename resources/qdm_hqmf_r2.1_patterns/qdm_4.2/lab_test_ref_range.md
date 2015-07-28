@@ -1,8 +1,6 @@
 Laboratory Test, Performed Reference Range ([QDM-114](http://jira.oncprojectracking.org/browse/QDM-114)\)
 =========================================================================================================
 
-**NOTE: This pattern should be considered DRAFT, as it is still awaiting confirmation for correctness.**
-
 The QDM User Group has proposed that the `Laboratory Test, Performed` data type be extended to support the representation of a reference range.
 
 The following attributes will be added to the `Laboratory Test, Performed` data type:
@@ -18,7 +16,7 @@ The `Laboratory Test, Performed` template will be updated to include an outbound
 Additional Laboratory Test, Performed Constraints
 -------------------------------------------------
 
-observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.42:TBD)
+observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.42:2015-09-30)
 
 | XPath                          | Card. | Verb   | Data Type | Value                                                    | QDM Attribute        |
 |:-------------------------------|:------|:-------|:----------|:---------------------------------------------------------|:---------------------|
@@ -44,7 +42,7 @@ The following checks that a `reference range high` exists. If you need to apply 
 ```xml
 <observationCriteria classCode="OBS" moodCode="EVN">
     <templateId>
-        <item root="2.16.840.1.113883.10.20.28.3.42" extension="TBD"/>
+        <item root="2.16.840.1.113883.10.20.28.3.42" extension="2015-09-30"/>
     </templateId>
     <id root="05f0a7c8-371e-4e77-aad4-22ff9fdf7fa3"/>
     <code valueSet="{$QDMElementValueSetOID}"/>

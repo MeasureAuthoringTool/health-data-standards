@@ -1,8 +1,6 @@
 Family History ([QDM-107](http://jira.oncprojectracking.org/browse/QDM-107)\)
 =============================================================================
 
-**NOTE: This pattern should be considered DRAFT, as it is still awaiting confirmation for correctness.**
-
 The QDM User Group has proposed that the `Diagnosis, Family History` data type be replaced by a new `Family History` data type (in its own `Family History` QDM category).
 
 The `Family History` data type contains the following attributes:
@@ -32,7 +30,7 @@ Family History Contexts
 Family History Constraints Overview
 -----------------------------------
 
-observationCriteria (identifier: urn:hl7ii:TBD:TBD)
+observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.111:2015-09-30)
 
 | XPath                          | Card. | Verb   | Data Type | Value                                                         | QDM Attribute                      |
 |:-------------------------------|:------|:-------|:----------|:--------------------------------------------------------------|:-----------------------------------|
@@ -40,8 +38,8 @@ observationCriteria (identifier: urn:hl7ii:TBD:TBD)
 | @moodCode                      | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                      |                                    |
 | templateId                     | 1..1  | SHALL  |           |                                                               |                                    |
 | &nbsp; item                    | 1..1  | SHALL  |           |                                                               |                                    |
-| &nbsp;&nbsp; @root             | 1..1  | SHALL  |           | TBD                                                           |                                    |
-| &nbsp;&nbsp; @extension        | 1..1  | SHALL  |           | TBD                                                           |                                    |
+| &nbsp;&nbsp; @root             | 1..1  | SHALL  |           | 2.16.840.1.113883.10.20.28.3.111                              |                                    |
+| &nbsp;&nbsp; @extension        | 1..1  | SHALL  |           | 2015-09-30                                                    |                                    |
 | id                             | 1..1  | SHALL  |           |                                                               |                                    |
 | code                           | 1..1  | SHALL  |           |                                                               |                                    |
 | &nbsp; @code                   | 1..1  | SHALL  |           | 75314-5                                                       |                                    |
@@ -83,7 +81,7 @@ Family History Example
 ```xml
 <observationCriteria classCode="OBS" moodCode="EVN">
     <templateId>
-        <item root="TBD" extension="TBD"/>
+        <item root="2.16.840.1.113883.10.20.28.3.111" extension="2015-09-30"/>
     </templateId>
     <id root="bd4673f9-0da9-4491-98ba-a00c4191d518"/>
     <code code="10157-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">

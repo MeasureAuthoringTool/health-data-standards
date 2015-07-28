@@ -81,6 +81,8 @@ The `outboundRelationship` to the `Patient Preference` template and `outboundRel
 
 <sup>\*</sup> *New template definitions already had these elements removed*
 
+For those templates that are affected, the template id's `extension` should be updated to *2015-09-30*.
+
 Deprecated Templates
 --------------------
 

@@ -1,8 +1,6 @@
 Symptom ([QDM-115](http://jira.oncprojectracking.org/browse/QDM-115)\)
 ======================================================================
 
-**NOTE: This pattern should be considered DRAFT, as it is still awaiting confirmation for correctness.**
-
 The QDM User Group has proposed that the `Symptom, Active`, `Symptom, Inactive`, `Symptom, Resolved`, and `Symptom, Assessed` data types should be consolidated to a single `Symptom` data type with the following definition.
 
 The `Symptom` data type contains the following attributes:
@@ -28,7 +26,7 @@ Symptom Contexts
 Symptom Constraints Overview
 ----------------------------
 
-observationCriteria (identifier: urn:hl7ii:TBD:TBD)
+observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.116:2015-09-30)
 
 | XPath                      | Card. | Verb   | Data Type | Value                                                                                   | QDM Attribute                       |
 |:---------------------------|:------|:-------|:----------|:----------------------------------------------------------------------------------------|:------------------------------------|
@@ -36,8 +34,8 @@ observationCriteria (identifier: urn:hl7ii:TBD:TBD)
 | @moodCode                  | 1..1  | SHALL  |           | 2.16.840.1.113883.5.1001 (ActMood) = EVN                                                |                                     |
 | templateId                 | 1..1  | SHALL  |           |                                                                                         |                                     |
 | &nbsp; item                | 1..1  | SHALL  |           |                                                                                         |                                     |
-| &nbsp;&nbsp; @root         | 1..1  | SHALL  |           | TBD                                                                                     |                                     |
-| &nbsp;&nbsp; @extension    | 1..1  | SHALL  |           | TBD                                                                                     |                                     |
+| &nbsp;&nbsp; @root         | 1..1  | SHALL  |           | 2.16.840.1.113883.10.20.28.3.116                                                        |                                     |
+| &nbsp;&nbsp; @extension    | 1..1  | SHALL  |           | 2015-09-30                                                                              |                                     |
 | id                         | 1..1  | SHALL  |           |                                                                                         |                                     |
 | code                       | 1..1  | SHALL  |           |                                                                                         |                                     |
 | &nbsp; @code               | 1..1  | SHALL  |           | 418799008                                                                               |                                     |
@@ -60,7 +58,7 @@ Symptom Example
 ```xml
 <observationCriteria classCode="OBS" moodCode="EVN">
     <templateId>
-        <item root="TBD" extension="TBD"/>
+        <item root="2.16.840.1.113883.10.20.28.3.116" extension="2015-09-30"/>
     </templateId>
     <id root="9e4e810d-3c3e-461e-86f8-6fe7a0b1ca2b"/>
     <code code="418799008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
