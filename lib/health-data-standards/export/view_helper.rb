@@ -49,6 +49,14 @@ module HealthDataStandards
         end
       end
 
+      def fulfillment_quantity(codes, fulfillmentHistory, dose)
+        if (codes["RxNorm"].present?)
+          doses = (fulfillmentHistory.quantity_dispensed['value'].to_f / dose['value'].to_f ).to_i
+          return "value='#{doses}'"
+        else
+          return "value='#{fulfillmentHistory.quantity_dispensed['value']}' unit='#{fulfillmentHistory.quantity_dispensed['unit']}'"
+        end
+      end
            
       def value_or_null_flavor(time)
         if time 
@@ -56,6 +64,14 @@ module HealthDataStandards
         else 
          return "nullFlavor='UNK'"
        end
+      end
+
+      def dose_quantity(codes, dose)
+        if (codes["RxNorm"].present?)
+          return "value='1'"
+        else
+          return "value=#{dose['value']} unit=#{dose['unit']}" 
+        end
       end
 
       def time_if_not_nil(*args)
@@ -75,6 +91,11 @@ module HealthDataStandards
       end
       
       def convert_field_to_hash(field, codes)
+
+        if codes.is_a? Array
+          return codes.collect{ |code| convert_field_to_hash(field, convert_field_to_hash(field, code))}.join("<br>")
+        end
+
         if (codes.is_a? Hash)
           clean_hash = {}
           
@@ -105,12 +126,18 @@ module HealthDataStandards
           elsif codes['scalar']
             return "#{codes['scalar']} #{codes['units']}"
           else
-            return codes.map {|hashcode_set, hashcodes| "#{hashcode_set}: #{(hashcodes.respond_to? :join) ? hashcodes.join(', ') : hashcodes.to_s}"}.join(' ')
+            return codes.map do |hashcode_set, hashcodes| 
+              if hashcodes.is_a? Hash
+                "#{hashcode_set}: #{convert_field_to_hash(hashcode_set, hashcodes)}"
+              else
+                "#{hashcode_set}: #{(hashcodes.respond_to? :join) ? hashcodes.join(', ') : hashcodes.to_s}"
+              end
+            end.join(' ')
           end
             
           clean_hash
         else
-          if codes && (field.match(/Time$/) || field.match(/\_time$/)) 
+          if codes && (field.match(/Time$/) || field.match(/\_time$/) || field.match(/Date$/)) 
             Entry.time_to_s(codes)
           else
             codes.to_s
