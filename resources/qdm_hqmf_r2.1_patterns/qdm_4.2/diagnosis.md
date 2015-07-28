@@ -26,11 +26,9 @@ The new `Diagnosis` data type is most similar to the old `Diagnosis, Active` dat
 Diagnosis Contexts
 ------------------
 
-Note that the "Contained By" also includes the new templates introduced by support for encounter diagnoses.
-
-| Contained By                                                                                 | Contains             |
-|:---------------------------------------------------------------------------------------------|:---------------------|
-| Data Criteria Section (optional) <br> Encounter Principal Diagnosis <br> Encounter Diagnosis | Severity Observation |
+| Contained By                     | Contains             |
+|:---------------------------------|:---------------------|
+| Data Criteria Section (optional) | Severity Observation |
 
 Diagnosis Constraints Overview
 ------------------------------
