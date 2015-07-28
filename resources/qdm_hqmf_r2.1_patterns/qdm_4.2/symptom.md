@@ -26,7 +26,7 @@ Symptom Contexts
 Symptom Constraints Overview
 ----------------------------
 
-observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.116:2015-09-30)
+observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.116)
 
 | XPath                      | Card. | Verb   | Data Type | Value                                                                                   | QDM Attribute                       |
 |:---------------------------|:------|:-------|:----------|:----------------------------------------------------------------------------------------|:------------------------------------|
@@ -35,7 +35,6 @@ observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.116:2015
 | templateId                 | 1..1  | SHALL  |           |                                                                                         |                                     |
 | &nbsp; item                | 1..1  | SHALL  |           |                                                                                         |                                     |
 | &nbsp;&nbsp; @root         | 1..1  | SHALL  |           | 2.16.840.1.113883.10.20.28.3.116                                                        |                                     |
-| &nbsp;&nbsp; @extension    | 1..1  | SHALL  |           | 2015-09-30                                                                              |                                     |
 | id                         | 1..1  | SHALL  |           |                                                                                         |                                     |
 | code                       | 1..1  | SHALL  |           |                                                                                         |                                     |
 | &nbsp; @code               | 1..1  | SHALL  |           | 418799008                                                                               |                                     |
@@ -58,7 +57,7 @@ Symptom Example
 ```xml
 <observationCriteria classCode="OBS" moodCode="EVN">
     <templateId>
-        <item root="2.16.840.1.113883.10.20.28.3.116" extension="2015-09-30"/>
+        <item root="2.16.840.1.113883.10.20.28.3.116"/>
     </templateId>
     <id root="9e4e810d-3c3e-461e-86f8-6fe7a0b1ca2b"/>
     <code code="418799008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">

@@ -38,7 +38,7 @@ Immunization, Administered Contexts
 Immunization, Administered Constraints Overview
 -----------------------------------------------
 
-substanceAdministrationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.112:2015-09-30)
+substanceAdministrationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.112)
 
 | XPath                                    | Card. | Verb   | Data Type | Value                                                                     | QDM Attribute            |
 |:-----------------------------------------|:------|:-------|:----------|:--------------------------------------------------------------------------|:-------------------------|
@@ -48,7 +48,6 @@ substanceAdministrationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.2
 | templateId                               | 1..1  | SHALL  |           |                                                                           |                          |
 | &nbsp; item                              | 1..1  | SHALL  |           |                                                                           |                          |
 | &nbsp;&nbsp; @root                       | 1..1  | SHALL  |           | 2.16.840.1.113883.10.20.28.3.112                                          |                          |
-| &nbsp;&nbsp; @extension                  | 1..1  | SHALL  |           | 2015-09-30                                                                |                          |
 | id                                       | 1..1  | SHALL  |           |                                                                           |                          |
 | code                                     | 1..1  | SHALL  |           |                                                                           |                          |
 | &nbsp; @code                             | 1..1  | SHALL  |           | 416118004                                                                 |                          |
@@ -81,7 +80,7 @@ Immunization, Administered Example
 ```xml
 <substanceAdministrationCriteria classCode="SBADM" moodCode="EVN">
     <templateId>
-        <item root="2.16.840.1.113883.10.20.28.3.112" extension="2015-09-30"/>
+        <item root="2.16.840.1.113883.10.20.28.3.112"/>
     </templateId>
     <id root="de28ff02-d2cf-436e-898a-58eb49e15b47"/>
     <code code="416118004" codeSystem="2.16.840.1.113883.6.96">
@@ -131,7 +130,7 @@ Immunization, Order Contexts
 Immunization, Order Constraints Overview
 ----------------------------------------
 
-substanceAdministrationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.113:2015-09-30)
+substanceAdministrationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.113)
 
 | XPath                                    | Card. | Verb   | Data Type | Value                                                                     | QDM Attribute                                   |
 |:-----------------------------------------|:------|:-------|:----------|:--------------------------------------------------------------------------|:------------------------------------------------|
@@ -141,7 +140,6 @@ substanceAdministrationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.2
 | templateId                               | 1..1  | SHALL  |           |                                                                           |                                                 |
 | &nbsp; item                              | 1..1  | SHALL  |           |                                                                           |                                                 |
 | &nbsp;&nbsp; @root                       | 1..1  | SHALL  |           | 2.16.840.1.113883.10.20.28.3.113                                          |                                                 |
-| &nbsp;&nbsp; @extension                  | 1..1  | SHALL  |           | 2015-09-30                                                                |                                                 |
 | id                                       | 1..1  | SHALL  |           |                                                                           |                                                 |
 | code                                     | 1..1  | SHALL  |           |                                                                           |                                                 |
 | &nbsp; @code                             | 1..1  | SHALL  |           | 416118004                                                                 |                                                 |
@@ -181,7 +179,7 @@ Immunization, Order Example
 ```xml
 <substanceAdministrationCriteria classCode="SBADM" moodCode="RQO">
     <templateId>
-        <item root="2.16.840.1.113883.10.20.28.3.113" extension="2015-09-30"/>
+        <item root="2.16.840.1.113883.10.20.28.3.113"/>
     </templateId>
     <id root="27beb8e3-7c86-48cf-b430-235b72786dea"/>
     <title value="Immunization, Order"/>
@@ -221,7 +219,7 @@ Immunization, Allergy Contexts
 Immunization, Allergy Constraints Overview
 ------------------------------------------
 
-observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.114:2015-09-30)
+observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.114)
 
 | XPath                              | Card. | Verb   | Data Type | Value                                                                       | QDM Attribute            |
 |:-----------------------------------|:------|:-------|:----------|:----------------------------------------------------------------------------|:-------------------------|
@@ -230,7 +228,6 @@ observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.114:2015
 | templateId                         | 1..1  | SHALL  |           |                                                                             |                          |
 | &nbsp; item                        | 1..1  | SHALL  |           |                                                                             |                          |
 | &nbsp;&nbsp; @root                 | 1..1  | SHALL  |           | 2.16.840.1.113883.10.20.28.3.114                                            |                          |
-| &nbsp;&nbsp; @extension            | 1..1  | SHALL  |           | 2015-09-30                                                                  |                          |
 | id                                 | 1..1  | SHALL  |           |                                                                             |                          |
 | code                               | 1..1  | SHALL  |           |                                                                             |                          |
 | &nbsp; @code                       | 1..1  | SHALL  |           | ASSERTION                                                                   |                          |
@@ -264,7 +261,7 @@ Immunization, Allergy Example
 ```xml
 <observationCriteria classCode="OBS" moodCode="EVN">
     <templateId>
-        <item root="2.16.840.1.113883.10.20.28.3.114" extension="2015-09-30"/>
+        <item root="2.16.840.1.113883.10.20.28.3.114"/>
     </templateId>
     <id root="DA60953A-89EB-4255-8CCF-058996928FBB"/>
     <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
@@ -307,7 +304,7 @@ Immunization, Intolerance Contexts
 Immunization, Intolerance Constraints Overview
 ----------------------------------------------
 
-observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.115:2015-09-30)
+observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.115)
 
 | XPath                              | Card. | Verb   | Data Type | Value                                                                       | QDM Attribute            |
 |:-----------------------------------|:------|:-------|:----------|:----------------------------------------------------------------------------|:-------------------------|
@@ -316,7 +313,6 @@ observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.115:2015
 | templateId                         | 1..1  | SHALL  |           |                                                                             |                          |
 | &nbsp; item                        | 1..1  | SHALL  |           |                                                                             |                          |
 | &nbsp;&nbsp; @root                 | 1..1  | SHALL  |           | 2.16.840.1.113883.10.20.28.3.115                                            |                          |
-| &nbsp;&nbsp; @extension            | 1..1  | SHALL  |           | 2015-09-30                                                                  |                          |
 | id                                 | 1..1  | SHALL  |           |                                                                             |                          |
 | code                               | 1..1  | SHALL  |           |                                                                             |                          |
 | &nbsp; @code                       | 1..1  | SHALL  |           | ASSERTION                                                                   |                          |
@@ -350,7 +346,7 @@ Immunization, Intolerance Example
 ```xml
 <observationCriteria classCode="OBS" moodCode="EVN">
     <templateId>
-        <item root="2.16.840.1.113883.10.20.28.3.115" extension="2015-09-30"/>
+        <item root="2.16.840.1.113883.10.20.28.3.115"/>
     </templateId>
     <id root="D48AB4EA-0589-4E8C-A747-9B7946D5A22E"/>
     <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>

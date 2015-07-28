@@ -30,7 +30,7 @@ Family History Contexts
 Family History Constraints Overview
 -----------------------------------
 
-observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.111:2015-09-30)
+observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.111)
 
 | XPath                          | Card. | Verb   | Data Type | Value                                                         | QDM Attribute                      |
 |:-------------------------------|:------|:-------|:----------|:--------------------------------------------------------------|:-----------------------------------|
@@ -39,7 +39,6 @@ observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.111:2015
 | templateId                     | 1..1  | SHALL  |           |                                                               |                                    |
 | &nbsp; item                    | 1..1  | SHALL  |           |                                                               |                                    |
 | &nbsp;&nbsp; @root             | 1..1  | SHALL  |           | 2.16.840.1.113883.10.20.28.3.111                              |                                    |
-| &nbsp;&nbsp; @extension        | 1..1  | SHALL  |           | 2015-09-30                                                    |                                    |
 | id                             | 1..1  | SHALL  |           |                                                               |                                    |
 | code                           | 1..1  | SHALL  |           |                                                               |                                    |
 | &nbsp; @code                   | 1..1  | SHALL  |           | 75314-5                                                       |                                    |
@@ -81,7 +80,7 @@ Family History Example
 ```xml
 <observationCriteria classCode="OBS" moodCode="EVN">
     <templateId>
-        <item root="2.16.840.1.113883.10.20.28.3.111" extension="2015-09-30"/>
+        <item root="2.16.840.1.113883.10.20.28.3.111"/>
     </templateId>
     <id root="bd4673f9-0da9-4491-98ba-a00c4191d518"/>
     <code code="10157-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
