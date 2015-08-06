@@ -7,17 +7,18 @@ module HQMF2
 
     attr_reader :measure_period, :id, :hqmf_set_id, :hqmf_version_number, :populations, :attributes, :source_data_criteria
 
-    # TODO: Clean up debug print statements!
-
     # Create a new HQMF2::Document instance by parsing at file at the supplied path
     # @param [String] path the path to the HQMF document
     def initialize(hqmf_contents)
       @idgenerator = IdGenerator.new
       @doc = @entry = Document.parse(hqmf_contents)
+      
       remove_popultaion_preconditions(@doc)
+
       @id = attr_val('cda:QualityMeasureDocument/cda:id/@extension') || attr_val('cda:QualityMeasureDocument/cda:id/@root').upcase
       @hqmf_set_id = attr_val('cda:QualityMeasureDocument/cda:setId/@extension') || attr_val('cda:QualityMeasureDocument/cda:setId/@root').upcase
       @hqmf_version_number = attr_val('cda:QualityMeasureDocument/cda:versionNumber/@value').to_i
+      
       # measure_period_def = @doc.at_xpath('cda:QualityMeasureDocument/cda:controlVariable/cda:measurePeriod/cda:value', NAMESPACES)
       # if measure_period_def
       #   @measure_period = EffectiveTime.new(measure_period_def)
@@ -30,71 +31,11 @@ module HQMF2
       mp_high = HQMF::Value.new('TS',nil,'201212312359',nil, nil, nil)
       mp_width = HQMF::Value.new('PQ','a','1',nil, nil, nil)
       @measure_period = HQMF::EffectiveTime.new(mp_low,mp_high,mp_width)
+
       # Extract measure attributes
+      # TODO: Review
       @attributes = @doc.xpath('/cda:QualityMeasureDocument/cda:subjectOf/cda:measureAttribute', NAMESPACES).collect do |attribute|
-        id = attribute.at_xpath('./cda:id/@root', NAMESPACES).try(:value)
-        code = attribute.at_xpath('./cda:code/@code', NAMESPACES).try(:value)
-        name = attribute.at_xpath('./cda:code/cda:displayName/@value', NAMESPACES).try(:value)
-        value = attribute.at_xpath('./cda:value/@value', NAMESPACES).try(:value)
-
-        id_obj = nil
-        if attribute.at_xpath('./cda:id', NAMESPACES)
-          id_obj = HQMF::Identifier.new(attribute.at_xpath('./cda:id/@xsi:type', NAMESPACES).try(:value), id, attribute.at_xpath('./cda:id/@extension', NAMESPACES).try(:value))
-        end
-
-        code_obj = nil;
-        if attribute.at_xpath('./cda:code', NAMESPACES)
-          nullFlavor = attribute.at_xpath('./cda:code/@nullFlavor', NAMESPACES).try(:value)
-          oText = attribute.at_xpath('./cda:code/cda:originalText', NAMESPACES) ? attribute.at_xpath('./cda:code/cda:originalText/@value', NAMESPACES).try(:value) : nil
-          code_obj = HQMF::Coded.new(attribute.at_xpath('./cda:code/@xsi:type', NAMESPACES).try(:value) || 'CD',
-                                     attribute.at_xpath('./cda:code/@codeSystem', NAMESPACES).try(:value),
-                                     code,
-                                     attribute.at_xpath('./cda:code/@valueSet', NAMESPACES).try(:value),
-                                     name,
-                                     nullFlavor,
-                                     oText)
-
-
-          # Mapping for nil values to align with 1.0 parsing
-          if code == nil
-            code = nullFlavor
-          end
-
-          if name == nil
-            name = oText
-          end
-
-        end
-
-        value_obj = nil
-        if attribute.at_xpath('./cda:value', NAMESPACES)
-          type = attribute.at_xpath('./cda:value/@xsi:type', NAMESPACES).try(:value)
-          case type
-          when 'II'
-            value_obj = HQMF::Identifier.new(type,
-                                             attribute.at_xpath('./cda:value/@root', NAMESPACES).try(:value),
-                                             attribute.at_xpath('./cda:value/@extension', NAMESPACES).try(:value))
-            if value == nil
-              value = attribute.at_xpath('./cda:value/@extension', NAMESPACES).try(:value)
-            end
-          when 'ED'
-            value_obj = HQMF::ED.new(type, value, attribute.at_xpath('./cda:value/@mediaType', NAMESPACES).try(:value))
-          when 'CD'
-            value_obj = HQMF::Coded.new('CD', attribute.at_xpath('./cda:value/@codeSystem', NAMESPACES).try(:value),
-                                        attribute.at_xpath('./cda:value/@code', NAMESPACES).try(:value),
-                                        attribute.at_xpath('./cda:value/@valueSet', NAMESPACES).try(:value),
-                                        attribute.at_xpath('./cda:value/cda:displayName/@value', NAMESPACES).try(:value))
-          else
-            value_obj = value.present? ? HQMF::GenericValueContainer.new(type, value) : HQMF::AnyValue.new(type)
-          end
-        end
-
-        # Handle the cms_id
-        if name.include? "eMeasure Identifier"
-          @cms_id = "CMS#{value}v#{@hqmf_version_number}"
-        end
-
-        HQMF::Attribute.new(id, code, value, nil, name, id_obj, code_obj, value_obj)
+        read_attribute(attribute)
       end
 
       # Extract the data criteria
@@ -102,13 +43,17 @@ module HQMF2
       @source_data_criteria = []
       @data_criteria_references = {}
       @occurrences_map = {}
+      extracted_criteria = []
+
       @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:dataCriteriaSection/cda:entry', NAMESPACES).each do |entry|
-        criteria = DataCriteria.new(entry, @data_criteria_references, @occurrences_map)
-        if criteria.is_source_data_criteria
-          @source_data_criteria << criteria
-        else
-          @data_criteria << criteria unless criteria.variable
-        end
+        extracted_criteria << DataCriteria.new(entry)
+      end
+
+      # Extract the source data criteria from data criteria
+      @source_data_criteria = SourceDataCriteriaHelper.get_source_data_criteria_list(extracted_criteria)
+
+      @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:dataCriteriaSection/cda:entry', NAMESPACES).each do |entry|
+        @data_criteria << DataCriteria.new(entry, @data_criteria_references, @occurrences_map)
 
         # Sometimes there are multiple criteria with the same ID, even though they're different; in the HQMF
         # criteria refer to parent criteria via outboundRelationship, using an extension (aka ID) and a root;
@@ -117,22 +62,19 @@ module HQMF2
         # the code_list_id and we overwrite the parent with the code_list_id with a child with the same ID
         # without the code_list_id. As a temporary approach, we only overwrite a data criteria reference if
         # it doesn't have a code_list_id. As a longer term approach we may want to use the root for lookups.
-        if criteria && (@data_criteria_references[criteria.id].nil? || @data_criteria_references[criteria.id].code_list_id.nil?)
-          @data_criteria_references[criteria.id] = criteria
-        end
+        # if criteria && (@data_criteria_references[criteria.id].nil? || @data_criteria_references[criteria.id].code_list_id.nil?)
+        #   @data_criteria_references[criteria.id] = criteria
+        # end
 
-        handle_variable(criteria) if criteria.variable
+        #handle_variable(criteria) if criteria.variable
       end
-
-      # Extract the source data criteria from data criteria
-      @source_data_criteria = @data_criteria.map{|dc| dc.extract_source_data_criteria}.uniq { |sdc| sdc.id }
-
+  
       # Patch descriptions for all data criteria and source data criteria
       @data_criteria.each { |dc| dc.patch_descriptions(@data_criteria_references) }
       @source_data_criteria.each { |sdc| sdc.patch_descriptions(@data_criteria_references) }
 
       # Detect missing specific occurrences and clone source data criteria
-      detect_missing_specifics
+      #detect_missing_specifics
 
       # Extract the population criteria and population collections
       @populations = []
@@ -476,6 +418,73 @@ module HQMF2
           list << prcn if prcn.reference
         end
       end
+    end
+
+    def read_attribute(attribute)
+      id = attribute.at_xpath('./cda:id/@root', NAMESPACES).try(:value)
+      code = attribute.at_xpath('./cda:code/@code', NAMESPACES).try(:value)
+      name = attribute.at_xpath('./cda:code/cda:displayName/@value', NAMESPACES).try(:value)
+      value = attribute.at_xpath('./cda:value/@value', NAMESPACES).try(:value)
+
+      id_obj = nil
+      if attribute.at_xpath('./cda:id', NAMESPACES)
+        id_obj = HQMF::Identifier.new(attribute.at_xpath('./cda:id/@xsi:type', NAMESPACES).try(:value), id, attribute.at_xpath('./cda:id/@extension', NAMESPACES).try(:value))
+      end
+
+      code_obj = nil;
+      if attribute.at_xpath('./cda:code', NAMESPACES)
+        nullFlavor = attribute.at_xpath('./cda:code/@nullFlavor', NAMESPACES).try(:value)
+        oText = attribute.at_xpath('./cda:code/cda:originalText', NAMESPACES) ? attribute.at_xpath('./cda:code/cda:originalText/@value', NAMESPACES).try(:value) : nil
+        code_obj = HQMF::Coded.new(attribute.at_xpath('./cda:code/@xsi:type', NAMESPACES).try(:value) || 'CD',
+                                   attribute.at_xpath('./cda:code/@codeSystem', NAMESPACES).try(:value),
+                                   code,
+                                   attribute.at_xpath('./cda:code/@valueSet', NAMESPACES).try(:value),
+                                   name,
+                                   nullFlavor,
+                                   oText)
+
+
+        # Mapping for nil values to align with 1.0 parsing
+        if code == nil
+          code = nullFlavor
+        end
+
+        if name == nil
+          name = oText
+        end
+
+      end
+
+      value_obj = nil
+      if attribute.at_xpath('./cda:value', NAMESPACES)
+        type = attribute.at_xpath('./cda:value/@xsi:type', NAMESPACES).try(:value)
+        case type
+        when 'II'
+          value_obj = HQMF::Identifier.new(type,
+                                           attribute.at_xpath('./cda:value/@root', NAMESPACES).try(:value),
+                                           attribute.at_xpath('./cda:value/@extension', NAMESPACES).try(:value))
+          if value == nil
+            value = attribute.at_xpath('./cda:value/@extension', NAMESPACES).try(:value)
+          end
+        when 'ED'
+          value_obj = HQMF::ED.new(type, value, attribute.at_xpath('./cda:value/@mediaType', NAMESPACES).try(:value))
+        when 'CD'
+          value_obj = HQMF::Coded.new('CD', attribute.at_xpath('./cda:value/@codeSystem', NAMESPACES).try(:value),
+                                      attribute.at_xpath('./cda:value/@code', NAMESPACES).try(:value),
+                                      attribute.at_xpath('./cda:value/@valueSet', NAMESPACES).try(:value),
+                                      attribute.at_xpath('./cda:value/cda:displayName/@value', NAMESPACES).try(:value))
+        else
+          value_obj = value.present? ? HQMF::GenericValueContainer.new(type, value) : HQMF::AnyValue.new(type)
+        end
+      end
+
+      # Handle the cms_id
+      if name.include? "eMeasure Identifier"
+        @cms_id = "CMS#{value}v#{@hqmf_version_number}"
+      end
+
+      HQMF::Attribute.new(id, code, value, nil, name, id_obj, code_obj, value_obj)
+
     end
   end
 end

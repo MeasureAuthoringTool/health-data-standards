@@ -15,12 +15,12 @@ module HQMF2
       @doc = doc
       @entry = entry
       @hqmf_id = attr_val('./*/cda:id/@root') || attr_val('./*/cda:typeId/@extension')
-      @title = attr_val('./*/cda:code/cda:displayName/@value')
+      @title = attr_val('./*/cda:code/cda:displayName/@value').titleize
       @type = attr_val('./*/cda:code/@code')
       @type = 'IPP' if ( @type == 'IPOP' || @type == 'IPPOP' )
       @aggregator = nil
-      @comments = @entry.xpath("./*/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()", HQMF2::Document::NAMESPACES)
-                        .map{ |v| v.content }
+      @comments = @entry.xpath("./*/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()", HQMF2::Document::NAMESPACES).map{ |v| v.content }
+      @comments = nil if comments.empty?
       obs_test = attr_val('./cda:measureObservationDefinition/@classCode')
       if !@title && obs_test.to_s == "OBS"
           @title = attr_val('../cda:code/cda:displayName/@value')

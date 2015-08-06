@@ -1,0 +1,1150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- 
+           ******************* 
+           QDM Version Used: QDM 4.1.2 
+           *******************  
+        --><QualityMeasureDocument xmlns="urn:hl7-org:v3" xmlns:qdm="urn:hhs-qdm:hqmf-r2-extensions:v1"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         
+      <!--
+            **************************************************************
+            Measure Details Section
+            **************************************************************
+        -->
+         
+      <typeId extension="POQM_HD000001UV02" root="2.16.840.1.113883.1.3"/>
+   <templateId>
+      <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.1.1"/>
+   </templateId>
+   <id root="40280381-4c18-79df-014c-2414260502ad"/>
+   <code code="57024-2" codeSystem="2.16.840.1.113883.6.1">
+      <displayName value="Health Quality Measure Document"/>
+   </code>
+   <title
+          value="Median Time from ED Arrival to ED Departure for Admitted ED Patients"/>
+   <text
+         value="Median time from emergency department admission to time of discharge from the emergency room for patients admitted to the facility from the emergency department."/>
+   <statusCode code="COMPLETED"/>
+   <setId root="9a033274-3d9b-11e1-8634-00237d5bf174"/>
+   <versionNumber value="4.0.000"/>
+   <author>
+      <responsibleParty classCode="ASSIGNED">
+         <representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id>
+               <item root="2.16.840.1.113883.3.666"/>
+            </id>
+            <name>
+               <item>
+                  <part value="Oklahoma Foundation for Medical Quality"/>
+               </item>
+            </name>
+         </representedResponsibleOrganization>
+      </responsibleParty>
+   </author>
+   <custodian>
+      <responsibleParty classCode="ASSIGNED">
+         <representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id>
+               <item root="9048cd4c-b61b-11e4-a71e-12e3f512a338"/>
+            </id>
+            <name>
+               <item>
+                  <part value="Centers for Medicare &amp; Medicaid Services (CMS)"/>
+               </item>
+            </name>
+         </representedResponsibleOrganization>
+      </responsibleParty>
+   </custodian>
+   <verifier>
+      <responsibleParty classCode="ASSIGNED">
+         <representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id>
+               <item root="2.16.840.1.113883.3.560"/>
+            </id>
+            <name>
+               <item>
+                  <part value="National Quality Forum"/>
+               </item>
+            </name>
+         </representedResponsibleOrganization>
+      </responsibleParty>
+   </verifier>
+   <controlVariable>
+      <measurePeriod>
+         <id extension="measureperiod" root="40280381-3d27-5493-013d-4d86b2c46489"/>
+         <code code="MSRTP" codeSystem="2.16.840.1.113883.3.560">
+            <originalText value="Measurement Period"/>
+         </code>
+         <value xsi:type="PIVL_TS">
+            <phase highClosed="true" lowClosed="true">
+               <low value="20150101"/>
+               <width unit="a" value="1" xsi:type="PQ"/>
+            </phase>
+            <period unit="a" value="1"/>
+         </value>
+      </measurePeriod>
+   </controlVariable>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText value="eMeasure Identifier (Measure Authoring Tool)"/>
+         </code>
+         <value mediaType="text/plain" value="55" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText value="NQF Number"/>
+         </code>
+         <value mediaType="text/plain" value="0495" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="COPY" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Copyright"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Measure specifications are in the Public Domain&#xA;&#xA;LOINC(R) is a registered trademark of the Regenstrief Institute.&#xA;&#xA;This material contains SNOMED Clinical Terms(R) (SNOMED CT(C)) copyright 2004-2014 International Health Terminology Standards Development Organization. All rights reserved."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DISC" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Disclaimer"/>
+         </code>
+         <value mediaType="text/plain"
+                value="These performance measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications. The measures and specifications are provided without warranty.&#xA;&#xA;CMS has contracted with Mathematica Policy Research and its subcontractors, Lantana and Telligen, for the continued maintenance of this electronic measure."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRSCORE" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Measure Scoring"/>
+         </code>
+         <value code="CONTVAR" codeSystem="2.16.840.1.113883.1.11.20367" xsi:type="CD">
+            <displayName value="Continuous Variable"/>
+         </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRTYPE" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Measure Type"/>
+         </code>
+         <value code="PROCESS" codeSystem="2.16.840.1.113883.1.11.20368" xsi:type="CD">
+            <displayName value="PROCESS"/>
+         </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="ITMCNT" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Items to count"/>
+         </code>
+         <value extension="EncounterInpatient_EncounterPerformed"
+                root="40280381-3d27-5493-013d-4d86b2c5649d"
+                xsi:type="II"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="STRAT" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Stratification"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Report total score and the following strata:&#xA;Stratum 1 - all patients seen in the ED and admitted as an inpatient who do not have a principal diagnosis consistent with psychiatric/mental health disorders&#xA;Stratum 2 - all patients seen in the ED and admitted as an inpatient who have a principal diagnosis consistent with psychiatric/mental health disorders"
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRADJ" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Risk Adjustment"/>
+         </code>
+         <value mediaType="text/plain" value="None" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRAGG" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Rate Aggregation"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Calculate the ED encounter duration in minutes for each ED encounter in the measure population; report the median time for all calculations performed. The specification provides elements from the clinical electronic record required to calculate for each ED encounter, i.e., the length of time the patient was in the Emergency Department, also stated as: the Datetime difference between the Emergency Department discharge time and the Emergency Department admission time. The calculation requires the median across all ED encounter durations."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="RAT" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Rationale"/>
+         </code>
+         <value mediaType="text/plain"
+                value="In recent times, EDs have experienced significant overcrowding. Although once only a problem in large, urban, teaching hospitals, the phenomenon has spread to other suburban and rural healthcare organizations. According to a 2002 national U.S. survey, more than 90% of large hospitals report EDs operating &#34;at&#34; or &#34;over&#34; capacity. Approximately one third of hospitals in the US report increases in ambulance diversion in a given year, whereas up to half report crowded conditions in the ED. In a recent national survey, 40% of hospital leaders viewed ED crowding as a symptom of workforce shortages. ED crowding may result in delays in the administration of medication such as antibiotics for pneumonia and has been associated with perceptions of compromised emergency care. For patients with non-ST-segment-elevation myocardial infarction, long ED stays were associated with decreased use of guideline-recommended therapies and a higher risk of recurrent myocardial infarction. Overcrowding and heavy emergency resource demand have led to a number of problems, including ambulance refusals, prolonged patient waiting times, increased suffering for those who wait, rushed and unpleasant treatment environments, and potentially poor patient outcomes. When EDs are overwhelmed, their ability to respond to community emergencies and disasters may be compromised."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="CRS" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Clinical Recommendation Statement"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Reducing the time patients remain in the emergency department (ED) can improve access to treatment and increase quality of care. Reducing this time potentially improves access to care specific to the patient condition and increases the capability to provide additional treatment."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IDUR" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Improvement Notation"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Improvement noted as a decrease in the median value"
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Diercks DB, et al. Prolonged emergency department stays of non-ST-segment-elevation myocardial infarction patients are associated with worse adherence to the American College of Cardiology/American Heart Association guidelines for management and increased adverse events. Ann Emerg Med. 2007;50:489-96."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Derlet RW, Richards JR. Emergency department overcrowding in Florida, New York, and Texas. South Med J. 2002;95:846-9."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Derlet RW, Richards JR. Overcrowding in the nation's emergency departments: complex causes and disturbing effects. Ann Emerg Med. 2000;35:63-8."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Fatovich DM, Hirsch RL. Entry overload, emergency department overcrowding, and ambulance bypass. Emerg Med J. 2003;20:406-9."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Hwang U, Richardson LD, Sonuyi TO, Morrison RS. The effect of emergency department crowding on the management of pain in older adults with hip fracture. J Am Geriatr Soc. 2006;54:270-5."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Institute of Medicine of the National Academies. Future of emergency care: Hospital-based emergency care at the breaking point. The National Academies Press 2006."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Kyriacou DN, Ricketts V, Dyne PL, McCollough MD, Talan DA. A 5-year time study analysis of emergency department patient care efficiency. Ann Emerg Med. 1999;34:326-35."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Pines JM, et al. ED crowding is associated with variable perceptions of care compromise. Acad Emerg Med. 2007;14:1176-81."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Pines JM, et al. Emergency department crowding is associated with poor care for patients with severe pain. Ann Emerg Med. 2008;51:6-7."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Schull MJ, et al. Emergency department crowding and thrombolysis delays in acute myocardial infarction. Ann Emerg Med. 2004;44:577-85."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Siegel B, et al. Enhancing work flow to reduce crowding. Jt Comm J Qual Patient Saf. 2007;33(11 Suppl):57-67."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Trzeciak S, Rivers EP. Emergency department overcrowding in the United States: an emerging threat to patient safety and public health. Emerg Med J. 2003;20:402-5."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Wilper AP, Woolhandler S, Lasser KE, McCormick D, Cutrona SL, Bor DH, Himmelstein DU. Waits to see an emergency department physician: U.S. trends and predictors, 1997-2004. Health Aff (Millwood). 2008;27:w84-95."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DEF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Definition"/>
+         </code>
+         <value mediaType="text/plain" value="None" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="GUIDE" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Guidance"/>
+         </code>
+         <value mediaType="text/plain"
+                value="This measure specification defines how to determine the duration of an individual Emergency Department encounter. Reporting requires the median of all ED encounter durations defined as [Encounter: encounter ED] discharge date and time minus [Encounter: encounter ED] ED admission date and time.  &#xA;&#xA;Calculate the ED time in minutes for each person in the measure population; report the median time for all calculations performed. The specification provides elements from the clinical electronic record required to calculate for each ED encounter, i.e., the length of time the patient was in the Emergency Department, also stated as: the Datetime difference between the Emergency Department discharge time and the Emergency Department admission time. The calculation requires the median across all ED encounter durations.&#xA;&#xA;For each population, results should be reported without stratification and then with each stratum applied. For this measure, the number of encounters that fall into the Initial Population are reported without stratification, then reported according to the defined stratification. The number of encounters that fall into the Measure Population are reported without stratification, then reported according to the defined stratification. The computed continuous variable defined by the Measure Observation is reported for the Measure Population also, then reported according to the defined stratification."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="TRANF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Transmission Format"/>
+         </code>
+         <value mediaType="text/plain" value="TBD" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IPOP" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Initial Population"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Inpatient Encounters ending during the measurement period with Length of Stay (Discharge Date minus Admission Date) less than or equal to 120 days."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENOM" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Denominator"/>
+         </code>
+         <value mediaType="text/plain" value="Not Applicable" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENEX" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Denominator Exclusions"/>
+         </code>
+         <value mediaType="text/plain" value="Not Applicable" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="NUMER" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Numerator"/>
+         </code>
+         <value mediaType="text/plain" value="Not Applicable" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="NUMEX" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Numerator Exclusions"/>
+         </code>
+         <value mediaType="text/plain" value="Not Applicable" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Denominator Exceptions"/>
+         </code>
+         <value mediaType="text/plain" value="Not Applicable" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Measure Population"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Inpatient Encounters preceded by an emergency department visit."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRPOPLEX" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Measure Population Exclusions"/>
+         </code>
+         <value mediaType="text/plain" value="Not Applicable" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <displayName value="Measure Observations"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Time (in minutes) from ED admission to ED discharge for patients admitted to the facility from the emergency department."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="SDE" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Supplemental Data Elements"/>
+         </code>
+         <value mediaType="text/plain"
+                value="For every patient evaluated by this measure, also identify payer, race, ethnicity and sex."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <componentOf>
+      <qualityMeasureSet classCode="ACT">
+         <id root="78e5a6ab-d53e-4b29-a0e6-822138c382e1"/>
+         <title value="Emergency Department"/>
+      </qualityMeasureSet>
+   </componentOf>
+   <!--Data Criteria Section-->
+   <component>
+      <dataCriteriaSection>
+         <templateId>
+            <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.2.2"/>
+         </templateId>
+         <code code="57025-9" codeSystem="2.16.840.1.113883.6.1"/>
+         <title value="Data Criteria Section"/>
+         <text>
+            <xml>
+               <item>
+                  <list>
+                     <item>
+                        <content styleCode="Bold">Data Criteria (QDM Variables)</content>
+                        <list>
+                           <item>
+                              <content styleCode="Bold">$EncounterInpatient =</content>
+                              <list>
+                                 <item>"Encounter, Performed: Encounter Inpatient"  satisfies all<list>
+                                       <item>(length of stay &lt;= 120 day(s))</item>
+                                       <item>ends during "Measurement Period"</item>
+                                    </list>
+                                 </item>
+                              </list>
+                           </item>
+                        </list>
+                     </item>
+                     <item>
+                        <content styleCode="Bold">Data Criteria (QDM Data Elements)</content>
+                        <list>
+                           <item>"Diagnosis, Active: Psychiatric/Mental Health Patient" using "Psychiatric/Mental Health Patient Grouping Value Set (2.16.840.1.113883.3.117.1.7.1.299)"</item>
+                           <item>"Encounter, Performed: Emergency Department Visit" using "Emergency Department Visit SNOMEDCT Value Set (2.16.840.1.113883.3.117.1.7.1.292)"</item>
+                           <item>"Encounter, Performed: Encounter Inpatient" using "Encounter Inpatient SNOMEDCT Value Set (2.16.840.1.113883.3.666.5.307)"</item>
+                           <item>Attribute: "Ordinality: Principal" using "Principal SNOMEDCT Value Set (2.16.840.1.113883.3.117.1.7.1.14)"</item>
+                        </list>
+                     </item>
+                     <item>
+                        <content styleCode="Bold">Supplemental Data Elements</content>
+                        <list>
+                           <item>"Patient Characteristic Ethnicity: Ethnicity" using "Ethnicity CDCREC Value Set (2.16.840.1.114222.4.11.837)"</item>
+                           <item>"Patient Characteristic Payer: Payer" using "Payer SOP Value Set (2.16.840.1.114222.4.11.3591)"</item>
+                           <item>"Patient Characteristic Race: Race" using "Race CDCREC Value Set (2.16.840.1.114222.4.11.836)"</item>
+                           <item>"Patient Characteristic Sex: ONC Administrative Sex" using "ONC Administrative Sex AdministrativeGender Value Set (2.16.840.1.113762.1.4.1)"</item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+            </xml>
+         </text>
+         <!--Encounter, Performed--><entry typeCode="DRIV">
+            <localVariableName value="EmergencyDepartmentVisit_EncounterPerformed_vsfbF"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="EmergencyDepartmentVisit_EncounterPerformed"
+                   root="bab50ccd-8796-44b0-a3e7-671826352099"/>
+               <code valueSet="2.16.840.1.113883.3.117.1.7.1.292">
+                  <displayName value="Emergency Department Visit SNOMEDCT Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </encounterCriteria>
+         </entry>
+         <!--Occurrence A Encounter, Performed--><entry typeCode="DRIV">
+            <localVariableName value="OccurrenceAofEmergencyDepartmentVisit_EncounterPerformed_CMJOz"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <id extension="OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed"
+                   root="40280381-3d27-5493-013d-4d86b2c46482"/>
+               <outboundRelationship typeCode="OCCR">
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="EmergencyDepartmentVisit_EncounterPerformed"
+                         root="bab50ccd-8796-44b0-a3e7-671826352099"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </encounterCriteria>
+         </entry>
+         <!--Encounter, Performed--><entry typeCode="DRIV">
+            <localVariableName value="EncounterInpatient_EncounterPerformed_zth91"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="EncounterInpatient_EncounterPerformed"
+                   root="40280381-3d27-5493-013d-4d86b2c5649d"/>
+               <code valueSet="2.16.840.1.113883.3.666.5.307">
+                  <displayName value="Encounter Inpatient SNOMEDCT Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </encounterCriteria>
+         </entry>
+         <!--Diagnosis, Active - ordinality With Value Set--><entry typeCode="DRIV">
+            <localVariableName value="Psychiatric/MentalHealthPatient_DiagnosisActive_ordinality_ValueSet_j4lQt"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.1"/>
+               </templateId>
+               <id extension="bcb5997c-3cc6-4b37-a4de-65fdc1e3d21c"
+                   root="40280381-3d27-5493-013d-4d86b2c5648d"/>
+               <code code="282291009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="Diagnosis"/>
+               </code>
+               <title value="Diagnosis, Active"/>
+               <statusCode code="COMPLETED"/>
+               <priorityCode>
+                  <item valueSet="2.16.840.1.113883.3.117.1.7.1.14">
+                     <displayName value="Principal SNOMEDCT Value Set"/>
+                  </item>
+               </priorityCode>
+               <value valueSet="2.16.840.1.113883.3.117.1.7.1.299" xsi:type="CD">
+                  <displayName value="Psychiatric/Mental Health Patient Grouping Value Set"/>
+               </value>
+		             <outboundRelationship typeCode="REFR">
+                  <observationCriteria classCode="OBS" moodCode="EVN">
+                     <templateId>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.94"/>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.95"/>
+                     </templateId>
+                     <id extension="5B56D282-C8B2-445B-9CEC-4A5EBF2A0346"
+                         root="40280381-3d27-5493-013d-4d86b2c5648d"/>
+                     <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                        <displayName value="Status"/>
+                     </code>
+                     <title value="Status Active"/>
+                     <value code="55561003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"
+                            xsi:type="CD">
+                        <displayName value="Active"/>
+                     </value>
+                  </observationCriteria>
+               </outboundRelationship>
+	           </observationCriteria>
+         </entry>
+         <!--Encounter, Performed - length of stay With Less Than Or Equal To--><entry typeCode="DRIV">
+            <localVariableName value="EncounterInpatient_EncounterPerformed_lengthofstay_LessThanOrEqualTo_h19B7"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="ecc87fac-10f6-47cb-a83e-5e10be530e29"
+                   root="40280381-3d27-5493-013d-4d86b2c5649d"/>
+               <code valueSet="2.16.840.1.113883.3.666.5.307">
+                  <displayName value="Encounter Inpatient SNOMEDCT Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <lengthOfStayQuantity>
+                  <uncertainRange>
+                     <low nullFlavor="NINF" xsi:type="PQ"/>
+                     <high unit="d" value="120" xsi:type="PQ"/>
+                  </uncertainRange>
+               </lengthOfStayQuantity>
+            </encounterCriteria>
+         </entry>
+         <!--Encounter, Performed - length of stay With Less Than Or Equal To--><entry typeCode="DRIV">
+            <localVariableName value="EncounterInpatient_EncounterPerformed_lengthofstay_LessThanOrEqualTo_mNRQK"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="ecc87fac-10f6-47cb-a83e-5e10be530e29"
+                   root="40280381-3d27-5493-013d-4d86b2c5649d"/>
+               <code valueSet="2.16.840.1.113883.3.666.5.307">
+                  <displayName value="Encounter Inpatient SNOMEDCT Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <lengthOfStayQuantity>
+                  <uncertainRange>
+                     <low nullFlavor="NINF" xsi:type="PQ"/>
+                     <high unit="d" value="120" xsi:type="PQ"/>
+                  </uncertainRange>
+               </lengthOfStayQuantity>
+            </encounterCriteria>
+         </entry>
+         <!--Occurrence A Encounter, Performed - discharge datetime With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="OccurrenceAofEmergencyDepartmentVisit_EncounterPerformed_dischargedatetime_CheckifPresent_6TnnO"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <id extension="8adc24d8-057d-4ce8-a474-4d0e94d223db"
+                   root="40280381-3d27-5493-013d-4d86b2c46482"/>
+               <outboundRelationship typeCode="OCCR">
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="EmergencyDepartmentVisit_EncounterPerformed"
+                         root="bab50ccd-8796-44b0-a3e7-671826352099"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <effectiveTime xsi:type="IVL_TS">
+                  <high flavorId="ANY.NONNULL"/>
+               </effectiveTime>
+            </encounterCriteria>
+         </entry>
+         <!--Occurrence A Encounter, Performed - admission datetime With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="OccurrenceAofEmergencyDepartmentVisit_EncounterPerformed_admissiondatetime_CheckifPresent_pzQDc"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <id extension="02cb62ad-22de-430b-8615-396e0e352db1"
+                   root="40280381-3d27-5493-013d-4d86b2c46482"/>
+               <outboundRelationship typeCode="OCCR">
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="EmergencyDepartmentVisit_EncounterPerformed"
+                         root="bab50ccd-8796-44b0-a3e7-671826352099"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <effectiveTime xsi:type="IVL_TS">
+                  <low flavorId="ANY.NONNULL"/>
+               </effectiveTime>
+            </encounterCriteria>
+         </entry>
+         <!--Patient Characteristic Ethnicity--><entry typeCode="DRIV">
+            <localVariableName value="Ethnicity_PatientCharacteristicEthnicity_NQe9v"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.56"/>
+               </templateId>
+               <id extension="Ethnicity_PatientCharacteristicEthnicity"
+                   root="40280381-3d27-5493-013d-4d86b2c564a2"/>
+               <code code="54133-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Ethnicity"/>
+               </code>
+               <title value="Patient Characteristic Ethnicity"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.114222.4.11.837" xsi:type="CD">
+                  <displayName value="Ethnicity CDCREC Value Set"/>
+               </value>
+            </observationCriteria>
+         </entry>
+         <!--Patient Characteristic Sex--><entry typeCode="DRIV">
+            <localVariableName value="ONCAdministrativeSex_PatientCharacteristicSex_PctgV"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.55"/>
+               </templateId>
+               <id extension="ONCAdministrativeSex_PatientCharacteristicSex"
+                   root="40280381-3d27-5493-013d-4d86b2c564a0"/>
+               <code code="263495000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="Gender"/>
+               </code>
+               <title value="Patient Characteristic Sex"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.113762.1.4.1" xsi:type="CD">
+                  <displayName value="ONC Administrative Sex AdministrativeGender Value Set"/>
+               </value>
+            </observationCriteria>
+         </entry>
+         <!--Patient Characteristic Payer--><entry typeCode="DRIV">
+            <localVariableName value="Payer_PatientCharacteristicPayer_WHbDB"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item root="2.16.840.1.113883.10.20.28.3.58"/>
+               </templateId>
+               <id extension="Payer_PatientCharacteristicPayer"
+                   root="40280381-3d27-5493-013d-4d86b2c564a3"/>
+               <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Payer"/>
+               </code>
+               <title value="Patient Characteristic Payer"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.114222.4.11.3591" xsi:type="CD">
+                  <displayName value="Payer SOP Value Set"/>
+               </value>
+            </observationCriteria>
+         </entry>
+         <!--Patient Characteristic Race--><entry typeCode="DRIV">
+            <localVariableName value="Race_PatientCharacteristicRace_bpNLb"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item root="2.16.840.1.113883.10.20.28.3.59"/>
+               </templateId>
+               <id extension="Race_PatientCharacteristicRace"
+                   root="40280381-3d27-5493-013d-4d86b2c564a1"/>
+               <code code="32624-9" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Race"/>
+               </code>
+               <title value="Patient Characteristic Race"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.114222.4.11.836" xsi:type="CD">
+                  <displayName value="Race CDCREC Value Set"/>
+               </value>
+            </observationCriteria>
+         </entry>
+         <!--Clause 'EncounterInpatient'--><!--entry for Ends During--><entry typeCode="DRIV">
+            <localVariableName value="localVar_EndsDuring_5C16CDF0-46E4-4613-A044-A8AB8F7AF7AF"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="EndsDuring_5C16CDF0-46E4-4613-A044-A8AB8F7AF7AF"
+                   root="40280381-3d27-5493-013d-4d86b2c5649d"/>
+               <code valueSet="2.16.840.1.113883.3.666.5.307">
+                  <displayName value="Encounter Inpatient SNOMEDCT Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <temporallyRelatedInformation typeCode="EDU">
+                  <qdm:temporalInformation precisionUnit="min"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="measureperiod" root="40280381-3d27-5493-013d-4d86b2c46489"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+            </encounterCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="qdm_var_SATISFIES ALL_3375E97D-818B-4DCC-9089-DF91C1CE1479"/>
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <templateId>
+                  <item root="2.16.840.1.113883.10.20.28.3.109"/>
+               </templateId>
+               <id extension="qdm_var_SATISFIESALL_3375E97D-818B-4DCC-9089-DF91C1CE1479"
+                   root="8999286C-7C06-493A-A671-F2ABA2EEA3BF"/>
+               <!--outBoundRelationship for Encounter Inpatient : Encounter, Performed--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="ecc87fac-10f6-47cb-a83e-5e10be530e29"
+                         root="40280381-3d27-5493-013d-4d86b2c5649d"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Ends During--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="EndsDuring_5C16CDF0-46E4-4613-A044-A8AB8F7AF7AF"
+                         root="40280381-3d27-5493-013d-4d86b2c5649d"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+         <!--Clause 'Dx Active Psych Mental Principal starts during Occ A ED Visit'--><!--entry for Starts During--><entry typeCode="DRIV">
+            <localVariableName value="localVar_StartsDuring_C5B7E60B-24FF-4C10-9AF5-F6A6BBB44E68"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.1"/>
+               </templateId>
+               <id extension="StartsDuring_C5B7E60B-24FF-4C10-9AF5-F6A6BBB44E68"
+                   root="8DE088D3-286C-482B-9379-EA3159189641"/>
+               <code code="282291009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="Diagnosis"/>
+               </code>
+               <title value="Diagnosis, Active"/>
+               <statusCode code="COMPLETED"/>
+               <priorityCode>
+                  <item valueSet="2.16.840.1.113883.3.117.1.7.1.14">
+                     <displayName value="Principal SNOMEDCT Value Set"/>
+                  </item>
+               </priorityCode>
+               <value valueSet="2.16.840.1.113883.3.117.1.7.1.299" xsi:type="CD">
+                  <displayName value="Psychiatric/Mental Health Patient Grouping Value Set"/>
+               </value>
+		             <temporallyRelatedInformation typeCode="SDU">
+                  <qdm:temporalInformation precisionUnit="min"/>
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed"
+                         root="40280381-3d27-5493-013d-4d86b2c46482"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+               <outboundRelationship typeCode="REFR">
+                  <observationCriteria classCode="OBS" moodCode="EVN">
+                     <templateId>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.94"/>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.95"/>
+                     </templateId>
+                     <id extension="5B56D282-C8B2-445B-9CEC-4A5EBF2A0346"
+                         root="40280381-3d27-5493-013d-4d86b2c5648d"/>
+                     <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                        <displayName value="Status"/>
+                     </code>
+                     <title value="Status Active"/>
+                     <value code="55561003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"
+                            xsi:type="CD">
+                        <displayName value="Active"/>
+                     </value>
+                  </observationCriteria>
+               </outboundRelationship>
+	           </observationCriteria>
+         </entry>
+         <!--Clause 'Occ A ED Visit LTET 1 h EBS Occ A EncIP'--><!--Clause 'Occurrence A of $EncounterInpatient'--><entry typeCode="DRIV">
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <id extension="occAof_qdm_var_SATISFIESALL_ECEDA522-38FF-4F1D-A681-1485864D77A4"
+                   root="117440DC-1A9E-493D-A891-A725023182F2"/>
+               <outboundRelationship typeCode="OCCR">
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="qdm_var_SATISFIESALL_3375E97D-818B-4DCC-9089-DF91C1CE1479"
+                         root="8999286C-7C06-493A-A671-F2ABA2EEA3BF"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+         <!--entry for <= 1 hours Ends Before Or Concurrent With Start Of--><entry typeCode="DRIV">
+            <localVariableName value="localVar_less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_4C3A7D2C-C918-4EC6-9524-B37DEF8257C0"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <id extension="less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_4C3A7D2C-C918-4EC6-9524-B37DEF8257C0"
+                   root="E956E3ED-E00F-466E-9146-985695D798E9"/>
+               <temporallyRelatedInformation typeCode="EBSORECWS">
+                  <qdm:temporalInformation precisionUnit="min">
+                     <qdm:delta highClosed="true" lowClosed="true">
+                        <low unit="h" value="0"/>
+                        <high unit="h" value="1"/>
+                     </qdm:delta>
+                  </qdm:temporalInformation>
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="occAof_qdm_var_SATISFIESALL_ECEDA522-38FF-4F1D-A681-1485864D77A4"
+                         root="117440DC-1A9E-493D-A891-A725023182F2"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+               <outboundRelationship typeCode="OCCR">
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="EmergencyDepartmentVisit_EncounterPerformed"
+                         root="bab50ccd-8796-44b0-a3e7-671826352099"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </encounterCriteria>
+         </entry>
+      </dataCriteriaSection>
+   </component>
+   <component>
+      <populationCriteriaSection>
+         <templateId>
+            <item root="2.16.840.1.113883.10.20.28.2.1"/>
+         </templateId>
+         <id extension="PopulationCriteria1" root="E2893A79-E0D6-4C17-852B-E733B0AE430C"/>
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"/>
+         <title value="Population Criteria Section"/>
+         <text>
+            <xml>
+               <item>
+                  <list>
+                     <item>
+                        <content styleCode="Bold">Population Criteria</content>
+                        <list>
+                           <item>
+                              <content styleCode="Bold">Initial Population =</content>
+                              <list>
+                                 <item>AND: Occurrence A of $EncounterInpatient</item>
+                              </list>
+                           </item>
+                           <item>
+                              <content styleCode="Bold">Measure Population =</content>
+                              <list>
+                                 <item>AND: Initial Population</item>
+                              </list>
+                              <list>
+                                 <item>AND: "Occurrence A of Encounter, Performed: Emergency Department Visit" &lt;= 1 hour(s) ends before or concurrent with start of Occurrence A of $EncounterInpatient</item>
+                              </list>
+                           </item>
+                           <item>
+                              <content styleCode="Bold">Measure Population Exclusions =</content>
+                              <list>
+                                 <item>None</item>
+                              </list>
+                           </item>
+                           <item>
+                              <content styleCode="Bold">Stratifications =</content>
+                              <list>
+                                 <item>
+                                    <content styleCode="Bold">Stratification 1 =</content>
+                                    <list>
+                                       <item>AND NOT: "Diagnosis, Active: Psychiatric/Mental Health Patient (ordinality: Principal)" starts during "Occurrence A of Encounter, Performed: Emergency Department Visit"</item>
+                                    </list>
+                                 </item>
+                                 <item>
+                                    <content styleCode="Bold">Stratification 2 =</content>
+                                    <list>
+                                       <item>AND: "Diagnosis, Active: Psychiatric/Mental Health Patient (ordinality: Principal)" starts during "Occurrence A of Encounter, Performed: Emergency Department Visit"</item>
+                                    </list>
+                                 </item>
+                              </list>
+                           </item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+            </xml>
+         </text>
+         <component typeCode="COMP">
+            <initialPopulationCriteria classCode="OBS" moodCode="EVN">
+               <id extension="initialPopulation" root="4B56F72E-D536-4DA9-9871-4DDFCE37F3E1"/>
+               <code code="IPOP" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="initialPopulation"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="occAof_qdm_var_SATISFIESALL_ECEDA522-38FF-4F1D-A681-1485864D77A4"
+                         root="117440DC-1A9E-493D-A891-A725023182F2"/>
+                  </criteriaReference>
+               </precondition>
+            </initialPopulationCriteria>
+         </component>
+         <component typeCode="COMP">
+            <measurePopulationCriteria classCode="OBS" moodCode="EVN">
+               <id extension="measurePopulation" root="EFAA908C-174B-4918-A9E0-CD1FB1C749A6"/>
+               <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="measurePopulation"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="initialPopulation" root="4B56F72E-D536-4DA9-9871-4DDFCE37F3E1"/>
+                  </criteriaReference>
+               </precondition>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_4C3A7D2C-C918-4EC6-9524-B37DEF8257C0"
+                         root="E956E3ED-E00F-466E-9146-985695D798E9"/>
+                  </criteriaReference>
+               </precondition>
+            </measurePopulationCriteria>
+         </component>
+         <component typeCode="COMP">
+            <stratifierCriteria>
+               <id extension="Stratifiers" root="4F796F8B-485B-4111-B330-2877071FA1A4"/>
+               <code code="STRAT" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="Stratification"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <allTrue>
+                     <precondition typeCode="PRCN">
+                        <allFalse>
+                           <precondition typeCode="PRCN">
+                              <criteriaReference classCode="OBS" moodCode="EVN">
+                                 <id extension="StartsDuring_C5B7E60B-24FF-4C10-9AF5-F6A6BBB44E68"
+                                     root="8DE088D3-286C-482B-9379-EA3159189641"/>
+                              </criteriaReference>
+                           </precondition>
+                        </allFalse>
+                     </precondition>
+                  </allTrue>
+               </precondition>
+            </stratifierCriteria>
+         </component>
+         <component typeCode="COMP">
+            <stratifierCriteria>
+               <id extension="Stratifiers" root="D7E88563-1ACC-4223-97DA-C135C3E39C88"/>
+               <code code="STRAT" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="Stratification"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <allTrue>
+                     <precondition typeCode="PRCN">
+                        <criteriaReference classCode="OBS" moodCode="EVN">
+                           <id extension="StartsDuring_C5B7E60B-24FF-4C10-9AF5-F6A6BBB44E68"
+                               root="8DE088D3-286C-482B-9379-EA3159189641"/>
+                        </criteriaReference>
+                     </precondition>
+                  </allTrue>
+               </precondition>
+            </stratifierCriteria>
+         </component>
+         <component typeCode="COMP">
+            <stratifierCriteria>
+               <id extension="Stratifiers" root="3745E53C-1400-4FD6-B02A-56E8B6BA426B"/>
+               <code code="STRAT" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="Stratification"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="Ethnicity_PatientCharacteristicEthnicity"
+                         root="40280381-3d27-5493-013d-4d86b2c564a2"/>
+                  </criteriaReference>
+               </precondition>
+               <component typeCode="COMP">
+                  <measureAttribute>
+                     <code code="SDE" codeSystem="2.16.840.1.113883.5.4">
+                        <displayName value="Supplemental Data Element"/>
+                     </code>
+                     <value mediaType="text/plain" value="Supplemental Data Elements" xsi:type="ED"/>
+                  </measureAttribute>
+               </component>
+            </stratifierCriteria>
+         </component>
+         <component typeCode="COMP">
+            <stratifierCriteria>
+               <id extension="Stratifiers" root="BF088BEA-0F7D-4506-90BF-EDAC8CFC3AF3"/>
+               <code code="STRAT" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="Stratification"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="ONCAdministrativeSex_PatientCharacteristicSex"
+                         root="40280381-3d27-5493-013d-4d86b2c564a0"/>
+                  </criteriaReference>
+               </precondition>
+               <component typeCode="COMP">
+                  <measureAttribute>
+                     <code code="SDE" codeSystem="2.16.840.1.113883.5.4">
+                        <displayName value="Supplemental Data Element"/>
+                     </code>
+                     <value mediaType="text/plain" value="Supplemental Data Elements" xsi:type="ED"/>
+                  </measureAttribute>
+               </component>
+            </stratifierCriteria>
+         </component>
+         <component typeCode="COMP">
+            <stratifierCriteria>
+               <id extension="Stratifiers" root="071217B5-422A-41F9-8646-FEEEDA40FDD4"/>
+               <code code="STRAT" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="Stratification"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="Payer_PatientCharacteristicPayer"
+                         root="40280381-3d27-5493-013d-4d86b2c564a3"/>
+                  </criteriaReference>
+               </precondition>
+               <component typeCode="COMP">
+                  <measureAttribute>
+                     <code code="SDE" codeSystem="2.16.840.1.113883.5.4">
+                        <displayName value="Supplemental Data Element"/>
+                     </code>
+                     <value mediaType="text/plain" value="Supplemental Data Elements" xsi:type="ED"/>
+                  </measureAttribute>
+               </component>
+            </stratifierCriteria>
+         </component>
+         <component typeCode="COMP">
+            <stratifierCriteria>
+               <id extension="Stratifiers" root="7C46ECE9-8C55-4976-A69D-A559FE284735"/>
+               <code code="STRAT" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="Stratification"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="Race_PatientCharacteristicRace"
+                         root="40280381-3d27-5493-013d-4d86b2c564a1"/>
+                  </criteriaReference>
+               </precondition>
+               <component typeCode="COMP">
+                  <measureAttribute>
+                     <code code="SDE" codeSystem="2.16.840.1.113883.5.4">
+                        <displayName value="Supplemental Data Element"/>
+                     </code>
+                     <value mediaType="text/plain" value="Supplemental Data Elements" xsi:type="ED"/>
+                  </measureAttribute>
+               </component>
+            </stratifierCriteria>
+         </component>
+      </populationCriteriaSection>
+   </component>
+   <component>
+      <measureObservationSection>
+         <templateId>
+            <item root="2.16.840.1.113883.10.20.28.2.4"/>
+         </templateId>
+         <id extension="MeasureObservations" root="6A5DB282-9045-401D-8D21-7B32CB0E9B37"/>
+         <code code="57027-5" codeSystem="2.16.840.1.113883.6.1"/>
+         <title value="Measure Observation Section"/>
+         <text>
+            <xml>
+               <item>
+                  <content>Population Criteria 1</content>
+                  <item>
+                     <content styleCode="Bold">Measure Observation =</content>
+                     <list>
+                        <item>Median of:<list>
+                              <item>Datetime difference of:<list>
+                                    <item>"Occurrence A of Encounter, Performed: Emergency Department Visit (discharge datetime)"</item>
+                                    <item>"Occurrence A of Encounter, Performed: Emergency Department Visit (admission datetime)"</item>
+                                 </list>
+                              </item>
+                           </list>
+                        </item>
+                     </list>
+                  </item>
+               </item>
+            </xml>
+         </text>
+         <!--Definition for Measure Observation 1--><definition>
+            <measureObservationDefinition classCode="OBS" moodCode="DEF">
+               <id extension="MeasureObservation" root="B03F8083-64B1-4931-8D7B-82F756BFDCA0"/>
+               <code code="AGGREGATE" codeSystem="2.16.840.1.113883.5.4"/>
+               <value xsi:type="PQ">
+                  <expression value="OccurrenceAofEmergencyDepartmentVisit_EncounterPerformed_dischargedatetime_CheckifPresent_6TnnO.effectiveTime.high - OccurrenceAofEmergencyDepartmentVisit_EncounterPerformed_admissiondatetime_CheckifPresent_pzQDc.effectiveTime.low"/>
+               </value>
+               <methodCode>
+                  <item code="MEDIAN" codeSystem="2.16.840.1.113883.5.84"/>
+               </methodCode>
+               <precondition typeCode="PRCN">
+                  <join classCode="OBS" moodCode="DEF">
+                     <value value="OccurrenceAofEmergencyDepartmentVisit_EncounterPerformed_dischargedatetime_CheckifPresent_6TnnO.getPatient().id eql_eql_ OccurrenceAofEmergencyDepartmentVisit_EncounterPerformed_admissiondatetime_CheckifPresent_pzQDc.getPatient().id"
+                            xsi:type="ED"/>
+                  </join>
+               </precondition>
+            </measureObservationDefinition>
+         </definition>
+      </measureObservationSection>
+   </component>
+</QualityMeasureDocument>
