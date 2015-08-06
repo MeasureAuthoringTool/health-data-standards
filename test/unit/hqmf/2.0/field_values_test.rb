@@ -1,6 +1,6 @@
 require_relative '../../../test_helper'
 
-class FieldValuesTest <  Test::Unit::TestCase
+class FieldValuesTest < Minitest::Test
 
   def setup
     path = File.expand_path("../../../../fixtures/2.1/measures/field_values.xml", __FILE__)

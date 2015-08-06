@@ -1,6 +1,6 @@
 require_relative '../../../test_helper'
 
-class CareGoalsTest <  Test::Unit::TestCase
+class CareGoalsTest < Minitest::Test
   def test_caregoals
      path = File.expand_path("../../../../fixtures/2.1/measures/caregoals.xml", __FILE__)
      hqmf_contents = File.open(path).read

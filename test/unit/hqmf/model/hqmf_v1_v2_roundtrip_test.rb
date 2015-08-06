@@ -28,6 +28,9 @@ class HQMFV1V2RoundtripTest < Minitest::Test
   end
 
   def do_roundtrip_test(measure_filename, measure_name)
+
+    skip('Skipping all HQMF round trip tests until HQMFR2.1 refactoring')
+
     # open the v1 file and generate a v2.1 xml string
 
     v1_model = HQMF::Parser::V1Parser.new.parse(File.open(measure_filename).read)
