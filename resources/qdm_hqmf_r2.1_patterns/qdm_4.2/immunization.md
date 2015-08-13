@@ -141,9 +141,6 @@ substanceAdministrationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.2
 | &nbsp; item                              | 1..1  | SHALL  |           |                                                                           |                                                 |
 | &nbsp;&nbsp; @root                       | 1..1  | SHALL  |           | 2.16.840.1.113883.10.20.28.3.113                                          |                                                 |
 | id                                       | 1..1  | SHALL  |           |                                                                           |                                                 |
-| code                                     | 1..1  | SHALL  |           |                                                                           |                                                 |
-| &nbsp; @code                             | 1..1  | SHALL  |           | 416118004                                                                 |                                                 |
-| &nbsp; @codeSystem                       | 1..1  | SHALL  |           | 2.16.840.1.113883.6.96 (SNOMED CT)                                        |                                                 |
 | title                                    | 1..1  | SHALL  |           |                                                                           |                                                 |
 | statusCode                               | 1..1  | SHALL  |           |                                                                           |                                                 |
 | &nbsp; @code                             | 1..1  | SHALL  |           | 2.16.840.1.113883.5.14 (ActStatus) = active                               |                                                 |

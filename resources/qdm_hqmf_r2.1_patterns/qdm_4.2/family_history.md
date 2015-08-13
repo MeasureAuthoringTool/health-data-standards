@@ -41,7 +41,7 @@ observationCriteria (identifier: urn:hl7ii:2.16.840.1.113883.10.20.28.3.111)
 | &nbsp;&nbsp; @root             | 1..1  | SHALL  |           | 2.16.840.1.113883.10.20.28.3.111                              |                                    |
 | id                             | 1..1  | SHALL  |           |                                                               |                                    |
 | code                           | 1..1  | SHALL  |           |                                                               |                                    |
-| &nbsp; @code                   | 1..1  | SHALL  |           | 75314-5                                                       |                                    |
+| &nbsp; @code                   | 1..1  | SHALL  |           | 10157-6                                                       |                                    |
 | &nbsp; @codeSystem             | 1..1  | SHALL  |           | 2.16.840.1.113883.6.1 (LOINC)                                 |                                    |
 | title                          | 1..1  | SHALL  |           |                                                               |                                    |
 | statusCode                     | 1..1  | SHALL  |           |                                                               |                                    |
