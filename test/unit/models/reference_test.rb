@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ReferenceTest < MiniTest::Unit::TestCase
+class ReferenceTest < MiniTest::Test
 
    def test_references
      r = Record.new

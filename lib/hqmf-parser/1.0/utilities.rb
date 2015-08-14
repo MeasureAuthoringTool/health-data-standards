@@ -43,7 +43,7 @@ module HQMF1
         bad_precondition = @preconditions.first
         if (bad_precondition.restrictions.empty? && bad_precondition.subset.nil? && bad_precondition.expression.nil?)
           @preconditions = @preconditions.first.preconditions
-          puts "\t FIXED PRECONDITION WITHOUT CONJUNCTION"
+          #puts "\t FIXED PRECONDITION WITHOUT CONJUNCTION"
         else
           puts "\t PRECONDITION WITHOUT CONJUNCTION: Cannot be fixed"
         end

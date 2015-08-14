@@ -41,7 +41,7 @@ class HQMFV1V2GenerationTest < Minitest::Test
     File.open("#{RESULTS_DIR}/#{measure_name}.xml", 'w') { |file | file.write(hqmf_xml) }
 
     # validate the 2.1 xml against the 2.1 schema
-    errors = XSD.validate(Nokogiri.XML(hqmf_xml))
+    errors = XSD.validate(Nokogiri::XML(hqmf_xml.to_s) { |conf| conf.strict.nonet.noblanks })
 
     # if there are errors, save them to a file for further analysis
     if (errors.present?)

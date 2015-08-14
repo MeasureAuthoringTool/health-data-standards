@@ -124,7 +124,7 @@ FactoryGirl.define do
     f.typeOfMedication { {"SNOMED-CT" => ["12345"]}}
     f.statusOfMedication { {"SNOMED-CT" => ["12345"]}}
     f.route { {"NCI Thesaurus" => ["12345"]}}
-    f.site { {"SNOMED-CT" => ["12345"]}}
+    f.anatomical_approach { {"SNOMED-CT" => ["12345"]}}
     f.doseRestriction { {"RxNorm" => ["12345"]}}
     f.fulfillmentInstructions "Fulfillment Instructions"
     f.indication { {"SNOMED-CT" => ["12345"]}}
@@ -149,7 +149,7 @@ FactoryGirl.define do
     f.codes           { { "SNOMED-CT" => ["171055003"] } }
     f.start_time      1257901150
     f.end_time        1258901150
-    f.site {{ "SNOMED-CT" => ["12341234"]}}
+    f.anatomical_target {{ "SNOMED-CT" => ["12341234"]}}
   end
 
   factory :record do |f|

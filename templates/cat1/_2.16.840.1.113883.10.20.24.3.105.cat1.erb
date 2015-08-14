@@ -1,5 +1,5 @@
 <entry>
-  <act classCode="ACT" moodCode="EVN">
+  <act classCode="ACT" moodCode="EVN" <%== negation_indicator(entry) %>>
     <!-- Discharge Medication Entry -->
     <templateId root="2.16.840.1.113883.10.20.24.3.105"/>
     <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
@@ -54,6 +54,7 @@
             </manufacturerOrganization>
           </manufacturedProduct>
         </consumable>
+        <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"]}) %>
       </substanceAdministration>
     </entryRelationship>
   </act>

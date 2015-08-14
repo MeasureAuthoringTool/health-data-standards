@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:hhs-qdm:hqmf-r2-extensions:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns:hl7="urn:hl7-org:v3"
+            targetNamespace="urn:hhs-qdm:hqmf-r2-extensions:v1"
+            elementFormDefault="qualified">
+    <xs:import namespace="urn:hl7-org:v3" schemaLocation="POQM_MT000001UV03.xsd"/>
+    <xs:element name="subsetCode" type="hl7:CS"/>
+    <xs:element name="temporalInformation" type="TemporalInformation"/>
+    <xs:complexType name="TemporalInformation">
+        <xs:sequence>
+            <xs:element name="sourceAttribute" type="TemporalInformationAttribute" minOccurs="0"/>
+            <xs:element name="targetAttribute" type="TemporalInformationAttribute" minOccurs="0"/>
+            <xs:element name="delta" type="hl7:IVL_PQ" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="precisionUnit" type="hl7:Code" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="TemporalInformationAttribute">
+        <xs:sequence>
+            <xs:element name="id" type="hl7:II"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="bound" type="TemporalInformationAttributeBound" use="required"/>
+    </xs:complexType>
+    <xs:simpleType name="TemporalInformationAttributeBound">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="effectiveTime.low"/>
+            <xs:enumeration value="effectiveTime.high"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,10 @@
+            <% data[:sourceKeys].each do |key| %>
+              <qdm:sourceAttribute name="<%= key.titleize%>" bound="effectiveTime.<%=temporal_relationship_attribute_effective_time(key)%>">
+                <qdm:id root="<%= "#{criteria.id}_#{key.parameterize.underscore}" %>"/>
+              </qdm:sourceAttribute>
+            <% end %>
+            <% data[:targetKeys].each do |key| %>
+              <qdm:targetAttribute name="<%= key.titleize%>" bound="effectiveTime.<%=temporal_relationship_attribute_effective_time(key)%>">
+                <qdm:id root="<%= "#{targetCriteria.id}_#{key.parameterize.underscore}" %>"/>
+              </qdm:targetAttribute>
+            <% end %>

@@ -130,7 +130,7 @@ class Cat1Test < Minitest::Test
     patient = OpenStruct.new(expired: true, deathdate: deathdate)
     entries = entries_for_data_criteria(data_criteria, patient)
     assert_equal 1, entries.length
-    assert_equal deathdate, entries.first.start_date
+    assert_equal deathdate, entries.first.start_time
   end
 
   def test_measure_section_export

@@ -3,10 +3,10 @@
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
          
       <!--
-			**************************************************************
-			Measure Details Section
-			**************************************************************
-		-->
+      **************************************************************
+      Measure Details Section
+      **************************************************************
+    -->
          
       <typeId extension="POQM_HD000001UV02" root="2.16.840.1.113883.1.3"/>
    <templateId>
@@ -359,7 +359,7 @@
                <value valueSet="2.16.840.1.113883.3.117.1.7.1.212" xsi:type="CD">
                   <displayName value="Hemorrhagic Stroke Grouping Value Set"/>
                </value>
-		             <outboundRelationship typeCode="REFR">
+                 <outboundRelationship typeCode="REFR">
                   <observationCriteria classCode="OBS" moodCode="EVN">
                      <templateId>
                         <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.94"/>
@@ -377,7 +377,7 @@
                      </value>
                   </observationCriteria>
                </outboundRelationship>
-	           </observationCriteria>
+             </observationCriteria>
          </entry>
          <!--Diagnosis, Active--><entry typeCode="DRIV">
             <localVariableName value="IschemicStroke_Diagnosis,Active_vMFNU"/>
@@ -395,7 +395,7 @@
                <value valueSet="2.16.840.1.113883.3.117.1.7.1.247" xsi:type="CD">
                   <displayName value="Ischemic Stroke Grouping Value Set"/>
                </value>
-		             <outboundRelationship typeCode="REFR">
+                 <outboundRelationship typeCode="REFR">
                   <observationCriteria classCode="OBS" moodCode="EVN">
                      <templateId>
                         <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.94"/>
@@ -413,7 +413,7 @@
                      </value>
                   </observationCriteria>
                </outboundRelationship>
-	           </observationCriteria>
+             </observationCriteria>
          </entry>
          <!--Medication, Order--><entry typeCode="DRIV">
             <localVariableName value="AntithromboticTherapy_Medication,Order_cTk1B"/>
@@ -425,7 +425,7 @@
                    root="c536bb40-3686-4029-b20d-344b8bfbba90"/>
                <title value="Medication, Order"/>
                <statusCode code="ACTIVE"/>
-	              <participation typeCode="CSM">
+                <participation typeCode="CSM">
                   <role classCode="MANU">
                      <playingMaterial classCode="MMAT" determinerCode="KIND">
                         <code valueSet="2.16.840.1.113883.3.117.1.7.1.201">
@@ -434,7 +434,7 @@
                      </playingMaterial>
                   </role>
                </participation>
-	           </substanceAdministrationCriteria>
+             </substanceAdministrationCriteria>
          </entry>
          <!--Occurrence A Encounter, Performed--><entry typeCode="DRIV">
             <localVariableName value="OccurrenceAofInpatientEncounter_Encounter,Performed_yqcMB"/>
@@ -671,7 +671,7 @@
                <value valueSet="2.16.840.1.113883.3.117.1.7.1.247" xsi:type="CD">
                   <displayName value="Ischemic Stroke Grouping Value Set"/>
                </value>
-		             <temporallyRelatedInformation typeCode="SDU">
+                 <temporallyRelatedInformation typeCode="SDU">
                   <qdm:temporalInformation precisionUnit="min"/>
                   <criteriaReference classCode="ENC" moodCode="EVN">
                      <id extension="OccurrenceA_InpatientEncounter_Encounter,Performed"
@@ -696,7 +696,7 @@
                      </value>
                   </observationCriteria>
                </outboundRelationship>
-	           </observationCriteria>
+             </observationCriteria>
          </entry>
          <!--Clause 'fulfillsClause'--><!--entry for Fulfills--><entry typeCode="DRIV">
             <localVariableName value="IschemicStroke_Diagnosis,Active_vMFNU"/>
@@ -714,7 +714,7 @@
                <value valueSet="2.16.840.1.113883.3.117.1.7.1.247" xsi:type="CD">
                   <displayName value="Ischemic Stroke Grouping Value Set"/>
                </value>
-		             <outboundRelationship typeCode="FLFS">
+                 <outboundRelationship typeCode="FLFS">
                   <criteriaReference classCode="SBADM" moodCode="RQO">
                      <id extension="AntithromboticTherapy_Medication,Order"
                          root="c536bb40-3686-4029-b20d-344b8bfbba90"/>
@@ -738,7 +738,7 @@
                      </value>
                   </observationCriteria>
                </outboundRelationship>
-	           </observationCriteria>
+             </observationCriteria>
          </entry>
       </dataCriteriaSection>
    </component>
@@ -848,6 +848,11 @@
                      codeSystemName="HL7 Observation Value">
                   <displayName value="denominator"/>
                </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="initialPopulation" root="05CB5EF9-FB0E-498F-98FD-805F14AA2B66"/>
+                  </criteriaReference>
+               </precondition>
                <precondition typeCode="PRCN">
                   <criteriaReference classCode="OBS" moodCode="EVN">
                      <id extension="StartsDuring_1A607F93-66CC-48AE-9BB1-70017F809B7D"

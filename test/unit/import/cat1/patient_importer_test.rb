@@ -205,19 +205,12 @@ class PatientImporterTest < Minitest::Test
   end
 
   def test_clinical_trial_participant
-    patient = Record.new
-    doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/clinical_trial_participant_fragment.xml'))
-    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-    HealthDataStandards::Import::Cat1::PatientImporter.instance.get_clinical_trial_participant(patient, cat1_patient_data_section(doc))
-    assert patient.clinicalTrialParticipant
-  end
-
-  def test_not_clinical_trial_participant
-    patient = Record.new
-    doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/care_goal_fragment.xml'))
-    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-    HealthDataStandards::Import::Cat1::PatientImporter.instance.get_clinical_trial_participant(patient, cat1_patient_data_section(doc))
-    assert !patient.clinicalTrialParticipant
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/clinical_trial_participant_fragment.xml')
+    clinical_trial = patient.conditions.first
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20100101')
+    assert clinical_trial.codes['SNOMED-CT'].include?('428024001')
+    assert_equal clinical_trial.start_time, expected_start
+    assert_nil clinical_trial.end_time
   end
 
   def test_diagnostic_study_result

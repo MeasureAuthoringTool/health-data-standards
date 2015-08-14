@@ -13,6 +13,20 @@ class DocumentV2Test < Minitest::Test
     @model = doc.to_model
   end
 
+
+  def test_remove_population_preconditions
+     path = File.expand_path("../../../../fixtures/2.1/measures/fulfills.xml", __FILE__)
+     hqmf_contents = File.open(path).read
+     xml = Nokogiri::XML(hqmf_contents)
+     #find the precondition in the parsed document
+     precon = xml.xpath("//cda:precondition[./cda:criteriaReference/cda:id[@extension='initialPopulation' and @root='05CB5EF9-FB0E-498F-98FD-805F14AA2B66']]",HQMF2::Document::NAMESPACES)
+     assert_equal 1, precon.length
+     doc = HQMF2::Document.new(hqmf_contents)
+     doc_xml = doc.instance_variable_get("@doc")
+     precon2 = doc_xml.xpath("//cda:precondition[./cda:criteriaReference/cda:id[@extension='initialPopulation' and @root='05CB5EF9-FB0E-498F-98FD-805F14AA2B66']]",HQMF2::Document::NAMESPACES)
+     assert_equal 0, precon2.length
+  end
+
   def test_roundtrip
     assert_equal 'foo', @model.id
     assert_equal "Statin Prescribed at Discharge", @model.title.strip
@@ -87,7 +101,7 @@ class DocumentV2Test < Minitest::Test
     criteria = @model.data_criteria('principalActiveDiagnosis_AMI')
     assert criteria.status, "performed"
     assert criteria.title, "Problem"
- 
+
     criteria = @model.data_criteria('inpatientEncounterAMI')
     assert criteria.status, "performed"
     assert criteria.title, "Encounter Inpatient SNOMED-CT Value Set"
@@ -127,7 +141,7 @@ class DocumentV2Test < Minitest::Test
     criteria = @model.data_criteria('noStatinsWithMedicalReason')
     assert_nil criteria.status
     assert criteria.title, "noStatinsWithMedicalReason"
-    
+
 =begin
     for x in @model.all_data_criteria
       puts ">>> #{x.id} -- #{x.title}"
@@ -260,10 +274,10 @@ class DocumentV2Test < Minitest::Test
     assert criteria.effective_time.high
     assert_equal true, criteria.effective_time.high.derived?
     assert_equal "EndDate.add(new PQ(-2,'a'))", criteria.effective_time.high.expression
-      
+
     all_population_criteria = @model.all_population_criteria
     assert_equal 8, all_population_criteria.length
-  
+
     codes = all_population_criteria.collect {|p| p.id}
     %w(IPP DENOM NUMER DENEXCEP).each do |c|
       assert codes.include?(c)
@@ -286,7 +300,7 @@ class DocumentV2Test < Minitest::Test
     assert_equal 2, den.preconditions[0].preconditions[0].preconditions.length
     assert_equal false, den.preconditions[0].preconditions[0].preconditions[0].conjunction?
     assert_equal 'HasDiabetes', den.preconditions[0].preconditions[0].preconditions[0].reference.id
-  
+
     num = @model.population_criteria('NUMER')
     assert_equal 1, num.preconditions.length
     assert_equal false, num.preconditions[0].conjunction?
@@ -312,7 +326,7 @@ class DocumentV2Test < Minitest::Test
     assert_equal nil, @model.populations[1]['DENEX']
 =end
   end
-  
+
   def test_schema_valid
     doc = Nokogiri.XML(@hqmf_xml)
     xsd_file = File.open("test/fixtures/2.1/schemas/EMeasure.xsd")
