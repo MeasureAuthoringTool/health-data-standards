@@ -390,6 +390,8 @@ module HQMF2
           'denominatorExclusion'
         when HQMF::PopulationCriteria::MSRPOPL
           'measurePopulation'
+        when HQMF::PopulationCriteria::MSRPOPLEX
+          'measurePopulationExclusion'
         when HQMF::PopulationCriteria::OBSERV
            'measureObservation'
         when HQMF::PopulationCriteria::STRAT

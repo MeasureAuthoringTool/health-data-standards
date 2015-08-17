@@ -29,10 +29,11 @@ module HQMF
       observs = @population_criteria_by_id.select {|key, value| value.type == HQMF::PopulationCriteria::OBSERV}
       excls = @population_criteria_by_id.select {|key, value| value.type == HQMF::PopulationCriteria::DENEX}
       denexcs = @population_criteria_by_id.select {|key, value| value.type == HQMF::PopulationCriteria::DENEXCEP}
+      msrpoplexs = @population_criteria_by_id.select {|key, value| value.type == HQMF::PopulationCriteria::MSRPOPLEX}
 
       stratifications = @population_criteria_by_id.values.select {|value| value.type == HQMF::PopulationCriteria::STRAT}
       
-      if (ipps.size<=1 and denoms.size<=1 and nums.size<=1 and excls.size<=1 and denexcs.size<=1 and msrpopls.size<=1 and observs.size<=1 )
+      if (ipps.size<=1 and denoms.size<=1 and nums.size<=1 and excls.size<=1 and denexcs.size<=1 and msrpopls.size<=1 and msrpoplexs.size<=1 and observs.size<=1 )
         sub_measure = {}
           
         sub_measure[HQMF::PopulationCriteria::IPP] = HQMF::PopulationCriteria::IPP if ipps.size > 0
@@ -42,7 +43,8 @@ module HQMF
         sub_measure[HQMF::PopulationCriteria::DENEX] = HQMF::PopulationCriteria::DENEX if excls.size > 0
         sub_measure[HQMF::PopulationCriteria::MSRPOPL] = HQMF::PopulationCriteria::MSRPOPL if msrpopls.size > 0
         sub_measure[HQMF::PopulationCriteria::OBSERV] = HQMF::PopulationCriteria::OBSERV if observs.size > 0
-          
+        sub_measure[HQMF::PopulationCriteria::MSRPOPLEX] = HQMF::PopulationCriteria::MSRPOPLEX if msrpoplexs.size > 0
+
         @sub_measures << sub_measure
       else
 

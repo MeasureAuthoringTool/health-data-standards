@@ -15,10 +15,11 @@ module HQMF
     DENEX = 'DENEX'
     MSRPOPL = 'MSRPOPL'
     OBSERV = 'OBSERV'
+    MSRPOPLEX = 'MSRPOPLEX'
 
     STRAT = 'STRAT'
     
-    ALL_POPULATION_CODES = [STRAT, IPP, DENOM, DENEX, NUMER, DENEXCEP, MSRPOPL, OBSERV]
+    ALL_POPULATION_CODES = [STRAT, IPP, DENOM, DENEX, NUMER, DENEXCEP, MSRPOPL, OBSERV, MSRPOPLEX]
     
     # Create a new population criteria
     # @param [String] id
@@ -74,7 +75,7 @@ module HQMF
       case @type
       when IPP, STRAT, DENOM, NUMER, MSRPOPL
         HQMF::Precondition::ALL_TRUE
-      when DENEXCEP, DENEX
+      when DENEXCEP, DENEX, MSRPOPLEX
         HQMF::Precondition::AT_LEAST_ONE_TRUE
       else
         raise "Unknown population type [#{@type}]"
