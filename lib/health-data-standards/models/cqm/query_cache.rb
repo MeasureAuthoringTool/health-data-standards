@@ -18,6 +18,7 @@ module HealthDataStandards
       field :DENEX, type: Integer
       field :DENEXCEP, type: Integer
       field :MSRPOPL, type: Integer
+      field :MSRPOPLEX, type: Integer
       field :OBSERV, type: Float
       field :supplemental_data, type: Hash
 

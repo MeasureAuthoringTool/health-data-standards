@@ -88,7 +88,7 @@ module HQMF2
       case @type
       when HQMF::PopulationCriteria::IPP, HQMF::PopulationCriteria::DENOM, HQMF::PopulationCriteria::NUMER,HQMF::PopulationCriteria::MSRPOPL,HQMF::PopulationCriteria::STRAT
         HQMF::Precondition::ALL_TRUE
-      when HQMF::PopulationCriteria::DENEXCEP, HQMF::PopulationCriteria::DENEX
+      when HQMF::PopulationCriteria::DENEXCEP, HQMF::PopulationCriteria::DENEX, HQMF::PopulationCriteria::MSRPOPLEX
         HQMF::Precondition::AT_LEAST_ONE_TRUE
       else
         raise "Unknown population type [#{@type}]"
