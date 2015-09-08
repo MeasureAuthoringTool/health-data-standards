@@ -77,4 +77,8 @@ class EntryTest < Minitest::Test
     end
   end
 
+  test failing_assert
+    assert false
+  end
+
 end
