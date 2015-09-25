@@ -29,6 +29,7 @@ class Record
   embeds_many :care_goals, class_name: "Entry" # This can be any number of different entry types
   embeds_many :conditions
   embeds_many :encounters
+  embeds_many :communications
   embeds_many :immunizations
   embeds_many :medical_equipment
   embeds_many :medications
@@ -46,7 +47,7 @@ class Record
   embeds_many :functional_statuses
 
   Sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
-   :medications, :procedures, :results, :social_history, :vital_signs, :support, :advance_directives,
+   :medications, :procedures, :results, :communications, :social_history, :vital_signs, :support, :advance_directives,
    :insurance_providers, :functional_statuses]
 
   embeds_many :provider_performances
