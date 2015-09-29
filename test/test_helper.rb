@@ -5,8 +5,6 @@ require_relative '../lib/health-data-standards'
 PROJECT_ROOT = File.expand_path("../../", __FILE__)
 require_relative File.join(PROJECT_ROOT, 'lib', 'hqmf-parser')
 
-require 'pry'
-
 require 'minitest/autorun'
 require "minitest/reporters"
 
@@ -27,7 +25,7 @@ class Minitest::Test
   Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
   # Add more helper methods to be used by all tests here...
-  
+
   def collection_fixtures(collection, *id_attributes)
     Mongoid.session(:default)[collection].drop
     Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', collection, '*.json')).each do |json_fixture_file|
