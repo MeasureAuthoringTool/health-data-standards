@@ -12,13 +12,13 @@ module HQMF2
     def initialize(hqmf_contents)
       @idgenerator = IdGenerator.new
       @doc = @entry = Document.parse(hqmf_contents)
-      
-      remove_popultaion_preconditions(@doc)
+
+      remove_population_preconditions(@doc)
 
       @id = attr_val('cda:QualityMeasureDocument/cda:id/@extension') || attr_val('cda:QualityMeasureDocument/cda:id/@root').upcase
       @hqmf_set_id = attr_val('cda:QualityMeasureDocument/cda:setId/@extension') || attr_val('cda:QualityMeasureDocument/cda:setId/@root').upcase
       @hqmf_version_number = attr_val('cda:QualityMeasureDocument/cda:versionNumber/@value').to_i
-      
+
       # measure_period_def = @doc.at_xpath('cda:QualityMeasureDocument/cda:controlVariable/cda:measurePeriod/cda:value', NAMESPACES)
       # if measure_period_def
       #   @measure_period = EffectiveTime.new(measure_period_def)
@@ -68,7 +68,7 @@ module HQMF2
 
         #handle_variable(criteria) if criteria.variable
       end
-  
+
       # Patch descriptions for all data criteria and source data criteria
       @data_criteria.each { |dc| dc.patch_descriptions(@data_criteria_references) }
       @source_data_criteria.each { |sdc| sdc.patch_descriptions(@data_criteria_references) }
@@ -260,7 +260,7 @@ module HQMF2
       end
     end
 
-    def remove_popultaion_preconditions(doc)
+    def remove_population_preconditions(doc)
       #population sections
       pop_ids = doc.xpath("//cda:populationCriteriaSection/cda:component[@typeCode='COMP']/*/cda:id",NAMESPACES)
       #find the population entries and get their ids

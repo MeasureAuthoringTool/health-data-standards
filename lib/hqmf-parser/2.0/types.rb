@@ -373,6 +373,10 @@ module HQMF2
       end
     end
 
+    def source_ref_id
+      attr_val('./@extension')
+    end
+
     def update_verbose(verbose=false)
       @verbose = verbose
     end

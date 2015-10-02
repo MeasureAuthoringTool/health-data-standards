@@ -1,3 +1,5 @@
+require "pry"
+
 module HQMF2
   # Represents a data criteria specification
   class DataCriteria
@@ -509,9 +511,10 @@ module HQMF2
         unless @data_criteria_references.keys.include?(strip_tokens child_ref.id)
           # puts "Updated CC: #{child_ref.id}"
           child_ref.update_verbose(true)
-          puts "ERROR\t Could not find verbose CC: #{child_ref.id}" unless @data_criteria_references.keys.include?(strip_tokens child_ref.id)
+          # puts "ERROR\t Could not find verbose CC: #{child_ref.id}" unless @data_criteria_references.keys.include?(strip_tokens child_ref.id)
         end
-        child_ref.id
+        # TODO  This may not be correct. This makes the child-criteria refer to the source, rather than it's own data criteria.
+        child_ref.source_ref_id
       end.compact
     end
 
