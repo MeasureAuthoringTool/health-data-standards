@@ -80,7 +80,7 @@ module HQMF2
       references = @entry.xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
       reference = references.first
       # TODO: Figure out when exactly to handle variable references as verbose
-      if reference && references.length==1
+      if reference
         ref_id = strip_tokens(HQMF2::Utilities.attr_val(reference, 'cda:id/@extension'))
         verbose_ref_id = strip_tokens("#{HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')}_#{HQMF2::Utilities.attr_val(reference, 'cda:id/@root')}")
         reference_criteria = @data_criteria_references[ref_id] if ref_id
@@ -88,15 +88,16 @@ module HQMF2
         unless reference_criteria
           puts "MISSING_DC_REF: #{ref_id} & #{verbose_ref_id}"
         end
+        if isGrouper && reference_criteria.try(:variable)
+          idExtension_xpath = './*/cda:id/@extension'
+          idRoot_xpath = './*/cda:id/@root'
+          return if !(attr_val(idExtension_xpath) =~ /^occ[A-Z]of_qdm_var_/).nil?
+          @id = "#{attr_val(idExtension_xpath)}_#{attr_val(idRoot_xpath)}"
+          @verbose_reference = true
+          puts "Updated grouper: #{@id} #{@verbose_reference}"
+        end
       end
-      if isGrouper && reference_criteria.try(:variable)
-        idExtension_xpath = './*/cda:id/@extension'
-        idRoot_xpath = './*/cda:id/@root'
-        return if !(attr_val(idExtension_xpath) =~ /^occ[A-Z]of_qdm_var_/).nil?
-        @id = "#{attr_val(idExtension_xpath)}_#{attr_val(idRoot_xpath)}"
-        @verbose_reference = true
-        # puts "Updated grouper: #{@id} #{@verbose_reference}"
-      end
+      
     end
 
     def set_code_list_path_and_result_value
@@ -514,7 +515,7 @@ module HQMF2
           # puts "ERROR\t Could not find verbose CC: #{child_ref.id}" unless @data_criteria_references.keys.include?(strip_tokens child_ref.id)
         end
         # TODO  This may not be correct. This makes the child-criteria refer to the source, rather than it's own data criteria.
-        child_ref.source_ref_id
+        child_ref.id
       end.compact
     end
 

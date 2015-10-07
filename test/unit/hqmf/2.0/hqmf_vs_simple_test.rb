@@ -73,6 +73,10 @@ class HQMFVsSimpleTest < Minitest::Test
     # certain measures carry over currently unused by products
     individual_measure_corrections(simple_xml_model, hqmf_model, measure_name)
 
+    # empty out the measure period, since they are unlikely be equal
+    simple_xml_model.instance_variable_set(:@measure_period, nil)
+    hqmf_model.instance_variable_set(:@measure_period, nil)
+
     # simple_xml_model.all_population_criteria.each do |pc|
     #   # replace HQMF ID for populations... that does not get set properly in the HQMF
     #   pc.instance_variable_set(:@hqmf_id, hqmf_model.population_criteria(pc.id).hqmf_id)
@@ -120,23 +124,41 @@ class HQMFVsSimpleTest < Minitest::Test
   end
 
   def individual_measure_corrections(simple_xml_model, hqmf_model, measure_name)
-    if measure_name == 'CMS124v4'
-      # removes the source data criteria for patient expired from simplexml, which at this time does not exist in the HQMF2.1 version
-      simple_xml_model.instance_variable_get(:@source_data_criteria).reject! {|sdc| sdc.code_list_id == "2.16.840.1.113883.3.117.1.7.1.309"}
-    end
+    to_remove_patient_expired_from = ["CMS123v4", "CMS124v4", "CMS125v4", "CMS126v4", "CMS127v4", "CMS128v4"]
+    # removes the source data criteria for patient expired from simplexml, which at this time does not exist in the HQMF2.1 version or in the human readable version
+    simple_xml_model.instance_variable_get(:@source_data_criteria).reject! {|sdc| sdc.code_list_id == "2.16.840.1.113883.3.117.1.7.1.309"} if to_remove_patient_expired_from.index(measure_name)
+    # CMS127v4 seems to have stratifications, but neither the source data criteria or human readable show it should
+    hqmf_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, vaule| key == "stratification" }} if measure_name == "CMS127v4"
   end
 
   def remap_populations(simple_xml_model, hqmf_model)
     # population titles in HQMF2 can be ignored
-    hqmf_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, vaule| key == "title"}}
+    hqmf_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, vaule| key == "title" }}
+    simple_xml_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, vaule| key == "title" }}
     hqmf_populations = hqmf_model.instance_variable_get(:@populations)
 
-    # more restrictive (only checks DENEXCEP) removal of populations in simple_xml if simple_xml version has no preconditions and HQMF2 version does not have that population
-    if denexcep_index = simple_xml_model.instance_variable_get(:@population_criteria).index {|pc| pc.type=="DENEXCEP"} and simple_xml_model.instance_variable_get(:@population_criteria)[denexcep_index].preconditions.empty? and hqmf_populations.reject{ |pop| !pop.key?("DENEXCEP") }.empty?
-      simp_pop_crit = simple_xml_model.instance_variable_get(:@population_criteria)
-      simp_pop_crit.delete_at(denexcep_index)
-      #simple_xml_model.instance_variable_set(:@population_criteria, simp_pop_crit)
+    # More restrictive (only checks DENEXCEP) removal of populations in simple_xml
+    # if simple_xml version has no preconditions
+    if denexcep_index = simple_xml_model.instance_variable_get(:@population_criteria).index {|pc| pc.type=="DENEXCEP"} and
+    # and no preconditions
+    simple_xml_model.instance_variable_get(:@population_criteria)[denexcep_index].preconditions.empty? and
+    # and HQMF2 version does not have that population
+    hqmf_populations.reject{ |pop| !pop.key?("DENEXCEP") }.empty?
+
+      # Then remove DENECEP from population  criteria and any population
+      simple_xml_model.instance_variable_get(:@population_criteria).delete_at(denexcep_index)
       simple_xml_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, vaule| key == "DENEXCEP"}}
+    end
+
+    if denex_index = simple_xml_model.instance_variable_get(:@population_criteria).index {|pc| pc.type=="DENEX"} and
+    # and no preconditions
+    simple_xml_model.instance_variable_get(:@population_criteria)[denex_index].preconditions.empty? and
+    # HQMF2 version does not have that population
+    hqmf_populations.reject{ |pop| !pop.key?("DENEX") }.empty?
+
+      # Then remove DENEXCEP from population criteria and any populations
+      simple_xml_model.instance_variable_get(:@population_criteria).delete_at(denex_index)
+      simple_xml_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, vaule| key == "DENEX"}}
     end
     # remove populations in simple_xml if simple_xml version has no preconditions and HQMF2 version does not have that population
     # simple_xml_model.instance_variable_set(:@population_criteria, simple_xml_model.instance_variable_get(:@population_criteria).reject { |pop_crit| hqmf_populations.reject{ |pop| !pop.key?(pop_crit.type) }.empty? && pop_crit.preconditions.empty? })
@@ -146,8 +168,7 @@ class HQMFVsSimpleTest < Minitest::Test
   def remap_ids(measure_model)
 
     criteria_list = (measure_model.all_data_criteria + measure_model.source_data_criteria)
-    criteria_map = get_criteria_map(criteria_list)
-
+    criteria_map = get_criteria_map(measure_model.source_data_criteria, measure_model.all_data_criteria)
 
     # Normalize the HQMF model IDS
     criteria_list.each do |dc|
@@ -158,7 +179,13 @@ class HQMFVsSimpleTest < Minitest::Test
         dc.instance_variable_set(:@inline_code_list, "")
       end
       if dc.definition == "laboratory_test"
-        dc.instance_variable_set(:@title, "")
+        dc.instance_variable_set(:@title, "Lab Test")
+        dc.instance_variable_set(:@description, "")
+      end
+      if dc.children_criteria and dc.children_criteria.length > 0
+        dc.instance_variable_set(:@description, "")
+      end
+      if dc.children_criteria and dc.children_criteria.length > 0
         dc.instance_variable_set(:@description, "")
       end
       dc.id = hash_criteria(dc, criteria_map)
@@ -244,9 +271,13 @@ class HQMFVsSimpleTest < Minitest::Test
     dc.instance_variable_set(:@description, dc.description.strip)
   end
 
-  def get_criteria_map(criteria_list)
+  def get_criteria_map(source_data_criteria, data_criteria)
     criteria_map = {}
-    criteria_list.each do |dc|
+    # Since the dc has more specifics than the sdc, only use the sdc version if no dc version exists
+    source_data_criteria.each do |dc|
+      criteria_map[dc.id] = dc
+    end
+    data_criteria.each do |dc|
       criteria_map[dc.id] = dc
     end
     criteria_map

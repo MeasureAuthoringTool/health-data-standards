@@ -7,8 +7,8 @@ module HQMF2
 
     attr_reader :measure_period, :id, :hqmf_set_id, :hqmf_version_number, :populations, :attributes, :source_data_criteria
 
-    # Create a new HQMF2::Document instance by parsing at file at the supplied path
-    # @param [String] path the path to the HQMF document
+    # Create a new HQMF2::Document instance by parsing the given HQMF contents
+    # @param [String] containing the HQMF contents to be parsed
     def initialize(hqmf_contents)
       @idgenerator = IdGenerator.new
       @doc = @entry = Document.parse(hqmf_contents)
@@ -19,18 +19,11 @@ module HQMF2
       @hqmf_set_id = attr_val('cda:QualityMeasureDocument/cda:setId/@extension') || attr_val('cda:QualityMeasureDocument/cda:setId/@root').upcase
       @hqmf_version_number = attr_val('cda:QualityMeasureDocument/cda:versionNumber/@value').to_i
 
-      # measure_period_def = @doc.at_xpath('cda:QualityMeasureDocument/cda:controlVariable/cda:measurePeriod/cda:value', NAMESPACES)
-      # if measure_period_def
-      #   @measure_period = EffectiveTime.new(measure_period_def)
-      # end
-
-      #TODO -- figure out if this is the correct thing to do -- probably not.  Currently
-      # defaulting measure period to a period of 1 year from 2012 to 2013 this is overriden during
-      # calculation with correct year information .  Need to investigate parsing mp from meaures.
-      mp_low = HQMF::Value.new('TS',nil, '201201010000',nil, nil, nil)
-      mp_high = HQMF::Value.new('TS',nil,'201212312359',nil, nil, nil)
-      mp_width = HQMF::Value.new('PQ','a','1',nil, nil, nil)
-      @measure_period = HQMF::EffectiveTime.new(mp_low,mp_high,mp_width)
+      # overidden with correct year information later, but should be produce proper period
+      measure_period_def = @doc.at_xpath('cda:QualityMeasureDocument/cda:controlVariable/cda:measurePeriod/cda:value', NAMESPACES)
+      if measure_period_def
+        @measure_period = EffectiveTime.new(measure_period_def).to_model
+      end
 
       # Extract measure attributes
       # TODO: Review
@@ -53,7 +46,7 @@ module HQMF2
       @source_data_criteria = SourceDataCriteriaHelper.get_source_data_criteria_list(extracted_criteria)
 
       @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:dataCriteriaSection/cda:entry', NAMESPACES).each do |entry|
-        @data_criteria << DataCriteria.new(entry, @data_criteria_references, @occurrences_map)
+        criteria = DataCriteria.new(entry, @data_criteria_references, @occurrences_map)
 
         # Sometimes there are multiple criteria with the same ID, even though they're different; in the HQMF
         # criteria refer to parent criteria via outboundRelationship, using an extension (aka ID) and a root;
@@ -62,16 +55,27 @@ module HQMF2
         # the code_list_id and we overwrite the parent with the code_list_id with a child with the same ID
         # without the code_list_id. As a temporary approach, we only overwrite a data criteria reference if
         # it doesn't have a code_list_id. As a longer term approach we may want to use the root for lookups.
-        # if criteria && (@data_criteria_references[criteria.id].nil? || @data_criteria_references[criteria.id].code_list_id.nil?)
-        #   @data_criteria_references[criteria.id] = criteria
-        # end
+        if criteria && (@data_criteria_references[criteria.id].nil? || @data_criteria_references[criteria.id].code_list_id.nil?)
+          @data_criteria_references[criteria.id] = criteria
+        end
 
-        #handle_variable(criteria) if criteria.variable
+        handle_variable(criteria) if criteria.variable
+        @data_criteria << criteria
       end
 
+      # Remove any data criteria from the main data criteria list that already has a an equivalent member with a temporal reference (if it does not, then keep it)
+      # The goal of this is to remove any data criteria that should not be purely a source
+      @data_criteria.reject! {|dc| !@data_criteria.detect{|dc2| dc.code_list_id == dc2.code_list_id && !dc2.temporal_references.empty?}.nil? && dc.temporal_references.empty?}
+
       # Patch descriptions for all data criteria and source data criteria
-      @data_criteria.each { |dc| dc.patch_descriptions(@data_criteria_references) }
-      @source_data_criteria.each { |sdc| sdc.patch_descriptions(@data_criteria_references) }
+
+
+
+
+      # @data_criteria.each { |dc| dc.patch_descriptions(@data_criteria_references) }
+      # @source_data_criteria.each { |sdc| sdc.patch_descriptions(@data_criteria_references) }
+
+
 
       # Detect missing specific occurrences and clone source data criteria
       #detect_missing_specifics
@@ -260,6 +264,7 @@ module HQMF2
       end
     end
 
+    # If a precondition references a population, remove it
     def remove_population_preconditions(doc)
       #population sections
       pop_ids = doc.xpath("//cda:populationCriteriaSection/cda:component[@typeCode='COMP']/*/cda:id",NAMESPACES)
