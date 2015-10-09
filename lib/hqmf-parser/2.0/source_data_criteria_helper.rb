@@ -10,11 +10,11 @@ module HQMF2
       sha256 << "#{criteria.variable}:"
       sha256 << (criteria.children_criteria.nil? ? "<nil>:" : "#{criteria.children_criteria.sort.join(',')}:")
 
-      sha256
+      Digest::SHA256.hexdigest sha256
   	end
 
     def self.should_reject(dc)
-      dc.definition == 'derived' && !dc.variable
+      dc.definition == 'derived'
     end
 
     def self.as_source_data_criteria(entry)
@@ -31,7 +31,19 @@ module HQMF2
     end
 
     def self.get_source_data_criteria_list(full_criteria_list)
-      full_criteria_list.map{|dc| SourceDataCriteriaHelper.as_source_data_criteria(dc.entry)}.uniq {|dc| SourceDataCriteriaHelper.identifier(dc)}.reject {|dc| SourceDataCriteriaHelper.should_reject(dc)}
+      # currently, this will erase the sources if the ids are the same, but will not correct references later on
+      source_data_criteria = full_criteria_list.map{|dc| SourceDataCriteriaHelper.as_source_data_criteria(dc.entry)}
+      collapsed_source_data_criteria_map = {}
+      uniq_source_data_criteria = {}
+      source_data_criteria.each do |sdc|
+        identifier = SourceDataCriteriaHelper.identifier(sdc)
+        if uniq_source_data_criteria.has_key? identifier
+          collapsed_source_data_criteria_map[sdc.id] = uniq_source_data_criteria[identifier].id
+        else
+          uniq_source_data_criteria[identifier] = sdc
+        end
+      end
+      return uniq_source_data_criteria.values.reject {|dc| SourceDataCriteriaHelper.should_reject(dc)}, collapsed_source_data_criteria_map
     end
 
   end

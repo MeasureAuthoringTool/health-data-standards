@@ -360,7 +360,7 @@ module HQMF2
       if @entry.kind_of? String
         @entry
       else
-        if @verbose
+        if @verbose && false
           value = "#{attr_val('./@extension')}_#{attr_val('./@root')}"
           # puts "Using verbose reference for #{value}"
         else

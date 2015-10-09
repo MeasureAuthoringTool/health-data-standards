@@ -43,8 +43,7 @@ module HQMF2
       end
 
       # Extract the source data criteria from data criteria
-      @source_data_criteria = SourceDataCriteriaHelper.get_source_data_criteria_list(extracted_criteria)
-
+      @source_data_criteria, collapsed_source_data_criteria = SourceDataCriteriaHelper.get_source_data_criteria_list(extracted_criteria)
       @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:dataCriteriaSection/cda:entry', NAMESPACES).each do |entry|
         criteria = DataCriteria.new(entry, @data_criteria_references, @occurrences_map)
 
@@ -58,23 +57,22 @@ module HQMF2
         if criteria && (@data_criteria_references[criteria.id].nil? || @data_criteria_references[criteria.id].code_list_id.nil?)
           @data_criteria_references[criteria.id] = criteria
         end
-
+        if collapsed_source_data_criteria.has_key?(criteria.id)
+          criteria.instance_variable_set(:@source_data_criteria, collapsed_source_data_criteria[criteria.id])
+        end
         handle_variable(criteria) if criteria.variable
         @data_criteria << criteria
       end
 
       # Remove any data criteria from the main data criteria list that already has a an equivalent member with a temporal reference (if it does not, then keep it)
       # The goal of this is to remove any data criteria that should not be purely a source
-      @data_criteria.reject! {|dc| !@data_criteria.detect{|dc2| dc.code_list_id == dc2.code_list_id && !dc2.temporal_references.empty?}.nil? && dc.temporal_references.empty?}
+      @data_criteria.reject! {|dc| !@data_criteria.detect{|dc2| SourceDataCriteriaHelper.identifier(dc) == SourceDataCriteriaHelper.identifier(dc2) && !dc2.temporal_references.empty?}.nil? && dc.temporal_references.empty?}
 
       # Patch descriptions for all data criteria and source data criteria
 
 
-
-
       # @data_criteria.each { |dc| dc.patch_descriptions(@data_criteria_references) }
       # @source_data_criteria.each { |sdc| sdc.patch_descriptions(@data_criteria_references) }
-
 
 
       # Detect missing specific occurrences and clone source data criteria
@@ -136,6 +134,7 @@ module HQMF2
             build_population_criteria(criteria_def, criteria_id, criteria_element_name, ids_by_hqmf_id, population, population_counters)
           end
         end
+
 
         id_def = population_def.at_xpath('cda:id/@extension', NAMESPACES)
         population['id'] = id_def ? id_def.value : "Population#{population_index}"
@@ -241,7 +240,7 @@ module HQMF2
       grouper_data_criteria = data_criteria.extract_variable_grouper
       @data_criteria_references[data_criteria.id] = data_criteria
       @data_criteria_references[grouper_data_criteria.id] = grouper_data_criteria
-      @data_criteria << data_criteria
+      @source_data_criteria << grouper_data_criteria
       @data_criteria << grouper_data_criteria
     end
 

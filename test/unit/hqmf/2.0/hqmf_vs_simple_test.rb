@@ -18,7 +18,7 @@ class HQMFVsSimpleTest < Minitest::Test
 
   Dir.glob(measure_files).each do | measure_filename |
     measure_name = File.basename(measure_filename, ".xml")
-    if measure_name == 'CMS124v4'
+    if measure_name == "CMS128v4"
       define_method("test_#{measure_name}") do
         do_roundtrip_test(measure_filename, measure_name)
       end
@@ -95,14 +95,14 @@ class HQMFVsSimpleTest < Minitest::Test
     unless diff.empty?
       outfile = File.join("#{RESULTS_DIR}","#{measure_name}_diff.json")
       File.open(outfile, 'w') {|f| f.write(JSON.pretty_generate(JSON.parse(diff.to_json))) }
-      outfile = File.join("#{RESULTS_DIR}","#{measure_name}_hqmf.json")
+      outfile = File.join("#{RESULTS_DIR}","#{measure_name}_diff_hqmf.json")
       File.open(outfile, 'w') {|f| f.write(JSON.pretty_generate(hqmf_json)) }
-      outfile = File.join("#{RESULTS_DIR}","#{measure_name}_simplexml.json")
+      outfile = File.join("#{RESULTS_DIR}","#{measure_name}_diff_simplexml.json")
       File.open(outfile, 'w') {|f| f.write(JSON.pretty_generate(simple_xml_json)) }
 
-      outfile = File.join("#{RESULTS_DIR}","orig_#{measure_name}_hqmf.json")
+      outfile = File.join("#{RESULTS_DIR}","#{measure_name}_orig_hqmf.json")
       File.open(outfile, 'w') {|f| f.write(JSON.pretty_generate(hqmf_json_orig)) }
-      outfile = File.join("#{RESULTS_DIR}","orig_#{measure_name}_simplexml.json")
+      outfile = File.join("#{RESULTS_DIR}","#{measure_name}_orig_simplexml.json")
       File.open(outfile, 'w') {|f| f.write(JSON.pretty_generate(simple_xml_json_orig)) }
 
 
@@ -115,7 +115,6 @@ class HQMFVsSimpleTest < Minitest::Test
         f.puts((hqmf_model.all_data_criteria).collect{|dc| dc.id})
       }
     end
-
     #puts "#{measure_name} -- #{hqmf_model.derived_data_criteria.count}  --  #{simple_xml_model.derived_data_criteria.count} -- #{(hqmf_model.derived_data_criteria.count.to_f/simple_xml_model.derived_data_criteria.count.to_f).to_f}"
     #puts "#{measure_name} -- #{hqmf_model.source_data_criteria.count}  --  #{simple_xml_model.source_data_criteria.count} -- #{(hqmf_model.source_data_criteria.count.to_f/simple_xml_model.source_data_criteria.count.to_f).to_f}"
     # puts "#{measure_name} -- #{hqmf_model.all_data_criteria.count}  --  #{simple_xml_model.all_data_criteria.count} -- #{(hqmf_model.all_data_criteria.count.to_f/simple_xml_model.all_data_criteria.count.to_f).to_f}"
@@ -128,7 +127,7 @@ class HQMFVsSimpleTest < Minitest::Test
     # removes the source data criteria for patient expired from simplexml, which at this time does not exist in the HQMF2.1 version or in the human readable version
     simple_xml_model.instance_variable_get(:@source_data_criteria).reject! {|sdc| sdc.code_list_id == "2.16.840.1.113883.3.117.1.7.1.309"} if to_remove_patient_expired_from.index(measure_name)
     # CMS127v4 seems to have stratifications, but neither the source data criteria or human readable show it should
-    hqmf_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, vaule| key == "stratification" }} if measure_name == "CMS127v4"
+    hqmf_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, vaule| key == "stratification" }} if measure_name == "CMS126v4" or measure_name == "CMS127v4"
   end
 
   def remap_populations(simple_xml_model, hqmf_model)
@@ -139,15 +138,17 @@ class HQMFVsSimpleTest < Minitest::Test
 
     # More restrictive (only checks DENEXCEP) removal of populations in simple_xml
     # if simple_xml version has no preconditions
-    if denexcep_index = simple_xml_model.instance_variable_get(:@population_criteria).index {|pc| pc.type=="DENEXCEP"} and
-    # and no preconditions
-    simple_xml_model.instance_variable_get(:@population_criteria)[denexcep_index].preconditions.empty? and
+    if denexceps = simple_xml_model.instance_variable_get(:@population_criteria).select {|pc| pc.type=="DENEXCEP"} and
     # and HQMF2 version does not have that population
     hqmf_populations.reject{ |pop| !pop.key?("DENEXCEP") }.empty?
 
-      # Then remove DENECEP from population  criteria and any population
-      simple_xml_model.instance_variable_get(:@population_criteria).delete_at(denexcep_index)
-      simple_xml_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, vaule| key == "DENEXCEP"}}
+      denexceps.each do |pc|
+        if pc.preconditions.empty?
+          # Then remove DENEXCEP from population  criteria and any population
+          simple_xml_model.instance_variable_get(:@population_criteria).delete_at(simple_xml_model.instance_variable_get(:@population_criteria).index {|pc2| pc == pc2})
+          simple_xml_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, vaule| key == "DENEXCEP"}}
+        end
+      end
     end
 
     if denex_index = simple_xml_model.instance_variable_get(:@population_criteria).index {|pc| pc.type=="DENEX"} and
