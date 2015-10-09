@@ -36,8 +36,12 @@ module HealthDataStandards
 	      doc_population_ids = @doc.xpath(measure_population_selector).map(&:value).map(&:upcase).sort
 	      duplicates = doc_population_ids.group_by{ |e| e }.select { |k, v| v.size > 1 }.map(&:first)
 	      duplicates.each do |duplicate|
-	        measureId = @doc.xpath(find_measure_node_for_population(duplicate)).at_xpath("cda:reference/cda:externalDocument/cda:id[./@root='2.16.840.1.113883.4.738']/@extension")
-	        @errors << build_error("Population #{duplicate} for Measure #{measureId.value} reported more than once", "/", data[:file_name])
+	        begin
+	          measureId = @doc.xpath(find_measure_node_for_population(duplicate)).at_xpath("cda:reference/cda:externalDocument/cda:id[./@root='2.16.840.1.113883.4.738']/@extension")
+	          @errors << build_error("Population #{duplicate} for Measure #{measureId.value} reported more than once", "/", data[:file_name])
+	        rescue
+	          @errors << build_error("Population #{duplicate} for reported more than once", "/", data[:file_name])
+	        end
 	        noDuplicateMeasures = false
 	      end
 	      return noDuplicateMeasures
@@ -119,7 +123,8 @@ module HealthDataStandards
 	  "/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/cda:entry" +
 	  "/cda:organizer[ ./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.1']" +
 	  "and ./cda:component/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.5']]/cda:reference" +
-	  "/cda:externalObservation/cda:id[@root='#{id.upcase}']]"
+	  "/cda:externalObservation/cda:id[@root[contains(translate(.,'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLOMNOPQRSTUVWXYZ')" +
+	  ",'#{id.upcase}')]]]"
 	  end
     end
   end
