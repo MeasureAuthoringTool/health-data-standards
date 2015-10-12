@@ -46,7 +46,14 @@
           <code code="SEV" 
                 codeSystem="2.16.840.1.113883.5.4"/>
            <statusCode code="completed"/>
-          <%== render(:partial => 'result_value', :locals => {:values => [entry.severity], :result_oids=>field_oids["SEVERITY"]} ) %>   
+           <value xsi:type="CD"
+                code="<%= entry.severity['code'] %>"
+                codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.severity['codeSystem'] || entry.severity['code_system']) %>"
+              <% if entry.severity.has_key?('title') -%>
+                displayName="<%=entry.severity['title']%>"
+              <% end -%>
+                sdtc:valueSet="<%= field_oids['SEVERITY'][0] %>"
+            />
        </observation>
 
     </entryRelationship>
