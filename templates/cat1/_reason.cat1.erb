@@ -4,7 +4,7 @@
       reason = entry.reason
     end
     
-    if reason
+    if reason.present?
       vset = oid_for_code(reason,reason_oids, entry.record["bundle_id"])
   -%>
 <entryRelationship typeCode="RSON">
