@@ -17,8 +17,8 @@ module HQMF2
       dc.definition == 'derived'
     end
 
-    def self.as_source_data_criteria(entry)
-      dc = DataCriteria.new(entry)
+    def self.as_source_data_criteria(entry, occurrences_map = {})
+      dc = DataCriteria.new(entry, {}, occurrences_map)
       dc.instance_variable_set(:@definition, 'derived') if [HQMF::DataCriteria::SATISFIES_ANY, HQMF::DataCriteria::SATISFIES_ALL].include? dc.definition
 
       dc.instance_variable_set(:@field_values, {})
@@ -30,9 +30,9 @@ module HQMF2
       dc
     end
 
-    def self.get_source_data_criteria_list(full_criteria_list)
+    def self.get_source_data_criteria_list(full_criteria_list, occurrences_map = {})
       # currently, this will erase the sources if the ids are the same, but will not correct references later on
-      source_data_criteria = full_criteria_list.map{|dc| SourceDataCriteriaHelper.as_source_data_criteria(dc.entry)}
+      source_data_criteria = full_criteria_list.map{|entry| SourceDataCriteriaHelper.as_source_data_criteria(entry, occurrences_map)}
       collapsed_source_data_criteria_map = {}
       uniq_source_data_criteria = {}
       source_data_criteria.each do |sdc|

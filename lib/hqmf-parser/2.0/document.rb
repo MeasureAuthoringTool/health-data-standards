@@ -39,12 +39,15 @@ module HQMF2
       extracted_criteria = []
 
       @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:dataCriteriaSection/cda:entry', NAMESPACES).each do |entry|
-        extracted_criteria << DataCriteria.new(entry)
+        extracted_criteria << entry
       end
 
+      # Used to keep track of all children criteria contained in the data criteria
+      child_criteria = []
+
       # Extract the source data criteria from data criteria
-      @source_data_criteria, collapsed_source_data_criteria = SourceDataCriteriaHelper.get_source_data_criteria_list(extracted_criteria)
-      @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:dataCriteriaSection/cda:entry', NAMESPACES).each do |entry|
+      @source_data_criteria, collapsed_source_data_criteria = SourceDataCriteriaHelper.get_source_data_criteria_list(extracted_criteria, @occurrences_map)
+      extracted_criteria.each do |entry|
         criteria = DataCriteria.new(entry, @data_criteria_references, @occurrences_map)
 
         # Sometimes there are multiple criteria with the same ID, even though they're different; in the HQMF
@@ -61,15 +64,11 @@ module HQMF2
           criteria.instance_variable_set(:@source_data_criteria, collapsed_source_data_criteria[criteria.id])
         end
         handle_variable(criteria) if criteria.variable
+        child_criteria.concat(criteria.children_criteria)
         @data_criteria << criteria
       end
 
-      # Remove any data criteria from the main data criteria list that already has a an equivalent member with a temporal reference (if it does not, then keep it)
-      # The goal of this is to remove any data criteria that should not be purely a source
-      @data_criteria.reject! {|dc| !@data_criteria.detect{|dc2| SourceDataCriteriaHelper.identifier(dc) == SourceDataCriteriaHelper.identifier(dc2) && !dc2.temporal_references.empty?}.nil? && dc.temporal_references.empty?}
-
       # Patch descriptions for all data criteria and source data criteria
-
 
       # @data_criteria.each { |dc| dc.patch_descriptions(@data_criteria_references) }
       # @source_data_criteria.each { |sdc| sdc.patch_descriptions(@data_criteria_references) }
@@ -167,6 +166,11 @@ module HQMF2
       # Push in the stratification populations after the unstratified populations
       @populations.push *@stratifications
       handle_verbose_references
+
+      # Remove any data criteria from the main data criteria list that already has an equivalent member and no references to it
+      # The goal of this is to remove any data criteria that should not be purely a source
+      @data_criteria.reject! {|dc| !@data_criteria.detect{|dc2| SourceDataCriteriaHelper.identifier(dc) == SourceDataCriteriaHelper.identifier(dc2) && dc != dc2 && detect_criteria_covered_by_another(dc, dc2, child_criteria)}.nil?}
+
     end
 
     # Get the title of the measure
@@ -310,6 +314,24 @@ module HQMF2
 
     def find(collection, attribute, value)
       collection.find {|e| e.send(attribute)==value}
+    end
+
+    # Check if one data criteria contains the others information by checking that one has everything the other has (or more)
+    def detect_criteria_covered_by_another(data_criteria, check_criteria, child_criteria)
+      same_value = data_criteria.value.nil? && !check_criteria.value.nil? || data_criteria.value.try(:to_model).try(:to_json) == check_criteria.value.try(:to_model).try(:to_json)
+      same_temporal_references = data_criteria.temporal_references.empty? && !check_criteria.temporal_references.empty? || data_criteria.temporal_references.to_json == !check_criteria.temporal_references.to_json
+      same_field_values = data_criteria.field_values.nil? && !check_criteria.field_values.nil? || data_criteria.field_values.try(:to_json) == check_criteria.field_values.try(:to_json)
+      if same_value && same_temporal_references && same_field_values
+        # Even if the criteria is contained in another, if there is third criteria referencing it via children, then it should stay
+        if child_index = child_criteria.index(data_criteria.id)
+          # Decrement the reference in case there are additional criteria maintained with the same id (shouldn't happen)
+          child_criteria.delete_at(child_index)
+          return false
+        end
+        return true
+      else
+        return false
+      end
     end
 
     def detect_unstratified

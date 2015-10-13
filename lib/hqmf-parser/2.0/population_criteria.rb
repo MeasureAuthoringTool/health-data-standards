@@ -15,7 +15,7 @@ module HQMF2
       @doc = doc
       @entry = entry
       @hqmf_id = attr_val('./*/cda:id/@root') || attr_val('./*/cda:typeId/@extension')
-      @title = attr_val('./*/cda:code/cda:displayName/@value').titleize
+      @title = attr_val('./*/cda:code/cda:displayName/@value').try(:titleize)
       @type = attr_val('./*/cda:code/@code')
       @type = 'IPP' if ( @type == 'IPOP' || @type == 'IPPOP' )
       @aggregator = nil
