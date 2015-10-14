@@ -106,7 +106,7 @@ class ImporterTest< Minitest::Test
   	bundle2 = loader.import(File.new(@b_2_0_2),{delete_existing: false})
   	assert_equal 2 , HealthDataStandards::CQM::Bundle.count ,  "Should be 2 bundle in the db"
   	assert_equal 5,  HealthDataStandards::CQM::Measure.count , "Should be 4 measure in the db"
-  	assert_equal 114, Record.count ,  "Should be 115 records in the db"
+  	assert_equal 115, Record.count ,  "Should be 115 records in the db"
   	assert_equal  4780*2 , @db["patient_cache"].count({}) , "Should be 0 entries in the patient_cache "
   	assert  @db["query_cache"].count({}) > 0 ,"Should be 0 more than  entries in the query_cache "
 
