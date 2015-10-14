@@ -4,7 +4,7 @@ require 'test_helper'
 class ImporterTest< Minitest::Test
 
   def setup
-    @db = Mongoid.default_session
+    @db = Mongoid.default_client
     @bundle_root = File.join("test","fixtures","bundles")
     @b_2_0_1 = File.join(@bundle_root,"bundle_version_2.0.1.zip")
     @b_2_0_2 = File.join(@bundle_root,"bundle_version_2.0.2.zip")
@@ -22,7 +22,7 @@ class ImporterTest< Minitest::Test
 
   def assert_clean_db
   	["records","measures","bundles","patient_cache","query_cache"].each do |collection|
-  		assert_equal 0, @db[collection].where({}).count , "Should be 0 #{collection} in the db"
+  		assert_equal 0, @db[collection].find({}).count , "Should be 0 #{collection} in the db"
   	end
 
   end
@@ -97,7 +97,9 @@ class ImporterTest< Minitest::Test
   	assert_equal  2,  HealthDataStandards::CQM::Measure.count ,  "Should be 12 measure in the db"
     assert_equal   HealthDataStandards::CQM::Measure.count, bundle.measures.count, "Number of measures total measures should equal number of measures in the db"
   	assert_equal  58 ,Record.count , "Should be 58 records in the db"
-  	assert_equal  4780, @db["patient_cache"].where({}).count , "Should be 0 entries in the patient_cache "
+
+  	assert_equal  4780, @db["patient_cache"].count({}) , "Should be 0 entries in the patient_cache "
+
   	#assert_equal  0, @db["query_cache"].where({}).count ,"Should be 0 entries in the query_cache "
 
 
@@ -106,8 +108,8 @@ class ImporterTest< Minitest::Test
   	assert_equal 2 , HealthDataStandards::CQM::Bundle.count ,  "Should be 2 bundle in the db"
   	assert_equal 5,  HealthDataStandards::CQM::Measure.count , "Should be 4 measure in the db"
   	assert_equal 115, Record.count ,  "Should be 115 records in the db"
-  	assert_equal  4780*2 , @db["patient_cache"].where({}).count , "Should be 0 entries in the patient_cache "
-  	assert  @db["query_cache"].where({}).count > 0 ,"Should be 0 more than  entries in the query_cache "
+  	assert_equal  4780*2 , @db["patient_cache"].count({}) , "Should be 0 entries in the patient_cache "
+  	assert  @db["query_cache"].count({}) > 0 ,"Should be 0 more than  entries in the query_cache "
 
 
   	measure_0002 = HealthDataStandards::CQM::Measure.where({"nqf_id" => "0002"})

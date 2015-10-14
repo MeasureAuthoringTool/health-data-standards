@@ -17,7 +17,7 @@ db_host = ENV['TEST_DB_HOST'] || 'localhost'
 Mongoid.configure do |config|
   config.sessions = { default: { hosts: [ "#{db_host}:27017" ], database: 'hds-test' }}
 end
-
+Mongo::Logger.logger.level = Logger::WARN
 MONGO_DB = Mongoid.default_session
 
 class Minitest::Test
@@ -27,7 +27,7 @@ class Minitest::Test
   # Add more helper methods to be used by all tests here...
 
   def collection_fixtures(collection, *id_attributes)
-    Mongoid.session(:default)[collection].drop
+    Mongoid.client(:default)[collection].drop
     Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', collection, '*.json')).each do |json_fixture_file|
       #puts "Loading #{json_fixture_file}"
       fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
@@ -35,14 +35,14 @@ class Minitest::Test
         fixture_json[attr] = BSON::ObjectId.from_string(fixture_json[attr])
       end
 
-      Mongoid.session(:default)[collection].insert(fixture_json)
+      Mongoid.client(:default)[collection].insert_one(fixture_json)
     end
   end
 
 
   # Delete all collections from the database.
   def dump_database
-    Mongoid.session(:default).collections.each do |collection|
+    Mongoid.client(:default).collections.each do |collection|
       collection.drop unless collection.name.include?('system.')
     end
   end
@@ -96,7 +96,7 @@ end
 HealthDataStandards.logger.outputters = Log4r::FileOutputter.new('Health Data Standards', filename: 'test.log', trunc: true)
 
 def collection_fixtures(collection, *id_attributes)
-  Mongoid.session(:default)[collection].drop
+  Mongoid.client(:default)[collection].drop
   Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', collection, '*.json')).each do |json_fixture_file|
     #puts "Loading #{json_fixture_file}"
     fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
@@ -104,7 +104,7 @@ def collection_fixtures(collection, *id_attributes)
       fixture_json[attr] = BSON::ObjectId.from_string(fixture_json[attr])
     end
 
-    Mongoid.session(:default)[collection].insert(fixture_json)
+    Mongoid.client(:default)[collection].insert_one(fixture_json)
   end
 end
 
@@ -113,7 +113,7 @@ def cat1_patient_data_section(doc)
 end
 
 # make sure there's nothing left over from previous runs
-Mongoid.session(:default).collections.each do |collection|
+Mongoid.client(:default).collections.each do |collection|
   collection.drop unless collection.name.include?('system.')
 end
 
