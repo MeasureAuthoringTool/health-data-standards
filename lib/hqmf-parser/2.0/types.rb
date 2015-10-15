@@ -53,12 +53,16 @@ module HQMF2
       less_than_equal_los = attr_val("../cda:low/@nullFlavor")=="NINF" &&
         attr_val("../@highClosed")!='false'
 
+      # FIXME (10/16/2015)
+      # This seems to be causing errors with other measures (133v4), making them
+      #  inclusive when they shouldn't be, so this is being commented out until
+      #  a more solid solution can be reached
       # subset - EP128, EH108
-      greater_than_equal_ss = attr_val("../cda:low/@value")!="0" &&
-        !attr_val("../cda:high/@value") &&
-        attr_val("../@lowClosed")!='false'
+      # greater_than_equal_ss = attr_val("../cda:low/@value")!="0" &&
+      #   !attr_val("../cda:high/@value") &&
+      #   attr_val("../@lowClosed")!='false'
 
-      less_than_equal_tr || less_than_equal_los || greater_than_equal_tr || greater_than_equal_ss || equivalent || @force_inclusive
+      less_than_equal_tr || less_than_equal_los || greater_than_equal_tr || equivalent || @force_inclusive # || greater_than_equal_ss
     end
 
     def derived?
@@ -360,6 +364,10 @@ module HQMF2
       if @entry.kind_of? String
         @entry
       else
+        # FIXME (10/16/2015)
+        # Verbose naming was a convention used to prevent naming collisions of elements present in the HQMF.
+        # It has not yet been perfected, and the name collions have not yet been found or determined to be
+        # the cause of any error, so for now we are ignoring them by making all return non-verbose names.
         if @verbose && false
           value = "#{attr_val('./@extension')}_#{attr_val('./@root')}"
           # puts "Using verbose reference for #{value}"

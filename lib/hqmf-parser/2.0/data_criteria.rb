@@ -80,13 +80,13 @@ module HQMF2
       references = @entry.xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
       reference = references.first
       # TODO: Figure out when exactly to handle variable references as verbose
-      if reference
+      if reference && references.length == 1
         ref_id = strip_tokens(HQMF2::Utilities.attr_val(reference, 'cda:id/@extension'))
         verbose_ref_id = strip_tokens("#{HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')}_#{HQMF2::Utilities.attr_val(reference, 'cda:id/@root')}")
         reference_criteria = @data_criteria_references[ref_id] if ref_id
         reference_criteria = @data_criteria_references[verbose_ref_id] if verbose_ref_id && !reference_criteria
         unless reference_criteria
-          puts "MISSING_DC_REF: #{ref_id} & #{verbose_ref_id}"
+          #puts "MISSING_DC_REF: #{ref_id} & #{verbose_ref_id}"
         end
         if isGrouper && reference_criteria.try(:variable)
           idExtension_xpath = './*/cda:id/@extension'
@@ -94,10 +94,10 @@ module HQMF2
           return if !(attr_val(idExtension_xpath) =~ /^occ[A-Z]of_qdm_var_/).nil?
           @id = "#{attr_val(idExtension_xpath)}_#{attr_val(idRoot_xpath)}"
           @verbose_reference = true
-          puts "Updated grouper: #{@id} #{@verbose_reference}"
+          #puts "Updated grouper: #{@id} #{@verbose_reference}"
         end
       end
-      
+
     end
 
     def set_code_list_path_and_result_value
@@ -198,8 +198,12 @@ module HQMF2
           reference_criteria = @data_criteria_references[strip_tokens(ref_id)] if reference
           reference_criteria = @data_criteria_references[strip_tokens(verbose_ref_id)] if verbose_ref_id && !reference_criteria
           if reference_criteria
+            @title = reference_criteria.title
+            @description = reference_criteria.description
             @definition = reference_criteria.definition
             @status = reference_criteria.status
+            @code_list_id = reference_criteria.code_list_id
+            @source_data_criteria = @id
           else
             puts "MISSING_DC_REF: #{ref_id} & #{verbose_ref_id}" unless @variable
             @definition = 'variable'
@@ -509,7 +513,7 @@ module HQMF2
     def extract_child_criteria
       @entry.xpath("./*/cda:outboundRelationship[@typeCode='COMP']/cda:criteriaReference/cda:id", HQMF2::Document::NAMESPACES).collect do |ref|
         child_ref = Reference.new(ref)
-        unless @data_criteria_references.keys.include?(strip_tokens child_ref.id)
+        if @data_criteria_references.keys.include?(strip_tokens child_ref.id)
           # puts "Updated CC: #{child_ref.id}"
           child_ref.update_verbose(true)
           # puts "ERROR\t Could not find verbose CC: #{child_ref.id}" unless @data_criteria_references.keys.include?(strip_tokens child_ref.id)
@@ -663,7 +667,8 @@ module HQMF2
       @entry.xpath('./*/cda:outboundRelationship[*/cda:code]', HQMF2::Document::NAMESPACES).each do |field|
         code = HQMF2::Utilities.attr_val(field, './*/cda:code/@code')
         code_id = HQMF::DataCriteria::VALUE_FIELDS[code]
-        unless @negation && code_id == "REASON"
+        # No need to run if there is no code id
+        unless (@negation && code_id == "REASON") || code_id.nil?
           value = DataCriteria.parse_value(field, './*/cda:value')
           fields[code_id] = value if value && code_id
         end

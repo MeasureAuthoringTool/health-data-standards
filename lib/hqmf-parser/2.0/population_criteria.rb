@@ -47,17 +47,17 @@ module HQMF2
 
 
     def handle_observation_critiera
- 
+
       exp = @entry.at_xpath("./cda:measureObservationDefinition/cda:value/cda:expression/@value", HQMF2::Document::NAMESPACES)
       raise "No Expression " if exp.nil?
 
-      parts = exp.to_s.split("-") 
+      parts = exp.to_s.split("-")
       if parts.length != 2
         raise "Has an error here :: todo make more descriptive"
       end
       children = parts.collect{|p| @doc.find_criteria_by_lvn(p.strip.split(".")[0]).id}
       _id ="GROUP_TIMEDIFF_#{ @id_generator.next_id}"
-      dc = HQMF2::DataCriteriaWrapper.new(id: _id, 
+      dc = HQMF2::DataCriteriaWrapper.new(id: _id,
                                           title: _id ,
                                           subset_operators: [HQMF::SubsetOperator.new("TIMEDIFF", HQMF::AnyValue.new("ANYNonNull"))],
                                           children_criteria: children,
