@@ -5,8 +5,8 @@ module HealthDataStandards
       field :oid, type: String
       field :display_name, type: String
       field :version, type: String
-      field :user_id, type: String # Eventually we need to delete this from bundles when exporting
       field :categories, type: Hash
+      field :bonnie_version_hash, type: String #incoproates oid, version and concepts
 
       belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle", inverse_of: :value_sets
 
@@ -19,6 +19,10 @@ module HealthDataStandards
       index "concepts.display_name" => 1
       index "bundle_id" => 1
       scope :by_oid, ->(oid){where(:oid => oid)}
+
+      before_save do |document|
+        document.bonnie_version_hash = HealthDataStandards::SVS::ValueSet.generate_bonnie_hash(document)
+      end
 
       # Provides an Array of Hashes. Each code system gets its own Hash
       # The hash has a key of "set" for the code system name and "values"
@@ -35,6 +39,17 @@ module HealthDataStandards
 
         codes
       end
+
+      #Bonnie hash is based on oid, version and sorted concepts
+      def self.generate_bonnie_hash(value_set)
+        return value_set.bonnie_version_hash if value_set.bonnie_version_hash
+        hash_values = value_set.concepts.map { |c| [c.code_system_name, c.code] }.sort.flatten
+        hash_values.unshift(value_set.version)
+        hash_values.unshift(value_set.oid)
+        bonnie_version_hash = Digest::MD5.hexdigest(hash_values.join('|'))
+        bonnie_version_hash
+      end
+
 
       def self.load_from_xml(doc)
         doc.root.add_namespace_definition("vs","urn:ihe:iti:svs:2008")
