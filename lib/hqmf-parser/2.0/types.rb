@@ -23,7 +23,7 @@ module HQMF2
 
     attr_reader :type, :unit, :value
 
-    def initialize(entry, default_type='PQ', force_inclusive=false)
+    def initialize(entry, default_type='PQ', force_inclusive=false, parent=nil)
       @entry = entry
       @type = attr_val('./@xsi:type') || default_type
       @unit = attr_val('./@unit')
@@ -37,32 +37,44 @@ module HQMF2
     def inclusive?
       # FIXME: NINF is used instead of 0 sometimes...? (not in the IG)
       # FIXME: Given nullFlavor, but IG uses it and nullValue everywhere...
-
       # temporal references
       less_than_equal_tr = attr_val("../@lowClosed")=='true' &&
         attr_val("../@highClosed")=='true' &&
-        attr_val("../cda:low/@value")=="0"
+        (attr_val("../cda:low/@value")=="0" || attr_val("../cda:low/@nullFlavor")=="NINF")
       greater_than_equal_tr = attr_val("../cda:high/@nullFlavor")=="PINF" &&
         attr_val("../cda:low/@value") &&
         attr_val("../@lowClosed")=='true'
-      equivalent = attr_val("../@lowClosed")=='true' &&
-        attr_val("../@highClosed")=='true' &&
-        attr_val("../cda:low/@value")==attr_val("../cda:high/@value")
+
+      equivalent = attr_val("../cda:low/@value")==attr_val("../cda:high/@value")
+        attr_val("../@lowClosed") !='false' &&
+        attr_val("../@highClosed") !='false'
 
       # lengthOfStay - EH111, EH108
       less_than_equal_los = attr_val("../cda:low/@nullFlavor")=="NINF" &&
-        attr_val("../@highClosed")!='false'
+        attr_val("../@highClosed")!='false' &&
+        attr_val("@xsi:type") == 'PQ'
+
+      greater_than_equal_los = attr_val("../cda:high/@nullFlavor")=="PINF" &&
+        attr_val("../@lowClosed")!='false' &&
+        attr_val("@xsi:type") == 'PQ'
+
+      # basic values - EP65, EP9, and more
+      greater_than_equal_v = attr_val("../cda:high/@nullFlavor")=="PINF" &&
+        attr_val("../cda:low/@value") &&
+        attr_val("../@lowClosed") != 'false' &&
+        attr_val("../@xsi:type") == "IVL_PQ"
 
       # FIXME (10/16/2015)
       # This seems to be causing errors with other measures (133v4), making them
       #  inclusive when they shouldn't be, so this is being commented out until
       #  a more solid solution can be reached
       # subset - EP128, EH108
-      # greater_than_equal_ss = attr_val("../cda:low/@value")!="0" &&
-      #   !attr_val("../cda:high/@value") &&
-      #   attr_val("../@lowClosed")!='false'
+      greater_than_equal_ss = attr_val("../cda:low/@value")!="0" &&
+        !attr_val("../cda:high/@value") &&
+        attr_val("../@lowClosed")!='false' &&
+        !attr_val("../../../../../qdm:subsetCode/@code").nil?
 
-      less_than_equal_tr || less_than_equal_los || greater_than_equal_tr || equivalent || @force_inclusive # || greater_than_equal_ss
+      less_than_equal_los || less_than_equal_tr || greater_than_equal_los || greater_than_equal_ss || greater_than_equal_tr || greater_than_equal_v || equivalent || @force_inclusive # || greater_than_equal_ss
     end
 
     def derived?

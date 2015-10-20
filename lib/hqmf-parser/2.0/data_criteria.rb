@@ -1,5 +1,3 @@
-require "pry"
-
 module HQMF2
   # Represents a data criteria specification
   class DataCriteria
@@ -50,6 +48,7 @@ module HQMF2
       @children_criteria = extract_child_criteria
       @comments = @entry.xpath("./#{CRITERIA_GLOB}/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()", HQMF2::Document::NAMESPACES).map{ |v| v.content }
       @variable = extract_variable
+      @do_not_group = false
 
       # Try to determine what kind of data criteria we are dealing with
       # First we look for a template id and if we find one just use the definition
@@ -92,7 +91,6 @@ module HQMF2
           idExtension_xpath = './*/cda:id/@extension'
           idRoot_xpath = './*/cda:id/@root'
           return if !(attr_val(idExtension_xpath) =~ /^occ[A-Z]of_qdm_var_/).nil?
-          @id = "#{attr_val(idExtension_xpath)}_#{attr_val(idRoot_xpath)}"
           @verbose_reference = true
           #puts "Updated grouper: #{@id} #{@verbose_reference}"
         end
@@ -198,12 +196,13 @@ module HQMF2
           reference_criteria = @data_criteria_references[strip_tokens(ref_id)] if reference
           reference_criteria = @data_criteria_references[strip_tokens(verbose_ref_id)] if verbose_ref_id && !reference_criteria
           if reference_criteria
-            @title = reference_criteria.title
-            @description = reference_criteria.description
             @definition = reference_criteria.definition
             @status = reference_criteria.status
-            @code_list_id = reference_criteria.code_list_id
-            @source_data_criteria = @id
+            if @specific_occurrence
+              @title = reference_criteria.title
+              @description = reference_criteria.description
+              @code_list_id = reference_criteria.code_list_id
+            end
           else
             puts "MISSING_DC_REF: #{ref_id} & #{verbose_ref_id}" unless @variable
             @definition = 'variable'
@@ -354,6 +353,10 @@ module HQMF2
     # Return a new DataCriteria instance with only grouper attributes set
     def extract_variable_grouper
       return unless @variable
+      if @do_not_group
+        @children_criteria[0] = "GROUP_#{@children_criteria.first}" if @children_criteria && @children_criteria.length == 1
+        return
+      end
       @variable = false
       @id = "GROUP_#{@id}"
       @specific_occurrence = nil
@@ -655,9 +658,20 @@ module HQMF2
 
     # TODO: Why are specific occurrences of variables not building children?
     def handle_specific_variables
-      if @definition == 'derived' && @children_criteria.empty?
-        # puts "Fixing SO grouper empty children for #{@id} with #{@source_data_criteria}"
-        @children_criteria << @source_data_criteria
+      if @definition == 'derived' 
+        if @children_criteria.empty?
+          # puts "Fixing SO grouper empty children for #{@id} with #{@source_data_criteria}"
+          @children_criteria << @source_data_criteria
+        end
+        if @children_criteria.length == 1 && (@children_criteria.first == @source_data_criteria || @source_data_criteria.nil?)
+          reference_criteria = @data_criteria_references[@children_criteria.first] if @children_criteria.first
+          unless temporal_references.empty? || reference_criteria.nil?
+            @do_not_group = true  # easier to track than all testing all features of these cases
+            @subset_operators = reference_criteria.subset_operators
+            @derivation_operator = reference_criteria.derivation_operator
+            @variable = reference_criteria.variable
+          end
+        end
       end
     end
 

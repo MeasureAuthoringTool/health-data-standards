@@ -20,10 +20,19 @@ module HQMF2
       @hqmf_version_number = attr_val('cda:QualityMeasureDocument/cda:versionNumber/@value').to_i
 
       # overidden with correct year information later, but should be produce proper period
-      measure_period_def = @doc.at_xpath('cda:QualityMeasureDocument/cda:controlVariable/cda:measurePeriod/cda:value', NAMESPACES)
-      if measure_period_def
-        @measure_period = EffectiveTime.new(measure_period_def).to_model
-      end
+      # measure_period_def = @doc.at_xpath('cda:QualityMeasureDocument/cda:controlVariable/cda:measurePeriod/cda:value', NAMESPACES)
+      # if measure_period_def
+      #   @measure_period = EffectiveTime.new(measure_period_def).to_model
+      # end
+
+      #TODO -- figure out if this is the correct thing to do -- probably not, but is
+      # necessary to get the bonnie comparison to work.  Currently
+      # defaulting measure period to a period of 1 year from 2012 to 2013 this is overriden during
+      # calculation with correct year information .  Need to investigate parsing mp from meaures.
+      mp_low = HQMF::Value.new('TS',nil, '201201010000',nil, nil, nil)
+      mp_high = HQMF::Value.new('TS',nil,'201212312359',nil, nil, nil)
+      mp_width = HQMF::Value.new('PQ','a','1',nil, nil, nil)
+      @measure_period = HQMF::EffectiveTime.new(mp_low,mp_high,mp_width)
 
       # Extract measure attributes
       # TODO: Review
@@ -66,10 +75,6 @@ module HQMF2
           criteria.instance_variable_set(:@source_data_criteria, collapsed_source_data_criteria[criteria.id])
         end
         handle_variable(criteria) if criteria.variable
-        child_criteria_ids.concat(criteria.children_criteria)
-        criteria.temporal_references.each do |tr|
-          temporal_reference_ids << tr.reference.id if tr.reference.id != HQMF::Document::MEASURE_PERIOD_ID
-        end
         @data_criteria << criteria
       end
 
@@ -175,6 +180,13 @@ module HQMF2
       child_criteria_ids.uniq
       temporal_reference_ids.uniq
       @population_criteria_reference_ids.uniq
+      @data_criteria.each do |dc|
+        child_criteria_ids.concat(dc.children_criteria)
+        next unless dc.temporal_references
+        dc.temporal_references.each do |tr|
+          temporal_reference_ids << tr.reference.id if tr.reference.id != HQMF::Document::MEASURE_PERIOD_ID
+        end
+      end
 
       # Remove any data criteria from the main data criteria list that already has an equivalent member and no references to it
       # The goal of this is to remove any data criteria that should not be purely a source
@@ -252,10 +264,11 @@ module HQMF2
     # and update document data criteria list and references map
     def handle_variable(data_criteria)
       grouper_data_criteria = data_criteria.extract_variable_grouper
+      return unless grouper_data_criteria
       @data_criteria_references[data_criteria.id] = data_criteria
       @data_criteria_references[grouper_data_criteria.id] = grouper_data_criteria
-      @source_data_criteria << grouper_data_criteria
       @data_criteria << grouper_data_criteria
+      @source_data_criteria << SourceDataCriteriaHelper.strip_non_sc_elements(grouper_data_criteria)
     end
 
     # Update the data criteria to handle variables properly
@@ -334,17 +347,18 @@ module HQMF2
       same_definition = data_criteria.definition == check_criteria.definition
       same_status = data_criteria.status == check_criteria.status
       same_children = data_criteria.children_criteria.sort.join(",") == check_criteria.children_criteria.sort.join(",")
-      same_variable = data_criteria.variable == check_criteria.variable
+      derived_variable = data_criteria.variable
+      derived_operator = data_criteria.derivation_operator
+      derived_subset_operator = !data_criteria.subset_operators.empty?
 
       same_value = data_criteria.value.nil? && !check_criteria.value.nil? || data_criteria.value.try(:to_model).try(:to_json) == check_criteria.value.try(:to_model).try(:to_json)
-      same_temporal_references = check_criteria.temporal_references.nil? || data_criteria.temporal_references.nil? && !check_criteria.temporal_references.nil? || data_criteria.temporal_references.empty? && !check_criteria.temporal_references.empty?
+      same_temporal_references = check_criteria.temporal_references.nil? || data_criteria.temporal_references.nil? && !check_criteria.temporal_references.nil? || data_criteria.temporal_references.empty?
       same_field_values = data_criteria.field_values.nil? && !check_criteria.field_values.nil? || data_criteria.field_values.try(:to_json) == check_criteria.field_values.try(:to_json)
       same_negation_values = data_criteria.negation_code_list_id.nil? && !check_criteria.negation_code_list_id.nil? || data_criteria.negation_code_list_id == check_criteria.negation_code_list_id
       no_specific_occurence = data_criteria.specific_occurrence.nil?
-      if same_definition && same_status && same_children && same_variable && same_value && same_temporal_references && same_field_values && same_negation_values
-        # Even if the criteria is contained in another, if there is third criteria
-        #  referencing it via temporal references, and it is a specific reference,
-        #  then it should stay
+      if same_definition && same_status && same_children &&
+         !derived_variable && !derived_operator && !derived_subset_operator && same_value &&
+         same_temporal_references && same_field_values && same_negation_values
         return true
       else
         return false

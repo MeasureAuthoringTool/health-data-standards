@@ -18,11 +18,11 @@ class HQMFVsSimpleTest < Minitest::Test
 
   Dir.glob(measure_files).each do | measure_filename |
     measure_name = File.basename(measure_filename, ".xml")
-    # if measure_name == "CMS133v4" or measure_name == "CMS128v4"# or measure_name == "CMS153v4" or measure_name == "CMS68v5" or measure_name == "CMS124v4" or measure_name == "CMS123v4" or measure_name == "CMS82v3" or measure_name == "CMS55v4"
+    if ["CMS62v4", "CMS52v4", "CMS65v5", "CMS159v4", "CMS154v4", "CMS73v4", "CMS32v5", "CMS178v5", "CMS129v5", "CMS108v4", "CMS141v5"].index(measure_name)
       define_method("test_#{measure_name}") do
         do_roundtrip_test(measure_filename, measure_name)
       end
-    # end
+    end
   end
 
   def do_roundtrip_test(measure_filename, measure_name)
@@ -41,6 +41,9 @@ class HQMFVsSimpleTest < Minitest::Test
     # ignore the attributes... these are not that important
     hqmf_model.instance_variable_set(:@attributes, [])
     simple_xml_model.instance_variable_set(:@attributes, [])
+
+    # hqmf_model.instance_variable_set(:@data_criteria, hqmf_model.referenced_data_criteria)
+    # simple_xml_model.instance_variable_set(:@data_criteria, simple_xml_model.referenced_data_criteria)
 
     # # reject the negated source data criteria... these are bad artifacts from HQMF v1.0
     # # we also want to pull those from the derived data criteria as well, but not all the negated from there, only the bad from the source data criteria
@@ -64,8 +67,8 @@ class HQMFVsSimpleTest < Minitest::Test
     #   clear_conjunctions_on_references(pc)
     # end
 
-    # modify both populations to reduce erroneous error reporting
-    remap_populations(simple_xml_model, hqmf_model)
+    # remap values in simple_xml and hqmf_model to resolve ignorable differences
+    remap_arbitrary_v2_diffs(simple_xml_model, hqmf_model, measure_name)
 
     # certain measures carry over currently unused by products
     individual_measure_corrections(simple_xml_model, hqmf_model, measure_name)
@@ -122,23 +125,94 @@ class HQMFVsSimpleTest < Minitest::Test
 
   end
 
+  def remap_arbitrary_v2_diffs(simple_xml_model, hqmf_model, measure_name)
+    # FIXME (10/19/2015) removes the source data criteria for patient expired from simplexml, which at this time does not exist in the HQMF2.1 version or in the human readable version for most measures
+    unless ["CMS159v4", "CMS160v4", "CMS178v5"].index(measure_name)
+      simple_xml_model.instance_variable_get(:@source_data_criteria).reject! {|sdc| sdc.definition == "patient_characteristic_expired"}
+    end
+
+    remap_arbitrary_dc_v2_diff(simple_xml_model)
+    remap_arbitrary_dc_v2_diff(hqmf_model)
+    # Remove comments from both sets of populations criteria
+    simple_xml_model.instance_variable_get(:@population_criteria).each do |pop_crit|
+      recurively_remove_precondition_comments(pop_crit)
+    end
+
+    # modify both populations to reduce erroneous error reporting
+    remap_populations(simple_xml_model, hqmf_model)
+
+  end
+
+  def remap_arbitrary_dc_v2_diff(model)
+    # It shouldn't matter if title and description match
+    (model.all_data_criteria + model.source_data_criteria).each do |dc|
+      if dc.definition == "patient_characteristic_birthdate"
+        dc.instance_variable_set(:@code_list_id, "")
+        dc.instance_variable_set(:@inline_code_list, "")
+      end
+
+      # Removes inline code list and id
+      if dc.definition == "patient_characteristic_expired"
+        dc.instance_variable_set(:@code_list_id, "")
+        dc.instance_variable_set(:@inline_code_list, "")
+      end
+
+      # Changes specific occurrence consts to a generalized naming pattern
+      # The goal is to reduce errors from arbitrary naming patterns that can
+      #   pop up
+      if dc.specific_occurrence && dc.specific_occurrence_const
+        dc.instance_variable_set(:@specific_occurrence_const, "Occurrence #{dc.specific_occurrence}")
+      end
+
+      # ORDINALITY was changed to ORDINAL in the new HQMF, this nullifies that error
+      if !dc.field_values.nil? && !dc.field_values.empty?
+          if dc.field_values["ORDINALITY"]
+            dc.field_values["ORDINAL"] = dc.field_values["ORDINALITY"]
+            dc.field_values.delete("ORDINALITY")
+          end
+      end
+
+      if !dc.value.nil?
+        if dc.value.type == "IVL_PQ"
+          # Update units from simple_xml version, mm[Hg], to new mmHg version
+          if dc.value.low && dc.value.low.unit == "mm[Hg]"
+            dc.value.low.instance_variable_set(:@unit,  "mmHg")
+          end
+          if dc.value.high && dc.value.high.unit == "mm[Hg]"
+            dc.value.high.instance_variable_set(:@unit,  "mmHg")
+          end
+        end
+      end
+
+      # NOTE: This actually is mapping v2 to SimpleXML notation, since it is much more straightforward
+      if dc.subset_operators
+        dc.subset_operators.each do |sso|
+          if sso.type == "TIMEDIFF"
+            sso.instance_variable_set(:@type, "DATETIMEDIFF")
+            sso.instance_variable_set(:@value, nil)
+          end
+        end
+      end
+
+      # title and description for all are technically arbitrary values
+      dc.instance_variable_set(:@title, '')
+      dc.instance_variable_set(:@description, '')
+    end
+  end
+
   def individual_measure_corrections(simple_xml_model, hqmf_model, measure_name)
-    # to_remove_patient_expired_from = ["CMS75v4", "CMS82v4", "CMS123v4", "CMS124v4", "CMS125v4", "CMS126v4", "CMS127v4", "CMS128v4", "CMS130v4", "CMS131v4", "CMS134v4", "CMS139v4", "CMS158v4", "CMS164v4"]
-    # removes the source data criteria for patient expired from simplexml, which at this time does not exist in the HQMF2.1 version or in the human readable version
-    simple_xml_model.instance_variable_get(:@source_data_criteria).reject! {|sdc| sdc.code_list_id == "2.16.840.1.113883.3.117.1.7.1.309"} # if to_remove_patient_expired_from.index(measure_name)
-    # The "stratifications" property of populations either does not exist or is not being parsed in SimpleXML, or is superfluous in HQMF (they both contain "STRAT"s)
-    hqmf_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, vaule| key == "stratification" }} #if measure_name == "CMS126v4" or measure_name == "CMS127v4"
     # Birthdate is unnecessary on this measure according to human readable, only appear in SimpleXML
     simple_xml_model.instance_variable_get(:@source_data_criteria).reject! {|sdc| sdc.definition == "patient_characteristic_birthdate"} if measure_name == "CMS149v4"
-    to_remove_birthdate_from = ["CMS82v3"]
-    # Remove base birthdate from data_criteria (as long as there is a temporal reference, then it is discluded in hqmf from data criteria)
-    if to_remove_birthdate_from.index(measure_name)
-      simple_xml_model.all_data_criteria.reject! {|dc| dc.definition == "patient_characteristic_birthdate" && (dc.temporal_references.nil? || dc.temporal_references.empty?)}
+
+    # Removes a code_list_id from a qdm variable (it is present in the measure xml)
+    if ["CMS62v4"].index(measure_name)
+      hqmf_model.all_data_criteria.select {|dc| dc.id == "qdm_var_During_2F8D4BA8_BA4E_4DC8_9C35_11D4ADFE3E75"}.each {|dc| dc.instance_variable_set(:@code_list_id, nil)}
+      hqmf_model.source_data_criteria.select {|dc| dc.id == "qdm_var_During_2F8D4BA8_BA4E_4DC8_9C35_11D4ADFE3E75"}.each {|dc| dc.instance_variable_set(:@code_list_id, nil)}
     end
-    if measure_name == "CMS26v3"
-      field_values = hqmf_model.all_data_criteria.select {|dc| dc.code_list_id == "2.16.840.1.113883.3.117.1.7.1.271"}.first.field_values
-      field_values["ORDINALITY"] = field_values["ORDINAL"]
-      field_values.delete("ORDINAL")
+
+    # Handles measures that are "regardless of age" or seems to not refer to Ptient birthdate characteristic
+    if ["CMS129v5", "CMS31v4", "CMS32v5", "CMS62v4", "CMS185v4", "CMS157v4"].index(measure_name)
+      simple_xml_model.source_data_criteria.reject! {|dc| dc.definition == "patient_characteristic_birthdate"}
     end
 
     # The following have issues where the proper diagnosis title and description are replaced by VTE
@@ -157,42 +231,41 @@ class HQMFVsSimpleTest < Minitest::Test
   end
 
   def remap_populations(simple_xml_model, hqmf_model)
+    # The "stratifications" property of populations either does not exist or is not being parsed in SimpleXML, or is superfluous in HQMF (they both contain "STRAT"s)
+    hqmf_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, vaule| key == "stratification" }}
+
     # population titles in HQMF2 can be ignored
     hqmf_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, vaule| key == "title" }}
     simple_xml_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, vaule| key == "title" }}
     hqmf_populations = hqmf_model.instance_variable_get(:@populations)
 
+
     # More restrictive (only checks DENEXCEP) removal of populations in simple_xml
-    # HQMF2 version does not have that population
-    if hqmf_populations.reject{ |pop| !pop.key?("DENEXCEP") }.empty? and
-      # and obtain all denexceps (and only run if they exist)
-      denexceps = simple_xml_model.instance_variable_get(:@population_criteria).select {|pc| pc.type=="DENEXCEP"}
+    # obtain all denexceps and denex (and only run if they exist)
+    if unnecessary_pop_crit = simple_xml_model.instance_variable_get(:@population_criteria).select {|pc| pc.type=~/(DENEX|MSRPOPLEX)/}
 
-      denexceps.each do |pc|
+      unnecessary_pop_crit.each do |pc|
+        # if HQMF2 version does not have that population
+        next unless hqmf_populations.reject{ |pop| !pop.key?(pc.type) || pop[pc.type] != pc.id }.empty?
         if pc.preconditions.empty?
           # Then remove DENEXCEP from population  criteria and any population
           simple_xml_model.instance_variable_get(:@population_criteria).delete_at(simple_xml_model.instance_variable_get(:@population_criteria).index {|pc2| pc == pc2})
-          simple_xml_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, vaule| key == "DENEXCEP"}}
+          simple_xml_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, value| value == pc.id}}
         end
       end
     end
 
-    # if HQMF2 version does not have that population
-    if hqmf_populations.reject{ |pop| !pop.key?("DENEX") }.empty? and
-      # and obtain all denexcs (and only run if they exist)
-      denexs = simple_xml_model.instance_variable_get(:@population_criteria).select {|pc| pc.type=="DENEX"}
-
-      denexs.each do |pc|
-        if pc.preconditions.empty?
-          # Then remove DENEXCEP from population  criteria and any population
-          simple_xml_model.instance_variable_get(:@population_criteria).delete_at(simple_xml_model.instance_variable_get(:@population_criteria).index {|pc2| pc == pc2})
-          simple_xml_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, vaule| key == "DENEX"}}
-        end
-      end
-    end
     # remove populations in simple_xml if simple_xml version has no preconditions and HQMF2 version does not have that population
     # simple_xml_model.instance_variable_set(:@population_criteria, simple_xml_model.instance_variable_get(:@population_criteria).reject { |pop_crit| hqmf_populations.reject{ |pop| !pop.key?(pop_crit.type) }.empty? && pop_crit.preconditions.empty? })
 
+  end
+
+  # We shouldn't be comparing comments stored in the formats
+  def recurively_remove_precondition_comments(precondition)
+      precondition.instance_variable_set(:@comments, nil)
+      precondition.preconditions.each do |precon|
+        recurively_remove_precondition_comments(precon)
+      end
   end
 
   def remap_ids(measure_model)
@@ -202,29 +275,6 @@ class HQMFVsSimpleTest < Minitest::Test
 
     # Normalize the HQMF model IDS
     criteria_list.each do |dc|
-      if dc.definition == "patient_characteristic_birthdate"
-        dc.instance_variable_set(:@code_list_id, "")
-        dc.instance_variable_set(:@title, "Birth Date")
-        dc.instance_variable_set(:@description, "")
-        dc.instance_variable_set(:@inline_code_list, "")
-      end
-      if dc.definition == "laboratory_test"
-        dc.instance_variable_set(:@title, "Lab Test")
-        dc.instance_variable_set(:@description, "")
-      end
-      if dc.children_criteria and dc.children_criteria.length > 0
-        dc.instance_variable_set(:@description, "")
-      end
-      if dc.children_criteria and dc.children_criteria.length > 0
-        dc.instance_variable_set(:@description, "")
-      end
-      # Changes specific occurence consts to a generalized naming pattern
-      # The goal is to reduce errors from arbitrary naming patterns that can
-      #   pop up
-      if dc.specific_occurrence && dc.specific_occurrence_const
-        dc.instance_variable_set(:@specific_occurrence_const, "Occurence #{dc.specific_occurrence}")
-      end
-
       dc.description.gsub!(/\s+/, " ") if dc.description
 
       dc.id = hash_criteria(dc, criteria_map)

@@ -18,16 +18,22 @@ module HQMF2
       dc.definition == 'derived'
     end
 
-    def self.as_source_data_criteria(entry, data_criteria_references = {}, occurrences_map = {})
-      dc = DataCriteria.new(entry, data_criteria_references, occurrences_map)
+    def self.strip_non_sc_elements(dc)
       dc.instance_variable_set(:@definition, 'derived') if [HQMF::DataCriteria::SATISFIES_ANY, HQMF::DataCriteria::SATISFIES_ALL].include? dc.definition
 
+      dc.instance_variable_set(:@source_data_criteria, dc.id)
       dc.instance_variable_set(:@field_values, {})
       dc.instance_variable_set(:@temporal_references, [])
       dc.instance_variable_set(:@subset_operators, [])
       dc.instance_variable_set(:@value, nil)
       dc.instance_variable_set(:@negation, false)
       dc.instance_variable_set(:@negation_code_list_id, nil)
+      dc
+    end
+
+    def self.as_source_data_criteria(entry, data_criteria_references = {}, occurrences_map = {})
+      dc = DataCriteria.new(entry, data_criteria_references, occurrences_map)
+      dc = SourceDataCriteriaHelper.strip_non_sc_elements(dc)
       if dc && (data_criteria_references[dc.id].nil? || data_criteria_references[dc.id].code_list_id.nil?)
         data_criteria_references[dc.id] = dc
       end
