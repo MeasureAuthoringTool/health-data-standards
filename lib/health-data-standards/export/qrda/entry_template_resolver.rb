@@ -29,7 +29,6 @@ module HealthDataStandards
                       "Diagnosis, Family History, Symptom, Immunization data types, "\
                       "and Encounter Performed attributes for Diagnosis and Principal Diagnosis."
               else
-                puts "no qrda oid for #{hqmf_oid}"
                 raise "No QRDA template available for OID #{hqmf_oid}: #{__FILE__} line #{__LINE__}"
               end
             end
