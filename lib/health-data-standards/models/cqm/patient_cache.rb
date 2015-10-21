@@ -57,6 +57,7 @@ module HealthDataStandards
       field :IPP, type: Integer
       field :measure_id, type: String
       field :sub_id, type: String
+      field :patient_id, type: BSON::ObjectId
     end
 
   end
