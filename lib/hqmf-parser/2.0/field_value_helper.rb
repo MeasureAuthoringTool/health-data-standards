@@ -17,6 +17,7 @@ module HQMF2
       when 'encounterCriteria'
         parse_encounter_fields(criteria,fields)
       when 'actCriteria'
+        debugger
         parse_act_criteria_fields(criteria,fields)
       when 'observationCriteria'
         parse_observation_fields(criteria,fields)
@@ -131,7 +132,6 @@ module HQMF2
 
 
     def self.parse_act_criteria_fields(entry,fields)
-
     end
 
     def self.parse_substance_administration_fields(entry,fields)
@@ -146,9 +146,22 @@ module HQMF2
     def self.parse_observation_fields(entry,fields)
       parse_dset_cd(entry.at_xpath('./cda:methodCode', HQMF2::Document::NAMESPACES),'METHOD', fields)
       parse_dset_cd(entry.at_xpath('./cda:targetSiteCode', HQMF2::Document::NAMESPACES),'ANATOMICAL_LOCATION_SITE', fields)
+      parse_pq(entry.at_xpath("./cda:outboundRelationship[@typeCode='REFV']/cda:observationCriteria/cda:value/cda:high", HQMF2::Document::NAMESPACES),'REFERENCE_RANGE_HIGH', fields)
+      parse_pq(entry.at_xpath("./cda:outboundRelationship[@typeCode='REFV']/cda:observationCriteria/cda:value/cda:low", HQMF2::Document::NAMESPACES),'REFERENCE_RANGE_LOW', fields)
     end
 
     def self.parse_encounter_fields(entry,fields)
+      #Added a check for Principal Diagnosis and Diagnosis. QDM 4.2 Update
+      principal = entry.at_xpath("./cda:outboundRelationship[@typeCode='REFR']/cda:actCriteria/cda:code[@code='52534-5']", HQMF2::Document::NAMESPACES)
+      if principal
+        parse_cd(entry.at_xpath("./cda:outboundRelationship[@typeCode='REFR']/cda:actCriteria/cda:outboundRelationship[@typeCode='SUBJ']/cda:observationCriteria/cda:value", HQMF2::Document::NAMESPACES), 'PRINCIPAL_DIAGNOSIS', fields)
+      end
+
+      diagnosis = entry.at_xpath("./cda:outboundRelationship[@typeCode='REFR']/cda:actCriteria/cda:code[@code='29308-4']", HQMF2::Document::NAMESPACES)
+      if diagnosis
+        parse_cd(entry.at_xpath("./cda:outboundRelationship[@typeCode='REFR']/cda:actCriteria/cda:outboundRelationship[@typeCode='SUBJ']/cda:observationCriteria/cda:value", HQMF2::Document::NAMESPACES), 'DIAGNOSIS', fields)
+      end
+
       parse_pq(entry.at_xpath('./cda:lengthOfStayQuantity', HQMF2::Document::NAMESPACES),'LENGTH_OF_STAY', fields)
       parse_cd(entry.at_xpath('./cda:dischargeDispositionCode', HQMF2::Document::NAMESPACES),'DISCHARGE_STATUS',fields)
 

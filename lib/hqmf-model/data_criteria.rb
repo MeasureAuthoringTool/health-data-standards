@@ -56,6 +56,12 @@ module HQMF
               # MISSING Time - The time that the patient passed away
 
               # Custom field values
+              'DIAGNOSIS' => {title:'Diagnosis', coded_entry_method: :diagnosis, code: 'DIAGNOSIS', field_type: :value},
+              'PRINCIPAL_DIAGNOSIS' => {title:'Principal Diagnosis', coded_entry_method: :principal_diagnosis, code: 'PRINCIPAL_DIAGNOSIS', field_type: :value},
+              'REFERENCE_RANGE_HIGH' => {title:'Reference Range High', coded_entry_method: :reference_range_high, code: 'REFV', field_type: :value},
+              'REFERENCE_RANGE_LOW' => {title:'Reference Range Low', coded_entry_method: :reference_range_low, code: 'REFV', field_type: :value},
+              'RELATIONSHIP' => {title:'Relationship', coded_entry_method: :relationship_to_patient, code: 'RELATIONSHIP', field_type: :value},
+              
               'ANATOMICAL_STRUCTURE' => {title:'Anatomical Structure', coded_entry_method: :anatomical_structure, code: '91723000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1000.2', field_type: :value},
               'FLFS' => {title:'Fulfills', coded_entry_method: :fulfills, code: 'FLFS', field_type: :reference},
               'SOURCE' => {title:'Source', coded_entry_method: :source, code: '260753009', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.2001.2', field_type: :value},
@@ -103,6 +109,7 @@ module HQMF
                     'ORG_TIME' => 'TRANSFER_FROM_DATETIME',
                     'TRANSFER_TO' => 'TRANSFER_TO',
                     'DST_TIME' => 'TRANSFER_TO_DATETIME'
+
                    }
 
 

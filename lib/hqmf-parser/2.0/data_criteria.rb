@@ -80,7 +80,14 @@ module HQMF2
                     "2.16.840.1.113883.10.20.28.3.81" => {valueset_path:"./*/cda:value", result_path: nil },
                     "2.16.840.1.113883.10.20.28.3.82" => {valueset_path:"./*/cda:value", result_path: nil },
                     "2.16.840.1.113883.10.20.28.3.84" => {valueset_path:"./*/cda:participation[@typeCode='ORG']/cda:role[@classCode='LOCE']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.85" => {valueset_path:"./*/cda:participation[@typeCode='ORG']/cda:role[@classCode='LOCE']/cda:code", result_path: nil }
+                    "2.16.840.1.113883.10.20.28.3.85" => {valueset_path:"./*/cda:participation[@typeCode='ORG']/cda:role[@classCode='LOCE']/cda:code", result_path: nil },
+                    
+                    "2.16.840.1.113883.10.20.28.3.110" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.111" => {valueset_path:"./*/cda:value", result_path: nil },
+                    "2.16.840.1.113883.10.20.28.3.114" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role/cda:playingEntity[@classCode='MMAT']/cda:code", result_path: nil},
+                    "2.16.840.1.113883.10.20.28.3.115" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role/cda:playingMaterial[@classCode='MMAT']/cda:code", result_path: nil},
+                    "2.16.840.1.113883.10.20.28.3.113" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role/cda:playingMaterial[@classCode='MMAT']/cda:code", result_path: nil},
+                    "2.16.840.1.113883.10.20.28.3.112" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role/cda:playingManufacturedMaterial[@classCode='MMAT']/cda:code", result_path: nil }
                     }
 
     include HQMF2::Utilities
