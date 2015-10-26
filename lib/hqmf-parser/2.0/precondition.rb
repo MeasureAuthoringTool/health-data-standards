@@ -26,8 +26,14 @@ module HQMF2
       if aggregation
         precondition_entries = entry.xpath('./*/cda:precondition', HQMF2::Document::NAMESPACES)
         preconditions = precondition_entries.collect do |precondition|
-          Precondition.parse(precondition, doc, id_generator)
+          precondition = Precondition.parse(precondition, doc, id_generator)
+          if precondition.reference.nil? && precondition.preconditions.empty?
+            nil
+          else
+            precondition
+          end
         end
+        preconditions.compact!
         conjunction = aggregation.name
         case conjunction
         when "allFalse"

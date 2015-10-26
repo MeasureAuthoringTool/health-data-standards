@@ -133,6 +133,8 @@ module HQMF2
 
       if (lm.nil? || lm.kind_of?(HQMF::AnyValue)) && (hm.nil? || hm.kind_of?(HQMF::AnyValue))
         HQMF::AnyValue.new
+      elsif(!lm.nil? && !hm.nil? && lm.value == high.value && lm.unit.nil? && hm.unit.nil?)
+        HQMF::Value.new(lm.type, nil, lm.value, lm.inclusive?, lm.derived?, lm.expression)
       else
         HQMF::Range.new(model_type, lm, hm, wm)
       end
@@ -376,17 +378,7 @@ module HQMF2
       if @entry.kind_of? String
         @entry
       else
-        # FIXME (10/16/2015)
-        # Verbose naming was a convention used to prevent naming collisions of elements present in the HQMF.
-        # It has not yet been perfected, and the name collions have not yet been found or determined to be
-        # the cause of any error, so for now we are ignoring them by making all return non-verbose names.
-        if @verbose && false
-          value = "#{attr_val('./@extension')}_#{attr_val('./@root')}"
-          # puts "Using verbose reference for #{value}"
-        else
-          value = attr_val('./@extension')
-        end
-        id = strip_tokens value
+        id = strip_tokens "#{attr_val('./@extension')}_#{attr_val('./@root')}"
         # Handle MeasurePeriod references for calculation code
         id = 'MeasurePeriod' if id.try(:start_with?,'measureperiod')
         id

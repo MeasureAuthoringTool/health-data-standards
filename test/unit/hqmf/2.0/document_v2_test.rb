@@ -32,7 +32,7 @@ class DocumentV2Test < Minitest::Test
     assert_equal "Statin Prescribed at Discharge", @model.title.strip
     assert_equal "Acute myocardial infarction (AMI) patients who are prescribed a statin at hospital discharge.", @model.description.strip
     data_criteria = @model.all_data_criteria
-    assert_equal 14, data_criteria.length
+    assert_equal 13, data_criteria.length # changed to 13 due to filtering of the dc
 
     assert_equal 26, @model.attributes.length
     assert_equal '201304011658-0500', @model.attributes[0].value_obj.value

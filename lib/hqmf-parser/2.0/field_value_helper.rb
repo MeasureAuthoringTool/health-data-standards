@@ -111,7 +111,7 @@ module HQMF2
       low = entry.at_xpath("./cda:effectiveTime/cda:low/..")
       high = entry.at_xpath("./cda:effectiveTime/cda:high/..")
       if low
-        field = "START_DATETIME"
+        field = "ADMISSION_DATETIME"
         if template_ids.include?('2.16.840.1.113883.10.20.28.3.51')
           field = "ACTIVE_DATETIME"
         elsif template_ids.include?('2.16.840.1.113883.10.20.28.3.5') || template_ids.include?('2.16.840.1.113883.10.20.28.3.26')
@@ -122,7 +122,7 @@ module HQMF2
         fields[field] = Range.new(low, 'IVL_PQ')
       end
       if high
-        field = "STOP_DATETIME"
+        field = "DISCHARGE_DATETIME"
         if template_ids.include?('2.16.840.1.113883.10.20.28.3.26')
           field = "DISCHARGE_DATETIME"
         elsif template_ids.include?('2.16.840.1.113883.10.20.28.3.13')

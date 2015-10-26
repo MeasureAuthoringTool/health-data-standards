@@ -6,23 +6,25 @@ require_relative '../../../test_helper'
 class HQMFVsSimpleTest < Minitest::Test
   RESULTS_DIR = File.join('tmp','hqmf_simple_diffs')
 
-  HQMF_ROOT = File.join('test', 'fixtures', 'hqmf', 'hqmf')
-  SIMPLE_XML_ROOT = File.join('test','fixtures','hqmf','simplexml')
+  HQMF_ROOT = File.join(ENV['HQMF_ROOT']) if ENV['HQMF_ROOT']
+  HQMF_ROOT ||= File.join('test', 'fixtures', 'hqmf', 'hqmf')
+
+  SIMPLE_XML_ROOT = File.join(ENV['SIMPLE_XML_ROOT']) if ENV['SIMPLE_XML_ROOT']
+  SIMPLE_XML_ROOT ||= File.join('test','fixtures','hqmf','simplexml')
 
   # Create a blank folder for the errors
   FileUtils.rm_rf(RESULTS_DIR) if File.directory?(RESULTS_DIR)
   FileUtils.mkdir_p RESULTS_DIR
-
   # Automatically generate one test method per measure file
   measure_files = File.join(HQMF_ROOT, '*.xml')
 
   Dir.glob(measure_files).each do | measure_filename |
     measure_name = File.basename(measure_filename, ".xml")
-    if ["CMS62v4", "CMS52v4", "CMS65v5", "CMS159v4", "CMS154v4", "CMS73v4", "CMS32v5", "CMS178v5", "CMS129v5", "CMS108v4", "CMS141v5"].index(measure_name)
+    # if ["CMS190v4"].index(measure_name)
       define_method("test_#{measure_name}") do
         do_roundtrip_test(measure_filename, measure_name)
       end
-    end
+    # end
   end
 
   def do_roundtrip_test(measure_filename, measure_name)
@@ -32,7 +34,7 @@ class HQMFVsSimpleTest < Minitest::Test
     # rebuild hqmf model so that source data criteria are different objects
     hqmf_model = HQMF::Document.from_json(JSON.parse(hqmf_model.to_json.to_json, {max_nesting: 100}))
 
-    simple_xml = File.join(SIMPLE_XML_ROOT, "#{hqmf_model.cms_id}_SimpleXML.xml")
+    simple_xml = File.join(SIMPLE_XML_ROOT, "#{measure_name}_SimpleXML.xml")
     simple_xml_model = SimpleXml::Parser::V1Parser.new.parse(File.read(simple_xml))
 
     hqmf_json_orig = JSON.parse(hqmf_model.to_json.to_json, {max_nesting: 100})
@@ -102,6 +104,7 @@ class HQMFVsSimpleTest < Minitest::Test
       File.open(outfile, 'w') {|f| f.write(JSON.pretty_generate(hqmf_json)) }
       outfile = File.join("#{RESULTS_DIR}","#{measure_name}_diff_simplexml.json")
       File.open(outfile, 'w') {|f| f.write(JSON.pretty_generate(simple_xml_json)) }
+    end
 
       outfile = File.join("#{RESULTS_DIR}","#{measure_name}_orig_hqmf.json")
       File.open(outfile, 'w') {|f| f.write(JSON.pretty_generate(hqmf_json_orig)) }
@@ -117,7 +120,6 @@ class HQMFVsSimpleTest < Minitest::Test
         f.puts
         f.puts((hqmf_model.all_data_criteria).collect{|dc| dc.id})
       }
-    end
     #puts "#{measure_name} -- #{hqmf_model.derived_data_criteria.count}  --  #{simple_xml_model.derived_data_criteria.count} -- #{(hqmf_model.derived_data_criteria.count.to_f/simple_xml_model.derived_data_criteria.count.to_f).to_f}"
     #puts "#{measure_name} -- #{hqmf_model.source_data_criteria.count}  --  #{simple_xml_model.source_data_criteria.count} -- #{(hqmf_model.source_data_criteria.count.to_f/simple_xml_model.source_data_criteria.count.to_f).to_f}"
     # puts "#{measure_name} -- #{hqmf_model.all_data_criteria.count}  --  #{simple_xml_model.all_data_criteria.count} -- #{(hqmf_model.all_data_criteria.count.to_f/simple_xml_model.all_data_criteria.count.to_f).to_f}"
@@ -127,7 +129,7 @@ class HQMFVsSimpleTest < Minitest::Test
 
   def remap_arbitrary_v2_diffs(simple_xml_model, hqmf_model, measure_name)
     # FIXME (10/19/2015) removes the source data criteria for patient expired from simplexml, which at this time does not exist in the HQMF2.1 version or in the human readable version for most measures
-    unless ["CMS159v4", "CMS160v4", "CMS178v5"].index(measure_name)
+    unless ["CMS159v4", "CMS160v4", "CMS172v5", "CMS178v5"].index(measure_name)
       simple_xml_model.instance_variable_get(:@source_data_criteria).reject! {|sdc| sdc.definition == "patient_characteristic_expired"}
     end
 
@@ -184,16 +186,6 @@ class HQMFVsSimpleTest < Minitest::Test
         end
       end
 
-      # NOTE: This actually is mapping v2 to SimpleXML notation, since it is much more straightforward
-      if dc.subset_operators
-        dc.subset_operators.each do |sso|
-          if sso.type == "TIMEDIFF"
-            sso.instance_variable_set(:@type, "DATETIMEDIFF")
-            sso.instance_variable_set(:@value, nil)
-          end
-        end
-      end
-
       # title and description for all are technically arbitrary values
       dc.instance_variable_set(:@title, '')
       dc.instance_variable_set(:@description, '')
@@ -211,7 +203,7 @@ class HQMFVsSimpleTest < Minitest::Test
     end
 
     # Handles measures that are "regardless of age" or seems to not refer to Ptient birthdate characteristic
-    if ["CMS129v5", "CMS31v4", "CMS32v5", "CMS62v4", "CMS185v4", "CMS157v4"].index(measure_name)
+    if ["CMS31v4", "CMS32v5", "CMS50v4", "CMS55v4", "CMS62v4", "CMS111v4", "CMS129v5", "CMS157v4", "CMS185v4"].index(measure_name)
       simple_xml_model.source_data_criteria.reject! {|dc| dc.definition == "patient_characteristic_birthdate"}
     end
 
@@ -228,6 +220,11 @@ class HQMFVsSimpleTest < Minitest::Test
       simple_xml_model.all_data_criteria.select {|dc| dc.code_list_id == "2.16.840.1.113883.3.464.1003.198.12.1034" || dc.code_list_id == "2.16.840.1.113883.3.464.1003.111.12.1008"}.each {|dc| dc.instance_variable_set(:@title, ""); dc.instance_variable_set(:@description, "")}
       simple_xml_model.source_data_criteria.select {|dc| dc.code_list_id == "2.16.840.1.113883.3.464.1003.198.12.1034" || dc.code_list_id == "2.16.840.1.113883.3.464.1003.111.12.1008"}.each {|dc| dc.instance_variable_set(:@title, ""); dc.instance_variable_set(:@description, "")}
     end
+    # Removed here. It's referenced by a field value, but is not necessary in the data_criteria (exists in source)
+    if measure_name == "CMS50v4"
+      simple_xml_model.all_data_criteria.reject! {|dc| dc.id == "OccurrenceAReferral1"}
+    end
+
   end
 
   def remap_populations(simple_xml_model, hqmf_model)
@@ -275,13 +272,8 @@ class HQMFVsSimpleTest < Minitest::Test
 
     # Normalize the HQMF model IDS
     criteria_list.each do |dc|
-      dc.description.gsub!(/\s+/, " ") if dc.description
-
       dc.id = hash_criteria(dc, criteria_map)
       dc.instance_variable_set(:@source_data_criteria, dc.id)
-      if dc.type == :derived
-        dc.instance_variable_set(:@title, dc.id)
-      end
     end
 
     measure_model.all_population_criteria.each do |pc|
@@ -292,6 +284,7 @@ class HQMFVsSimpleTest < Minitest::Test
 
   end
 
+  # Swaps the Hash Id with the original data_criteria id
   def remap_preconditions(criteria_map, preconditions)
     return if preconditions.nil?
     preconditions.each do |precondition|
@@ -323,7 +316,7 @@ class HQMFVsSimpleTest < Minitest::Test
     sha256 << (criteria.children_criteria.nil? ? "7-<nil>:" : "7-#{hash_children(criteria.children_criteria, criteria_map)}:")
     sha256 << (criteria.subset_operators.nil? ? "8-<nil>:" : "8-#{hash_subsets(criteria.subset_operators)}:")
     sha256 << (criteria.temporal_references.nil? ? "9-<nil>:" : "9-#{hash_temporals(criteria.temporal_references, criteria_map)}:")
-    sha256 << (criteria.field_values.nil? ? "10-<nil>:" : "10-#{hash_fields(criteria.field_values)}:")
+    sha256 << (criteria.field_values.nil? ? "10-<nil>:" : "10-#{hash_fields(criteria.field_values, criteria_map)}:")
     sha256 << (criteria.negation_code_list_id.nil? ? "11-<nil>:" : "11-#{criteria.negation_code_list_id}:")
 
     #sha256.hexdigest
@@ -347,8 +340,13 @@ class HQMFVsSimpleTest < Minitest::Test
     list.join(',')
   end
 
-  def hash_fields(hash)
-    hash.values.each {|fv| fv.instance_variable_set(:@title,'')}
+  def hash_fields(hash, criteria_map)
+    hash.values.each do |fv|
+      fv.instance_variable_set(:@title,'')
+      unless fv.instance_variable_get(:@reference).nil?
+        fv.instance_variable_set(:@reference, hash_criteria(criteria_map[fv.instance_variable_get(:@reference)], criteria_map))
+      end
+    end
     Digest::SHA256.hexdigest hash.to_json
   end
 
