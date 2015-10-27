@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "InsuranceProvider": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Insurance Provider",
+      "allOf": [
+        {
+          "$ref": "entry.json#/definitions/Entry"
+        },
+
+        {
+          "properties": {
+            "type": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+
+            "member_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+
+            "relationship": {
+              "type": ["object", "null"],
+              "additionalProperties": true,
+              "properties": {
+              }
+            },
+
+            "financial_responsibility_type": {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+              }
+            },
+
+            "name": {
+              "type": [ "string", "null" ],
+              "minLength": 1
+            },
+
+            "payer": {
+              "$ref": "organization.json#/definitions/Organization"
+            },
+
+            "guarantors": {
+              "type": "array",
+              "minItems": 0,
+              "uniqueItems": false,
+              "additionalItems": true,
+              "items": {
+                "$ref": "guarantor.json#/definitions/Guarantor"
+              }
+            },
+
+            "subscriber": {
+              "$ref": "person.json#/definitions/Person"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

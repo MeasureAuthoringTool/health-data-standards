@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  
+  "definitions" :  {
+    "Provider" : {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Immunization schema.",
+      "allOf": [
+        { "$ref": "personable.json#/definitions/Personable"},
+        { "properties": {
+            "specialty": {
+              "type": ["string", "null"],
+              "minLength": 1
+            },
+    
+            "phone": {
+              "type": ["string", "null"],
+              "minLength": 1
+            },
+    
+            "organization": {
+              "$ref": "organization.json#/definitions/Organization"
+            },
+    
+            "cda_identifiers": {
+              "type": "array",
+              "minItems": 0,
+              "uniqueItems": true,
+              "additionalItems": true,
+              "items": {
+                "$ref": "cdaIdentifier.json#/definitions/CDAIdentifier"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
