@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  
+  "definitions" :  {
+    "MedicalEquipment" : {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Medical Equipment schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "allOf": [
+        { "$ref": "entry.json#/definitions/Entry"},
+        { "properties": {
+            "manufacturer": {
+              "type": ["string", "null"],
+              "minLength": 1
+            },
+            "anatomicalStructure" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+            "removalTime": {
+              "$ref": "common.json#/definitions/SecondsSinceEpoch"
+            },
+            "anatomicalApproach" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+            "reaction" : {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      ]
+    }
+  }
+}
