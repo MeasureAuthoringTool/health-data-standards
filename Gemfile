@@ -4,7 +4,7 @@ gemspec :development_group => :test
 
 group :development do
   gem 'rake'
-  gem 'byebug', '~> 6.0.2',  platforms: [:ruby_21, :ruby_22]
+  gem 'byebug', '~> 6.0.2',  platforms: [:ruby_20, :ruby_21, :ruby_22]
 end
 
 group :test do

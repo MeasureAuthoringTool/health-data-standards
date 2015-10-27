@@ -17,7 +17,6 @@ module HQMF2
       when 'encounterCriteria'
         parse_encounter_fields(criteria,fields)
       when 'actCriteria'
-        debugger
         parse_act_criteria_fields(criteria,fields)
       when 'observationCriteria'
         parse_observation_fields(criteria,fields)
@@ -146,6 +145,9 @@ module HQMF2
     def self.parse_observation_fields(entry,fields)
       parse_dset_cd(entry.at_xpath('./cda:methodCode', HQMF2::Document::NAMESPACES),'METHOD', fields)
       parse_dset_cd(entry.at_xpath('./cda:targetSiteCode', HQMF2::Document::NAMESPACES),'ANATOMICAL_LOCATION_SITE', fields)
+      parse_cd(entry.at_xpath("./cda:participation[@typeCode='SBJ']/cda:role[@classCode='PRS']/cda:code", HQMF2::Document::NAMESPACES), 'RELATIONSHIP', fields)
+      # FIXME: This is not correct, we likely want to return a time range with a low/high as defined
+      parse_ts(entry.at_xpath("./cda:participation[@typeCode='AUT']/cda:time/cda:high/cda:uncertainRange/cda:low", HQMF2::Document::NAMESPACES), 'RECORDED_DATETIME', fields)
       parse_pq(entry.at_xpath("./cda:outboundRelationship[@typeCode='REFV']/cda:observationCriteria/cda:value/cda:high", HQMF2::Document::NAMESPACES),'REFERENCE_RANGE_HIGH', fields)
       parse_pq(entry.at_xpath("./cda:outboundRelationship[@typeCode='REFV']/cda:observationCriteria/cda:value/cda:low", HQMF2::Document::NAMESPACES),'REFERENCE_RANGE_LOW', fields)
     end

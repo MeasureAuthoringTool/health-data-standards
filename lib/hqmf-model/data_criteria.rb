@@ -61,7 +61,8 @@ module HQMF
               'REFERENCE_RANGE_HIGH' => {title:'Reference Range High', coded_entry_method: :reference_range_high, code: 'REFV', field_type: :value},
               'REFERENCE_RANGE_LOW' => {title:'Reference Range Low', coded_entry_method: :reference_range_low, code: 'REFV', field_type: :value},
               'RELATIONSHIP' => {title:'Relationship', coded_entry_method: :relationship_to_patient, code: 'RELATIONSHIP', field_type: :value},
-              
+              'ONSET_AGE' => {title:'Onset Age', coded_entry_method: :onset_age, code: '445518008', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
+              'RECORDED_DATETIME' => {title:'Recorded Datetime', coded_entry_method: :recorded_datetime, code: 'RECORDED_DATETIME', field_type: :timestamp},
               'ANATOMICAL_STRUCTURE' => {title:'Anatomical Structure', coded_entry_method: :anatomical_structure, code: '91723000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1000.2', field_type: :value},
               'FLFS' => {title:'Fulfills', coded_entry_method: :fulfills, code: 'FLFS', field_type: :reference},
               'SOURCE' => {title:'Source', coded_entry_method: :source, code: '260753009', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.2001.2', field_type: :value},
@@ -86,6 +87,7 @@ module HQMF
                     '34896006'  => 'INCISION_DATETIME',
                     '272741003' => 'LATERALITY',
                     '183797002' => 'LENGTH_OF_STAY',
+                    '445518008' => 'ONSET_AGE',
                     '117363000' => 'ORDINALITY',
                     'PAT'       => 'PATIENT_PREFERENCE',
                     '103323008' => 'PROVIDER_PREFERENCE',
