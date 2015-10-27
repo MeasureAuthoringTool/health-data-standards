@@ -303,7 +303,6 @@ module HQMF2
     def update_data_criteria(data_criteria, source_data_criteria)
       # step through each criteria and look for groupers (type derived) with one child
       data_criteria.map do |criteria|
-        debugger if criteria.type == :derived && criteria.children_criteria.nil?
         puts "Missing children criteria: #{criteria.id}" if criteria.type == :derived && criteria.children_criteria.nil?
         if criteria.type == :derived && criteria.children_criteria.try(:length) == 1
           source_data_criteria.each do |source_criteria|
