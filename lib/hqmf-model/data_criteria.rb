@@ -15,13 +15,16 @@ module HQMF
     SATISFIES_ANY = 'satisfies_any'
     VARIABLE = 'variable'
 
-    FIELDS = {'ACTIVE_DATETIME' => {title:'Active Date/Time', coded_entry_method: :active_date_time, field_type: :timestamp},
+    FIELDS = {'ABATEMENT_DATETIME' => {title:'Abatement Datetime', coded_entry_method: :end_date, field_type: :timestamp},
+              'ACTIVE_DATETIME' => {title:'Active Date/Time', coded_entry_method: :active_date_time, field_type: :timestamp},
               'ADMISSION_DATETIME' => {title:'Admission Date/Time', coded_entry_method: :admit_time, code: '399423000', code_system:'2.16.840.1.113883.6.96', field_type: :timestamp},
               'ANATOMICAL_APPROACH_SITE' => {title:'Anatomical Approach Site', coded_entry_method: :anatomical_approach,  field_type: :value},
               'ANATOMICAL_LOCATION_SITE' => {title:'Anatomical Location Site', coded_entry_method: :anatomical_location,  field_type: :value},
+              'ANATOMICAL_STRUCTURE' => {title:'Anatomical Structure', coded_entry_method: :anatomical_structure, code: '91723000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1000.2', field_type: :value},
               'CAUSE' => {title:'Cause', coded_entry_method: :cause_of_death, code: '42752001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1017.2', field_type: :value},
               'CUMULATIVE_MEDICATION_DURATION' => {title:'Cumulative Medication Duration', coded_entry_method: :cumulative_medication_duration, code: '261773006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1001.3', field_type: :value},
               # MISSING Date - The date that the patient passed away. - Patient Characteristic Expired
+              'DIAGNOSIS' => {title:'Diagnosis', coded_entry_method: :diagnosis, code: 'DIAGNOSIS', field_type: :value},
               'DISCHARGE_DATETIME' => {title:'Discharge Date/Time', coded_entry_method: :discharge_time, code: '442864001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1025.1', field_type: :timestamp},
               'DISCHARGE_STATUS' => {title:'Discharge Status', coded_entry_method: :discharge_disposition, code: '309039003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1003.2', field_type: :value},
               'DOSE' => {title:'Dose', coded_entry_method: :dose, code: '398232005', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1004.1', field_type: :value},
@@ -34,16 +37,23 @@ module HQMF
               'LENGTH_OF_STAY' => {title:'Length of Stay', coded_entry_method: :length_of_stay, code: '183797002', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1029.3', field_type: :value},
               'METHOD' => {title:'Method', coded_entry_method: :method, template_id: '', field_type: :value},
               # Negation Rationale isn't encoded
+              'ONSET_AGE' => {title:'Onset Age', coded_entry_method: :onset_age, code: '445518008', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
+              'ONSET_DATETIME' => {title:'Onset Datetime', coded_entry_method: :start_date, field_type: :timestamp},
               'ORDINAL' => {title:'Ordinality', coded_entry_method: :ordinality, code: '117363000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1012.2', field_type: :value}, # previous
               'ORDINALITY' => {title:'Ordinality', coded_entry_method: :ordinality, code: '117363000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1012.2', field_type: :value},
               'PATIENT_PREFERENCE' => {title:'Patient Preference', coded_entry_method: :patient_preference,  code: 'PAT', code_system: '2.16.840.1.113883.5.8', template_id: '2.16.840.1.113883.10.20.24.3.83', field_type: :value},
+              'PRINCIPAL_DIAGNOSIS' => {title:'Principal Diagnosis', coded_entry_method: :principal_diagnosis, code: 'PRINCIPAL_DIAGNOSIS', field_type: :value},
               'PROVIDER_PREFERENCE' => {title:'Provider Preference', coded_entry_method: :provider_preference, code: '103323008', code_system: '2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.84', field_type: :value},
               'RADIATION_DOSAGE' => {title:'Radiation Dosage', coded_entry_method: :radiation_dose, code: '228815006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.91', field_type: :value},
               'RADIATION_DURATION' => {title:'Radiation Duration', coded_entry_method: :radiation_duration, code: '306751006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.91', field_type: :value},
               'REACTION'=> {title:'Reaction', coded_entry_method: :reaction, code: '263851003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.85', field_type: :value},
               'REASON' => {title:'Reason', coded_entry_method: :reason, code: '410666004', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.88', field_type: :value},
+              'RECORDED_DATETIME' => {title:'Recorded Datetime', coded_entry_method: :start_date, code: 'RECORDED_DATETIME', field_type: :timestamp},
+              'REFERENCE_RANGE_HIGH' => {title:'Reference Range High', coded_entry_method: :reference_range_high, code: 'REFV', field_type: :value},
+              'REFERENCE_RANGE_LOW' => {title:'Reference Range Low', coded_entry_method: :reference_range_low, code: 'REFV', field_type: :value},
               'REFILLS' => {title:'Refills', coded_entry_method: :refills,  field_type: :value},
               'RELATED_TO' => {title:'Related To', coded_entry_method: :related_to,  code: 'REL', codeSystem: '2.16.840.1.113883.1.11.11603', field_type: :value},
+              'RELATIONSHIP' => {title:'Relationship', coded_entry_method: :relationship_to_patient, code: 'RELATIONSHIP', field_type: :value},
               'REMOVAL_DATETIME' => {title:'Removal Date/Time', coded_entry_method: :removal_time, code: '118292001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1032.1', field_type: :timestamp},
               # Result isn't encoded
               'ROUTE' => {title:'Route', coded_entry_method: :route, code: '263513008', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1020.2', field_type: :value},
@@ -56,14 +66,6 @@ module HQMF
               # MISSING Time - The time that the patient passed away
 
               # Custom field values
-              'DIAGNOSIS' => {title:'Diagnosis', coded_entry_method: :diagnosis, code: 'DIAGNOSIS', field_type: :value},
-              'PRINCIPAL_DIAGNOSIS' => {title:'Principal Diagnosis', coded_entry_method: :principal_diagnosis, code: 'PRINCIPAL_DIAGNOSIS', field_type: :value},
-              'REFERENCE_RANGE_HIGH' => {title:'Reference Range High', coded_entry_method: :reference_range_high, code: 'REFV', field_type: :value},
-              'REFERENCE_RANGE_LOW' => {title:'Reference Range Low', coded_entry_method: :reference_range_low, code: 'REFV', field_type: :value},
-              'RELATIONSHIP' => {title:'Relationship', coded_entry_method: :relationship_to_patient, code: 'RELATIONSHIP', field_type: :value},
-              'ONSET_AGE' => {title:'Onset Age', coded_entry_method: :onset_age, code: '445518008', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
-              'RECORDED_DATETIME' => {title:'Recorded Datetime', coded_entry_method: :recorded_datetime, code: 'RECORDED_DATETIME', field_type: :timestamp},
-              'ANATOMICAL_STRUCTURE' => {title:'Anatomical Structure', coded_entry_method: :anatomical_structure, code: '91723000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1000.2', field_type: :value},
               'FLFS' => {title:'Fulfills', coded_entry_method: :fulfills, code: 'FLFS', field_type: :reference},
               'SOURCE' => {title:'Source', coded_entry_method: :source, code: '260753009', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.2001.2', field_type: :value},
               'TRANSFER_FROM' => {title:'Transfer From', coded_entry_method: :transfer_from, code: 'TRANSFER_FROM', template_id: '2.16.840.1.113883.10.20.24.3.81', field_type: :value},

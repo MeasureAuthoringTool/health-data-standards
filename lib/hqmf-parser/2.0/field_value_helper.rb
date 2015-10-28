@@ -96,6 +96,7 @@ module HQMF2
       times = [{key: 'signeddatetime', field: "SIGNED_DATETIME" , highlow: 'high'},
                {key: 'startdatetime', field:  "START_DATETIME", highlow: 'low'},
                {key: 'stopdatetime', field:  "STOP_DATETIME", highlow: 'high'},
+               {key: 'recordeddatetime', field: "RECORDED_DATETIME", highlow: 'high'}
                ]
       times.each do |e|
         date = entry.at_xpath("cda:participation[@typeCode='AUT']/cda:role/cda:id/cda:item[@extension = '#{e[:key]}']/../../../cda:time")
@@ -111,21 +112,25 @@ module HQMF2
       high = entry.at_xpath("./cda:effectiveTime/cda:high/..")
       if low
         field = "START_DATETIME"
-        if !template_ids.index('2.16.840.1.113883.10.20.28.3.51').nil?
-          field= "ACTIVE_DATETIME"
-        elsif !(template_ids | ['2.16.840.1.113883.10.20.28.3.5','2.16.840.1.113883.10.20.28.3.5']).empty?
+        if template_ids.include?('2.16.840.1.113883.10.20.28.3.51')
+          field = "ACTIVE_DATETIME"
+        elsif template_ids.include?('2.16.840.1.113883.10.20.28.3.5') || template_ids.include?('2.16.840.1.113883.10.20.28.3.26')
           field = "ADMISSION_DATETIME"
+        elsif template_ids.include?('2.16.840.1.113883.10.20.28.3.110') || template_ids.include?('2.16.840.1.113883.10.20.28.3.116')
+          field = "ONSET_DATETIME"
         end
-        fields[field] = Range.new(low)
+        fields[field] = Range.new(low, 'IVL_PQ')
       end
       if high
         field = "STOP_DATETIME"
-        if !template_ids.index('2.16.840.1.113883.10.20.28.3.26').nil?
+        if template_ids.include?('2.16.840.1.113883.10.20.28.3.26')
           field = "DISCHARGE_DATETIME"
-        elsif !template_ids.index('2.16.840.1.113883.10.20.28.3.13').nil?
+        elsif template_ids.include?('2.16.840.1.113883.10.20.28.3.13')
           field = "REMOVAL_DATETIME"
+        elsif template_ids.include?('2.16.840.1.113883.10.20.28.3.110') || template_ids.include?('2.16.840.1.113883.10.20.28.3.116')
+          field = "ABATEMENT_DATETIME"
         end
-        fields[field] = Range.new(high)
+        fields[field] = Range.new(high, 'IVL_PQ')
       end
     end
 
@@ -146,8 +151,6 @@ module HQMF2
       parse_dset_cd(entry.at_xpath('./cda:methodCode', HQMF2::Document::NAMESPACES),'METHOD', fields)
       parse_dset_cd(entry.at_xpath('./cda:targetSiteCode', HQMF2::Document::NAMESPACES),'ANATOMICAL_LOCATION_SITE', fields)
       parse_cd(entry.at_xpath("./cda:participation[@typeCode='SBJ']/cda:role[@classCode='PRS']/cda:code", HQMF2::Document::NAMESPACES), 'RELATIONSHIP', fields)
-      # FIXME: This is not correct, we likely want to return a time range with a low/high as defined
-      parse_ts(entry.at_xpath("./cda:participation[@typeCode='AUT']/cda:time/cda:high/cda:uncertainRange/cda:low", HQMF2::Document::NAMESPACES), 'RECORDED_DATETIME', fields)
       parse_pq(entry.at_xpath("./cda:outboundRelationship[@typeCode='REFV']/cda:observationCriteria/cda:value/cda:high", HQMF2::Document::NAMESPACES),'REFERENCE_RANGE_HIGH', fields)
       parse_pq(entry.at_xpath("./cda:outboundRelationship[@typeCode='REFV']/cda:observationCriteria/cda:value/cda:low", HQMF2::Document::NAMESPACES),'REFERENCE_RANGE_LOW', fields)
     end

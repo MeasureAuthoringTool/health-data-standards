@@ -114,7 +114,12 @@ module HQMF2
       if @entry.at_xpath('./cda:uncertainRange', HQMF2::Document::NAMESPACES)
         model_type = 'IVL_PQ'
       end
-      HQMF::Range.new(model_type, lm, hm, wm)
+
+      if (lm.nil? || lm.kind_of?(HQMF::AnyValue)) && (hm.nil? || hm.kind_of?(HQMF::AnyValue))
+        HQMF::AnyValue.new
+      else
+        HQMF::Range.new(model_type, lm, hm, wm)
+      end
     end
 
     private
