@@ -612,24 +612,36 @@ module HQMF2
     end
 
     def extract_specific_or_source
+
+      isVariable = extract_variable
+      occurrenceIdRegex = isVariable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]_'
+      occIndex = isVariable ? 3 : 10
+      strippedLVN = strip_tokens @local_variable_name
+
+
+        #
+      if !(strippedLVN =~ /^#{occurrenceIdRegex}/).nil?
+        @specific_occurrence = strippedLVN[occIndex]
+        @occurrences_map["#{attr_val('./*/cda:id/@extension')}_#{attr_val('./*/cda:id/@root')}"] ||= @specific_occurrence
+        @source_data_criteria = "#{attr_val('./*/cda:id/@extension')}_#{attr_val('./*/cda:id/@root')}"
+        @source_data_criteria_root = ''
+        return
+      end
+
       specific_def = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="OCCR"]', HQMF2::Document::NAMESPACES)
       source_def = @entry.at_xpath('./*/cda:outboundRelationship[cda:subsetCode/@code="SOURCE"]', HQMF2::Document::NAMESPACES)
       if specific_def
-        @source_data_criteria = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')
-        @source_data_criteria_root = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@root')
+        @source_data_criteria = "#{HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')}_#{HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@root')}"
+        @source_data_criteria_root = ''
         @specific_occurrence_const = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationRoot')
         @specific_occurrence = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationExtension')
 
         # FIXME: Remove debug statements after cleaning up occurrence handling
         # build regex for extracting alpha-index of specific occurrences
-        isVariable = extract_variable
-        occurrenceIdRegex = isVariable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]_'
         occurrenceLVNRegex = isVariable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]of'
         occurrenceIdentifier = ""
-        occIndex = isVariable ? 3 : 10
         strippedSDC = strip_tokens @source_data_criteria
         strippedId = strip_tokens @id
-        strippedLVN = strip_tokens @local_variable_name
 
         # TODO: What should happen is neither @id or @lvn has occurrence label?
         # puts "Checking #{"#{occurrenceIdRegex}#{strippedSDC}"} against #{strippedId}"
@@ -657,18 +669,16 @@ module HQMF2
         if !occurrenceIdentifier.blank?
           # if it doesn't exist, add extracted occurrence to the map
           # puts "\tSetting #{@source_data_criteria}-#{@source_data_criteria_root} to #{occurrenceIdentifier}"
-          @occurrences_map[@source_data_criteria] ||= {}
-          @occurrences_map[@source_data_criteria][@source_data_criteria_root] ||= occurrenceIdentifier
+          @occurrences_map[@source_data_criteria] ||= occurrenceIdentifier
           @specific_occurrence ||= occurrenceIdentifier
           @specific_occurrence_const = "#{@source_data_criteria}".upcase
         else
           # create variable occurrences that do not already exist
           if isVariable
             # puts "\tSetting #{@source_data_criteria}-#{@source_data_criteria_root} to #{occurrenceIdentifier}"
-            @occurrences_map[@source_data_criteria] ||= {}
-            @occurrences_map[@source_data_criteria][@source_data_criteria_root] ||= occurrenceIdentifier
+            @occurrences_map[@source_data_criteria] ||= occurrenceIdentifier
           end
-          occurrence = @occurrences_map.try(:[], @source_data_criteria).try(:[], @source_data_criteria_root)
+          occurrence = @occurrences_map.try(:[], @source_data_criteria)
           raise "Could not find occurrence mapping for #{@source_data_criteria}, #{@source_data_criteria_root}" unless occurrence
           # puts "\tUsing #{occurrence} for #{@id}"
           @specific_occurrence ||= occurrence
@@ -686,7 +696,7 @@ module HQMF2
           end
         end
       elsif source_def
-        @source_data_criteria = HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@extension')
+        @source_data_criteria = "#{HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@extension')}_#{HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@root')}"
       end
     end
 
