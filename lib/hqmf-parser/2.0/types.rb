@@ -337,12 +337,7 @@ module HQMF2
     end
 
     def reference
-      if @verbose
-        value = "#{attr_val('./@extension')}_#{attr_val('./@root')}"
-        # puts "Using verbose typed reference for #{value}"
-      else
-        value = attr_val('./@extension')
-      end
+      value = "#{attr_val('./@extension')}_#{attr_val('./@root')}"
       strip_tokens value
     end
 

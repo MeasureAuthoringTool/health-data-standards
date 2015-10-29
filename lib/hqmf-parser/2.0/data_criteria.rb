@@ -81,7 +81,7 @@ module HQMF2
                     "2.16.840.1.113883.10.20.28.3.82" => {valueset_path:"./*/cda:value", result_path: nil },
                     "2.16.840.1.113883.10.20.28.3.84" => {valueset_path:"./*/cda:participation[@typeCode='ORG']/cda:role[@classCode='LOCE']/cda:code", result_path: nil },
                     "2.16.840.1.113883.10.20.28.3.85" => {valueset_path:"./*/cda:participation[@typeCode='ORG']/cda:role[@classCode='LOCE']/cda:code", result_path: nil },
-                    
+
                     "2.16.840.1.113883.10.20.28.3.110" => {valueset_path:"./*/cda:value", result_path: nil },
                     "2.16.840.1.113883.10.20.28.3.111" => {valueset_path:"./*/cda:value", result_path: nil },
                     "2.16.840.1.113883.10.20.28.3.112" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role/cda:playingManufacturedMaterial[@classCode='MMAT']/cda:code", result_path: nil },
@@ -124,7 +124,7 @@ module HQMF2
       @status = attr_val('./*/cda:statusCode/@code')
       @description = attr_val("./#{CRITERIA_GLOB}/cda:text/@value") || attr_val("./#{CRITERIA_GLOB}/cda:title/@value") || attr_val("./#{CRITERIA_GLOB}/cda:id/@extension")
       @id_xpath = './*/cda:id/@extension'
-      @id = attr_val(@id_xpath)
+      @id = "#{attr_val('./*/cda:id/@extension')}_#{attr_val('./*/cda:id/@root')}"
       handle_variable_subsets
       @code_list_xpath = './*/cda:code'
       @value_xpath = './*/cda:value'
