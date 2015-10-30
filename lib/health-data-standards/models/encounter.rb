@@ -3,6 +3,8 @@ class Encounter < Entry
   field :dischargeDisposition, as: :discharge_disposition, type: Hash
   field :admitTime, as: :admit_time, type: Integer
   field :dischargeTime, as: :discharge_time, type: Integer
+  field :principalDiagnosis, as: :principal_diagnosis, type: Hash
+  field :diagnosis, type: Hash
   
   embeds_one :transferTo, class_name: "Transfer"
   embeds_one :transferFrom, class_name: "Transfer"
