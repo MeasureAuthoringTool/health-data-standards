@@ -440,9 +440,17 @@ module HQMF2
     # Set this data criteria's attributes for extraction as a source data criteria
     # SHOULD only be called on the source data criteria instance
     def extract_as_source_data_criteria(id, source_data_criteria)
+      isVariable = extract_variable
+      occurrenceIdRegex = isVariable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]_'
       @field_values = {}
       @temporal_references = []
       @subset_operators = []
+      @negation = false
+      if !(@title =~ /#{occurrenceIdRegex}/) && @description != title()
+        # require 'byebug'; debugger if @specific_occurrence
+        @specific_occurrence = nil
+        @specific_occurrence_const = nil
+      end
       @is_source_data_criteria = true
       @id = strip_tokens(id)
       # unset variable for source data criteria to prevent duplicates
@@ -622,17 +630,24 @@ module HQMF2
         #
       if !(strippedLVN =~ /^#{occurrenceIdRegex}/).nil?
         @specific_occurrence = strippedLVN[occIndex]
-        @occurrences_map["#{attr_val('./*/cda:id/@extension')}_#{attr_val('./*/cda:id/@root')}"] ||= @specific_occurrence
-        @source_data_criteria = "#{attr_val('./*/cda:id/@extension')}_#{attr_val('./*/cda:id/@root')}"
-        @source_data_criteria_root = ''
+        specific_def = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="OCCR"]', HQMF2::Document::NAMESPACES)
+        if specific_def
+          @source_data_criteria = "#{HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')}_#{HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@root')}"
+          @source_data_criteria_root = ''
+          @occurrences_map[@source_data_criteria ] ||= @specific_occurrence
+        else
+          @source_data_criteria = "#{attr_val('./*/cda:id/@extension')}_#{attr_val('./*/cda:id/@root')}"
+          @occurrences_map[@source_data_criteria]  ||= @specific_occurrence
+          @source_data_criteria_root = ''
+        end
         return
       end
 
       specific_def = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="OCCR"]', HQMF2::Document::NAMESPACES)
       source_def = @entry.at_xpath('./*/cda:outboundRelationship[cda:subsetCode/@code="SOURCE"]', HQMF2::Document::NAMESPACES)
       if specific_def
-        @source_data_criteria = "#{HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')}_#{HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@root')}"
-        @source_data_criteria_root = ''
+        @source_data_criteria = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')
+        @source_data_criteria_root = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@root')
         @specific_occurrence_const = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationRoot')
         @specific_occurrence = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationExtension')
 
@@ -666,6 +681,19 @@ module HQMF2
           occurrenceIdentifier = strippedId[occIndex]
         end
 
+        # TODO: What should happen is neither @id or @lvn has occurrence label?
+        # puts "Checking #{"#{occurrenceIdRegex}#{strippedSDC}"} against #{strippedId}"
+        # puts "Checking #{"#{occurrenceLVNRegex}#{strippedSDC}"} against #{strippedLVN}"
+        if !(strippedSDC =~ /^#{occurrenceIdRegex}/).nil?
+          occurrenceIdentifier = strippedSDC[occIndex]
+        elsif !(strippedSDC =~ /^^#{occurrenceIdRegex}qdm_var_/).nil?
+          occurrenceIdentifier = strippedSDC[occIndex]
+        elsif !(strippedSDC =~ /^#{occurrenceLVNRegex}/).nil?
+          occurrenceIdentifier = strippedSDC[occIndex]
+        elsif !(strippedSDC =~ /^#{occurrenceLVNRegex}qdm_var_/).nil?
+          occurrenceIdentifier = strippedSDC[occIndex]
+        end
+        @source_data_criteria = "#{@source_data_criteria}_#{@source_data_criteria_root}"
         if !occurrenceIdentifier.blank?
           # if it doesn't exist, add extracted occurrence to the map
           # puts "\tSetting #{@source_data_criteria}-#{@source_data_criteria_root} to #{occurrenceIdentifier}"
