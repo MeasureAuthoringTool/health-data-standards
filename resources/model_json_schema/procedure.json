@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  
+  "definitions" :  {
+    "Procedure" : {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Procedure schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "allOf": [
+        { "$ref": "entry.json#/definitions/Entry"},
+        { "properties": {
+            "incisionTime": {
+              "$ref": "common.json#/definitions/SecondsSinceEpoch"
+            },
+
+            "ordinality" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "source" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "anatomicalApproach" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "anatomicalTarget" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "reaction" : {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "method" : {
+              "type": "object",
+              "additionalProperties": true
+            },
+
+            "radiation_dose" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "radiation_duration" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "facility": {
+              "$ref": "facility.json#/definitions/Facility"
+            },
+
+	        "performer_id": {
+	          "$ref": "common.json#/definitions/BsonObjectId"
+	        }
+          }
+        }
+      ]
+    }
+  }
+}

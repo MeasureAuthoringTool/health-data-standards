@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  
+  "definitions" :  {
+    "Facility" : {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Facility schema.",
+      "properties": {
+        "name": {
+          "type": ["string", "null"]
+        },
+        "code": {
+          "type": ["null", "object"],
+          "additionalProperties": true,
+          "properties": {}
+        },
+        "start_Time": {
+          "$ref": "common.json#/definitions/SecondsSinceEpoch"
+        },
+        "end_Time": {
+          "$ref": "common.json#/definitions/SecondsSinceEpoch"
+        },
+        "addresses": {
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "additionalItems": true,
+          "items": {
+            "$ref": "address.json#/definitions/Locatable"
+          }
+        },
+        "telecoms": {
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "additionalItems": true,
+          "items": {
+            "$ref": "telecom.json#/definitions/Contactable"
+          }
+        }
+      }
+    }
+  }
+}

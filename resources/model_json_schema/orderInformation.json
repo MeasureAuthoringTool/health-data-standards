@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  
+  "definitions" :  {
+    "OrderInformation" : {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Order Information schema.",
+      "properties": {
+        "orderNumber": {
+          "type": ["string", "null"],
+          "minLength": 1
+        },
+
+        "fills": {
+          "type": ["integer", "null"]
+        },
+
+        "quantityOrdered" : {
+          "type": "object",
+          "additionalProperties": true
+        },
+
+        "orderExpirationDateTime": {
+          "$ref": "common.json#/definitions/SecondsSinceEpoch"
+        },
+
+        "orderDateTime": {
+          "$ref": "common.json#/definitions/SecondsSinceEpoch"
+        },
+
+        "provider_id": {
+          "$ref": "common.json#/definitions/BsonObjectId"
+        }
+
+      }
+    }
+  }
+}

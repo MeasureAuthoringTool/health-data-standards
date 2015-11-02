@@ -1,0 +1,151 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+
+  "definitions": {
+
+    "Entry" : {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Entry schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "allOf": [
+        { "$ref": "thingWithCodes.json#/definitions/ThingWithCodes"},
+        { "properties": {
+          "_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "_id schema.",
+            "description": "An explanation about the purpose of this instance described by this schema."
+          },
+          "cda_identifier": {
+            "$ref": "cdaIdentifier.json#/definitions/CDAIdentifier",
+            "title": "cda identifier schema.",
+            "description": "An explanation about the purpose of this instance described by this schema."
+          },
+          "created_at": {
+            "$ref": "common.json#/definitions/ISO8601DateTime",
+            "title": "Created_at schema.",
+            "description": "An explanation about the purpose of this instance described by this schema."
+          },
+          "description": {
+            "type": ["string", "null"],
+            "minLength": 0,
+            "title": "Description schema.",
+            "description": "An explanation about the purpose of this instance described by this schema."
+          },
+          "end_time": {
+            "$ref": "common.json#/definitions/SecondsSinceEpoch"
+          },
+          "mood_code": {
+            "$ref": "common.json#/definitions/MoodCode"
+          },
+          "negationInd": {
+            "type": ["boolean", "null"],
+            "title": "NegationInd schema.",
+            "description": "An explanation about the purpose of this instance described by this schema."
+          },
+          "negationReason": {
+            "type": ["object", "null"],
+            "title": "NegationReason schema.",
+            "description": "An explanation about the purpose of this instance described by this schema."
+          },
+          "oid": {
+            "$ref": "common.json#/definitions/Oid"
+          },
+          "patient_preference": {
+            "type": "array",
+            "minItems": 0,
+            "uniqueItems": true,
+            "additionalItems": true,
+            "title": "Patient Preference schema.",
+            "description": "An explanation about the purpose of this instance described by this schema.",
+            "items": {
+              "$ref": "#/definitions/Entry"
+            }
+          },
+          "provider_preference": {
+            "type": "array",
+            "minItems": 0,
+            "uniqueItems": true,
+            "additionalItems": true,
+            "title": "Provider Preference schema.",
+            "description": "An explanation about the purpose of this instance described by this schema.",
+            "items": {
+              "$ref": "#/definitions/Entry"
+            }
+          },
+          "reason": {
+            "type": ["object", "null"],
+            "title": "Reason schema.",
+            "description": "An explanation about the purpose of this instance described by this schema."
+          },
+          "references": {
+            "type": "array",
+            "minItems": 0,
+            "uniqueItems": true,
+            "additionalItems": true,
+            "title": "References schema.",
+            "description": "An explanation about the purpose of this instance described by this schema.",
+            "items": {
+            }
+          },
+          "specifics": {
+            "type": ["string", "null"],
+            "title": "Specifics schema.",
+            "description": "An explanation about the purpose of this instance described by this schema."
+          },
+          "start_time": {
+            "$ref": "common.json#/definitions/SecondsSinceEpoch"
+          },
+          "status_code": {
+            "type": ["object", "null"],
+            "additionalProperties": true,
+            "title": "Status_code schema.",
+            "description": "An explanation about the purpose of this instance described by this schema."
+          },
+          "time": {
+            "$ref": "common.json#/definitions/SecondsSinceEpoch",
+            "title": "Time schema.",
+            "description": "An explanation about the purpose of this instance described by this schema."
+          },
+          "updated_at": {
+            "$ref": "common.json#/definitions/ISO8601DateTime",
+            "title": "Updated_at schema.",
+            "description": "An explanation about the purpose of this instance described by this schema."
+          },
+          "values": {
+            "type": "array",
+            "minItems": 0,
+            "uniqueItems": true,
+            "additionalItems": true,
+            "title": "Values schema.",
+            "description": "An explanation about the purpose of this instance described by this schema.",
+            "items": {
+              "$ref": "common.json#/definitions/ResultValue"
+            }
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Version schema.",
+            "description": "An explanation about the purpose of this instance described by this schema."
+          }
+        }
+      }
+    ],
+      "required": [
+        "description",
+        "end_time",
+        "mood_code",
+        "negationInd",
+        "negationReason",
+        "oid",
+        "reason",
+        "specifics",
+        "start_time",
+        "status_code",
+        "time"
+      ]
+    }
+  }
+}

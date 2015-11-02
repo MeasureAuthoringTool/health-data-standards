@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  
+  "definitions" :  {
+    "FunctionalStatus" : {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Functional Status schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "allOf": [
+        { "$ref": "entry.json#/definitions/Entry"},
+        { "properties": {
+            "type": {
+              "type": ["string", "null"]
+            },
+            "source": {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {}
+            }
+          }
+        }
+      ]
+    }
+  }
+}

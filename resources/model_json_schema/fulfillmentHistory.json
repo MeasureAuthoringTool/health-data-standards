@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  
+  "definitions" :  {
+    "FulfillmentHistory" : {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Fulfillment History schema.",
+      "properties": {
+        "prescriptionNumber": {
+          "type": ["string", "null"],
+          "minLength": 1
+        },
+
+        "dispenseDate": {
+          "$ref": "common.json#/definitions/SecondsSinceEpoch"
+        },
+
+        "quantityDispensed" : {
+          "type": "object",
+          "additionalProperties": true
+        },
+
+        "fillNumber": {
+          "type": ["integer", "null"]
+        },
+
+        "fillStatus": {
+          "type": ["string", "null"],
+          "minLength": 1
+        },
+
+        "provider_id": {
+          "$ref": "common.json#/definitions/BsonObjectId"
+        }
+      }
+    }
+  }
+}

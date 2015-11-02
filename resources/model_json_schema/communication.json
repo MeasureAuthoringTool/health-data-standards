@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  
+  "definitions" :  {
+    "Communication" : {
+      "type": "object",
+      "additionalProperties": true,
+      "allOf": [
+        { "$ref": "entry.json#/definitions/Entry"},
+        { "properties": {
+            "direction": {
+              "type": ["string", "null"],
+              "minLength": 0
+            }
+          }
+        }
+      ]
+    }
+  }
+}
