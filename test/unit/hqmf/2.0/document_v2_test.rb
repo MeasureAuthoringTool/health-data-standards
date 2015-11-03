@@ -64,10 +64,10 @@ class DocumentV2Test < Minitest::Test
       assert_equal a.name, "Reference"
     end
 
-    criteria = @model.data_criteria('negStatinMedOrderOnDischarge')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('negStatinMedOrderOnDischarge') }
     assert criteria.negation
 
-    criteria = @model.data_criteria('principalActiveDiagnosis_AMI')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('principalActiveDiagnosis_AMI') }
     assert_equal criteria.status, "performed"
 
     all_population_criteria = @model.all_population_criteria
@@ -94,51 +94,52 @@ class DocumentV2Test < Minitest::Test
     denex = @model.population_criteria('DENEX')
     assert_equal denex.preconditions.size, 1
 
-    criteria = @model.data_criteria('statinMedOrderOnDischarge')
+
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('statinMedOrderOnDischarge') }
     assert_nil criteria.status
     assert criteria.title, "statinMedOrderOnDischarge"
 
-    criteria = @model.data_criteria('principalActiveDiagnosis_AMI')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('principalActiveDiagnosis_AMI') }
     assert criteria.status, "performed"
     assert criteria.title, "Problem"
 
-    criteria = @model.data_criteria('inpatientEncounterAMI')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('inpatientEncounterAMI') }
     assert criteria.status, "performed"
     assert criteria.title, "Encounter Inpatient SNOMED-CT Value Set"
 
-    criteria = @model.data_criteria('PatientCharacteristicBirthdate')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('PatientCharacteristicBirthdate') }
     assert_nil criteria.status
     assert criteria.title, "birth date"
 
-    criteria = @model.data_criteria('clinicalTrialParticipant')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('clinicalTrialParticipant') }
     assert_nil criteria.status
     assert criteria.title, "Clinical Trial Participant"
 
-    criteria = @model.data_criteria('InterventionPerformedComfortMeasureOnly')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('InterventionPerformedComfortMeasureOnly') }
     assert_nil criteria.status
     assert criteria.title, "Hospital Measures - Comfort Measure Only Intervention SNOMED-CT Value Set"
 
-    criteria = @model.data_criteria('dischargedDuringInpatientEncounterAMI')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('dischargedDuringInpatientEncounterAMI') }
     assert_nil criteria.status
     assert criteria.title, "dischargedDuringInpatientEncounterAMI"
 
-    criteria = @model.data_criteria('LDLResultLessThan100_24hr')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('LDLResultLessThan100_24hr') }
     assert criteria.status, "performed"
     assert criteria.title, "LDL-c LOINC Value Set"
 
-    criteria = @model.data_criteria('LDLResultLessThan100_30d')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('LDLResultLessThan100_30d') }
     assert criteria.status, "performed"
     assert criteria.title, "LDL-c LOINC Value Set"
 
-    criteria = @model.data_criteria('negStatinMedOrderOnDischarge')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('negStatinMedOrderOnDischarge') }
     assert_nil criteria.status
     assert criteria.title, "negStatinMedOrderOnDischarge"
 
-    criteria = @model.data_criteria('negActiveDischargeMedStatin')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('negActiveDischargeMedStatin') }
     assert criteria.status, "active"
     assert criteria.title, "Discharge Medication"
 
-    criteria = @model.data_criteria('noStatinsWithMedicalReason')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('noStatinsWithMedicalReason') }
     assert_nil criteria.status
     assert criteria.title, "noStatinsWithMedicalReason"
 
@@ -147,15 +148,15 @@ class DocumentV2Test < Minitest::Test
       puts ">>> #{x.id} -- #{x.title}"
     end
 
-    criteria = @model.data_criteria('DiabetesMedNotAdministeredForNoStatedReason')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('DiabetesMedNotAdministeredForNoStatedReason') }
     assert criteria.negation
     assert !criteria.negation_code_list_id
 
-    criteria = @model.data_criteria('DiabetesMedNotAdministeredPatientAllergic')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('DiabetesMedNotAdministeredPatientAllergic') }
     assert criteria.negation
     assert_equal '1.2.3.4', criteria.negation_code_list_id
 
-    criteria = @model.data_criteria('DummyAmbulatoryEncounterWithSource')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('DummyAmbulatoryEncounterWithSource') }
     assert criteria.field_values.has_key?('SOURCE')
     assert_equal HQMF::Coded, criteria.field_values['SOURCE'].class
     assert_equal '2.16.840.1.113883.3.464.0003.95.02.0005', criteria.field_values['SOURCE'].code_list_id
@@ -166,7 +167,7 @@ class DocumentV2Test < Minitest::Test
     assert_equal 'ENCOUNTER_AMBULATORY', criteria.specific_occurrence_const
     assert_equal 'A', criteria.specific_occurrence
 
-    criteria = @model.data_criteria('birthdateFiftyYearsBeforeMeasurementPeriod')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('birthdateFiftyYearsBeforeMeasurementPeriod') }
     assert_equal :characteristic, criteria.type
     assert_equal 'Birthdate', criteria.title
     assert_equal :birthtime, criteria.property
@@ -178,7 +179,7 @@ class DocumentV2Test < Minitest::Test
     assert_equal 'a', criteria.temporal_references[0].range.low.unit
     assert !criteria.temporal_references[0].range.high
 
-    criteria = @model.data_criteria('DummyProcedureAfterHasDiabetesWithCount')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('DummyProcedureAfterHasDiabetesWithCount') }
     assert_equal :procedures, criteria.type
     assert_equal 'performed', criteria.status
     assert_equal '20100101', criteria.effective_time.low.value
@@ -197,7 +198,7 @@ class DocumentV2Test < Minitest::Test
     assert_equal 'SUMMARY', criteria.subset_operators[0].type
     assert_equal '2', criteria.subset_operators[0].value.low.value
 
-    criteria = @model.data_criteria('EDorInpatientEncounter')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('EDorInpatientEncounter') }
     assert_equal :encounters, criteria.type
     assert !criteria.inline_code_list
     assert_equal '2.16.840.1.113883.3.464.1.42', criteria.code_list_id
@@ -205,21 +206,21 @@ class DocumentV2Test < Minitest::Test
     assert criteria.effective_time.high.derived?
     assert_equal "EndDate.add(new PQ(-2,'a'))", criteria.effective_time.high.expression
 
-    criteria = @model.data_criteria('anyDiabetes')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('anyDiabetes') }
     assert_equal :derived, criteria.type
     assert_equal 'UNION', criteria.derivation_operator
     assert_equal 2, criteria.children_criteria.size
     assert_equal 'HasDiabetes', criteria.children_criteria[0]
     assert_equal 'HasGestationalDiabetes', criteria.children_criteria[1]
 
-    criteria = @model.data_criteria('HasPolycysticOvaries')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('HasPolycysticOvaries') }
     assert_equal :conditions, criteria.type
     assert_equal '2.16.840.1.113883.3.464.1.98', criteria.code_list_id
     assert criteria.effective_time.high
     assert criteria.effective_time.high.derived?
     assert_equal 'EndDate', criteria.effective_time.high.expression
 
-    criteria = @model.data_criteria('HbA1C')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('HbA1C') }
     assert_equal :laboratory_tests, criteria.type
     assert_equal 'HbA1C', criteria.title
     assert_equal 1, criteria.subset_operators.length
@@ -233,7 +234,7 @@ class DocumentV2Test < Minitest::Test
     assert_equal '9', criteria.value.low.value
     assert_equal '%', criteria.value.low.unit
 
-    criteria = @model.data_criteria('DummyInlineCodedResult')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('DummyInlineCodedResult') }
     assert_equal :laboratory_tests, criteria.type
     assert_equal 'DummyInlineCodedResult', criteria.title
     assert_equal 0, criteria.subset_operators.length
@@ -244,7 +245,7 @@ class DocumentV2Test < Minitest::Test
     assert_equal '1.2.3.4', criteria.value.system
     assert_equal 'xyzzy', criteria.value.code
 
-    criteria = @model.data_criteria('DummyExternalCodedResult')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('DummyExternalCodedResult') }
     assert_equal :laboratory_tests, criteria.type
     assert_equal 'DummyExternalCodedResult', criteria.title
     assert_equal 0, criteria.subset_operators.length
@@ -254,7 +255,7 @@ class DocumentV2Test < Minitest::Test
     assert_equal HQMF::Coded, criteria.value.class
     assert_equal '1.2.3.4', criteria.value.code_list_id
 
-    criteria = @model.data_criteria('DiabetesMedAdministered')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('DiabetesMedAdministered') }
     assert !criteria.negation
     assert_equal :medications, criteria.type
     assert_equal 'DiabetesMedAdministered', criteria.title
@@ -265,7 +266,7 @@ class DocumentV2Test < Minitest::Test
     assert_equal true, criteria.effective_time.low.derived?
     assert_equal "StartDate.add(new PQ(-2,'a'))", criteria.effective_time.low.expression
 
-    criteria = @model.data_criteria('DiabetesMedSupplied')
+    criteria = @model.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?('DiabetesMedSupplied') }
     assert_equal :medications, criteria.type
     assert_equal 'DiabetesMedSupplied', criteria.title
     assert_equal '2.16.840.1.113883.3.464.1.94', criteria.code_list_id

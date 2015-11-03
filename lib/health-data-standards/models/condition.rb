@@ -8,6 +8,7 @@ class Condition < Entry
   field :severity,          type: Hash # Currently unsupported by any importers
   field :laterality,        type: Hash
   field :anatomical_target, type: Hash
+  field :anatomical_location, type: Hash
 
   embeds_many :treating_provider,  class_name: "Provider"
 

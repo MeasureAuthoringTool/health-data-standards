@@ -114,7 +114,12 @@ module HQMF2
       if @entry.at_xpath('./cda:uncertainRange', HQMF2::Document::NAMESPACES)
         model_type = 'IVL_PQ'
       end
-      HQMF::Range.new(model_type, lm, hm, wm)
+
+      if (lm.nil? || lm.kind_of?(HQMF::AnyValue)) && (hm.nil? || hm.kind_of?(HQMF::AnyValue))
+        HQMF::AnyValue.new
+      else
+        HQMF::Range.new(model_type, lm, hm, wm)
+      end
     end
 
     private
@@ -332,12 +337,7 @@ module HQMF2
     end
 
     def reference
-      if @verbose
-        value = "#{attr_val('./@extension')}_#{attr_val('./@root')}"
-        # puts "Using verbose typed reference for #{value}"
-      else
-        value = attr_val('./@extension')
-      end
+      value = "#{attr_val('./@extension')}_#{attr_val('./@root')}"
       strip_tokens value
     end
 

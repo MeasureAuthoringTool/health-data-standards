@@ -86,7 +86,7 @@ class FieldValuesTest < Minitest::Test
   end
 
   def assert_field_value(criteria, field)
-    dc = @doc.data_criteria(criteria)
+    dc = @doc.instance_variable_get('@data_criteria').detect { |dc| dc.id.starts_with?(criteria) }
     reaction = dc.field_values[field]
     assert reaction
     reaction
