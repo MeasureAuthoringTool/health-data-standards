@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  
+  "definitions" :  {
+    "FamilyHistory" : {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Family History schema.",
+      "allOf": [
+        { "$ref": "entry.json#/definitions/Entry"},
+        { "properties": {
+            "relationshipToPatient": {
+              "type": ["object", "null"],
+              "additionalProperties": true,
+              "properties": {}
+            },
+
+            "onsetAge": {
+              "type": ["object", "null"],
+              "additionalProperties": true,
+              "properties": {}
+            }
+          }
+        }
+      ]
+    }
+  }
+}
