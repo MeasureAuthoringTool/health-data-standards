@@ -20,7 +20,7 @@
     <value xsi:type="CD"
          code="<%= reason['code'] %>"
          codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(reason['codeSystem'] || reason['code_system']) %>"
-       <% if reason.has_key?('title') -%>
+       <% if reason.respond_to?('title') || reason.has_key?('title') -%>
          displayName="<%=reason['title']%>"
        <% end -%>
        <% if vset -%>
