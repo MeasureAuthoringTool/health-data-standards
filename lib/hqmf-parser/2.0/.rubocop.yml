@@ -1,0 +1,34 @@
+#inherit_from: .rubocop-todo.yml
+
+AllCops:
+  DisplayCopNames: true
+  RunRailsCops: true
+
+Metrics/AbcSize:
+  Max: 32
+
+Metrics/ClassLength:
+  CountComments: false
+  Max: 200
+
+Metrics/ModuleLength:
+  CountComments: false
+  Max: 200
+
+Metrics/LineLength:
+  Max: 150
+  AllowURI: true
+  URISchemes:
+    - http
+    - https
+
+Metrics/MethodLength:
+  CountComments: false
+  Max: 20
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+# Avoid complex methods.
+Style/GuardClause:
+  MinBodyLength: 100
