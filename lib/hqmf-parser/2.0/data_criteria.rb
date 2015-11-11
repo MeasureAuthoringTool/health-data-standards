@@ -371,18 +371,11 @@ module HQMF2
       return unless @variable
       if @do_not_group
         if !@data_criteria_references["GROUP_#{@children_criteria.first}"].nil?
-          @children_criteria[0] = "GROUP_#{@children_criteria.first}" if @children_criteria && @children_criteria.length == 1
+          @children_criteria[0] = "GROUP_#{@children_criteria.first}" if @children_criteria.length == 1
         elsif @children_criteria.length == 1
-          reference_criteria = @data_criteria_references[@children_criteria.first] if @children_criteria.first
-          @title ||= reference_criteria.title
-          @type ||= reference_criteria.subset_operators
-          @definition ||= reference_criteria.definition
-          @status ||= reference_criteria.status
-          @code_list_id ||= reference_criteria.code_list_id
-          @temporal_references = reference_criteria.temporal_references if @temporal_references.empty?
-          @subset_operators ||= reference_criteria.subset_operators
-          @variable ||= reference_criteria.variable
-          @value ||= reference_criteria.value
+          return if @children_criteria.first.blank?
+          reference_criteria = @data_criteria_references[@children_criteria.first]
+          duplicate_child_info(reference_criteria)
           @children_criteria = reference_criteria.children_criteria
         end
         return
@@ -390,21 +383,28 @@ module HQMF2
       @variable = false
       @id = "GROUP_#{@id}"
       if @children_criteria.length == 1 && @children_criteria[0] =~ /GROUP_/
-        reference_criteria = @data_criteria_references[@children_criteria.first] if @children_criteria.first
-        @title = reference_criteria.title
-        @type = reference_criteria.subset_operators
+        return if @children_criteria.first.blank?
+        reference_criteria = @data_criteria_references[@children_criteria.first]
+        duplicate_child_info(reference_criteria)
         @definition = reference_criteria.definition
         @status = reference_criteria.status
-        @code_list_id = reference_criteria.code_list_id
-        @temporal_references = reference_criteria.temporal_references
-        @subset_operators = reference_criteria.subset_operators
-        @variable = reference_criteria.variable
-        @value = reference_criteria.value
         @children_criteria = []
       end
       @specific_occurrence = nil
       @specific_occurrence_const = nil
       DataCriteria.new(@entry, @data_criteria_references, @occurrences_map).extract_as_grouper
+    end
+
+    def duplicate_child_info(child_ref)
+      @title ||= child_ref.title
+      @type ||= child_ref.subset_operators
+      @definition ||= child_ref.definition
+      @status ||= child_ref.status
+      @code_list_id ||= child_ref.code_list_id
+      @temporal_references = child_ref.temporal_references if @temporal_references.empty?
+      @subset_operators ||= child_ref.subset_operators
+      @variable ||= child_ref.variable
+      @value ||= child_ref.value
     end
 
     # Set this data criteria's attributes for extraction as a source data criteria
