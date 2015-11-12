@@ -84,15 +84,11 @@ module HQMF2
         verbose_ref_id = strip_tokens("#{HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')}_#{HQMF2::Utilities.attr_val(reference, 'cda:id/@root')}")
         reference_criteria = @data_criteria_references[ref_id] if ref_id
         reference_criteria = @data_criteria_references[verbose_ref_id] if verbose_ref_id && !reference_criteria
-        unless reference_criteria
-          #puts "MISSING_DC_REF: #{ref_id} & #{verbose_ref_id}"
-        end
         if isGrouper && reference_criteria.try(:variable)
           idExtension_xpath = './*/cda:id/@extension'
           idRoot_xpath = './*/cda:id/@root'
           return if !(attr_val(idExtension_xpath) =~ /^occ[A-Z]of_qdm_var_/).nil?
           @verbose_reference = true
-          #puts "Updated grouper: #{@id} #{@verbose_reference}"
         end
       end
 
@@ -221,20 +217,6 @@ module HQMF2
         if defs
           @definition = defs['definition']
           @status = defs['status'].length > 0 ? defs['status'] : nil
-          # Only attempt to grab settings if no status is present
-          begin
-            settings = HQMF::DataCriteria.get_settings_for_definition(defs['definition'], defs['status'])
-            if settings
-              # apply information from settings to the data criteria
-              @title = settings["title"] if !settings["title"].blank?
-              @definition = settings["definition"] if !settings["definition"].blank?
-              @status = settings["status"] if !settings["status"].blank?
-              @category = settings["category"] if !settings["category"].blank?
-              @hard_status = settings["hard_status"]
-            end
-          rescue Exception
-            # ignore error (none should exist)
-          end unless @status
           found ||= true
         elsif template_id == VARIABLE_TEMPLATE
           @derivation_operator = HQMF::DataCriteria::INTERSECT if @derivation_operator == HQMF::DataCriteria::XPRODUCT
@@ -361,11 +343,6 @@ module HQMF2
                              @specific_occurrence_const, @source_data_criteria, comments, @variable)
     end
 
-    # Return a new DataCriteria instance with only source data criteria attributes set
-    # def extract_source_data_criteria
-    #   DataCriteria.new(@entry, @data_criteria_references, @occurrences_map).extract_as_source_data_criteria(@id, @source_data_criteria)
-    # end
-
     # Return a new DataCriteria instance with only grouper attributes set
     def extract_variable_grouper
       return unless @variable
@@ -406,29 +383,6 @@ module HQMF2
       @variable ||= child_ref.variable
       @value ||= child_ref.value
     end
-
-    # Set this data criteria's attributes for extraction as a source data criteria
-    # SHOULD only be called on the source data criteria instance
-    # def extract_as_source_data_criteria(id, source_data_criteria)
-    #   isVariable = extract_variable
-    #   occurrenceIdRegex = isVariable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]_'
-    #   @field_values = {}
-    #   @temporal_references = []
-    #   @subset_operators = []
-    #   @negation = false
-    #   if !(@title =~ /#{occurrenceIdRegex}/) && @description != title()
-    #     @specific_occurrence = nil
-    #     @specific_occurrence_const = nil
-    #   end
-    #   @is_source_data_criteria = true
-    #   @id = strip_tokens(id)
-    #   # unset variable for source data criteria to prevent duplicates
-    #   if @id.start_with? "GROUP_"
-    #     @title = "GROUP_#{title}"
-    #     @variable = false
-    #   end
-    #   self
-    # end
 
     # Set this data criteria's attributes for extraction as a grouper data criteria
     # for encapsulating a variable data criteria
