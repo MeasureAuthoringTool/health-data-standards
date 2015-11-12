@@ -629,8 +629,8 @@ module HQMF2
           # puts "Fixing SO grouper empty children for #{@id} with #{@source_data_criteria}"
           @children_criteria << @source_data_criteria
         end
-        if @children_criteria.length == 1 && (@children_criteria.first == @source_data_criteria || @source_data_criteria.nil?)
-          reference_criteria = @data_criteria_references[@children_criteria.first] if @children_criteria.first
+        if @children_criteria.length == 1 && @children_criteria.first && (@children_criteria.first == @source_data_criteria || @source_data_criteria.nil?)
+          reference_criteria = @data_criteria_references[@children_criteria.first]
           unless reference_criteria.nil?
             @do_not_group = true  # easier to track than all testing all features of these cases
             @subset_operators ||= reference_criteria.subset_operators
@@ -651,7 +651,7 @@ module HQMF2
         unless (@negation && code_id == "REASON") || code_id.nil?
           value = DataCriteria.parse_value(field, './*/cda:value')
           value ||= DataCriteria.parse_value(field, './*/cda:effectiveTime')
-          fields[code_id] = value if value && code_id
+          fields[code_id] = value if value
         end
       end
       # special case for facility location which uses a very different structure

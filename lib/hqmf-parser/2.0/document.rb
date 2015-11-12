@@ -75,9 +75,11 @@ module HQMF2
         handle_variable(criteria) if criteria.variable
 
         @reference_ids.concat(criteria.children_criteria)
-        criteria.temporal_references.each do |tr|
-          @reference_ids << tr.reference.id if tr.reference.id != HQMF::Document::MEASURE_PERIOD_ID
-        end if criteria.temporal_references
+        if criteria.temporal_references
+          criteria.temporal_references.each do |tr|
+            @reference_ids << tr.reference.id if tr.reference.id != HQMF::Document::MEASURE_PERIOD_ID
+          end
+        end
         @data_criteria << criteria
       end
 
@@ -178,15 +180,24 @@ module HQMF2
 
       # Push in the stratification populations after the unstratified populations
       @populations.push *@stratifications
-      
+
       @reference_ids.uniq
 
       # Remove any data criteria from the main data criteria list that already has an equivalent member and no references to it
       # The goal of this is to remove any data criteria that should not be purely a source
       # Ignore any referenced by child criteria
       base_criteria_defs = ['patient_characteristic_ethnicity', 'patient_characteristic_gender', 'patient_characteristic_payer', 'patient_characteristic_race']
-      @data_criteria.reject! {|dc| @reference_ids.index(dc.id).nil? && !base_criteria_defs.include?(dc.definition) && !@data_criteria.detect{|dc2| dc != dc2 && dc.code_list_id == dc2.code_list_id && detect_criteria_covered_by_another(dc, dc2)}.nil?}
-
+      @data_criteria.reject! do |dc|
+        to_reject = true
+        to_reject &&= @reference_ids.index(dc.id).nil? # don't reject if anything refers directly to this criteria
+        to_reject &&= !base_criteria_defs.include?(dc.definition) # don't reject if it is a "base" criteria (no references but must exist)
+        to_reject &&= !@data_criteria.detect do |dc2|
+                        similar_criteria = true
+                        similar_criteria &&= dc != dc2 # Don't check against itself
+                        similar_criteria &&= dc.code_list_id == dc2.code_list_id # Ensure code list ids are the same
+                        similar_criteria &&= detect_criteria_covered_by_another(dc, dc2)
+                      end.nil? # don't reject unless there is a similar element
+      end
     end
 
     # Get the title of the measure
@@ -338,25 +349,23 @@ module HQMF2
 
     # Check if one data criteria contains the others information by checking that one has everything the other has (or more)
     def detect_criteria_covered_by_another(data_criteria, check_criteria)
-      same_definition = data_criteria.definition == check_criteria.definition
-      same_status = data_criteria.status == check_criteria.status
-      same_children = data_criteria.children_criteria.sort.join(",") == check_criteria.children_criteria.sort.join(",")
-      derived_variable = data_criteria.variable
-      derived_operator = data_criteria.derivation_operator
-      derived_subset_operator = !data_criteria.subset_operators.empty?
+      base_checks = true
 
-      same_value = data_criteria.value.nil? && !check_criteria.value.nil? || data_criteria.value.try(:to_model).try(:to_json) == check_criteria.value.try(:to_model).try(:to_json)
-      same_temporal_references = check_criteria.temporal_references.nil? || data_criteria.temporal_references.nil? && !check_criteria.temporal_references.nil? || data_criteria.temporal_references.empty?
-      same_field_values = data_criteria.field_values.nil? && !check_criteria.field_values.nil? || data_criteria.field_values.try(:to_json) == check_criteria.field_values.try(:to_json) || data_criteria.field_values.empty?
-      same_negation_values = data_criteria.negation_code_list_id.nil? && !check_criteria.negation_code_list_id.nil? || data_criteria.negation_code_list_id == check_criteria.negation_code_list_id
-      no_specific_occurence = data_criteria.specific_occurrence.nil?
-      if same_definition && same_status && same_children &&
-         !derived_variable && !derived_operator && !derived_subset_operator && same_value &&
-         same_temporal_references && same_field_values && same_negation_values
-        return true
-      else
-        return false
-      end
+      # Check whhether basic features are the same
+      base_checks &&= data_criteria.definition == check_criteria.definition # same definition
+      base_checks &&= data_criteria.status == check_criteria.status # same status
+      base_checks &&= data_criteria.children_criteria.sort.join(",") == check_criteria.children_criteria.sort.join(",") # same children
+      # Ensure it doesn't contain basic elements that should not be removed
+      base_checks &&= !data_criteria.variable # Ensure it's not a variable
+      base_checks &&= data_criteria.derivation_operator.nil? # Ensure it doesn't it have a derivation operator
+      base_checks &&= data_criteria.subset_operators.empty? # Ensure it doesn' it have a subset operator
+
+      same_value = data_criteria.value.nil? || data_criteria.value.try(:to_model).try(:to_json) == check_criteria.value.try(:to_model).try(:to_json)
+      same_temporal_references = data_criteria.temporal_references.nil? || data_criteria.temporal_references.empty?
+      same_field_values = data_criteria.field_values.nil? || data_criteria.field_values.empty? || data_criteria.field_values.try(:to_json) == check_criteria.field_values.try(:to_json)
+      same_negation_values = data_criteria.negation_code_list_id.nil? || data_criteria.negation_code_list_id == check_criteria.negation_code_list_id
+
+      base_checks && same_value && same_temporal_references && same_field_values && same_negation_values
     end
 
     def detect_unstratified
@@ -420,7 +429,7 @@ module HQMF2
     def extract_preconditions(precondition, list)
       unless precondition.preconditions.empty?
         precondition.preconditions.each do |prcn|
-          extract_preconditions prcn, list
+          extract_preconditions(prcn, list)
           list << prcn if prcn.reference
         end
       end
