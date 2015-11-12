@@ -178,10 +178,7 @@ module HQMF2
 
       # Push in the stratification populations after the unstratified populations
       @populations.push *@stratifications
-      handle_verbose_references
-      #
-      # @data_criteria.each do |dc|
-      # end
+      
       @reference_ids.uniq
 
       # Remove any data criteria from the main data criteria list that already has an equivalent member and no references to it
@@ -418,51 +415,6 @@ module HQMF2
           @source_data_criteria << sdc_clone
         end
       end
-    end
-
-    # Detect missing references and update to use extension & root values
-    def handle_verbose_references
-      criteria_ids = @data_criteria.map(&:id)
-      referenced_criteria_ids = []
-      ref_prcns = []
-
-      @population_criteria.each do |criteria|
-        criteria.preconditions.each do |c_prcn|
-          extract_preconditions(c_prcn, ref_prcns)
-          ref_prcns << c_prcn if c_prcn.reference
-        end
-      end
-
-      ref_prcns.each do |ref_prcn|
-        referenced_criteria_ids << ref_prcn.reference.id
-        if !criteria_ids.include?(ref_prcn.reference.id)
-          # puts "\t updating PRCN REF: #{ref_prcn.reference.id}"
-          ref_prcn.reference.update_verbose(true)
-        end
-      end
-
-      temporal_references = @data_criteria.map(&:temporal_references).flatten.compact
-      ref_trs = []
-      temporal_references.each do |tr|
-        ref_trs << tr if tr.reference
-      end
-
-      ref_trs.each do |ref_tr|
-        referenced_criteria_ids << ref_tr.reference.id
-        if !criteria_ids.include?(ref_tr.reference.id)
-          # puts "\t updating TR REF: #{ref_tr.reference.id}"
-          ref_tr.reference.update_verbose(true)
-        end
-      end
-
-      children_criteria = @data_criteria.map(&:children_criteria).flatten
-      children_criteria.each do |cc|
-        referenced_criteria_ids << cc
-      end
-
-      # TODO: Resolve missing references, if required
-      # puts "Missing references: "
-      # puts referenced_criteria_ids.uniq - criteria_ids
     end
 
     def extract_preconditions(precondition, list)

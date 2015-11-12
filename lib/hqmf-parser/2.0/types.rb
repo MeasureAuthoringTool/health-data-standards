@@ -369,9 +369,8 @@ module HQMF2
   class Reference
     include HQMF2::Utilities
 
-    def initialize(entry, verbose=false)
+    def initialize(entry)
       @entry = entry
-      @verbose = verbose
     end
 
     def id
@@ -387,10 +386,6 @@ module HQMF2
 
     def source_ref_id
       attr_val('./@extension')
-    end
-
-    def update_verbose(verbose=false)
-      @verbose = verbose
     end
 
     def to_model

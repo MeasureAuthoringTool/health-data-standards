@@ -78,12 +78,10 @@ module HQMF2
       isGrouper = @entry.at_xpath("./cda:grouperCriteria")
       references = @entry.xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
       reference = references.first
-      # TODO: Figure out when exactly to handle variable references as verbose
+      # Variables should now always handled as verbose
       if reference && references.length == 1
-        ref_id = strip_tokens(HQMF2::Utilities.attr_val(reference, 'cda:id/@extension'))
         verbose_ref_id = strip_tokens("#{HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')}_#{HQMF2::Utilities.attr_val(reference, 'cda:id/@root')}")
-        reference_criteria = @data_criteria_references[ref_id] if ref_id
-        reference_criteria = @data_criteria_references[verbose_ref_id] if verbose_ref_id && !reference_criteria
+        reference_criteria = @data_criteria_references[verbose_ref_id] if verbose_ref_id
         if isGrouper && reference_criteria.try(:variable)
           idExtension_xpath = './*/cda:id/@extension'
           idRoot_xpath = './*/cda:id/@root'
@@ -125,13 +123,9 @@ module HQMF2
         reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
         ref_id = strip_tokens(HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')) if reference
         verbose_ref_id = strip_tokens("#{HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')}_#{HQMF2::Utilities.attr_val(reference, 'cda:id/@root')}") if reference
-        reference_criteria = @data_criteria_references[ref_id] if ref_id
-        reference_criteria = @data_criteria_references[verbose_ref_id] if verbose_ref_id && !reference_criteria
+        reference_criteria = @data_criteria_references[verbose_ref_id] if verbose_ref_id
         # if the reference is derived, pull from the original variable
-        if reference_criteria && reference_criteria.definition == 'derived'
-          reference_criteria = @data_criteria_references["GROUP_#{ref_id}"]
-          reference_criteria = @data_criteria_references["GROUP_#{verbose_ref_id}"] if verbose_ref_id && !reference_criteria
-        end
+        reference_criteria = @data_criteria_references["GROUP_#{verbose_ref_id}"] if reference_criteria && reference_criteria.definition == 'derived'
         if reference_criteria
           # if there are no referenced children, then it's a variable representing
           # a single data criteria, so just reference it
@@ -187,10 +181,8 @@ module HQMF2
           @definition = 'derived'
         when nil
           reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
-          ref_id = HQMF2::Utilities.attr_val(reference, 'cda:id/@extension') if reference
           verbose_ref_id = "#{HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')}_#{HQMF2::Utilities.attr_val(reference, 'cda:id/@root')}" if reference
-          reference_criteria = @data_criteria_references[strip_tokens(ref_id)] if reference
-          reference_criteria = @data_criteria_references[strip_tokens(verbose_ref_id)] if verbose_ref_id && !reference_criteria
+          reference_criteria = @data_criteria_references[strip_tokens(verbose_ref_id)] if verbose_ref_id
           if reference_criteria
             @definition = reference_criteria.definition
             @status = reference_criteria.status
@@ -347,11 +339,11 @@ module HQMF2
     def extract_variable_grouper
       return unless @variable
       if @do_not_group
-        if !@data_criteria_references["GROUP_#{@children_criteria.first}"].nil?
-          @children_criteria[0] = "GROUP_#{@children_criteria.first}" if @children_criteria.length == 1
-        elsif @children_criteria.length == 1
-          return if @children_criteria.first.blank?
+        if !@data_criteria_references["GROUP_#{@children_criteria.first}"].nil? && @children_criteria.length == 1
+          @children_criteria[0] = "GROUP_#{@children_criteria.first}"
+        elsif @children_criteria.length == 1 && @children_criteria.first.present?
           reference_criteria = @data_criteria_references[@children_criteria.first]
+          return if reference_criteria.nil?
           duplicate_child_info(reference_criteria)
           @children_criteria = reference_criteria.children_criteria
         end
@@ -360,8 +352,8 @@ module HQMF2
       @variable = false
       @id = "GROUP_#{@id}"
       if @children_criteria.length == 1 && @children_criteria[0] =~ /GROUP_/
-        return if @children_criteria.first.blank?
         reference_criteria = @data_criteria_references[@children_criteria.first]
+        return if reference_criteria.nil?
         duplicate_child_info(reference_criteria)
         @definition = reference_criteria.definition
         @status = reference_criteria.status
@@ -511,14 +503,7 @@ module HQMF2
 
     def extract_child_criteria
       @entry.xpath("./*/cda:outboundRelationship[@typeCode='COMP']/cda:criteriaReference/cda:id", HQMF2::Document::NAMESPACES).collect do |ref|
-        child_ref = Reference.new(ref)
-        if @data_criteria_references.keys.include?(strip_tokens child_ref.id)
-          # puts "Updated CC: #{child_ref.id}"
-          child_ref.update_verbose(true)
-          # puts "ERROR\t Could not find verbose CC: #{child_ref.id}" unless @data_criteria_references.keys.include?(strip_tokens child_ref.id)
-        end
-        # TODO  This may not be correct. This makes the child-criteria refer to the source, rather than it's own data criteria.
-        child_ref.id
+        Reference.new(ref).id
       end.compact
     end
 
@@ -624,14 +609,14 @@ module HQMF2
         @specific_occurrence = "A" unless @specific_occurrence
         @specific_occurrence_const = @source_data_criteria.upcase unless @specific_occurrence_const
 
-        if @verbose_reference
-          unless @data_criteria_references.keys.include?(strip_tokens @source_data_criteria)
-            # puts "Updated SDC: #{@source_data_criteria}"
-            @source_data_criteria = "#{@source_data_criteria}_#{@source_data_criteria_root}"
-            @specific_occurrence_const = @source_data_criteria.upcase
-            puts "ERROR\t Could not find verbose SDC: #{@source_data_criteria}" unless @data_criteria_references.keys.include?(strip_tokens @source_data_criteria)
-          end
-        end
+        # if @verbose_reference
+        #   unless @data_criteria_references.keys.include?(strip_tokens @source_data_criteria)
+        #     # puts "Updated SDC: #{@source_data_criteria}"
+        #     @source_data_criteria = "#{@source_data_criteria}_#{@source_data_criteria_root}"
+        #     @specific_occurrence_const = @source_data_criteria.upcase
+        #     puts "ERROR\t Could not find verbose SDC: #{@source_data_criteria}" unless @data_criteria_references.keys.include?(strip_tokens @source_data_criteria)
+        #   end
+        # end
       elsif source_def
         @source_data_criteria = "#{HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@extension')}_#{HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@root')}"
       end
