@@ -34,9 +34,9 @@ module HQMF2
       @occurrences_map = occurrences_map
       @local_variable_name = extract_local_variable_name
       @status = attr_val('./*/cda:statusCode/@code')
-      @description = attr_val("./#{CRITERIA_GLOB}/cda:text/@value") || attr_val("./#{CRITERIA_GLOB}/cda:title/@value") || attr_val("./#{CRITERIA_GLOB}/cda:id/@extension")
       @id_xpath = './*/cda:id/@extension'
       @id = "#{attr_val('./*/cda:id/@extension')}_#{attr_val('./*/cda:id/@root')}"
+      @description = extract_description
       handle_variable_subsets
       @code_list_xpath = './*/cda:code'
       @value_xpath = './*/cda:value'
@@ -138,6 +138,7 @@ module HQMF2
             @subset_operators = reference_criteria.subset_operators
             @derivation_operator = reference_criteria.derivation_operator
             @definition = reference_criteria.definition
+            @description = reference_criteria.description
             @status = reference_criteria.status
             @children_criteria = reference_criteria.children_criteria
           end
@@ -635,6 +636,7 @@ module HQMF2
             @do_not_group = true  # easier to track than all testing all features of these cases
             @subset_operators ||= reference_criteria.subset_operators
             @derivation_operator ||= reference_criteria.derivation_operator
+            @description = reference_criteria.description
             @variable = reference_criteria.variable
           end
         end
@@ -734,11 +736,37 @@ module HQMF2
 
     end
 
+    # Extract the description, with some special handling if this is a variable; the MAT has added an encoded
+    # form of the variable name in the localVariableName field, if that's available use it; if not, fall back
+    # to the extension
+    def extract_description
+      if extract_variable
+        encoded_name = attr_val("./cda:localVariableName/@value")
+        if encoded_name && encoded_name.match(/^qdm_var_/)
+          # Strip out initial qdm_var_ string, trailing _*, and possible occurrence reference
+          encoded_name.gsub!(/^qdm_var_/, '')
+          encoded_name.gsub!(/Occurrence[A-Z]of/, '')
+          # This code needs to handle measures created before the MAT added variable name hints; for those, don't strip the final identifier
+          if !encoded_name.match(/^(SATISFIES ALL|SATISFIES ANY|UNION|INTERSECTION)/)
+            encoded_name.gsub!(/_[^_]+$/, '')
+          end
+          encoded_name
+        elsif encoded_name && encoded_name.match(/^localVar_/)
+          encoded_name.gsub!(/^localVar_/, '')
+          encoded_name
+        else
+          attr_val("./#{CRITERIA_GLOB}/cda:id/@extension")
+        end
+      else
+        attr_val("./#{CRITERIA_GLOB}/cda:text/@value") || attr_val("./#{CRITERIA_GLOB}/cda:title/@value") || attr_val("./#{CRITERIA_GLOB}/cda:id/@extension")
+      end
+    end
+
     # Determine if this instance is a qdm variable
     def extract_variable
       variable = !(@local_variable_name =~ /.*qdm_var_/).nil? unless @local_variable_name.blank?
       variable ||= !(@id =~ /.*qdm_var_/).nil? unless @id.blank?
-      variable ||= false
+      !!variable
     end
 
     def extract_template_ids
