@@ -20,7 +20,7 @@ class HQMFVsSimpleTest < Minitest::Test
 
   Dir.glob(measure_files).each do | measure_filename |
     measure_name = File.basename(measure_filename, ".xml")
-    # if ["CMS190v4"].index(measure_name)
+    # if ["CMS190v4"].index(measure_name) # left in to handle subset testing
       define_method("test_#{measure_name}") do
         do_roundtrip_test(measure_filename, measure_name)
       end
@@ -43,9 +43,6 @@ class HQMFVsSimpleTest < Minitest::Test
     # ignore the attributes... these are not that important
     hqmf_model.instance_variable_set(:@attributes, [])
     simple_xml_model.instance_variable_set(:@attributes, [])
-
-    # hqmf_model.instance_variable_set(:@data_criteria, hqmf_model.referenced_data_criteria)
-    # simple_xml_model.instance_variable_set(:@data_criteria, simple_xml_model.referenced_data_criteria)
 
     # # reject the negated source data criteria... these are bad artifacts from HQMF v1.0
     # # we also want to pull those from the derived data criteria as well, but not all the negated from there, only the bad from the source data criteria

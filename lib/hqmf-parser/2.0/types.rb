@@ -45,7 +45,7 @@ module HQMF2
         attr_val("../cda:low/@value") &&
         attr_val("../@lowClosed")=='true'
 
-      equivalent = attr_val("../cda:low/@value")==attr_val("../cda:high/@value")
+      equivalent = attr_val("../cda:low/@value")==attr_val("../cda:high/@value") &&
         attr_val("../@lowClosed") !='false' &&
         attr_val("../@highClosed") !='false'
 
@@ -74,7 +74,7 @@ module HQMF2
         attr_val("../@lowClosed")!='false' &&
         !attr_val("../../../../../qdm:subsetCode/@code").nil?
 
-      less_than_equal_los || less_than_equal_tr || greater_than_equal_los || greater_than_equal_ss || greater_than_equal_tr || greater_than_equal_v || equivalent || @force_inclusive # || greater_than_equal_ss
+      less_than_equal_los || less_than_equal_tr || greater_than_equal_los || greater_than_equal_ss || greater_than_equal_tr || greater_than_equal_v || equivalent || @force_inclusive
     end
 
     def derived?
