@@ -427,11 +427,9 @@ module HQMF2
     end
 
     def extract_preconditions(precondition, list)
-      unless precondition.preconditions.empty?
-        precondition.preconditions.each do |prcn|
-          extract_preconditions(prcn, list)
-          list << prcn if prcn.reference
-        end
+      precondition.preconditions.each do |prcn|
+        extract_preconditions(prcn, list)
+        list << prcn if prcn.reference
       end
     end
 
