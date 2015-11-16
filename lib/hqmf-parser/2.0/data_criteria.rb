@@ -2,102 +2,13 @@ module HQMF2
   # Represents a data criteria specification
   class DataCriteria
 
-    VALUESET_MAP = {"2.16.840.1.113883.10.20.28.3.7" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.8" => {valueset_path:"./*/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.9" => {valueset_path:"./*/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.10" => {valueset_path:"./*/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.11" => {valueset_path:"./*/cda:participation[@typeCode='PRD']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.12" => {valueset_path:"./*/cda:participation[@typeCode='PRD']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.13" => {valueset_path:"./*/cda:participation[@typeCode='DEV']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.14" => {valueset_path:"./*/cda:participation[@typeCode='PRD']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.15" => {valueset_path:"./*/cda:participation[@typeCode='DEV']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.16" => {valueset_path:"./*/cda:participation[@typeCode='DEV']/cda:role[@classCode='MANU']/cda:playingDevice[@classCode='DEV']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.1" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.17" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.18" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.19" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.20" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:observationCriteria/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.21" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:observationCriteria/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.22" => {valueset_path:"./*/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.23" => {valueset_path:"./*/cda:code", result_path: "./*/cda:value"},
-                    "2.16.840.1.113883.10.20.28.3.24" => {valueset_path:"./*/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.26" => {valueset_path:"./*/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.27" => {valueset_path:"./*/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.5" => {valueset_path:"./*/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.28" => {valueset_path:"./*/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.29" => {valueset_path:"./*/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.30" => {valueset_path:"./*/cda:code", result_path: "./*/cda:value"},
-                    "2.16.840.1.113883.10.20.28.3.31" => {valueset_path:"./*/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.33" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS' and @inversionInd='true']/cda:procedureCriteria/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.34" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:actCriteria/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.35" => {valueset_path:"./*/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.36" => {valueset_path:"./*/cda:code", result_path: "./*/cda:outboundRelationship[@typeCode='REFR']//cda:code[@code='394617004']/../cda:value"},
-                    "2.16.840.1.113883.10.20.28.3.37" => {valueset_path:"./*/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.39" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:observationCriteria/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.40" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS']/cda:observationCriteria/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.41" => {valueset_path:"./*/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.42" => {valueset_path:"./*/cda:code", result_path: "./*/cda:value"},
-                    "2.16.840.1.113883.10.20.28.3.43" => {valueset_path:"./*/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.44" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role/cda:playingMaterial[@classCode='MMAT']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.45" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingManufacturedMaterial[@classCode='MMAT']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.46" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingEntity[@classCode='MMAT']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.47" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingEntity[@classCode='MMAT']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.48" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingManufacturedMaterial[@classCode='MMAT']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.49" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingMaterial[@classCode='MMAT']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.50" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingMaterial[@classCode='MMAT']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.51" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingMaterial[@classCode='MMAT']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.52" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.53" => {valueset_path:"./*/cda:code", result_path: "./*/cda:value"},
-                    "2.16.840.1.113883.10.20.28.3.6" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.54" => {valueset_path: nil,  result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.56" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.57" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.58" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.59" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.55" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.86" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.61" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.62" => {valueset_path:"./*/cda:value", result_path: "./*/cda:outboundRelationship[@typeCode='REFR']//cda:code[@code='394617004']/../cda:value"},
-                    "2.16.840.1.113883.10.20.28.3.63" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.64" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS' and @inversionInd='true']/cda:procedureCriteria/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.65" => {valueset_path:"./*/cda:outboundRelationship[@typeCode='CAUS' and @inversionInd='true']/cda:procedureCriteria/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.66" => {valueset_path:"./*/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.67" => {valueset_path:"./*/cda:code", result_path:"./*/cda:outboundRelationship[@typeCode='REFR']//cda:code[@code='394617004']/../cda:value"},
-                    "2.16.840.1.113883.10.20.28.3.68" => {valueset_path:"./*/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.70" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.71" => {valueset_path:"./*/cda:participation/cda:role[@classCode='ASSIGNED']/cda:playingDevice[@classCode='DEV' and @determinerCode='KIND']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.87" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.72" => {valueset_path:"./*/cda:code", result_path: "./*/cda:value"},
-                    "2.16.840.1.113883.10.20.28.3.93" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.73" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='ADMM']/cda:playingMaterial[@classCode='MAT' and @determinerCode='KIND']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.74" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='ADMM']/cda:playingMaterial[@classCode='MAT' and @determinerCode='KIND']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.75" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='ADMM']/cda:playingMaterial[@classCode='MAT' and @determinerCode='KIND']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.76" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='ADMM']/cda:playingMaterial[@classCode='MAT' and @determinerCode='KIND']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.77" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='ADMM']/cda:playingMaterial[@classCode='MAT' and @determinerCode='KIND']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.78" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingMaterial[@classCode='MMAT' and @determinerCode='KIND']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.79" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.80" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.81" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.82" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.84" => {valueset_path:"./*/cda:participation[@typeCode='ORG']/cda:role[@classCode='LOCE']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.85" => {valueset_path:"./*/cda:participation[@typeCode='ORG']/cda:role[@classCode='LOCE']/cda:code", result_path: nil },
-
-                    "2.16.840.1.113883.10.20.28.3.110" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.111" => {valueset_path:"./*/cda:value", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.112" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role/cda:playingManufacturedMaterial[@classCode='MMAT']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.113" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role/cda:playingManufacturedMaterial[@classCode='MMAT']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.114" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role/cda:playingManufacturedMaterial[@classCode='MMAT']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.115" => {valueset_path:"./*/cda:participation[@typeCode='CSM']/cda:role/cda:playingManufacturedMaterial[@classCode='MMAT']/cda:code", result_path: nil },
-                    "2.16.840.1.113883.10.20.28.3.116" => {valueset_path:"./*/cda:value", result_path: nil }
-                    }
-
     include HQMF2::Utilities
 
     attr_reader :property, :type, :status, :value, :effective_time, :section
     attr_reader :temporal_references, :subset_operators, :children_criteria
     attr_reader :derivation_operator, :negation, :negation_code_list_id, :description
     attr_reader :field_values, :source_data_criteria, :specific_occurrence_const
-    attr_reader :specific_occurrence, :is_source_data_criteria, :comments
+    attr_reader :specific_occurrence, :comments
     attr_reader :id, :entry, :definition, :variable, :local_variable_name
 
     VARIABLE_TEMPLATE = "0.1.2.3.4.5.6.7.8.9.1"
@@ -115,16 +26,17 @@ module HQMF2
 
     # Create a new instance based on the supplied HQMF entry
     # @param [Nokogiri::XML::Element] entry the parsed HQMF entry
-    def initialize(entry, data_criteria_references = nil, occurrences_map = nil)
+    def initialize(entry, data_criteria_references = {}, occurrences_map = {})
       @entry = entry
+      @do_not_group = false
       @template_ids = extract_template_ids
       @data_criteria_references = data_criteria_references
       @occurrences_map = occurrences_map
       @local_variable_name = extract_local_variable_name
       @status = attr_val('./*/cda:statusCode/@code')
-      @description = attr_val("./#{CRITERIA_GLOB}/cda:text/@value") || attr_val("./#{CRITERIA_GLOB}/cda:title/@value") || attr_val("./#{CRITERIA_GLOB}/cda:id/@extension")
       @id_xpath = './*/cda:id/@extension'
       @id = "#{attr_val('./*/cda:id/@extension')}_#{attr_val('./*/cda:id/@root')}"
+      @description = extract_description
       handle_variable_subsets
       @code_list_xpath = './*/cda:code'
       @value_xpath = './*/cda:value'
@@ -133,10 +45,10 @@ module HQMF2
       @temporal_references = extract_temporal_references
       @derivation_operator = extract_derivation_operator
       @field_values = extract_field_values
-      @subset_operators = extract_subset_operators
       @children_criteria = extract_child_criteria
       @comments = @entry.xpath("./#{CRITERIA_GLOB}/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()", HQMF2::Document::NAMESPACES).map{ |v| v.content }
       @variable = extract_variable
+      @subset_operators = extract_subset_operators
 
       # Try to determine what kind of data criteria we are dealing with
       # First we look for a template id and if we find one just use the definition
@@ -152,6 +64,10 @@ module HQMF2
       # prefix ids that start with numerical values, and strip tokens from others
       @id = strip_tokens @id
       @children_criteria.map! { |cc| strip_tokens cc }
+
+      #### prefix!!!!!!!!!
+
+
       @source_data_criteria = strip_tokens(@source_data_criteria) unless @source_data_criteria.nil?
       @specific_occurrence_const = strip_tokens(@specific_occurrence_const) unless @specific_occurrence_const.nil?
       set_intersection
@@ -162,37 +78,31 @@ module HQMF2
       isGrouper = @entry.at_xpath("./cda:grouperCriteria")
       references = @entry.xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
       reference = references.first
-      # TODO: Figure out when exactly to handle variable references as verbose
-      if reference && references.length==1
-        ref_id = strip_tokens(HQMF2::Utilities.attr_val(reference, 'cda:id/@extension'))
+      # Variables should now always handled as verbose
+      if reference && references.length == 1
         verbose_ref_id = strip_tokens("#{HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')}_#{HQMF2::Utilities.attr_val(reference, 'cda:id/@root')}")
-        reference_criteria = @data_criteria_references[ref_id] if ref_id
-        reference_criteria = @data_criteria_references[verbose_ref_id] if verbose_ref_id && !reference_criteria
-        unless reference_criteria
-          puts "MISSING_DC_REF: #{ref_id} & #{verbose_ref_id}"
+        reference_criteria = @data_criteria_references[verbose_ref_id] if verbose_ref_id
+        if isGrouper && reference_criteria.try(:variable)
+          idExtension_xpath = './*/cda:id/@extension'
+          idRoot_xpath = './*/cda:id/@root'
+          return if !(attr_val(idExtension_xpath) =~ /^occ[A-Z]of_qdm_var_/).nil?
+          @verbose_reference = true
         end
       end
-      if isGrouper && reference_criteria.try(:variable)
-        idExtension_xpath = './*/cda:id/@extension'
-        idRoot_xpath = './*/cda:id/@root'
-        return if !(attr_val(idExtension_xpath) =~ /^occ[A-Z]of_qdm_var_/).nil?
-        @id = "#{attr_val(idExtension_xpath)}_#{attr_val(idRoot_xpath)}"
-        @verbose_reference = true
-        # puts "Updated grouper: #{@id} #{@verbose_reference}"
-      end
+
     end
 
     def set_code_list_path_and_result_value
 
       if @template_ids.empty? && @specific_occurrence
-        template = @entry.document.at_xpath("//cda:id[@root='#{@source_data_criteria_root}' and @extension='#{@source_data_criteria}']/../cda:templateId/cda:item/@root")
+        template = @entry.document.at_xpath("//cda:id[@root='#{@source_data_criteria_root}' and @extension='#{@source_data_criteria_extension}']/../cda:templateId/cda:item/@root")
         if template
-          mapping = VALUESET_MAP[template.to_s]
+          mapping = ValueSetHelper.get_mapping_for_template(template.to_s)
           @value = DataCriteria.parse_value(@entry,mapping[:result_path]) if mapping && mapping[:result_path]
         end
       else
         @template_ids.each do |t|
-          mapping = VALUESET_MAP[t]
+          mapping = ValueSetHelper.get_mapping_for_template(t)
           if mapping && mapping[:valueset_path] && @entry.at_xpath(mapping[:valueset_path])
             @code_list_xpath = mapping[:valueset_path]
             @value = DataCriteria.parse_value(@entry,mapping[:result_path]) if mapping[:result_path]
@@ -213,13 +123,9 @@ module HQMF2
         reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
         ref_id = strip_tokens(HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')) if reference
         verbose_ref_id = strip_tokens("#{HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')}_#{HQMF2::Utilities.attr_val(reference, 'cda:id/@root')}") if reference
-        reference_criteria = @data_criteria_references[ref_id] if ref_id
-        reference_criteria = @data_criteria_references[verbose_ref_id] if verbose_ref_id && !reference_criteria
+        reference_criteria = @data_criteria_references[verbose_ref_id] if verbose_ref_id
         # if the reference is derived, pull from the original variable
-        if reference_criteria && reference_criteria.definition == 'derived'
-          reference_criteria = @data_criteria_references["GROUP_#{ref_id}"]
-          reference_criteria = @data_criteria_references["GROUP_#{verbose_ref_id}"] if verbose_ref_id && !reference_criteria
-        end
+        reference_criteria = @data_criteria_references["GROUP_#{verbose_ref_id}"] if reference_criteria && reference_criteria.definition == 'derived'
         if reference_criteria
           # if there are no referenced children, then it's a variable representing
           # a single data criteria, so just reference it
@@ -232,6 +138,7 @@ module HQMF2
             @subset_operators = reference_criteria.subset_operators
             @derivation_operator = reference_criteria.derivation_operator
             @definition = reference_criteria.definition
+            @description = reference_criteria.description
             @status = reference_criteria.status
             @children_criteria = reference_criteria.children_criteria
           end
@@ -275,13 +182,16 @@ module HQMF2
           @definition = 'derived'
         when nil
           reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
-          ref_id = HQMF2::Utilities.attr_val(reference, 'cda:id/@extension') if reference
           verbose_ref_id = "#{HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')}_#{HQMF2::Utilities.attr_val(reference, 'cda:id/@root')}" if reference
-          reference_criteria = @data_criteria_references[strip_tokens(ref_id)] if reference
-          reference_criteria = @data_criteria_references[strip_tokens(verbose_ref_id)] if verbose_ref_id && !reference_criteria
+          reference_criteria = @data_criteria_references[strip_tokens(verbose_ref_id)] if verbose_ref_id
           if reference_criteria
             @definition = reference_criteria.definition
             @status = reference_criteria.status
+            if @specific_occurrence
+              @title = reference_criteria.title
+              @description = reference_criteria.description
+              @code_list_id = reference_criteria.code_list_id
+            end
           else
             puts "MISSING_DC_REF: #{ref_id} & #{verbose_ref_id}" unless @variable
             @definition = 'variable'
@@ -293,9 +203,6 @@ module HQMF2
     end
 
     def extract_type_from_template_id
-      if @template_ids.include?(HQMF::DataCriteria::SOURCE_DATA_CRITERIA_TEMPLATE_ID)
-        @is_source_data_criteria = true
-      end
       found = false
 
       @template_ids.each do |template_id|
@@ -409,8 +316,15 @@ module HQMF2
         exact_desc = title.split(' ')[0...-3].join(' ')
         # don't drop anything for patient characterstic titles
         exact_desc = title if @definition.start_with?("patient_characteristic") && !title.end_with?("Value Set")
+
+        # remove * Value Set from title
+        title_match = title.match(/(.*) \w+ [Vv]alue [Ss]et/)
+        @title = title_match[1] if title_match && title_match.length > 1
+
         @description = "#{@description}: #{exact_desc}"
       end
+
+      @code_list_id = nil if @derivation_operator
 
       # prevent json model generation of empty children and comments
       cc = !children_criteria.blank? ? children_criteria : nil
@@ -422,43 +336,45 @@ module HQMF2
                              @specific_occurrence_const, @source_data_criteria, comments, @variable)
     end
 
-    # Return a new DataCriteria instance with only source data criteria attributes set
-    def extract_source_data_criteria
-      DataCriteria.new(@entry, @data_criteria_references, @occurrences_map).extract_as_source_data_criteria(@id, @source_data_criteria)
-    end
-
     # Return a new DataCriteria instance with only grouper attributes set
     def extract_variable_grouper
       return unless @variable
+      if @do_not_group
+        if !@data_criteria_references["GROUP_#{@children_criteria.first}"].nil? && @children_criteria.length == 1
+          @children_criteria[0] = "GROUP_#{@children_criteria.first}"
+        elsif @children_criteria.length == 1 && @children_criteria.first.present?
+          reference_criteria = @data_criteria_references[@children_criteria.first]
+          return if reference_criteria.nil?
+          duplicate_child_info(reference_criteria)
+          @children_criteria = reference_criteria.children_criteria
+        end
+        return
+      end
       @variable = false
       @id = "GROUP_#{@id}"
+      if @children_criteria.length == 1 && @children_criteria[0] =~ /GROUP_/
+        reference_criteria = @data_criteria_references[@children_criteria.first]
+        return if reference_criteria.nil?
+        duplicate_child_info(reference_criteria)
+        @definition = reference_criteria.definition
+        @status = reference_criteria.status
+        @children_criteria = []
+      end
       @specific_occurrence = nil
       @specific_occurrence_const = nil
       DataCriteria.new(@entry, @data_criteria_references, @occurrences_map).extract_as_grouper
     end
 
-    # Set this data criteria's attributes for extraction as a source data criteria
-    # SHOULD only be called on the source data criteria instance
-    def extract_as_source_data_criteria(id, source_data_criteria)
-      isVariable = extract_variable
-      occurrenceIdRegex = isVariable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]_'
-      @field_values = {}
-      @temporal_references = []
-      @subset_operators = []
-      @negation = false
-      if !(@title =~ /#{occurrenceIdRegex}/) && @description != title()
-        # require 'byebug'; debugger if @specific_occurrence
-        @specific_occurrence = nil
-        @specific_occurrence_const = nil
-      end
-      @is_source_data_criteria = true
-      @id = strip_tokens(id)
-      # unset variable for source data criteria to prevent duplicates
-      if @id.start_with? "GROUP_"
-        @title = "GROUP_#{title}"
-        @variable = false
-      end
-      self
+    def duplicate_child_info(child_ref)
+      @title ||= child_ref.title
+      @type ||= child_ref.subset_operators
+      @definition ||= child_ref.definition
+      @status ||= child_ref.status
+      @code_list_id ||= child_ref.code_list_id
+      @temporal_references = child_ref.temporal_references if @temporal_references.empty?
+      @subset_operators ||= child_ref.subset_operators
+      @variable ||= child_ref.variable
+      @value ||= child_ref.value
     end
 
     # Set this data criteria's attributes for extraction as a grouper data criteria
@@ -588,13 +504,7 @@ module HQMF2
 
     def extract_child_criteria
       @entry.xpath("./*/cda:outboundRelationship[@typeCode='COMP']/cda:criteriaReference/cda:id", HQMF2::Document::NAMESPACES).collect do |ref|
-        child_ref = Reference.new(ref)
-        unless @data_criteria_references.keys.include?(strip_tokens child_ref.id)
-          # puts "Updated CC: #{child_ref.id}"
-          child_ref.update_verbose(true)
-          puts "ERROR\t Could not find verbose CC: #{child_ref.id}" unless @data_criteria_references.keys.include?(strip_tokens child_ref.id)
-        end
-        child_ref.id
+        Reference.new(ref).id
       end.compact
     end
 
@@ -620,42 +530,27 @@ module HQMF2
     end
 
     def extract_specific_or_source
-
-      isVariable = extract_variable
-      occurrenceIdRegex = isVariable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]_'
-      occIndex = isVariable ? 3 : 10
-      strippedLVN = strip_tokens @local_variable_name
-
-
-        #
-      if !(strippedLVN =~ /^#{occurrenceIdRegex}/).nil?
-        @specific_occurrence = strippedLVN[occIndex]
-        specific_def = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="OCCR"]', HQMF2::Document::NAMESPACES)
-        if specific_def
-          @source_data_criteria = "#{HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')}_#{HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@root')}"
-          @source_data_criteria_root = ''
-          @occurrences_map[@source_data_criteria ] ||= @specific_occurrence
-        else
-          @source_data_criteria = "#{attr_val('./*/cda:id/@extension')}_#{attr_val('./*/cda:id/@root')}"
-          @occurrences_map[@source_data_criteria]  ||= @specific_occurrence
-          @source_data_criteria_root = ''
-        end
-        return
-      end
-
       specific_def = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="OCCR"]', HQMF2::Document::NAMESPACES)
       source_def = @entry.at_xpath('./*/cda:outboundRelationship[cda:subsetCode/@code="SOURCE"]', HQMF2::Document::NAMESPACES)
       if specific_def
-        @source_data_criteria = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')
+        @source_data_criteria_extension = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')
         @source_data_criteria_root = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@root')
         @specific_occurrence_const = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationRoot')
         @specific_occurrence = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationExtension')
 
+        occurrence_criteria = @data_criteria_references[strip_tokens "#{@source_data_criteria_extension}_#{@source_data_criteria_root}"]
+
+        return if occurrence_criteria.nil?
+
         # FIXME: Remove debug statements after cleaning up occurrence handling
         # build regex for extracting alpha-index of specific occurrences
+        isVariable = extract_variable
         occurrenceLVNRegex = isVariable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]of'
+        occurrenceIdRegex = isVariable ? 'occ[A-Z]of_' : 'Occurrence[A-Z]_'
         occurrenceIdentifier = ""
-        strippedSDC = strip_tokens @source_data_criteria
+        occIndex = isVariable ? 3 : 10
+        strippedSDC = strip_tokens @source_data_criteria_extension
+        strippedLVN = strip_tokens @local_variable_name
         strippedId = strip_tokens @id
 
         # TODO: What should happen is neither @id or @lvn has occurrence label?
@@ -693,7 +588,7 @@ module HQMF2
         elsif !(strippedSDC =~ /^#{occurrenceLVNRegex}qdm_var_/).nil?
           occurrenceIdentifier = strippedSDC[occIndex]
         end
-        @source_data_criteria = "#{@source_data_criteria}_#{@source_data_criteria_root}"
+        @source_data_criteria = "#{@source_data_criteria_extension}_#{@source_data_criteria_root}"
         if !occurrenceIdentifier.blank?
           # if it doesn't exist, add extracted occurrence to the map
           # puts "\tSetting #{@source_data_criteria}-#{@source_data_criteria_root} to #{occurrenceIdentifier}"
@@ -715,14 +610,14 @@ module HQMF2
         @specific_occurrence = "A" unless @specific_occurrence
         @specific_occurrence_const = @source_data_criteria.upcase unless @specific_occurrence_const
 
-        if @verbose_reference
-          unless @data_criteria_references.keys.include?(strip_tokens @source_data_criteria)
-            # puts "Updated SDC: #{@source_data_criteria}"
-            @source_data_criteria = "#{@source_data_criteria}_#{@source_data_criteria_root}"
-            @specific_occurrence_const = @source_data_criteria.upcase
-            puts "ERROR\t Could not find verbose SDC: #{@source_data_criteria}" unless @data_criteria_references.keys.include?(strip_tokens @source_data_criteria)
-          end
-        end
+        # if @verbose_reference
+        #   unless @data_criteria_references.keys.include?(strip_tokens @source_data_criteria)
+        #     # puts "Updated SDC: #{@source_data_criteria}"
+        #     @source_data_criteria = "#{@source_data_criteria}_#{@source_data_criteria_root}"
+        #     @specific_occurrence_const = @source_data_criteria.upcase
+        #     puts "ERROR\t Could not find verbose SDC: #{@source_data_criteria}" unless @data_criteria_references.keys.include?(strip_tokens @source_data_criteria)
+        #   end
+        # end
       elsif source_def
         @source_data_criteria = "#{HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@extension')}_#{HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@root')}"
       end
@@ -730,9 +625,21 @@ module HQMF2
 
     # TODO: Why are specific occurrences of variables not building children?
     def handle_specific_variables
-      if @definition == 'derived' && @children_criteria.empty?
-        # puts "Fixing SO grouper empty children for #{@id} with #{@source_data_criteria}"
-        @children_criteria << @source_data_criteria
+      if @definition == 'derived'
+        if @children_criteria.empty?
+          # puts "Fixing SO grouper empty children for #{@id} with #{@source_data_criteria}"
+          @children_criteria << @source_data_criteria
+        end
+        if @children_criteria.length == 1 && @children_criteria.first && (@children_criteria.first == @source_data_criteria || @source_data_criteria.nil?)
+          reference_criteria = @data_criteria_references[@children_criteria.first]
+          unless reference_criteria.nil?
+            @do_not_group = true  # easier to track than all testing all features of these cases
+            @subset_operators ||= reference_criteria.subset_operators
+            @derivation_operator ||= reference_criteria.derivation_operator
+            @description = reference_criteria.description
+            @variable = reference_criteria.variable
+          end
+        end
       end
     end
 
@@ -742,9 +649,11 @@ module HQMF2
       @entry.xpath('./*/cda:outboundRelationship[*/cda:code]', HQMF2::Document::NAMESPACES).each do |field|
         code = HQMF2::Utilities.attr_val(field, './*/cda:code/@code')
         code_id = HQMF::DataCriteria::VALUE_FIELDS[code]
-        unless @negation && code_id == "REASON"
+        # No need to run if there is no code id
+        unless (@negation && code_id == "REASON") || code_id.nil?
           value = DataCriteria.parse_value(field, './*/cda:value')
-          fields[code_id] = value if value && code_id
+          value ||= DataCriteria.parse_value(field, './*/cda:effectiveTime')
+          fields[code_id] = value if value
         end
       end
       # special case for facility location which uses a very different structure
@@ -757,10 +666,10 @@ module HQMF2
 
       fields.merge! HQMF2::FieldValueHelper.parse_field_values(@entry, @negation)
       # special case for fulfills operator.  assuming there is only a possibility of having one of these
-      fulfils = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="FLFS"]/cda:criteriaReference', HQMF2::Document::NAMESPACES)
-      if fulfils
+      fulfills = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="FLFS"]/cda:criteriaReference', HQMF2::Document::NAMESPACES)
+      if fulfills
         # grab the child element if we don't have a reference
-        fields["FLFS"] =  TypedReference.new(fulfils)
+        fields["FLFS"] =  TypedReference.new(fulfills)
       end
       fields
     end
@@ -795,7 +704,8 @@ module HQMF2
             value = Range.new(value_def)
           when 'CD'
             value = Coded.new(value_def)
-          when 'ANY'
+          when 'ANY', 'IVL_TS'
+            # FIXME (10/26/2015) IVL_TS should be able to handle other values, not just AnyValue
             value = AnyValue.new()
           else
             raise "Unknown value type [#{value_type}]"
@@ -826,11 +736,37 @@ module HQMF2
 
     end
 
+    # Extract the description, with some special handling if this is a variable; the MAT has added an encoded
+    # form of the variable name in the localVariableName field, if that's available use it; if not, fall back
+    # to the extension
+    def extract_description
+      if extract_variable
+        encoded_name = attr_val("./cda:localVariableName/@value")
+        if encoded_name && encoded_name.match(/^qdm_var_/)
+          # Strip out initial qdm_var_ string, trailing _*, and possible occurrence reference
+          encoded_name.gsub!(/^qdm_var_/, '')
+          encoded_name.gsub!(/Occurrence[A-Z]of/, '')
+          # This code needs to handle measures created before the MAT added variable name hints; for those, don't strip the final identifier
+          if !encoded_name.match(/^(SATISFIES ALL|SATISFIES ANY|UNION|INTERSECTION)/)
+            encoded_name.gsub!(/_[^_]+$/, '')
+          end
+          encoded_name
+        elsif encoded_name && encoded_name.match(/^localVar_/)
+          encoded_name.gsub!(/^localVar_/, '')
+          encoded_name
+        else
+          attr_val("./#{CRITERIA_GLOB}/cda:id/@extension")
+        end
+      else
+        attr_val("./#{CRITERIA_GLOB}/cda:text/@value") || attr_val("./#{CRITERIA_GLOB}/cda:title/@value") || attr_val("./#{CRITERIA_GLOB}/cda:id/@extension")
+      end
+    end
+
     # Determine if this instance is a qdm variable
     def extract_variable
       variable = !(@local_variable_name =~ /.*qdm_var_/).nil? unless @local_variable_name.blank?
       variable ||= !(@id =~ /.*qdm_var_/).nil? unless @id.blank?
-      variable ||= false
+      !!variable
     end
 
     def extract_template_ids
@@ -838,6 +774,6 @@ module HQMF2
         HQMF2::Utilities.attr_val(template_def, '@root')
       end
     end
-  end
 
+  end
 end

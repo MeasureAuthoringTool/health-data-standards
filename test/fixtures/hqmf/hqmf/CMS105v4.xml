@@ -1,0 +1,1831 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- 
+           ******************* 
+           QDM Version Used: QDM 4.1.2 
+           *******************  
+        --><QualityMeasureDocument xmlns="urn:hl7-org:v3" xmlns:qdm="urn:hhs-qdm:hqmf-r2-extensions:v1"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         
+      <!--
+            **************************************************************
+            Measure Details Section
+            **************************************************************
+        -->
+         
+      <typeId extension="POQM_HD000001UV02" root="2.16.840.1.113883.1.3"/>
+   <templateId>
+      <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.1.1"/>
+   </templateId>
+   <id root="40280381-4be2-53b3-014c-09f5e7c01618"/>
+   <code code="57024-2" codeSystem="2.16.840.1.113883.6.1">
+      <displayName value="Health Quality Measure Document"/>
+   </code>
+   <title value="Discharged on Statin Medication"/>
+   <text
+         value="Ischemic stroke patients who are prescribed statin medication at hospital discharge."/>
+   <statusCode code="COMPLETED"/>
+   <setId root="1f503318-bb8d-4b91-af63-223ae0a2328e"/>
+   <versionNumber value="4.0.000"/>
+   <author>
+      <responsibleParty classCode="ASSIGNED">
+         <representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id>
+               <item root="1.3.6.1.4.1.33895"/>
+            </id>
+            <name>
+               <item>
+                  <part value="The Joint Commission"/>
+               </item>
+            </name>
+         </representedResponsibleOrganization>
+      </responsibleParty>
+   </author>
+   <custodian>
+      <responsibleParty classCode="ASSIGNED">
+         <representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id>
+               <item root="1.3.6.1.4.1.33895"/>
+            </id>
+            <name>
+               <item>
+                  <part value="The Joint Commission"/>
+               </item>
+            </name>
+         </representedResponsibleOrganization>
+      </responsibleParty>
+   </custodian>
+   <verifier>
+      <responsibleParty classCode="ASSIGNED">
+         <representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id>
+               <item root="2.16.840.1.113883.3.560"/>
+            </id>
+            <name>
+               <item>
+                  <part value="National Quality Forum"/>
+               </item>
+            </name>
+         </representedResponsibleOrganization>
+      </responsibleParty>
+   </verifier>
+   <controlVariable>
+      <measurePeriod>
+         <id extension="measureperiod" root="40280381-3d27-5493-013d-380ba9e23683"/>
+         <code code="MSRTP" codeSystem="2.16.840.1.113883.3.560">
+            <originalText value="Measurement Period"/>
+         </code>
+         <value xsi:type="PIVL_TS">
+            <phase highClosed="true" lowClosed="true">
+               <low value="20150101"/>
+               <width unit="a" value="1" xsi:type="PQ"/>
+            </phase>
+            <period unit="a" value="1"/>
+         </value>
+      </measurePeriod>
+   </controlVariable>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText value="eMeasure Identifier (Measure Authoring Tool)"/>
+         </code>
+         <value mediaType="text/plain" value="105" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText value="NQF Number"/>
+         </code>
+         <value mediaType="text/plain" value="0439" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="COPY" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Copyright"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Measure specifications are in the Public Domain.&#xA;&#xA;LOINC(R) is a registered trademark of the Regenstrief Institute.&#xA;&#xA;This material contains SNOMED Clinical Terms (R) (SNOMED CT[C]) copyright 2004-2014 International Health Terminology Standards Development Organization. All rights reserved."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DISC" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Disclaimer"/>
+         </code>
+         <value mediaType="text/plain"
+                value="These performance measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications. The measures and specifications are provided without warranty."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRSCORE" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Measure Scoring"/>
+         </code>
+         <value code="PROPOR" codeSystem="2.16.840.1.113883.1.11.20367" xsi:type="CD">
+            <displayName value="Proportion"/>
+         </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRTYPE" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Measure Type"/>
+         </code>
+         <value code="PROCESS" codeSystem="2.16.840.1.113883.1.11.20368" xsi:type="CD">
+            <displayName value="PROCESS"/>
+         </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="ITMCNT" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Items to count"/>
+         </code>
+         <value extension="Non-ElectiveInpatientEncounter_EncounterPerformed"
+                root="40280381-3d61-56a7-013d-7f7a48175849"
+                xsi:type="II"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="STRAT" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Stratification"/>
+         </code>
+         <value mediaType="text/plain" value="None" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRADJ" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Risk Adjustment"/>
+         </code>
+         <value mediaType="text/plain" value="None" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRAGG" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Rate Aggregation"/>
+         </code>
+         <value mediaType="text/plain" value="None" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="RAT" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Rationale"/>
+         </code>
+         <value mediaType="text/plain"
+                value="There is an extensive and consistent body of evidence supporting the use of statins for secondary prevention in patients with clinically evident atherosclerotic cardiovascular disease (ASCVD), which includes individuals with ischemic stroke due to large artery atherosclerosis, individuals with ischemic stroke due to intrinsic small vessel disease, and individuals with ischemic stroke not directly due to atherosclerosis but with clinically evident atherosclerotic disease in an uninvolved cerebral or noncerebral bed.  Both women and men with clinical ASCVD are at increased risk for recurrent ASCVD and ASCVD death.  High-intensity statin therapy should be initiated or continued as first-line therapy in women and men less than or equal to 75 years of age who have clinical ASCVD, unless contraindicated. In patients with clinical ASCVD and a contraindication to high-intensity statin therapy, moderate-intensity therapy should be considered as an alternative if it can be tolerated.  In individuals greater than 75 years of age, the potential for ASCVD risk reduction benefits, adverse effects, drug-drug interactions, and patient preferences should be considered, and statin therapy individualized based on these considerations (Stone, 2013)."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="CRS" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Clinical Recommendation Statement"/>
+         </code>
+         <value mediaType="text/plain"
+                value="For patients with stroke of atherosclerotic origin, intensive lipid lowering therapy with statins should be initiated."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IDUR" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Improvement Notation"/>
+         </code>
+         <value mediaType="text/plain" value="Improvement noted as an increase in rate"
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Stone NJ, Robinson J, Lichtenstein AH, Noel Bairey Merz C, Blum CB, Eckel RH, Goldberg AC, Gordon D, Levy D, Lloyd-Jones DM, McBride P, Schwartz JS, Shero Jr, ST, Smith SC, Watson K, Wilson PWF. &#34;Guideline on the Treatment of Blood Cholesterol to Reduce Atherosclerotic Cardiovascular Disease in Adults: A Report of the American College of Cardiology/American Heart Association Task Force on Practice Guidelines.&#34; [In eng]. Circulation 11, (Nov 2013): 1-84."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Amarenco, P., J. Bogousslavsky, A. Callahan, 3rd, L. B. Goldstein, M. Hennerici, A. E. Rudolph, H. Sillesen, et al. &#34;High-Dose Atorvastatin after Stroke or Transient Ischemic Attack.&#34; [In eng]. N Engl J Med 355, no. 6 (Aug 10 2006): 549-59"
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Feher, A., G. Pusch, K. Koltai, A. Tibold, B. Gasztonyi, L. Szapary, and G. Feher. &#34;Statintherapy in the Primary and the Secondary Prevention of Ischaemic Cerebrovascular Diseases.&#34; [In eng]. Int J Cardiol 148, no. 2 (Apr 14 2011): 131-8."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Furie, K. L., S. E. Kasner, R. J. Adams, G. W. Albers, R. L. Bush, S. C. Fagan, J. L. Halperin, et al. &#34;Guidelines for the Prevention of Stroke in Patients with Stroke or Transient Ischemic Attack: A Guideline for Healthcare Professionals from the American Heart Association/American Stroke Association.&#34; [In eng]. Stroke 42, no. 1 (Jan 2011): 227-76."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="National Cholesterol Education Program Expert Panel on Detection, Evaluation, and Adults Treatment of High Blood Cholesterol in Adults.&#34;Third Report of the National Cholesterol Education Program (Ncep) Expert Panel on Detection, Evaluation, and Treatment of High Blood Cholesterol in Adults (Adult Treatment Panel Iii) Final Report.&#34; [In eng]. Circulation 106, no. 25 (Dec 17 2002): 3143-421."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Squizzato, A., E. Romualdi, F. Dentali, and W. Ageno. &#34;Statins for Acute Ischemic Stroke.&#34; [In eng]. Cochrane Database Syst Rev, no. 8 (2011): CD007551."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DEF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Definition"/>
+         </code>
+         <value mediaType="text/plain" value="None" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="GUIDE" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Guidance"/>
+         </code>
+         <value mediaType="text/plain"
+                value="The unit of measurement for this measure is an inpatient episode of care. Each distinct hospitalization should be reported, regardless of whether the same patient is admitted for inpatient care more than once during the measurement period. In addition, the eMeasure logic intends to represent events within or surrounding a single occurrence of an inpatient hospitalization.&#xA;&#xA;The &#34;Non-elective Inpatient Encounter&#34; value set intends to capture all non-scheduled hospitalizations. This value set is a subset of the &#34;Inpatient encounter&#34; value set, excluding concepts that specifically refer to elective hospital admissions. Non-elective admissions include emergency, urgent and unplanned admissions."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="TRANF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Transmission Format"/>
+         </code>
+         <value mediaType="text/plain" value="TBD" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IPOP" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Initial Population"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Patients age 18 and older discharged from inpatient care (non-elective admissions) with a principal diagnosis of ischemic or hemorrhagic stroke and a length of stay less or equal to 120 days."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENOM" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Denominator"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Patients with a principal diagnosis of ischemic stroke."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENEX" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Denominator Exclusions"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Patients admitted for elective carotid intervention. This exclusion is implicitly modeled by only including non-elective hospitalizations.&#xA;Patients with comfort measures documented&#xA;Patients discharged to another hospital&#xA;Patients who left against medical advice&#xA;Patients who expired&#xA;Patients discharged to home for hospice care&#xA;Patients discharged to a health care facility for hospice care&#xA;Patients with an LDL-c of less than 70 mg/dL &lt;30 days prior to arrival or any time during the hospital stay"
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="NUMER" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Numerator"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Patients prescribed statin medication at hospital discharge."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="NUMEX" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Numerator Exclusions"/>
+         </code>
+         <value mediaType="text/plain" value="Not Applicable" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Denominator Exceptions"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Patients with a reason for not prescribing statin medication at discharge."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Measure Population"/>
+         </code>
+         <value mediaType="text/plain" value="Not Applicable" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRPOPLEX" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Measure Population Exclusions"/>
+         </code>
+         <value mediaType="text/plain" value="Not Applicable" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <displayName value="Measure Observations"/>
+         </code>
+         <value mediaType="text/plain" value="Not Applicable" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="SDE" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Supplemental Data Elements"/>
+         </code>
+         <value mediaType="text/plain"
+                value="For every patient evaluated by this measure also identify payer, race, ethnicity and sex."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <componentOf>
+      <qualityMeasureSet classCode="ACT">
+         <id root="09f0651b-e9e1-4835-86d5-f8390ecfa823"/>
+         <title value="eMeasure Stroke (eSTK)"/>
+      </qualityMeasureSet>
+   </componentOf>
+   <!--Data Criteria Section-->
+   <component>
+      <dataCriteriaSection>
+         <templateId>
+            <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.2.2"/>
+         </templateId>
+         <code code="57025-9" codeSystem="2.16.840.1.113883.6.1"/>
+         <title value="Data Criteria Section"/>
+         <text>
+            <xml>
+               <item>
+                  <list>
+                     <item>
+                        <content styleCode="Bold">Data Criteria (QDM Variables)</content>
+                        <list>
+                           <item>
+                              <content styleCode="Bold">$EncounterInpatientNonElective =</content>
+                              <list>
+                                 <item>"Encounter, Performed: Non-Elective Inpatient Encounter"  satisfies all<list>
+                                       <item>(length of stay &lt;= 120 day(s))</item>
+                                       <item>ends during "Measurement Period"</item>
+                                    </list>
+                                 </item>
+                              </list>
+                           </item>
+                           <item>
+                              <content styleCode="Bold">$InterventionComfortMeasures =</content>
+                              <list>
+                                 <item>Union of:<list>
+                                       <item>"Intervention, Order: Comfort Measures"</item>
+                                       <item>"Intervention, Performed: Comfort Measures"</item>
+                                    </list>
+                                 </item>
+                              </list>
+                           </item>
+                        </list>
+                     </item>
+                     <item>
+                        <content styleCode="Bold">Data Criteria (QDM Data Elements)</content>
+                        <list>
+                           <item>"Diagnosis, Active: Hemorrhagic Stroke" using "Hemorrhagic Stroke Grouping Value Set (2.16.840.1.113883.3.117.1.7.1.212)"</item>
+                           <item>"Diagnosis, Active: Ischemic Stroke" using "Ischemic Stroke Grouping Value Set (2.16.840.1.113883.3.117.1.7.1.247)"</item>
+                           <item>"Encounter, Performed: Emergency Department Visit" using "Emergency Department Visit SNOMEDCT Value Set (2.16.840.1.113883.3.117.1.7.1.292)"</item>
+                           <item>"Encounter, Performed: Non-Elective Inpatient Encounter" using "Non-Elective Inpatient Encounter SNOMEDCT Value Set (2.16.840.1.113883.3.117.1.7.1.424)"</item>
+                           <item>"Intervention, Order: Comfort Measures " using "Comfort Measures SNOMEDCT Value Set (1.3.6.1.4.1.33895.1.3.0.45)"</item>
+                           <item>"Intervention, Performed: Comfort Measures " using "Comfort Measures SNOMEDCT Value Set (1.3.6.1.4.1.33895.1.3.0.45)"</item>
+                           <item>"Laboratory Test, Performed: LDL-c" using "LDL-c LOINC Value Set (2.16.840.1.113883.3.117.1.7.1.215)"</item>
+                           <item>"Medication, Allergy: Statin Allergen" using "Statin Allergen RXNORM Value Set (2.16.840.1.113883.3.117.1.7.1.423)"</item>
+                           <item>"Medication, Discharge: Statin" using "Statin RXNORM Value Set (2.16.840.1.113883.3.117.1.7.1.225)"</item>
+                           <item>"Medication, Discharge: Statin ingredient specific" using "Statin ingredient specific RXNORM Value Set (2.16.840.1.113762.1.4.1021.7)"</item>
+                           <item>"Medication, Discharge not done: Patient Refusal" using "Patient Refusal SNOMEDCT Value Set (2.16.840.1.113883.3.117.1.7.1.93)"</item>
+                           <item>"Medication, Discharge not done: Medical Reason" using "Medical Reason SNOMEDCT Value Set (2.16.840.1.113883.3.117.1.7.1.473)"</item>
+                           <item>Attribute: "Discharge status: Left Against Medical Advice" using "Left Against Medical Advice SNOMEDCT Value Set (2.16.840.1.113883.3.117.1.7.1.308)"</item>
+                           <item>Attribute: "Discharge status: Patient Expired" using "Patient Expired SNOMEDCT Value Set (2.16.840.1.113883.3.117.1.7.1.309)"</item>
+                           <item>Attribute: "Discharge status: Discharge To Acute Care Facility" using "Discharge To Acute Care Facility SNOMEDCT Value Set (2.16.840.1.113883.3.117.1.7.1.87)"</item>
+                           <item>Attribute: "Discharge status: Discharged to Home for Hospice Care" using "Discharged to Home for Hospice Care SNOMEDCT Value Set (2.16.840.1.113883.3.117.1.7.1.209)"</item>
+                           <item>Attribute: "Discharge status: Discharged to Health Care Facility for Hospice Care" using "Discharged to Health Care Facility for Hospice Care SNOMEDCT Value Set (2.16.840.1.113883.3.117.1.7.1.207)"</item>
+                           <item>Attribute: "Ordinality: Principal" using "Principal SNOMEDCT Value Set (2.16.840.1.113883.3.117.1.7.1.14)"</item>
+                        </list>
+                     </item>
+                     <item>
+                        <content styleCode="Bold">Supplemental Data Elements</content>
+                        <list>
+                           <item>"Patient Characteristic Ethnicity: Ethnicity" using "Ethnicity CDCREC Value Set (2.16.840.1.114222.4.11.837)"</item>
+                           <item>"Patient Characteristic Payer: Payer" using "Payer SOP Value Set (2.16.840.1.114222.4.11.3591)"</item>
+                           <item>"Patient Characteristic Race: Race" using "Race CDCREC Value Set (2.16.840.1.114222.4.11.836)"</item>
+                           <item>"Patient Characteristic Sex: ONC Administrative Sex" using "ONC Administrative Sex AdministrativeGender Value Set (2.16.840.1.113762.1.4.1)"</item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+            </xml>
+         </text>
+         <!--Laboratory Test, Performed--><entry typeCode="DRIV">
+            <localVariableName value="LDL-c_LaboratoryTestPerformed_mVTcE"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.42"/>
+               </templateId>
+               <id extension="LDL-c_LaboratoryTestPerformed"
+                   root="eedd52ad-1024-436e-b3ea-d3c8bb3c1270"/>
+               <code valueSet="2.16.840.1.113883.3.117.1.7.1.215">
+                  <displayName value="LDL-c LOINC Value Set"/>
+               </code>
+               <title value="Laboratory Test, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <!--Patient Characteristic Birthdate--><entry typeCode="DRIV">
+            <localVariableName value="Birthdate_PatientCharacteristicBirthdate_tFi1V"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.54"/>
+               </templateId>
+               <id extension="Birthdate_PatientCharacteristicBirthdate"
+                   root="1705b9be-ca54-4ccd-85fc-aae1ed23d4e5"/>
+               <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Birth Date"/>
+               </code>
+               <title value="Patient Characteristic Birthdate"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <!--Intervention, Order--><entry typeCode="DRIV">
+            <localVariableName value="ComfortMeasures_InterventionOrder_AU3g8"/>
+            <actCriteria classCode="ACT" moodCode="RQO">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.35"/>
+               </templateId>
+               <id extension="ComfortMeasures_InterventionOrder"
+                   root="2c2443af-7d72-4409-a7e9-16e8a080ce78"/>
+               <code valueSet="1.3.6.1.4.1.33895.1.3.0.45">
+                  <displayName value="Comfort Measures  SNOMEDCT Value Set"/>
+               </code>
+               <title value="Intervention, Order"/>
+               <statusCode code="ACTIVE"/>
+            </actCriteria>
+         </entry>
+         <!--Intervention, Performed--><entry typeCode="DRIV">
+            <localVariableName value="ComfortMeasures_InterventionPerformed_1JTK4"/>
+            <actCriteria classCode="ACT" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.36"/>
+               </templateId>
+               <id extension="ComfortMeasures_InterventionPerformed"
+                   root="55df808c-dcc2-4d97-9c3c-baa7ce1c820f"/>
+               <code valueSet="1.3.6.1.4.1.33895.1.3.0.45">
+                  <displayName value="Comfort Measures  SNOMEDCT Value Set"/>
+               </code>
+               <title value="Intervention, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </actCriteria>
+         </entry>
+         <!--Encounter, Performed--><entry typeCode="DRIV">
+            <localVariableName value="EmergencyDepartmentVisit_EncounterPerformed_VMSMB"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="EmergencyDepartmentVisit_EncounterPerformed"
+                   root="79b739f1-bd3e-46e1-9c0f-0199b06fc468"/>
+               <code valueSet="2.16.840.1.113883.3.117.1.7.1.292">
+                  <displayName value="Emergency Department Visit SNOMEDCT Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </encounterCriteria>
+         </entry>
+         <!--Occurrence A Laboratory Test, Performed--><entry typeCode="DRIV">
+            <localVariableName value="OccurrenceAofLDL-c_LaboratoryTestPerformed_NiimZ"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <id extension="OccurrenceA_LDL-c_LaboratoryTestPerformed"
+                   root="bf0a96eb-61ce-4e48-9c74-37cebf6de39c"/>
+               <outboundRelationship typeCode="OCCR">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="LDL-c_LaboratoryTestPerformed"
+                         root="eedd52ad-1024-436e-b3ea-d3c8bb3c1270"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Encounter, Performed--><entry typeCode="DRIV">
+            <localVariableName value="Non-ElectiveInpatientEncounter_EncounterPerformed_h4cd0"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="Non-ElectiveInpatientEncounter_EncounterPerformed"
+                   root="40280381-3d61-56a7-013d-7f7a48175849"/>
+               <code valueSet="2.16.840.1.113883.3.117.1.7.1.424">
+                  <displayName value="Non-Elective Inpatient Encounter SNOMEDCT Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </encounterCriteria>
+         </entry>
+         <!--Medication, Discharge--><entry typeCode="DRIV">
+            <localVariableName value="Statin_MedicationDischarge_PJ6FS"/>
+            <substanceAdministrationCriteria classCode="SBADM" moodCode="RQO">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.48"/>
+               </templateId>
+               <id extension="Statin_MedicationDischarge"
+                   root="40280381-3d27-5493-013d-380ba9e336a6"/>
+               <code code="10183-2" codeSystem="2.16.840.1.113883.6.1"/>
+               <title value="Medication, Discharge"/>
+               <statusCode code="ACTIVE"/>
+	              <participation typeCode="CSM">
+                  <role classCode="MANU">
+                     <playingManufacturedMaterial classCode="MMAT" determinerCode="KIND">
+                        <code valueSet="2.16.840.1.113883.3.117.1.7.1.225">
+                           <displayName value="Statin RXNORM value set"/>
+                        </code>
+                     </playingManufacturedMaterial>
+                  </role>
+               </participation>
+	           </substanceAdministrationCriteria>
+         </entry>
+         <!--Medication, Allergy--><entry typeCode="DRIV">
+            <localVariableName value="StatinAllergen_MedicationAllergy_reepC"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.47"/>
+               </templateId>
+               <id extension="StatinAllergen_MedicationAllergy"
+                   root="40280381-3d61-56a7-013d-66d250cf0f3a"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Medication, Allergy"/>
+               <statusCode code="COMPLETED"/>
+               <value code="416098002" codeSystem="2.16.840.1.113883.6.96" xsi:type="CD"/>
+	              <participation typeCode="CSM">
+                  <role classCode="MANU">
+                     <playingEntity classCode="MMAT" determinerCode="KIND">
+                        <code valueSet="2.16.840.1.113883.3.117.1.7.1.423">
+                           <displayName value="Statin Allergen RXNORM value set"/>
+                        </code>
+                     </playingEntity>
+                  </role>
+               </participation>
+	           </observationCriteria>
+         </entry>
+         <!--Encounter, Performed - discharge status With Value Set--><entry typeCode="DRIV">
+            <localVariableName value="Non-ElectiveInpatientEncounter_EncounterPerformed_dischargestatus_ValueSet_ASrwL"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="3a662dd4-c938-4ce8-ab7f-11a83b9b7a8a"
+                   root="40280381-3d61-56a7-013d-7f7a48175849"/>
+               <code valueSet="2.16.840.1.113883.3.117.1.7.1.424">
+                  <displayName value="Non-Elective Inpatient Encounter SNOMEDCT Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <dischargeDispositionCode valueSet="2.16.840.1.113883.3.117.1.7.1.87">
+                  <displayName value="Discharge To Acute Care Facility SNOMEDCT Value Set"/>
+               </dischargeDispositionCode>
+            </encounterCriteria>
+         </entry>
+         <!--Encounter, Performed - discharge status With Value Set--><entry typeCode="DRIV">
+            <localVariableName value="Non-ElectiveInpatientEncounter_EncounterPerformed_dischargestatus_ValueSet_6oKgz"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="a734213d-5304-493e-bc6b-dba07cf5fe0f"
+                   root="40280381-3d61-56a7-013d-7f7a48175849"/>
+               <code valueSet="2.16.840.1.113883.3.117.1.7.1.424">
+                  <displayName value="Non-Elective Inpatient Encounter SNOMEDCT Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <dischargeDispositionCode valueSet="2.16.840.1.113883.3.117.1.7.1.207">
+                  <displayName value="Discharged to Health Care Facility for Hospice Care SNOMEDCT Value Set"/>
+               </dischargeDispositionCode>
+            </encounterCriteria>
+         </entry>
+         <!--Encounter, Performed - discharge status With Value Set--><entry typeCode="DRIV">
+            <localVariableName value="Non-ElectiveInpatientEncounter_EncounterPerformed_dischargestatus_ValueSet_Rjoi6"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="b5e4aee1-d712-4108-aedd-17a573898ae2"
+                   root="40280381-3d61-56a7-013d-7f7a48175849"/>
+               <code valueSet="2.16.840.1.113883.3.117.1.7.1.424">
+                  <displayName value="Non-Elective Inpatient Encounter SNOMEDCT Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <dischargeDispositionCode valueSet="2.16.840.1.113883.3.117.1.7.1.209">
+                  <displayName value="Discharged to Home for Hospice Care SNOMEDCT Value Set"/>
+               </dischargeDispositionCode>
+            </encounterCriteria>
+         </entry>
+         <!--Encounter, Performed - discharge status With Value Set--><entry typeCode="DRIV">
+            <localVariableName value="Non-ElectiveInpatientEncounter_EncounterPerformed_dischargestatus_ValueSet_IsEqU"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="7a12ce7c-0c75-478d-b063-6aaa5728afbb"
+                   root="40280381-3d61-56a7-013d-7f7a48175849"/>
+               <code valueSet="2.16.840.1.113883.3.117.1.7.1.424">
+                  <displayName value="Non-Elective Inpatient Encounter SNOMEDCT Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <dischargeDispositionCode valueSet="2.16.840.1.113883.3.117.1.7.1.308">
+                  <displayName value="Left Against Medical Advice SNOMEDCT Value Set"/>
+               </dischargeDispositionCode>
+            </encounterCriteria>
+         </entry>
+         <!--Medication, Discharge - negation rationale With Value Set--><entry typeCode="DRIV">
+            <localVariableName value="Statiningredientspecific_MedicationDischarge_negationrationale_ValueSet_XmA8j"/>
+            <substanceAdministrationCriteria actionNegationInd="true" classCode="SBADM" moodCode="RQO">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.48"/>
+               </templateId>
+               <id extension="73e58a30-3f4a-48b3-8122-6fd70d4b5a21"
+                   root="07eb300e-2cc7-427f-8eff-42b4da89e2a5"/>
+               <code code="10183-2" codeSystem="2.16.840.1.113883.6.1"/>
+               <title value="Medication, Discharge"/>
+               <statusCode code="ACTIVE"/>
+	              <participation typeCode="CSM">
+                  <role classCode="MANU">
+                     <playingManufacturedMaterial classCode="MMAT" determinerCode="KIND">
+                        <code valueSet="2.16.840.1.113762.1.4.1021.7">
+                           <displayName value="Statin ingredient specific RXNORM value set"/>
+                        </code>
+                     </playingManufacturedMaterial>
+                  </role>
+               </participation>
+	              <outboundRelationship typeCode="RSON">
+                  <observationCriteria classCode="OBS" moodCode="EVN">
+                     <templateId>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.88"/>
+                     </templateId>
+                     <id extension="MedicalReason" root="73e58a30-3f4a-48b3-8122-6fd70d4b5a21"/>
+                     <code code="410666004" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Reason"/>
+                     </code>
+                     <title value="Reason"/>
+                     <value valueSet="2.16.840.1.113883.3.117.1.7.1.473" xsi:type="CD">
+                        <displayName value="Medical Reason SNOMEDCT Value Set"/>
+                     </value>
+                  </observationCriteria>
+               </outboundRelationship>
+            </substanceAdministrationCriteria>
+         </entry>
+         <!--Encounter, Performed - discharge status With Value Set--><entry typeCode="DRIV">
+            <localVariableName value="Non-ElectiveInpatientEncounter_EncounterPerformed_dischargestatus_ValueSet_7L6hk"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="c9e1ae82-f241-4f65-8169-0b3f7637cca4"
+                   root="40280381-3d61-56a7-013d-7f7a48175849"/>
+               <code valueSet="2.16.840.1.113883.3.117.1.7.1.424">
+                  <displayName value="Non-Elective Inpatient Encounter SNOMEDCT Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <dischargeDispositionCode valueSet="2.16.840.1.113883.3.117.1.7.1.309">
+                  <displayName value="Patient Expired SNOMEDCT Value Set"/>
+               </dischargeDispositionCode>
+            </encounterCriteria>
+         </entry>
+         <!--Medication, Discharge - negation rationale With Value Set--><entry typeCode="DRIV">
+            <localVariableName value="Statiningredientspecific_MedicationDischarge_negationrationale_ValueSet_XF7kM"/>
+            <substanceAdministrationCriteria actionNegationInd="true" classCode="SBADM" moodCode="RQO">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.48"/>
+               </templateId>
+               <id extension="2c08f247-95ef-4976-baf6-8a315074ce38"
+                   root="07eb300e-2cc7-427f-8eff-42b4da89e2a5"/>
+               <code code="10183-2" codeSystem="2.16.840.1.113883.6.1"/>
+               <title value="Medication, Discharge"/>
+               <statusCode code="ACTIVE"/>
+	              <participation typeCode="CSM">
+                  <role classCode="MANU">
+                     <playingManufacturedMaterial classCode="MMAT" determinerCode="KIND">
+                        <code valueSet="2.16.840.1.113762.1.4.1021.7">
+                           <displayName value="Statin ingredient specific RXNORM value set"/>
+                        </code>
+                     </playingManufacturedMaterial>
+                  </role>
+               </participation>
+	              <outboundRelationship typeCode="RSON">
+                  <observationCriteria classCode="OBS" moodCode="EVN">
+                     <templateId>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.88"/>
+                     </templateId>
+                     <id extension="PatientRefusal" root="2c08f247-95ef-4976-baf6-8a315074ce38"/>
+                     <code code="410666004" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Reason"/>
+                     </code>
+                     <title value="Reason"/>
+                     <value valueSet="2.16.840.1.113883.3.117.1.7.1.93" xsi:type="CD">
+                        <displayName value="Patient Refusal SNOMEDCT Value Set"/>
+                     </value>
+                  </observationCriteria>
+               </outboundRelationship>
+            </substanceAdministrationCriteria>
+         </entry>
+         <!--Diagnosis, Active - ordinality With Value Set--><entry typeCode="DRIV">
+            <localVariableName value="HemorrhagicStroke_DiagnosisActive_ordinality_ValueSet_anKwB"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.1"/>
+               </templateId>
+               <id extension="04e87b6a-562c-4cd5-b825-a41d83ab890b"
+                   root="40280381-3d27-5493-013d-380ba9e23684"/>
+               <code code="282291009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="Diagnosis"/>
+               </code>
+               <title value="Diagnosis, Active"/>
+               <statusCode code="COMPLETED"/>
+               <priorityCode>
+                  <item valueSet="2.16.840.1.113883.3.117.1.7.1.14">
+                     <displayName value="Principal SNOMEDCT Value Set"/>
+                  </item>
+               </priorityCode>
+               <value valueSet="2.16.840.1.113883.3.117.1.7.1.212" xsi:type="CD">
+                  <displayName value="Hemorrhagic Stroke Grouping Value Set"/>
+               </value>
+		             <outboundRelationship typeCode="REFR">
+                  <observationCriteria classCode="OBS" moodCode="EVN">
+                     <templateId>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.94"/>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.95"/>
+                     </templateId>
+                     <id extension="678B5413-5355-46F0-9DE9-85D43F57CC93"
+                         root="40280381-3d27-5493-013d-380ba9e23684"/>
+                     <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                        <displayName value="Status"/>
+                     </code>
+                     <title value="Status Active"/>
+                     <value code="55561003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"
+                            xsi:type="CD">
+                        <displayName value="Active"/>
+                     </value>
+                  </observationCriteria>
+               </outboundRelationship>
+	           </observationCriteria>
+         </entry>
+         <!--Diagnosis, Active - ordinality With Value Set--><entry typeCode="DRIV">
+            <localVariableName value="IschemicStroke_DiagnosisActive_ordinality_ValueSet_B3DcH"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.1"/>
+               </templateId>
+               <id extension="ee1a59d3-cac7-4f10-8391-22f94cd121c9"
+                   root="40280381-3d27-5493-013d-380ba9e23685"/>
+               <code code="282291009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="Diagnosis"/>
+               </code>
+               <title value="Diagnosis, Active"/>
+               <statusCode code="COMPLETED"/>
+               <priorityCode>
+                  <item valueSet="2.16.840.1.113883.3.117.1.7.1.14">
+                     <displayName value="Principal SNOMEDCT Value Set"/>
+                  </item>
+               </priorityCode>
+               <value valueSet="2.16.840.1.113883.3.117.1.7.1.247" xsi:type="CD">
+                  <displayName value="Ischemic Stroke Grouping Value Set"/>
+               </value>
+		             <outboundRelationship typeCode="REFR">
+                  <observationCriteria classCode="OBS" moodCode="EVN">
+                     <templateId>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.94"/>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.95"/>
+                     </templateId>
+                     <id extension="5F6C7B97-992A-4CFB-911E-34B96766B26E"
+                         root="40280381-3d27-5493-013d-380ba9e23685"/>
+                     <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                        <displayName value="Status"/>
+                     </code>
+                     <title value="Status Active"/>
+                     <value code="55561003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"
+                            xsi:type="CD">
+                        <displayName value="Active"/>
+                     </value>
+                  </observationCriteria>
+               </outboundRelationship>
+	           </observationCriteria>
+         </entry>
+         <!--Diagnosis, Active - ordinality With Value Set--><entry typeCode="DRIV">
+            <localVariableName value="IschemicStroke_DiagnosisActive_ordinality_ValueSet_r3EOE"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.1"/>
+               </templateId>
+               <id extension="32973f56-7600-4a22-b6ed-28217493575e"
+                   root="40280381-3d27-5493-013d-380ba9e23685"/>
+               <code code="282291009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="Diagnosis"/>
+               </code>
+               <title value="Diagnosis, Active"/>
+               <statusCode code="COMPLETED"/>
+               <priorityCode>
+                  <item valueSet="2.16.840.1.113883.3.117.1.7.1.14">
+                     <displayName value="Principal SNOMEDCT Value Set"/>
+                  </item>
+               </priorityCode>
+               <value valueSet="2.16.840.1.113883.3.117.1.7.1.247" xsi:type="CD">
+                  <displayName value="Ischemic Stroke Grouping Value Set"/>
+               </value>
+		             <outboundRelationship typeCode="REFR">
+                  <observationCriteria classCode="OBS" moodCode="EVN">
+                     <templateId>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.94"/>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.95"/>
+                     </templateId>
+                     <id extension="EAADAD96-D352-4C62-8B7F-2991844E36EE"
+                         root="40280381-3d27-5493-013d-380ba9e23685"/>
+                     <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                        <displayName value="Status"/>
+                     </code>
+                     <title value="Status Active"/>
+                     <value code="55561003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"
+                            xsi:type="CD">
+                        <displayName value="Active"/>
+                     </value>
+                  </observationCriteria>
+               </outboundRelationship>
+	           </observationCriteria>
+         </entry>
+         <!--Encounter, Performed - length of stay With Less Than Or Equal To--><entry typeCode="DRIV">
+            <localVariableName value="Non-ElectiveInpatientEncounter_EncounterPerformed_lengthofstay_LessThanOrEqualTo_KIpkN"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="2dd1e181-ef57-4a80-9f93-86d255f210b1"
+                   root="40280381-3d61-56a7-013d-7f7a48175849"/>
+               <code valueSet="2.16.840.1.113883.3.117.1.7.1.424">
+                  <displayName value="Non-Elective Inpatient Encounter SNOMEDCT Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <lengthOfStayQuantity>
+                  <uncertainRange>
+                     <low nullFlavor="NINF" xsi:type="PQ"/>
+                     <high unit="d" value="120" xsi:type="PQ"/>
+                  </uncertainRange>
+               </lengthOfStayQuantity>
+            </encounterCriteria>
+         </entry>
+         <!--Encounter, Performed - length of stay With Less Than Or Equal To--><entry typeCode="DRIV">
+            <localVariableName value="Non-ElectiveInpatientEncounter_EncounterPerformed_lengthofstay_LessThanOrEqualTo_7JV2S"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="2dd1e181-ef57-4a80-9f93-86d255f210b1"
+                   root="40280381-3d61-56a7-013d-7f7a48175849"/>
+               <code valueSet="2.16.840.1.113883.3.117.1.7.1.424">
+                  <displayName value="Non-Elective Inpatient Encounter SNOMEDCT Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <lengthOfStayQuantity>
+                  <uncertainRange>
+                     <low nullFlavor="NINF" xsi:type="PQ"/>
+                     <high unit="d" value="120" xsi:type="PQ"/>
+                  </uncertainRange>
+               </lengthOfStayQuantity>
+            </encounterCriteria>
+         </entry>
+         <!--Occurrence A Laboratory Test, Performed - result With Less Than--><entry typeCode="DRIV">
+            <localVariableName value="OccurrenceAofLDL-c_LaboratoryTestPerformed_result_LessThan_wmUw6"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <id extension="976b754e-7ba5-4b04-9b54-675431351a34"
+                   root="bf0a96eb-61ce-4e48-9c74-37cebf6de39c"/>
+               <value highClosed="false" xsi:type="IVL_PQ">
+                  <low nullFlavor="NINF"/>
+                  <high unit="mg/dL" value="70" xsi:type="PQ"/>
+               </value>
+               <outboundRelationship typeCode="OCCR">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="LDL-c_LaboratoryTestPerformed"
+                         root="eedd52ad-1024-436e-b3ea-d3c8bb3c1270"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Patient Characteristic Ethnicity--><entry typeCode="DRIV">
+            <localVariableName value="Ethnicity_PatientCharacteristicEthnicity_CY7Vb"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.56"/>
+               </templateId>
+               <id extension="Ethnicity_PatientCharacteristicEthnicity"
+                   root="40280381-3d27-5493-013d-380ba9e1367f"/>
+               <code code="54133-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Ethnicity"/>
+               </code>
+               <title value="Patient Characteristic Ethnicity"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.114222.4.11.837" xsi:type="CD">
+                  <displayName value="Ethnicity CDCREC Value Set"/>
+               </value>
+            </observationCriteria>
+         </entry>
+         <!--Patient Characteristic Sex--><entry typeCode="DRIV">
+            <localVariableName value="ONCAdministrativeSex_PatientCharacteristicSex_xDZOm"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.55"/>
+               </templateId>
+               <id extension="ONCAdministrativeSex_PatientCharacteristicSex"
+                   root="40280381-3d27-5493-013d-380ba9e1367d"/>
+               <code code="263495000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="Gender"/>
+               </code>
+               <title value="Patient Characteristic Sex"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.113762.1.4.1" xsi:type="CD">
+                  <displayName value="ONC Administrative Sex AdministrativeGender Value Set"/>
+               </value>
+            </observationCriteria>
+         </entry>
+         <!--Patient Characteristic Payer--><entry typeCode="DRIV">
+            <localVariableName value="Payer_PatientCharacteristicPayer_O7pxQ"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item root="2.16.840.1.113883.10.20.28.3.58"/>
+               </templateId>
+               <id extension="Payer_PatientCharacteristicPayer"
+                   root="40280381-3d27-5493-013d-380ba9e13680"/>
+               <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Payer"/>
+               </code>
+               <title value="Patient Characteristic Payer"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.114222.4.11.3591" xsi:type="CD">
+                  <displayName value="Payer SOP Value Set"/>
+               </value>
+            </observationCriteria>
+         </entry>
+         <!--Patient Characteristic Race--><entry typeCode="DRIV">
+            <localVariableName value="Race_PatientCharacteristicRace_Z36kK"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item root="2.16.840.1.113883.10.20.28.3.59"/>
+               </templateId>
+               <id extension="Race_PatientCharacteristicRace"
+                   root="40280381-3d27-5493-013d-380ba9e1367e"/>
+               <code code="32624-9" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Race"/>
+               </code>
+               <title value="Patient Characteristic Race"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.114222.4.11.836" xsi:type="CD">
+                  <displayName value="Race CDCREC Value Set"/>
+               </value>
+            </observationCriteria>
+         </entry>
+         <!--Clause 'EncounterInpatientNonElective'--><!--entry for Ends During--><entry typeCode="DRIV">
+            <localVariableName value="localVar_EndsDuring_04CD022E-0991-4EAC-B15B-391FB4A2D0FC"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="EndsDuring_04CD022E-0991-4EAC-B15B-391FB4A2D0FC"
+                   root="40280381-3d61-56a7-013d-7f7a48175849"/>
+               <code valueSet="2.16.840.1.113883.3.117.1.7.1.424">
+                  <displayName value="Non-Elective Inpatient Encounter SNOMEDCT Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <temporallyRelatedInformation typeCode="EDU">
+                  <qdm:temporalInformation precisionUnit="min"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="measureperiod" root="40280381-3d27-5493-013d-380ba9e23683"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+            </encounterCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="qdm_var_SATISFIES ALL_A4C8101D-12C6-4D67-AC6B-BCE96B0327CC"/>
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <templateId>
+                  <item root="2.16.840.1.113883.10.20.28.3.109"/>
+               </templateId>
+               <id extension="qdm_var_SATISFIESALL_A4C8101D-12C6-4D67-AC6B-BCE96B0327CC"
+                   root="9B1660F4-A842-408C-ACA0-52554C73DCAB"/>
+               <!--outBoundRelationship for Non-Elective Inpatient Encounter : Encounter, Performed--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="2dd1e181-ef57-4a80-9f93-86d255f210b1"
+                         root="40280381-3d61-56a7-013d-7f7a48175849"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Ends During--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="EndsDuring_04CD022E-0991-4EAC-B15B-391FB4A2D0FC"
+                         root="40280381-3d61-56a7-013d-7f7a48175849"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+         <!--Clause 'Age GTET 18 years at Occ A EncIPNonElective'--><!--Clause 'Occurrence A of $EncounterInpatientNonElective'--><entry typeCode="DRIV">
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <id extension="occAof_qdm_var_SATISFIESALL_3DE4A33B-74C0-45AE-AC92-924D1AB07B97"
+                   root="0CEF9692-202B-4162-8DDB-2A91E66566A3"/>
+               <outboundRelationship typeCode="OCCR">
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="qdm_var_SATISFIESALL_A4C8101D-12C6-4D67-AC6B-BCE96B0327CC"
+                         root="9B1660F4-A842-408C-ACA0-52554C73DCAB"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+         <!--entry for Age >= 18 years at--><entry typeCode="DRIV">
+            <localVariableName value="localVar_Agegrtr_thn_eql_18yearsat_5B82C392-6B21-4005-99DD-706903803B9A"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.54"/>
+               </templateId>
+               <id extension="Agegrtr_thn_eql_18yearsat_5B82C392-6B21-4005-99DD-706903803B9A"
+                   root="60C34620-CC04-4D77-8BD4-1C36E08E74A3"/>
+               <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Birth Date"/>
+               </code>
+               <title value="Patient Characteristic Birthdate"/>
+               <statusCode code="COMPLETED"/>
+               <temporallyRelatedInformation typeCode="SBS">
+                  <qdm:temporalInformation precisionUnit="d">
+                     <qdm:delta lowClosed="true">
+                        <low unit="a" value="18"/>
+                        <high nullFlavor="PINF"/>
+                     </qdm:delta>
+                  </qdm:temporalInformation>
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="occAof_qdm_var_SATISFIESALL_3DE4A33B-74C0-45AE-AC92-924D1AB07B97"
+                         root="0CEF9692-202B-4162-8DDB-2A91E66566A3"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+            </observationCriteria>
+         </entry>
+         <!--Clause 'Union of Dx Active Hemorr Ischemic Stk starts during Occ A EncIPNonElect'--><!--entry for Starts During--><entry typeCode="DRIV">
+            <localVariableName value="localVar_StartsDuring_5D190956-3021-4628-A91B-77BCB519B283"/>
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <id extension="StartsDuring_5D190956-3021-4628-A91B-77BCB519B283"
+                   root="452A6639-18DA-4531-BD1B-8889FFFCA4A4"/>
+               <!--outBoundRelationship for Hemorrhagic Stroke : Diagnosis, Active--><temporallyRelatedInformation typeCode="SDU">
+                  <qdm:temporalInformation precisionUnit="min"/>
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="occAof_qdm_var_SATISFIESALL_3DE4A33B-74C0-45AE-AC92-924D1AB07B97"
+                         root="0CEF9692-202B-4162-8DDB-2A91E66566A3"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+               <outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="04e87b6a-562c-4cd5-b825-a41d83ab890b"
+                         root="40280381-3d27-5493-013d-380ba9e23684"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Ischemic Stroke : Diagnosis, Active--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="ee1a59d3-cac7-4f10-8391-22f94cd121c9"
+                         root="40280381-3d27-5493-013d-380ba9e23685"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+         <!--Clause 'Dx Active Ischemic Stk Principal starts during Occ A EncIPNonElective'--><!--entry for Starts During--><entry typeCode="DRIV">
+            <localVariableName value="localVar_StartsDuring_1E86DB79-54A1-449F-9EA0-E067938A384F"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.1"/>
+               </templateId>
+               <id extension="StartsDuring_1E86DB79-54A1-449F-9EA0-E067938A384F"
+                   root="6ACCE9C9-007B-458A-97FE-A0A2A4A2ADFD"/>
+               <code code="282291009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="Diagnosis"/>
+               </code>
+               <title value="Diagnosis, Active"/>
+               <statusCode code="COMPLETED"/>
+               <priorityCode>
+                  <item valueSet="2.16.840.1.113883.3.117.1.7.1.14">
+                     <displayName value="Principal SNOMEDCT Value Set"/>
+                  </item>
+               </priorityCode>
+               <value valueSet="2.16.840.1.113883.3.117.1.7.1.247" xsi:type="CD">
+                  <displayName value="Ischemic Stroke Grouping Value Set"/>
+               </value>
+		             <temporallyRelatedInformation typeCode="SDU">
+                  <qdm:temporalInformation precisionUnit="min"/>
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="occAof_qdm_var_SATISFIESALL_3DE4A33B-74C0-45AE-AC92-924D1AB07B97"
+                         root="0CEF9692-202B-4162-8DDB-2A91E66566A3"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+               <outboundRelationship typeCode="REFR">
+                  <observationCriteria classCode="OBS" moodCode="EVN">
+                     <templateId>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.94"/>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.95"/>
+                     </templateId>
+                     <id extension="EAADAD96-D352-4C62-8B7F-2991844E36EE"
+                         root="40280381-3d27-5493-013d-380ba9e23685"/>
+                     <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                        <displayName value="Status"/>
+                     </code>
+                     <title value="Status Active"/>
+                     <value code="55561003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"
+                            xsi:type="CD">
+                        <displayName value="Active"/>
+                     </value>
+                  </observationCriteria>
+               </outboundRelationship>
+	           </observationCriteria>
+         </entry>
+         <!--Clause 'InterventionComfortMeasures'--><entry typeCode="DRIV">
+            <localVariableName value="qdm_var_UNION_A776FFEB-CAC8-45C4-9CA5-2C025367C51F"/>
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <id extension="qdm_var_UNION_A776FFEB-CAC8-45C4-9CA5-2C025367C51F"
+                   root="B6265B2C-FE9F-4D83-8E6E-F12C78320010"/>
+               <!--outBoundRelationship for Comfort Measures  : Intervention, Order--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="ACT" moodCode="RQO">
+                     <id extension="ComfortMeasures_InterventionOrder"
+                         root="2c2443af-7d72-4409-a7e9-16e8a080ce78"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Comfort Measures  : Intervention, Performed--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="ACT" moodCode="EVN">
+                     <id extension="ComfortMeasures_InterventionPerformed"
+                         root="55df808c-dcc2-4d97-9c3c-baa7ce1c820f"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+         <!--Clause 'InterventionComfortMsrs starts during Occ A EncIPNonElect'--><!--entry for Starts During--><entry typeCode="DRIV">
+            <localVariableName value="localVar_StartsDuring_64F9ACAF-B4BC-4D2E-B69B-E3AD3D1E883A"/>
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <id extension="StartsDuring_64F9ACAF-B4BC-4D2E-B69B-E3AD3D1E883A"
+                   root="338DAAB4-5AE6-4952-9A78-FD2A968C06E4"/>
+               <temporallyRelatedInformation typeCode="SDU">
+                  <qdm:temporalInformation precisionUnit="min"/>
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="occAof_qdm_var_SATISFIESALL_3DE4A33B-74C0-45AE-AC92-924D1AB07B97"
+                         root="0CEF9692-202B-4162-8DDB-2A91E66566A3"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+               <outboundRelationship typeCode="COMP">
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="qdm_var_UNION_A776FFEB-CAC8-45C4-9CA5-2C025367C51F"
+                         root="B6265B2C-FE9F-4D83-8E6E-F12C78320010"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+         <!--Clause 'Med Discharge Statin starts during Occ A EncIPNonElect'--><!--entry for Starts During--><entry typeCode="DRIV">
+            <localVariableName value="localVar_StartsDuring_60E0E4F0-755C-47D9-93DC-60E04C21311F"/>
+            <substanceAdministrationCriteria classCode="SBADM" moodCode="RQO">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.48"/>
+               </templateId>
+               <id extension="StartsDuring_60E0E4F0-755C-47D9-93DC-60E04C21311F"
+                   root="E4D8B733-3A8E-4595-A156-EEAC44DD67ED"/>
+               <code code="10183-2" codeSystem="2.16.840.1.113883.6.1"/>
+               <title value="Medication, Discharge"/>
+               <statusCode code="ACTIVE"/>
+	              <participation typeCode="CSM">
+                  <role classCode="MANU">
+                     <playingManufacturedMaterial classCode="MMAT" determinerCode="KIND">
+                        <code valueSet="2.16.840.1.113883.3.117.1.7.1.225">
+                           <displayName value="Statin RXNORM value set"/>
+                        </code>
+                     </playingManufacturedMaterial>
+                  </role>
+               </participation>
+	              <temporallyRelatedInformation typeCode="SDU">
+                  <qdm:temporalInformation precisionUnit="min"/>
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="occAof_qdm_var_SATISFIESALL_3DE4A33B-74C0-45AE-AC92-924D1AB07B97"
+                         root="0CEF9692-202B-4162-8DDB-2A91E66566A3"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+            </substanceAdministrationCriteria>
+         </entry>
+         <!--Clause 'Union of Med DC not done Patient Refusal Med Reason for Statin ingred'--><!--entry for Starts During--><entry typeCode="DRIV">
+            <localVariableName value="localVar_StartsDuring_28A8E858-F7A9-4CA1-A501-BC88614D17C9"/>
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <id extension="StartsDuring_28A8E858-F7A9-4CA1-A501-BC88614D17C9"
+                   root="2135C728-7FB1-43D1-95CA-6DA7C7A7475A"/>
+               <!--outBoundRelationship for Statin ingredient specific : Medication, Discharge--><temporallyRelatedInformation typeCode="SDU">
+                  <qdm:temporalInformation precisionUnit="min"/>
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="occAof_qdm_var_SATISFIESALL_3DE4A33B-74C0-45AE-AC92-924D1AB07B97"
+                         root="0CEF9692-202B-4162-8DDB-2A91E66566A3"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+               <outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="SBADM" moodCode="RQO">
+                     <id extension="2c08f247-95ef-4976-baf6-8a315074ce38"
+                         root="07eb300e-2cc7-427f-8eff-42b4da89e2a5"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Statin ingredient specific : Medication, Discharge--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="SBADM" moodCode="RQO">
+                     <id extension="73e58a30-3f4a-48b3-8122-6fd70d4b5a21"
+                         root="07eb300e-2cc7-427f-8eff-42b4da89e2a5"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+         <!--Clause 'Intersection of Occ A EncIPNon Enc IP Non Elect sat any DC status'--><entry typeCode="DRIV">
+            <localVariableName value="SATISFIES ANY_1B4A900F-81F0-42D3-B5EE-9875D0A87B4C"/>
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <templateId>
+                  <item root="2.16.840.1.113883.10.20.28.3.108"/>
+               </templateId>
+               <id extension="SATISFIESANY_1B4A900F-81F0-42D3-B5EE-9875D0A87B4C"
+                   root="257521C4-4561-4479-8198-51D6AD5E3152"/>
+               <!--outBoundRelationship for Non-Elective Inpatient Encounter : Encounter, Performed--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="3a662dd4-c938-4ce8-ab7f-11a83b9b7a8a"
+                         root="40280381-3d61-56a7-013d-7f7a48175849"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Non-Elective Inpatient Encounter : Encounter, Performed--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="7a12ce7c-0c75-478d-b063-6aaa5728afbb"
+                         root="40280381-3d61-56a7-013d-7f7a48175849"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Non-Elective Inpatient Encounter : Encounter, Performed--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="c9e1ae82-f241-4f65-8169-0b3f7637cca4"
+                         root="40280381-3d61-56a7-013d-7f7a48175849"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Non-Elective Inpatient Encounter : Encounter, Performed--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="b5e4aee1-d712-4108-aedd-17a573898ae2"
+                         root="40280381-3d61-56a7-013d-7f7a48175849"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Non-Elective Inpatient Encounter : Encounter, Performed--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="a734213d-5304-493e-bc6b-dba07cf5fe0f"
+                         root="40280381-3d61-56a7-013d-7f7a48175849"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="INTERSECTION_F7F8A363-5B28-4BEB-83A0-25D9E7CD0294"/>
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <id extension="INTERSECTION_F7F8A363-5B28-4BEB-83A0-25D9E7CD0294"
+                   root="2BA4FFA4-1752-427A-80B1-238051A20BD6"/>
+               <!--outBoundRelationship for Occurrence A of EncounterInpatientNonElective--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="occAof_qdm_var_SATISFIESALL_3DE4A33B-74C0-45AE-AC92-924D1AB07B97"
+                         root="0CEF9692-202B-4162-8DDB-2A91E66566A3"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for SATISFIES ANY--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="SATISFIESANY_1B4A900F-81F0-42D3-B5EE-9875D0A87B4C"
+                         root="257521C4-4561-4479-8198-51D6AD5E3152"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+         <!--Clause 'InterventionComfortMsrs starts during ED Visit'--><!--Clause 'ED LTET 1 hr EBOCWSO OccA Inpt Enc'--><!--entry for <= 1 hours Ends Before Or Concurrent With Start Of--><entry typeCode="DRIV">
+            <localVariableName value="localVar_less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_2282F014-2AD5-49E5-9812-9B1549C19A57"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_2282F014-2AD5-49E5-9812-9B1549C19A57"
+                   root="6FD0A1BB-9833-46F2-AF32-B8F30A7464C0"/>
+               <code valueSet="2.16.840.1.113883.3.117.1.7.1.292">
+                  <displayName value="Emergency Department Visit SNOMEDCT Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <temporallyRelatedInformation typeCode="EBSORECWS">
+                  <qdm:temporalInformation precisionUnit="min">
+                     <qdm:delta highClosed="true" lowClosed="true">
+                        <low unit="h" value="0"/>
+                        <high unit="h" value="1"/>
+                     </qdm:delta>
+                  </qdm:temporalInformation>
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="occAof_qdm_var_SATISFIESALL_3DE4A33B-74C0-45AE-AC92-924D1AB07B97"
+                         root="0CEF9692-202B-4162-8DDB-2A91E66566A3"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+            </encounterCriteria>
+         </entry>
+         <!--entry for Starts During--><entry typeCode="DRIV">
+            <localVariableName value="localVar_StartsDuring_DCF0206B-FC23-46DE-9C33-C094B2BF8BD4"/>
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <id extension="StartsDuring_DCF0206B-FC23-46DE-9C33-C094B2BF8BD4"
+                   root="31FFD460-0F99-4474-A878-407F32257713"/>
+               <temporallyRelatedInformation typeCode="SDU">
+                  <qdm:temporalInformation precisionUnit="min"/>
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_2282F014-2AD5-49E5-9812-9B1549C19A57"
+                         root="6FD0A1BB-9833-46F2-AF32-B8F30A7464C0"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+               <outboundRelationship typeCode="COMP">
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="qdm_var_UNION_A776FFEB-CAC8-45C4-9CA5-2C025367C51F"
+                         root="B6265B2C-FE9F-4D83-8E6E-F12C78320010"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+         <!--Clause 'Med Allergy Statin Allergen SBOCWEO Occ A EncIPNonElect'--><!--entry for Starts Before Or Concurrent With End Of--><entry typeCode="DRIV">
+            <localVariableName value="localVar_StartsBeforeOrConcurrentWithEndOf_EF197864-B176-4825-986A-E8D1E6943FF4"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.47"/>
+               </templateId>
+               <id extension="StartsBeforeOrConcurrentWithEndOf_EF197864-B176-4825-986A-E8D1E6943FF4"
+                   root="C40914ED-14D2-4E72-9873-0C5073AEA908"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Medication, Allergy"/>
+               <statusCode code="COMPLETED"/>
+               <value code="416098002" codeSystem="2.16.840.1.113883.6.96" xsi:type="CD"/>
+	              <participation typeCode="CSM">
+                  <role classCode="MANU">
+                     <playingEntity classCode="MMAT" determinerCode="KIND">
+                        <code valueSet="2.16.840.1.113883.3.117.1.7.1.423">
+                           <displayName value="Statin Allergen RXNORM value set"/>
+                        </code>
+                     </playingEntity>
+                  </role>
+               </participation>
+	              <temporallyRelatedInformation typeCode="SBEORSCWE">
+                  <qdm:temporalInformation precisionUnit="min"/>
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="occAof_qdm_var_SATISFIESALL_3DE4A33B-74C0-45AE-AC92-924D1AB07B97"
+                         root="0CEF9692-202B-4162-8DDB-2A91E66566A3"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+            </observationCriteria>
+         </entry>
+         <!--Clause 'Occ A Lab Test Perf LDLc sat all LT70 sat any LTET 30 d EBS SD ENC'--><!--entry for <= 30 days Ends Before Start Of--><entry typeCode="DRIV">
+            <localVariableName value="localVar_less_thn_eql_30daysEndsBeforeStartOf_D23DA474-66EB-4230-9519-1D5C52D530A6"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <id extension="less_thn_eql_30daysEndsBeforeStartOf_D23DA474-66EB-4230-9519-1D5C52D530A6"
+                   root="bf0a96eb-61ce-4e48-9c74-37cebf6de39c"/>
+               <temporallyRelatedInformation typeCode="EBS">
+                  <qdm:temporalInformation precisionUnit="d">
+                     <qdm:delta highClosed="true" lowClosed="true">
+                        <low unit="d" value="0"/>
+                        <high unit="d" value="30"/>
+                     </qdm:delta>
+                  </qdm:temporalInformation>
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="qdm_var_SATISFIESALL_A4C8101D-12C6-4D67-AC6B-BCE96B0327CC"
+                         root="9B1660F4-A842-408C-ACA0-52554C73DCAB"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+               <outboundRelationship typeCode="OCCR">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="LDL-c_LaboratoryTestPerformed"
+                         root="eedd52ad-1024-436e-b3ea-d3c8bb3c1270"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--entry for Starts During--><entry typeCode="DRIV">
+            <localVariableName value="localVar_StartsDuring_CEC301DD-BA7F-4A03-A431-A43EDE4D581F"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <id extension="StartsDuring_CEC301DD-BA7F-4A03-A431-A43EDE4D581F"
+                   root="bf0a96eb-61ce-4e48-9c74-37cebf6de39c"/>
+               <temporallyRelatedInformation typeCode="SDU">
+                  <qdm:temporalInformation precisionUnit="min"/>
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="qdm_var_SATISFIESALL_A4C8101D-12C6-4D67-AC6B-BCE96B0327CC"
+                         root="9B1660F4-A842-408C-ACA0-52554C73DCAB"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+               <outboundRelationship typeCode="OCCR">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="LDL-c_LaboratoryTestPerformed"
+                         root="eedd52ad-1024-436e-b3ea-d3c8bb3c1270"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="SATISFIES ANY_038C39AE-CDD3-4608-AD26-9F4B573345FE"/>
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <templateId>
+                  <item root="2.16.840.1.113883.10.20.28.3.108"/>
+               </templateId>
+               <id extension="SATISFIESANY_038C39AE-CDD3-4608-AD26-9F4B573345FE"
+                   root="EE762A6B-B874-4D3D-8172-54B7C1748EE5"/>
+               <!--outBoundRelationship for <= 30 days Ends Before Start Of--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="less_thn_eql_30daysEndsBeforeStartOf_D23DA474-66EB-4230-9519-1D5C52D530A6"
+                         root="bf0a96eb-61ce-4e48-9c74-37cebf6de39c"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Starts During--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="StartsDuring_CEC301DD-BA7F-4A03-A431-A43EDE4D581F"
+                         root="bf0a96eb-61ce-4e48-9c74-37cebf6de39c"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="SATISFIES ALL_2ACF1E35-2CE5-4E94-8BE3-B30BC4ED12FA"/>
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <templateId>
+                  <item root="2.16.840.1.113883.10.20.28.3.109"/>
+               </templateId>
+               <id extension="SATISFIESALL_2ACF1E35-2CE5-4E94-8BE3-B30BC4ED12FA"
+                   root="0E37FC5E-2913-4AC2-8BFF-D28C4FA7507B"/>
+               <!--outBoundRelationship for Occurrence A of LDL-c : Laboratory Test, Performed--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="976b754e-7ba5-4b04-9b54-675431351a34"
+                         root="bf0a96eb-61ce-4e48-9c74-37cebf6de39c"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for SATISFIES ANY--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="SATISFIESANY_038C39AE-CDD3-4608-AD26-9F4B573345FE"
+                         root="EE762A6B-B874-4D3D-8172-54B7C1748EE5"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+      </dataCriteriaSection>
+   </component>
+   <component>
+      <populationCriteriaSection>
+         <templateId>
+            <item root="2.16.840.1.113883.10.20.28.2.1"/>
+         </templateId>
+         <id extension="PopulationCriteria1" root="87C7CE2C-3C21-4C18-AD17-E14B74463AC2"/>
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"/>
+         <title value="Population Criteria Section"/>
+         <text>
+            <xml>
+               <item>
+                  <list>
+                     <item>
+                        <content styleCode="Bold">Population Criteria</content>
+                        <list>
+                           <item>
+                              <content styleCode="Bold">Initial Population =</content>
+                              <list>
+                                 <item>AND: Age &gt;= 18 year(s) at: Occurrence A of $EncounterInpatientNonElective</item>
+                                 <item>AND: Union of:<list>
+                                       <item>"Diagnosis, Active: Hemorrhagic Stroke (ordinality: Principal)"</item>
+                                       <item>"Diagnosis, Active: Ischemic Stroke (ordinality: Principal)"</item>
+                                       <item>starts during Occurrence A of $EncounterInpatientNonElective</item>
+                                    </list>
+                                 </item>
+                              </list>
+                           </item>
+                           <item>
+                              <content styleCode="Bold">Denominator =</content>
+                              <list>
+                                 <item>AND: Initial Population</item>
+                              </list>
+                              <list>
+                                 <item>AND: "Diagnosis, Active: Ischemic Stroke (ordinality: Principal)" starts during Occurrence A of $EncounterInpatientNonElective</item>
+                              </list>
+                           </item>
+                           <item>
+                              <content styleCode="Bold">Denominator Exclusions =</content>
+                              <list>
+                                 <item>OR: "Occurrence A of Laboratory Test, Performed: LDL-c"  satisfies all<list>
+                                       <item>(result &lt; 70 mg/dL)</item>
+                                       <item>satisfies any<list>
+                                             <item>&lt;= 30 day(s) ends before start of $EncounterInpatientNonElective</item>
+                                             <item>starts during $EncounterInpatientNonElective</item>
+                                          </list>
+                                       </item>
+                                    </list>
+                                 </item>
+                                 <item>OR: Intersection of:<list>
+                                       <item>Occurrence A of $EncounterInpatientNonElective</item>
+                                       <item>"Encounter, Performed: Non-Elective Inpatient Encounter"  satisfies any<list>
+                                             <item>(discharge status: Discharge To Acute Care Facility)</item>
+                                             <item>(discharge status: Left Against Medical Advice)</item>
+                                             <item>(discharge status: Patient Expired)</item>
+                                             <item>(discharge status: Discharged to Home for Hospice Care)</item>
+                                             <item>(discharge status: Discharged to Health Care Facility for Hospice Care)</item>
+                                          </list>
+                                       </item>
+                                    </list>
+                                 </item>
+                                 <item>OR: $InterventionComfortMeasures starts during<list>
+                                       <item>"Encounter, Performed: Emergency Department Visit" &lt;= 1 hour(s) ends before or concurrent with start of Occurrence A of $EncounterInpatientNonElective</item>
+                                    </list>
+                                 </item>
+                                 <item>OR: $InterventionComfortMeasures starts during Occurrence A of $EncounterInpatientNonElective</item>
+                              </list>
+                           </item>
+                           <item>
+                              <content styleCode="Bold">Numerator =</content>
+                              <list>
+                                 <item>AND: "Medication, Discharge: Statin" starts during Occurrence A of $EncounterInpatientNonElective</item>
+                              </list>
+                           </item>
+                           <item>
+                              <content styleCode="Bold">Numerator Exclusions =</content>
+                              <list>
+                                 <item>None</item>
+                              </list>
+                           </item>
+                           <item>
+                              <content styleCode="Bold">Denominator Exceptions =</content>
+                              <list>
+                                 <item>OR: "Medication, Allergy: Statin Allergen" starts before or concurrent with end of Occurrence A of $EncounterInpatientNonElective</item>
+                                 <item>OR: Union of:<list>
+                                       <item>"Medication, Discharge not done: Patient Refusal" for "Statin ingredient specific"</item>
+                                       <item>"Medication, Discharge not done: Medical Reason" for "Statin ingredient specific"</item>
+                                       <item>starts during Occurrence A of $EncounterInpatientNonElective</item>
+                                    </list>
+                                 </item>
+                              </list>
+                           </item>
+                           <item>
+                              <content styleCode="Bold">Stratification =</content>
+                              <list>
+                                 <item>None</item>
+                              </list>
+                           </item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+            </xml>
+         </text>
+         <component typeCode="COMP">
+            <initialPopulationCriteria classCode="OBS" moodCode="EVN">
+               <id extension="initialPopulation" root="C9432473-03E0-4641-8389-90DEB7BA84DD"/>
+               <code code="IPOP" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="initialPopulation"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="Agegrtr_thn_eql_18yearsat_5B82C392-6B21-4005-99DD-706903803B9A"
+                         root="60C34620-CC04-4D77-8BD4-1C36E08E74A3"/>
+                  </criteriaReference>
+               </precondition>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="StartsDuring_5D190956-3021-4628-A91B-77BCB519B283"
+                         root="452A6639-18DA-4531-BD1B-8889FFFCA4A4"/>
+                  </criteriaReference>
+               </precondition>
+            </initialPopulationCriteria>
+         </component>
+         <component typeCode="COMP">
+            <denominatorCriteria classCode="OBS" moodCode="EVN">
+               <id extension="denominator" root="994B8F67-E7F9-451D-AB51-536C4ABBB5B3"/>
+               <code code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="denominator"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="initialPopulation" root="C9432473-03E0-4641-8389-90DEB7BA84DD"/>
+                  </criteriaReference>
+               </precondition>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="StartsDuring_1E86DB79-54A1-449F-9EA0-E067938A384F"
+                         root="6ACCE9C9-007B-458A-97FE-A0A2A4A2ADFD"/>
+                  </criteriaReference>
+               </precondition>
+            </denominatorCriteria>
+         </component>
+         <component typeCode="COMP">
+            <denominatorExclusionCriteria classCode="OBS" moodCode="EVN">
+               <id extension="denominatorExclusions" root="F1FDAE7A-BFBF-4F19-832E-E440058961C0"/>
+               <code code="DENEX" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="denominatorExclusions"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="SATISFIESALL_2ACF1E35-2CE5-4E94-8BE3-B30BC4ED12FA"
+                         root="0E37FC5E-2913-4AC2-8BFF-D28C4FA7507B"/>
+                  </criteriaReference>
+               </precondition>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="INTERSECTION_F7F8A363-5B28-4BEB-83A0-25D9E7CD0294"
+                         root="2BA4FFA4-1752-427A-80B1-238051A20BD6"/>
+                  </criteriaReference>
+               </precondition>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="StartsDuring_DCF0206B-FC23-46DE-9C33-C094B2BF8BD4"
+                         root="31FFD460-0F99-4474-A878-407F32257713"/>
+                  </criteriaReference>
+               </precondition>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="StartsDuring_64F9ACAF-B4BC-4D2E-B69B-E3AD3D1E883A"
+                         root="338DAAB4-5AE6-4952-9A78-FD2A968C06E4"/>
+                  </criteriaReference>
+               </precondition>
+            </denominatorExclusionCriteria>
+         </component>
+         <component typeCode="COMP">
+            <denominatorExceptionCriteria classCode="OBS" moodCode="EVN">
+               <id extension="denominatorExceptions" root="5DCA5EF5-A21F-4255-9931-341082B06D70"/>
+               <code code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="denominatorExceptions"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="StartsBeforeOrConcurrentWithEndOf_EF197864-B176-4825-986A-E8D1E6943FF4"
+                         root="C40914ED-14D2-4E72-9873-0C5073AEA908"/>
+                  </criteriaReference>
+               </precondition>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="StartsDuring_28A8E858-F7A9-4CA1-A501-BC88614D17C9"
+                         root="2135C728-7FB1-43D1-95CA-6DA7C7A7475A"/>
+                  </criteriaReference>
+               </precondition>
+            </denominatorExceptionCriteria>
+         </component>
+         <component typeCode="COMP">
+            <numeratorCriteria classCode="OBS" moodCode="EVN">
+               <id extension="numerator" root="0D5A71D4-08B8-4447-A7AE-47FDD7271424"/>
+               <code code="NUMER" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="numerator"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="SBADM" moodCode="RQO">
+                     <id extension="StartsDuring_60E0E4F0-755C-47D9-93DC-60E04C21311F"
+                         root="E4D8B733-3A8E-4595-A156-EEAC44DD67ED"/>
+                  </criteriaReference>
+               </precondition>
+            </numeratorCriteria>
+         </component>
+         <component typeCode="COMP">
+            <stratifierCriteria>
+               <id extension="Stratifiers" root="D6B62D03-A684-47AC-950B-398D27A7ADAC"/>
+               <code code="STRAT" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="Stratification"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="Ethnicity_PatientCharacteristicEthnicity"
+                         root="40280381-3d27-5493-013d-380ba9e1367f"/>
+                  </criteriaReference>
+               </precondition>
+               <component typeCode="COMP">
+                  <measureAttribute>
+                     <code code="SDE" codeSystem="2.16.840.1.113883.5.4">
+                        <displayName value="Supplemental Data Element"/>
+                     </code>
+                     <value mediaType="text/plain" value="Supplemental Data Elements" xsi:type="ED"/>
+                  </measureAttribute>
+               </component>
+            </stratifierCriteria>
+         </component>
+         <component typeCode="COMP">
+            <stratifierCriteria>
+               <id extension="Stratifiers" root="0952D625-7CC0-4B58-8280-50631351FDF4"/>
+               <code code="STRAT" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="Stratification"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="ONCAdministrativeSex_PatientCharacteristicSex"
+                         root="40280381-3d27-5493-013d-380ba9e1367d"/>
+                  </criteriaReference>
+               </precondition>
+               <component typeCode="COMP">
+                  <measureAttribute>
+                     <code code="SDE" codeSystem="2.16.840.1.113883.5.4">
+                        <displayName value="Supplemental Data Element"/>
+                     </code>
+                     <value mediaType="text/plain" value="Supplemental Data Elements" xsi:type="ED"/>
+                  </measureAttribute>
+               </component>
+            </stratifierCriteria>
+         </component>
+         <component typeCode="COMP">
+            <stratifierCriteria>
+               <id extension="Stratifiers" root="83D643CF-1CA9-44FC-AF04-09A5FCB3AAB6"/>
+               <code code="STRAT" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="Stratification"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="Payer_PatientCharacteristicPayer"
+                         root="40280381-3d27-5493-013d-380ba9e13680"/>
+                  </criteriaReference>
+               </precondition>
+               <component typeCode="COMP">
+                  <measureAttribute>
+                     <code code="SDE" codeSystem="2.16.840.1.113883.5.4">
+                        <displayName value="Supplemental Data Element"/>
+                     </code>
+                     <value mediaType="text/plain" value="Supplemental Data Elements" xsi:type="ED"/>
+                  </measureAttribute>
+               </component>
+            </stratifierCriteria>
+         </component>
+         <component typeCode="COMP">
+            <stratifierCriteria>
+               <id extension="Stratifiers" root="8A70F368-6C31-4490-AD6B-D0D8A8739004"/>
+               <code code="STRAT" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="Stratification"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="Race_PatientCharacteristicRace"
+                         root="40280381-3d27-5493-013d-380ba9e1367e"/>
+                  </criteriaReference>
+               </precondition>
+               <component typeCode="COMP">
+                  <measureAttribute>
+                     <code code="SDE" codeSystem="2.16.840.1.113883.5.4">
+                        <displayName value="Supplemental Data Element"/>
+                     </code>
+                     <value mediaType="text/plain" value="Supplemental Data Elements" xsi:type="ED"/>
+                  </measureAttribute>
+               </component>
+            </stratifierCriteria>
+         </component>
+      </populationCriteriaSection>
+   </component>
+</QualityMeasureDocument>

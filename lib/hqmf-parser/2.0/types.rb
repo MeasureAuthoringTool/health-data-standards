@@ -23,7 +23,7 @@ module HQMF2
 
     attr_reader :type, :unit, :value
 
-    def initialize(entry, default_type='PQ', force_inclusive=false)
+    def initialize(entry, default_type='PQ', force_inclusive=false, parent=nil)
       @entry = entry
       @type = attr_val('./@xsi:type') || default_type
       @unit = attr_val('./@unit')
@@ -37,28 +37,44 @@ module HQMF2
     def inclusive?
       # FIXME: NINF is used instead of 0 sometimes...? (not in the IG)
       # FIXME: Given nullFlavor, but IG uses it and nullValue everywhere...
-
       # temporal references
       less_than_equal_tr = attr_val("../@lowClosed")=='true' &&
         attr_val("../@highClosed")=='true' &&
-        attr_val("../cda:low/@value")=="0"
+        (attr_val("../cda:low/@value")=="0" || attr_val("../cda:low/@nullFlavor")=="NINF")
       greater_than_equal_tr = attr_val("../cda:high/@nullFlavor")=="PINF" &&
         attr_val("../cda:low/@value") &&
         attr_val("../@lowClosed")=='true'
-      equivalent = attr_val("../@lowClosed")=='true' &&
-        attr_val("../@highClosed")=='true' &&
-        attr_val("../cda:low/@value")==attr_val("../cda:high/@value")
+
+      equivalent = attr_val("../cda:low/@value")==attr_val("../cda:high/@value") &&
+        attr_val("../@lowClosed") !='false' &&
+        attr_val("../@highClosed") !='false'
 
       # lengthOfStay - EH111, EH108
       less_than_equal_los = attr_val("../cda:low/@nullFlavor")=="NINF" &&
-        attr_val("../@highClosed")!='false'
+        attr_val("../@highClosed")!='false' &&
+        attr_val("@xsi:type") == 'PQ'
 
+      greater_than_equal_los = attr_val("../cda:high/@nullFlavor")=="PINF" &&
+        attr_val("../@lowClosed")!='false' &&
+        attr_val("@xsi:type") == 'PQ'
+
+      # basic values - EP65, EP9, and more
+      greater_than_equal_v = attr_val("../cda:high/@nullFlavor")=="PINF" &&
+        attr_val("../cda:low/@value") &&
+        attr_val("../@lowClosed") != 'false' &&
+        attr_val("../@xsi:type") == "IVL_PQ"
+
+      # FIXME (10/16/2015)
+      # This seems to be causing errors with other measures (133v4), making them
+      #  inclusive when they shouldn't be, so this is being commented out until
+      #  a more solid solution can be reached
       # subset - EP128, EH108
       greater_than_equal_ss = attr_val("../cda:low/@value")!="0" &&
         !attr_val("../cda:high/@value") &&
-        attr_val("../@lowClosed")!='false'
+        attr_val("../@lowClosed")!='false' &&
+        !attr_val("../../../../../qdm:subsetCode/@code").nil?
 
-      less_than_equal_tr || less_than_equal_los || greater_than_equal_tr || greater_than_equal_ss || equivalent || @force_inclusive
+      less_than_equal_los || less_than_equal_tr || greater_than_equal_los || greater_than_equal_ss || greater_than_equal_tr || greater_than_equal_v || equivalent || @force_inclusive
     end
 
     def derived?
@@ -117,6 +133,8 @@ module HQMF2
 
       if (lm.nil? || lm.kind_of?(HQMF::AnyValue)) && (hm.nil? || hm.kind_of?(HQMF::AnyValue))
         HQMF::AnyValue.new
+      elsif(!lm.nil? && !hm.nil? && lm.value == high.value && lm.unit.nil? && hm.unit.nil?)
+        HQMF::Value.new(lm.type, nil, lm.value, lm.inclusive?, lm.derived?, lm.expression)
       else
         HQMF::Range.new(model_type, lm, hm, wm)
       end
@@ -351,30 +369,23 @@ module HQMF2
   class Reference
     include HQMF2::Utilities
 
-    def initialize(entry, verbose=false)
+    def initialize(entry)
       @entry = entry
-      @verbose = verbose
     end
 
     def id
       if @entry.kind_of? String
         @entry
       else
-        if @verbose
-          value = "#{attr_val('./@extension')}_#{attr_val('./@root')}"
-          # puts "Using verbose reference for #{value}"
-        else
-          value = attr_val('./@extension')
-        end
-        id = strip_tokens value
+        id = strip_tokens "#{attr_val('./@extension')}_#{attr_val('./@root')}"
         # Handle MeasurePeriod references for calculation code
         id = 'MeasurePeriod' if id.try(:start_with?,'measureperiod')
         id
       end
     end
 
-    def update_verbose(verbose=false)
-      @verbose = verbose
+    def source_ref_id
+      attr_val('./@extension')
     end
 
     def to_model

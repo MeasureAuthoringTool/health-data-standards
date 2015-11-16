@@ -412,6 +412,9 @@ module HQMF
           value = HQMF::AnyValue.from_json(json)
         when 'FLFS'
           value = HQMF::TypedReference.from_json(json)
+        when 'ACT'
+          # Currentlty forcing this as the SimpleXML reresentation contains a fulfills for these types
+          value = HQMF::TypedReference.new(json["reference"], 'FLFS', '')
         else
           raise "Unknown value type [#{type}]"
         end

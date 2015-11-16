@@ -14,21 +14,6 @@ module HQMF2
       aggregation = entry.at_xpath('./cda:allTrue | ./cda:atLeastOneTrue | ./cda:allFalse | ./cda:atLeastOneFalse', HQMF2::Document::NAMESPACES)
       conjunction = nil
       preconditions = []
-      if aggregation
-        precondition_entries = entry.xpath('./*/cda:precondition', HQMF2::Document::NAMESPACES)
-        preconditions = precondition_entries.collect do |precondition|
-          Precondition.parse(precondition, doc, id_generator)
-        end
-        conjunction = aggregation.name
-        case conjunction
-        when "allFalse"
-          negation = true
-          conjunction = "atLeastOneTrue"
-        when "atLeastOneFalse"
-          negation = true
-          conjunction = "allTrue"
-        end
-      end
 
       reference_def = entry.at_xpath('./*/cda:id', HQMF2::Document::NAMESPACES)
       if !reference_def
@@ -36,6 +21,30 @@ module HQMF2
       end
       if reference_def
         reference = Reference.new(reference_def)
+      end
+
+      if aggregation
+        precondition_entries = entry.xpath('./*/cda:precondition', HQMF2::Document::NAMESPACES)
+        preconditions = precondition_entries.collect do |precondition|
+          precondition = Precondition.parse(precondition, doc, id_generator)
+          if precondition.reference.nil? && precondition.preconditions.empty?
+            nil
+          else
+            precondition
+          end
+        end
+        preconditions.compact!
+        conjunction = aggregation.name
+        case conjunction
+        when "allFalse"
+          negation = true
+          conjunction = "atLeastOneTrue"
+          return self.new(id_generator.next_id,"atLeastOneTrue",[self.new(id_generator.next_id,conjunction,preconditions,negation,reference)])
+        when "atLeastOneFalse"
+          negation = true
+          conjunction = "allTrue"
+          return self.new(id_generator.next_id,"allTrue",[self.new(id_generator.next_id,conjunction,preconditions,negation,reference)])
+        end
       end
       self.new(id_generator.next_id,conjunction,preconditions,negation,reference)
     end

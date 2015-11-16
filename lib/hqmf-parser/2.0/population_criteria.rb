@@ -15,16 +15,18 @@ module HQMF2
       @doc = doc
       @entry = entry
       @hqmf_id = attr_val('./*/cda:id/@root') || attr_val('./*/cda:typeId/@extension')
-      @title = attr_val('./*/cda:code/cda:displayName/@value')
+      @title = attr_val('./*/cda:code/cda:displayName/@value').try(:titleize)
       @type = attr_val('./*/cda:code/@code')
       @type = 'IPP' if ( @type == 'IPOP' || @type == 'IPPOP' )
       @aggregator = nil
-      @comments = @entry.xpath("./*/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()", HQMF2::Document::NAMESPACES)
-                        .map{ |v| v.content }
+      @comments = @entry.xpath("./*/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()", HQMF2::Document::NAMESPACES).map{ |v| v.content }
+      @comments = nil if comments.empty?
       obs_test = attr_val('./cda:measureObservationDefinition/@classCode')
       if !@title && obs_test.to_s == "OBS"
           @title = attr_val('../cda:code/cda:displayName/@value')
           @aggregator = attr_val('./cda:measureObservationDefinition/cda:methodCode/cda:item/@code')
+          # MEAN is handled in current code. Changed since it should have the same effect
+          @aggregator = 'MEAN' if @aggregator == 'AVERAGE'
       end
       if(!@hqmf_id) # The id extension is not required, if it's not provided use the code
         @hqmf_id = @type
@@ -32,8 +34,14 @@ module HQMF2
 
       # Nest multiple preconditions under a single root precondition
       @preconditions = @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES).collect do |pre|
-        Precondition.parse(pre,@doc,id_generator)
+        precondition = Precondition.parse(pre,@doc,id_generator)
+        if precondition.reference.nil? && precondition.preconditions.empty?
+          nil
+        else
+          precondition
+        end
       end
+      @preconditions.compact!
       if @type != "AGGREGATE"
         if @preconditions.length > 1 ||
            ( @preconditions.length == 1 && @preconditions[0].conjunction != conjunction_code)
@@ -47,26 +55,31 @@ module HQMF2
 
 
     def handle_observation_critiera
- 
+
       exp = @entry.at_xpath("./cda:measureObservationDefinition/cda:value/cda:expression/@value", HQMF2::Document::NAMESPACES)
       raise "No Expression " if exp.nil?
 
-      parts = exp.to_s.split("-") 
-      if parts.length != 2
+      parts = exp.to_s.split("-")
+      case parts.length
+      when 1
+        dc = @doc.find_criteria_by_lvn(parts.first.strip.split(".")[0])
+      when 2
+        children = parts.collect{|p| @doc.find_criteria_by_lvn(p.strip.split(".")[0]).id}
+        _id ="GROUP_TIMEDIFF_#{ @id_generator.next_id}"
+        dc = HQMF2::DataCriteriaWrapper.new(id: _id,
+                                            title: _id ,
+                                            subset_operators: [HQMF::SubsetOperator.new("DATETIMEDIFF", nil)],
+                                            children_criteria: children,
+                                            derivation_operator: HQMF::DataCriteria::XPRODUCT,
+                                            type: "derived" ,
+                                            definition: "derived" ,
+                                            negation: false,
+                                            source_data_criteria: _id,
+                                             )
+      else
         raise "Has an error here :: todo make more descriptive"
       end
-      children = parts.collect{|p| @doc.find_criteria_by_lvn(p.strip.split(".")[0]).id}
-      _id ="GROUP_TIMEDIFF_#{ @id_generator.next_id}"
-      dc = HQMF2::DataCriteriaWrapper.new(id: _id, 
-                                          title: _id ,
-                                          subset_operators: [HQMF::SubsetOperator.new("TIMEDIFF", HQMF::AnyValue.new("ANYNonNull"))],
-                                          children_criteria: children,
-                                          derivation_operator: HQMF::DataCriteria::XPRODUCT,
-                                          type: "derived" ,
-                                          definition: "derived" ,
-                                          negation: false,
-                                          source_data_criteria: _id,
-                                           )
+
       @doc.add_data_criteria(dc)
       dc
 

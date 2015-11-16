@@ -18,4 +18,6 @@ group :test do
   gem 'minitest-reporters'
   gem 'awesome_print', :require => 'ap'
 
+  gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
+
 end
