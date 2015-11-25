@@ -123,6 +123,7 @@ module HQMF2
       end
     end
 
+    # Generates this classes hqmf-model equivalent
     def to_model
       mps = preconditions.collect(&:to_model)
       HQMF::PopulationCriteria.new(id, hqmf_id, type, mps, title, aggregator, comments)

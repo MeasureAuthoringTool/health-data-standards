@@ -82,6 +82,7 @@ module HQMF2
       doc
     end
 
+    # Generates this classes hqmf-model equivalent
     def to_model
       dcs = all_data_criteria.collect(&:to_model)
       pcs = all_population_criteria.collect(&:to_model)

@@ -61,7 +61,7 @@ module HQMF2
       # if child.first is nil, it will be caught in the second statement
       reference_criteria = @data_criteria_references[@children_criteria.first]
       return if reference_criteria.nil?
-      @do_not_group = true # easier to track than all testing all features of these cases
+      @is_derived_specific_occurrence_variable = true # easier to track than all testing all features of these cases
       @subset_operators ||= reference_criteria.subset_operators
       @derivation_operator ||= reference_criteria.derivation_operator
       @description = reference_criteria.description

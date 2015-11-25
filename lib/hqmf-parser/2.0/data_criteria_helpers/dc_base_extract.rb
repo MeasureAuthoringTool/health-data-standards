@@ -1,5 +1,5 @@
 module HQMF2
-  # Contains straightforward extractions needed by the DataCriteria
+  # Contains extraction methods which are self-contained (rely only on the xml and an xpath, no other instance variables)
   class DataCriteriaBaseExtractions
     include HQMF2::Utilities
     CONJUNCTION_CODE_TO_DERIVATION_OP = {

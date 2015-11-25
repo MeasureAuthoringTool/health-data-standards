@@ -4,6 +4,11 @@ module HQMF2
     # Create grouper data criteria for encapsulating variable data criteria
     # and update document data criteria list and references map
     def handle_variable(data_criteria)
+      if data_criteria.is_derived_specific_occurrence_variable
+        data_criteria.handle_derived_specific_occurrence_variable
+        return
+      end
+
       grouper_data_criteria = data_criteria.extract_variable_grouper
       return unless grouper_data_criteria
       @data_criteria_references[data_criteria.id] = data_criteria

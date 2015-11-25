@@ -7,7 +7,7 @@ module HQMF2
     attr_reader :temporal_references, :subset_operators, :children_criteria
     attr_reader :derivation_operator, :negation, :negation_code_list_id, :description
     attr_reader :field_values, :source_data_criteria, :specific_occurrence_const
-    attr_reader :specific_occurrence, :comments
+    attr_reader :specific_occurrence, :comments, :is_derived_specific_occurrence_variable
     attr_reader :id, :entry, :definition, :variable, :local_variable_name
 
     CRITERIA_GLOB = "*[substring(name(),string-length(name())-7) = \'Criteria\']"
@@ -27,7 +27,7 @@ module HQMF2
       obtain_specific_and_source = SpecificOccurrenceAndSource.new(@entry, @id, @local_variable_name, @data_criteria_references, @occurrences_map)
       # Pulling these 5 variables out via destructing
       @source_data_criteria, @source_data_criteria_root, @source_data_criteria_extension,
-        @specific_occurrence, @specific_occurrence_const = obtain_specific_and_source.extract_specific_and_source
+        @specific_occurrence, @specific_occurrence_const = obtain_specific_and_source.extract_specific_occurrences_and_source_data_criteria
       extract_definition_from_template_or_type
       post_processing
     end
@@ -62,14 +62,15 @@ module HQMF2
       @code_list_id || attr_val("#{@code_list_xpath}/@valueSet")
     end
 
+    # Generates this classes hqmf-model equivalent
     def to_model
       mv = value.try(:to_model)
       met = effective_time.try(:to_model)
       mtr = temporal_references.collect(&:to_model)
       mso = subset_operators.collect(&:to_model)
-      field_values = model_field_values
+      field_values = retrieve_field_values_model_for_model
 
-      handle_title_and_description unless @variable || @derivation_operator
+      retrieve_title_and_description_for_model unless @variable || @derivation_operator
 
       @code_list_id = nil if @derivation_operator
 
@@ -78,7 +79,7 @@ module HQMF2
       comments = @comments.present? ? @comments : nil
 
       HQMF::DataCriteria.new(id, title, nil, description, @code_list_id, cc,
-                             derivation_operator, @definition, status, mv, field_values, met, inline_code_list,
+                             derivation_operator, @definition, status, mv, field_values, met, retrieve_code_system_for_model,
                              @negation, @negation_code_list_id, mtr, mso, @specific_occurrence,
                              @specific_occurrence_const, @source_data_criteria, comments, @variable)
     end
@@ -86,10 +87,6 @@ module HQMF2
     # Return a new DataCriteria instance with only grouper attributes set
     def extract_variable_grouper
       return unless @variable
-      if @do_not_group
-        handle_do_not_group
-        return
-      end
       @variable = false
       @id = "GROUP_#{@id}"
       if @children_criteria.length == 1 && @children_criteria[0] =~ /GROUP_/
@@ -120,11 +117,24 @@ module HQMF2
       self
     end
 
+    # Handle elements that are marked as variable groupers that should not be turned into a "holding element"
+    #  (defined as a data criteria that encapsulates the calculation material in another element, and it itself groups them together)
+    def handle_derived_specific_occurrence_variable
+      # If the first child is all the exists, and it ahs been marked as a "group" element, switch this over to map to the new element.
+      if !@data_criteria_references["GROUP_#{@children_criteria.first}"].nil? && @children_criteria.length == 1
+        @children_criteria[0] = "GROUP_#{@children_criteria.first}"
+      # If the group element is not found, extract the information from teh child and force it into the variable.
+      elsif @children_criteria.length == 1 && @children_criteria.first.present?
+        reference_criteria = @data_criteria_references[@children_criteria.first]
+        return if reference_criteria.nil?
+        duplicate_child_info(reference_criteria)
+        @children_criteria = reference_criteria.children_criteria
+      end
+    end
+
     private
 
-    # Handles elments that only extract directly from the xml. Utilises the "BaseExtractions" class,
-    #  which holds a number of extractions that directly use the entry xml rather than implicitly
-    #  through the utilies module.
+    # Handles elments that can be extracted directly from the xml. Utilises the "BaseExtractions" class.
     def basic_setup
       @status = attr_val('./*/cda:statusCode/@code')
       @id_xpath = './*/cda:id/@extension'
@@ -132,7 +142,7 @@ module HQMF2
       @comments = @entry.xpath("./#{CRITERIA_GLOB}/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()", HQMF2::Document::NAMESPACES).map(&:content)
       @code_list_xpath = './*/cda:code'
       @value_xpath = './*/cda:value'
-      @do_not_group = false
+      @is_derived_specific_occurrence_variable = false
       simple_extractions = DataCriteriaBaseExtractions.new(@entry)
       @template_ids = simple_extractions.extract_template_ids
       @local_variable_name = simple_extractions.extract_local_variable_name
@@ -160,7 +170,7 @@ module HQMF2
     end
 
     # Extract the code system from the xml taht the document should use
-    def inline_code_list
+    def retrieve_code_system_for_model
       code_system = attr_val("#{@code_list_xpath}/@codeSystem")
       if code_system
         code_system_name = HealthDataStandards::Util::CodeSystemHelper.code_system_for(code_system)
@@ -169,21 +179,6 @@ module HQMF2
       end
       code_value = attr_val("#{@code_list_xpath}/@code")
       { code_system_name => [code_value] } if code_system_name && code_value
-    end
-
-    # Handle elements that are marked as variable groupers that should not be turned into a "holding element"
-    #  (defined as a data criteria that encapsulates the calculation material in another element, and it itself groups them together)
-    def handle_do_not_group
-      # If the first child is all the exists, and it ahs been marked as a "group" element, switch this over to map to the new element.
-      if !@data_criteria_references["GROUP_#{@children_criteria.first}"].nil? && @children_criteria.length == 1
-        @children_criteria[0] = "GROUP_#{@children_criteria.first}"
-      # If the group element is not found, extract the information from teh child and force it into the variable.
-      elsif @children_criteria.length == 1 && @children_criteria.first.present?
-        reference_criteria = @data_criteria_references[@children_criteria.first]
-        return if reference_criteria.nil?
-        duplicate_child_info(reference_criteria)
-        @children_criteria = reference_criteria.children_criteria
-      end
     end
 
     # Duplicates information from a child element to this data criteria if none exits.
@@ -201,7 +196,7 @@ module HQMF2
     end
 
     # Generate the models of the field values
-    def model_field_values
+    def retrieve_field_values_model_for_model
       field_values = {}
       @field_values.each_pair do |id, val|
         field_values[id] = val.to_model
@@ -222,7 +217,7 @@ module HQMF2
     end
 
     # Generate the title and description used when producing the model
-    def handle_title_and_description
+    def retrieve_title_and_description_for_model
       # drop "* Value Set" from titles
       exact_desc = title.split(' ')[0...-3].join(' ')
       # don't drop anything for patient characterstic titles

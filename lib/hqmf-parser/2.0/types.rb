@@ -10,6 +10,7 @@ module HQMF2
       @type = type
     end
 
+    # Generates this classes hqmf-model equivalent
     def to_model
       HQMF::AnyValue.new(@type)
     end
@@ -101,6 +102,7 @@ module HQMF2
       end
     end
 
+    # Generates this classes hqmf-model equivalent
     def to_model
       HQMF::Value.new(type, unit, value, inclusive?, derived?, expression)
     end
@@ -126,6 +128,7 @@ module HQMF2
       @type || attr_val('./@xsi:type')
     end
 
+    # Generates this classes hqmf-model equivalent
     def to_model
       lm = low.try(:to_model)
       hm = high.try(:to_model)
@@ -245,6 +248,7 @@ module HQMF2
       nil
     end
 
+    # Generates this classes hqmf-model equivalent
     def to_model
       HQMF::Coded.new(type, system, code, code_list_id, title)
     end
@@ -309,6 +313,7 @@ module HQMF2
       end
     end
 
+    # Generates this classes hqmf-model equivalent
     def to_model
       vm = value ? value.to_model : nil
       HQMF::SubsetOperator.new(type, vm)
@@ -353,6 +358,7 @@ module HQMF2
       @range = HQMF2::Range.new(range_def, 'IVL_PQ') if range_def
     end
 
+    # Generates this classes hqmf-model equivalent
     def to_model
       rm = range ? range.to_model : nil
       HQMF::TemporalReference.new(type, reference.to_model, rm)
@@ -380,6 +386,7 @@ module HQMF2
       strip_tokens value
     end
 
+    # Generates this classes hqmf-model equivalent
     def to_model
       HQMF::TypedReference.new(reference, @type, @mood)
     end
@@ -405,6 +412,7 @@ module HQMF2
       end
     end
 
+    # Generates this classes hqmf-model equivalent
     def to_model
       HQMF::Reference.new(id)
     end
@@ -424,6 +432,7 @@ module HQMF2
       opts.each { |k, v| instance_variable_set("@#{k}", v) }
     end
 
+    # Generates this classes hqmf-model equivalent
     def to_model
       mv = @value ? @value.to_model : nil
       met = @effective_time ? @effective_time.to_model : nil

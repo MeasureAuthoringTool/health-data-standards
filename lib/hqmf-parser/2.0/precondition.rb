@@ -60,6 +60,7 @@ module HQMF2
       @id = id
     end
 
+    # Generates this classes hqmf-model equivalent
     def to_model
       pcs = @preconditions.collect(&:to_model)
       mr = @reference ? @reference.to_model : nil

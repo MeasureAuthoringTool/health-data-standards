@@ -14,7 +14,7 @@ module HQMF2
     end
 
     # Retrieve the specific occurrence and source data criteria information (or just source if there is no specific)
-    def extract_specific_and_source
+    def extract_specific_occurrences_and_source_data_criteria
       specific_def = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="OCCR"]', HQMF2::Document::NAMESPACES)
       source_def = @entry.at_xpath('./*/cda:outboundRelationship[cda:subsetCode/@code="SOURCE"]', HQMF2::Document::NAMESPACES)
       if specific_def
