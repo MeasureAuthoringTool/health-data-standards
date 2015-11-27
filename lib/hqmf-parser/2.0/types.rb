@@ -1,6 +1,4 @@
 module HQMF2
-  # TODO: Clean up debug print statements!
-
   # Used to represent 'any value' in criteria that require a value be present but
   # don't specify any restrictions on that value
   class AnyValue
@@ -383,7 +381,7 @@ module HQMF2
     # Generate the reference for the typed reference to use
     def reference
       value = "#{attr_val('./@extension')}_#{attr_val('./@root')}"
-      strip_tokens value
+      strip_tokens(value)
     end
 
     # Generates this classes hqmf-model equivalent
@@ -405,7 +403,7 @@ module HQMF2
       if @entry.is_a? String
         @entry
       else
-        id = strip_tokens "#{attr_val('./@extension')}_#{attr_val('./@root')}"
+        id = strip_tokens("#{attr_val('./@extension')}_#{attr_val('./@root')}")
         # Handle MeasurePeriod references for calculation code
         id = 'MeasurePeriod' if id.try(:start_with?, 'measureperiod')
         id

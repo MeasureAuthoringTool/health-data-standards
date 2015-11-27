@@ -255,7 +255,7 @@ module HQMF2
         fields[code_id] = value
       end
 
-      fields.merge! HQMF2::FieldValueHelper.parse_field_values(entry, negation)
+      fields.merge! HQMF2::FieldValueHelper.parse_field_values(entry)
       # special case for fulfills operator.  assuming there is only a possibility of having one of these
       fulfills = entry.at_xpath('./*/cda:outboundRelationship[@typeCode="FLFS"]/cda:criteriaReference', HQMF2::Document::NAMESPACES)
       # grab the child element if we don't have a reference

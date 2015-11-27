@@ -21,7 +21,7 @@ module HQMF2
         source_data_criteria_extension = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')
         source_data_criteria_root = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@root')
 
-        occurrence_criteria = @data_criteria_references[strip_tokens "#{source_data_criteria_extension}_#{source_data_criteria_root}"]
+        occurrence_criteria = @data_criteria_references[strip_tokens("#{source_data_criteria_extension}_#{source_data_criteria_root}")]
 
         return if occurrence_criteria.nil?
         specific_occurrence_const = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationRoot')
@@ -75,8 +75,8 @@ module HQMF2
     #  extract the occurrence identifiter (if one exists).
     def obtain_occurrence_identifier(stripped_id, stripped_lvn, stripped_sdc, is_variable)
       if is_variable
-        occurrence_lvn_regex = 'occ[A-Z]of_'
-        occurrence_id_regex = 'occ[A-Z]of_'
+        occurrence_lvn_regex = 'occ[A-Z]of_qdm_var'
+        occurrence_id_regex = 'occ[A-Z]of_qdm_var'
         occ_index = 3
         return handle_occurrence_var(stripped_id, stripped_lvn, occurrence_id_regex, occurrence_lvn_regex, occ_index)
       else
@@ -84,11 +84,11 @@ module HQMF2
         occurrence_id_regex = 'Occurrence[A-Z]_'
         occ_index = 10
 
-        if stripped_id.match(/^#{occurrence_id_regex}#{stripped_sdc}/)
-          return stripped_id[occ_index]
-        elsif stripped_lvn.match(/^#{occurrence_lvn_regex}#{stripped_sdc}/)
-          return stripped_lvn[occ_index]
-        end
+        occurrence_identifier = handle_occurrence_var(
+          stripped_id, stripped_lvn,
+          "#{occurrence_id_regex}#{stripped_sdc}", "#{occurrence_lvn_regex}#{stripped_sdc}",
+          occ_index)
+        return occurrence_identifier if occurrence_identifier.present?
 
         stripped_sdc[occ_index] if stripped_sdc.match(
           /(^#{occurrence_id_regex}| ^#{occurrence_id_regex}qdm_var_| ^#{occurrence_lvn_regex})| ^#{occurrence_lvn_regex}qdm_var_/)
@@ -96,11 +96,11 @@ module HQMF2
     end
 
     # If the occurrence is a variable, extract the occurrrence identifier (if present)
-    def handle_occurrence_var(stripped_id, stripped_lvn, occurrence_id_regex, occurrence_lvn_regex, occ_index)
+    def handle_occurrence_var(stripped_id, stripped_lvn, occurrence_id_compare, occurrence_lvn_compare, occ_index)
       # TODO: Handle specific occurrences of variables that don't self-reference?
-      if stripped_id.match(/^#{occurrence_id_regex}qdm_var_/)
+      if stripped_id.match(/^#{occurrence_id_compare}/)
         return stripped_id[occ_index]
-      elsif stripped_lvn.match(/^#{occurrence_lvn_regex}qdm_var/)
+      elsif stripped_lvn.match(/^#{occurrence_lvn_compare}/)
         return stripped_lvn[occ_index]
       end
     end

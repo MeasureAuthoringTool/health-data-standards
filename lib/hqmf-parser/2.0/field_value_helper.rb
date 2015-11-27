@@ -1,7 +1,7 @@
 module HQMF2
   # Generates field values based on understanding of the HQMF 2.1 spec
   class FieldValueHelper
-    def self.parse_field_values(entry, _negated = false)
+    def self.parse_field_values(entry)
       return if entry.nil?
       criteria = entry.at_xpath('./cda:actCriteria | ./cda:observationCriteria | ./cda:encounterCriteria | ./cda:procedureCriteria
         | ./cda:supplyCriteria | ./cda:substanceAdministrationCriteria | ./cda:grouperCriteria')
@@ -39,6 +39,7 @@ module HQMF2
     end
 
     # The next groups of "parse_" handles extracting values for different types of criteria
+
     def self.parse_dset_cd(element, field, fields)
       if element
         item = element.at_xpath('./cda:item')
@@ -49,43 +50,44 @@ module HQMF2
     end
 
     # These "parse_" methods also first check if the value is of the "ANY" type, and only parse if it isn't
+
     def self.parse_cd(element, field, fields)
-      any = check_if_any(element, field, fields)
+      any = check_and_set_if_any(element, field, fields)
       fields[field] = Coded.new(element) if element && !any
     end
 
     def self.parse_ts(element, field, fields)
-      any = check_if_any(element, field, fields)
+      any = check_and_set_if_any(element, field, fields)
       fields[field] = Value.new(element) if element && !any
     end
 
     def self.parse_ivl_int(element, field, fields)
-      any = check_if_any(element, field, fields)
+      any = check_and_set_if_any(element, field, fields)
       fields[field] = Range.new(element) if element && !any
     end
 
     def self.parse_cs(element, field, fields)
-      check_if_any(element, field, fields)
+      check_and_set_if_any(element, field, fields)
     end
 
     def self.parse_pq(element, field, fields)
-      any = check_if_any(element, field, fields)
+      any = check_and_set_if_any(element, field, fields)
       fields[field] = Range.new(element) if element && !any
     end
 
     def self.parse_value(element, field, fields)
-      any = check_if_any(element, field, fields)
+      any = check_and_set_if_any(element, field, fields)
       fields[field] = DateCriteria.parse_value(element) if element && !any
     end
 
     # handle any value
     def self.parse_any(element, field, fields)
-      any = check_if_any(element, field, fields)
+      any = check_and_set_if_any(element, field, fields)
       fields[field] = DateCriteria.parse_value(element) if element && !any
     end
 
     # Use when checking if the element is a "ANY" type, sets the field key if it is
-    def self.check_if_any(element, field, fields)
+    def self.check_and_set_if_any(element, field, fields)
       any = any_flavor(element)
       fields[field] = AnyValue.new if any
       any
@@ -141,6 +143,7 @@ module HQMF2
     end
 
     # The "parse_"s after this point handle extraction of data criteria based on field names
+
     def self.parse_act_criteria_fields(_entry, _fields)
     end
 
@@ -192,23 +195,21 @@ module HQMF2
 
       handle_loc(entry, fields)
     end
-    # rubocop:endable Metrics/LineLength
 
     def self.handle_loc(entry, fields)
       loc = entry.at_xpath("./cda:participation[@typeCode='LOC']/cda:role[@classCode='SDLOC']", HQMF2::Document::NAMESPACES)
-      if loc
-        # does it have an effective time?
-        low = loc.at_xpath('./cda:effectiveTime/cda:low/..')
-        high = loc.at_xpath('./cda:effectiveTime/cda:high/..')
-        code = loc.at_xpath('./cda:code')
-        # looking at the 2.4.0 measure bundle these values are set to null if they exist
-        # so that is what I am doing for now
-        fields['FACILITY_LOCATION_ARRIVAL_DATETIME'] = AnyValue.new if low
-        fields['FACILITY_LOCATION_DEPARTURE_DATETIME'] = AnyValue.new if high
-        fields['FACILITY_LOCATION'] = Coded.new(code) if code
-
-      end
+      return unless loc
+      # does it have an effective time?
+      low = loc.at_xpath('./cda:effectiveTime/cda:low/..')
+      high = loc.at_xpath('./cda:effectiveTime/cda:high/..')
+      code = loc.at_xpath('./cda:code')
+      # looking at the 2.4.0 measure bundle these values are set to null if they exist
+      # so that is what I am doing for now
+      fields['FACILITY_LOCATION_ARRIVAL_DATETIME'] = AnyValue.new if low
+      fields['FACILITY_LOCATION_DEPARTURE_DATETIME'] = AnyValue.new if high
+      fields['FACILITY_LOCATION'] = Coded.new(code) if code
     end
+    # rubocop:endable Metrics/LineLength
 
     def self.parse_procedure_fields(entry, fields)
       parse_dset_cd(entry.at_xpath('./cda:methodCode', HQMF2::Document::NAMESPACES), 'METHOD', fields)

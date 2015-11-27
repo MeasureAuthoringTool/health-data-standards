@@ -3,23 +3,21 @@ module HQMF2
   module DataCriteriaPostProcessing
     # Handles settings values after (most) values have been setup
     def post_processing
-      set_code_list_path_and_result_value
+      extract_code_list_path_and_result_value
 
       # prefix ids that start with numerical values, and strip tokens from others
-      @id = strip_tokens @id
-      @children_criteria.map! { |cc| strip_tokens cc }
-
-      #### prefix!!!!!!!!!
+      @id = strip_tokens(@id)
+      @children_criteria.map! { |cc| strip_tokens(cc) }
 
       @source_data_criteria = strip_tokens(@source_data_criteria) unless @source_data_criteria.nil?
       @specific_occurrence_const = strip_tokens(@specific_occurrence_const) unless @specific_occurrence_const.nil?
-      set_intersection
+      change_xproduct_to_intersection
       handle_derived_specific_occurrences
     end
 
-    # Extract the code_list_xpath from either the location related to the speicifc occurrence, or
+    # Extract the code_list_xpath and the criteria's value from either the location related to the specific occurrence, or
     #  from any of the template ids (if multiple exist)
-    def set_code_list_path_and_result_value
+    def extract_code_list_path_and_result_value
       if @template_ids.empty? && @specific_occurrence
         template = @entry.document.at_xpath(
           "//cda:id[@root='#{@source_data_criteria_root}' and @extension='#{@source_data_criteria_extension}']/../cda:templateId/cda:item/@root")
@@ -43,8 +41,9 @@ module HQMF2
       end
     end
 
-    # Changes XPRODUCT data criteria that has an associated tempalte(s) to an INTERSETION criteria
-    def set_intersection
+    # Changes XPRODUCT data criteria that has an associated tempalte(s) to an INTERSETION criteria.
+    # UNION is used for all other cases.
+    def change_xproduct_to_intersection
       # Need to handle grouper criteria that do not have template ids -- these will be union of and intersection criteria
       return unless @template_ids.empty?
       # Change the XPRODUCT to an INTERSECT otherwise leave it as a UNION

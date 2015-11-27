@@ -16,7 +16,7 @@ module HQMF2
     end
 
     # Rejects any derived elements as they should never be used as source.
-    def self.should_reject(dc)
+    def self.should_reject?(dc)
       dc.definition == 'derived'
     end
 
@@ -64,7 +64,7 @@ module HQMF2
           uniq_source_data_criteria[identifier] = sdc
         end
       end
-      [uniq_source_data_criteria.values.reject { |dc| SourceDataCriteriaHelper.should_reject(dc) }, collapsed_source_data_criteria_map]
+      [uniq_source_data_criteria.values.reject { |dc| SourceDataCriteriaHelper.should_reject?(dc) }, collapsed_source_data_criteria_map]
     end
   end
 end

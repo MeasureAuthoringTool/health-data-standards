@@ -17,12 +17,11 @@ module HQMF2
       pop_helper = HQMF2::DocumentPopulationHelper.new(@entry, @doc, self, @id_generator, @reference_ids)
       @populations, @population_criteria = pop_helper.extract_populations_and_criteria
 
-      @reference_ids.uniq
-
-      # Remove any data criteria from the main data criteria list that already has an equivalent member and no references to it
-      # The goal of this is to remove any data criteria that should not be purely a source
+      # Remove any data criteria from the main data criteria list that already has an equivalent member
+      #  and no references to it. The goal of this is to remove any data criteria that should not
+      #  be purely a source.
       @data_criteria.reject! do |dc|
-        covered_criteria?(dc)
+        criteria_covered_by_criteria?(dc)
       end
     end
 
@@ -65,13 +64,15 @@ module HQMF2
       find(@data_criteria, :id, id)
     end
 
+    # Adds data criteria to the Document's criteria list
     # needed so data criteria can be added to a document from other objects
     def add_data_criteria(dc)
       @data_criteria << dc
     end
 
-    def find_criteria_by_lvn(lvn)
-      find(@data_criteria, :local_variable_name, lvn)
+    # Finds a data criteria by it's local variable name
+    def find_criteria_by_lvn(local_variable_name)
+      find(@data_criteria, :local_variable_name, local_variable_name)
     end
 
     # Parse an XML document from the supplied contents
@@ -87,26 +88,20 @@ module HQMF2
       dcs = all_data_criteria.collect(&:to_model)
       pcs = all_population_criteria.collect(&:to_model)
       sdc = source_data_criteria.collect(&:to_model)
-      dcs = update_data_criteria(dcs, sdc)
       HQMF::Document.new(@id, @id, @hqmf_set_id, @hqmf_version_number, @cms_id,
                          title, description, pcs, dcs, sdc,
                          @attributes, @measure_period, @populations)
     end
 
+    # Finds an element within the collection given that has an instance variable or method of "attribute" with a value of "value"
     def find(collection, attribute, value)
       collection.find { |e| e.send(attribute) == value }
     end
 
-    def extract_preconditions(precondition, list)
-      precondition.preconditions.each do |prcn|
-        extract_preconditions(prcn, list)
-        list << prcn if prcn.reference
-      end
-    end
-
     private
 
-    # handles setup of the base values of the document, defined here as ones that are either obtained from the xml directly or with limited parsing
+    # Handles setup of the base values of the document, defined here as ones that are either
+    #  obtained from the xml directly or with limited parsing
     def setup_default_values(hqmf_contents, use_default_measure_period)
       @id_generator = IdGenerator.new
       @doc = @entry = Document.parse(hqmf_contents)
@@ -114,12 +109,6 @@ module HQMF2
       @id = attr_val('cda:QualityMeasureDocument/cda:id/@extension') || attr_val('cda:QualityMeasureDocument/cda:id/@root').upcase
       @hqmf_set_id = attr_val('cda:QualityMeasureDocument/cda:setId/@extension') || attr_val('cda:QualityMeasureDocument/cda:setId/@root').upcase
       @hqmf_version_number = attr_val('cda:QualityMeasureDocument/cda:versionNumber/@value').to_i
-
-      # overidden with correct year information later, but should be produce proper period
-      # measure_period_def = @doc.at_xpath('cda:QualityMeasureDocument/cda:controlVariable/cda:measurePeriod/cda:value', NAMESPACES)
-      # if measure_period_def
-      #   @measure_period = EffectiveTime.new(measure_period_def).to_model
-      # end
 
       # TODO: -- figure out if this is the correct thing to do -- probably not, but is
       # necessary to get the bonnie comparison to work.  Currently
@@ -142,7 +131,8 @@ module HQMF2
       @reference_ids = []
     end
 
-    # Extracts a measure period from the document or returns the default measure period (if the default value is set to true).
+    # Extracts a measure period from the document or returns the default measure period
+    #  (if the default value is set to true).
     def extract_measure_period_or_default(default)
       if default
         mp_low = HQMF::Value.new('TS', nil, '201201010000', nil, nil, nil)
@@ -155,7 +145,7 @@ module HQMF2
       end
     end
 
-    # handles parsing the attributes of the document
+    # Handles parsing the attributes of the document
     def read_attribute(attribute)
       id = attribute.at_xpath('./cda:id/@root', NAMESPACES).try(:value)
       code = attribute.at_xpath('./cda:code/@code', NAMESPACES).try(:value)
@@ -187,7 +177,7 @@ module HQMF2
       HQMF::Attribute.new(id, code, value, nil, name, id_obj, code_obj, value_obj)
     end
 
-    # Extracts the code used by a specific attribute
+    # Extracts the code used by a particular attribute
     def handle_attribute_code(attribute, code, name)
       null_flavor = attribute.at_xpath('./cda:code/@nullFlavor', NAMESPACES).try(:value)
       o_text = attribute.at_xpath('./cda:code/cda:originalText/@value', NAMESPACES).try(:value)
@@ -201,7 +191,7 @@ module HQMF2
       [code_obj, null_flavor, o_text]
     end
 
-    # Extracts the value used by a specific attribute
+    # Extracts the value used by a particular attribute
     def handle_attribute_value(attribute, value)
       type = attribute.at_xpath('./cda:value/@xsi:type', NAMESPACES).try(:value)
       case type

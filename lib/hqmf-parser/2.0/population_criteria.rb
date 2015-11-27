@@ -66,6 +66,8 @@ module HQMF2
     # extracts out any measure observation definitons, creating from them the proper criteria to generate a precondition
     def handle_observation_critiera
       exp = @entry.at_xpath('./cda:measureObservationDefinition/cda:value/cda:expression/@value', HQMF2::Document::NAMESPACES)
+      # Measure Observations criteria rely on computed expressions. If it doesn't have one,
+      #  then it is likely formatted improperly.
       fail 'No Expression ' if exp.nil?
       parts = exp.to_s.split('-')
       dc = parse_parts_to_dc(parts)
@@ -109,7 +111,7 @@ module HQMF2
       true
     end
 
-    # Get the conjunction code, e.g. allTrue, allFalse
+    # Get the conjunction code, ALL_TRUE or AT_LEAST_ONE_TRUE
     # @return [String] conjunction code
     def conjunction_code
       case @type

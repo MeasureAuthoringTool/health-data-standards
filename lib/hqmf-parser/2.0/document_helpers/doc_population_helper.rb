@@ -30,7 +30,7 @@ module HQMF2
 
     # Returns the population descriptions and criteria found in this document
     def extract_populations_and_criteria
-      has_observation = extract_observation
+      has_observation = extract_observations
       document_populations = @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:populationCriteriaSection', HQMF2::Document::NAMESPACES)
       # Sort the populations based on the id/extension, since the populations may be out of order; there doesn't seem to
       # be any other way that order is indicated in the HQMF
@@ -56,8 +56,8 @@ module HQMF2
       [@populations, @population_criteria]
     end
 
-    # Extracts the measure observations, will return true if one is created
-    def extract_observation
+    # Extracts the measure observations, will return true if one exists
+    def extract_observations
       has_observation = false
       # look for observation data in separate section but create a population for it if it exists
       observation_section = @doc.xpath('/cda:QualityMeasureDocument/cda:component/cda:measureObservationSection', HQMF2::Document::NAMESPACES)
