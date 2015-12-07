@@ -59,7 +59,7 @@ module HQMF2
       end
     end
 
-    # Extract teh negation (and the negation_code_list_id if appropriate)
+    # Extract the negation (and the negation_code_list_id if appropriate)
     def extract_negation
       negation = (attr_val('./*/@actionNegationInd') == 'true')
       negation_code_list_id = nil

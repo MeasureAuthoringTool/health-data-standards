@@ -21,11 +21,11 @@ class HQMFVsSimpleTest < Minitest::Test
 
   Dir.glob(measure_files).each do |measure_filename|
     measure_name = File.basename(measure_filename, '.xml')
-    # if ["CMS190v4"].index(measure_name) # left in to handle subset testing
-    define_method("test_#{measure_name}") do
-      do_roundtrip_test(measure_filename, measure_name)
-    end
-    # end
+    #if ["CMS50v4"].index(measure_name) # left in to handle subset testing
+      define_method("test_#{measure_name}") do
+        do_roundtrip_test(measure_filename, measure_name)
+      end
+    #end
   end
 
   def do_roundtrip_test(measure_filename, measure_name)
@@ -154,11 +154,6 @@ class HQMFVsSimpleTest < Minitest::Test
     # Handles measures that are "regardless of age" or seems to not refer to Ptient birthdate characteristic
     if %w(CMS31v4 CMS32v5 CMS50v4 CMS55v4 CMS62v4 CMS111v4 CMS129v5 CMS157v4 CMS185v4).index(measure_name)
       simple_xml_model.source_data_criteria.reject! { |dc| dc.definition == 'patient_characteristic_birthdate' }
-    end
-
-    # Removed here. It's referenced by a field value, but is not necessary in the data_criteria (exists in source)
-    if measure_name == 'CMS50v4'
-      simple_xml_model.all_data_criteria.reject! { |dc| dc.id == 'OccurrenceAReferral1' }
     end
   end
 

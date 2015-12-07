@@ -25,6 +25,8 @@ module HQMF2
       to_reject = true
       to_reject &&= @reference_ids.index(dc.id).nil? # don't reject if anything refers directly to this criteria
       to_reject &&= !base_criteria_defs.include?(dc.definition) # don't reject if it is a "base" criteria (no references but must exist)
+      to_reject &&= dc.specific_occurrence_const.nil? ||
+        dc.code_list_id != "2.16.840.1.113883.3.464.1003.101.12.1046" # keep referral occurrence
       to_reject && !@data_criteria.detect do |dc2|
         similar_criteria = true
         similar_criteria &&= dc != dc2 # Don't check against itself
@@ -43,8 +45,8 @@ module HQMF2
       base_checks &&= data_criteria.children_criteria.sort.join(',') == check_criteria.children_criteria.sort.join(',') # same children
       # Ensure it doesn't contain basic elements that should not be removed
       base_checks &&= !data_criteria.variable # Ensure it's not a variable
-      base_checks &&= data_criteria.derivation_operator.nil? # Ensure it doesn't it have a derivation operator
-      base_checks &&= data_criteria.subset_operators.empty? # Ensure it doesn't it have a subset operator
+      base_checks &&= data_criteria.derivation_operator.nil? # Ensure it doesn't have a derivation operator
+      base_checks &&= data_criteria.subset_operators.empty? # Ensure it doesn't have a subset operator
       base_checks &&= data_criteria.temporal_references.nil? || data_criteria.temporal_references.empty? # Ensure it doesn't have Temporal References
 
       base_checks && complex_coverage(data_criteria, check_criteria)
