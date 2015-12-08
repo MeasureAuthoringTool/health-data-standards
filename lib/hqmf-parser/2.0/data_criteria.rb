@@ -84,7 +84,11 @@ module HQMF2
                              @specific_occurrence_const, @source_data_criteria, comments, @variable)
     end
 
-    # Return a new DataCriteria instance with only grouper attributes set
+    # Return a new DataCriteria instance with only grouper attributes set.
+    # A grouper criteria allows multiple data criteria events to be contained in a single
+    # logical set (a union or intersection of these multiple events - i.e. A during (B or C or D)).
+    # Grouper criteria also provide a way to combine multiple criteria that reference a specific
+    # occurrence of an event.
     def extract_variable_grouper
       return unless @variable
       @variable = false
@@ -102,9 +106,8 @@ module HQMF2
       DataCriteria.new(@entry, @data_criteria_references, @occurrences_map).extract_as_grouper
     end
 
-    # Set this data criteria's attributes for extraction as a grouper data criteria
-    # for encapsulating a variable data criteria
-    # SHOULD only be called on the variable data criteria instance
+    # Extract this data criteria as a grouper data criteria
+    # SHOULD only be called on a variable data criteria instance
     def extract_as_grouper
       @field_values = {}
       @temporal_references = []
@@ -118,12 +121,13 @@ module HQMF2
     end
 
     # Handle elements that are marked as variable groupers that should not be turned into a "holding element"
-    #  (defined as a data criteria that encapsulates the calculation material in another element, and it itself groups them together)
+    # (defined as a data criteria that encapsulates the calculation material for other data criteria elements,
+    # where the other data criteria elements reference the holding element as a child element)
     def handle_derived_specific_occurrence_variable
-      # If the first child is all the exists, and it ahs been marked as a "group" element, switch this over to map to the new element.
+      # If the first child is all the exists, and it has been marked as a "group" element, switch this over to map to the new element.
       if !@data_criteria_references["GROUP_#{@children_criteria.first}"].nil? && @children_criteria.length == 1
         @children_criteria[0] = "GROUP_#{@children_criteria.first}"
-      # If the group element is not found, extract the information from teh child and force it into the variable.
+      # If the group element is not found, extract the information from the child and force it into the variable.
       elsif @children_criteria.length == 1 && @children_criteria.first.present?
         reference_criteria = @data_criteria_references[@children_criteria.first]
         return if reference_criteria.nil?
@@ -153,9 +157,9 @@ module HQMF2
       @negation, @negation_code_list_id = simple_extractions.extract_negation
     end
 
-    # Extract the description, with some special handling if this is a variable; the MAT has added an encoded
-    # form of the variable name in the localVariableName field, if that's available use it; if not, fall back
-    # to the extension
+    # Extract the description (with some special handling if this is a variable). The MAT has added an encoded
+    # form of the variable name in the localVariableName field which is used if available. If not, fall back
+    # to the extension.
     def extract_description
       if @variable
         encoded_name = attr_val('./cda:localVariableName/@value')

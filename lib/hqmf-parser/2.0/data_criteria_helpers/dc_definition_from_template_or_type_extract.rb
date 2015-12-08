@@ -1,5 +1,5 @@
 module HQMF2
-  # Extracts the type, and modifies the data criteria, based on teh template id or definition
+  # Extracts the type, and modifies the data criteria, based on the template id or definition
   module DataCriteriaTypeAndDefinitionExtraction
     VARIABLE_TEMPLATE = '0.1.2.3.4.5.6.7.8.9.1'
     SATISFIES_ANY_TEMPLATE = '2.16.840.1.113883.10.20.28.3.108'
@@ -83,7 +83,7 @@ module HQMF2
       handle_specific_variable_ref(reference_criteria)
     end
 
-    # Apply additional information to a specific occurrence's elements from teh criteria it references.
+    # Apply additional information to a specific occurrence's elements from the criteria it references.
     def handle_specific_variable_ref(reference_criteria)
       # if there are no referenced children, then it's a variable representing
       # a single data criteria, so just reference it
@@ -102,7 +102,7 @@ module HQMF2
       end
     end
 
-    # Generate the definition and/or status from teh entry type in most cases.
+    # Generate the definition and/or status from the entry type in most cases.
     # If the entry type is nil, and the value is a specific occurrence, more parsing may be necessary.
     def handle_entry_type(entry_type)
       # settings is required to trigger exceptions, which set the definition
@@ -147,7 +147,7 @@ module HQMF2
       end
     end
 
-    # Given an entry type (which describes teh criteria's purpose) return the appropriate defintino
+    # Given an entry type (which describes the criteria's purpose) return the appropriate defintino
     def extract_definition_from_entry_type(entry_type)
       case entry_type
       when 'Problem', 'Problems'

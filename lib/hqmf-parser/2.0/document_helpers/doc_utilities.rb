@@ -31,12 +31,12 @@ module HQMF2
         similar_criteria = true
         similar_criteria &&= dc != dc2 # Don't check against itself
         similar_criteria &&= dc.code_list_id == dc2.code_list_id # Ensure code list ids are the same
-        similar_criteria && detect_criteria_covered_by_another(dc, dc2)
+        similar_criteria && detect_criteria_covered_by_criteria(dc, dc2)
       end.nil? # don't reject unless there is a similar element
     end
 
     # Check if one data criteria contains the others information by checking that one has everything the other has (or more)
-    def detect_criteria_covered_by_another(data_criteria, check_criteria)
+    def detect_criteria_covered_by_criteria(data_criteria, check_criteria)
       base_checks = true
 
       # Check whether basic features are the same
@@ -52,8 +52,8 @@ module HQMF2
       base_checks && complex_coverage(data_criteria, check_criteria)
     end
 
-    # Check elements if elements do not exist, or if they do, if those elements are the same
-    #  in a different, potentially matching, data criteria
+    # Check elements that do not already exist; else, if they do, check if those elements are the same
+    # in a different, potentially matching, data criteria
     def complex_coverage(data_criteria, check_criteria)
       same_value = data_criteria.value.nil? || data_criteria.value.try(:to_model).try(:to_json) == check_criteria.value.try(:to_model).try(:to_json)
       same_field_values = data_criteria.field_values.nil? || data_criteria.field_values.empty? ||

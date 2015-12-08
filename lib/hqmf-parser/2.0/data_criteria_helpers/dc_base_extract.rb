@@ -39,7 +39,7 @@ module HQMF2
       end
     end
 
-    # Filters all teh subset operators to only include the ones of type 'UNION' and 'XPRODUCT'
+    # Filters all the subset operators to only include the ones of type 'UNION' and 'XPRODUCT'
     def extract_subset_operators
       all_subset_operators.select do |operator|
         operator.type != 'UNION' && operator.type != 'XPRODUCT'

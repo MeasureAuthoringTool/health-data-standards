@@ -38,7 +38,7 @@ module HQMF2
       end
     end
 
-    # The next groups of "parse_" handles extracting values for different types of criteria
+    # The next group of "parse_" methods handle extracting values for different types of criteria
 
     def self.parse_dset_cd(element, field, fields)
       if element
@@ -49,7 +49,7 @@ module HQMF2
       end
     end
 
-    # These "parse_" methods also first check if the value is of the "ANY" type, and only parse if it isn't
+    # The next group of "parse_" methods also first check if the value is of the "ANY" type, and only parse if it isn't
 
     def self.parse_cd(element, field, fields)
       any = check_and_set_if_any(element, field, fields)
@@ -67,6 +67,7 @@ module HQMF2
     end
 
     def self.parse_cs(element, field, fields)
+      # Only possible result is AnyValue
       check_and_set_if_any(element, field, fields)
     end
 
@@ -142,6 +143,28 @@ module HQMF2
       end
     end
 
+    # If type code for this field value is LOC, handle specifics
+    def self.handle_loc(entry, fields)
+      loc = entry.at_xpath("./cda:participation[@typeCode='LOC']/cda:role[@classCode='SDLOC']", HQMF2::Document::NAMESPACES)
+      return unless loc
+      # does it have an effective time?
+      low = loc.at_xpath('./cda:effectiveTime/cda:low/..')
+      high = loc.at_xpath('./cda:effectiveTime/cda:high/..')
+      code = loc.at_xpath('./cda:code')
+      # looking at the 2.4.0 measure bundle these values are set to null if they exist
+      # so that is what I am doing for now
+      fields['FACILITY_LOCATION_ARRIVAL_DATETIME'] = AnyValue.new if low
+      fields['FACILITY_LOCATION_DEPARTURE_DATETIME'] = AnyValue.new if high
+      fields['FACILITY_LOCATION'] = Coded.new(code) if code
+    end
+
+    # Extract template ids from the given entry
+    def self.extract_template_ids(entry)
+      entry.xpath('./cda:templateId/cda:item', HQMF2::Document::NAMESPACES).collect do |template_def|
+        HQMF2::Utilities.attr_val(template_def, '@root')
+      end
+    end
+
     # The "parse_"s after this point handle extraction of data criteria based on field names
 
     def self.parse_act_criteria_fields(_entry, _fields)
@@ -196,20 +219,7 @@ module HQMF2
       handle_loc(entry, fields)
     end
 
-    def self.handle_loc(entry, fields)
-      loc = entry.at_xpath("./cda:participation[@typeCode='LOC']/cda:role[@classCode='SDLOC']", HQMF2::Document::NAMESPACES)
-      return unless loc
-      # does it have an effective time?
-      low = loc.at_xpath('./cda:effectiveTime/cda:low/..')
-      high = loc.at_xpath('./cda:effectiveTime/cda:high/..')
-      code = loc.at_xpath('./cda:code')
-      # looking at the 2.4.0 measure bundle these values are set to null if they exist
-      # so that is what I am doing for now
-      fields['FACILITY_LOCATION_ARRIVAL_DATETIME'] = AnyValue.new if low
-      fields['FACILITY_LOCATION_DEPARTURE_DATETIME'] = AnyValue.new if high
-      fields['FACILITY_LOCATION'] = Coded.new(code) if code
-    end
-    # rubocop:endable Metrics/LineLength
+    # rubocop:enable Metrics/LineLength
 
     def self.parse_procedure_fields(entry, fields)
       parse_dset_cd(entry.at_xpath('./cda:methodCode', HQMF2::Document::NAMESPACES), 'METHOD', fields)
@@ -221,12 +231,6 @@ module HQMF2
     end
 
     def self.parse_grouper_fields(_entry, _fields)
-    end
-
-    def self.extract_template_ids(entry)
-      entry.xpath('./cda:templateId/cda:item', HQMF2::Document::NAMESPACES).collect do |template_def|
-        HQMF2::Utilities.attr_val(template_def, '@root')
-      end
     end
   end
 end

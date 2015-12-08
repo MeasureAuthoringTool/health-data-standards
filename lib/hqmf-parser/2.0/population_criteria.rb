@@ -33,7 +33,7 @@ module HQMF2
         end
       else
         # Extract the data criteria this population references
-        dc = handle_observation_critiera
+        dc = handle_observation_criteria
         @preconditions = [Precondition.new(id_generator.next_id, nil, nil, false, HQMF2::Reference.new(dc.id))]
       end
     end
@@ -64,11 +64,11 @@ module HQMF2
     end
 
     # extracts out any measure observation definitons, creating from them the proper criteria to generate a precondition
-    def handle_observation_critiera
+    def handle_observation_criteria
       exp = @entry.at_xpath('./cda:measureObservationDefinition/cda:value/cda:expression/@value', HQMF2::Document::NAMESPACES)
       # Measure Observations criteria rely on computed expressions. If it doesn't have one,
       #  then it is likely formatted improperly.
-      fail 'No Expression ' if exp.nil?
+      fail 'Measure Observations criteria is missing computed expression(s) ' if exp.nil?
       parts = exp.to_s.split('-')
       dc = parse_parts_to_dc(parts)
       @doc.add_data_criteria(dc)
@@ -103,12 +103,6 @@ module HQMF2
 
     def create_human_readable_id(id)
       @id = id
-    end
-
-    # Return true of this precondition represents a conjunction with nested preconditions
-    # or false of this precondition is a reference to a data criteria
-    def conjunction?
-      true
     end
 
     # Get the conjunction code, ALL_TRUE or AT_LEAST_ONE_TRUE

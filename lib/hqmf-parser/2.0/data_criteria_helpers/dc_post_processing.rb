@@ -33,7 +33,7 @@ module HQMF2
       end
     end
 
-    # Extract the value and code_list_xpath from the template mapping held in the ValueSetHelper class
+    # Set the value and code_list_xpath using the template mapping held in the ValueSetHelper class
     def handle_mapping_template(mapping)
       if mapping
         @code_list_xpath = mapping[:valueset_path] if mapping[:valueset_path] && @entry.at_xpath(mapping[:valueset_path])
