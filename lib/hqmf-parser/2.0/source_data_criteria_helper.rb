@@ -46,9 +46,10 @@ module HQMF2
       dc
     end
 
-    # Given a list of criteria obtained from the XML, generate most of the source data criteria (since no explicit sources are given).
-    # After generating the source data criteria, filter the list to not include repeated, unnecessary sources, but maintain and return
-    #  map of those that have been removed to those that they were replaced with.
+    # Given a list of criteria obtained from the XML, generate most of the source data criteria (since no explicit
+    # sources are given). After generating the source data criteria, filter the list to not include repeated,
+    # unnecessary sources, but maintain and return map of those that have been removed to those that they were replaced
+    # with.
     def self.get_source_data_criteria_list(full_criteria_list, data_criteria_references = {}, occurrences_map = {})
       # currently, this will erase the sources if the ids are the same, but will not correct references later on
       source_data_criteria = full_criteria_list.map do |entry|
@@ -64,7 +65,8 @@ module HQMF2
           uniq_source_data_criteria[identifier] = sdc
         end
       end
-      [uniq_source_data_criteria.values.reject { |dc| SourceDataCriteriaHelper.should_reject?(dc) }, collapsed_source_data_criteria_map]
+      [uniq_source_data_criteria.values.reject { |dc| SourceDataCriteriaHelper.should_reject?(dc) },
+       collapsed_source_data_criteria_map]
     end
   end
 end

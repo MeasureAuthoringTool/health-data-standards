@@ -15,8 +15,8 @@ module HQMF2
       handle_derived_specific_occurrences
     end
 
-    # Extract the code_list_xpath and the criteria's value from either the location related to the specific occurrence, or
-    #  from any of the template ids (if multiple exist)
+    # Extract the code_list_xpath and the criteria's value from either the location related to the specific occurrence,
+    # or from any of the template ids (if multiple exist)
     def extract_code_list_path_and_result_value
       if @template_ids.empty? && @specific_occurrence
         template = @entry.document.at_xpath(
@@ -36,7 +36,9 @@ module HQMF2
     # Set the value and code_list_xpath using the template mapping held in the ValueSetHelper class
     def handle_mapping_template(mapping)
       if mapping
-        @code_list_xpath = mapping[:valueset_path] if mapping[:valueset_path] && @entry.at_xpath(mapping[:valueset_path])
+        if mapping[:valueset_path] && @entry.at_xpath(mapping[:valueset_path])
+          @code_list_xpath = mapping[:valueset_path]
+        end
         @value = DataCriteriaMethods.parse_value(@entry, mapping[:result_path]) if mapping[:result_path]
       end
     end
@@ -44,7 +46,8 @@ module HQMF2
     # Changes XPRODUCT data criteria that has an associated tempalte(s) to an INTERSETION criteria.
     # UNION is used for all other cases.
     def change_xproduct_to_intersection
-      # Need to handle grouper criteria that do not have template ids -- these will be union of and intersection criteria
+      # Need to handle grouper criteria that do not have template ids -- these will be union of and intersection
+      # criteria
       return unless @template_ids.empty?
       # Change the XPRODUCT to an INTERSECT otherwise leave it as a UNION
       @derivation_operator = HQMF::DataCriteria::INTERSECT if @derivation_operator == HQMF::DataCriteria::XPRODUCT
@@ -56,7 +59,8 @@ module HQMF2
       return unless @definition == 'derived'
       # Adds a child if none exists (specifically the source criteria)
       @children_criteria << @source_data_criteria if @children_criteria.empty?
-      return if @children_criteria.length != 1 || (@source_data_criteria.present? && @children_criteria.first != @source_data_criteria)
+      return if @children_criteria.length != 1 ||
+                (@source_data_criteria.present? && @children_criteria.first != @source_data_criteria)
       # if child.first is nil, it will be caught in the second statement
       reference_criteria = @data_criteria_references[@children_criteria.first]
       return if reference_criteria.nil?

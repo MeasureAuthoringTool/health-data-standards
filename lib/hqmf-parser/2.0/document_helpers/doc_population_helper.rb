@@ -20,7 +20,8 @@ module HQMF2
     # If a precondition references a population, remove it
     def remove_population_preconditions(doc)
       # population sections
-      pop_ids = doc.xpath("//cda:populationCriteriaSection/cda:component[@typeCode='COMP']/*/cda:id", HQMF2::Document::NAMESPACES)
+      pop_ids = doc.xpath("//cda:populationCriteriaSection/cda:component[@typeCode='COMP']/*/cda:id",
+                          HQMF2::Document::NAMESPACES)
       # find the population entries and get their ids
       pop_ids.each do |p_id|
         doc.xpath("//cda:precondition[./cda:criteriaReference/cda:id[@extension='#{p_id['extension']}' and @root='#{p_id['root']}']]",
@@ -31,10 +32,13 @@ module HQMF2
     # Returns the population descriptions and criteria found in this document
     def extract_populations_and_criteria
       has_observation = extract_observations
-      document_populations = @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:populationCriteriaSection', HQMF2::Document::NAMESPACES)
+      document_populations = @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:populationCriteriaSection',
+                                        HQMF2::Document::NAMESPACES)
       # Sort the populations based on the id/extension, since the populations may be out of order; there doesn't seem to
       # be any other way that order is indicated in the HQMF
-      document_populations = document_populations.sort_by { |pop| pop.at_xpath('cda:id/@extension', HQMF2::Document::NAMESPACES).try(:value) }
+      document_populations = document_populations.sort_by do |pop|
+        pop.at_xpath('cda:id/@extension', HQMF2::Document::NAMESPACES).try(:value)
+      end
       number_of_populations = document_populations.length
       document_populations.each_with_index do |population_def, population_index|
         population = {}
@@ -60,15 +64,16 @@ module HQMF2
     def extract_observations
       has_observation = false
       # look for observation data in separate section but create a population for it if it exists
-      observation_section = @doc.xpath('/cda:QualityMeasureDocument/cda:component/cda:measureObservationSection', HQMF2::Document::NAMESPACES)
+      observation_section = @doc.xpath('/cda:QualityMeasureDocument/cda:component/cda:measureObservationSection',
+                                       HQMF2::Document::NAMESPACES)
       unless observation_section.empty?
         observation_section.xpath('cda:definition', HQMF2::Document::NAMESPACES).each do |criteria_def|
           criteria_id = 'OBSERV'
           criteria = PopulationCriteria.new(criteria_def, @document, @id_generator)
           criteria.type = 'OBSERV'
           # This section constructs a human readable id.  The first IPP will be IPP, the second will be IPP_1, etc.
-          # This allows the populations to be more readable.  The alternative would be to have the hqmf ids in the populations,
-          # which would work, but is difficult to read the populations.
+          # This allows the populations to be more readable.  The alternative would be to have the hqmf ids in the
+          # populations, which would work, but is difficult to read the populations.
           if @ids_by_hqmf_id["#{criteria.hqmf_id}"]
             criteria.create_human_readable_id(@ids_by_hqmf_id[criteria.hqmf_id])
           else
@@ -105,14 +110,18 @@ module HQMF2
     def handle_stratifications(population_def, number_of_populations, population, id_def, population_index)
       # handle stratifications (EP137, EP155)
       stratifier_criteria_xpath = "cda:component/cda:stratifierCriteria[not(cda:component/cda:measureAttribute/cda:code[@code  = 'SDE'])]/.."
-      population_def.xpath(stratifier_criteria_xpath, HQMF2::Document::NAMESPACES).each_with_index do |criteria_def, criteria_def_index|
+      population_def.xpath(stratifier_criteria_xpath, HQMF2::Document::NAMESPACES)
+        .each_with_index do |criteria_def, criteria_def_index|
         # Skip this Stratification if any precondition doesn't contain any preconditions
-        next unless PopulationCriteria.new(criteria_def, @document, @id_generator).preconditions.all? { |prcn| prcn.preconditions.length > 0 }
+        next unless PopulationCriteria.new(criteria_def, @document, @id_generator)
+                    .preconditions.all? { |prcn| prcn.preconditions.length > 0 }
 
-        index = number_of_populations + ((population_index - 1) * criteria_def.xpath('./*/cda:precondition').length) + criteria_def_index
+        index = number_of_populations + ((population_index - 1) * criteria_def.xpath('./*/cda:precondition').length) +
+                criteria_def_index
         criteria_id = HQMF::PopulationCriteria::STRAT
         stratified_population = population.dup
-        stratified_population['stratification'] = criteria_def.at_xpath('./*/cda:id/@root').try(:value) || "#{criteria_id}-#{criteria_def_index}"
+        stratified_population['stratification'] = criteria_def.at_xpath('./*/cda:id/@root').try(:value) ||
+                                                  "#{criteria_id}-#{criteria_def_index}"
         build_population_criteria(criteria_def, criteria_id, stratified_population)
 
         stratified_population['id'] = id_def ? "#{id_def.value} - Stratification #{criteria_def_index + 1}" : "Population#{index}"
@@ -135,8 +144,8 @@ module HQMF2
 
       if identical.empty?
         # this section constructs a human readable id.  The first IPP will be IPP, the second will be IPP_1, etc.
-        # This allows the populations to be more readable.  The alternative would be to have the hqmf ids in the populations,
-        # which would work, but is difficult to read the populations.
+        # This allows the populations to be more readable.  The alternative would be to have the hqmf ids in the
+        # populations, which would work, but is difficult to read the populations.
         if @ids_by_hqmf_id["#{criteria.hqmf_id}-#{population['stratification']}"]
           criteria.create_human_readable_id(@ids_by_hqmf_id["#{criteria.hqmf_id}-#{population['stratification']}"])
         else

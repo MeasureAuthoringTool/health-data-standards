@@ -3,14 +3,16 @@ module HQMF2
   class FieldValueHelper
     def self.parse_field_values(entry)
       return if entry.nil?
-      criteria = entry.at_xpath('./cda:actCriteria | ./cda:observationCriteria | ./cda:encounterCriteria | ./cda:procedureCriteria
-        | ./cda:supplyCriteria | ./cda:substanceAdministrationCriteria | ./cda:grouperCriteria')
+      criteria = entry.at_xpath('./cda:actCriteria | ./cda:observationCriteria | ./cda:encounterCriteria |
+                                 ./cda:procedureCriteria | ./cda:supplyCriteria |
+                                 ./cda:substanceAdministrationCriteria | ./cda:grouperCriteria')
 
       return {} if criteria.nil?
       fields = {}
       # Negation is handled in the data criteria parsing class and not as a field value.
       # Not using the reasonCode element because the QDM HQMF ig states that reason is in an outbound relationship.
-      # parse_dset_cd(criteria.at_xpath('./cda:reasonCode', HQMF2::Document::NAMESPACES), 'REASON', fields) unless negated.
+      # parse_dset_cd(criteria.at_xpath('./cda:reasonCode', HQMF2::Document::NAMESPACES), 'REASON', fields) unless
+      # negated.
       parse_dset_cd(criteria.at_xpath('./cda:priorityCode', HQMF2::Document::NAMESPACES), 'ORDINAL', fields)
       parse_date_fields(criteria, fields)
 
@@ -95,7 +97,8 @@ module HQMF2
     end
 
     def self.any_flavor(element)
-      element && (element['flavorId'] == 'ANY.NONNULL' || element.at_xpath('@xsi:type', HQMF2::Document::NAMESPACES) == 'ANY')
+      element && (element['flavorId'] == 'ANY.NONNULL' ||
+                  element.at_xpath('@xsi:type', HQMF2::Document::NAMESPACES) == 'ANY')
     end
 
     def self.parse_date_fields(entry, fields)
@@ -125,7 +128,8 @@ module HQMF2
     def self.low_field_name(template_ids)
       if template_ids.include?('2.16.840.1.113883.10.20.28.3.51')
         'ACTIVE_DATETIME'
-      elsif template_ids.include?('2.16.840.1.113883.10.20.28.3.110') || template_ids.include?('2.16.840.1.113883.10.20.28.3.116')
+      elsif template_ids.include?('2.16.840.1.113883.10.20.28.3.110') ||
+            template_ids.include?('2.16.840.1.113883.10.20.28.3.116')
         'ONSET_DATETIME'
       else
         'ADMISSION_DATETIME'
@@ -136,7 +140,8 @@ module HQMF2
     def self.high_field_name(template_ids)
       if template_ids.include?('2.16.840.1.113883.10.20.28.3.13')
         'REMOVAL_DATETIME'
-      elsif template_ids.include?('2.16.840.1.113883.10.20.28.3.110') || template_ids.include?('2.16.840.1.113883.10.20.28.3.116')
+      elsif template_ids.include?('2.16.840.1.113883.10.20.28.3.110') ||
+            template_ids.include?('2.16.840.1.113883.10.20.28.3.116')
         'ABATEMENT_DATETIME'
       else
         'DISCHARGE_DATETIME'
@@ -145,7 +150,8 @@ module HQMF2
 
     # If type code for this field value is LOC, handle specifics
     def self.handle_loc(entry, fields)
-      loc = entry.at_xpath("./cda:participation[@typeCode='LOC']/cda:role[@classCode='SDLOC']", HQMF2::Document::NAMESPACES)
+      loc = entry.at_xpath("./cda:participation[@typeCode='LOC']/cda:role[@classCode='SDLOC']",
+                           HQMF2::Document::NAMESPACES)
       return unless loc
       # does it have an effective time?
       low = loc.at_xpath('./cda:effectiveTime/cda:low/..')
@@ -172,8 +178,10 @@ module HQMF2
 
     def self.parse_substance_administration_fields(entry, fields)
       parse_dset_cd(entry.at_xpath('./cda:methodCode', HQMF2::Document::NAMESPACES), 'METHOD', fields)
-      parse_dset_cd(entry.at_xpath('./cda:approachSiteCode', HQMF2::Document::NAMESPACES), 'ANATOMICAL_APPROACH_SITE', fields)
-      parse_dset_cd(entry.at_xpath('./cda:targetSiteCode', HQMF2::Document::NAMESPACES), 'ANATOMICAL_LOCATION_SITE', fields)
+      parse_dset_cd(entry.at_xpath('./cda:approachSiteCode', HQMF2::Document::NAMESPACES),
+                    'ANATOMICAL_APPROACH_SITE', fields)
+      parse_dset_cd(entry.at_xpath('./cda:targetSiteCode', HQMF2::Document::NAMESPACES),
+                    'ANATOMICAL_LOCATION_SITE', fields)
       parse_cd(entry.at_xpath('./cda:routeCode', HQMF2::Document::NAMESPACES), 'ROUTE', fields)
       parse_pq(entry.at_xpath('./cda:doseQuantity', HQMF2::Document::NAMESPACES), 'DOSE', fields)
       parse_pq(entry.at_xpath('./cda:repeatNumber', HQMF2::Document::NAMESPACES), 'REFILLS', fields)
@@ -181,12 +189,16 @@ module HQMF2
 
     def self.parse_observation_fields(entry, fields)
       parse_dset_cd(entry.at_xpath('./cda:methodCode', HQMF2::Document::NAMESPACES), 'METHOD', fields)
-      parse_dset_cd(entry.at_xpath('./cda:targetSiteCode', HQMF2::Document::NAMESPACES), 'ANATOMICAL_LOCATION_SITE', fields)
-      parse_cd(entry.at_xpath("./cda:participation[@typeCode='SBJ']/cda:role[@classCode='PRS']/cda:code", HQMF2::Document::NAMESPACES),
+      parse_dset_cd(entry.at_xpath('./cda:targetSiteCode', HQMF2::Document::NAMESPACES),
+                    'ANATOMICAL_LOCATION_SITE', fields)
+      parse_cd(entry.at_xpath("./cda:participation[@typeCode='SBJ']/cda:role[@classCode='PRS']/cda:code",
+                              HQMF2::Document::NAMESPACES),
                'RELATIONSHIP', fields)
-      parse_pq(entry.at_xpath("./cda:outboundRelationship[@typeCode='REFV']/cda:observationCriteria/cda:value/cda:high", HQMF2::Document::NAMESPACES),
+      parse_pq(entry.at_xpath("./cda:outboundRelationship[@typeCode='REFV']/cda:observationCriteria/cda:value/cda:high",
+                              HQMF2::Document::NAMESPACES),
                'REFERENCE_RANGE_HIGH', fields)
-      parse_pq(entry.at_xpath("./cda:outboundRelationship[@typeCode='REFV']/cda:observationCriteria/cda:value/cda:low", HQMF2::Document::NAMESPACES),
+      parse_pq(entry.at_xpath("./cda:outboundRelationship[@typeCode='REFV']/cda:observationCriteria/cda:value/cda:low",
+                              HQMF2::Document::NAMESPACES),
                'REFERENCE_RANGE_LOW', fields)
     end
 
@@ -204,7 +216,8 @@ module HQMF2
           ), 'PRINCIPAL_DIAGNOSIS', fields)
       end
 
-      diagnosis = entry.at_xpath("./cda:outboundRelationship[@typeCode='REFR']/cda:actCriteria/cda:code[@code='29308-4']", HQMF2::Document::NAMESPACES)
+      diagnosis = entry.at_xpath("./cda:outboundRelationship[@typeCode='REFR']/cda:actCriteria/cda:code[@code='29308-4']",
+                                 HQMF2::Document::NAMESPACES)
       if diagnosis
         parse_cd(
           entry.at_xpath(
@@ -223,8 +236,10 @@ module HQMF2
 
     def self.parse_procedure_fields(entry, fields)
       parse_dset_cd(entry.at_xpath('./cda:methodCode', HQMF2::Document::NAMESPACES), 'METHOD', fields)
-      parse_dset_cd(entry.at_xpath('./cda:approachSiteCode', HQMF2::Document::NAMESPACES), 'ANATOMICAL_APPROACH_SITE', fields)
-      parse_dset_cd(entry.at_xpath('./cda:targetSiteCode', HQMF2::Document::NAMESPACES), 'ANATOMICAL_LOCATION_SITE', fields)
+      parse_dset_cd(entry.at_xpath('./cda:approachSiteCode', HQMF2::Document::NAMESPACES),
+                    'ANATOMICAL_APPROACH_SITE', fields)
+      parse_dset_cd(entry.at_xpath('./cda:targetSiteCode', HQMF2::Document::NAMESPACES),
+                    'ANATOMICAL_LOCATION_SITE', fields)
     end
 
     def self.parse_supply_fields(_entry, _fields)

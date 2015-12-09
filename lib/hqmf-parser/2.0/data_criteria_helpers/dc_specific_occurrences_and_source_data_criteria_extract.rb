@@ -16,16 +16,20 @@ module HQMF2
     # Retrieve the specific occurrence and source data criteria information (or just source if there is no specific)
     def extract_specific_occurrences_and_source_data_criteria
       specific_def = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="OCCR"]', HQMF2::Document::NAMESPACES)
-      source_def = @entry.at_xpath('./*/cda:outboundRelationship[cda:subsetCode/@code="SOURCE"]', HQMF2::Document::NAMESPACES)
+      source_def = @entry.at_xpath('./*/cda:outboundRelationship[cda:subsetCode/@code="SOURCE"]',
+                                   HQMF2::Document::NAMESPACES)
       if specific_def
-        source_data_criteria_extension = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@extension')
+        source_data_criteria_extension = HQMF2::Utilities.attr_val(specific_def,
+                                                                   './cda:criteriaReference/cda:id/@extension')
         source_data_criteria_root = HQMF2::Utilities.attr_val(specific_def, './cda:criteriaReference/cda:id/@root')
 
         occurrence_criteria = @data_criteria_references[strip_tokens("#{source_data_criteria_extension}_#{source_data_criteria_root}")]
 
         return if occurrence_criteria.nil?
-        specific_occurrence_const = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationRoot')
-        specific_occurrence = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationExtension')
+        specific_occurrence_const = HQMF2::Utilities.attr_val(specific_def,
+                                                              './cda:localVariableName/@controlInformationRoot')
+        specific_occurrence = HQMF2::Utilities.attr_val(specific_def,
+                                                        './cda:localVariableName/@controlInformationExtension')
 
         # FIXME: Remove debug statements after cleaning up occurrence handling
         # build regex for extracting alpha-index of specific occurrences
@@ -61,14 +65,17 @@ module HQMF2
           @occurrences_map[source_data_criteria] ||= occurrence_identifier
         end
         occurrence = @occurrences_map.try(:[], source_data_criteria)
-        fail "Could not find occurrence mapping for #{source_data_criteria}, #{source_data_criteria_root}" unless occurrence
+        unless occurrence
+          fail "Could not find occurrence mapping for #{source_data_criteria}, #{source_data_criteria_root}"
+        end
         # puts "\tUsing #{occurrence} for #{@id}"
         specific_occurrence ||= occurrence
       end
 
       specific_occurrence = 'A' unless specific_occurrence
       specific_occurrence_const = source_data_criteria.upcase unless specific_occurrence_const
-      [source_data_criteria, source_data_criteria_root, source_data_criteria_extension, specific_occurrence, specific_occurrence_const]
+      [source_data_criteria, source_data_criteria_root, source_data_criteria_extension,
+       specific_occurrence, specific_occurrence_const]
     end
 
     # Using the id, source data criteria id, and local variable name (and whether or not it's a variable),

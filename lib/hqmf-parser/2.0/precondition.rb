@@ -8,7 +8,8 @@ module HQMF2
     def self.parse(entry, doc, id_generator)
       doc = doc
       entry = entry
-      aggregation = entry.at_xpath('./cda:allTrue | ./cda:atLeastOneTrue | ./cda:allFalse | ./cda:atLeastOneFalse', HQMF2::Document::NAMESPACES)
+      aggregation = entry.at_xpath('./cda:allTrue | ./cda:atLeastOneTrue | ./cda:allFalse | ./cda:atLeastOneFalse',
+                                   HQMF2::Document::NAMESPACES)
 
       # Sets the reference criteria for the precondition (if it exists)
       reference_def = entry.at_xpath('./*/cda:id', HQMF2::Document::NAMESPACES)
@@ -34,7 +35,8 @@ module HQMF2
       negation = false
       conjunction = aggregation.name
       case conjunction
-      # DeMorgan's law is used to handle negated caes: e.g. to find if all are false, negate the "at least one true" check.
+      # DeMorgan's law is used to handle negated caes: e.g. to find if all are false, negate the "at least one true"
+      # check.
       when 'allFalse'
         negation = true
         conjunction = 'atLeastOneTrue'

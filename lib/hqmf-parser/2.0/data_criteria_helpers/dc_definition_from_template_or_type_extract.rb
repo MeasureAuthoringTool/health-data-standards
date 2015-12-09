@@ -71,14 +71,17 @@ module HQMF2
 
     # Extracts information from a reference for a specific
     def extract_information_for_specific_variable
-      reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
+      reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference',
+                                  HQMF2::Document::NAMESPACES)
       if reference
         ref_id = strip_tokens(
           "#{HQMF2::Utilities.attr_val(reference, 'cda:id/@extension')}_#{HQMF2::Utilities.attr_val(reference, 'cda:id/@root')}")
       end
       reference_criteria = @data_criteria_references[ref_id] if ref_id
       # if the reference is derived, pull from the original variable
-      reference_criteria = @data_criteria_references["GROUP_#{ref_id}"] if reference_criteria && reference_criteria.definition == 'derived'
+      if reference_criteria && reference_criteria.definition == 'derived'
+        reference_criteria = @data_criteria_references["GROUP_#{ref_id}"]
+      end
       return unless reference_criteria
       handle_specific_variable_ref(reference_criteria)
     end
@@ -124,8 +127,8 @@ module HQMF2
       end
     end
 
-    # If there is no entry type, extract the entry type from what it references, and extract additional information for specific occurrences.
-    # If there are no outbound references, print an error and mark it as variable.
+    # If there is no entry type, extract the entry type from what it references, and extract additional information for
+    # specific occurrences. If there are no outbound references, print an error and mark it as variable.
     def definition_for_nil_entry
       reference = @entry.at_xpath('./*/cda:outboundRelationship/cda:criteriaReference', HQMF2::Document::NAMESPACES)
       ref_id = nil

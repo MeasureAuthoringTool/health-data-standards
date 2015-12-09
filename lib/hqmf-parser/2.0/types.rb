@@ -37,8 +37,10 @@ module HQMF2
       equivalent = attr_val('../cda:low/@value') == attr_val('../cda:high/@value')
 
       # If and inclusivity value is set for any specific value, then mark the value as inclusive.
-      # IDEA: This could be limited in future iterations by including the parent type (temporal reference, subset code, etc.)
-      inclusive_temporal_ref? || inclusive_length_of_stay? || inclusive_basic_values? || inclusive_subsets? || equivalent || @force_inclusive
+      # IDEA: This could be limited in future iterations by including the parent type (temporal reference, subset code,
+      # etc.)
+      inclusive_temporal_ref? || inclusive_length_of_stay? || inclusive_basic_values? || inclusive_subsets? ||
+        equivalent || @force_inclusive
     end
 
     # Check whether the temporal reference should be marked as inclusive
@@ -152,7 +154,8 @@ module HQMF2
       (lm.nil? || lm.is_a?(HQMF::AnyValue)) && (hm.nil? || hm.is_a?(HQMF::AnyValue))
     end
 
-    # Check if the value for the range should actually produce a single value instead of a range (if low and high are the same)
+    # Check if the value for the range should actually produce a single value instead of a range (if low and high are
+    # the same)
     def generate_value?(lm, hm)
       !lm.nil? && lm.try(:value) == hm.try(:value) && lm.try(:unit).nil? && hm.try(:unit).nil?
     end

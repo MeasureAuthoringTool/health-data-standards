@@ -24,10 +24,14 @@ module HQMF2
       @variable = DataCriteriaMethods.extract_variable(@local_variable_name, @id)
       @field_values = DataCriteriaMethods.extract_field_values(@entry, @negation)
       @description = extract_description
-      obtain_specific_and_source = SpecificOccurrenceAndSource.new(@entry, @id, @local_variable_name, @data_criteria_references, @occurrences_map)
+      obtain_specific_and_source = SpecificOccurrenceAndSource.new(@entry, @id, @local_variable_name,
+                                                                   @data_criteria_references, @occurrences_map)
       # Pulling these 5 variables out via destructing
-      @source_data_criteria, @source_data_criteria_root, @source_data_criteria_extension,
-        @specific_occurrence, @specific_occurrence_const = obtain_specific_and_source.extract_specific_occurrences_and_source_data_criteria
+      @source_data_criteria,
+        @source_data_criteria_root,
+        @source_data_criteria_extension,
+        @specific_occurrence,
+        @specific_occurrence_const = obtain_specific_and_source.extract_specific_occurrences_and_source_data_criteria
       extract_definition_from_template_or_type
       post_processing
     end
@@ -78,10 +82,10 @@ module HQMF2
       cc = children_criteria.present? ? children_criteria : nil
       comments = @comments.present? ? @comments : nil
 
-      HQMF::DataCriteria.new(id, title, nil, description, @code_list_id, cc,
-                             derivation_operator, @definition, status, mv, field_values, met, retrieve_code_system_for_model,
-                             @negation, @negation_code_list_id, mtr, mso, @specific_occurrence,
-                             @specific_occurrence_const, @source_data_criteria, comments, @variable)
+      HQMF::DataCriteria.new(id, title, nil, description, @code_list_id, cc, derivation_operator, @definition, status,
+                             mv, field_values, met, retrieve_code_system_for_model, @negation, @negation_code_list_id,
+                             mtr, mso, @specific_occurrence, @specific_occurrence_const, @source_data_criteria,
+                             comments, @variable)
     end
 
     # Return a new DataCriteria instance with only grouper attributes set.
@@ -124,7 +128,8 @@ module HQMF2
     # (defined as a data criteria that encapsulates the calculation material for other data criteria elements,
     # where the other data criteria elements reference the holding element as a child element)
     def handle_derived_specific_occurrence_variable
-      # If the first child is all the exists, and it has been marked as a "group" element, switch this over to map to the new element.
+      # If the first child is all the exists, and it has been marked as a "group" element, switch this over to map to
+      # the new element.
       if !@data_criteria_references["GROUP_#{@children_criteria.first}"].nil? && @children_criteria.length == 1
         @children_criteria[0] = "GROUP_#{@children_criteria.first}"
       # If the group element is not found, extract the information from the child and force it into the variable.
@@ -143,7 +148,8 @@ module HQMF2
       @status = attr_val('./*/cda:statusCode/@code')
       @id_xpath = './*/cda:id/@extension'
       @id = "#{attr_val('./*/cda:id/@extension')}_#{attr_val('./*/cda:id/@root')}"
-      @comments = @entry.xpath("./#{CRITERIA_GLOB}/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()", HQMF2::Document::NAMESPACES).map(&:content)
+      @comments = @entry.xpath("./#{CRITERIA_GLOB}/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()",
+                               HQMF2::Document::NAMESPACES).map(&:content)
       @code_list_xpath = './*/cda:code'
       @value_xpath = './*/cda:value'
       @is_derived_specific_occurrence_variable = false
@@ -261,7 +267,8 @@ module HQMF2
 
       fields.merge! HQMF2::FieldValueHelper.parse_field_values(entry)
       # special case for fulfills operator.  assuming there is only a possibility of having one of these
-      fulfills = entry.at_xpath('./*/cda:outboundRelationship[@typeCode="FLFS"]/cda:criteriaReference', HQMF2::Document::NAMESPACES)
+      fulfills = entry.at_xpath('./*/cda:outboundRelationship[@typeCode="FLFS"]/cda:criteriaReference',
+                                HQMF2::Document::NAMESPACES)
       # grab the child element if we don't have a reference
       fields['FLFS'] = TypedReference.new(fulfills) if fulfills
       fields
@@ -273,7 +280,8 @@ module HQMF2
         # Strip out initial qdm_var_ string, trailing _*, and possible occurrence reference
         encoded_name.gsub!(/^qdm_var_|/, '')
         encoded_name.gsub!(/Occurrence[A-Z]of/, '')
-        # This code needs to handle measures created before the MAT added variable name hints; for those, don't strip the final identifier
+        # This code needs to handle measures created before the MAT added variable name hints; for those, don't strip
+        # the final identifier
         unless encoded_name.match(/^(SATISFIES ALL|SATISFIES ANY|UNION|INTERSECTION)/)
           encoded_name.gsub!(/_[^_]+$/, '')
         end

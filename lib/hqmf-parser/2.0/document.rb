@@ -2,9 +2,12 @@ module HQMF2
   # Class representing an HQMF document
   class Document
     include HQMF2::Utilities, HQMF2::DocumentUtilities
-    NAMESPACES = { 'cda' => 'urn:hl7-org:v3', 'xsi' => 'http://www.w3.org/2001/XMLSchema-instance', 'qdm' => 'urn:hhs-qdm:hqmf-r2-extensions:v1' }
+    NAMESPACES = { 'cda' => 'urn:hl7-org:v3',
+                   'xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
+                   'qdm' => 'urn:hhs-qdm:hqmf-r2-extensions:v1' }
 
-    attr_reader :measure_period, :id, :hqmf_set_id, :hqmf_version_number, :populations, :attributes, :source_data_criteria
+    attr_reader :measure_period, :id, :hqmf_set_id, :hqmf_version_number, :populations, :attributes,
+                :source_data_criteria
 
     # Create a new HQMF2::Document instance by parsing the given HQMF contents
     # @param [String] containing the HQMF contents to be parsed
@@ -93,7 +96,8 @@ module HQMF2
                          @attributes, @measure_period, @populations)
     end
 
-    # Finds an element within the collection given that has an instance variable or method of "attribute" with a value of "value"
+    # Finds an element within the collection given that has an instance variable or method of "attribute" with a value
+    # of "value"
     def find(collection, attribute, value)
       collection.find { |e| e.send(attribute) == value }
     end
@@ -106,8 +110,10 @@ module HQMF2
       @id_generator = IdGenerator.new
       @doc = @entry = Document.parse(hqmf_contents)
 
-      @id = attr_val('cda:QualityMeasureDocument/cda:id/@extension') || attr_val('cda:QualityMeasureDocument/cda:id/@root').upcase
-      @hqmf_set_id = attr_val('cda:QualityMeasureDocument/cda:setId/@extension') || attr_val('cda:QualityMeasureDocument/cda:setId/@root').upcase
+      @id = attr_val('cda:QualityMeasureDocument/cda:id/@extension') ||
+            attr_val('cda:QualityMeasureDocument/cda:id/@root').upcase
+      @hqmf_set_id = attr_val('cda:QualityMeasureDocument/cda:setId/@extension') ||
+                     attr_val('cda:QualityMeasureDocument/cda:setId/@root').upcase
       @hqmf_version_number = attr_val('cda:QualityMeasureDocument/cda:versionNumber/@value').to_i
 
       # TODO: -- figure out if this is the correct thing to do -- probably not, but is
@@ -118,7 +124,8 @@ module HQMF2
 
       # Extract measure attributes
       # TODO: Review
-      @attributes = @doc.xpath('/cda:QualityMeasureDocument/cda:subjectOf/cda:measureAttribute', NAMESPACES).collect do |attribute|
+      @attributes = @doc.xpath('/cda:QualityMeasureDocument/cda:subjectOf/cda:measureAttribute', NAMESPACES)
+                    .collect do |attribute|
         read_attribute(attribute)
       end
 
@@ -140,7 +147,8 @@ module HQMF2
         mp_width = HQMF::Value.new('PQ', 'a', '1', nil, nil, nil)
         HQMF::EffectiveTime.new(mp_low, mp_high, mp_width)
       else
-        measure_period_def = @doc.at_xpath('cda:QualityMeasureDocument/cda:controlVariable/cda:measurePeriod/cda:value', NAMESPACES)
+        measure_period_def = @doc.at_xpath('cda:QualityMeasureDocument/cda:controlVariable/cda:measurePeriod/cda:value',
+                                           NAMESPACES)
         EffectiveTime.new(measure_period_def).to_model if measure_period_def
       end
     end
@@ -154,7 +162,8 @@ module HQMF2
 
       id_obj = nil
       if attribute.at_xpath('./cda:id', NAMESPACES)
-        id_obj = HQMF::Identifier.new(attribute.at_xpath('./cda:id/@xsi:type', NAMESPACES).try(:value), id,
+        id_obj = HQMF::Identifier.new(attribute.at_xpath('./cda:id/@xsi:type', NAMESPACES).try(:value),
+                                      id,
                                       attribute.at_xpath('./cda:id/@extension', NAMESPACES).try(:value))
       end
 
@@ -218,7 +227,8 @@ module HQMF2
     def extract_criteria
       # Extract the data criteria
       extracted_criteria = []
-      @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:dataCriteriaSection/cda:entry', NAMESPACES).each do |entry|
+      @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:dataCriteriaSection/cda:entry', NAMESPACES)
+        .each do |entry|
         extracted_criteria << entry
       end
 

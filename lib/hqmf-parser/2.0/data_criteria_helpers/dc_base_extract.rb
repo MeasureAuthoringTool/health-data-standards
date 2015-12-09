@@ -1,5 +1,6 @@
 module HQMF2
-  # Contains extraction methods which are self-contained (rely only on the xml and an xpath, no other instance variables)
+  # Contains extraction methods which are self-contained (rely only on the xml and an xpath, no other instance
+  # variables)
   class DataCriteriaBaseExtractions
     include HQMF2::Utilities
     CONJUNCTION_CODE_TO_DERIVATION_OP = {
@@ -19,16 +20,21 @@ module HQMF2
 
     # Generate a list of child criterias
     def extract_child_criteria
-      @entry.xpath("./*/cda:outboundRelationship[@typeCode='COMP']/cda:criteriaReference/cda:id", HQMF2::Document::NAMESPACES).collect do |ref|
+      @entry.xpath("./*/cda:outboundRelationship[@typeCode='COMP']/cda:criteriaReference/cda:id",
+                   HQMF2::Document::NAMESPACES).collect do |ref|
         Reference.new(ref).id
       end.compact
     end
 
-    # Extracts the derivation operator to be used by the data criteria, and fails out if it finds more than one (should not be valid)
+    # Extracts the derivation operator to be used by the data criteria, and fails out if it finds more than one (should
+    # not be valid)
     def extract_derivation_operator
-      codes = @entry.xpath("./*/cda:outboundRelationship[@typeCode='COMP']/cda:conjunctionCode/@code", HQMF2::Document::NAMESPACES)
+      codes = @entry.xpath("./*/cda:outboundRelationship[@typeCode='COMP']/cda:conjunctionCode/@code",
+                           HQMF2::Document::NAMESPACES)
       codes.inject(nil) do |d_op, code|
-        fail 'More than one derivation operator in data criteria' if d_op && d_op != CONJUNCTION_CODE_TO_DERIVATION_OP[code.value]
+        if d_op && d_op != CONJUNCTION_CODE_TO_DERIVATION_OP[code.value]
+          fail 'More than one derivation operator in data criteria'
+        end
         CONJUNCTION_CODE_TO_DERIVATION_OP[code.value]
       end
     end
@@ -64,7 +70,8 @@ module HQMF2
       negation = (attr_val('./*/@actionNegationInd') == 'true')
       negation_code_list_id = nil
       if negation
-        res = @entry.at_xpath('./*/cda:outboundRelationship/*/cda:code[@code="410666004"]/../cda:value/@valueSet', HQMF2::Document::NAMESPACES)
+        res = @entry.at_xpath('./*/cda:outboundRelationship/*/cda:code[@code="410666004"]/../cda:value/@valueSet',
+                              HQMF2::Document::NAMESPACES)
         negation_code_list_id = res.value if res
       end
       [negation, negation_code_list_id]

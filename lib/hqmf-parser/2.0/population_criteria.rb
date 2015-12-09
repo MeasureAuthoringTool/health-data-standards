@@ -43,7 +43,8 @@ module HQMF2
       @hqmf_id = attr_val('./*/cda:id/@root') || attr_val('./*/cda:typeId/@extension')
       @title = attr_val('./*/cda:code/cda:displayName/@value').try(:titleize)
       @type = attr_val('./*/cda:code/@code')
-      @comments = @entry.xpath('./*/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()', HQMF2::Document::NAMESPACES).map(&:content)
+      @comments = @entry.xpath('./*/cda:text/cda:xml/cda:qdmUserComments/cda:item/text()', HQMF2::Document::NAMESPACES)
+                  .map(&:content)
       handle_preconditions(id_generator)
       obs_test = attr_val('./cda:measureObservationDefinition/@classCode')
       # If there are no measure observations, or there is a title, then there are no aggregations to extract
@@ -55,7 +56,8 @@ module HQMF2
     # specifically handles extracting the preconditions for the population criteria
     def handle_preconditions(id_generator)
       # Nest multiple preconditions under a single root precondition
-      @preconditions = @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES).collect do |pre|
+      @preconditions = @entry.xpath('./*/cda:precondition[not(@nullFlavor)]', HQMF2::Document::NAMESPACES)
+                       .collect do |pre|
         precondition = Precondition.parse(pre, @doc, id_generator)
         precondition.reference.nil? && precondition.preconditions.empty? ? nil : precondition
       end
@@ -65,7 +67,8 @@ module HQMF2
 
     # extracts out any measure observation definitons, creating from them the proper criteria to generate a precondition
     def handle_observation_criteria
-      exp = @entry.at_xpath('./cda:measureObservationDefinition/cda:value/cda:expression/@value', HQMF2::Document::NAMESPACES)
+      exp = @entry.at_xpath('./cda:measureObservationDefinition/cda:value/cda:expression/@value',
+                            HQMF2::Document::NAMESPACES)
       # Measure Observations criteria rely on computed expressions. If it doesn't have one,
       #  then it is likely formatted improperly.
       fail 'Measure Observations criteria is missing computed expression(s) ' if exp.nil?
