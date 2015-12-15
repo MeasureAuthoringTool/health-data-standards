@@ -1,18 +1,17 @@
 class Entry
-  include ActiveModel::MassAssignmentSecurity
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
   include ThingWithCodes
 
   # embedded_in :entry_list, polymorphic: true
-  
+
   embedded_in :record
   embeds_one :cda_identifier, class_name: "CDAIdentifier", as: :cda_identifiable
   embeds_many :values, class_name: "ResultValue"
   embeds_many :references
   embeds_many :provider_preference, class_name: "Entry"
   embeds_many :patient_preference, class_name: "Entry"
-  
+
   field :description, type: String
   field :specifics, type: String
   field :time, type: Integer
@@ -24,12 +23,12 @@ class Entry
   field :negationReason, as: :negation_reason, type: Hash
   field :oid, type: String
   field :reason, type: Hash
-  
-  attr_protected :version
-  attr_protected :_id
-  attr_protected :created_at
-  attr_protected :updated_at
-  
+
+  attr_accessor :version
+  attr_accessor :_id
+  attr_accessor :created_at
+  attr_accessor :updated_at
+
   def add_reference(entry, type)
     references.build(type: type, referenced_type: entry.class, referenced_id: entry.id)
   end
@@ -43,11 +42,11 @@ class Entry
       Time.at(time).utc.to_formatted_s(:long_ordinal)
     end
   end
-  
+
   def self.time_to_s(input_time)
     Time.at(input_time).utc.to_formatted_s(:long_ordinal)
   end
-  
+
   # Entry previously had a status field that dropped the code set and converted
   # the status to a String. Entry now preserves the original code and code set.
   # This method is here to maintain backwards compatibility.
@@ -61,13 +60,13 @@ class Entry
           'active'
         when '73425007'
           'inactive'
-        when '413322009'      
+        when '413322009'
           'resolved'
         end
       end
     end
   end
-  
+
   def status=(status_text)
     case status_text.to_s # makes sure that any Symbols passed in are stringified
     when 'active'
@@ -80,7 +79,7 @@ class Entry
       self.status_code = {'HL7 ActStatus' => [status_text]}
     end
   end
-  
+
   def self.from_event_hash(event)
     entry = Entry.new
     if event['code']
@@ -152,24 +151,24 @@ class Entry
   def usable?
     codes.present? && (start_time.present? || end_time.present? || time.present?)
   end
-  
+
   # Compares hash values to determine equality
   def ==(other)
     self.class==other.class && self.hash==other.hash
   end
-  
+
   # Returns the hash value, calculating it if not already done
   def hash
     @hash || calculate_hash!
   end
-  
+
   # Calculates a hash value for this entry
   def calculate_hash!
     entry_hash = to_hash
     entry_hash['description']=nil
     @hash = entry_hash.hash
   end
-  
+
   # Creates a Hash for this Entry
   # @return [Hash] a Hash representing the Entry
   def to_hash
@@ -178,18 +177,18 @@ class Entry
     unless values.empty?
       entry_hash['value'] = values
     end
-    
+
     if is_date_range?
       entry_hash['start_time'] = start_time
       entry_hash['end_time'] = end_time
     else
       entry_hash['time'] = as_point_in_time
     end
-    
+
     if status
       entry_hash['status'] = status
     end
-    
+
     if description
       entry_hash['description'] = description
     end
@@ -197,7 +196,7 @@ class Entry
     if specifics
       entry_hash['specifics'] = specifics
     end
-    
+
     entry_hash
   end
 

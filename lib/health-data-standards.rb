@@ -9,7 +9,6 @@ require 'nokogiri'
 require 'ostruct'
 require 'log4r'
 require 'memoist'
-require 'protected_attributes'
 
 # Freedom patches
 require_relative 'health-data-standards/ext/symbol'
