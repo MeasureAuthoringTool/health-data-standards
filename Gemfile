@@ -7,6 +7,8 @@ group :development do
   gem 'byebug', '~> 6.0.2',  platforms: [:ruby_20, :ruby_21, :ruby_22]
 end
 
+gem 'unf'
+
 group :test do
   gem 'factory_girl', '~> 4.1.0'
   gem "tailor", '~> 1.1.2'
