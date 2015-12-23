@@ -37,7 +37,7 @@ module HealthDataStandards
 
       def self.load_from_xml(doc)
         doc.root.add_namespace_definition("vs","urn:ihe:iti:svs:2008")
-        vs_element = doc.at_xpath("/vs:RetrieveValueSetResponse/vs:ValueSet")
+        vs_element = doc.at_xpath("/vs:RetrieveValueSetResponse/vs:ValueSet|/vs:RetrieveMultipleValueSetsResponse/vs:DescribedValueSet")
         if vs_element
           vs = ValueSet.new(oid: vs_element["ID"], display_name: vs_element["displayName"], version: vs_element["version"])
           concepts = vs_element.xpath("//vs:Concept").collect do |con|
