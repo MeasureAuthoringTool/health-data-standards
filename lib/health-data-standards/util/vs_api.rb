@@ -8,11 +8,12 @@ module HealthDataStandards
 		class VSApi
 			attr_accessor :api_url, :ticket_url, :username, :password
 
-			def initialize(ticket_url, api_url, username, password)
+			def initialize(ticket_url, api_url, username, password, tgt=nil)
 				@api_url = api_url
 				@ticket_url = ticket_url
 				@username = username
 				@password = password
+        @proxy_ticket = tgt
 			end
 
       def get_valueset(oid, effective_date=nil, include_draft=false, &block)
@@ -38,17 +39,21 @@ module HealthDataStandards
 			def get_proxy_ticket
 				# the content type is set and the body is a string becuase the NLM service does not support urlencoded content and
 				# throws an error on that contnet type
-				RestClient.post ticket_url, {username: username, password: password}
+				RestClient.post @ticket_url, {username: @username, password: @password}
 			end
 
 			def get_ticket
 			  RestClient.post "#{ticket_url}/#{proxy_ticket}", {service: "http://umlsks.nlm.nih.gov"}
 		  end
+      
+      def self.get_tgt_using_credentials(username, password, ticket_url)        
+        RestClient.post ticket_url, {username: username, password: password}
+      end
 		end
 
     class VSApiV2 < VSApi
-      def initialize(ticket_url, api_url, username, password)
-        super(ticket_url, api_url, username, password)
+      def initialize(ticket_url, api_url, username, password, tgt=nil)
+        super(ticket_url, api_url, username, password, tgt)
       end
 
       def get_valueset(oid, options = {}, &block)
