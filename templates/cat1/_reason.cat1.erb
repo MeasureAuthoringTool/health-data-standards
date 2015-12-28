@@ -9,14 +9,27 @@
   -%>
 <entryRelationship typeCode="RSON">
   <observation classCode="OBS" moodCode="EVN">
-    <templateId root="2.16.840.1.113883.10.20.24.3.88"/>
+    <templateId root="2.16.840.1.113883.10.20.24.3.88" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/>
     <id extension="<%= identifier_for([reason, entry.start_time]) %>" />
+    <% if !r2_compatibility %>
+    <code code="77301-0"
+          codeSystem="2.16.840.1.113883.6.1"
+          displayName="reason"
+          codeSystemName="LOINC"/>
+    <% else %>
     <code code="410666004"
           codeSystem="2.16.840.1.113883.6.96"
           displayName="reason"
           codeSystemName="SNOMED CT"/>
+    <% end %>
     <statusCode code="completed"/>
-    <effectiveTime <%= value_or_null_flavor(entry.start_time) %>/>
+    <% if !r2_compatibility %>
+      <effectiveTime>
+        <low <%= value_or_null_flavor(entry.start_time) %>/>
+      </effectiveTime>
+    <% else %>
+      <effectiveTime <%= value_or_null_flavor(entry.start_time) %>/>
+    <% end %>
     <value xsi:type="CD"
          code="<%= reason['code'] %>"
          codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(reason['codeSystem'] || reason['code_system']) %>"
