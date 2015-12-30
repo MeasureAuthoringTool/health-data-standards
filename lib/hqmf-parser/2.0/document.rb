@@ -270,9 +270,10 @@ module HQMF2
     # For specific occurrence data criteria, make sure the source data criteria reference points
     # to the correct source data criteria.
     def handle_specific_source_data_criteria_reference(criteria)
-      sdc = find(@source_data_criteria, :id, criteria.source_data_criteria)
-      if criteria && !criteria.specific_occurrence.nil? && !sdc.nil? && 
-          sdc.specific_occurrence.nil? && !find(@source_data_criteria, :id, criteria.id).nil?
+      original_sdc = find(@source_data_criteria, :id, criteria.source_data_criteria)
+      updated_sdc = find(@source_data_criteria, :id, criteria.id)
+      if !updated_sdc.nil? && !criteria.specific_occurrence.nil? && 
+          (original_sdc.nil? || original_sdc.specific_occurrence.nil?)
         criteria.instance_variable_set(:@source_data_criteria, criteria.id)
       end
     end
