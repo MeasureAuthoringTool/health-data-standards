@@ -54,9 +54,11 @@ module HealthDataStandards
       def get_valueset(oid, options = {}, &block)
         version = options.fetch(:version, nil)
         include_draft = options.fetch(:include_draft, false)
+        effective_date = options.fetch(:effective_date, nil)
 				params = {id: oid, ticket: get_ticket}
 				params[:version] = version if version
 				params[:includeDraft] = 'yes' if include_draft
+        params[:effectiveDate] = effective_date if effective_date
 				begin
 					vs = RestClient.get api_url, {:params=>params}
 				rescue RestClient::ResourceNotFound

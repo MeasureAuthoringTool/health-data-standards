@@ -1,7 +1,7 @@
 <entry>
   <act classCode="ACT" moodCode="EVN" <%== negation_indicator(entry) %>>
     <!-- Discharge Medication Entry -->
-    <templateId root="2.16.840.1.113883.10.20.24.3.105"/>
+    <templateId root="2.16.840.1.113883.10.20.24.3.105" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/>
     <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
     <code code="10183-2"
           codeSystem="2.16.840.1.113883.6.1" 
@@ -14,9 +14,9 @@
     <entryRelationship typeCode="SUBJ">
       <substanceAdministration moodCode="EVN" classCode="SBADM">
         <!-- Medication Activity (consolidation) template -->
-        <templateId root="2.16.840.1.113883.10.20.22.4.16"/> 
+        <templateId root="2.16.840.1.113883.10.20.22.4.16" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/> 
         <!-- Medication, Active template -->
-        <templateId root="2.16.840.1.113883.10.20.24.3.41"/>
+        <templateId root="2.16.840.1.113883.10.20.24.3.41" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/>
         
         <id root="<%= UUID.generate %>"/>
         <text><%= entry.description %></text>
@@ -44,7 +44,7 @@
         <consumable>
           <manufacturedProduct classCode="MANU">
             <!-- Medication Information (consolidation) template --> 
-            <templateId root="2.16.840.1.113883.10.20.22.4.23"/>
+            <templateId root="2.16.840.1.113883.10.20.22.4.23" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
             <id root="<%= UUID.generate %>"/>
             <manufacturedMaterial>
               <%== code_display(entry,'preferred_code_sets' => ['RxNorm'],'value_set_map' => value_set_map, 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
@@ -54,7 +54,7 @@
             </manufacturerOrganization>
           </manufacturedProduct>
         </consumable>
-        <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"]}) %>
+        <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"], :r2_compatibility => r2_compatibility}) %>
       </substanceAdministration>
     </entryRelationship>
   </act>
