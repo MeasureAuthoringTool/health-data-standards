@@ -8,12 +8,12 @@ module HealthDataStandards
 		class VSApi
 			attr_accessor :api_url, :ticket_url, :username, :password
 
-			def initialize(ticket_url, api_url, username, password, tgt=nil)
+			def initialize(ticket_url, api_url, username, password, ticket_granting_ticket=nil)
 				@api_url = api_url
 				@ticket_url = ticket_url
 				@username = username
 				@password = password
-        @proxy_ticket = tgt
+        @proxy_ticket = ticket_granting_ticket
 			end
 
       def get_valueset(oid, effective_date=nil, include_draft=false, &block)
@@ -52,8 +52,8 @@ module HealthDataStandards
 		end
 
     class VSApiV2 < VSApi
-      def initialize(ticket_url, api_url, username, password, tgt=nil)
-        super(ticket_url, api_url, username, password, tgt)
+      def initialize(ticket_url, api_url, username, password, ticket_granting_ticket=nil)
+        super(ticket_url, api_url, username, password, ticket_granting_ticket)
       end
 
       def get_valueset(oid, options = {}, &block)
