@@ -89,7 +89,7 @@ module HealthDataStandards
       end
 
       def self.import(xml_data, provider_map = {})
-        doc = Nokogiri::XML(xml_data)
+        doc = xml_data.kind_of?(Nokogiri::XML::Document) ? xml_data : Nokogiri::XML(xml_data)
 
         providers = []
         root_element_name = doc.root.name
@@ -126,8 +126,9 @@ module HealthDataStandards
             record.provider_performances.push(ProviderPerformance.new(start_date: prov.start_date, end_date: prov.end_date, provider: ancestor))
           end
         end
-        record.save
-
+        if record.save
+          return record
+        end
       end
     end
   end
