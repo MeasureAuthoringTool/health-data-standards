@@ -21,8 +21,17 @@ module HealthDataStandards
           else
             oid_tuple = hqmf_qrda_oid_map.find {|map_tuple| map_tuple['hqmf_oid'] == hqmf_oid }
             if oid_tuple.nil?
-              puts "no qrda oid for #{hqmf_oid}"
-              raise "No QRDA template available for OID #{hqmf_oid}: #{__FILE__} line #{__LINE__}"
+              if hqmf_oid.nil?
+                puts "hqmf_oid is nil. likely due to discrepencies between QDM 4.2 and QRDA R3 "\
+                     "(e.g. only Diagnosis, not Diagnosis Active)."
+                raise "This may be due to a discrepency between QDM 4.2 and QRDA R3. "\
+                      "Expected cases for this error include: "\
+                      "Diagnosis, Family History, Symptom, Immunization data types, "\
+                      "and Encounter Performed attributes for Diagnosis and Principal Diagnosis."
+              else
+                puts "no qrda oid for #{hqmf_oid}"
+                raise "No QRDA template available for OID #{hqmf_oid}: #{__FILE__} line #{__LINE__}"
+              end
             end
             oid_tuple['qrda_oid']
           end
