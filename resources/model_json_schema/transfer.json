@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  
+  "definitions" :  {
+    "Transfer" : {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Transfer schema.",
+      "allOf": [
+        { "$ref": "entry.json#/definitions/Entry"},
+        { "properties": {
+            "time": {
+              "$ref": "common.json#/definitions/SecondsSinceEpoch"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

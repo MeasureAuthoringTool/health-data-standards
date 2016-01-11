@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  
+  "definitions" :  {
+    "Condition": {
+
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Condition schema",
+      "description": "An explanation about the puropose of this instance described by this schema.",
+
+      "allOf": [
+        { "$ref": "entry.json#/definitions/Entry"},
+        { "properties": {
+            "causeOfDeath": {
+              "type": ["boolean", "null"]
+            },
+            "name": {
+              "type": ["string", "null"],
+              "minLength": 1
+            },
+            "ordinality": {
+              "type": ["object", "null"],
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "laterality": {
+              "type": ["object", "null"],
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "priority": {
+              "type": ["integer", "null"]
+            },
+            "severity": {
+              "type": ["object", "null"],
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "time_of_death": {
+              "$ref": "common.json#/definitions/SecondsSinceEpoch"
+            },
+            "type": {
+              "type": ["string", "null"]
+            },
+            "anatomical_target": {
+              "type": ["object", "null"],
+              "additionalProperties": true,
+              "properties": {}
+            },
+
+            "anatomical_location": {
+              "type": ["object", "null"],
+              "additionalProperties": true,
+              "properties": {}
+            },
+
+            "treating_provider": {
+              "type": "array",
+              "minItems": 0,
+              "uniqueItems": false,
+              "additionalItems": true,
+              "items": {
+                "$ref": "provider.json#/definitions/Provider"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

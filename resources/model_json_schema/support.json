@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  
+  "definitions" :  {
+    "SupportType": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        null,
+        "Guardian",
+        "Next of Kin",
+        "Caregiver",
+        "Emergency Contact"
+      ]
+    },
+    "Support" : {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Support schema.",
+      "allOf": [
+        { "$ref": "entry.json#/definitions/Entry"},
+        { "properties": {
+            "title": {
+              "type": ["string", "null"],
+              "minLength": 1
+            },
+            "given_name": {
+              "type": ["string", "null"],
+              "minLength": 1
+            },
+            "family_name": {
+              "type": ["string", "null"],
+              "minLength": 1
+            },
+            "mothers_maiden_name": {
+              "type": ["string", "null"],
+              "minLength": 1
+            },
+            "type": {
+              "$ref": "#/definitions/SupportType"
+            },
+            "relationship": {
+              "type": ["string", "null"],
+              "minLength": 1
+            },
+            "address": {
+              "$ref": "address.json#/definitions/Address"
+            },
+            "telecom": {
+              "$ref" : "telecom.json#/definitions/Telecom"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

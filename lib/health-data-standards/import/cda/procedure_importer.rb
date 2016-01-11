@@ -16,7 +16,7 @@ module HealthDataStandards
           procedure = super
           extract_ordinality(entry_element, procedure)
           extract_performer(entry_element, procedure)
-          extract_site(entry_element, procedure)
+          extract_anatomical_target(entry_element, procedure)
           extract_negation(entry_element, procedure)
           extract_scalar(entry_element, procedure)
           procedure
@@ -36,8 +36,8 @@ module HealthDataStandards
           procedure.performer = import_actor(performer_element) if performer_element
         end
 
-        def extract_site(parent_element, procedure)
-          procedure.site = extract_code(parent_element, "./cda:targetSiteCode")
+        def extract_anatomical_target(parent_element, procedure)
+          procedure.anatomical_target = extract_code(parent_element, "./cda:targetSiteCode")
         end
 
         def extract_scalar(parent_element, procedure)

@@ -9,14 +9,19 @@ module HealthDataStandards
         @code_map = nil
       end
 
-      def export(patient, measures=[])
-        @code_map ||= self.build_code_map
+      # For environments where value sets are scoped, say by measure, they can be passed in
+      def export(patient, measures=[], scoped_value_sets = nil)
+        if scoped_value_sets
+          @code_map = self.build_code_map(scoped_value_sets) # Don't cache if value sets are passed in
+        else
+          @code_map ||= self.build_code_map
+        end
         @rendering_context.render(:template => 'show', :locals => {:patient => patient, :code_map => @code_map, :measures => measures})
       end
       
-      def build_code_map
+      def build_code_map(scoped_value_sets = nil)
         super_code_map = {}
-        val_set_array = HealthDataStandards::SVS::ValueSet.all.to_a
+        val_set_array = (scoped_value_sets || HealthDataStandards::SVS::ValueSet.all).to_a
         val_set_array.each do |valset| 
           valset.concepts.each do |concept|
             super_code_map[concept.code_system_name] ||= {}

@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  
+  "definitions" :  {
+    "Encounter" : {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Encounter schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "allOf": [
+        { "$ref": "entry.json#/definitions/Entry"},
+        { "properties": {
+            "admitType": {
+              "type": ["null", "object"],
+              "additionalProperties": true,
+              "properties": {}
+            },
+
+            "dischargeDisposition": {
+              "type": ["null", "object"],
+              "additionalProperties": true,
+              "properties": {}
+            },
+
+            "admitTime": {
+              "$ref": "common.json#/definitions/SecondsSinceEpoch"
+            },
+
+            "principalDiagnosis": {
+              "type": ["null", "object"],
+              "additionalProperties": true,
+              "properties": {}
+            },
+
+            "diagnosis": {
+              "type": ["null", "object"],
+              "additionalProperties": true,
+              "properties": {}
+            },
+
+            "dischargeTime": {
+              "$ref": "common.json#/definitions/SecondsSinceEpoch"
+            },
+
+            "transferTo": {
+              "$ref": "transfer.json#/definitions/Transfer"
+            },
+
+            "transferFrom": {
+              "$ref": "transfer.json#/definitions/Transfer"
+            },
+
+            "facility": {
+              "$ref": "facility.json#/definitions/Facility"
+            },
+
+	        "performer_id": {
+	          "$ref": "common.json#/definitions/BsonObjectId"
+	        }
+          }
+        }
+      ]
+    }
+  }
+}

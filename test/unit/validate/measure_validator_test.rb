@@ -28,6 +28,25 @@ class MeasureValidatorTest < ActiveSupport::TestCase
     assert_equal [], errors
   end
 
+
+  test "should have errors if the measure information is duplicate (cat 3)" do
+    doc = File.new('test/fixtures/qrda/cat3_duplicate_measure.xml')
+    errors = @cat3.validate(doc)
+    assert_equal 6, errors.length
+  end
+
+  test "should have errors if the measure information is duplicate (cat 3), even if measure id is missing" do
+    doc = File.new('test/fixtures/qrda/cat3_duplicate_measure_bad_measure_id.xml')
+    errors = @cat3.validate(doc)
+    assert_equal 6, errors.length
+  end
+
+  test "should have errors if the measure information is duplicate (cat 3), even if pop ids are invalid" do
+    doc = File.new('test/fixtures/qrda/cat3_duplicate_measure_bad_pop_id.xml')
+    errors = @cat3.validate(doc)
+    assert_equal 6, errors.length
+  end
+
   test "should have an error if measure id is invalid (cat 3)" do
     doc = File.new('test/fixtures/qrda/cat3_bad_measure_id.xml')
     errors = @cat3.validate(doc)

@@ -1,6 +1,11 @@
           <temporallyRelatedInformation typeCode="<%= relationship.type %>">
-            <%- if relationship.range -%>
-            <%= xml_for_value(relationship.range, 'pauseQuantity', false) %>
-            <%- end -%>
+
+            <qdm:temporalInformation precisionUnit="<%=percision_unit_for_range(relationship)%>">
+              <%= xml_for_temporal_relationship_attribute(criteria, relationship) %>
+              <%- if relationship.range -%>
+              <%= xml_for_value(relationship.range, 'qdm:delta', false) %>
+              <%- end -%>
+            </qdm:temporalInformation>
+
             <%= xml_for_reference(relationship.reference) %>
           </temporallyRelatedInformation>

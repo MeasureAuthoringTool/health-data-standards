@@ -29,8 +29,8 @@ module HealthDataStandards
 
           medication.route = extract_code(entry_element, "./cda:routeCode")
           medication.dose = extract_scalar(entry_element, "./cda:doseQuantity")
-          medication.site = extract_code(entry_element, "./cda:approachSiteCode", 'SNOMED-CT')
-
+          medication.anatomical_approach = extract_code(entry_element, "./cda:approachSiteCode", 'SNOMED-CT')
+          
           extract_dose_restriction(entry_element, medication)
 
           medication.product_form = extract_code(entry_element, "./cda:administrationUnitCode", 'NCI Thesaurus')

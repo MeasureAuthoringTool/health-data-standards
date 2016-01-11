@@ -1,7 +1,7 @@
 <entry>
   <act classCode="ACT" moodCode="EVN" <%== negation_indicator(entry) %>>
     <!-- Medication, Administered template -->
-    <templateId root="2.16.840.1.113883.10.20.24.3.42"/>
+    <templateId root="2.16.840.1.113883.10.20.24.3.42" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/>
     <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
     <code code="416118004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Administration"/>
     <statusCode code="completed"/>
@@ -12,7 +12,7 @@
     <entryRelationship typeCode="COMP">
       <substanceAdministration classCode="SBADM" moodCode="EVN">
         <!-- Medication Activity (consolidation) template -->
-        <templateId root="2.16.840.1.113883.10.20.22.4.16"/>
+        <templateId root="2.16.840.1.113883.10.20.22.4.16" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
         <id root="<%= UUID.generate %>"/>
         <text><%= entry.description %></text>
         <statusCode code="completed"/>
@@ -24,7 +24,7 @@
         <consumable>
           <manufacturedProduct classCode="MANU">
             <!-- Medication Information (consolidation) template -->
-            <templateId root="2.16.840.1.113883.10.20.22.4.23"/>
+            <templateId root="2.16.840.1.113883.10.20.22.4.23" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
             <id root="<%= UUID.generate %>"/>
             <manufacturedMaterial>
               <%== code_display(entry, 'value_set_map' => value_set_map, 'preferred_code_sets' => ['RxNorm', 'CVX', 'SNOMED-CT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>

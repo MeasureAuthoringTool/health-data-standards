@@ -1,0 +1,2961 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="qrda.xsl"?>
+<ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="urn:hl7-org:v3 QRDA_CATIII_Testing_20121129/CDA/infrastructure/cda/CDA_SDTC.xsd"
+ xmlns="urn:hl7-org:v3"
+ xmlns:cda="urn:hl7-org:v3">
+
+  <!-- 
+    ********************************************************
+    CDA Header
+    ********************************************************
+  -->
+  <realmCode code="US"/>
+  <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
+  <!-- QRDA Category III Release 1 template ID (this template ID differs from QRDA III comment only template ID). -->
+  <templateId root="2.16.840.1.113883.10.20.27.1.1"/>
+  <id root="88414c01-715a-45bb-83bb-db7ac860fe9d"/>
+  <!-- SHALL QRDA III document type code -->
+  <code code="55184-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"
+    displayName="Quality Reporting Document Architecture Calculated Summary Report"/>
+  <!-- SHALL Title, SHOULD have this content -->
+  <title>QRDA Calculated Summary Report</title>
+  <!-- SHALL  -->
+  <effectiveTime value="20120513"/>
+  <confidentialityCode codeSystem="2.16.840.1.113883.5.25" code="N"/>
+  <languageCode code="en-US"/>
+  <!-- SHOULD The version of the file being submitted. -->
+  <versionNumber value="1"/>
+  <!-- SHALL contain recordTarget and ID - but ID is nulled to NA. This is an aggregate summary report. Therefore CDA's required patient identifier is nulled. -->
+  <recordTarget>
+    <patientRole>
+      <id nullFlavor="NA"/>
+    </patientRole>
+  </recordTarget>
+  <!-- SHALL have 1..* author. MAY be device or person. 
+    The author of the CDA document in this example is a device at a data submission vendor/registry. -->
+  <author>
+    <time value="20130418165454"/>
+    <assignedAuthor>
+      <!-- Registry author ID -->
+      <id extension="Cypress" root="MITRE"/>
+      <assignedAuthoringDevice>
+        <softwareName></softwareName>
+      </assignedAuthoringDevice>
+      <representedOrganization>
+        <!-- Represents unique registry organization TIN -->
+        <id root="root" extension="ext"/>
+        <!-- Contains name - specific registry not required-->
+        <name></name>
+      </representedOrganization>
+    </assignedAuthor>
+  </author>
+  <!-- The custodian of the CDA document is the same as the legal authenticator in this 
+  example and represents the reporting organization. -->
+  <!-- SHALL -->
+  <custodian>
+    <assignedCustodian>
+      <representedCustodianOrganization>
+        <!-- SHALL have an id - This is an example root -->
+        <id root="root"/>
+        <!-- SHOULD Name not required -->
+        <name>Cypress</name>
+      </representedCustodianOrganization>
+    </assignedCustodian>
+  </custodian>
+  <!-- The legal authenticator of the CDA document is a single person who is at the 
+    same organization as the custodian in this example. This element must be present. -->
+  <!-- SHALL -->
+  <legalAuthenticator>
+    <!-- SHALL -->
+    <time value="20130418165454"/>
+    <!-- SHALL -->
+    <signatureCode code="S"/>
+    <assignedEntity>
+      <!-- SHALL ID -->
+      <id root="root"/>
+      <!-- SHALL -->
+      <representedOrganization>
+        <!-- SHALL Id -->
+        <!-- example root -->
+        <id root="root"/>
+      </representedOrganization>
+    </assignedEntity>
+  </legalAuthenticator>
+  
+
+  <!-- 
+********************************************************
+CDA Body
+********************************************************
+-->
+  <component>
+    <structuredBody>
+      <!-- 
+********************************************************
+QRDA Category III Reporting Parameters 
+********************************************************
+-->
+
+      <component>
+        <section>
+          <!-- Reporting Parameters templateId -->
+          <templateId root="2.16.840.1.113883.10.20.17.2.1"/>
+          <!-- QRDA Category III Reporting Parameters templateId -->
+          <templateId root="2.16.840.1.113883.10.20.27.2.2"/>
+          <code code="55187-9" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Reporting Parameters</title>
+          <text>
+            <list>
+              <item>Reporting period: 01 January 2012 - 31 March 2012</item>
+              <item>First encounter: 05 January 2012</item>
+              <item>Last encounter: 24 March 2012</item>
+            </list>
+          </text>
+          <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.17.3.8"/>
+              <id root="55a43e20-6463-46eb-81c3-9a3a1ad41225"/>
+              <code code="252116004" codeSystem="2.16.840.1.113883.6.96"
+                displayName="Observation Parameters"/>
+              <!-- This reporting period shows that Good Health Clinic is sending data for the first quarter of the year.
+              The referenced measure definition may be valid for the entire year or more-->
+              <effectiveTime>
+                <low value="20120101"/>
+                <!-- The first day of the period reported. -->
+                <high value="20120331"/>
+                <!-- The last day of the period reported. -->
+              </effectiveTime>
+            </act>
+          </entry>
+          <entry>
+            <encounter classCode="ENC" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.27.3.11"/>
+              <!-- The month, day and year of the first service
+                encounter of the reporting period (From date) -->
+              <effectiveTime>
+                <low value="20120105"/>
+              </effectiveTime>
+            </encounter>
+          </entry>
+          <entry>
+            <encounter classCode="ENC" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.27.3.12"/>
+              <!-- The month, day and year of the last service
+                encounter of the reporting period (To date) -->
+              <effectiveTime>
+                <low nullFlavor="NI"/>
+                <high value="20120324"/>
+              </effectiveTime>
+            </encounter>
+          </entry>
+        </section>
+      </component>
+      <!-- 
+********************************************************
+Measure Section
+********************************************************
+-->
+      <component>
+        <section>
+          <!-- Implied template Measure Section templateId -->
+          <templateId root="2.16.840.1.113883.10.20.24.2.2"/>
+          <!-- In this case the query is using an eMeasure -->
+          <!-- QRDA Category III Measure Section template -->
+          <templateId root="2.16.840.1.113883.10.20.27.2.1"/>
+          <code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Measure Section</title>
+          <text>
+             
+          </text>
+          <!-- 
+            Proportion measure example 
+          -->
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- Implied template Measure Reference templateId -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
+              <templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+              <id extension="8A4D92B2-397A-48D2-0139-7CC6B5B8011E"/>
+              <statusCode code="completed"/>
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
+                  <!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
+                  <id root="2.16.840.1.113883.4.738" extension="8A4D92B2-397A-48D2-0139-7CC6B5B8011E"/>
+                  
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text>Weight Assessment and Counseling for Nutrition and Physical Activity for Children and Adolescents</text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root="0B63F730-25D6-4248-B11F-8C09C66A04EB"/>
+                  <!-- This is the sequential eMeasure Version number -->
+                  <versionNumber value="1"/>
+                </externalDocument>
+              </reference>
+            
+
+              <!-- SHALL 1..* (one for each population) Measure Data template -->
+              <!-- NOTE AT THE BOTTOM OF THIS ORGANIZER is the reference for the entire population that starts with the first component
+                observation at the top within the measure data template.  There are other external references contained within the 
+                entryRelationships below.  -->
+              <!-- This is the population as in IPP, numerator, denominator, etc. If there are multiple
+              populations, use the same method, but refer to IPP1, numerator1, IPP2, numerator2, etc -->
+              
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="IPP"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
+
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="4"/>
+
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
+
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="1"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="3"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Ethnicity Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+                      <id nullFlavor="NA" />
+                      <code code="364699009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="2186-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="4"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Race Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+                      <id nullFlavor="NA" />
+                      <code code="103579009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="1002-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="4"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>            
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="M"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="F"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="3"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="E83A6DA6-D34E-4107-8431-2FB2C86738C7"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENOM"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
+
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="4"/>
+
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
+
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="1"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="3"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Ethnicity Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+                      <id nullFlavor="NA" />
+                      <code code="364699009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="2186-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="4"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Race Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+                      <id nullFlavor="NA" />
+                      <code code="103579009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="1002-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="4"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="M"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="F"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="3"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>  
+
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="A08E22DD-9B31-40AD-BA5C-5DB43F8FFBE4"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
+
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="1"/>
+
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
+
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="1"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Ethnicity Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+                      <id nullFlavor="NA" />
+                      <code code="364699009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="2186-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Race Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+                      <id nullFlavor="NA" />
+                      <code code="103579009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="1002-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="F"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="E60D324E-7606-42C2-8E46-5EE29289725D"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENEX"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
+
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="1"/>
+
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
+
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="1"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Ethnicity Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+                      <id nullFlavor="NA" />
+                      <code code="364699009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="2186-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Race Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+                      <id nullFlavor="NA" />
+                      <code code="103579009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="1002-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="F"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="FE61FF42-F9EF-4ADA-9D3F-E734B8D70E87"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
+
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="0"/>
+
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
+
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="E3ACA22F-9239-417D-8074-E4882FB0F848"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
+
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="0"/>
+
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
+
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="84C557E8-41B1-43F6-8C1B-1D204335AAFB"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              
+            </organizer>
+          </entry>
+        </section>
+      </component>
+      <component>
+        <section>
+          <!-- Implied template Measure Section templateId -->
+          <templateId root="2.16.840.1.113883.10.20.24.2.2"/>
+          <!-- In this case the query is using an eMeasure -->
+          <!-- QRDA Category III Measure Section template -->
+          <templateId root="2.16.840.1.113883.10.20.27.2.1"/>
+          <code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Measure Section</title>
+          <text>
+             
+          </text>
+          <!-- 
+            Proportion measure example 
+          -->
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- Implied template Measure Reference templateId -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
+              <templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+              <id extension="8A4D92B2-397A-48D2-0139-7CC6B5B8011E"/>
+              <statusCode code="completed"/>
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
+                  <!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
+                  <id root="2.16.840.1.113883.4.738" extension="8A4D92B2-397A-48D2-0139-7CC6B5B8011E"/>
+                  
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text>Weight Assessment and Counseling for Nutrition and Physical Activity for Children and Adolescents</text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root="0B63F730-25D6-4248-B11F-8C09C66A04EB"/>
+                  <!-- This is the sequential eMeasure Version number -->
+                  <versionNumber value="1"/>
+                </externalDocument>
+              </reference>
+            
+
+              <!-- SHALL 1..* (one for each population) Measure Data template -->
+              <!-- NOTE AT THE BOTTOM OF THIS ORGANIZER is the reference for the entire population that starts with the first component
+                observation at the top within the measure data template.  There are other external references contained within the 
+                entryRelationships below.  -->
+              <!-- This is the population as in IPP, numerator, denominator, etc. If there are multiple
+              populations, use the same method, but refer to IPP1, numerator1, IPP2, numerator2, etc -->
+              
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="IPP"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
+
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="4"/>
+
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
+
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="1"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="3"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Ethnicity Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+                      <id nullFlavor="NA" />
+                      <code code="364699009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="2186-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="4"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Race Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+                      <id nullFlavor="NA" />
+                      <code code="103579009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="1002-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="4"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>            
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="M"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="F"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="3"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="E83A6DA6-D34E-4107-8431-2FB2C86738C7"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENOM"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
+
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="4"/>
+
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
+
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="1"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="3"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Ethnicity Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+                      <id nullFlavor="NA" />
+                      <code code="364699009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="2186-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="4"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Race Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+                      <id nullFlavor="NA" />
+                      <code code="103579009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="1002-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="4"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="M"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="F"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="3"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>  
+
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="A08E22DD-9B31-40AD-BA5C-5DB43F8FFBE4"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
+
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="1"/>
+
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
+
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="1"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Ethnicity Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+                      <id nullFlavor="NA" />
+                      <code code="364699009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="2186-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Race Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+                      <id nullFlavor="NA" />
+                      <code code="103579009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="1002-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="F"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="E60D324E-7606-42C2-8E46-5EE29289725D"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENEX"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
+
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="1"/>
+
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
+
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="1"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Ethnicity Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+                      <id nullFlavor="NA" />
+                      <code code="364699009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="2186-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Race Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+                      <id nullFlavor="NA" />
+                      <code code="103579009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="1002-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="F"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="FE61FF42-F9EF-4ADA-9D3F-E734B8D70E87"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
+
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="0"/>
+
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
+
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="E3ACA22F-9239-417D-8074-E4882FB0F848"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
+
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="0"/>
+
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
+
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="84C557E8-41B1-43F6-8C1B-1D204335AAFB"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              
+            </organizer>
+          </entry>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>

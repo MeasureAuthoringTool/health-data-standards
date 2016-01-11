@@ -7,11 +7,11 @@
   <realmCode code="US"/>
   <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
   <!-- US Realm Header Template Id -->
-  <templateId root="2.16.840.1.113883.10.20.22.1.1"/>
+  <templateId root="2.16.840.1.113883.10.20.22.1.1" <% if !r2_compatibility %>extension="2014-06-09"<%end%> />
   <!-- QRDA templateId -->
-  <templateId root="2.16.840.1.113883.10.20.24.1.1"/>
+  <templateId root="2.16.840.1.113883.10.20.24.1.1" <% if !r2_compatibility %>extension="2014-12-01"<%end%> />
   <!-- QDM-based QRDA templateId -->
-  <templateId root="2.16.840.1.113883.10.20.24.1.2"/>
+  <templateId root="2.16.840.1.113883.10.20.24.1.2" <% if !r2_compatibility %>extension="2014-12-01"<%end%> />
   <!-- This is the globally unique identifier for this QRDA document -->
   <id root="<%= UUID.generate %>"/>
   <!-- QRDA document type code -->
@@ -20,7 +20,7 @@
   <!-- This is the document creation time -->
   <effectiveTime value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
   <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
-  <languageCode code="eng"/>
+  <languageCode code="en"/>
   <!-- reported patient -->
   <%== render :partial => 'record_target', :locals => {:patient => patient} %>
   <!-- Example of an author who is a device -->
@@ -49,6 +49,7 @@
         <!-- SHALL ID -->
         <%== render :partial=>"id", :collection=>header.legal_authenticator.ids, :id=>"identifier" %>
         <%== render :partial=>"address" , :collection=>header.legal_authenticator.addresses %>
+	<%== render :partial => "telecom", :collection => header.legal_authenticator.telecoms %>
         <assignedPerson>
           <name>
              <given><%= header.legal_authenticator.person.given %></given>
@@ -129,7 +130,7 @@
     <structuredBody>
       <%== render :partial => 'measures', :locals => {:measures => measures} %>
       <%== render :partial => 'reporting_parameters', :locals => {:start_date => start_date, :end_date => end_date} %>
-      <%== render :partial => 'patient_data', :locals => {:measures => measures, :patient => patient} %>
+      <%== render :partial => 'patient_data', :locals => {:measures => measures, :patient => patient, :r2_compatibility => r2_compatibility} %>
     </structuredBody>
   </component>
 </ClinicalDocument>

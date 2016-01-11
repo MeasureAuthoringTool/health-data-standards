@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  
+  "definitions" :  {
+    "Medication" : {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Medication schema.",
+      "allOf": [
+        { "$ref": "entry.json#/definitions/Entry"},
+        { "properties": {
+            "administrationTiming" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "freeTextSig": {
+              "type": ["string", "null"],
+              "minLength": 1
+            },
+
+            "dose" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "typeOfMedication" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "statusOfMedication" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "fulfillmentHistory": {
+              "type": "array",
+              "minItems": 0,
+              "uniqueItems": false,
+              "additionalItems": true,
+              "items": {
+                "$ref": "fulfillmentHistory.json#/definitions/FulfillmentHistory"
+              }
+            },
+
+            "orderInformation": {
+              "type": "array",
+              "minItems": 0,
+              "uniqueItems": false,
+              "additionalItems": true,
+              "items": {
+                "$ref": "orderInformation.json#/definitions/OrderInformation"
+              }
+            },
+
+            "route" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "anatomicalApproach" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "doseRestriction" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "fulfillmentInstructions": {
+              "type": ["string", "null"],
+              "minLength": 1
+            },
+
+            "indication" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "productForm" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "vehicle" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "reaction" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "deliveryMethod" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "patientInstructions": {
+              "type": ["string", "null"],
+              "minLength": 1
+            },
+
+            "doseIndicator": {
+              "type": ["string", "null"],
+              "minLength": 1
+            },
+
+            "method" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+
+            "active_datetime": {
+              "$ref": "common.json#/definitions/SecondsSinceEpoch"
+            },
+
+            "signed_datetime": {
+              "$ref": "common.json#/definitions/SecondsSinceEpoch"
+            },
+
+            "cumulativeMedicationDuration" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            }
+          }
+        }
+      ]
+    }
+  }
+}

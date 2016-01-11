@@ -51,6 +51,7 @@ module HealthDataStandards
       field :DENEX, type: Integer
       field :DENEXCEP, type: Integer
       field :MSRPOPL, type: Integer
+      field :MSRPOPLEX, type: Integer
       field :OBSERV
       field :antinumerator, type: Integer
       field :IPP, type: Integer
@@ -59,4 +60,5 @@ module HealthDataStandards
     end
 
   end
+
 end

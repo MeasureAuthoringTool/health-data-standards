@@ -79,7 +79,11 @@ module HealthDataStandards
       attr_accessor :populations
       def performance_rate
         numerator_count.to_f / 
-          (denominator_count - denominator_exclusions_count - denominator_exceptions_count)
+          (performance_rate_denominator)
+      end
+
+      def performance_rate_denominator
+        denominator_count - denominator_exclusions_count - denominator_exceptions_count
       end
 
       def is_cv?

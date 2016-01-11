@@ -21,7 +21,8 @@ module HealthDataStandards
                                              generate_importer(DiagnosisActiveImporter, nil, '2.16.840.1.113883.3.560.1.2', 'active'),
                                              generate_importer(CDA::ConditionImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.54']", '2.16.840.1.113883.3.560.1.404'), # patient characteristic age
                                              generate_importer(CDA::ConditionImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.14']", '2.16.840.1.113883.3.560.1.24', 'resolved'), #diagnosis resolved
-                                             generate_importer(DiagnosisInactiveImporter, nil, '2.16.840.1.113883.3.560.1.23', 'inactive')] #diagnosis inactive
+                                             generate_importer(DiagnosisInactiveImporter, nil, '2.16.840.1.113883.3.560.1.23', 'inactive'), #diagnosis inactive
+                                             generate_importer(ClinicalTrialParticipantImporter, nil, '2.16.840.1.113883.3.560.1.401')]
   
           
           @section_importers[:medications] = [generate_importer(CDA::MedicationImporter, "./cda:entry/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.105']/cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.41']", '2.16.840.1.113883.3.560.1.199', 'discharge'), #discharge medication active
@@ -35,7 +36,7 @@ module HealthDataStandards
                                              generate_importer(CDA::ProcedureImporter, "./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.31']", '2.16.840.1.113883.3.560.1.45', 'ordered'), #intervention ordered
                                              generate_importer(CDA::ProcedureImporter, "./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.32']", '2.16.840.1.113883.3.560.1.46', 'performed'), #intervention performed
                                              generate_importer(CDA::ProcedureImporter, "./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.34']", '2.16.840.1.113883.3.560.1.47'), #intervention result
-                                             generate_importer(CDA::ProcedureImporter, "./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.4']", '2.16.840.1.113883.3.560.1.129'), #comm from provider to provider
+                                             generate_importer(Cat1::ProcedureImporter, nil, '2.16.840.1.113883.3.560.1.129'), #comm from provider to provider
                                              generate_importer(CDA::ProcedureImporter, "./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.2']", '2.16.840.1.113883.3.560.1.30'), #comm from patient to provider
                                              generate_importer(ProcedureOrderImporter, nil, '2.16.840.1.113883.3.560.1.62', 'ordered'),
                                              generate_importer(ProcedurePerformedImporter, "./cda:entry/cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.64']", '2.16.840.1.113883.3.560.1.6'),
@@ -56,7 +57,8 @@ module HealthDataStandards
                                           generate_importer(CDA::ResultImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.38']", '2.16.840.1.113883.3.560.1.5', 'performed'), #lab performed
                                           generate_importer(CDA::ResultImporter, "./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.34']", '2.16.840.1.113883.3.560.1.47'), #intervention result
                                           generate_importer(CDA::ResultImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.57']", '2.16.840.1.113883.3.560.1.18'), #physical exam finding
-                                          generate_importer(CDA::ResultImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.28']", '2.16.840.1.113883.3.560.1.88'), #functional status result    
+                                          generate_importer(CDA::ResultImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.28']", '2.16.840.1.113883.3.560.1.88'), #functional status result  
+                                          generate_importer(CDA::ResultImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.26']", '2.16.840.1.113883.3.560.1.85'),  #functional status, performed
                                           generate_importer(LabResultImporter, nil, '2.16.840.1.113883.3.560.1.12')] #lab result
 
           @section_importers[:encounters] = [generate_importer(EncounterPerformedImporter, "./cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']", '2.16.840.1.113883.3.560.1.79', 'performed'), #encounter performed
@@ -72,7 +74,6 @@ module HealthDataStandards
           record = Record.new
           HealthDataStandards::Import::C32::PatientImporter.instance.get_demographics(record, doc)
           import_sections(record, doc)
-          get_clinical_trial_participant(record, doc)
           get_patient_expired(record, doc)
           record.dedup_record!
           record
@@ -88,11 +89,6 @@ module HealthDataStandards
               record.send(section) << entry_package.package_entries(context, nrh)
             end
           end
-        end
-
-        def get_clinical_trial_participant(record, doc)
-          entry_elements = doc.xpath("./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.51']")
-          record.clinicalTrialParticipant = true unless entry_elements.blank?
         end
 
         def get_patient_expired(record, doc)

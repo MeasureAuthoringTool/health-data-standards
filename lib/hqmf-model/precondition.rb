@@ -22,18 +22,19 @@ module HQMF
     }
     
     attr_reader :id, :preconditions, :reference, :conjunction_code
-    attr_accessor :negation
+    attr_accessor :negation, :comments
   
     # Create a new population criteria
     # @param [Array#Precondition] preconditions 
     # @param [Reference] reference
     # @param [String] conjunction_code
-    def initialize(id, preconditions, reference, conjunction_code, negation)
+    def initialize(id, preconditions, reference, conjunction_code, negation, comments=nil)
       @preconditions = preconditions || []
       @reference = reference
       @conjunction_code = conjunction_code
       @negation = negation
       @id = id
+      @comments = comments
     end
     
     def conjunction_code_with_negation
@@ -52,8 +53,9 @@ module HQMF
       reference = Reference.new(json["reference"]) if json["reference"] 
       conjunction_code = json["conjunction_code"] if json["conjunction_code"]
       negation = json["negation"] if json["negation"]
+      comments = json['comments'] if json['comments']
       
-      HQMF::Precondition.new(id, preconditions, reference, conjunction_code, negation)
+      HQMF::Precondition.new(id, preconditions, reference, conjunction_code, negation, comments)
     end
     
     def to_json
@@ -64,6 +66,7 @@ module HQMF
       json[:preconditions] = x if x = json_array(@preconditions)
       json[:conjunction_code] = self.conjunction_code if self.conjunction_code && self.preconditions.length > 0
       json[:negation] = self.negation if self.negation
+      json[:comments] = self.comments if self.comments
       json
     end
     

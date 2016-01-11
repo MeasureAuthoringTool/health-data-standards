@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  
+  "definitions" :  {
+    "Immunization" : {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Immunization schema.",
+      "allOf": [
+        { "$ref": "entry.json#/definitions/Entry"},
+        { "properties": {
+            "seriesNumber": {
+              "type": ["integer", "null"],
+              "multipleOf": 1
+            },
+
+            "medicationProduct": {
+                "$ref": "common.json#/definitions/MedicationProduct"
+            },
+
+            "reaction": {
+              "type": ["null", "object"],
+              "additionalProperties": true,
+              "properties": {}
+            },
+
+	        "performer_id": {
+	          "$ref": "common.json#/definitions/BsonObjectId"
+	        }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -264,7 +264,7 @@ module HQMF
   class SubsetOperator
     include HQMF::Conversion::Utilities
     
-    TYPES = ['COUNT', 'FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH', 'RECENT', 'LAST', 'MIN', 'MAX', 'DATEDIFF', 'TIMEDIFF', 'MEDIAN', 'MEAN']
+    TYPES = ['COUNT', 'FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH', 'RECENT', 'LAST', 'MIN', 'MAX', 'DATEDIFF', 'TIMEDIFF', 'DATETIMEDIFF', 'MEDIAN', 'MEAN', 'SUM']
     
     attr_accessor :type, :value
     # @param [String] type
@@ -304,6 +304,35 @@ module HQMF
     
   end
 
+ # Represents a HQMF reference from a precondition to a data criteria
+  class TypedReference
+    include HQMF::Conversion::Utilities
+    attr_accessor :reference, :type, :mood
+    
+    # Create a new HQMF::Reference
+    # @param [String] id
+    def initialize(reference,type,mood=nil)
+      @reference = reference
+      @type = type
+      @mood = mood
+    end
+    
+    def self.from_json(json)
+      type = json["type"] 
+      reference = json["reference"]
+      mood = json["mood"]
+      new(reference,type,mood)
+    end
+
+    def to_json
+      build_hash(self, [:type, :reference,:mood])
+    end
+    
+    def ==(other)
+      check_equality(self,other)
+    end
+    
+  end
   
   # Represents a HQMF reference from a precondition to a data criteria
   class Reference

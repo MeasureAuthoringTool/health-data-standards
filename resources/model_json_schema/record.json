@@ -1,0 +1,346 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "title": "Record schema.",
+  "description": "An explanation about the purpose of this instance described by this schema.",
+  
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "title": "title schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+
+    "first": {
+      "type": "string",
+      "minLength": 1,
+      "title": "First schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+
+    "last": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Last schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+
+    "gender": {
+      "$ref": "common.json#/definitions/Gender"
+    },
+
+    "birthdate": {
+      "$ref": "common.json#/definitions/SecondsSinceEpoch",
+      "title": "Birthdate schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+
+    "deathdate": {
+      "$ref": "common.json#/definitions/SecondsSinceEpoch",
+      "title": "date of death schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+
+    "religious_affiliation": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Religious Affiliation schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "properties": {
+      }
+    },
+
+    "race": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Race schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "properties": { }
+    },
+
+    "ethnicity": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Ethnicity schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "properties": {
+      }
+    },
+
+    "languages": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "additionalItems": true,
+      "title": "Languages schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "items": {}
+    },
+
+    "marital_status": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Marital Status schema.",
+      "properties": {}
+    },
+
+    "medical_record_number": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Medical_record_number schema."
+    },
+
+    "medical_record_assigner": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Medical_record_assigner schema."
+    },
+
+    "expired": {
+      "type": "boolean",
+      "title": "Expired schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+
+    "created_at": {
+      "$ref": "common.json#/definitions/ISO8601DateTime",
+      "title": "Created_at schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+
+    "updated_at": {
+      "$ref": "common.json#/definitions/ISO8601DateTime",
+      "title": "Updated_at schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+    
+    "allergies": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "allergy.json#/definitions/Allergy"
+      }
+    },
+
+    "care_goals": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "entry.json#/definitions/Entry"
+      }
+    },
+
+    "conditions": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "title": "Conditions schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "items": {
+        "$ref": "condition.json#/definitions/Condition"
+      }
+    },
+
+    "encounters": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "title": "Encounters schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "items": {
+        "$ref": "encounter.json#/definitions/Encounter"
+      }
+    },
+
+    "communications": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "title": "Communications schema.",
+      "items": {
+        "$ref": "communication.json#/definitions/Communication"
+      }
+    },
+
+    "family_history": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "familyHistory.json#/definitions/FamilyHistory"
+      }
+    },
+
+    "immunizations": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "immunization.json#/definitions/Immunization"
+      }
+    },
+
+    "medical_equipment": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "medicalEquipment.json#/definitions/MedicalEquipment"
+      }
+    },
+
+    "medications": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "title": "Medications schema.",
+      "items": {
+        "$ref": "medication.json#/definitions/Medication"
+      }
+    },
+
+    "procedures": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "procedure.json#/definitions/Procedure"
+      }
+    },
+
+    "results": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "labResult.json#/definitions/LabResult"
+      }
+    },
+
+    "socialhistories": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "entry.json#/definitions/Entry"
+      }
+    },
+
+    "vital_signs": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "vitalSign.json#/definitions/VitalSign"
+      }
+    },
+
+    "support": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "support.json#/definitions/Support"
+      }
+    },
+
+    "advance_directives": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "entry.json#/definitions/Entry"
+      }
+    },
+
+    "insurance_providers": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "title": "Insurance_providers schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "items":  {
+        "$ref": "insuranceProvider.json#/definitions/InsuranceProvider" 
+      }
+    },
+
+    "functional_statuses": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "functionalStatus.json#/definitions/FunctionalStatus"
+      }
+    },
+
+    "provider_performances": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "providerPerformance.json#/definitions/ProviderPerformance"
+      }
+    },
+
+    "addresses": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "address.json#/definitions/Locatable"
+      }
+    },
+
+    "telecoms": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "telecom.json#/definitions/Contactable"
+      }
+    }
+  },
+  "required": [
+    "birthdate",
+    "created_at",
+    "description",
+    "encounters",
+    "ethnicity",
+    "expired",
+    "first",
+    "gender",
+    "insurance_providers",
+    "languages",
+    "last",
+    "medical_record_assigner",
+    "medical_record_number",
+    "race",
+    "type",
+    "updated_at"
+  ]
+  
+}

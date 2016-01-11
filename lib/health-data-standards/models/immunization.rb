@@ -1,5 +1,6 @@
 class Immunization < Entry
   field :seriesNumber, type: Integer
+  field :reaction, type: Hash
   
   belongs_to :performer, class_name: "Provider"
   

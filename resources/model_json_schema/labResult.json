@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  
+  "definitions" :  {
+    "LabResult" : {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Lab Result schema.",
+      "allOf": [
+        { "$ref": "entry.json#/definitions/Entry"},
+        { "properties": {
+            "referenceRange": {
+              "type": ["string", "null"],
+              "minLength": 1
+            },
+
+            "referenceRangeHigh": {
+              "type": ["string", "null"],
+              "minLength": 1
+            },
+
+            "referenceRangeLow": {
+              "type": ["string", "null"],
+              "minLength": 1
+            },
+
+            "interpretation" : {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+            "reaction" : {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "method" : {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -6,7 +6,7 @@ module HQMF
 
     SOURCE_DATA_CRITERIA_TEMPLATE_ID = '2.16.840.1.113883.3.100.1.1'
     SOURCE_DATA_CRITERIA_TEMPLATE_TITLE = 'Source data criteria'
-    
+
     XPRODUCT = 'XPRODUCT'
     UNION = 'UNION'
     INTERSECT = 'INTERSECT'
@@ -15,56 +15,111 @@ module HQMF
     SATISFIES_ANY = 'satisfies_any'
     VARIABLE = 'variable'
 
-    FIELDS = {'SEVERITY' => {title:'Severity', coded_entry_method: :severity, code: 'SEV', code_system:'2.16.840.1.113883.5.4', template_id: '2.16.840.1.113883.3.560.1.1021.2', field_type: :value},
-             'ORDINAL' => {title:'Ordinal', coded_entry_method: :ordinality, code: '117363000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1012.2', field_type: :value},
-             'REASON' => {title:'Reason', coded_entry_method: :reason, code: '410666004', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1017.2', field_type: :value},
-             'SOURCE' => {title:'Source', coded_entry_method: :source, code: '260753009', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.2001.2', field_type: :value},
-             'CUMULATIVE_MEDICATION_DURATION' => {title:'Cumulative Medication Duration', coded_entry_method: :cumulative_medication_duration, code: '363819003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1001.3', field_type: :value},
-             'FACILITY_LOCATION' => {title:'Facility Location', coded_entry_method: :facility, code: 'SDLOC', field_type: :value},
-             'FACILITY_LOCATION_ARRIVAL_DATETIME' => {title:'Facility Location Arrival Date/Time', coded_entry_method: :facility_arrival, code: 'SDLOC_ARRIVAL', field_type: :nested_timestamp},
-             'FACILITY_LOCATION_DEPARTURE_DATETIME' => {title:'Facility Location Departure Date/Time', coded_entry_method: :facility_departure, code: 'SDLOC_DEPARTURE', field_type: :nested_timestamp},
-             'DISCHARGE_DATETIME' => {title:'Discharge Date/Time', coded_entry_method: :discharge_time, code: '442864001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1025.1', field_type: :timestamp},
-             'DISCHARGE_STATUS' => {title:'Discharge Status', coded_entry_method: :discharge_disposition, code: '309039003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1003.2', field_type: :value},
-             'ADMISSION_DATETIME' => {title:'Admission Date/Time', coded_entry_method: :admit_time, code: '399423000', code_system:'2.16.840.1.113883.6.96', field_type: :timestamp},
-             'LENGTH_OF_STAY' => {title:'Length of Stay', coded_entry_method: :length_of_stay, code: '183797002', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1029.3', field_type: :value},
-             'DOSE' => {title:'Dose', coded_entry_method: :dose, code: '398232005', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1004.1', field_type: :value},
-             'ROUTE' => {title:'Route', coded_entry_method: :route, code: '263513008', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1020.2', field_type: :value},
-             'START_DATETIME' => {title:'Start Date/Time', coded_entry_method: :start_date, code: '398201009', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1027.1', field_type: :timestamp},
-             'FREQUENCY' => {title:'Frequency', coded_entry_method: :frequency, code: '260864003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1006.1', field_type: :value},
-             'ANATOMICAL_STRUCTURE' => {title:'Anatomical Structure', coded_entry_method: :anatomical_structure, code: '91723000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1000.2', field_type: :value},
-             'STOP_DATETIME' => {title:'Stop Date/Time', coded_entry_method: :end_date, code: '397898000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1026.1', field_type: :timestamp},
-             'INCISION_DATETIME' => {title:'Incision Date/Time', coded_entry_method: :incision_time, code: '34896006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1007.1', field_type: :timestamp},
-             'REMOVAL_DATETIME' => {title:'Removal Date/Time', coded_entry_method: :removal_time, code: '118292001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1032.1', field_type: :timestamp},
-             'TRANSFER_TO' => {title:'Transfer To', coded_entry_method: :transfer_to, code: 'TRANSFER_TO', template_id: '2.16.840.1.113883.3.560.1.72', field_type: :value},
-             'TRANSFER_FROM' => {title:'Transfer From', coded_entry_method: :transfer_from, code: 'TRANSFER_FROM', template_id: '2.16.840.1.113883.3.560.1.71', field_type: :value},
-             }
-             
-    VALUE_FIELDS = {'SEV'      => 'SEVERITY',
-                    '117363000' => 'ORDINAL',
-                    '410666004' => 'REASON',
-                    '260753009' => 'SOURCE',
-                    '363819003' => 'CUMULATIVE_MEDICATION_DURATION',
-                    'SDLOC'     => 'FACILITY_LOCATION',
+    FIELDS = {'ABATEMENT_DATETIME' => {title:'Abatement Datetime', coded_entry_method: :end_date, field_type: :timestamp},
+              'ACTIVE_DATETIME' => {title:'Active Date/Time', coded_entry_method: :active_date_time, field_type: :timestamp},
+              'ADMISSION_DATETIME' => {title:'Admission Date/Time', coded_entry_method: :admit_time, code: '399423000', code_system:'2.16.840.1.113883.6.96', field_type: :timestamp},
+              'ANATOMICAL_APPROACH_SITE' => {title:'Anatomical Approach Site', coded_entry_method: :anatomical_approach,  field_type: :value},
+              'ANATOMICAL_LOCATION_SITE' => {title:'Anatomical Location Site', coded_entry_method: :anatomical_location,  field_type: :value},
+              'ANATOMICAL_STRUCTURE' => {title:'Anatomical Structure', coded_entry_method: :anatomical_structure, code: '91723000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1000.2', field_type: :value},
+              'CAUSE' => {title:'Cause', coded_entry_method: :cause_of_death, code: '42752001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1017.2', field_type: :value},
+              'CUMULATIVE_MEDICATION_DURATION' => {title:'Cumulative Medication Duration', coded_entry_method: :cumulative_medication_duration, code: '261773006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1001.3', field_type: :value},
+              # MISSING Date - The date that the patient passed away. - Patient Characteristic Expired
+              'DIAGNOSIS' => {title:'Diagnosis', coded_entry_method: :diagnosis, field_type: :value},
+              'DISCHARGE_DATETIME' => {title:'Discharge Date/Time', coded_entry_method: :discharge_time, code: '442864001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1025.1', field_type: :timestamp},
+              'DISCHARGE_STATUS' => {title:'Discharge Status', coded_entry_method: :discharge_disposition, code: '309039003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1003.2', field_type: :value},
+              'DOSE' => {title:'Dose', coded_entry_method: :dose, code: '398232005', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1004.1', field_type: :value},
+              'FACILITY_LOCATION' => {title:'Facility Location', coded_entry_method: :facility, code: 'SDLOC', field_type: :value},
+              'FACILITY_LOCATION_ARRIVAL_DATETIME' => {title:'Facility Location Arrival Date/Time', coded_entry_method: :facility_arrival, code: 'SDLOC_ARRIVAL', field_type: :nested_timestamp},
+              'FACILITY_LOCATION_DEPARTURE_DATETIME' => {title:'Facility Location Departure Date/Time', coded_entry_method: :facility_departure, code: 'SDLOC_DEPARTURE', field_type: :nested_timestamp},
+              'FREQUENCY' => {title:'Frequency', coded_entry_method: :administration_timing, code: '307430002', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1006.1', field_type: :value},
+              'INCISION_DATETIME' => {title:'Incision Date/Time', coded_entry_method: :incision_time, code: '34896006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.89', field_type: :timestamp},
+              'LATERALITY' => {title:'Laterality', coded_entry_method: :laterality, code: '272741003', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
+              'LENGTH_OF_STAY' => {title:'Length of Stay', coded_entry_method: :length_of_stay, code: '183797002', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1029.3', field_type: :value},
+              'METHOD' => {title:'Method', coded_entry_method: :method, template_id: '', field_type: :value},
+              # Negation Rationale isn't encoded
+              'ONSET_AGE' => {title:'Onset Age', coded_entry_method: :onset_age, code: '445518008', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
+              'ONSET_DATETIME' => {title:'Onset Datetime', coded_entry_method: :start_date, field_type: :timestamp},
+              'ORDINAL' => {title:'Ordinality', coded_entry_method: :ordinality, code: '117363000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1012.2', field_type: :value}, # previous
+              'ORDINALITY' => {title:'Ordinality', coded_entry_method: :ordinality, code: '117363000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1012.2', field_type: :value},
+              'PATIENT_PREFERENCE' => {title:'Patient Preference', coded_entry_method: :patient_preference,  code: 'PAT', code_system: '2.16.840.1.113883.5.8', template_id: '2.16.840.1.113883.10.20.24.3.83', field_type: :value},
+              'PRINCIPAL_DIAGNOSIS' => {title:'Principal Diagnosis', coded_entry_method: :principal_diagnosis, field_type: :value},
+              'PROVIDER_PREFERENCE' => {title:'Provider Preference', coded_entry_method: :provider_preference, code: '103323008', code_system: '2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.84', field_type: :value},
+              'RADIATION_DOSAGE' => {title:'Radiation Dosage', coded_entry_method: :radiation_dose, code: '228815006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.91', field_type: :value},
+              'RADIATION_DURATION' => {title:'Radiation Duration', coded_entry_method: :radiation_duration, code: '306751006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.91', field_type: :value},
+              'REACTION'=> {title:'Reaction', coded_entry_method: :reaction, code: '263851003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.85', field_type: :value},
+              'REASON' => {title:'Reason', coded_entry_method: :reason, code: '410666004', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.88', field_type: :value},
+              'RECORDED_DATETIME' => {title:'Recorded Datetime', coded_entry_method: :start_date, field_type: :timestamp},
+              'REFERENCE_RANGE_HIGH' => {title:'Reference Range High', coded_entry_method: :reference_range_high, field_type: :value},
+              'REFERENCE_RANGE_LOW' => {title:'Reference Range Low', coded_entry_method: :reference_range_low, field_type: :value},
+              'REFILLS' => {title:'Refills', coded_entry_method: :refills,  field_type: :value},
+              'RELATED_TO' => {title:'Related To', coded_entry_method: :related_to,  code: 'REL', codeSystem: '2.16.840.1.113883.1.11.11603', field_type: :value},
+              'RELATIONSHIP' => {title:'Relationship', coded_entry_method: :relationship_to_patient, field_type: :value},
+              'REMOVAL_DATETIME' => {title:'Removal Date/Time', coded_entry_method: :removal_time, code: '118292001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1032.1', field_type: :timestamp},
+              # Result isn't encoded
+              'ROUTE' => {title:'Route', coded_entry_method: :route, code: '263513008', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1020.2', field_type: :value},
+              'SEVERITY' => {title:'Severity', coded_entry_method: :severity, code: 'SEV', code_system:'2.16.840.1.113883.5.4', template_id: '2.16.840.1.113883.10.20.22.4.8', field_type: :value},
+              'SIGNED_DATETIME' =>  {title:'Signed Date/Time', coded_entry_method: :signed_date_time, field_type: :timestamp},
+              'START_DATETIME' => {title:'Start Date/Time', coded_entry_method: :start_date, code: '398201009', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1027.1', field_type: :timestamp},
+              # MISSING Status - Indicates the particular stage of the action represented by the datatype.
+              'STOP_DATETIME' => {title:'Stop Date/Time', coded_entry_method: :end_date, code: '397898000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1026.1', field_type: :timestamp},
+              'TARGET_OUTCOME' => {title:'Target Outcome', coded_entry_method: :target_outcome, code: '385676005', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
+              # MISSING Time - The time that the patient passed away
+
+              # Custom field values
+              'FLFS' => {title:'Fulfills', coded_entry_method: :fulfills, code: 'FLFS', field_type: :reference},
+              'SOURCE' => {title:'Source', coded_entry_method: :source, code: '260753009', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.2001.2', field_type: :value},
+              'TRANSFER_FROM' => {title:'Transfer From', coded_entry_method: :transfer_from, code: 'TRANSFER_FROM', template_id: '2.16.840.1.113883.10.20.24.3.81', field_type: :value},
+              'TRANSFER_FROM_DATETIME' => {title:'Transfer From Date/Time', coded_entry_method: :transfer_from_time, code: 'ORG_TIME', template_id: '2.16.840.1.113883.10.20.24.3.81', field_type: :nested_timestamp},
+              'TRANSFER_TO' => {title:'Transfer To', coded_entry_method: :transfer_to, code: 'TRANSFER_TO', template_id: '2.16.840.1.113883.10.20.24.3.82', field_type: :value},
+              'TRANSFER_TO_DATETIME' => {title:'Transfer To Date/Time', coded_entry_method: :transfer_to_time, code: 'DST_TIME', template_id: '2.16.840.1.113883.10.20.24.3.82', field_type: :nested_timestamp}
+          }
+
+    VALUE_FIELDS = {'399423000' => 'ADMISSION_DATETIME',
+                    '42752001' => 'CAUSE',
+                    '261773006' => 'CUMULATIVE_MEDICATION_DURATION',
+                    '363819003' => 'CUMULATIVE_MEDICATION_DURATION', # previous
                     '442864001' => 'DISCHARGE_DATETIME',
                     '309039003' => 'DISCHARGE_STATUS',
-                    '399423000' => 'ADMISSION_DATETIME',
-                    '183797002' => 'LENGTH_OF_STAY',
                     '398232005' => 'DOSE',
-                    '263513008' => 'ROUTE',
-                    '398201009' => 'START_DATETIME',
-                    '260864003' =>'FREQUENCY',
-                    '91723000'  => 'ANATOMICAL_STRUCTURE',
-                    '397898000' => 'STOP_DATETIME',
-                    '34896006'  => 'INCISION_DATETIME',
-                    '118292001' =>'REMOVAL_DATETIME',
+                    'SDLOC'     => 'FACILITY_LOCATION',
                     'SDLOC_ARRIVAL'   => 'FACILITY_LOCATION_ARRIVAL_DATETIME',
-                    'SDLOC_DEPARTURE' => 'FACILITY_LOCATION_DEPARTURE_DATETIME'
+                    'SDLOC_DEPARTURE' => 'FACILITY_LOCATION_DEPARTURE_DATETIME',
+                    '307430002' =>'FREQUENCY',
+                    '260864003' =>'FREQUENCY', # previous
+                    '34896006'  => 'INCISION_DATETIME',
+                    '272741003' => 'LATERALITY',
+                    '183797002' => 'LENGTH_OF_STAY',
+                    '445518008' => 'ONSET_AGE',
+                    '117363000' => 'ORDINALITY',
+                    'PAT'       => 'PATIENT_PREFERENCE',
+                    '103323008' => 'PROVIDER_PREFERENCE',
+                    '228815006' => 'RADIATION_DOSAGE',
+                    '306751006' => 'RADIATION_DURATION',
+                    '263851003' => 'REACTION',
+                    '410666004' => 'REASON',
+                    'REL'       => 'RELATED_TO',
+                    '118292001' => 'REMOVAL_DATETIME',
+                    '263513008' => 'ROUTE',
+                    'SEV'       => 'SEVERITY',
+                    '398201009' => 'START_DATETIME',
+                    '397898000' => 'STOP_DATETIME',
+                    '385676005' => 'TARGET_OUTCOME',
+
+                    # Custom field values
+                    '91723000'  => 'ANATOMICAL_STRUCTURE',
+                    'FLFS' => 'FLFS',
+                    '260753009' => 'SOURCE',
+                    'TRANSFER_FROM' => 'TRANSFER_FROM',
+                    'ORG_TIME' => 'TRANSFER_FROM_DATETIME',
+                    'TRANSFER_TO' => 'TRANSFER_TO',
+                    'DST_TIME' => 'TRANSFER_TO_DATETIME'
+
                    }
-    
+
 
     attr_reader :title, :description, :code_list_id, :derivation_operator , :specific_occurrence, :specific_occurrence_const, :source_data_criteria, :variable
     attr_accessor :id, :value, :field_values, :children_criteria, :effective_time, :status, :temporal_references, :subset_operators, :definition, :inline_code_list, :negation_code_list_id, :negation, :display_name, :comments
-  
+
     # Create a new data criteria instance
     # @param [String] id
     # @param [String] title
@@ -87,7 +142,7 @@ module HQMF
     # @param [String] specific_occurrence
     # @param [String] specific_occurrence_const
     # @param [String] source_data_criteria (id for the source data criteria, important for specific occurrences)
-    # @param [String] user comments for the criteria 
+    # @param [String] user comments for the criteria
     # @param [Boolean] variable defines if the element is a QDM variable
     def initialize(id, title, display_name, description, code_list_id, children_criteria, derivation_operator, definition, status, value, field_values, effective_time, inline_code_list, negation, negation_code_list_id, temporal_references, subset_operators, specific_occurrence, specific_occurrence_const, source_data_criteria=nil, comments=nil, variable=false)
 
@@ -117,7 +172,7 @@ module HQMF
       @comments = comments
       @variable = variable
     end
-    
+
     # create a new data criteria given a category and sub_category.  A sub category can either be a status or a sub category
     def self.create_from_category(id, title, description, code_list_id, category, sub_category=nil, negation=false, negation_code_list_id=nil)
       settings = HQMF::DataCriteria.get_settings_for_definition(category, sub_category)
@@ -153,7 +208,7 @@ module HQMF
 
     # Create a new data criteria instance from a JSON hash keyed with symbols
     def self.from_json(id, json)
-    
+
       title = json["title"] if json["title"]
       display_name = json["display_name"] if json["display_name"]
       description = json["description"] if json["description"]
@@ -181,7 +236,7 @@ module HQMF
     end
 
     def is_same_type?(criteria)
-       return @definition == criteria.definition && @hard_status == criteria.hard_status && 
+       return @definition == criteria.definition && @hard_status == criteria.hard_status &&
               @negation == criteria.negation && all_code_set_oids.sort == criteria.all_code_set_oids.sort
     end
 
@@ -210,13 +265,13 @@ module HQMF
     def has_subset(subset_operator)
       @subset_operators.reduce(false) {|found, item| found ||= item == subset_operator }
     end
-    
+
     def self.statuses_by_definition
       settings_file = File.expand_path('../data_criteria.json', __FILE__)
       settings_map = JSON.parse(File.read(settings_file))
       all_defs = (settings_map.map {|key, value| {category: value['category'],definition:value['definition'],status:(value['status'].empty? ? nil : value['status']), sub_category: value['sub_category'],title:value['title']} unless value['not_supported']}).compact
       by_categories = {}
-      all_defs.each do |definition| 
+      all_defs.each do |definition|
         by_categories[definition[:category]]||={}
         status = definition[:status]
         def_key = definition[:definition]
@@ -239,7 +294,7 @@ module HQMF
       referenced = []
       if (@children_criteria)
         @children_criteria.each do |id|
-          dc = document.data_criteria(id) 
+          dc = document.data_criteria(id)
           referenced << id
           referenced.concat(dc.referenced_data_criteria(document))
         end
@@ -248,7 +303,7 @@ module HQMF
         @temporal_references.each do |tr|
           id = tr.reference.id
           if (id != HQMF::Document::MEASURE_PERIOD_ID)
-            dc = document.data_criteria(id) 
+            dc = document.data_criteria(id)
             referenced << id
             referenced.concat(dc.referenced_data_criteria(document))
           end
@@ -256,25 +311,25 @@ module HQMF
       end
       referenced
     end
-    
+
     def all_code_set_oids
-      
+
       # root oid
       referenced_oids = [code_list_id]
-      
+
       # value oid
       referenced_oids << value.code_list_id if value != nil and value.type == 'CD'
-      
+
       # negation oid
       referenced_oids << negation_code_list_id if negation_code_list_id != nil
-      
+
       # field oids
       if field_values != nil
         referenced_oids.concat (field_values.map {|key,field| field.code_list_id if field != nil and field.type == 'CD'})
       end
-      
+
       referenced_oids
-      
+
     end
 
     def self.get_settings_map
@@ -288,22 +343,22 @@ module HQMF
       settings_map = get_settings_map
       key = definition + ((status.nil? || status.empty?) ? '' : "_#{status}")
       settings = settings_map[key]
-      
+
       raise "data criteria is not supported #{key}" if settings.nil? || settings["not_supported"]
 
       settings
     end
 
-    def self.definition_for_template_id(template_id)
-      get_template_id_map()[template_id]
+    def self.definition_for_template_id(template_id, version='r1')
+      get_template_id_map(version)[template_id]
     end
 
-    def self.template_id_for_definition(definition, status, negation)
-      get_template_id_map().key({'definition' => definition, 'status' => status || '', 'negation' => negation})
+    def self.template_id_for_definition(definition, status, negation, version="r1")
+      get_template_id_map(version).key({'definition' => definition, 'status' => status || '', 'negation' => negation})
     end
 
-    def self.title_for_template_id(template_id)
-      value = get_template_id_map()[template_id]
+    def self.title_for_template_id(template_id, version='r1')
+      value = get_template_id_map(version)[template_id]
       if value
         settings = self.get_settings_for_definition(value['definition'], value['status'])
         if settings
@@ -316,15 +371,14 @@ module HQMF
       end
     end
 
-    def self.get_template_id_map
-      @@template_id_map ||= read_template_id_map
-      @@template_id_map
+    def self.get_template_id_map(version="r1")
+      read_template_id_map(version)
     end
-    
+
     private
-    
-    def self.read_template_id_map
-      HealthDataStandards::Util::HQMFTemplateHelper.template_id_map
+
+    def self.read_template_id_map(version)
+      HealthDataStandards::Util::HQMFTemplateHelper.template_id_map(version)
     end
 
     def normalize_status(definition, status)
@@ -350,12 +404,17 @@ module HQMF
       case type
         when 'TS', 'PQ'
           value = HQMF::Value.from_json(json)
-        when 'IVL_PQ'
+        when 'IVL_PQ', 'IVL_TS'
           value = HQMF::Range.from_json(json)
         when 'CD'
           value = HQMF::Coded.from_json(json)
         when 'ANYNonNull'
           value = HQMF::AnyValue.from_json(json)
+        when 'FLFS'
+          value = HQMF::TypedReference.from_json(json)
+        when 'ACT'
+          # Currentlty forcing this as the SimpleXML reresentation contains a fulfills for these types
+          value = HQMF::TypedReference.new(json["reference"], 'FLFS', '')
         else
           raise "Unknown value type [#{type}]"
         end

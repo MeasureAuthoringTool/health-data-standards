@@ -20,7 +20,7 @@ module HealthDataStandards
         end
 
         # Traverses an HL7 CDA document passed in and creates an Array of Entry
-        # objects based on what it finds                          
+        # objects based on what it finds
         # @param [Nokogiri::XML::Document] doc It is expected that the root node of this document
         #        will have the "cda" namespace registered to "urn:hl7-org:v3"
         #        measure definition
@@ -45,9 +45,9 @@ module HealthDataStandards
           extract_codes(entry_element, entry)
           extract_dates(entry_element, entry)
           if @value_xpath
-            extract_value(entry_element, entry)
+            extract_values(entry_element, entry)
           end
-          entry.description = entry_element.at_xpath("./cda:text").try("text")
+          extract_description(entry_element, entry, nrh)
           if @status_xpath
             extract_status(entry_element, entry)
           end
@@ -55,6 +55,18 @@ module HealthDataStandards
         end
 
         private
+
+        def extract_description(parent_element, entry, nrh)
+          orig_text_ref_element = parent_element.at_xpath(@description_xpath)
+          desc_ref_element = parent_element.at_xpath("./cda:text/cda:reference")
+          if orig_text_ref_element && orig_text_ref_element['value']
+            entry.description = nrh.lookup_tag(orig_text_ref_element['value'])
+          elsif desc_ref_element && desc_ref_element['value']
+            entry.description = nrh.lookup_tag(desc_ref_element['value'])
+          else
+            entry.description = parent_element.at_xpath("./cda:text").try("text")
+          end
+        end
 
         def extract_status(parent_element, entry)
           status_element = parent_element.at_xpath(@status_xpath)
@@ -100,21 +112,26 @@ module HealthDataStandards
 
         def extract_dates(parent_element, entry, element_name="effectiveTime")
           if parent_element.at_xpath("cda:#{element_name}/@value")
-            entry.time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}")['value'])
+            entry[:time] = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}")['value'])
           end
           if parent_element.at_xpath("cda:#{element_name}/cda:low")
-            entry.start_time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:low")['value'])
+            entry[:start_time] = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:low")['value'])
           end
           if parent_element.at_xpath("cda:#{element_name}/cda:high")
-            entry.end_time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:high")['value'])
+            entry[:end_time] = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:high")['value'])
           end
           if parent_element.at_xpath("cda:#{element_name}/cda:center")
-            entry.time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:center")['value'])
+            entry[:time] = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:center")['value'])
           end
         end
 
-        def extract_value(parent_element, entry)
-          value_element = parent_element.at_xpath(@value_xpath)
+        def extract_values(parent_element, entry)
+          parent_element.xpath(@value_xpath).each do |elem|
+            extract_value(parent_element, elem, entry)
+          end
+        end
+
+        def extract_value(parent_element, value_element, entry)
           if value_element
             value = value_element['value']
             if value.present?
@@ -123,20 +140,21 @@ module HealthDataStandards
             elsif value_element['code'].present?
               crv = CodedResultValue.new
               add_code_if_present(value_element, crv)
+              extract_dates(parent_element, crv)
               entry.values << crv
             else
               value = value_element.text
               unit = value_element['unit']
               entry.set_value(value.strip, unit)
             end
-            
+
           end
         end
-        
+
         def import_actor(actor_element)
           return ProviderImporter.instance.extract_provider(actor_element)
         end
-        
+
         def import_organization(organization_element)
           return OrganizationImporter.instance.extract_organization(organization_element)
         end
@@ -151,7 +169,7 @@ module HealthDataStandards
             person.family_name = name_element.at_xpath("./cda:family").try(:text)
           end
           person.addresses = person_element.xpath("./cda:addr").map { |addr| import_address(addr) }
-          person.telecoms = person_element.xpath("./cda:telecom").map { |tele| import_telecom(tele) } 
+          person.telecoms = person_element.xpath("./cda:telecom").map { |tele| import_telecom(tele) }
           return person
         end
 
@@ -170,7 +188,7 @@ module HealthDataStandards
             end
           end
         end
-    
+
         def extract_code(parent_element, code_xpath, code_system=nil)
           code_element = parent_element.at_xpath(code_xpath)
           code_hash = nil

@@ -1,0 +1,2326 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- 
+           ******************* 
+           QDM Version Used: QDM 4.1.2 
+           *******************  
+        --><QualityMeasureDocument xmlns="urn:hl7-org:v3" xmlns:qdm="urn:hhs-qdm:hqmf-r2-extensions:v1"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         
+      <!--
+            **************************************************************
+            Measure Details Section
+            **************************************************************
+        -->
+         
+      <typeId extension="POQM_HD000001UV02" root="2.16.840.1.113883.1.3"/>
+   <templateId>
+      <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.1.1"/>
+   </templateId>
+   <id root="40280381-4881-26da-0148-c83ef5e1115f"/>
+   <code code="57024-2" codeSystem="2.16.840.1.113883.6.1">
+      <displayName value="Health Quality Measure Document"/>
+   </code>
+   <title
+          value="Functional Status Assessments and Target Setting for Patients with Chronic Obstructive Pulmonary Disease"/>
+   <text
+         value="Percentage of patients 18 years of age and older with a diagnosis of chronic obstructive pulmonary disease (COPD) for whom a score from one of a select list of validated functional status assessment (FSA) tools was recorded at least twice during the measurement period and for whom a care target was documented and linked to the initial assessment."/>
+   <statusCode code="COMPLETED"/>
+   <setId root="a6110823-179d-489e-a2c3-96c23f1d810b"/>
+   <versionNumber value="0.1.004"/>
+   <author>
+      <responsibleParty classCode="ASSIGNED">
+         <representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id>
+               <item root="2.16.840.1.113883.3.464"/>
+            </id>
+            <name>
+               <item>
+                  <part value="National Committee for Quality Assurance"/>
+               </item>
+            </name>
+         </representedResponsibleOrganization>
+      </responsibleParty>
+   </author>
+   <custodian>
+      <responsibleParty classCode="ASSIGNED">
+         <representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id>
+               <item root="9048cd4c-b61b-11e4-a71e-12e3f512a338"/>
+            </id>
+            <name>
+               <item>
+                  <part value="Centers for Medicare &amp; Medicaid Services (CMS)"/>
+               </item>
+            </name>
+         </representedResponsibleOrganization>
+      </responsibleParty>
+   </custodian>
+   <controlVariable>
+      <measurePeriod>
+         <id extension="measureperiod" root="40280381-3e93-d1af-013e-eb336aa224cd"/>
+         <code code="MSRTP" codeSystem="2.16.840.1.113883.3.560">
+            <originalText value="Measurement Period"/>
+         </code>
+         <value xsi:type="PIVL_TS">
+            <phase highClosed="true" lowClosed="true">
+               <low value="20150101"/>
+               <width unit="a" value="1" xsi:type="PQ"/>
+            </phase>
+            <period unit="a" value="1"/>
+         </value>
+      </measurePeriod>
+   </controlVariable>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText value="eMeasure Identifier (Measure Authoring Tool)"/>
+         </code>
+         <value mediaType="text/plain" value="227" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText value="NQF Number"/>
+         </code>
+         <value mediaType="text/plain" value="NA" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="COPY" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Copyright"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Limited proprietary coding is contained in the Measure specifications for user convenience. Users of proprietary code sets should obtain all necessary licenses from the owners of the code sets. NCQA disclaims all liability for use or accuracy of any CPT or other codes contained in the specifications.&#xA;&#xA;CPT(R) contained in the Measure specifications is copyright 2004-2014 American Medical Association. LOINC(R) copyright 2004-2014 Regenstrief Institute, Inc. This material contains SNOMED Clinical Terms(R) (SNOMED CT[R]) copyright 2004-2014 International Health Terminology Standards Development Organisation. ICD-9 copyright 2014 World Health Organization. ICD-10 copyright 2014 World Health Organization. All Rights Reserved."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DISC" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Disclaimer"/>
+         </code>
+         <value mediaType="text/plain"
+                value="These performance Measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications.&#xA;&#xA;THE MEASURES AND SPECIFICATIONS ARE PROVIDED &#34;AS IS&#34; WITHOUT WARRANTY OF ANY KIND.&#xA;&#xA;Due to technical limitations, registered trademarks are indicated by (R) or [R] and unregistered trademarks are indicated by (TM) or [TM]."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRSCORE" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Measure Scoring"/>
+         </code>
+         <value code="PROPOR" codeSystem="2.16.840.1.113883.1.11.20367" xsi:type="CD">
+            <displayName value="Proportion"/>
+         </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRTYPE" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Measure Type"/>
+         </code>
+         <value code="PROCESS" codeSystem="2.16.840.1.113883.1.11.20368" xsi:type="CD">
+            <displayName value="PROCESS"/>
+         </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="STRAT" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Stratification"/>
+         </code>
+         <value mediaType="text/plain" value="None" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRADJ" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Risk Adjustment"/>
+         </code>
+         <value mediaType="text/plain" value="None" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRAGG" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Rate Aggregation"/>
+         </code>
+         <value mediaType="text/plain" value="None" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="RAT" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Rationale"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Chronic obstructive pulmonary disease (COPD) is the fourth leading cause of death in the United States (CDC 2011) and costs an estimated $49.9 billion a year (NHLBI 2009); this equates to approximately $6000 per patient annually in health care related cost (Miller et al. 2005). Approximately 15 million people have COPD and another estimated 12 million remain undiagnosed (NHLBI 2012). COPD exacerbations not only account for the majority of economic burden that this disease has on the health system, but also lead to significant impairment of quality of life (Global Initiative for Chronic Obstructive Lung Disease [GOLD] 2014). Currently, the United States Preventive Services Task Force (USPSTF) recommends the use of spirometry to diagnose COPD (USPSTF 2008), but this and other physiological measures typically used for COPD do not evaluate health-related quality of life. Quality of life must be regularly assessed for patients with COPD because their perceived functional status affects their ability to engage in self-management, which has been shown to reduce hospital admissions (Effing et al. 2007). Because quality of life instruments can yield information concerning disease stage and severity as well as predict outcomes, combining the current recommendation of physiological measures with quality of life measures could increase the detection of clinically meaningful improvement in a patient's disease status (Singer and Yusen 2012). Thus, more effective self-management and involvement in care through use of functional status assessments and target-setting may lead to improved outcomes and fewer avoidable or preventable complications."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="CRS" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Clinical Recommendation Statement"/>
+         </code>
+         <value mediaType="text/plain"
+                value="COPD assessment is recommended to determine the severity of the disease, its impact on the patient's health status, and the risk of future events (such as exacerbations, hospital admissions, or death). These determinations are crucial to guide therapeutic decision making. &#xA;&#xA;A comprehensive symptom assessment using tools such as COPD Assessment Test (CAT) and COPD Control Questionnaire (CCQ) are suitable for these purposes (GOLD 2014)."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IDUR" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Improvement Notation"/>
+         </code>
+         <value mediaType="text/plain" value="A higher rate indicates better quality"
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Centers for Disease Control and Prevention (CDC). &#34;Compressed Mortality Database&#34;, 2011. Available at http://www.cdc.gov/nchs/products/pubs/pubd/series/ser.htm. Accessed December 28, 2012."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="National Heart, Lung, and Blood Institute. &#34;Morbidity &amp; Mortality: 2009 Chart Book on Cardiovascular, Lung, and Blood Diseases.&#34; Bethesda, Maryland: US Department of Health and Human Services, Public Health Service, National Institutes of Health, 2009. Available at http://www.nhlbi.nih.gov/resources/docs/2009_ChartBook.pdf. Accessed May 14, 2013."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Miller, J.D.,  T. Foster, et al.  &#34;Direct Costs of COPD in the U.S.: An Analysis of Medical Expenditure Panel Survey (MEPS) data.&#34; COPD, vol. 2, no. 3, 2005, pp. 311-318."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="National Heart, Lung, and Blood Institute. &#34;Morbidity &amp; Mortality: 2012 Chart Book on Cardiovascular, Lung, and Blood Diseases.&#34; Bethesda, Maryland: US Department of Health and Human Services, Public Health Service, National Institutes of Health, 2012. Available at http://www.nhlbi.nih.gov/resources/docs/cht-book.htm. Accessed May 14, 2013."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Global Initiative for Chronic Obstructive Lung Disease (GOLD). &#34;Global Strategy for the Diagnosis, Management, and Prevention of COPD&#34;, 2014. Available at www.goldcopd.com. Accessed May 7, 2014."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="United States Preventive Service Task Force (USPSTF). &#34;Screening for Chronic Obstructive Pulmonary Disease Using Spirometry&#34;, 2008. Available at http://www.uspreventiveservicestaskforce.org/. Accessed May 13, 2013."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Effing T., E. Monninkhof, P.D. van der Valk, J. van der Palen et al. &#34;Self-Management Education for Patients with Chronic Obstructive Pulmonary Disease.&#34; Cochrane Database of Systematic Reviews, issue 1, 2007, CD002990."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Singer J.P., and R.D. Yusen. &#34;Defining Patient-Reported Outcomes in Chronic Obstructive Pulmonary Disease: The Patient-Centered Experience.&#34; Medical Clinics of North America. vol. 96, no. 4, 2012, pp. 767-87."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DEF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Definition"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Functional Status Assessment (FSA): A functional status assessment is used to determine whether the goals of therapy are being met. Constructs of functional status include:&#xA;1. Functional capacity - &#34;One's maximum potential to perform activities&#34;&#xA;2. Functional performance - The physical, psychological, social, occupational, and spiritual activities people actually do in the normal course of their lives to meet basic needs&#xA;3. Functional reserve - The difference between capacity and performance&#xA;4. Capacity utilization - The effort used to reach the functional performance&#xA;&#xA;Index FSA Score: The first functional status assessment (FSA) score recorded in the patient record during the measurement period. The Index FSA does not need to occur during an in-person encounter to be considered valid; it can occur in the 14 days prior to an in-person encounter."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="GUIDE" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Guidance"/>
+         </code>
+         <value mediaType="text/plain"
+                value="- Patients must have completed either the Dartmouth Cooperative Functional Assessment Charts (COOP) or the PROMIS Global Health Scale (PROMIS-10). &#xA;- The FSA score documented in the electronic health record must be the total score.&#xA;- The Index FSA Score must be linked to an encounter (the FSA visit). Completion of the FSA can occur during the encounter or within 14 days prior to it.&#xA;- A quantitative target based on the FSA (either total or item-level score) must be set and documented during or up to 72 hours following the initial FSA-related encounter.&#xA;- Any member of the care team (e.g. physician, nurse, nurse practitioner, physician’s assistant, care manager etc.) may set a target with the patient.&#xA;- Patients must also complete a second FSA using the same tool as the Index FSA at least 90 days after the Index FSA."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="TRANF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Transmission Format"/>
+         </code>
+         <value mediaType="text/plain" value="TBD" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IPOP" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Initial Population"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Patients 18 years of age and older with COPD and an encounter during the measurement period"
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENOM" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Denominator"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Patients in the Initial Population who have their first encounter within the first 260 days of the measurement period"
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENEX" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Denominator Exclusions"/>
+         </code>
+         <value mediaType="text/plain" value="None" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="NUMER" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Numerator"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Patients for whom a score from one of a select list of functional status assessment (FSA) tools was recorded at least twice and for whom a care target was documented and linked to the initial assessment"
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="NUMEX" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Numerator Exclusions"/>
+         </code>
+         <value mediaType="text/plain" value="Not Applicable" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENEXCEP" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Denominator Exceptions"/>
+         </code>
+         <value mediaType="text/plain" value="None" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Measure Population"/>
+         </code>
+         <value mediaType="text/plain" value="Not applicable" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRPOPLEX" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Measure Population Exclusions"/>
+         </code>
+         <value mediaType="text/plain" value="Not applicable" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <displayName value="Measure Observations"/>
+         </code>
+         <value mediaType="text/plain" value="Not applicable" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="SDE" codeSystem="2.16.840.1.113883.5.1063">
+            <displayName value="Supplemental Data Elements"/>
+         </code>
+         <value mediaType="text/plain"
+                value="For every patient evaluated by this measure also identify payer, race, ethnicity and sex."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <componentOf>
+      <qualityMeasureSet classCode="ACT">
+         <id root="9f8031c0-42d3-47e2-8706-de5fea12d24d"/>
+         <title value="None"/>
+      </qualityMeasureSet>
+   </componentOf>
+   <!--Data Criteria Section-->
+   <component>
+      <dataCriteriaSection>
+         <templateId>
+            <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.2.2"/>
+         </templateId>
+         <code code="57025-9" codeSystem="2.16.840.1.113883.6.1"/>
+         <title value="Data Criteria Section"/>
+         <text>
+            <xml>
+               <item>
+                  <list>
+                     <item>
+                        <content styleCode="Bold">Data Criteria (QDM Variables)</content>
+                        <list>
+                           <item>
+                              <content styleCode="Bold">$InitialFSAVisit =</content>
+                              <list>
+                                 <item>First: "Encounter, Performed: FSA Visit" &lt;= 260 day(s) starts after start of "Measurement Period"</item>
+                              </list>
+                           </item>
+                        </list>
+                     </item>
+                     <item>
+                        <content styleCode="Bold">Data Criteria (QDM Data Elements)</content>
+                        <list>
+                           <item>"Care Goal: Ability to carry out everyday physical activities (in points)" using "Ability to carry out everyday physical activities (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.118.12.1133)"</item>
+                           <item>"Care Goal: Bothered by emotional problems (in points)" using "Bothered by emotional problems (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.118.12.1137)"</item>
+                           <item>"Care Goal: Change in Health (in points)" using "Change in Health (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.107.12.1056)"</item>
+                           <item>"Care Goal: Daily Activities (in points)" using "Daily Activities (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.107.12.1053)"</item>
+                           <item>"Care Goal: Dartmouth Cooperative Functional Status Test (COOP) Total Score" using "Dartmouth Cooperative Functional Status Test (COOP) Total Score Grouping Value Set (2.16.840.1.113883.3.464.1003.107.12.1050)"</item>
+                           <item>"Care Goal: Feelings (in points)" using "Feelings (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.107.12.1052)"</item>
+                           <item>"Care Goal: Overall Health (in points)" using "Overall Health (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.107.12.1057)"</item>
+                           <item>"Care Goal: Pain (in points)" using "Pain (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.107.12.1055)"</item>
+                           <item>"Care Goal: Physical Fitness (in points)" using "Physical Fitness (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.107.12.1051)"</item>
+                           <item>"Care Goal: PROMIS Global Mental Health T score (in points)" using "PROMIS Global Mental Health T score (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.118.12.1138)"</item>
+                           <item>"Care Goal: PROMIS Global Physical Health T score (in points)" using "PROMIS Global Physical Health T score (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.118.12.1139)"</item>
+                           <item>"Care Goal: Quality of Life (in points)" using "Quality of Life (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.107.12.1059)"</item>
+                           <item>"Care Goal: Rating of ability to carry out social activities and roles (in points)" using "Rating of ability to carry out social activities and roles (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.118.12.1136)"</item>
+                           <item>"Care Goal: Rating of fatigue on average (in points)" using "Rating of fatigue on average (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.118.12.1135)"</item>
+                           <item>"Care Goal: Rating of general health status (in points)" using "Rating of general health status (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.118.12.1128)"</item>
+                           <item>"Care Goal: Rating of mental health (in points)" using "Rating of mental health (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.118.12.1131)"</item>
+                           <item>"Care Goal: Rating of pain on average (in points)" using "Rating of pain on average (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.118.12.1134)"</item>
+                           <item>"Care Goal: Rating of physical health (in points)" using "Rating of physical health (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.118.12.1130)"</item>
+                           <item>"Care Goal: Rating of quality of life (in points)" using "Rating of quality of life (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.118.12.1129)"</item>
+                           <item>"Care Goal: Rating of satisfaction with social activities and relationships (in points)" using "Rating of satisfaction with social activities and relationships (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.118.12.1132)"</item>
+                           <item>"Care Goal: Social Activities (in points)" using "Social Activities (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.107.12.1054)"</item>
+                           <item>"Care Goal: Social Support (in points)" using "Social Support (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.107.12.1058)"</item>
+                           <item>"Diagnosis, Active: Chronic Obstructive Pulmonary Disease" using "Chronic Obstructive Pulmonary Disease Grouping Value Set (2.16.840.1.113883.3.464.1003.102.12.1007)"</item>
+                           <item>"Encounter, Performed: FSA Visit" using "FSA Visit Grouping Value Set (2.16.840.1.113883.3.464.1003.101.12.1062)"</item>
+                           <item>"Functional Status, Performed: Dartmouth Cooperative Functional Status Test (COOP) Total Score" using "Dartmouth Cooperative Functional Status Test (COOP) Total Score Grouping Value Set (2.16.840.1.113883.3.464.1003.107.12.1050)"</item>
+                           <item>"Functional Status, Performed: PROMIS Global Mental Health T score (in points)" using "PROMIS Global Mental Health T score (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.118.12.1138)"</item>
+                           <item>"Functional Status, Performed: PROMIS Global Physical Health T score (in points)" using "PROMIS Global Physical Health T score (in points) Grouping Value Set (2.16.840.1.113883.3.464.1003.118.12.1139)"</item>
+                        </list>
+                     </item>
+                     <item>
+                        <content styleCode="Bold">Supplemental Data Elements</content>
+                        <list>
+                           <item>"Patient Characteristic Ethnicity: Ethnicity" using "Ethnicity CDCREC Value Set (2.16.840.1.114222.4.11.837)"</item>
+                           <item>"Patient Characteristic Payer: Payer" using "Payer SOP Value Set (2.16.840.1.114222.4.11.3591)"</item>
+                           <item>"Patient Characteristic Race: Race" using "Race CDCREC Value Set (2.16.840.1.114222.4.11.836)"</item>
+                           <item>"Patient Characteristic Sex: ONC Administrative Sex" using "ONC Administrative Sex AdministrativeGender Value Set (2.16.840.1.113762.1.4.1)"</item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+            </xml>
+         </text>
+         <!--Patient Characteristic Birthdate--><entry typeCode="DRIV">
+            <localVariableName value="Birthdate_PatientCharacteristicBirthdate_PbazV"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.54"/>
+               </templateId>
+               <id extension="Birthdate_PatientCharacteristicBirthdate"
+                   root="34898862-ed30-4a42-945f-0007193abbbd"/>
+               <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Birth Date"/>
+               </code>
+               <title value="Patient Characteristic Birthdate"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <!--Diagnosis, Active--><entry typeCode="DRIV">
+            <localVariableName value="ChronicObstructivePulmonaryDisease_DiagnosisActive_2QC9b"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.1"/>
+               </templateId>
+               <id extension="ChronicObstructivePulmonaryDisease_DiagnosisActive"
+                   root="768b756f-1794-4d61-a6cd-47d093d6edb9"/>
+               <code code="282291009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="Diagnosis"/>
+               </code>
+               <title value="Diagnosis, Active"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.102.12.1007" xsi:type="CD">
+                  <displayName value="Chronic Obstructive Pulmonary Disease Grouping Value Set"/>
+               </value>
+		             <outboundRelationship typeCode="REFR">
+                  <observationCriteria classCode="OBS" moodCode="EVN">
+                     <templateId>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.94"/>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.95"/>
+                     </templateId>
+                     <id extension="01CC4272-565E-41F5-BACE-8D152AA9DAA9"
+                         root="768b756f-1794-4d61-a6cd-47d093d6edb9"/>
+                     <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                        <displayName value="Status"/>
+                     </code>
+                     <title value="Status Active"/>
+                     <value code="55561003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"
+                            xsi:type="CD">
+                        <displayName value="Active"/>
+                     </value>
+                  </observationCriteria>
+               </outboundRelationship>
+	           </observationCriteria>
+         </entry>
+         <!--Functional Status, Performed--><entry typeCode="DRIV">
+            <localVariableName value="DartmouthCooperativeFunctionalStatusTest(COOP)TotalScore_FunctionalStatusPerformed_GNeez"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="DartmouthCooperativeFunctionalStatusTest(COOP)TotalScore_FunctionalStatusPerformed"
+                   root="e193a352-b44b-4161-99f4-4c5ac5ae46ca"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.107.12.1050">
+                  <displayName value="Dartmouth Cooperative Functional Status Test (COOP) Total Score Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <!--Encounter, Performed--><entry typeCode="DRIV">
+            <localVariableName value="FSAVisit_EncounterPerformed_HMuxe"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="FSAVisit_EncounterPerformed"
+                   root="377d318c-14ba-4cfd-ae20-b2cd53d237e0"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.101.12.1062">
+                  <displayName value="FSA Visit Grouping Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </encounterCriteria>
+         </entry>
+         <!--Functional Status, Performed--><entry typeCode="DRIV">
+            <localVariableName value="PROMISGlobalMentalHealthTscore(inpoints)_FunctionalStatusPerformed_FYt8f"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="PROMISGlobalMentalHealthTscore(inpoints)_FunctionalStatusPerformed"
+                   root="0baa0c0e-8284-4622-964f-22499920da05"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.118.12.1138">
+                  <displayName value="PROMIS Global Mental Health T score (in points) Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <!--Functional Status, Performed--><entry typeCode="DRIV">
+            <localVariableName value="PROMISGlobalPhysicalHealthTscore(inpoints)_FunctionalStatusPerformed_bTaRM"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="PROMISGlobalPhysicalHealthTscore(inpoints)_FunctionalStatusPerformed"
+                   root="4b6c6c18-c6c4-4e5a-b264-00b0a9ea7367"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.118.12.1139">
+                  <displayName value="PROMIS Global Physical Health T score (in points) Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <!--Functional Status, Performed - result With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="DartmouthCooperativeFunctionalStatusTest(COOP)TotalScore_FunctionalStatusPerformed_result_CheckifPresent_xWhY7"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="d266f95b-1152-45d8-8027-dfa840ebbff5"
+                   root="e193a352-b44b-4161-99f4-4c5ac5ae46ca"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.107.12.1050">
+                  <displayName value="Dartmouth Cooperative Functional Status Test (COOP) Total Score Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+            </observationCriteria>
+         </entry>
+         <!--Functional Status, Performed - result With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="DartmouthCooperativeFunctionalStatusTest(COOP)TotalScore_FunctionalStatusPerformed_result_CheckifPresent_jnJfb"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="96cf080e-6ccf-46a1-aec1-3b9357a97ad9"
+                   root="e193a352-b44b-4161-99f4-4c5ac5ae46ca"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.107.12.1050">
+                  <displayName value="Dartmouth Cooperative Functional Status Test (COOP) Total Score Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+            </observationCriteria>
+         </entry>
+         <!--Functional Status, Performed - result With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="PROMISGlobalMentalHealthTscore(inpoints)_FunctionalStatusPerformed_result_CheckifPresent_uJtT3"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="9b40922c-4c26-401a-b520-322a888cdbf4"
+                   root="0baa0c0e-8284-4622-964f-22499920da05"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.118.12.1138">
+                  <displayName value="PROMIS Global Mental Health T score (in points) Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+            </observationCriteria>
+         </entry>
+         <!--Functional Status, Performed - result With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="PROMISGlobalMentalHealthTscore(inpoints)_FunctionalStatusPerformed_result_CheckifPresent_buelB"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="f13c1d25-150e-4540-9ab5-a0419323b373"
+                   root="0baa0c0e-8284-4622-964f-22499920da05"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.118.12.1138">
+                  <displayName value="PROMIS Global Mental Health T score (in points) Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+            </observationCriteria>
+         </entry>
+         <!--Functional Status, Performed - result With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="PROMISGlobalPhysicalHealthTscore(inpoints)_FunctionalStatusPerformed_result_CheckifPresent_A0MqM"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="92460296-6ae3-48e5-a837-6de04b790957"
+                   root="4b6c6c18-c6c4-4e5a-b264-00b0a9ea7367"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.118.12.1139">
+                  <displayName value="PROMIS Global Physical Health T score (in points) Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+            </observationCriteria>
+         </entry>
+         <!--Functional Status, Performed - result With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="PROMISGlobalPhysicalHealthTscore(inpoints)_FunctionalStatusPerformed_result_CheckifPresent_T3cvo"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="efdb9874-441e-4e55-9de3-94110d5a53b4"
+                   root="4b6c6c18-c6c4-4e5a-b264-00b0a9ea7367"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.118.12.1139">
+                  <displayName value="PROMIS Global Physical Health T score (in points) Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="DartmouthCooperativeFunctionalStatusTest(COOP)TotalScore_CareGoal_targetoutcome_CheckifPresent_dOUhT"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="9b02dfe4-c807-4fb9-b1e7-bf53d4dbc247"
+                   root="e8406060-d884-461b-8cae-2530b486d9bd"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.107.12.1050" xsi:type="CD">
+                  <displayName value="Dartmouth Cooperative Functional Status Test (COOP) Total Score Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="9b02dfe4-c807-4fb9-b1e7-bf53d4dbc247"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="PhysicalFitness(inpoints)_CareGoal_targetoutcome_CheckifPresent_A7Te9"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="a22d62a7-650d-4f1c-ac33-0e0706cc6085"
+                   root="a54d3627-2135-4549-949d-ee9060bae1ca"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.107.12.1051" xsi:type="CD">
+                  <displayName value="Physical Fitness (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="a22d62a7-650d-4f1c-ac33-0e0706cc6085"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="Feelings(inpoints)_CareGoal_targetoutcome_CheckifPresent_q35vC"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="a9d55316-59a7-4495-90a3-3df0851ee0f5"
+                   root="7b070339-7b78-4aae-90eb-d2425a6e9008"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.107.12.1052" xsi:type="CD">
+                  <displayName value="Feelings (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="a9d55316-59a7-4495-90a3-3df0851ee0f5"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="DailyActivities(inpoints)_CareGoal_targetoutcome_CheckifPresent_SyueK"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="1a0e0053-b37a-42ee-8cf8-a3cf9900d4e4"
+                   root="105a4864-f7aa-4656-a803-db235c6f946b"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.107.12.1053" xsi:type="CD">
+                  <displayName value="Daily Activities (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="1a0e0053-b37a-42ee-8cf8-a3cf9900d4e4"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="SocialActivities(inpoints)_CareGoal_targetoutcome_CheckifPresent_oOa0f"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="eb038cbb-35f4-421e-89a6-99c0c17b99b6"
+                   root="3a788825-8bb1-493d-b394-5023fdc7f517"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.107.12.1054" xsi:type="CD">
+                  <displayName value="Social Activities (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="eb038cbb-35f4-421e-89a6-99c0c17b99b6"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="Pain(inpoints)_CareGoal_targetoutcome_CheckifPresent_10JRn"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="02f5d3d9-88e4-4977-b8d4-0d603e1e6c60"
+                   root="9da8098b-7186-410a-b970-7578950998cd"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.107.12.1055" xsi:type="CD">
+                  <displayName value="Pain (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="02f5d3d9-88e4-4977-b8d4-0d603e1e6c60"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="ChangeinHealth(inpoints)_CareGoal_targetoutcome_CheckifPresent_wAXp7"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="3d087ad4-7672-443f-aa17-dd6133267b61"
+                   root="1a7f3dd7-2862-4064-90f3-3be3f90c7939"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.107.12.1056" xsi:type="CD">
+                  <displayName value="Change in Health (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="3d087ad4-7672-443f-aa17-dd6133267b61"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="OverallHealth(inpoints)_CareGoal_targetoutcome_CheckifPresent_tLhL0"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="5e19e3ba-ee6c-419b-9c56-11ff7f9ea052"
+                   root="dcb53761-f6a6-4a15-bd2f-ce8c54da38f9"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.107.12.1057" xsi:type="CD">
+                  <displayName value="Overall Health (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="5e19e3ba-ee6c-419b-9c56-11ff7f9ea052"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="SocialSupport(inpoints)_CareGoal_targetoutcome_CheckifPresent_IiQM7"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="2c8dcc76-da5c-4bb3-b396-9783d66f4e61"
+                   root="f7fb6001-f449-4f86-a03c-894ba7694be9"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.107.12.1058" xsi:type="CD">
+                  <displayName value="Social Support (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="2c8dcc76-da5c-4bb3-b396-9783d66f4e61"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="QualityofLife(inpoints)_CareGoal_targetoutcome_CheckifPresent_Ho4iB"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="b7106a56-44c0-45c1-945d-39fa24279fd6"
+                   root="777283f1-c52d-430a-86ae-8372cc29cc27"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.107.12.1059" xsi:type="CD">
+                  <displayName value="Quality of Life (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="b7106a56-44c0-45c1-945d-39fa24279fd6"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="Ratingofgeneralhealthstatus(inpoints)_CareGoal_targetoutcome_CheckifPresent_TIzMi"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="48389632-829e-424f-9603-3b056c3b73d7"
+                   root="ef625888-763a-45ea-9e40-39717551dcc3"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.118.12.1128" xsi:type="CD">
+                  <displayName value="Rating of general health status (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="48389632-829e-424f-9603-3b056c3b73d7"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="Ratingofqualityoflife(inpoints)_CareGoal_targetoutcome_CheckifPresent_xCS1u"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="ee9f897b-cc6c-4267-b74e-d3aec3dfb07f"
+                   root="b7fa02ea-df75-4c0d-b3df-7d8572bf2302"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.118.12.1129" xsi:type="CD">
+                  <displayName value="Rating of quality of life (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="ee9f897b-cc6c-4267-b74e-d3aec3dfb07f"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="Ratingofphysicalhealth(inpoints)_CareGoal_targetoutcome_CheckifPresent_HZxTb"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="07a9380c-f0f1-41da-9c7b-3b1800b4db3e"
+                   root="ddb43d9d-bce6-4650-a1f6-c655e4d523b9"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.118.12.1130" xsi:type="CD">
+                  <displayName value="Rating of physical health (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="07a9380c-f0f1-41da-9c7b-3b1800b4db3e"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="Ratingofmentalhealth(inpoints)_CareGoal_targetoutcome_CheckifPresent_jYKgq"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="b597579c-9297-4185-ae7e-25c5b09b2259"
+                   root="059b19cc-c884-4cd2-a884-94e45bd8a01f"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.118.12.1131" xsi:type="CD">
+                  <displayName value="Rating of mental health (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="b597579c-9297-4185-ae7e-25c5b09b2259"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="Ratingofsatisfactionwithsocialactivitiesandrelationships(inpoints)_CareGoal_targetoutcome_CheckifPresent_HZmgH"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="0832b388-1d59-4f75-8734-9ecee6d84699"
+                   root="728b93f2-7da5-4645-b6e0-f06f1629bffb"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.118.12.1132" xsi:type="CD">
+                  <displayName value="Rating of satisfaction with social activities and relationships (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="0832b388-1d59-4f75-8734-9ecee6d84699"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="Ratingofabilitytocarryoutsocialactivitiesandroles(inpoints)_CareGoal_targetoutcome_CheckifPresent_WyBaO"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="d01964d3-90e3-4e76-a954-85c178b4407b"
+                   root="1a4540d9-d8a4-4d10-b2fe-4488af1e8523"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.118.12.1136" xsi:type="CD">
+                  <displayName value="Rating of ability to carry out social activities and roles (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="d01964d3-90e3-4e76-a954-85c178b4407b"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="Abilitytocarryouteverydayphysicalactivities(inpoints)_CareGoal_targetoutcome_CheckifPresent_49RoH"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="a11ac0b2-d678-415f-baf7-7abd2be293e3"
+                   root="d016f0bc-db66-4f89-9871-557ca4ff88a7"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.118.12.1133" xsi:type="CD">
+                  <displayName value="Ability to carry out everyday physical activities (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="a11ac0b2-d678-415f-baf7-7abd2be293e3"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="Botheredbyemotionalproblems(inpoints)_CareGoal_targetoutcome_CheckifPresent_dWnRA"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="ff676823-7924-4065-98d5-cacbcde38970"
+                   root="c6e1911f-5289-4d8b-8060-a266d43e97cb"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.118.12.1137" xsi:type="CD">
+                  <displayName value="Bothered by emotional problems (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="ff676823-7924-4065-98d5-cacbcde38970"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="Ratingofpainonaverage(inpoints)_CareGoal_targetoutcome_CheckifPresent_GsKTd"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="e97de801-759d-4daf-a1b7-179382516627"
+                   root="75224796-1c33-486a-9d7f-7f9cd71036ff"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.118.12.1134" xsi:type="CD">
+                  <displayName value="Rating of pain on average (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="e97de801-759d-4daf-a1b7-179382516627"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="Ratingoffatigueonaverage(inpoints)_CareGoal_targetoutcome_CheckifPresent_KQOsB"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="5b3c6117-be3b-4ba7-ae52-deb893f38533"
+                   root="d736e041-0e93-4b34-b7c3-d56ab98ea622"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.118.12.1135" xsi:type="CD">
+                  <displayName value="Rating of fatigue on average (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="5b3c6117-be3b-4ba7-ae52-deb893f38533"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="PROMISGlobalMentalHealthTscore(inpoints)_CareGoal_targetoutcome_CheckifPresent_8ThWj"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="3e6843d3-80b6-4cda-a730-eb57f7472c1c"
+                   root="4884d29b-ebb5-416d-b9f5-a8d82a6a79ea"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.118.12.1138" xsi:type="CD">
+                  <displayName value="PROMIS Global Mental Health T score (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="3e6843d3-80b6-4cda-a730-eb57f7472c1c"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Care Goal - target outcome With Check if Present--><entry typeCode="DRIV">
+            <localVariableName value="PROMISGlobalPhysicalHealthTscore(inpoints)_CareGoal_targetoutcome_CheckifPresent_uJjqf"/>
+            <observationCriteria classCode="OBS" moodCode="GOL">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.7"/>
+               </templateId>
+               <id extension="1014c85e-0a27-4296-a1ac-66f3fcbdc3d8"
+                   root="1036f860-346c-4c0c-8bd3-ddbd888496e1"/>
+               <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+               <title value="Care Goal"/>
+               <statusCode code="ACTIVE"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.118.12.1139" xsi:type="CD">
+                  <displayName value="PROMIS Global Physical Health T score (in points) Grouping Value Set"/>
+               </value>
+               <outboundRelationship typeCode="GOAL">
+                  <observationCriteria classCode="OBS" moodCode="GOL">
+                     <id extension="targetoutcome" root="1014c85e-0a27-4296-a1ac-66f3fcbdc3d8"/>
+                     <code code="385676005" codeSystem="2.16.840.1.113883.6.96">
+                        <displayName value="Outcome of Action"/>
+                     </code>
+                     <title value="target outcome"/>
+                     <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+                  </observationCriteria>
+               </outboundRelationship>
+            </observationCriteria>
+         </entry>
+         <!--Patient Characteristic Ethnicity--><entry typeCode="DRIV">
+            <localVariableName value="Ethnicity_PatientCharacteristicEthnicity_8rGzA"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.56"/>
+               </templateId>
+               <id extension="Ethnicity_PatientCharacteristicEthnicity"
+                   root="40280381-3e93-d1af-013e-eb19d9d023ef"/>
+               <code code="54133-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Ethnicity"/>
+               </code>
+               <title value="Patient Characteristic Ethnicity"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.114222.4.11.837" xsi:type="CD">
+                  <displayName value="Ethnicity CDCREC Value Set"/>
+               </value>
+            </observationCriteria>
+         </entry>
+         <!--Patient Characteristic Sex--><entry typeCode="DRIV">
+            <localVariableName value="ONCAdministrativeSex_PatientCharacteristicSex_w8Zf6"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.55"/>
+               </templateId>
+               <id extension="ONCAdministrativeSex_PatientCharacteristicSex"
+                   root="40280381-3e93-d1af-013e-eb19d97c23eb"/>
+               <code code="263495000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="Gender"/>
+               </code>
+               <title value="Patient Characteristic Sex"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.113762.1.4.1" xsi:type="CD">
+                  <displayName value="ONC Administrative Sex AdministrativeGender Value Set"/>
+               </value>
+            </observationCriteria>
+         </entry>
+         <!--Patient Characteristic Payer--><entry typeCode="DRIV">
+            <localVariableName value="Payer_PatientCharacteristicPayer_1xYv6"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item root="2.16.840.1.113883.10.20.28.3.58"/>
+               </templateId>
+               <id extension="Payer_PatientCharacteristicPayer"
+                   root="40280381-3e93-d1af-013e-eb19d9f923f1"/>
+               <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Payer"/>
+               </code>
+               <title value="Patient Characteristic Payer"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.114222.4.11.3591" xsi:type="CD">
+                  <displayName value="Payer SOP Value Set"/>
+               </value>
+            </observationCriteria>
+         </entry>
+         <!--Patient Characteristic Race--><entry typeCode="DRIV">
+            <localVariableName value="Race_PatientCharacteristicRace_KWNzd"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item root="2.16.840.1.113883.10.20.28.3.59"/>
+               </templateId>
+               <id extension="Race_PatientCharacteristicRace"
+                   root="40280381-3e93-d1af-013e-eb19d9a823ed"/>
+               <code code="32624-9" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Race"/>
+               </code>
+               <title value="Patient Characteristic Race"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.114222.4.11.836" xsi:type="CD">
+                  <displayName value="Race CDCREC Value Set"/>
+               </value>
+            </observationCriteria>
+         </entry>
+         <!--Clause 'Age GTET 18 years at MP'--><!--entry for Age >= 18 years at--><entry typeCode="DRIV">
+            <localVariableName value="localVar_Agegrtr_thn_eql_18yearsat_8FC18231-9315-41EB-9C6C-D1F45495E9E1"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.54"/>
+               </templateId>
+               <id extension="Agegrtr_thn_eql_18yearsat_8FC18231-9315-41EB-9C6C-D1F45495E9E1"
+                   root="DB67A136-6DB7-492B-878F-601D872F3879"/>
+               <code code="21112-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Birth Date"/>
+               </code>
+               <title value="Patient Characteristic Birthdate"/>
+               <statusCode code="COMPLETED"/>
+               <temporallyRelatedInformation typeCode="SBS">
+                  <qdm:temporalInformation precisionUnit="d">
+                     <qdm:delta lowClosed="true">
+                        <low unit="a" value="18"/>
+                        <high nullFlavor="PINF"/>
+                     </qdm:delta>
+                  </qdm:temporalInformation>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="measureperiod" root="40280381-3e93-d1af-013e-eb336aa224cd"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+            </observationCriteria>
+         </entry>
+         <!--Clause 'COPD satisfies all'--><!--entry for Starts Before Start Of--><entry typeCode="DRIV">
+            <localVariableName value="localVar_StartsBeforeStartOf_29CF4E94-87D7-4E88-83A4-253F4F9A82A7"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.1"/>
+               </templateId>
+               <id extension="StartsBeforeStartOf_29CF4E94-87D7-4E88-83A4-253F4F9A82A7"
+                   root="768b756f-1794-4d61-a6cd-47d093d6edb9"/>
+               <code code="282291009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="Diagnosis"/>
+               </code>
+               <title value="Diagnosis, Active"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.102.12.1007" xsi:type="CD">
+                  <displayName value="Chronic Obstructive Pulmonary Disease Grouping Value Set"/>
+               </value>
+		             <temporallyRelatedInformation typeCode="SBS">
+                  <qdm:temporalInformation precisionUnit="min"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="measureperiod" root="40280381-3e93-d1af-013e-eb336aa224cd"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+               <outboundRelationship typeCode="REFR">
+                  <observationCriteria classCode="OBS" moodCode="EVN">
+                     <templateId>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.94"/>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.95"/>
+                     </templateId>
+                     <id extension="01CC4272-565E-41F5-BACE-8D152AA9DAA9"
+                         root="768b756f-1794-4d61-a6cd-47d093d6edb9"/>
+                     <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                        <displayName value="Status"/>
+                     </code>
+                     <title value="Status Active"/>
+                     <value code="55561003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"
+                            xsi:type="CD">
+                        <displayName value="Active"/>
+                     </value>
+                  </observationCriteria>
+               </outboundRelationship>
+	           </observationCriteria>
+         </entry>
+         <!--entry for Overlaps--><entry typeCode="DRIV">
+            <localVariableName value="localVar_Overlaps_5EE6936F-1B62-4980-91A7-1D7DCC767D9A"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.1"/>
+               </templateId>
+               <id extension="Overlaps_5EE6936F-1B62-4980-91A7-1D7DCC767D9A"
+                   root="768b756f-1794-4d61-a6cd-47d093d6edb9"/>
+               <code code="282291009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="Diagnosis"/>
+               </code>
+               <title value="Diagnosis, Active"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.113883.3.464.1003.102.12.1007" xsi:type="CD">
+                  <displayName value="Chronic Obstructive Pulmonary Disease Grouping Value Set"/>
+               </value>
+		             <temporallyRelatedInformation typeCode="OVERLAP">
+                  <qdm:temporalInformation precisionUnit="min"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="measureperiod" root="40280381-3e93-d1af-013e-eb336aa224cd"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+               <outboundRelationship typeCode="REFR">
+                  <observationCriteria classCode="OBS" moodCode="EVN">
+                     <templateId>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.94"/>
+                        <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.95"/>
+                     </templateId>
+                     <id extension="01CC4272-565E-41F5-BACE-8D152AA9DAA9"
+                         root="768b756f-1794-4d61-a6cd-47d093d6edb9"/>
+                     <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                        <displayName value="Status"/>
+                     </code>
+                     <title value="Status Active"/>
+                     <value code="55561003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"
+                            xsi:type="CD">
+                        <displayName value="Active"/>
+                     </value>
+                  </observationCriteria>
+               </outboundRelationship>
+	           </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="SATISFIES ALL_33DB6709-1351-49DD-BB48-D3D071F0DE60"/>
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <templateId>
+                  <item root="2.16.840.1.113883.10.20.28.3.109"/>
+               </templateId>
+               <id extension="SATISFIESALL_33DB6709-1351-49DD-BB48-D3D071F0DE60"
+                   root="D30405C7-91F9-458F-BF26-BA2C05BCD35B"/>
+               <!--outBoundRelationship for Starts Before Start Of--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="StartsBeforeStartOf_29CF4E94-87D7-4E88-83A4-253F4F9A82A7"
+                         root="768b756f-1794-4d61-a6cd-47d093d6edb9"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Overlaps--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="Overlaps_5EE6936F-1B62-4980-91A7-1D7DCC767D9A"
+                         root="768b756f-1794-4d61-a6cd-47d093d6edb9"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+         <!--Clause 'FSA Visit during MP'--><!--entry for During--><entry typeCode="DRIV">
+            <localVariableName value="localVar_During_8EAEC83A-8CF3-4174-BE7C-72B74D0CD050"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="During_8EAEC83A-8CF3-4174-BE7C-72B74D0CD050"
+                   root="8F89A89E-D63C-4479-8431-29D9E9578FAB"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.101.12.1062">
+                  <displayName value="FSA Visit Grouping Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <temporallyRelatedInformation typeCode="DURING">
+                  <qdm:temporalInformation precisionUnit="min"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="measureperiod" root="40280381-3e93-d1af-013e-eb336aa224cd"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+            </encounterCriteria>
+         </entry>
+         <!--Clause 'Initial FSA Visit'--><!--entry for <= 260 days Starts After Start Of--><entry typeCode="DRIV">
+            <localVariableName value="localVar_FIRST_6FC16BD7-A3CA-471C-A383-B001EE3B1EAA"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.5"/>
+               </templateId>
+               <id extension="qdm_var_less_thn_eql_260daysStartsAfterStartOf_8F16E392-58E1-4303-87E1-F28CC6A76DC4"
+                   root="DA0B5471-F346-4E52-877E-76AF45D937D2"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.101.12.1062">
+                  <displayName value="FSA Visit Grouping Value Set"/>
+               </code>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <temporallyRelatedInformation typeCode="SAS">
+                  <qdm:temporalInformation precisionUnit="d">
+                     <qdm:delta highClosed="true" lowClosed="true">
+                        <low unit="d" value="0"/>
+                        <high unit="d" value="260"/>
+                     </qdm:delta>
+                  </qdm:temporalInformation>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="measureperiod" root="40280381-3e93-d1af-013e-eb336aa224cd"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+               <!--excerpt for FIRST--><excerpt>
+                  <sequenceNumber value="1"/>
+                  <encounterCriteria classCode="ENC" moodCode="EVN">
+                     <id extension="qdm_var_less_thn_eql_260daysStartsAfterStartOf_8F16E392-58E1-4303-87E1-F28CC6A76DC4"
+                         root="DA0B5471-F346-4E52-877E-76AF45D937D2"/>
+                  </encounterCriteria>
+               </excerpt>
+            </encounterCriteria>
+         </entry>
+         <!--Clause 'Functional Status COOP sat all'--><entry typeCode="DRIV">
+            <localVariableName value="localVar_less_thn_eql_14daysEndsBeforeEndOf_AAA521CA-2809-4DC3-88D1-864F534C1CBA"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="less_thn_eql_14daysEndsBeforeEndOf_AAA521CA-2809-4DC3-88D1-864F534C1CBA"
+                   root="e193a352-b44b-4161-99f4-4c5ac5ae46ca"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.107.12.1050">
+                  <displayName value="Dartmouth Cooperative Functional Status Test (COOP) Total Score Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+               <temporallyRelatedInformation typeCode="EBE">
+                  <qdm:temporalInformation precisionUnit="d">
+                     <qdm:delta highClosed="true" lowClosed="true">
+                        <low unit="d" value="0"/>
+                        <high unit="d" value="14"/>
+                     </qdm:delta>
+                  </qdm:temporalInformation>
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="qdm_var_less_thn_eql_260daysStartsAfterStartOf_8F16E392-58E1-4303-87E1-F28CC6A76DC4"
+                         root="DA0B5471-F346-4E52-877E-76AF45D937D2"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+            </observationCriteria>
+         </entry>
+         <!--entry for >= 90 days Starts After End Of--><entry typeCode="DRIV">
+            <localVariableName value="localVar_grtr_thn_eql_90daysStartsAfterEndOf_648385BD-13F1-474C-97E8-883FA47490B8"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="grtr_thn_eql_90daysStartsAfterEndOf_648385BD-13F1-474C-97E8-883FA47490B8"
+                   root="e193a352-b44b-4161-99f4-4c5ac5ae46ca"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.107.12.1050">
+                  <displayName value="Dartmouth Cooperative Functional Status Test (COOP) Total Score Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <temporallyRelatedInformation typeCode="SAE">
+                  <qdm:temporalInformation precisionUnit="d">
+                     <qdm:delta lowClosed="true">
+                        <low unit="d" value="90"/>
+                        <high nullFlavor="PINF"/>
+                     </qdm:delta>
+                  </qdm:temporalInformation>
+                  <!--entry for <= 14 days Ends Before End Of--><criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="less_thn_eql_14daysEndsBeforeEndOf_AAA521CA-2809-4DC3-88D1-864F534C1CBA"
+                         root="e193a352-b44b-4161-99f4-4c5ac5ae46ca"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+            </observationCriteria>
+         </entry>
+         <!--entry for During--><entry typeCode="DRIV">
+            <localVariableName value="localVar_During_BE2194F0-C922-4CBE-8DD6-68778FF1B278"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="During_BE2194F0-C922-4CBE-8DD6-68778FF1B278"
+                   root="e193a352-b44b-4161-99f4-4c5ac5ae46ca"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.107.12.1050">
+                  <displayName value="Dartmouth Cooperative Functional Status Test (COOP) Total Score Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <temporallyRelatedInformation typeCode="DURING">
+                  <qdm:temporalInformation precisionUnit="min"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="measureperiod" root="40280381-3e93-d1af-013e-eb336aa224cd"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="SATISFIES ALL_2EE04F63-A1F7-4931-9B67-4D178446E77D"/>
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <templateId>
+                  <item root="2.16.840.1.113883.10.20.28.3.109"/>
+               </templateId>
+               <id extension="SATISFIESALL_2EE04F63-A1F7-4931-9B67-4D178446E77D"
+                   root="C74A714C-396F-4DBB-B2ED-8C3149A9D878"/>
+               <!--outBoundRelationship for >= 90 days Starts After End Of--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="grtr_thn_eql_90daysStartsAfterEndOf_648385BD-13F1-474C-97E8-883FA47490B8"
+                         root="e193a352-b44b-4161-99f4-4c5ac5ae46ca"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for During--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="During_BE2194F0-C922-4CBE-8DD6-68778FF1B278"
+                         root="e193a352-b44b-4161-99f4-4c5ac5ae46ca"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Dartmouth Cooperative Functional Status Test (COOP) Total Score : Functional Status, Performed--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="96cf080e-6ccf-46a1-aec1-3b9357a97ad9"
+                         root="e193a352-b44b-4161-99f4-4c5ac5ae46ca"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+         <!--Clause 'Functional Status PROMIS Mental sat all'--><entry typeCode="DRIV">
+            <localVariableName value="localVar_less_thn_eql_14daysEndsBeforeEndOf_50B43D2B-33CD-4579-A6F1-B0A3AC7AF09F"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="less_thn_eql_14daysEndsBeforeEndOf_50B43D2B-33CD-4579-A6F1-B0A3AC7AF09F"
+                   root="0baa0c0e-8284-4622-964f-22499920da05"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.118.12.1138">
+                  <displayName value="PROMIS Global Mental Health T score (in points) Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+               <temporallyRelatedInformation typeCode="EBE">
+                  <qdm:temporalInformation precisionUnit="d">
+                     <qdm:delta highClosed="true" lowClosed="true">
+                        <low unit="d" value="0"/>
+                        <high unit="d" value="14"/>
+                     </qdm:delta>
+                  </qdm:temporalInformation>
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="qdm_var_less_thn_eql_260daysStartsAfterStartOf_8F16E392-58E1-4303-87E1-F28CC6A76DC4"
+                         root="DA0B5471-F346-4E52-877E-76AF45D937D2"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+            </observationCriteria>
+         </entry>
+         <!--entry for >= 90 days Starts After End Of--><entry typeCode="DRIV">
+            <localVariableName value="localVar_grtr_thn_eql_90daysStartsAfterEndOf_E35AC8B0-4E37-4246-96F0-9FBD2E743DF6"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="grtr_thn_eql_90daysStartsAfterEndOf_E35AC8B0-4E37-4246-96F0-9FBD2E743DF6"
+                   root="0baa0c0e-8284-4622-964f-22499920da05"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.118.12.1138">
+                  <displayName value="PROMIS Global Mental Health T score (in points) Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <temporallyRelatedInformation typeCode="SAE">
+                  <qdm:temporalInformation precisionUnit="d">
+                     <qdm:delta lowClosed="true">
+                        <low unit="d" value="90"/>
+                        <high nullFlavor="PINF"/>
+                     </qdm:delta>
+                  </qdm:temporalInformation>
+                  <!--entry for <= 14 days Ends Before End Of--><criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="less_thn_eql_14daysEndsBeforeEndOf_50B43D2B-33CD-4579-A6F1-B0A3AC7AF09F"
+                         root="0baa0c0e-8284-4622-964f-22499920da05"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+            </observationCriteria>
+         </entry>
+         <!--entry for During--><entry typeCode="DRIV">
+            <localVariableName value="localVar_During_8F32EBFF-77D7-490C-AD43-1A378B9BD45D"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="During_8F32EBFF-77D7-490C-AD43-1A378B9BD45D"
+                   root="0baa0c0e-8284-4622-964f-22499920da05"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.118.12.1138">
+                  <displayName value="PROMIS Global Mental Health T score (in points) Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <temporallyRelatedInformation typeCode="DURING">
+                  <qdm:temporalInformation precisionUnit="min"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="measureperiod" root="40280381-3e93-d1af-013e-eb336aa224cd"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="SATISFIES ALL_FF686AC0-A2EA-471F-A335-5A076E50C1F6"/>
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <templateId>
+                  <item root="2.16.840.1.113883.10.20.28.3.109"/>
+               </templateId>
+               <id extension="SATISFIESALL_FF686AC0-A2EA-471F-A335-5A076E50C1F6"
+                   root="D3E259D3-7008-4213-B890-1FCDD3505249"/>
+               <!--outBoundRelationship for >= 90 days Starts After End Of--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="grtr_thn_eql_90daysStartsAfterEndOf_E35AC8B0-4E37-4246-96F0-9FBD2E743DF6"
+                         root="0baa0c0e-8284-4622-964f-22499920da05"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for During--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="During_8F32EBFF-77D7-490C-AD43-1A378B9BD45D"
+                         root="0baa0c0e-8284-4622-964f-22499920da05"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for PROMIS Global Mental Health T score (in points) : Functional Status, Performed--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="f13c1d25-150e-4540-9ab5-a0419323b373"
+                         root="0baa0c0e-8284-4622-964f-22499920da05"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+         <!--Clause 'Functional Status PROMIS Physical sat all'--><entry typeCode="DRIV">
+            <localVariableName value="localVar_less_thn_eql_14daysEndsBeforeEndOf_1B4AEF75-4A0D-47EF-8A3E-096C6EB51D9F"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="less_thn_eql_14daysEndsBeforeEndOf_1B4AEF75-4A0D-47EF-8A3E-096C6EB51D9F"
+                   root="4b6c6c18-c6c4-4e5a-b264-00b0a9ea7367"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.118.12.1139">
+                  <displayName value="PROMIS Global Physical Health T score (in points) Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <value flavorId="ANY.NONNULL" xsi:type="ANY"/>
+               <temporallyRelatedInformation typeCode="EBE">
+                  <qdm:temporalInformation precisionUnit="d">
+                     <qdm:delta highClosed="true" lowClosed="true">
+                        <low unit="d" value="0"/>
+                        <high unit="d" value="14"/>
+                     </qdm:delta>
+                  </qdm:temporalInformation>
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="qdm_var_less_thn_eql_260daysStartsAfterStartOf_8F16E392-58E1-4303-87E1-F28CC6A76DC4"
+                         root="DA0B5471-F346-4E52-877E-76AF45D937D2"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+            </observationCriteria>
+         </entry>
+         <!--entry for >= 90 days Starts After End Of--><entry typeCode="DRIV">
+            <localVariableName value="localVar_grtr_thn_eql_90daysStartsAfterEndOf_9835C053-6E33-45F1-92CB-D3DE62FD37DF"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="grtr_thn_eql_90daysStartsAfterEndOf_9835C053-6E33-45F1-92CB-D3DE62FD37DF"
+                   root="4b6c6c18-c6c4-4e5a-b264-00b0a9ea7367"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.118.12.1139">
+                  <displayName value="PROMIS Global Physical Health T score (in points) Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <temporallyRelatedInformation typeCode="SAE">
+                  <qdm:temporalInformation precisionUnit="d">
+                     <qdm:delta lowClosed="true">
+                        <low unit="d" value="90"/>
+                        <high nullFlavor="PINF"/>
+                     </qdm:delta>
+                  </qdm:temporalInformation>
+                  <!--entry for <= 14 days Ends Before End Of--><criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="less_thn_eql_14daysEndsBeforeEndOf_1B4AEF75-4A0D-47EF-8A3E-096C6EB51D9F"
+                         root="4b6c6c18-c6c4-4e5a-b264-00b0a9ea7367"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+            </observationCriteria>
+         </entry>
+         <!--entry for During--><entry typeCode="DRIV">
+            <localVariableName value="localVar_During_D73262C2-32A4-4D4A-9BAF-8C094920A733"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2014-11-24" root="2.16.840.1.113883.10.20.28.3.30"/>
+               </templateId>
+               <id extension="During_D73262C2-32A4-4D4A-9BAF-8C094920A733"
+                   root="4b6c6c18-c6c4-4e5a-b264-00b0a9ea7367"/>
+               <code valueSet="2.16.840.1.113883.3.464.1003.118.12.1139">
+                  <displayName value="PROMIS Global Physical Health T score (in points) Grouping Value Set"/>
+               </code>
+               <title value="Functional Status, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <temporallyRelatedInformation typeCode="DURING">
+                  <qdm:temporalInformation precisionUnit="min"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="measureperiod" root="40280381-3e93-d1af-013e-eb336aa224cd"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="SATISFIES ALL_CD8494AB-C107-4DC0-906C-73860E5E4E20"/>
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <templateId>
+                  <item root="2.16.840.1.113883.10.20.28.3.109"/>
+               </templateId>
+               <id extension="SATISFIESALL_CD8494AB-C107-4DC0-906C-73860E5E4E20"
+                   root="E69EAD7F-E6C0-434B-9493-F92E9FA59609"/>
+               <!--outBoundRelationship for >= 90 days Starts After End Of--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="grtr_thn_eql_90daysStartsAfterEndOf_9835C053-6E33-45F1-92CB-D3DE62FD37DF"
+                         root="4b6c6c18-c6c4-4e5a-b264-00b0a9ea7367"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for During--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="During_D73262C2-32A4-4D4A-9BAF-8C094920A733"
+                         root="4b6c6c18-c6c4-4e5a-b264-00b0a9ea7367"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for PROMIS Global Physical Health T score (in points) : Functional Status, Performed--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="AND"/>
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="efdb9874-441e-4e55-9de3-94110d5a53b4"
+                         root="4b6c6c18-c6c4-4e5a-b264-00b0a9ea7367"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+         <!--Clause 'Union COOP Care Goal lteq to 72 hours SAS Initial FSA Visit'--><!--entry for <= 72 hours Starts After Start Of--><entry typeCode="DRIV">
+            <localVariableName value="localVar_less_thn_eql_72hoursStartsAfterStartOf_85776FD5-308D-4384-B775-EDF98B57B3A3"/>
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <id extension="less_thn_eql_72hoursStartsAfterStartOf_85776FD5-308D-4384-B775-EDF98B57B3A3"
+                   root="715AA9A1-5E54-492F-98EF-4017BB0B00F8"/>
+               <!--outBoundRelationship for Dartmouth Cooperative Functional Status Test (COOP) Total Score : Care Goal--><temporallyRelatedInformation typeCode="SAS">
+                  <qdm:temporalInformation precisionUnit="min">
+                     <qdm:delta highClosed="true" lowClosed="true">
+                        <low unit="h" value="0"/>
+                        <high unit="h" value="72"/>
+                     </qdm:delta>
+                  </qdm:temporalInformation>
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="qdm_var_less_thn_eql_260daysStartsAfterStartOf_8F16E392-58E1-4303-87E1-F28CC6A76DC4"
+                         root="DA0B5471-F346-4E52-877E-76AF45D937D2"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+               <outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="9b02dfe4-c807-4fb9-b1e7-bf53d4dbc247"
+                         root="e8406060-d884-461b-8cae-2530b486d9bd"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Physical Fitness (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="a22d62a7-650d-4f1c-ac33-0e0706cc6085"
+                         root="a54d3627-2135-4549-949d-ee9060bae1ca"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Feelings (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="a9d55316-59a7-4495-90a3-3df0851ee0f5"
+                         root="7b070339-7b78-4aae-90eb-d2425a6e9008"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Daily Activities (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="1a0e0053-b37a-42ee-8cf8-a3cf9900d4e4"
+                         root="105a4864-f7aa-4656-a803-db235c6f946b"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Social Activities (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="eb038cbb-35f4-421e-89a6-99c0c17b99b6"
+                         root="3a788825-8bb1-493d-b394-5023fdc7f517"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Pain (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="02f5d3d9-88e4-4977-b8d4-0d603e1e6c60"
+                         root="9da8098b-7186-410a-b970-7578950998cd"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Change in Health (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="3d087ad4-7672-443f-aa17-dd6133267b61"
+                         root="1a7f3dd7-2862-4064-90f3-3be3f90c7939"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Overall Health (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="5e19e3ba-ee6c-419b-9c56-11ff7f9ea052"
+                         root="dcb53761-f6a6-4a15-bd2f-ce8c54da38f9"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Social Support (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="2c8dcc76-da5c-4bb3-b396-9783d66f4e61"
+                         root="f7fb6001-f449-4f86-a03c-894ba7694be9"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Quality of Life (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="b7106a56-44c0-45c1-945d-39fa24279fd6"
+                         root="777283f1-c52d-430a-86ae-8372cc29cc27"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+         <!--Clause 'Union PROMIS Care Goal lteq to 72 hours SAS Initial FSA Visi'--><!--entry for <= 72 hours Starts After Start Of--><entry typeCode="DRIV">
+            <localVariableName value="localVar_less_thn_eql_72hoursStartsAfterStartOf_3996A6DD-860E-437D-8A8E-7B0568B5FD19"/>
+            <grouperCriteria classCode="GROUPER" moodCode="EVN">
+               <id extension="less_thn_eql_72hoursStartsAfterStartOf_3996A6DD-860E-437D-8A8E-7B0568B5FD19"
+                   root="0C9D8D03-850D-44D2-9B89-57742C51176D"/>
+               <!--outBoundRelationship for Rating of general health status (in points) : Care Goal--><temporallyRelatedInformation typeCode="SAS">
+                  <qdm:temporalInformation precisionUnit="min">
+                     <qdm:delta highClosed="true" lowClosed="true">
+                        <low unit="h" value="0"/>
+                        <high unit="h" value="72"/>
+                     </qdm:delta>
+                  </qdm:temporalInformation>
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="qdm_var_less_thn_eql_260daysStartsAfterStartOf_8F16E392-58E1-4303-87E1-F28CC6A76DC4"
+                         root="DA0B5471-F346-4E52-877E-76AF45D937D2"/>
+                  </criteriaReference>
+               </temporallyRelatedInformation>
+               <outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="48389632-829e-424f-9603-3b056c3b73d7"
+                         root="ef625888-763a-45ea-9e40-39717551dcc3"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Rating of quality of life (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="ee9f897b-cc6c-4267-b74e-d3aec3dfb07f"
+                         root="b7fa02ea-df75-4c0d-b3df-7d8572bf2302"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Rating of physical health (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="07a9380c-f0f1-41da-9c7b-3b1800b4db3e"
+                         root="ddb43d9d-bce6-4650-a1f6-c655e4d523b9"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Rating of mental health (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="b597579c-9297-4185-ae7e-25c5b09b2259"
+                         root="059b19cc-c884-4cd2-a884-94e45bd8a01f"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Rating of satisfaction with social activities and relationships (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="0832b388-1d59-4f75-8734-9ecee6d84699"
+                         root="728b93f2-7da5-4645-b6e0-f06f1629bffb"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Rating of ability to carry out social activities and roles (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="d01964d3-90e3-4e76-a954-85c178b4407b"
+                         root="1a4540d9-d8a4-4d10-b2fe-4488af1e8523"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Ability to carry out everyday physical activities (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="a11ac0b2-d678-415f-baf7-7abd2be293e3"
+                         root="d016f0bc-db66-4f89-9871-557ca4ff88a7"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Bothered by emotional problems (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="ff676823-7924-4065-98d5-cacbcde38970"
+                         root="c6e1911f-5289-4d8b-8060-a266d43e97cb"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Rating of pain on average (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="e97de801-759d-4daf-a1b7-179382516627"
+                         root="75224796-1c33-486a-9d7f-7f9cd71036ff"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for Rating of fatigue on average (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="5b3c6117-be3b-4ba7-ae52-deb893f38533"
+                         root="d736e041-0e93-4b34-b7c3-d56ab98ea622"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for PROMIS Global Mental Health T score (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="3e6843d3-80b6-4cda-a730-eb57f7472c1c"
+                         root="4884d29b-ebb5-416d-b9f5-a8d82a6a79ea"/>
+                  </criteriaReference>
+               </outboundRelationship>
+               <!--outBoundRelationship for PROMIS Global Physical Health T score (in points) : Care Goal--><outboundRelationship typeCode="COMP">
+                  <conjunctionCode code="OR"/>
+                  <criteriaReference classCode="OBS" moodCode="GOL">
+                     <id extension="1014c85e-0a27-4296-a1ac-66f3fcbdc3d8"
+                         root="1036f860-346c-4c0c-8bd3-ddbd888496e1"/>
+                  </criteriaReference>
+               </outboundRelationship>
+            </grouperCriteria>
+         </entry>
+      </dataCriteriaSection>
+   </component>
+   <component>
+      <populationCriteriaSection>
+         <templateId>
+            <item root="2.16.840.1.113883.10.20.28.2.1"/>
+         </templateId>
+         <id extension="PopulationCriteria1" root="04BF58D0-A6CA-40EA-86B6-4640D0CE6271"/>
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"/>
+         <title value="Population Criteria Section"/>
+         <text>
+            <xml>
+               <item>
+                  <list>
+                     <item>
+                        <content styleCode="Bold">Population Criteria</content>
+                        <list>
+                           <item>
+                              <content styleCode="Bold">Initial Population =</content>
+                              <list>
+                                 <item>AND: Age &gt;= 18 year(s) at: "Measurement Period"</item>
+                                 <item>AND: "Diagnosis, Active: Chronic Obstructive Pulmonary Disease"  satisfies all<list>
+                                       <item>starts before start of "Measurement Period"</item>
+                                       <item>overlaps "Measurement Period"</item>
+                                    </list>
+                                 </item>
+                                 <item>AND: "Encounter, Performed: FSA Visit" during "Measurement Period"</item>
+                              </list>
+                           </item>
+                           <item>
+                              <content styleCode="Bold">Denominator =</content>
+                              <list>
+                                 <item>AND: Initial Population</item>
+                              </list>
+                              <list>
+                                 <item>AND: $InitialFSAVisit</item>
+                              </list>
+                           </item>
+                           <item>
+                              <content styleCode="Bold">Denominator Exclusions =</content>
+                              <list>
+                                 <item>None</item>
+                              </list>
+                           </item>
+                           <item>
+                              <content styleCode="Bold">Numerator =</content>
+                              <list>
+                                 <item>AND:<list>
+                                       <item>OR:<list>
+                                             <item>AND: Union of:<list>
+                                                   <item>"Care Goal: Dartmouth Cooperative Functional Status Test (COOP) Total Score (target outcome)"</item>
+                                                   <item>"Care Goal: Physical Fitness (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: Feelings (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: Daily Activities (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: Social Activities (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: Pain (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: Change in Health (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: Overall Health (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: Social Support (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: Quality of Life (in points) (target outcome)"</item>
+                                                   <item>&lt;= 72 hour(s) starts after start of $InitialFSAVisit</item>
+                                                </list>
+                                             </item>
+                                             <item>AND: "Functional Status, Performed: Dartmouth Cooperative Functional Status Test (COOP) Total Score"  satisfies all<list>
+                                                   <item>&gt;= 90 day(s) starts after end of  ("Functional Status, Performed: Dartmouth Cooperative Functional Status Test (COOP) Total Score (result)" &lt;= 14 day(s) ends before end of $InitialFSAVisit )</item>
+                                                   <item>during "Measurement Period"</item>
+                                                   <item>(result)</item>
+                                                </list>
+                                             </item>
+                                          </list>
+                                       </item>
+                                       <item>OR:<list>
+                                             <item>AND: Union of:<list>
+                                                   <item>"Care Goal: Rating of general health status (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: Rating of quality of life (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: Rating of physical health (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: Rating of mental health (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: Rating of satisfaction with social activities and relationships (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: Rating of ability to carry out social activities and roles (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: Ability to carry out everyday physical activities (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: Bothered by emotional problems (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: Rating of pain on average (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: Rating of fatigue on average (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: PROMIS Global Mental Health T score (in points) (target outcome)"</item>
+                                                   <item>"Care Goal: PROMIS Global Physical Health T score (in points) (target outcome)"</item>
+                                                   <item>&lt;= 72 hour(s) starts after start of $InitialFSAVisit</item>
+                                                </list>
+                                             </item>
+                                             <item>AND: "Functional Status, Performed: PROMIS Global Mental Health T score (in points)"  satisfies all<list>
+                                                   <item>&gt;= 90 day(s) starts after end of  ("Functional Status, Performed: PROMIS Global Mental Health T score (in points) (result)" &lt;= 14 day(s) ends before end of $InitialFSAVisit )</item>
+                                                   <item>during "Measurement Period"</item>
+                                                   <item>(result)</item>
+                                                </list>
+                                             </item>
+                                             <item>AND: "Functional Status, Performed: PROMIS Global Physical Health T score (in points)"  satisfies all<list>
+                                                   <item>&gt;= 90 day(s) starts after end of  ("Functional Status, Performed: PROMIS Global Physical Health T score (in points) (result)" &lt;= 14 day(s) ends before end of $InitialFSAVisit )</item>
+                                                   <item>during "Measurement Period"</item>
+                                                   <item>(result)</item>
+                                                </list>
+                                             </item>
+                                          </list>
+                                       </item>
+                                    </list>
+                                 </item>
+                              </list>
+                           </item>
+                           <item>
+                              <content styleCode="Bold">Numerator Exclusions =</content>
+                              <list>
+                                 <item>None</item>
+                              </list>
+                           </item>
+                           <item>
+                              <content styleCode="Bold">Denominator Exceptions =</content>
+                              <list>
+                                 <item>None</item>
+                              </list>
+                           </item>
+                           <item>
+                              <content styleCode="Bold">Stratification =</content>
+                              <list>
+                                 <item>None</item>
+                              </list>
+                           </item>
+                        </list>
+                     </item>
+                  </list>
+               </item>
+            </xml>
+         </text>
+         <component typeCode="COMP">
+            <initialPopulationCriteria classCode="OBS" moodCode="EVN">
+               <id extension="initialPopulation" root="7C341CB2-CF59-4F19-80A1-3B584DB999DD"/>
+               <code code="IPOP" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="initialPopulation"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="Agegrtr_thn_eql_18yearsat_8FC18231-9315-41EB-9C6C-D1F45495E9E1"
+                         root="DB67A136-6DB7-492B-878F-601D872F3879"/>
+                  </criteriaReference>
+               </precondition>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="GROUPER" moodCode="EVN">
+                     <id extension="SATISFIESALL_33DB6709-1351-49DD-BB48-D3D071F0DE60"
+                         root="D30405C7-91F9-458F-BF26-BA2C05BCD35B"/>
+                  </criteriaReference>
+               </precondition>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="During_8EAEC83A-8CF3-4174-BE7C-72B74D0CD050"
+                         root="8F89A89E-D63C-4479-8431-29D9E9578FAB"/>
+                  </criteriaReference>
+               </precondition>
+            </initialPopulationCriteria>
+         </component>
+         <component typeCode="COMP">
+            <denominatorCriteria classCode="OBS" moodCode="EVN">
+               <id extension="denominator" root="B9B0CC41-41B5-413E-BC2F-6C18505F9D3C"/>
+               <code code="DENOM" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="denominator"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="initialPopulation" root="7C341CB2-CF59-4F19-80A1-3B584DB999DD"/>
+                  </criteriaReference>
+               </precondition>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="ENC" moodCode="EVN">
+                     <id extension="qdm_var_less_thn_eql_260daysStartsAfterStartOf_8F16E392-58E1-4303-87E1-F28CC6A76DC4"
+                         root="DA0B5471-F346-4E52-877E-76AF45D937D2"/>
+                  </criteriaReference>
+               </precondition>
+            </denominatorCriteria>
+         </component>
+         <component typeCode="COMP">
+            <numeratorCriteria classCode="OBS" moodCode="EVN">
+               <id extension="numerator" root="01C79032-1B79-4521-8883-5FB12471DFF3"/>
+               <code code="NUMER" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="numerator"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <atLeastOneTrue>
+                     <precondition typeCode="PRCN">
+                        <allTrue>
+                           <precondition typeCode="PRCN">
+                              <criteriaReference classCode="GROUPER" moodCode="EVN">
+                                 <id extension="less_thn_eql_72hoursStartsAfterStartOf_85776FD5-308D-4384-B775-EDF98B57B3A3"
+                                     root="715AA9A1-5E54-492F-98EF-4017BB0B00F8"/>
+                              </criteriaReference>
+                           </precondition>
+                           <precondition typeCode="PRCN">
+                              <criteriaReference classCode="GROUPER" moodCode="EVN">
+                                 <id extension="SATISFIESALL_2EE04F63-A1F7-4931-9B67-4D178446E77D"
+                                     root="C74A714C-396F-4DBB-B2ED-8C3149A9D878"/>
+                              </criteriaReference>
+                           </precondition>
+                        </allTrue>
+                     </precondition>
+                     <precondition typeCode="PRCN">
+                        <allTrue>
+                           <precondition typeCode="PRCN">
+                              <criteriaReference classCode="GROUPER" moodCode="EVN">
+                                 <id extension="less_thn_eql_72hoursStartsAfterStartOf_3996A6DD-860E-437D-8A8E-7B0568B5FD19"
+                                     root="0C9D8D03-850D-44D2-9B89-57742C51176D"/>
+                              </criteriaReference>
+                           </precondition>
+                           <precondition typeCode="PRCN">
+                              <criteriaReference classCode="GROUPER" moodCode="EVN">
+                                 <id extension="SATISFIESALL_FF686AC0-A2EA-471F-A335-5A076E50C1F6"
+                                     root="D3E259D3-7008-4213-B890-1FCDD3505249"/>
+                              </criteriaReference>
+                           </precondition>
+                           <precondition typeCode="PRCN">
+                              <criteriaReference classCode="GROUPER" moodCode="EVN">
+                                 <id extension="SATISFIESALL_CD8494AB-C107-4DC0-906C-73860E5E4E20"
+                                     root="E69EAD7F-E6C0-434B-9493-F92E9FA59609"/>
+                              </criteriaReference>
+                           </precondition>
+                        </allTrue>
+                     </precondition>
+                  </atLeastOneTrue>
+               </precondition>
+            </numeratorCriteria>
+         </component>
+         <component typeCode="COMP">
+            <stratifierCriteria>
+               <id extension="Stratifiers" root="D91F6A77-D63C-4D9C-8BD2-22CD3B811694"/>
+               <code code="STRAT" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="Stratification"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="Ethnicity_PatientCharacteristicEthnicity"
+                         root="40280381-3e93-d1af-013e-eb19d9d023ef"/>
+                  </criteriaReference>
+               </precondition>
+               <component typeCode="COMP">
+                  <measureAttribute>
+                     <code code="SDE" codeSystem="2.16.840.1.113883.5.4">
+                        <displayName value="Supplemental Data Element"/>
+                     </code>
+                     <value mediaType="text/plain" value="Supplemental Data Elements" xsi:type="ED"/>
+                  </measureAttribute>
+               </component>
+            </stratifierCriteria>
+         </component>
+         <component typeCode="COMP">
+            <stratifierCriteria>
+               <id extension="Stratifiers" root="5F1B86FF-DA71-4E83-A7BA-B2B35BCB324F"/>
+               <code code="STRAT" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="Stratification"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="ONCAdministrativeSex_PatientCharacteristicSex"
+                         root="40280381-3e93-d1af-013e-eb19d97c23eb"/>
+                  </criteriaReference>
+               </precondition>
+               <component typeCode="COMP">
+                  <measureAttribute>
+                     <code code="SDE" codeSystem="2.16.840.1.113883.5.4">
+                        <displayName value="Supplemental Data Element"/>
+                     </code>
+                     <value mediaType="text/plain" value="Supplemental Data Elements" xsi:type="ED"/>
+                  </measureAttribute>
+               </component>
+            </stratifierCriteria>
+         </component>
+         <component typeCode="COMP">
+            <stratifierCriteria>
+               <id extension="Stratifiers" root="ACE09A75-D483-4204-B1AB-72EC6638074D"/>
+               <code code="STRAT" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="Stratification"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="Payer_PatientCharacteristicPayer"
+                         root="40280381-3e93-d1af-013e-eb19d9f923f1"/>
+                  </criteriaReference>
+               </precondition>
+               <component typeCode="COMP">
+                  <measureAttribute>
+                     <code code="SDE" codeSystem="2.16.840.1.113883.5.4">
+                        <displayName value="Supplemental Data Element"/>
+                     </code>
+                     <value mediaType="text/plain" value="Supplemental Data Elements" xsi:type="ED"/>
+                  </measureAttribute>
+               </component>
+            </stratifierCriteria>
+         </component>
+         <component typeCode="COMP">
+            <stratifierCriteria>
+               <id extension="Stratifiers" root="AF588FE0-E939-4C4C-B15F-8CB7E5EDD7D6"/>
+               <code code="STRAT" codeSystem="2.16.840.1.113883.5.1063"
+                     codeSystemName="HL7 Observation Value">
+                  <displayName value="Stratification"/>
+               </code>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="Race_PatientCharacteristicRace"
+                         root="40280381-3e93-d1af-013e-eb19d9a823ed"/>
+                  </criteriaReference>
+               </precondition>
+               <component typeCode="COMP">
+                  <measureAttribute>
+                     <code code="SDE" codeSystem="2.16.840.1.113883.5.4">
+                        <displayName value="Supplemental Data Element"/>
+                     </code>
+                     <value mediaType="text/plain" value="Supplemental Data Elements" xsi:type="ED"/>
+                  </measureAttribute>
+               </component>
+            </stratifierCriteria>
+         </component>
+      </populationCriteriaSection>
+   </component>
+</QualityMeasureDocument>

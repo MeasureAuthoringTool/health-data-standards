@@ -20,9 +20,6 @@ class Record
   field :medical_record_number, type: String
   field :medical_record_assigner, type: String
   field :expired, type: Boolean
-  field :clinicalTrialParticipant, as: :clinical_trial_participant, type: Boolean   # Currently not implemented in the C32 importer
-                                                                                    # because it cannot be easily represented in a
-                                                                                    # HITSP C32
 
   index "last" => 1
   index medical_record_number: 1
@@ -32,6 +29,8 @@ class Record
   embeds_many :care_goals, class_name: "Entry" # This can be any number of different entry types
   embeds_many :conditions
   embeds_many :encounters
+  embeds_many :communications
+  embeds_many :family_history
   embeds_many :immunizations
   embeds_many :medical_equipment
   embeds_many :medications
@@ -49,7 +48,7 @@ class Record
   embeds_many :functional_statuses
 
   Sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
-   :medications, :procedures, :results, :social_history, :vital_signs, :support, :advance_directives,
+   :medications, :procedures, :results, :communications, :family_history, :social_history, :vital_signs, :support, :advance_directives,
    :insurance_providers, :functional_statuses]
 
   embeds_many :provider_performances
@@ -98,14 +97,14 @@ class Record
 
   memoize :entries_for_oid
 
-  alias :clinical_trial_participant :clinicalTrialParticipant
-  alias :clinical_trial_participant= :clinicalTrialParticipant=
-
   # Remove duplicate entries from a section based on cda_identifier or id.
   # This method may lose information because it does not compare entries
   # based on clinical content
   def dedup_section_ignoring_content!(section)
     unique_entries = self.send(section).uniq do |entry|
+      entry.references.each do |ref|
+        ref.resolve_referenced_id
+      end
       entry.identifier
     end
     self.send("#{section}=", unique_entries)
@@ -113,12 +112,16 @@ class Record
   def dedup_section_merging_codes_and_values!(section)
     unique_entries = {}
     self.send(section).each do |entry|
+      entry.references.each do |ref|
+        ref.resolve_referenced_id
+      end
       if unique_entries[entry.identifier]
         unique_entries[entry.identifier].codes = unique_entries[entry.identifier].codes.deep_merge(entry.codes){ |key, old, new| Array.wrap(old) + Array.wrap(new) }
         unique_entries[entry.identifier].values.concat(entry.values)
       else
         unique_entries[entry.identifier] = entry
       end
+      
     end
     self.send("#{section}=", unique_entries.values)
   end

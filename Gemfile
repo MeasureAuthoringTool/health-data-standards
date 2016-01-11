@@ -1,11 +1,10 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
 
 gemspec :development_group => :test
 
 group :development do
   gem 'rake'
-  gem 'pry', '~> 0.9.10'
-  gem 'pry-nav', '~> 0.2.2', platforms: [:ruby_21, :ruby_22]
+  gem 'byebug', '~> 6.0.2',  platforms: [:ruby_20, :ruby_21, :ruby_22]
 end
 
 group :test do
@@ -18,5 +17,7 @@ group :test do
   gem "minitest", "~> 5.3"
   gem 'minitest-reporters'
   gem 'awesome_print', :require => 'ap'
+
+  gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
 
 end
