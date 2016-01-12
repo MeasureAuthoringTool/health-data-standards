@@ -8,6 +8,12 @@ module HealthDataStandards
       field :categories, type: Hash
       field :bonnie_version_hash, type: String #incoproates oid, version and concepts
 
+      def bonnie_version_hash
+        existing = super()
+        return existing if existing
+        self.bonnie_version_hash = HealthDataStandards::SVS::ValueSet.generate_bonnie_hash(self)
+      end
+
       belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle", inverse_of: :value_sets
 
       index({oid: 1})
