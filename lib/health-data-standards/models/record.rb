@@ -109,6 +109,11 @@ class Record
     end
     self.send("#{section}=", unique_entries)
   end
+
+  def dedupe_section_naively!(section)
+    self.send("#{section}=", self.send(section).uniq)
+  end
+
   def dedup_section_merging_codes_and_values!(section)
     unique_entries = {}
     self.send(section).each do |entry|
@@ -121,13 +126,19 @@ class Record
       else
         unique_entries[entry.identifier] = entry
       end
-      
+
     end
     self.send("#{section}=", unique_entries.values)
   end
 
   def dedup_section!(section)
-    [:encounters, :procedures, :results].include?(section) ? dedup_section_merging_codes_and_values!(section) : dedup_section_ignoring_content!(section)
+    if [:encounters, :procedures, :results].include?(section)
+      dedup_section_merging_codes_and_values!(section)
+    elsif [:medications].include?(section)
+      dedupe_section_naively!(section)
+    else
+      dedup_section_ignoring_content!(section)
+    end
   end
   def dedup_record!
     Record::Sections.each {|section| self.dedup_section!(section)}
