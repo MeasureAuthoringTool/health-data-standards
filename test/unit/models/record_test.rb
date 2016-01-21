@@ -93,4 +93,15 @@ class RecordTest < Minitest::Test
 
     assert_equal 3, record.encounters.size
   end
+
+  def test_dedup_section_naively
+    # fixture: patient_with_duplicated_medications_section.json
+    record = Record.where(first: "GP_Peds").first
+
+    assert_equal 37, record.medications.size
+
+    record.dedup_record!
+
+    assert_equal 29, record.medications.size
+  end
 end
