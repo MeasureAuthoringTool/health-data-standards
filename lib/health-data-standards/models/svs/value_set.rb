@@ -6,7 +6,7 @@ module HealthDataStandards
       field :display_name, type: String
       field :version, type: String
       field :categories, type: Hash
-      field :bonnie_version_hash, type: String #incoproates oid, version and concepts
+      field :bonnie_version_hash, type: String # Incoproates oid, version and concepts
 
       belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle", inverse_of: :value_sets
 
@@ -19,6 +19,7 @@ module HealthDataStandards
       index "concepts.display_name" => 1
       index "bundle_id" => 1
       scope :by_oid, ->(oid){where(:oid => oid)}
+      scope :by_bonnie_version_hash, ->(bonnie_version_hash){where(:bonnie_version_hash => bonnie_version_hash)}
 
       before_save do |document|
         if (document.bonnie_version_hash.nil?)

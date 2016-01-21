@@ -14,13 +14,7 @@ module HealthDataStandards
       scope :by_code_system,  ->(cs){where(code_system: cs)}
       
       def ==(comp)
-        if (self.code != comp.code)
-          return false
-        end
-        if (self.code_system_name != comp.code_system_name)
-          return false
-        end
-        return true
+        self.code == comp.code && self.code_system_name == comp.code_system_name
       end
     end
   end
