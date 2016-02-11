@@ -6,6 +6,7 @@
     
     if reason.present?
       vset = oid_for_code(reason,reason_oids, entry.record["bundle_id"])
+      if vset
   -%>
 <entryRelationship typeCode="RSON">
   <observation classCode="OBS" moodCode="EVN">
@@ -36,10 +37,9 @@
        <% if reason.respond_to?('title') || reason.has_key?('title') -%>
          displayName="<%=reason['title']%>"
        <% end -%>
-       <% if vset -%>
          sdtc:valueSet="<%= vset %>"
-       <% end -%>
          />
   </observation>
 </entryRelationship>
+  <% end -%>
 <% end -%>
