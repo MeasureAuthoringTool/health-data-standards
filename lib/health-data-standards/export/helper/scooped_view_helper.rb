@@ -28,6 +28,9 @@ module HealthDataStandards
             data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                               (data_criteria.status || ""),
                                                                               data_criteria.negation)
+          data_criteria_oid ||= HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
+                                                                                (data_criteria.status || ""),
+                                                                                data_criteria.negation, "r2")
 
             # change a transfer to an encounter since we pull back and write encounters
             if ['2.16.840.1.113883.3.560.1.71', '2.16.840.1.113883.3.560.1.72'].include? data_criteria_oid
@@ -63,6 +66,10 @@ module HealthDataStandards
             data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                                         data_criteria.status || '',
                                                                                         data_criteria.negation)
+            data_criteria_oid ||= HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
+                                                                                        data_criteria.status || '',
+                                                                                        data_criteria.negation, "r2")
+
             if entry.respond_to?(:oid) && (entry.oid == data_criteria_oid)
               codes = *(value_set_map(entry.record["bundle_id"])[data_criteria_info['value_set_oid']] || [])
               if codes.empty?
@@ -83,6 +90,9 @@ module HealthDataStandards
           data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                                       data_criteria.status || '',
                                                                                        data_criteria.negation)
+          data_criteria_oid ||= HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
+                                                                                      data_criteria.status || '',
+                                                                                      data_criteria.negation, "r2")
           HealthDataStandards.logger.warn("Looking for dc [#{data_criteria_oid}]")
           filtered_entries = []
           entries = []
