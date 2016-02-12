@@ -12,14 +12,12 @@
         <low <%= value_or_null_flavor(entry.start_time) %>/>
         <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
-
     <% if entry.administrationTiming.present?
       period = entry.administrationTiming['period'] %>
       <effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A">
         <period value="<%= period['value']%>" unit="<%= period['unit']%>"/>
       </effectiveTime>
     <% end %>
-
     <%== render(:partial => 'medication_details', :locals => {:entry => entry, :route_oids=>field_oids["ROUTE"]}) %>
 
     <% if entry.product_form.present? -%>
