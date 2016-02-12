@@ -9,6 +9,8 @@
             <% end -%>
            />
 <% end -%>
-<% if entry.respond_to?(:dose) && entry.dose.present? -%>
+<% if entry.negationInd %>
+	<doseQuantity nullFlavor="NA"/>
+<% elsif entry.respond_to?(:dose) && entry.dose.present? -%>
 <doseQuantity <%= dose_quantity(entry.codes, entry.dose) %>/>
 <% end -%>
