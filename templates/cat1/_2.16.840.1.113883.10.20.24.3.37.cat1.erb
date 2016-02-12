@@ -1,5 +1,5 @@
 <entry>
-  <observation classCode="OBS" moodCode="RQO">
+  <observation classCode="OBS" moodCode="RQO" <%== negation_indicator(entry) %>>
     <!-- Consolidation Plan of Care Activity Observation -->
     <templateId root="2.16.840.1.113883.10.20.22.4.44" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
     <!-- Lab Test Order -->
@@ -17,5 +17,6 @@
         <id nullFlavor="NA" root="<%= UUID.generate %>"/>
       </assignedAuthor>
     </author>
+    <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"], :r2_compatibility => r2_compatibility}) %>
   </observation>
 </entry>
