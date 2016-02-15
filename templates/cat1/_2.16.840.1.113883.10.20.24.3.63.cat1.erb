@@ -8,11 +8,9 @@
     <%== code_display(entry, 'value_set_map' => value_set_map, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-PCS', 'ICD-10-PCS'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
     <text><%= entry.description %></text>
     <statusCode code="new"/>
-    <!-- Attribute: method--> 
-    <methodCode nullFlavor="UNK"/>
-    
     <!-- Attribute: datetime --> 
     <author>
+      <templateId root="2.16.840.1.113883.10.20.22.4.119"/>
       <time <%= value_or_null_flavor(entry.start_time) %>/> 
       <assignedAuthor>
         <id nullFlavor="NA"/>
