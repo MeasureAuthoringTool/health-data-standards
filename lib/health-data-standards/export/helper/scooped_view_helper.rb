@@ -20,7 +20,7 @@ module HealthDataStandards
         # Given a set of measures, find the data criteria/value set pairs that are unique across all of them
         # Returns an Array of Hashes. Hashes will have a three key/value pairs. One for the data criteria oid,
         # one for the value set oid and one for the data criteria itself
-        def unique_data_criteria(measures)
+        def unique_data_criteria(measures, r2_compatibility)
           all_data_criteria = measures.map {|measure| measure.all_data_criteria}.flatten
           mapped_data_criteria = {}
 
@@ -33,8 +33,10 @@ module HealthDataStandards
                                                                                 data_criteria.negation, "r2")
 
             # change a transfer to an encounter since we pull back and write encounters
-            if ['2.16.840.1.113883.3.560.1.71', '2.16.840.1.113883.3.560.1.72'].include? data_criteria_oid
-              data_criteria_oid = '2.16.840.1.113883.3.560.1.79'
+            if r2_compatibility
+              if ['2.16.840.1.113883.3.560.1.71', '2.16.840.1.113883.3.560.1.72'].include? data_criteria_oid
+                data_criteria_oid = '2.16.840.1.113883.3.560.1.79'
+              end
             end
 
             value_set_oid = data_criteria.code_list_id

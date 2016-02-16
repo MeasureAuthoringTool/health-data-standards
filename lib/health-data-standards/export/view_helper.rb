@@ -35,6 +35,7 @@ module HealthDataStandards
         end
         
         code_string += "</#{options['tag_name']}>"
+
         code_string
       end
             
@@ -67,10 +68,10 @@ module HealthDataStandards
       end
 
       def dose_quantity(codes, dose)
-        if (codes["RxNorm"].present?)
+        if (codes["RxNorm"].present? || codes["CVX"].present?)
           return "value='1'"
         else
-          return "value=#{dose['value']} unit=#{dose['unit']}" 
+          return "value='#{dose['scalar']}' unit='#{dose['units']}'"
         end
       end
 

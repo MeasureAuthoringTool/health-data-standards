@@ -25,7 +25,12 @@
             <low <%= value_or_null_flavor(entry.start_time) %>/>
             <high <%= value_or_null_flavor(entry.end_time) %>/>
         </effectiveTime>
-        
+        <% if entry.administrationTiming.present?
+          period = entry.administrationTiming['period'] %>
+          <effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A">
+            <period value="<%= period['value']%>" unit="<%= period['unit']%>"/>
+          </effectiveTime>
+        <% end %>
         <% if entry.route.present? -%>
         <!-- Attribute: route -->
         <routeCode code="<%= entry.route['code'] %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.route['code_system']) %>"/>
@@ -33,9 +38,8 @@
         
         <!-- Attribute: dose -->
         <% if entry.dose.present? -%>
-        <doseQuantity value="<%= entry.dose['value']%>"/>
+          <doseQuantity value="<%= entry.dose['value']%>"/>
         <% end -%>
-
 
         <% if entry.product_form.present? -%>
         <administrationUnitCode code="<%= entry.product_form['code'] %>" codeSystem="<%= entry.product_form['codeSystem'] %>"/>
