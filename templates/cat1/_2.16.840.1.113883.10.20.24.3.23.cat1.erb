@@ -56,7 +56,7 @@
     <% if entry.respond_to?(:transferFrom) && entry.transferFrom.present? -%>
     <participant typeCode="ORG">
       <!-- Transfer From (Destination) template --> 
-      <templateId root="2.16.840.1.113883.10.20.24.3.81" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/> 
+      <templateId root="2.16.840.1.113883.10.20.24.3.81"/> 
       <time <%= value_or_null_flavor(entry.transferFrom.time) %>/>
       <participantRole classCode="LOCE">
         <% 
@@ -74,7 +74,7 @@
     <% if entry.respond_to?(:transferTo) && entry.transferTo.present? -%>
     <participant typeCode="DST">
       <!-- Transfer To (Destination) template --> 
-      <templateId root="2.16.840.1.113883.10.20.24.3.82" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/> 
+      <templateId root="2.16.840.1.113883.10.20.24.3.82"/> 
       <time <%= value_or_null_flavor(entry.transferTo.time) %>/>
       <participantRole classCode="LOCE">
         <% 
