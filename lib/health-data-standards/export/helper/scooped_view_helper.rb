@@ -42,7 +42,6 @@ module HealthDataStandards
             value_set_oid = data_criteria.code_list_id
             dc = {'data_criteria_oid' => data_criteria_oid, 'value_set_oid' => value_set_oid}
             mapping = mapped_data_criteria[dc] ||= {'result_oids' => [], 'field_oids' =>{}, 'data_criteria' => data_criteria}
-
             if data_criteria.field_values
               data_criteria.field_values.each_pair do |field,descr|
                 if descr && descr.type == "CD"
@@ -50,7 +49,9 @@ module HealthDataStandards
                 end
               end
             end
-
+            if data_criteria.negation
+              (mapping['field_oids']["REASON"] ||= []) << data_criteria.negation_code_list_id
+            end
             if data_criteria.value && data_criteria.value.type == "CD"
               mapping["result_oids"] << data_criteria.value.code_list_id
             end
