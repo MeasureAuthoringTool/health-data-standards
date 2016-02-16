@@ -52,7 +52,7 @@
       </participantRole>
     </participant>
     <% end -%>
-
+    <% if r2_compatibility %>
     <% if entry.respond_to?(:transferFrom) && entry.transferFrom.present? -%>
     <participant typeCode="ORG">
       <!-- Transfer From (Destination) template --> 
@@ -87,6 +87,7 @@
         <%== code_display(entry.transferTo, options) %>
       </participantRole> 
     </participant>
+    <% end -%>
     <% end -%>
 
     <% if entry.reason.present? -%>

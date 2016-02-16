@@ -68,7 +68,7 @@ module HealthDataStandards
       end
 
       def dose_quantity(codes, dose)
-        if (codes["RxNorm"].present?)
+        if (codes["RxNorm"].present? || codes["CVX"].present?)
           return "value='1'"
         else
           return "value='#{dose['scalar']}' unit='#{dose['units']}'"
