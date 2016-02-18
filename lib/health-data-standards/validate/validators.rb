@@ -11,7 +11,7 @@ module HealthDataStandards
 
     CDA_SDTC_SCHEMA = 'resources/schema/infrastructure/cda/CDA_SDTC.xsd'
     QRDA_CAT1_SCHEMATRON = 'resources/schematron/qrda/cat_1_r2/QRDA Category I Release 2.sch'
-    QRDA_CAT1_R3_SCHEMATRON = 'resources/schematron/qrda/cat_1/CDAR2_QRDA_I_R1_DTSU3_2016JAN.sch'
+    QRDA_CAT1_R3_SCHEMATRON = 'resources/schematron/qrda/cat_1/HL7_CDAR2_QRDA_Category_I_2_12_16.sch'
     QRDA_CAT3_SCHEMATRON = 'resources/schematron/qrda/cat_3/QRDA Category III.sch'
     BASE_DIR = File.expand_path("../../../../", __FILE__)
 
