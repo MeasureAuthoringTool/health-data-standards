@@ -116,7 +116,7 @@ class Cat1Test < Minitest::Test
   end
 
   def test_unique_data_criteria
-    pairs = unique_data_criteria(@measures)
+    pairs = unique_data_criteria(@measures, false)
     assert pairs
     assert pairs.any? do |p|
       p['data_criteria_oid'] == "2.16.840.1.113883.3.560.1.8" &&
