@@ -49,6 +49,15 @@ module HealthDataStandards
 
         private
 
+        def extract_negation(parent_element, medication)
+          negation_indicator = parent_element['negationInd']
+          if negation_indicator.nil? && parent_element.parent.name == "entryRelationship"
+            super(parent_element.parent.parent, medication)
+          elsif negation_indicator.eql?('true')
+            super(parent_element, medication)
+          end
+        end
+
         def extract_fulfillment_history(parent_element, medication)
           fhs = parent_element.xpath("./cda:entryRelationship/cda:supply[@moodCode='EVN']")
           if fhs
