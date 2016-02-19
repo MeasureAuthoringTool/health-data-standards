@@ -10,7 +10,7 @@
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
     <entryRelationship typeCode="COMP">
-      <substanceAdministration classCode="SBADM" moodCode="EVN" <%== negation_indicator(entry) %>>
+      <substanceAdministration classCode="SBADM" moodCode="EVN">
         <!-- Medication Activity (consolidation) template -->
         <templateId root="2.16.840.1.113883.10.20.22.4.16" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
         <id root="<%= UUID.generate %>"/>
