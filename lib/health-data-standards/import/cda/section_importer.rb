@@ -189,6 +189,25 @@ module HealthDataStandards
           end
         end
 
+        def extract_reason(parent_element, entry)
+          negation_indicator = parent_element['negationInd']
+          is_reason = false
+          if negation_indicator.nil?
+            is_reason = true
+          elsif negation_indicator.eql?('false')
+            is_reason = true
+          end
+          if is_reason
+            reason_element = parent_element.at_xpath("./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value | ./cda:entryRelationship[@typeCode='RSON']/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:code")
+            if reason_element
+              code_system_oid = reason_element['codeSystem']
+              code = reason_element['code']
+              code_system = HealthDataStandards::Util::CodeSystemHelper.code_system_for(code_system_oid)
+              entry.reason = {'code' => code, 'code_system' => code_system, 'codeSystem' => code_system}
+            end
+          end
+        end
+
         def extract_code(parent_element, code_xpath, code_system=nil)
           code_element = parent_element.at_xpath(code_xpath)
           code_hash = nil
