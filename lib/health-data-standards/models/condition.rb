@@ -5,7 +5,7 @@ class Condition < Entry
   field :priority,          type: Integer
   field :name,              type: String
   field :ordinality,        type: Hash
-  field :severity,          type: Hash # Currently unsupported by any importers
+  field :severity,          type: Hash
   field :laterality,        type: Hash
   field :anatomical_target, type: Hash
   field :anatomical_location, type: Hash

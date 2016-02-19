@@ -41,7 +41,7 @@
     <%== render(:partial => 'ordinality', :locals => {:entry => entry, :ordinality_oids=>field_oids["ORDINAL"]}) %>
     
     <%== code_display(entry, {'tag_name' => 'value', 'value_set_map' => value_set_map,'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'],
-                                                    'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\""}) %>
+                                                    'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"", 'laterality' => entry.laterality}) %>
 
     <entryRelationship typeCode="REFR">
       <observation classCode="OBS" moodCode="EVN">
