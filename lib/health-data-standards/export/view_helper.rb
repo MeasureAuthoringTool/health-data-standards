@@ -33,6 +33,11 @@ module HealthDataStandards
             code_string += "<translation code=\"#{translation['code']}\" codeSystem=\"#{HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(translation['code_set'])}\"/>\n"
           end
         end
+
+        if options["laterality"]
+          code_string += "\n<!-- QDM Attribute: Laterality -->\n<qualifier>\n<name code='182353008' codeSystem='2.16.840.1.113883.6.96' displayName='Side' />\n"
+          code_string += "<value xsi:type='CD' code='#{options['laterality']['code']}' displayName='#{options['laterality']['title']}' codeSystem='#{HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(options['laterality']['code_system'])}'/>\n</qualifier>\n"
+        end
         
         code_string += "</#{options['tag_name']}>"
 
