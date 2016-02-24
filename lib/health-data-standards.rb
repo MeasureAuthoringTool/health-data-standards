@@ -160,6 +160,8 @@ require_relative 'health-data-standards/import/cat1/symptom_active_importer'
 require_relative 'health-data-standards/import/cat1/insurance_provider_importer'
 require_relative 'health-data-standards/import/cat1/procedure_importer'
 require_relative 'health-data-standards/import/cat1/clinical_trial_participant_importer'
+require_relative 'health-data-standards/import/cat1/transfer_from_importer.rb'
+require_relative 'health-data-standards/import/cat1/transfer_to_importer.rb'
 
 require_relative 'health-data-standards/import/bundle/importer'
 

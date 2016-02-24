@@ -9,6 +9,7 @@ module HealthDataStandards
       # This class is a Singleton. It should be accessed by calling PatientImporter.instance
       class PatientImporter
         include Singleton
+        include HealthDataStandards::Util
 
         def initialize
           # This differs from other HDS patient importers in that sections can have multiple importers
@@ -61,7 +62,10 @@ module HealthDataStandards
                                           generate_importer(LabResultImporter, nil, '2.16.840.1.113883.3.560.1.12')] #lab result
 
           @section_importers[:encounters] = [generate_importer(EncounterPerformedImporter, "./cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']", '2.16.840.1.113883.3.560.1.79', 'performed'), #encounter performed
-                                             generate_importer(EncounterOrderImporter, nil, '2.16.840.1.113883.3.560.1.83', 'ordered')]
+                                             generate_importer(EncounterOrderImporter, nil, '2.16.840.1.113883.3.560.1.83', 'ordered'),
+                                             generate_importer(TransferToImporter, nil, '2.16.840.1.113883.3.560.1.72'),
+                                             generate_importer(TransferFromImporter, nil, '2.16.840.1.113883.3.560.1.71')
+                                           ]
 
           @section_importers[:social_history] = [generate_importer(TobaccoUseImporter, nil, '2.16.840.1.113883.3.560.1.1001', 'completed')]
 
@@ -91,8 +95,11 @@ module HealthDataStandards
         end
 
         def get_patient_expired(record, doc)
-          entry_elements = doc.xpath("./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.54']")
-          record.expired = true unless entry_elements.empty?
+          entry_elements = doc.xpath("/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.24.2.1']/cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.54']")
+          if !entry_elements.empty?
+            record.expired = true
+            record.deathdate = HL7Helper.timestamp_to_integer(entry_elements.at_xpath("./cda:effectiveTime/cda:low")['value'])
+          end
         end
 
         private
