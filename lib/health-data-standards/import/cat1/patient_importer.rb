@@ -9,6 +9,7 @@ module HealthDataStandards
       # This class is a Singleton. It should be accessed by calling PatientImporter.instance
       class PatientImporter
         include Singleton
+        include HealthDataStandards::Util
 
         def initialize
           # This differs from other HDS patient importers in that sections can have multiple importers
@@ -62,7 +63,10 @@ module HealthDataStandards
                                           generate_importer(LabResultImporter, nil, '2.16.840.1.113883.3.560.1.12')] #lab result
 
           @section_importers[:encounters] = [generate_importer(EncounterPerformedImporter, "./cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']", '2.16.840.1.113883.3.560.1.79', 'performed'), #encounter performed
-                                             generate_importer(EncounterOrderImporter, nil, '2.16.840.1.113883.3.560.1.83', 'ordered')]
+                                             generate_importer(EncounterOrderImporter, nil, '2.16.840.1.113883.3.560.1.83', 'ordered'),
+                                             generate_importer(TransferToImporter, nil, '2.16.840.1.113883.3.560.1.72'),
+                                             generate_importer(TransferFromImporter, nil, '2.16.840.1.113883.3.560.1.71')
+                                           ]
 
           @section_importers[:social_history] = [generate_importer(TobaccoUseImporter, nil, '2.16.840.1.113883.3.560.1.1001', 'completed')]
 
