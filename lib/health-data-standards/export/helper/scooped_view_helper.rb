@@ -146,12 +146,14 @@ module HealthDataStandards
               elsif data_criteria_oid == '2.16.840.1.113883.3.560.1.71'
                 if (entry.transferFrom)
                   entry.transferFrom.codes[entry.transferFrom.code_system] = [entry.transferFrom.code]
-                  entry.transferFrom.codes_in_code_set(codes).values.first.size > 0
+                  tfc = entry.transferFrom.codes_in_code_set(codes).values.first
+                  tfc && !tfc.empty?
                 end
               elsif data_criteria_oid == '2.16.840.1.113883.3.560.1.72'
                 if (entry.transferTo)
                   entry.transferTo.codes[entry.transferTo.code_system] = [entry.transferTo.code]
-                  entry.transferTo.codes_in_code_set(codes).values.first.size > 0
+                  ttc = entry.transferTo.codes_in_code_set(codes).values.first
+                  ttc && !ttc.empty?
                 end
               else
                 # The !! hack makes sure that negation_ind is a boolean

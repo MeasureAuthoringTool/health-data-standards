@@ -12,7 +12,7 @@ module HealthDataStandards
           procedure.status_code = {'HL7 ActStatus' => ['ordered']}
           extract_performer(entry_element, procedure)
           extract_anatomical_target(entry_element, procedure)
-          extract_negation(entry_element, procedure)
+          extract_reason_or_negation(entry_element, procedure)
           procedure
         end
 

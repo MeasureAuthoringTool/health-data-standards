@@ -42,14 +42,14 @@ module HealthDataStandards
           extract_order_information(entry_element, medication)
 
           extract_fulfillment_history(entry_element, medication)
-          extract_negation(entry_element, medication)
+          extract_reason_or_negation(entry_element, medication)
 
           medication
         end
 
         private
 
-        def extract_negation(parent_element, medication)
+        def extract_reason_or_negation(parent_element, medication)
           negation_indicator = parent_element['negationInd']
           if negation_indicator.nil? && parent_element.parent.name == "entryRelationship"
             super(parent_element.parent.parent, medication)

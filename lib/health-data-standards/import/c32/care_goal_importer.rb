@@ -18,7 +18,7 @@ module HealthDataStandards
                        end
             
           entry = importer.create_entry(goal_element, nrh)
-          extract_negation(goal_element, entry)
+          extract_reason_or_negation(goal_element, entry)
 
           entry
         end
