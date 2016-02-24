@@ -9,7 +9,6 @@ module HealthDataStandards
       # This class is a Singleton. It should be accessed by calling PatientImporter.instance
       class PatientImporter
         include Singleton
-        include HealthDataStandards::Util
 
         def initialize
           # This differs from other HDS patient importers in that sections can have multiple importers
