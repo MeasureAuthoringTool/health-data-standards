@@ -20,7 +20,7 @@ module HealthDataStandards
           condition = super
 
           extract_ordinality(entry_element, condition)
-          extract_negation(entry_element, condition)
+          extract_reason_or_negation(entry_element, condition)
           extract_priority(entry_element, condition)
 
           if @provider_xpath

@@ -76,6 +76,7 @@ module HealthDataStandards
           import_sections(record, doc)
           get_patient_expired(record, doc)
           record.dedup_record!
+          normalize_references(record)
           record
         end
 
@@ -92,8 +93,27 @@ module HealthDataStandards
         end
 
         def get_patient_expired(record, doc)
-          entry_elements = doc.xpath("./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.54']")
-          record.expired = true unless entry_elements.empty?
+          entry_elements = doc.xpath("/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.24.2.1']/cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.54']")
+          if !entry_elements.empty?
+            record.expired = true
+            record.deathdate = HealthDataStandards::Util::HL7Helper.timestamp_to_integer(entry_elements.at_xpath("./cda:effectiveTime/cda:low")['value'])
+          end
+        end
+
+        def normalize_references(record)
+          ref_ids = {}
+          record.procedures.each do |procedure|
+            if procedure.cda_identifier
+              ref_ids[procedure.cda_identifier.extension] = procedure._id
+            end
+          end
+          if ref_ids
+            record.communications.each do |communication|
+              communication.references.each do |reference|
+                reference.referenced_id = ref_ids[reference.referenced_id].to_s if ref_ids.has_key?(reference.referenced_id)
+              end
+            end
+          end
         end
 
         private

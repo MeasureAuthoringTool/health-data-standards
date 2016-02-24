@@ -16,7 +16,7 @@ module HealthDataStandards
     
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
           allergy = super
-          extract_negation(entry_element, allergy)
+          extract_reason_or_negation(entry_element, allergy)
           allergy.type = extract_code(entry_element, @type_xpath)
           allergy.reaction = extract_code(entry_element, @reaction_xpath)
           allergy.severity = extract_code(entry_element, @severity_xpath)
