@@ -12,7 +12,7 @@ module HealthDataStandards
 
         def create_entry(entry_element, nrh = CDA::NarrativeReferenceHandler.new)
           immunization = super
-          extract_negation(entry_element, immunization)
+          extract_reason_or_negation(entry_element, immunization)
           extract_performer(entry_element, immunization)
           immunization
         end

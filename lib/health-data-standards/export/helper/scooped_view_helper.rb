@@ -38,11 +38,14 @@ module HealthDataStandards
                 data_criteria_oid = '2.16.840.1.113883.3.560.1.79'
               end
             end
-
             value_set_oid = data_criteria.code_list_id
+            if data_criteria_oid == '2.16.840.1.113883.3.560.1.71'
+              value_set_oid = data_criteria.field_values['TRANSFER_FROM'].code_list_id
+            elsif data_criteria_oid == '2.16.840.1.113883.3.560.1.72'
+              value_set_oid = data_criteria.field_values['TRANSFER_TO'].code_list_id
+            end
             dc = {'data_criteria_oid' => data_criteria_oid, 'value_set_oid' => value_set_oid}
             mapping = mapped_data_criteria[dc] ||= {'result_oids' => [], 'field_oids' =>{}, 'data_criteria' => data_criteria}
-
             if data_criteria.field_values
               data_criteria.field_values.each_pair do |field,descr|
                 if descr && descr.type == "CD"
@@ -50,7 +53,9 @@ module HealthDataStandards
                 end
               end
             end
-
+            if data_criteria.negation
+              (mapping['field_oids']["REASON"] ||= []) << data_criteria.negation_code_list_id
+            end
             if data_criteria.value && data_criteria.value.type == "CD"
               mapping["result_oids"] << data_criteria.value.code_list_id
             end
@@ -141,12 +146,14 @@ module HealthDataStandards
               elsif data_criteria_oid == '2.16.840.1.113883.3.560.1.71'
                 if (entry.transferFrom)
                   entry.transferFrom.codes[entry.transferFrom.code_system] = [entry.transferFrom.code]
-                  !entry.transferFrom.codes_in_code_set(codes).empty?
+                  tfc = entry.transferFrom.codes_in_code_set(codes).values.first
+                  tfc && !tfc.empty?
                 end
               elsif data_criteria_oid == '2.16.840.1.113883.3.560.1.72'
                 if (entry.transferTo)
                   entry.transferTo.codes[entry.transferTo.code_system] = [entry.transferTo.code]
-                  !entry.transferTo.codes_in_code_set(codes).empty?
+                  ttc = entry.transferTo.codes_in_code_set(codes).values.first
+                  ttc && !ttc.empty?
                 end
               else
                 # The !! hack makes sure that negation_ind is a boolean
