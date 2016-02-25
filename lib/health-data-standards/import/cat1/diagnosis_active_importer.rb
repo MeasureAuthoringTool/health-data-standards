@@ -8,7 +8,7 @@ module HealthDataStandards
           @status_xpath = nil # We'll hardcode this to active in create entry because this is from the 
                               # diagnosis active template
           @severity_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.8']/cda:value"                    
-          @laterality_xpath = "./cda:value/cda:qualifier[cda:name/@code='182353008']/cda:value"
+          @laterality_xpath = "./cda:targetSiteCode"
         end
 
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
