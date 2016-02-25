@@ -41,8 +41,16 @@
     <%== render(:partial => 'ordinality', :locals => {:entry => entry, :ordinality_oids=>field_oids["ORDINAL"]}) %>
     
     <%== code_display(entry, {'tag_name' => 'value', 'value_set_map' => value_set_map,'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'],
-                                                    'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"", 'laterality' => entry.laterality}) %>
-
+                                                    'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\""}) %>
+    <% if entry.laterality %>
+      <targetSiteCode code="<%= entry.laterality['code'] %>"
+                codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.laterality['codeSystem'] || entry.laterality['code_system']) %>"
+              <% if entry.laterality.has_key?('title') -%>
+                displayName="<%=entry.laterality['title']%>"
+              <% end -%>
+                sdtc:valueSet="<%= field_oids['LATERALITY'][0] %>"
+            />
+    <% end %>
     <entryRelationship typeCode="REFR">
       <observation classCode="OBS" moodCode="EVN">
         <!-- Problem Status (consolidation) template -->
