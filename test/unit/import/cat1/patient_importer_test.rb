@@ -65,7 +65,7 @@ class PatientImporterTest < Minitest::Test
 
   def test_comm_prov_to_patient
     patient = build_record_from_xml('test/fixtures/cat1_fragments/comm_prov_to_patient_fragment.xml')
-    communication = patient.procedures.first
+    communication = patient.communications.first
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20100605220000')
     assert communication.codes['LOINC'].include?('69981-9')
     assert_equal expected_start, communication.start_time
@@ -73,7 +73,7 @@ class PatientImporterTest < Minitest::Test
 
   def test_comm_patient_to_prov
     patient = build_record_from_xml('test/fixtures/cat1_fragments/comm_patient_to_provider_fragment.xml')
-    communication = patient.procedures.first
+    communication = patient.communications.first
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20101027165345')
     assert communication.codes['SNOMED-CT'].include?('315640000')
     assert_equal expected_start, communication.start_time
@@ -119,7 +119,7 @@ class PatientImporterTest < Minitest::Test
 
   def test_comm_prov_to_prov
     patient = build_record_from_xml('test/fixtures/cat1_fragments/comm_provider_to_provider_fragment.xml')
-    communication = patient.procedures.first
+    communication = patient.communications.first
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19810627142601')
     assert communication.codes['SNOMED-CT'].include?('371545006')
     assert_equal expected_start, communication.start_time
