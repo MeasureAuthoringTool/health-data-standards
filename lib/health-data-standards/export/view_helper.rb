@@ -75,7 +75,18 @@ module HealthDataStandards
             return "value='1'"
           end
         else
-          return "value='#{dose['scalar']}' unit='#{dose['units']}'"
+          return "value='#{dose['scalar']}' unit='#{dose['unit']}'"
+        end
+      end
+
+      def ucum_for_dose_quantity(unit)
+        case unit
+        when 'capsule(s)'
+          '{Capsule}'
+        when 'tablet(s)'
+          '{tbl}'
+        else
+          unit
         end
       end
 
