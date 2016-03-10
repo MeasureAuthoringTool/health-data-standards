@@ -124,8 +124,7 @@ module HQMF2
 
       # Extract measure attributes
       # TODO: Review
-      @attributes = @doc.xpath('/cda:QualityMeasureDocument/cda:subjectOf/cda:measureAttribute', NAMESPACES)
-                    .collect do |attribute|
+      @attributes = @doc.xpath('/cda:QualityMeasureDocument/cda:subjectOf/cda:measureAttribute', NAMESPACES).collect do |attribute|
         read_attribute(attribute)
       end
 
@@ -233,8 +232,7 @@ module HQMF2
       end
 
       # Extract the source data criteria from data criteria
-      @source_data_criteria, collapsed_source_data_criteria = SourceDataCriteriaHelper.get_source_data_criteria_list(
-        extracted_criteria, @data_criteria_references, @occurrences_map)
+      @source_data_criteria, collapsed_source_data_criteria = SourceDataCriteriaHelper.get_source_data_criteria_list(extracted_criteria, @data_criteria_references, @occurrences_map)
 
       extracted_criteria.each do |entry|
         criteria = DataCriteria.new(entry, @data_criteria_references, @occurrences_map)
@@ -254,9 +252,11 @@ module HQMF2
       if criteria && (@data_criteria_references[criteria.id].try(:code_list_id).nil?)
         @data_criteria_references[criteria.id] = criteria
       end
+
       if collapsed_source_data_criteria.key?(criteria.id)
         criteria.instance_variable_set(:@source_data_criteria, collapsed_source_data_criteria[criteria.id])
       end
+
       handle_variable(criteria) if criteria.variable
       handle_specific_source_data_criteria_reference(criteria)
       @reference_ids.concat(criteria.children_criteria)
@@ -270,11 +270,20 @@ module HQMF2
     # For specific occurrence data criteria, make sure the source data criteria reference points
     # to the correct source data criteria.
     def handle_specific_source_data_criteria_reference(criteria)
+      # sdc = find(@source_data_criteria, :id, criteria.source_data_criteria)
+      # if criteria && !criteria.specific_occurrence.nil? && !sdc.nil? && 
+      #   sdc.specific_occurrence.nil? && !find(@source_data_criteria, :id, criteria.id).nil?
+      # end
       original_sdc = find(@source_data_criteria, :id, criteria.source_data_criteria)
       updated_sdc = find(@source_data_criteria, :id, criteria.id)
-      if !updated_sdc.nil? && !criteria.specific_occurrence.nil? && 
-          (original_sdc.nil? || original_sdc.specific_occurrence.nil?)
+      if !updated_sdc.nil? && !criteria.specific_occurrence.nil? && (original_sdc.nil? || original_sdc.specific_occurrence.nil?)
         criteria.instance_variable_set(:@source_data_criteria, criteria.id)
+      end
+      return if original_sdc.nil?
+      if (criteria.specific_occurrence && !original_sdc.specific_occurrence)
+        original_sdc.instance_variable_set(:@specific_occurrence, criteria.specific_occurrence)
+        original_sdc.instance_variable_set(:@specific_occurrence_const, criteria.specific_occurrence_const)
+        original_sdc.instance_variable_set(:@code_list_id, criteria.code_list_id)
       end
     end
     

@@ -9,7 +9,11 @@ module HQMF2
       @id = strip_tokens(@id)
       @children_criteria.map! { |cc| strip_tokens(cc) }
 
+      # append "_source" to the criteria since all the source criteria are separated from the non-source with the "_source" identifier
+      # the derived source data criteria maintain their original ids since they are duplicated in the data criteria and source data criteria lists from the simple xml
+      @source_data_criteria = "#{@id}_source" unless (@definition == 'derived' || @definition == 'satisfies_all' || @definition == 'satisfies_any')
       @source_data_criteria = strip_tokens(@source_data_criteria) unless @source_data_criteria.nil?
+
       @specific_occurrence_const = strip_tokens(@specific_occurrence_const) unless @specific_occurrence_const.nil?
       change_xproduct_to_intersection
       handle_derived_specific_occurrences
@@ -57,6 +61,9 @@ module HQMF2
     # Apply some elements from the reference_criteria to the derived specific occurrence
     def handle_derived_specific_occurrences
       return unless @definition == 'derived'
+
+      @source_data_criteria = @source_data_criteria.gsub("_source",'') if @source_data_criteria
+
       # Adds a child if none exists (specifically the source criteria)
       @children_criteria << @source_data_criteria if @children_criteria.empty?
       return if @children_criteria.length != 1 ||

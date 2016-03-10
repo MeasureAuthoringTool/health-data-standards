@@ -3,16 +3,16 @@ module HQMF2
   class DataCriteria
     include HQMF2::Utilities, HQMF2::DataCriteriaTypeAndDefinitionExtraction, HQMF2::DataCriteriaPostProcessing
 
+    attr_accessor :id
+    attr_accessor :original_id
     attr_reader :property, :type, :status, :value, :effective_time, :section
     attr_reader :temporal_references, :subset_operators, :children_criteria
     attr_reader :derivation_operator, :negation, :negation_code_list_id, :description
     attr_reader :field_values, :source_data_criteria, :specific_occurrence_const
     attr_reader :specific_occurrence, :comments, :is_derived_specific_occurrence_variable
-    attr_reader :id, :entry, :definition, :variable, :local_variable_name
+    attr_reader :entry, :definition, :variable, :local_variable_name
 
     CRITERIA_GLOB = "*[substring(name(),string-length(name())-7) = \'Criteria\']"
-
-    # TODO: Clean up debug print statements!
 
     # Create a new instance based on the supplied HQMF entry
     # @param [Nokogiri::XML::Element] entry the parsed HQMF entry
@@ -24,8 +24,10 @@ module HQMF2
       @variable = DataCriteriaMethods.extract_variable(@local_variable_name, @id)
       @field_values = DataCriteriaMethods.extract_field_values(@entry, @negation)
       @description = extract_description
+      
       obtain_specific_and_source = SpecificOccurrenceAndSource.new(@entry, @id, @local_variable_name,
                                                                    @data_criteria_references, @occurrences_map)
+      
       # Pulling these 5 variables out via destructing
       @source_data_criteria,
         @source_data_criteria_root,
@@ -97,6 +99,7 @@ module HQMF2
       return unless @variable
       @variable = false
       @id = "GROUP_#{@id}"
+
       if @children_criteria.length == 1 && @children_criteria[0] =~ /GROUP_/
         reference_criteria = @data_criteria_references[@children_criteria.first]
         return if reference_criteria.nil?
@@ -105,8 +108,10 @@ module HQMF2
         @status = reference_criteria.status
         @children_criteria = []
       end
+
       @specific_occurrence = nil
       @specific_occurrence_const = nil
+      @source_data_criteria = @id
       DataCriteria.new(@entry, @data_criteria_references, @occurrences_map).extract_as_grouper
     end
 

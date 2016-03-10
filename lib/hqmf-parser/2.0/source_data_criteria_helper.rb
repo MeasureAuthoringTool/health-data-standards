@@ -17,11 +17,13 @@ module HQMF2
 
     # Rejects any derived elements as they should never be used as source.
     def self.should_reject?(dc)
-      dc.definition == 'derived'
+      dc.definition == 'derived' #&& dc.original_id.nil?
     end
 
     # Removes unnecessary elements from a data criteria to create a source data criteria
     def self.strip_non_sc_elements(dc)
+      # dc.original_id = dc.id
+      # dc.id = "#{dc.id}_source"
       if [HQMF::DataCriteria::SATISFIES_ANY, HQMF::DataCriteria::SATISFIES_ALL].include? dc.definition
         dc.instance_variable_set(:@definition, 'derived')
       end
@@ -39,10 +41,17 @@ module HQMF2
     #  and adds a data criteria reference if none exist
     def self.as_source_data_criteria(entry, data_criteria_references = {}, occurrences_map = {})
       dc = DataCriteria.new(entry, data_criteria_references, occurrences_map)
-      dc = SourceDataCriteriaHelper.strip_non_sc_elements(dc)
-      if dc && (data_criteria_references[dc.id].nil? || data_criteria_references[dc.id].code_list_id.nil?)
-        data_criteria_references[dc.id] = dc
+      dc.original_id = dc.id
+      unless dc.definition == 'derived' # && dc.temporal_references.blank? && dc.subset_operators.blank? && dc.value.blank? && dc.field_values.blank?
+        # add "_source" to the id to differentiate from the non-source
+        dc.id = "#{dc.id}_source"
       end
+      dc = SourceDataCriteriaHelper.strip_non_sc_elements(dc)
+      # add it as a reference
+      if dc && (data_criteria_references[dc.id].nil? || data_criteria_references[dc.id].code_list_id.nil?)
+        data_criteria_references[dc.original_id] = dc
+      end
+
       dc
     end
 
@@ -55,18 +64,30 @@ module HQMF2
       source_data_criteria = full_criteria_list.map do |entry|
         SourceDataCriteriaHelper.as_source_data_criteria(entry, data_criteria_references, occurrences_map)
       end
+
       collapsed_source_data_criteria_map = {}
       uniq_source_data_criteria = {}
       source_data_criteria.each do |sdc|
         identifier = SourceDataCriteriaHelper.identifier(sdc)
         if uniq_source_data_criteria.key? identifier
-          collapsed_source_data_criteria_map[sdc.id] = uniq_source_data_criteria[identifier].id
+          collapsed_source_data_criteria_map[sdc.original_id] = uniq_source_data_criteria[identifier].id
         else
           uniq_source_data_criteria[identifier] = sdc
         end
       end
-      [uniq_source_data_criteria.values.reject { |dc| SourceDataCriteriaHelper.should_reject?(dc) },
-       collapsed_source_data_criteria_map]
+      unique = uniq_source_data_criteria.values.reject { |dc| SourceDataCriteriaHelper.should_reject?(dc) }
+
+      # we need an empty data criteria in source that acts as the target for the specific occurrence
+      # the data criteria that we are duplicating will eventually get turned into a specific occurrence
+      occurrences = unique.select {|dc| occurrences_map[dc.id] && dc.definition != 'derived' }
+      occurrences.each do |occurrence|
+        dc = SourceDataCriteriaHelper.as_source_data_criteria(occurrence.entry)
+        dc.id = "#{dc.id}_nonSpecific"
+        dc.instance_variable_set(:@source_data_criteria, dc.id)
+        unique << dc
+      end
+
+      [ unique, collapsed_source_data_criteria_map ]
     end
   end
 end

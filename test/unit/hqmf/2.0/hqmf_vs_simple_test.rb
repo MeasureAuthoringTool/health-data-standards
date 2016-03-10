@@ -2,6 +2,7 @@ require 'fileutils'
 require 'digest'
 require 'simplexml_parser'
 require_relative '../../../test_helper'
+require 'pry'
 
 # Compares the model generated for HQMF 2.1 to the SimpleXML generated model
 class HQMFVsSimpleTest < Minitest::Test
@@ -21,6 +22,8 @@ class HQMFVsSimpleTest < Minitest::Test
 
   Dir.glob(measure_files).each do |measure_filename|
     measure_name = File.basename(measure_filename, '.xml')
+    # next unless measure_name == 'CMS105v4'
+    # next unless measure_name == 'CMS129v5'
     #if ["CMS50v4"].index(measure_name) # left in to handle subset testing
       define_method("test_#{measure_name}") do
         do_roundtrip_test(measure_filename, measure_name)
@@ -49,11 +52,12 @@ class HQMFVsSimpleTest < Minitest::Test
 
     # COMPARE
 
+
     hqmf_json = JSON.parse(hqmf_model.to_json.to_json, max_nesting: 100)
     simple_xml_json = JSON.parse(simple_xml_model.to_json.to_json, max_nesting: 100)
     diff = generate_diff_and_save_to_file(measure_name, hqmf_json, simple_xml_json)
-    print_to_file(measure_name, hqmf_model, simple_xml_model, hqmf_json_orig, simple_xml_json_orig)
-    assert diff.empty?, 'Differences in model between HQMF and SimpleXml... we need a better comparison mechanism'
+    print_to_file(measure_name, hqmf_model, simple_xml_model, hqmf_json_orig, simple_xml_json_orig) unless diff.empty?
+    assert diff.empty?, 'Differences in model between HQMF and SimpleXml.'
   end
 
   # Initial setup of models and json
@@ -259,14 +263,32 @@ class HQMFVsSimpleTest < Minitest::Test
     outfile = File.join("#{RESULTS_DIR}", "#{measure_name}_orig_simplexml.json")
     File.open(outfile, 'w') { |f| f.write(JSON.pretty_generate(simple_xml_json_orig)) }
 
+    # outfile = File.join("#{RESULTS_DIR}", "#{measure_name}_crit_diff.json")
+    # File.open(outfile, 'w') do|f|
+    #   f.puts ">>>>>> HQMF ONLY: "
+    #   f.puts((hqmf_model.all_data_criteria - hqmf_model.source_data_criteria).collect(&:id).sort)
+    #   f.puts
+    #   f.puts ">>>>>> SIMPLE ONLY: "
+    #   f.puts((simple_xml_model.all_data_criteria - simple_xml_model.source_data_criteria).collect(&:id).sort)
+    #   f.puts
+    #   f.puts((hqmf_model.all_data_criteria).collect(&:id))
+    # end
+
     outfile = File.join("#{RESULTS_DIR}", "#{measure_name}_crit_diff.json")
     File.open(outfile, 'w') do|f|
-      f.puts((hqmf_model.all_data_criteria - hqmf_model.source_data_criteria).collect(&:id))
+      f.puts ">>>>>> HQMF ONLY: "
+      f.puts((hqmf_model.all_data_criteria.collect(&:id) - simple_xml_model.all_data_criteria.collect(&:id)).sort)
       f.puts
-      f.puts((simple_xml_model.all_data_criteria - simple_xml_model.source_data_criteria).collect(&:id))
+      f.puts ">>>>>> SIMPLE ONLY: "
+      f.puts((simple_xml_model.all_data_criteria.collect(&:id) - hqmf_model.all_data_criteria.collect(&:id)).sort)
       f.puts
-      f.puts((hqmf_model.all_data_criteria).collect(&:id))
+      f.puts ">>>>>> HQMF ONLY (SOURCE): "
+      f.puts((hqmf_model.source_data_criteria.collect(&:id) - simple_xml_model.source_data_criteria.collect(&:id)).sort)
+      f.puts
+      f.puts ">>>>>> SIMPLE ONLY (SOURCE): "
+      f.puts((simple_xml_model.source_data_criteria.collect(&:id) - hqmf_model.source_data_criteria.collect(&:id)).sort)
     end
+
   end
 end
 
@@ -294,6 +316,14 @@ class HashDataCriteria
     sha256 << "9-#{hash_temporals(criteria.temporal_references, criteria_map)}:"
     sha256 << "10-#{hash_fields(criteria.field_values, criteria_map)}:"
     sha256 << "11-#{criteria.negation_code_list_id}:"
+    sdc = (criteria.source_data_criteria == criteria.id) ? 'SELF' : criteria.source_data_criteria
+    sdc_hash = hash_children([sdc], criteria_map)
+    # check if the hashed SDC is the same as self (different original ID)
+    if ("(#{sha256}12-SELF:)" == sdc_hash || criteria.definition == 'derived')
+      sha256 << "12-SELF:"
+    else
+      sha256 << "12-#{sdc_hash}:"
+    end
 
     # sha256.hexdigest
     sha256
@@ -312,7 +342,8 @@ class HashDataCriteria
       t.reference.id = hash_criteria(criteria_map[t.reference.id], criteria_map) if criteria_map[t.reference.id]
     end
 
-    Digest::SHA256.hexdigest list.map { |x| x.to_json.to_json }.join(',')
+    #Digest::SHA256.hexdigest list.map { |x| x.to_json.to_json }.join(',')
+    list.map { |x| x.to_json.to_json }.join(',')
   end
 
   # Hash child criteria (using the criteria_map)
