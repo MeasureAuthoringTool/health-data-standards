@@ -4,7 +4,7 @@
     udcs = nil
     udcs_entries = nil
     if measures.length > 0
-      udcs = unique_data_criteria(measures) 
+      udcs = unique_data_criteria(measures, false) 
       udcs_entries = udcs.collect{|dc|  entries_for_data_criteria(dc['data_criteria'],patient)}
       udcs_entries.flatten!
       udcs_entries.uniq!

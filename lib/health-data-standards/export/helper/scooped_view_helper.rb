@@ -20,7 +20,7 @@ module HealthDataStandards
         # Given a set of measures, find the data criteria/value set pairs that are unique across all of them
         # Returns an Array of Hashes. Hashes will have a three key/value pairs. One for the data criteria oid,
         # one for the value set oid and one for the data criteria itself
-        def unique_data_criteria(measures)
+        def unique_data_criteria(measures, r2_compatibility)
           all_data_criteria = measures.map {|measure| measure.all_data_criteria}.flatten
           mapped_data_criteria = {}
 
@@ -28,16 +28,20 @@ module HealthDataStandards
             data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                               (data_criteria.status || ""),
                                                                               data_criteria.negation)
+          data_criteria_oid ||= HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
+                                                                                (data_criteria.status || ""),
+                                                                                data_criteria.negation, "r2")
 
             # change a transfer to an encounter since we pull back and write encounters
-            if ['2.16.840.1.113883.3.560.1.71', '2.16.840.1.113883.3.560.1.72'].include? data_criteria_oid
-              data_criteria_oid = '2.16.840.1.113883.3.560.1.79'
+            if r2_compatibility
+              if ['2.16.840.1.113883.3.560.1.71', '2.16.840.1.113883.3.560.1.72'].include? data_criteria_oid
+                data_criteria_oid = '2.16.840.1.113883.3.560.1.79'
+              end
             end
 
             value_set_oid = data_criteria.code_list_id
             dc = {'data_criteria_oid' => data_criteria_oid, 'value_set_oid' => value_set_oid}
             mapping = mapped_data_criteria[dc] ||= {'result_oids' => [], 'field_oids' =>{}, 'data_criteria' => data_criteria}
-
             if data_criteria.field_values
               data_criteria.field_values.each_pair do |field,descr|
                 if descr && descr.type == "CD"
@@ -45,7 +49,9 @@ module HealthDataStandards
                 end
               end
             end
-
+            if data_criteria.negation
+              (mapping['field_oids']["REASON"] ||= []) << data_criteria.negation_code_list_id
+            end
             if data_criteria.value && data_criteria.value.type == "CD"
               mapping["result_oids"] << data_criteria.value.code_list_id
             end
@@ -63,6 +69,10 @@ module HealthDataStandards
             data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                                         data_criteria.status || '',
                                                                                         data_criteria.negation)
+            data_criteria_oid ||= HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
+                                                                                        data_criteria.status || '',
+                                                                                        data_criteria.negation, "r2")
+
             if entry.respond_to?(:oid) && (entry.oid == data_criteria_oid)
               codes = *(value_set_map(entry.record["bundle_id"])[data_criteria_info['value_set_oid']] || [])
               if codes.empty?
@@ -83,6 +93,9 @@ module HealthDataStandards
           data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                                       data_criteria.status || '',
                                                                                        data_criteria.negation)
+          data_criteria_oid ||= HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
+                                                                                      data_criteria.status || '',
+                                                                                      data_criteria.negation, "r2")
           HealthDataStandards.logger.warn("Looking for dc [#{data_criteria_oid}]")
           filtered_entries = []
           entries = []
@@ -129,12 +142,14 @@ module HealthDataStandards
               elsif data_criteria_oid == '2.16.840.1.113883.3.560.1.71'
                 if (entry.transferFrom)
                   entry.transferFrom.codes[entry.transferFrom.code_system] = [entry.transferFrom.code]
-                  !entry.transferFrom.codes_in_code_set(codes).empty?
+                  tfc = entry.transferFrom.codes_in_code_set(codes).values.first
+                  tfc && !tfc.empty?
                 end
               elsif data_criteria_oid == '2.16.840.1.113883.3.560.1.72'
                 if (entry.transferTo)
                   entry.transferTo.codes[entry.transferTo.code_system] = [entry.transferTo.code]
-                  !entry.transferTo.codes_in_code_set(codes).empty?
+                  ttc = entry.transferTo.codes_in_code_set(codes).values.first
+                  ttc && !ttc.empty?
                 end
               else
                 # The !! hack makes sure that negation_ind is a boolean

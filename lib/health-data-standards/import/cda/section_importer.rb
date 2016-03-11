@@ -173,19 +173,21 @@ module HealthDataStandards
           return person
         end
 
-        def extract_negation(parent_element, entry)
+        def extract_reason_or_negation(parent_element, entry)
+          reason_element = parent_element.at_xpath("./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value | ./cda:entryRelationship[@typeCode='RSON']/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:code")
           negation_indicator = parent_element['negationInd']
-          unless negation_indicator.nil?
+          if reason_element
+            code_system_oid = reason_element['codeSystem']
+            code = reason_element['code']
+            code_system = HealthDataStandards::Util::CodeSystemHelper.code_system_for(code_system_oid)
             entry.negation_ind = negation_indicator.eql?('true')
             if entry.negation_ind
-              negation_reason_element = parent_element.at_xpath("./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value | ./cda:entryRelationship[@typeCode='RSON']/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:code")
-              if negation_reason_element
-                code_system_oid = negation_reason_element['codeSystem']
-                code = negation_reason_element['code']
-                code_system = HealthDataStandards::Util::CodeSystemHelper.code_system_for(code_system_oid)
-                entry.negation_reason = {'code' => code, 'code_system' => code_system, 'codeSystem' => code_system}
-              end
+              entry.negation_reason = {'code' => code, 'code_system' => code_system, 'codeSystem' => code_system}
+            else
+              entry.reason = {'code' => code, 'code_system' => code_system, 'codeSystem' => code_system}
             end
+          elsif negation_indicator
+            entry.negation_ind = negation_indicator.eql?('true')
           end
         end
 

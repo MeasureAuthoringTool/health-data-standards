@@ -15,7 +15,7 @@ module HealthDataStandards
           extract_performer(entry_element, encounter)
           extract_facility(entry_element, encounter)
           extract_reason(entry_element, encounter, nrh)
-          extract_negation(entry_element, encounter)
+          extract_reason_or_negation(entry_element, encounter)
           extract_admission(entry_element, encounter)
           extract_discharge_disposition(entry_element, encounter)
           extract_transfers(entry_element, encounter)
