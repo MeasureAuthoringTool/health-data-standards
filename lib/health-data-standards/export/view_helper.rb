@@ -75,7 +75,7 @@ module HealthDataStandards
             return "value='1'"
           end
         else
-          return "value='#{dose['scalar']}' unit='#{dose['unit']}'"
+          return "value='#{dose['scalar']}' unit='#{dose['units']}'"
         end
       end
 
