@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<% reportingProgram = if measures.first.type == 'ep'
+    'PQRS_MU_INDIVIDUAL'
+    else
+    'HQR_EHR'
+    end -%>
 <ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xmlns="urn:hl7-org:v3"
  xmlns:voc="urn:hl7-org:v3/voc"
@@ -12,6 +17,10 @@
   <templateId root="2.16.840.1.113883.10.20.24.1.1" <% if !r2_compatibility %>extension="2014-12-01"<%end%> />
   <!-- QDM-based QRDA templateId -->
   <templateId root="2.16.840.1.113883.10.20.24.1.2" <% if !r2_compatibility %>extension="2014-12-01"<%end%> />
+  <% if cms_compatibility %>
+  <!-- CMS QRDA templateId -->
+  <templateId root="2.16.840.1.113883.10.20.24.1.3" extension="2015-07-01" />
+  <% end %>
   <!-- This is the globally unique identifier for this QRDA document -->
   <id root="<%= UUID.generate %>"/>
   <!-- QRDA document type code -->
@@ -37,6 +46,14 @@
         <%== render :partial=>"organization", :locals=>{organization: header.custodian.organization, tag_name: "representedCustodianOrganization"} %>
       </assignedCustodian>
     </custodian>
+    <!-- This needs to take reporting program into account EH/EP-->
+    <% if cms_compatibility %>
+    <informationRecipient>
+      <intendedRecipient>
+        <id root="2.16.840.1.113883.3.249.7" extension="<%= reportingProgram %>"/>
+      </intendedRecipient>
+    </informationRecipient>
+    <% end %>
     <!-- The legal authenticator of the CDA document is a single person who is at the
       same organization as the custodian in this example. This element must be present. -->
     <!-- SHALL -->
@@ -66,7 +83,17 @@
       <assignedAuthor>
         <!-- id extension="Cypress" root="2.16.840.1.113883.19.5"/ -->
         <!-- NPI -->
+        <% if cms_compatibility %>
+        <% patient.provider_performances.each do |pp| -%>
+        <% pp.provider.cda_identifiers.each do |cda_id| -%>
+            <% if cda_id.root.eql?('2.16.840.1.113883.4.6') -%>
+            <id root="2.16.840.1.113883.4.6" extension="<%= cda_id.extension %>" />
+            <% end -%>
+            <% end -%>
+            <% end -%>
+          <% else %>
         <id extension="FakeNPI" root="2.16.840.1.113883.4.6"/>
+        <% end %>
         <addr>
           <streetAddressLine>202 Burlington Rd.</streetAddressLine>
           <city>Bedford</city>
@@ -84,7 +111,12 @@
     <custodian>
       <assignedCustodian>
         <representedCustodianOrganization>
-          <id root="2.16.840.1.113883.19.5"/>
+          <!-- HQR Only -->
+          <% if cms_compatibility && reportingProgram == 'HQR_EHR' %>
+            <id root="2.16.840.1.113883.4.336" extension="800890"/>
+          <% else %>
+            <id root="2.16.840.1.113883.19.5"/>
+          <% end %>
           <name>Cypress Test Deck</name>
           <telecom use="WP" value="tel:(781)271-3000"/>
           <addr>
@@ -97,6 +129,14 @@
         </representedCustodianOrganization>
       </assignedCustodian>
     </custodian>
+    <!-- This needs to take reporting program into account EH/EP-->
+    <% if cms_compatibility %>
+    <informationRecipient>
+      <intendedRecipient>
+        <id root="2.16.840.1.113883.3.249.7" extension="<%= reportingProgram %>"/>
+      </intendedRecipient>
+    </informationRecipient>
+    <% end %>
     <legalAuthenticator>
       <time value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
       <signatureCode code="S"/>
@@ -129,8 +169,8 @@
   <component>
     <structuredBody>
       <%== render :partial => 'measures', :locals => {:measures => measures} %>
-      <%== render :partial => 'reporting_parameters', :locals => {:start_date => start_date, :end_date => end_date} %>
-      <%== render :partial => 'patient_data', :locals => {:measures => measures, :patient => patient, :r2_compatibility => r2_compatibility} %>
+      <%== render :partial => 'reporting_parameters', :locals => {:start_date => start_date, :end_date => end_date, :cms_compatibility => cms_compatibility} %>
+      <%== render :partial => 'patient_data', :locals => {:measures => measures, :patient => patient, :r2_compatibility => r2_compatibility, :cms_compatibility => cms_compatibility} %>
     </structuredBody>
   </component>
 </ClinicalDocument>

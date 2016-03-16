@@ -69,9 +69,24 @@ module HealthDataStandards
 
       def dose_quantity(codes, dose)
         if (codes["RxNorm"].present? || codes["CVX"].present?)
-          return "value='1'"
+          if dose['unit'].present?
+            return "value='1' unit='#{ucum_for_dose_quantity(dose['unit'])}'"
+          else
+            return "value='1'"
+          end
         else
           return "value='#{dose['scalar']}' unit='#{dose['units']}'"
+        end
+      end
+
+      def ucum_for_dose_quantity(unit)
+        case unit
+        when 'capsule(s)'
+          '{Capsule}'
+        when 'tablet(s)'
+          '{tbl}'
+        else
+          unit
         end
       end
 
