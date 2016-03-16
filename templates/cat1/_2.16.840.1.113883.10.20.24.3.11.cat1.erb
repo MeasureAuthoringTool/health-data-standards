@@ -48,7 +48,7 @@
               <% if entry.laterality.has_key?('title') -%>
                 displayName="<%=entry.laterality['title']%>"
               <% end -%>
-                sdtc:valueSet="<%= field_oids['LATERALITY'][0] %>"
+                sdtc:valueSet="<%= oid_for_code(entry.laterality,field_oids["LATERALITY"] || [], entry.record["bundle_id"]) %>"
             />
     <% end %>
     <entryRelationship typeCode="REFR">
@@ -84,7 +84,7 @@
               <% if entry.severity.has_key?('title') -%>
                 displayName="<%=entry.severity['title']%>"
               <% end -%>
-                sdtc:valueSet="<%= field_oids['SEVERITY'][0] %>"
+                sdtc:valueSet="<%= oid_for_code(entry.laterality,field_oids["SEVERITY"] || [], entry.record["bundle_id"]) %>"
             />
        </observation>
 
