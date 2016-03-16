@@ -48,7 +48,7 @@
               <% if entry.laterality.has_key?('title') -%>
                 displayName="<%=entry.laterality['title']%>"
               <% end -%>
-                sdtc:valueSet="<%= field_oids['LATERALITY'][0] %>"
+                sdtc:valueSet="<%= oid_for_code(entry.laterality,field_oids["LATERALITY"] || [], entry.record["bundle_id"]) %>"
             />
     <% end %>
     <entryRelationship typeCode="REFR">
@@ -69,9 +69,7 @@
            codeSystemName="SNOMED CT"/>
       </observation>
     </entryRelationship>
-    <% if entry.severity
-
-      %>
+    <% if entry.severity %>
     <entryRelationship typeCode="REFR">
        <observation classCode="OBS" moodCode="EVN">
           <templateId root="2.16.840.1.113883.10.20.22.4.8" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
@@ -84,7 +82,7 @@
               <% if entry.severity.has_key?('title') -%>
                 displayName="<%=entry.severity['title']%>"
               <% end -%>
-                sdtc:valueSet="<%= field_oids['SEVERITY'][0] %>"
+                sdtc:valueSet="<%= oid_for_code(entry.severity,field_oids["SEVERITY"] || [], entry.record["bundle_id"]) %>"
             />
        </observation>
 
