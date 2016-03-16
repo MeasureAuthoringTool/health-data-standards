@@ -1,7 +1,7 @@
 module HealthDataStandards
   module Export
     class Cat1
-      def initialize(cms_compatibility=false)
+      def initialize
         template_helper = HealthDataStandards::Export::TemplateHelper.new('cat1', 'cat1')
         @rendering_context = HealthDataStandards::Export::RenderingContext.new
         @rendering_context.template_helper = template_helper
