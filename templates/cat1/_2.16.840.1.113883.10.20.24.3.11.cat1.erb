@@ -40,7 +40,7 @@
     </effectiveTime>
     <%== render(:partial => 'ordinality', :locals => {:entry => entry, :ordinality_oids=>field_oids["ORDINAL"]}) %>
     
-    <%== code_display(entry, {'tag_name' => 'value', 'value_set_map' => value_set_map,'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'],
+    <%== code_display(entry, {'tag_name' => 'value', 'value_set_map' => filtered_vs_map,'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'],
                                                     'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\""}) %>
     <% if entry.laterality %>
       <targetSiteCode code="<%= entry.laterality['code'] %>"
@@ -48,7 +48,7 @@
               <% if entry.laterality.has_key?('title') -%>
                 displayName="<%=entry.laterality['title']%>"
               <% end -%>
-                sdtc:valueSet="<%= field_oids['LATERALITY'][0] %>"
+                sdtc:valueSet="<%= oid_for_code(entry.laterality,field_oids["LATERALITY"] || [], entry.record["bundle_id"]) %>"
             />
     <% end %>
     <entryRelationship typeCode="REFR">
@@ -84,7 +84,7 @@
               <% if entry.severity.has_key?('title') -%>
                 displayName="<%=entry.severity['title']%>"
               <% end -%>
-                sdtc:valueSet="<%= field_oids['SEVERITY'][0] %>"
+                sdtc:valueSet="<%= oid_for_code(entry.laterality,field_oids["SEVERITY"] || [], entry.record["bundle_id"]) %>"
             />
        </observation>
 

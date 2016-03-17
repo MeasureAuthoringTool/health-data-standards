@@ -11,7 +11,7 @@ module HealthDataStandards
               render(:partial => HealthDataStandards::Export::QRDA::EntryTemplateResolver.partial_for(dc['data_criteria_oid'], dc['value_set_oid']), :locals => {:entry => entry,
                                                                                                                                    :data_criteria => dc['data_criteria'],
                                                                                                                                    :value_set_oid => dc['value_set_oid'],
-                                                                                                                                   :value_set_map => vs_map,
+                                                                                                                                   :filtered_vs_map => vs_map,
                                                                                                                                    :result_oids => dc["result_oids"],
                                                                                                                                    :field_oids => dc["field_oids"],
                                                                                                                                    :r2_compatibility => r2_compatibility})
