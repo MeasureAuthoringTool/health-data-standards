@@ -253,9 +253,13 @@ module HQMF2
         @data_criteria_references[criteria.id] = criteria
       end
 
-
-      if collapsed_source_data_criteria.key?(criteria.id)
-        criteria.instance_variable_set(:@source_data_criteria, collapsed_source_data_criteria[criteria.id])
+      if collapsed_source_data_criteria.key?(criteria.id) 
+        candidate = find(all_data_criteria, :id, collapsed_source_data_criteria[criteria.id])
+        # derived criteria should not be collapsed... they do not have enough info to be collapsed and may cross into the wrong criteria
+        # only add the collapsed as a source for derived if it is stripped of any temporal references, fields, etc. to make sure we don't cross into an incorrect source
+        if ((criteria.definition != 'derived') || (!candidate.nil? && SourceDataCriteriaHelper.already_stripped?(candidate)))
+          criteria.instance_variable_set(:@source_data_criteria, collapsed_source_data_criteria[criteria.id])
+        end
       end
 
       handle_variable(criteria, collapsed_source_data_criteria) if criteria.variable

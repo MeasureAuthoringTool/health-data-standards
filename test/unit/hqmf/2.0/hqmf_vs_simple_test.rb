@@ -22,8 +22,8 @@ class HQMFVsSimpleTest < Minitest::Test
 
   Dir.glob(measure_files).each do |measure_filename|
     measure_name = File.basename(measure_filename, '.xml')
-    # next unless measure_name == 'CMS157v4'
-    # next unless measure_name == 'CMS52v4'
+    # next unless measure_name == 'CMS160v4' || measure_name == 'CMS188v5' || measure_name == 'CMS73v4' || measure_name == 'CMS72v4'
+    # next unless measure_name == 'CMS160v4'
     #if ["CMS50v4"].index(measure_name) # left in to handle subset testing
       define_method("test_#{measure_name}") do
         do_roundtrip_test(measure_filename, measure_name)
@@ -332,11 +332,11 @@ class HashDataCriteria
     sdc = (criteria.source_data_criteria == criteria.id) ? 'SELF' : criteria.source_data_criteria
     sdc_hash = hash_children([sdc], criteria_map)
     # check if the hashed SDC is the same as self (different original ID)
-    # if ("(#{sha256}12-SELF:)" == sdc_hash || criteria.definition == 'derived')
-    #   sha256 << "12-SELF:"
-    # else
-    #   sha256 << "12-#{sdc_hash}:"
-    # end
+    if ("(#{sha256}12-SELF:)" == sdc_hash )#|| criteria.definition == 'derived')
+      sha256 << "12-SELF:"
+    else
+      sha256 << "12-#{sdc_hash}:"
+    end
 
     # sha256.hexdigest
     sha256

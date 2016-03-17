@@ -7,6 +7,7 @@ module HQMF2
 
       if data_criteria.is_derived_specific_occurrence_variable
         data_criteria.handle_derived_specific_occurrence_variable
+        extract_source_data_criteria(data_criteria)
         return
       end
 
@@ -24,15 +25,30 @@ module HQMF2
       if collapsed_source_data_criteria[tmp_id]
         data_criteria.instance_variable_set(:@source_data_criteria, collapsed_source_data_criteria[tmp_id])
       else
-        # check if we need to prepend _source
+        # check if we need to add _source suffix (most source data criteria are segmented with '_source' suffixes)
         data_criteria_sdc = find(@source_data_criteria, :id, "#{tmp_id}_source") #|| find(@source_data_criteria, :id, "#{tmp_id}")
         if data_criteria_sdc
           data_criteria.instance_variable_set(:@source_data_criteria, data_criteria_sdc.id)
           data_criteria_sdc.instance_variable_set(:@variable, false)
+        # if it's not a derived data criteria then we may need to strip off temporal references, fields, etc as a new source data criteria
+        elsif !['derived', 'satisfies_any', 'satisfies_all'].include?(data_criteria.definition)
+          extract_source_data_criteria(data_criteria)
         end
       end
 
       @data_criteria << grouper_data_criteria
+    end
+
+    def extract_source_data_criteria (data_criteria)
+      # check if we have temporal references other non-SDC elements on this data criteria.
+      # if we do, we need to create a new SDC to reference
+      if !SourceDataCriteriaHelper.already_stripped?(data_criteria)
+        candidate_sdc = SourceDataCriteriaHelper.strip_non_sc_elements(data_criteria.clone)
+        candidate_sdc.instance_variable_set(:@id, "#{candidate_sdc.id}_source")
+        candidate_sdc.instance_variable_set(:@source_data_criteria, candidate_sdc.id)
+        @source_data_criteria << candidate_sdc
+        data_criteria.instance_variable_set(:@source_data_criteria, candidate_sdc.id)
+      end
     end
 
     # Checks if one data criteria is covered by another (has all the appropriate elements of)

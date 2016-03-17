@@ -21,10 +21,10 @@ module HQMF2
     end
 
     # Removes unnecessary elements from a data criteria to create a source data criteria
-    def self.strip_non_sc_elements(dc)
+    def self.strip_non_sc_elements(dc, strip_satisfies=true)
       # dc.original_id = dc.id
       # dc.id = "#{dc.id}_source"
-      if [HQMF::DataCriteria::SATISFIES_ANY, HQMF::DataCriteria::SATISFIES_ALL].include? dc.definition
+      if [HQMF::DataCriteria::SATISFIES_ANY, HQMF::DataCriteria::SATISFIES_ALL].include?(dc.definition) && strip_satisfies
         dc.instance_variable_set(:@definition, 'derived')
       end
       dc.instance_variable_set(:@source_data_criteria, dc.id)
@@ -35,6 +35,10 @@ module HQMF2
       dc.instance_variable_set(:@negation, false)
       dc.instance_variable_set(:@negation_code_list_id, nil)
       dc
+    end
+
+    def self.already_stripped?(dc)
+      dc.field_values.blank? && dc.temporal_references.blank? && dc.subset_operators.blank? && dc.value.blank? && dc.negation.blank? && dc.negation_code_list_id.blank?
     end
 
     # Creates a data criteria based on an entry xml, removes any unnecessary elements (for the source),
@@ -81,10 +85,13 @@ module HQMF2
       # the data criteria that we are duplicating will eventually get turned into a specific occurrence
       occurrences = unique.select {|dc| occurrences_map[dc.id] && dc.definition != 'derived' }
       occurrences.each do |occurrence|
-        dc = SourceDataCriteriaHelper.as_source_data_criteria(occurrence.entry)
-        dc.id = "#{dc.id}_nonSpecific"
-        dc.instance_variable_set(:@source_data_criteria, dc.id)
-        unique << dc
+        # do not create a nonspecific SDC for variables
+        unless occurrence.variable
+          dc = SourceDataCriteriaHelper.as_source_data_criteria(occurrence.entry)
+          dc.id = "#{dc.id}_nonSpecific"
+          dc.instance_variable_set(:@source_data_criteria, dc.id)
+          unique << dc
+        end
       end
 
       [ unique, collapsed_source_data_criteria_map ]
