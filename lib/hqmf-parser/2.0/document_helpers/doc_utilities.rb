@@ -3,7 +3,7 @@ module HQMF2
   module DocumentUtilities
     # Create grouper data criteria for encapsulating variable data criteria
     # and update document data criteria list and references map
-    def handle_variable(data_criteria)
+    def handle_variable(data_criteria, collapsed_source_data_criteria)
 
       if data_criteria.is_derived_specific_occurrence_variable
         data_criteria.handle_derived_specific_occurrence_variable
@@ -16,13 +16,20 @@ module HQMF2
       return unless grouper_data_criteria
       @data_criteria_references[data_criteria.id] = data_criteria
       @data_criteria_references[grouper_data_criteria.id] = grouper_data_criteria
+
       sdc = SourceDataCriteriaHelper.strip_non_sc_elements(grouper_data_criteria)
       @source_data_criteria << sdc
       
-      data_criteria_sdc = find(@source_data_criteria, :id, "#{tmp_id}_source") #|| find(@source_data_criteria, :id, "#{tmp_id}")
-      if data_criteria_sdc
-        data_criteria.instance_variable_set(:@source_data_criteria, data_criteria_sdc.id)
-        data_criteria_sdc.instance_variable_set(:@variable, false)
+      # check if the original source has been collapsed
+      if collapsed_source_data_criteria[tmp_id]
+        data_criteria.instance_variable_set(:@source_data_criteria, collapsed_source_data_criteria[tmp_id])
+      else
+        # check if we need to prepend _source
+        data_criteria_sdc = find(@source_data_criteria, :id, "#{tmp_id}_source") #|| find(@source_data_criteria, :id, "#{tmp_id}")
+        if data_criteria_sdc
+          data_criteria.instance_variable_set(:@source_data_criteria, data_criteria_sdc.id)
+          data_criteria_sdc.instance_variable_set(:@variable, false)
+        end
       end
 
       @data_criteria << grouper_data_criteria

@@ -137,12 +137,20 @@ module HQMF2
       end
       reference_criteria = @data_criteria_references[strip_tokens(ref_id)] unless ref_id.nil?
       if reference_criteria
-        @definition = reference_criteria.definition
-        @status = reference_criteria.status
-        if @specific_occurrence
-          @title = reference_criteria.title
-          @description = reference_criteria.description
-          @code_list_id = reference_criteria.code_list_id
+        if @children_criteria.blank?
+          @definition = reference_criteria.definition
+          @status = reference_criteria.status
+          if @specific_occurrence
+            @title = reference_criteria.title
+            @description = reference_criteria.description
+            @code_list_id = reference_criteria.code_list_id
+          end
+        else
+          @definition = 'derived'
+          if @specific_occurrence
+            @title = reference_criteria.title
+            @description = reference_criteria.description
+          end
         end
       else
         puts "MISSING_DC_REF: #{ref_id}" unless @variable

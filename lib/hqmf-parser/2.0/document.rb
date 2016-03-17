@@ -253,11 +253,12 @@ module HQMF2
         @data_criteria_references[criteria.id] = criteria
       end
 
+
       if collapsed_source_data_criteria.key?(criteria.id)
         criteria.instance_variable_set(:@source_data_criteria, collapsed_source_data_criteria[criteria.id])
       end
 
-      handle_variable(criteria) if criteria.variable
+      handle_variable(criteria, collapsed_source_data_criteria) if criteria.variable
       handle_specific_source_data_criteria_reference(criteria)
       @reference_ids.concat(criteria.children_criteria)
       if criteria.temporal_references

@@ -22,8 +22,8 @@ class HQMFVsSimpleTest < Minitest::Test
 
   Dir.glob(measure_files).each do |measure_filename|
     measure_name = File.basename(measure_filename, '.xml')
-    # next unless measure_name == 'CMS105v4'
-    # next unless measure_name == 'CMS129v5'
+    # next unless measure_name == 'CMS157v4'
+    # next unless measure_name == 'CMS52v4'
     #if ["CMS50v4"].index(measure_name) # left in to handle subset testing
       define_method("test_#{measure_name}") do
         do_roundtrip_test(measure_filename, measure_name)
@@ -207,6 +207,7 @@ class HQMFVsSimpleTest < Minitest::Test
 
     # Normalize the HQMF model IDS
     criteria_list.each do |dc|
+      dc.original_id = dc.id
       dc.id = HashDataCriteria.hash_criteria(dc, criteria_map)
       dc.instance_variable_set(:@source_data_criteria, dc.id)
     end
@@ -289,6 +290,18 @@ class HQMFVsSimpleTest < Minitest::Test
       f.puts((simple_xml_model.source_data_criteria.collect(&:id) - hqmf_model.source_data_criteria.collect(&:id)).sort)
     end
 
+    outfile = File.join("#{RESULTS_DIR}", "#{measure_name}_id_mapping.json")
+    File.open(outfile, 'w') do|f|
+      f.puts ">>>>>> HQMF: "
+      hqmf_model.all_data_criteria.each do |dc|
+        f.puts "#{dc.original_id} => #{dc.id}"
+      end
+      f.puts ">>>>>> SIMPLE XML: "
+      simple_xml_model.all_data_criteria.each do |dc|
+        f.puts "#{dc.original_id} => #{dc.id}"
+      end
+    end
+
   end
 end
 
@@ -319,11 +332,11 @@ class HashDataCriteria
     sdc = (criteria.source_data_criteria == criteria.id) ? 'SELF' : criteria.source_data_criteria
     sdc_hash = hash_children([sdc], criteria_map)
     # check if the hashed SDC is the same as self (different original ID)
-    if ("(#{sha256}12-SELF:)" == sdc_hash || criteria.definition == 'derived')
-      sha256 << "12-SELF:"
-    else
-      sha256 << "12-#{sdc_hash}:"
-    end
+    # if ("(#{sha256}12-SELF:)" == sdc_hash || criteria.definition == 'derived')
+    #   sha256 << "12-SELF:"
+    # else
+    #   sha256 << "12-#{sdc_hash}:"
+    # end
 
     # sha256.hexdigest
     sha256
