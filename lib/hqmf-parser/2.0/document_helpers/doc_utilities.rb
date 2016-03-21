@@ -18,15 +18,16 @@ module HQMF2
       @data_criteria_references[data_criteria.id] = data_criteria
       @data_criteria_references[grouper_data_criteria.id] = grouper_data_criteria
 
+      # create a source data criteria for the grouping data critera we just created
       sdc = SourceDataCriteriaHelper.strip_non_sc_elements(grouper_data_criteria)
       @source_data_criteria << sdc
       
-      # check if the original source has been collapsed
+      # check if the original source has been collapsed when generating the SDC list (we need to reference the collapsed version in the sdc list)
       if collapsed_source_data_criteria[tmp_id]
         data_criteria.instance_variable_set(:@source_data_criteria, collapsed_source_data_criteria[tmp_id])
       else
         # check if we need to add _source suffix (most source data criteria are segmented with '_source' suffixes)
-        data_criteria_sdc = find(@source_data_criteria, :id, "#{tmp_id}_source") #|| find(@source_data_criteria, :id, "#{tmp_id}")
+        data_criteria_sdc = find(@source_data_criteria, :id, "#{tmp_id}_source") 
         if data_criteria_sdc
           data_criteria.instance_variable_set(:@source_data_criteria, data_criteria_sdc.id)
           data_criteria_sdc.instance_variable_set(:@variable, false)

@@ -10,6 +10,7 @@ module HQMF2
       @children_criteria.map! { |cc| strip_tokens(cc) }
 
       # append "_source" to the criteria since all the source criteria are separated from the non-source with the "_source" identifier
+      # "_source" is added to the SDC ids so that we are not duplicating ids between source and non source data criteria lists
       # the derived source data criteria maintain their original ids since they are duplicated in the data criteria and source data criteria lists from the simple xml
       @source_data_criteria = "#{@id}_source" unless (@definition == 'derived' || @definition == 'satisfies_all' || @definition == 'satisfies_any')
       @source_data_criteria = strip_tokens(@source_data_criteria) unless @source_data_criteria.nil?

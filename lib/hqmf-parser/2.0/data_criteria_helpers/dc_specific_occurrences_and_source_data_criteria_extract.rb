@@ -26,7 +26,8 @@ module HQMF2
         occurrence_criteria = @data_criteria_references[strip_tokens("#{source_data_criteria_extension}_#{source_data_criteria_root}")]
 
         return if occurrence_criteria.nil?
-        specific_occurrence_const = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationRoot')
+        specific_occurrence_const = HQMF2::Utilities.attr_val(specific_def,
+                                                              './cda:localVariableName/@controlInformationRoot')
         specific_occurrence = HQMF2::Utilities.attr_val(specific_def,
                                                         './cda:localVariableName/@controlInformationExtension')
 
@@ -43,7 +44,6 @@ module HQMF2
       elsif source_def
         extension = HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@extension')
         root = HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@root')
-
         ["#{extension}_#{root}_source", root, extension] # return the soruce data criteria itself, the rest will be blank
       end
     end
@@ -51,8 +51,6 @@ module HQMF2
     # Handle setting the specific and source instance variables with a given occurrence identifier
     def handle_specific_and_source(occurrence_identifier, source_data_criteria_extension, source_data_criteria_root,
                                    specific_occurrence_const, specific_occurrence)
-
-#      source_data_criteria = "#{source_data_criteria_extension}_#{source_data_criteria_root}#{@criteria.definition != 'derived' ? '_source' : ''}"
       source_data_criteria = "#{source_data_criteria_extension}_#{source_data_criteria_root}_source"
       if !occurrence_identifier.blank?
         # if it doesn't exist, add extracted occurrence to the map

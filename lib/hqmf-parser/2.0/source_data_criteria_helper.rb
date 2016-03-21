@@ -35,6 +35,7 @@ module HQMF2
       dc
     end
 
+    # determins if a data criteria has any non-SDC fields set (i.e., those fields need to be stripped)
     def self.already_stripped?(dc)
       dc.field_values.blank? && dc.temporal_references.blank? && dc.subset_operators.blank? && dc.value.blank? && dc.negation.blank? && dc.negation_code_list_id.blank?
     end

@@ -137,6 +137,7 @@ module HQMF2
       end
       reference_criteria = @data_criteria_references[strip_tokens(ref_id)] unless ref_id.nil?
       if reference_criteria
+        # we only want to copy the reference criteria definition, status, and code_list_id if this is this is not a grouping criteria (i.e., there are no children)
         if @children_criteria.blank?
           @definition = reference_criteria.definition
           @status = reference_criteria.status
@@ -146,6 +147,7 @@ module HQMF2
             @code_list_id = reference_criteria.code_list_id
           end
         else
+          # if this is a grouping data criteria (has children) mark it as derived and only pull title and description from the reference criteria
           @definition = 'derived'
           if @specific_occurrence
             @title = reference_criteria.title
