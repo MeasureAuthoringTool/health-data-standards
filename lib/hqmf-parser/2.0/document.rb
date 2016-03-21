@@ -124,7 +124,8 @@ module HQMF2
 
       # Extract measure attributes
       # TODO: Review
-      @attributes = @doc.xpath('/cda:QualityMeasureDocument/cda:subjectOf/cda:measureAttribute', NAMESPACES).collect do |attribute|
+      @attributes = @doc.xpath('/cda:QualityMeasureDocument/cda:subjectOf/cda:measureAttribute', NAMESPACES)
+                    .collect do |attribute|
         read_attribute(attribute)
       end
 
@@ -232,7 +233,8 @@ module HQMF2
       end
 
       # Extract the source data criteria from data criteria
-      @source_data_criteria, collapsed_source_data_criteria = SourceDataCriteriaHelper.get_source_data_criteria_list(extracted_criteria, @data_criteria_references, @occurrences_map)
+      @source_data_criteria, collapsed_source_data_criteria = SourceDataCriteriaHelper.get_source_data_criteria_list(
+        extracted_criteria, @data_criteria_references, @occurrences_map)
 
       extracted_criteria.each do |entry|
         criteria = DataCriteria.new(entry, @data_criteria_references, @occurrences_map)
@@ -252,8 +254,7 @@ module HQMF2
       if criteria && (@data_criteria_references[criteria.id].try(:code_list_id).nil?)
         @data_criteria_references[criteria.id] = criteria
       end
-
-      if collapsed_source_data_criteria.key?(criteria.id) 
+      if collapsed_source_data_criteria.key?(criteria.id)
         candidate = find(all_data_criteria, :id, collapsed_source_data_criteria[criteria.id])
         # derived criteria should not be collapsed... they do not have enough info to be collapsed and may cross into the wrong criteria
         # only add the collapsed as a source for derived if it is stripped of any temporal references, fields, etc. to make sure we don't cross into an incorrect source
@@ -275,10 +276,6 @@ module HQMF2
     # For specific occurrence data criteria, make sure the source data criteria reference points
     # to the correct source data criteria.
     def handle_specific_source_data_criteria_reference(criteria)
-      # sdc = find(@source_data_criteria, :id, criteria.source_data_criteria)
-      # if criteria && !criteria.specific_occurrence.nil? && !sdc.nil? && 
-      #   sdc.specific_occurrence.nil? && !find(@source_data_criteria, :id, criteria.id).nil?
-      # end
       original_sdc = find(@source_data_criteria, :id, criteria.source_data_criteria)
       updated_sdc = find(@source_data_criteria, :id, criteria.id)
       if !updated_sdc.nil? && !criteria.specific_occurrence.nil? && (original_sdc.nil? || original_sdc.specific_occurrence.nil?)

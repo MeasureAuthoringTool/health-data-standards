@@ -13,7 +13,6 @@ module HQMF2
       # the derived source data criteria maintain their original ids since they are duplicated in the data criteria and source data criteria lists from the simple xml
       @source_data_criteria = "#{@id}_source" unless (@definition == 'derived' || @definition == 'satisfies_all' || @definition == 'satisfies_any')
       @source_data_criteria = strip_tokens(@source_data_criteria) unless @source_data_criteria.nil?
-
       @specific_occurrence_const = strip_tokens(@specific_occurrence_const) unless @specific_occurrence_const.nil?
       change_xproduct_to_intersection
       handle_derived_specific_occurrences
@@ -62,16 +61,18 @@ module HQMF2
     def handle_derived_specific_occurrences
       return unless @definition == 'derived'
 
+      # remove "_source" from source data critera. It gets added in in SpecificOccurrenceAndSource but
+      # when it gets added we have not yet determined the definition of the data criteria so we cannot
+      # skip adding it.  Determining the definition before SpecificOccurrenceAndSource processes doesn't
+      # work because we need to know if it is a specific occurrence to be able to figure out the definition
       @source_data_criteria = @source_data_criteria.gsub("_source",'') if @source_data_criteria
 
       # Adds a child if none exists (specifically the source criteria)
       @children_criteria << @source_data_criteria if @children_criteria.empty?
-
-      return if @children_criteria.length != 1 || (@source_data_criteria.present? && @children_criteria.first != @source_data_criteria)
-
+      return if @children_criteria.length != 1 ||
+                (@source_data_criteria.present? && @children_criteria.first != @source_data_criteria)
       # if child.first is nil, it will be caught in the second statement
       reference_criteria = @data_criteria_references[@children_criteria.first]
-
       return if reference_criteria.nil?
       @is_derived_specific_occurrence_variable = true # easier to track than all testing all features of these cases
       @subset_operators ||= reference_criteria.subset_operators

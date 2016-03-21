@@ -16,8 +16,8 @@ module HQMF2
     # Retrieve the specific occurrence and source data criteria information (or just source if there is no specific)
     def extract_specific_occurrences_and_source_data_criteria
       specific_def = @entry.at_xpath('./*/cda:outboundRelationship[@typeCode="OCCR"]', HQMF2::Document::NAMESPACES)
-      source_def = @entry.at_xpath('./*/cda:outboundRelationship[cda:subsetCode/@code="SOURCE"]', HQMF2::Document::NAMESPACES)
-
+      source_def = @entry.at_xpath('./*/cda:outboundRelationship[cda:subsetCode/@code="SOURCE"]',
+                                   HQMF2::Document::NAMESPACES)
       if specific_def
         source_data_criteria_extension = HQMF2::Utilities.attr_val(specific_def,
                                                                    './cda:criteriaReference/cda:id/@extension')
@@ -27,7 +27,8 @@ module HQMF2
 
         return if occurrence_criteria.nil?
         specific_occurrence_const = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationRoot')
-        specific_occurrence = HQMF2::Utilities.attr_val(specific_def, './cda:localVariableName/@controlInformationExtension')
+        specific_occurrence = HQMF2::Utilities.attr_val(specific_def,
+                                                        './cda:localVariableName/@controlInformationExtension')
 
         # FIXME: Remove debug statements after cleaning up occurrence handling
         # build regex for extracting alpha-index of specific occurrences
@@ -43,7 +44,6 @@ module HQMF2
         extension = HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@extension')
         root = HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@root')
 
-#        ["#{extension}_#{root}#{@criteria.definition != 'derived' ? '_source' : ''}", root, extension] # return the soruce data criteria itself, the rest will be blank
         ["#{extension}_#{root}_source", root, extension] # return the soruce data criteria itself, the rest will be blank
       end
     end

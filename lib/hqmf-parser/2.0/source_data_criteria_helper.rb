@@ -17,14 +17,12 @@ module HQMF2
 
     # Rejects any derived elements as they should never be used as source.
     def self.should_reject?(dc)
-      dc.definition == 'derived' #&& dc.original_id.nil?
+      dc.definition == 'derived'
     end
 
     # Removes unnecessary elements from a data criteria to create a source data criteria
-    def self.strip_non_sc_elements(dc, strip_satisfies=true)
-      # dc.original_id = dc.id
-      # dc.id = "#{dc.id}_source"
-      if [HQMF::DataCriteria::SATISFIES_ANY, HQMF::DataCriteria::SATISFIES_ALL].include?(dc.definition) && strip_satisfies
+    def self.strip_non_sc_elements(dc)
+      if [HQMF::DataCriteria::SATISFIES_ANY, HQMF::DataCriteria::SATISFIES_ALL].include? dc.definition
         dc.instance_variable_set(:@definition, 'derived')
       end
       dc.instance_variable_set(:@source_data_criteria, dc.id)
@@ -94,7 +92,7 @@ module HQMF2
         end
       end
 
-      [ unique, collapsed_source_data_criteria_map ]
+      [unique, collapsed_source_data_criteria_map]
     end
   end
 end

@@ -24,10 +24,8 @@ module HQMF2
       @variable = DataCriteriaMethods.extract_variable(@local_variable_name, @id)
       @field_values = DataCriteriaMethods.extract_field_values(@entry, @negation)
       @description = extract_description
-      
       obtain_specific_and_source = SpecificOccurrenceAndSource.new(@entry, @id, @local_variable_name,
                                                                    @data_criteria_references, @occurrences_map)
-      
       # Pulling these 5 variables out via destructing
       @source_data_criteria,
         @source_data_criteria_root,
@@ -35,7 +33,6 @@ module HQMF2
         @specific_occurrence,
         @specific_occurrence_const = obtain_specific_and_source.extract_specific_occurrences_and_source_data_criteria
       extract_definition_from_template_or_type
-
       post_processing
     end
 
@@ -131,7 +128,6 @@ module HQMF2
       return unless @variable
       @variable = false
       @id = "GROUP_#{@id}"
-
       if @children_criteria.length == 1 && @children_criteria[0] =~ /GROUP_/
         reference_criteria = @data_criteria_references[@children_criteria.first]
         return if reference_criteria.nil?
@@ -140,7 +136,6 @@ module HQMF2
         @status = reference_criteria.status
         @children_criteria = []
       end
-
       @specific_occurrence = nil
       @specific_occurrence_const = nil
       @source_data_criteria = @id
