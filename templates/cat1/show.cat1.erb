@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<% reportingProgram = if measures.first.type == 'ep'
+<% if !measures.empty? %>
+<% reporting_program = if measures.first.type == 'ep'
     'PQRS_MU_INDIVIDUAL'
     else
     'HQR_EHR'
@@ -50,7 +51,7 @@
     <% if cms_compatibility %>
     <informationRecipient>
       <intendedRecipient>
-        <id root="2.16.840.1.113883.3.249.7" extension="<%= reportingProgram %>"/>
+        <id root="2.16.840.1.113883.3.249.7" extension="<%= reporting_program %>"/>
       </intendedRecipient>
     </informationRecipient>
     <% end %>
@@ -112,7 +113,7 @@
       <assignedCustodian>
         <representedCustodianOrganization>
           <!-- HQR Only -->
-          <% if cms_compatibility && reportingProgram == 'HQR_EHR' %>
+          <% if cms_compatibility && reporting_program == 'HQR_EHR' %>
             <id root="2.16.840.1.113883.4.336" extension="800890"/>
           <% else %>
             <id root="2.16.840.1.113883.19.5"/>
@@ -133,7 +134,7 @@
     <% if cms_compatibility %>
     <informationRecipient>
       <intendedRecipient>
-        <id root="2.16.840.1.113883.3.249.7" extension="<%= reportingProgram %>"/>
+        <id root="2.16.840.1.113883.3.249.7" extension="<%= reporting_program %>"/>
       </intendedRecipient>
     </informationRecipient>
     <% end %>
@@ -174,3 +175,9 @@
     </structuredBody>
   </component>
 </ClinicalDocument>
+<% else %>
+<ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns="urn:hl7-org:v3"
+ xmlns:voc="urn:hl7-org:v3/voc"
+ xmlns:sdtc="urn:hl7-org:sdtc"/>
+<% end %>
