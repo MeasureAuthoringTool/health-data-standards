@@ -58,6 +58,17 @@ module HQMF2
       dc
     end
 
+    # Check if there is an existing entry in the source data criteria list that matches the candidate passed in
+    # this is used to prevent adding duplicate source data criteria entries when one already exists
+    def self.find_existing_source_data_criteria(list, candidate)
+      list.each do |sdc|
+        if SourceDataCriteriaHelper.identifier(sdc) == SourceDataCriteriaHelper.identifier(candidate)
+          return sdc
+        end
+      end
+      nil
+    end
+
     # Given a list of criteria obtained from the XML, generate most of the source data criteria (since no explicit
     # sources are given). After generating the source data criteria, filter the list to not include repeated,
     # unnecessary sources, but maintain and return map of those that have been removed to those that they were replaced
@@ -89,7 +100,7 @@ module HQMF2
           dc = SourceDataCriteriaHelper.as_source_data_criteria(occurrence.entry)
           dc.id = "#{dc.id}_nonSpecific"
           dc.instance_variable_set(:@source_data_criteria, dc.id)
-          unique << dc
+          unique << dc unless SourceDataCriteriaHelper.find_existing_source_data_criteria(unique, dc)
         end
       end
 

@@ -47,9 +47,17 @@ module HQMF2
         candidate_sdc = SourceDataCriteriaHelper.strip_non_sc_elements(data_criteria.clone)
         candidate_sdc.instance_variable_set(:@id, "#{candidate_sdc.id}_source")
         candidate_sdc.instance_variable_set(:@source_data_criteria, candidate_sdc.id)
-        @source_data_criteria << candidate_sdc
-        # specific occurrence variables need a copy of the source in the data criteria to display variable results
-        @data_criteria << candidate_sdc if data_criteria.is_derived_specific_occurrence_variable
+
+        existing_candidate = SourceDataCriteriaHelper.find_existing_source_data_criteria(@source_data_criteria, candidate_sdc)
+        if existing_candidate
+          candidate_sdc = existing_candidate
+        else
+          @source_data_criteria << candidate_sdc
+          # specific occurrence variables need a copy of the source in the data criteria to display variable results
+          # This may not be needed
+          # @data_criteria << candidate_sdc if data_criteria.is_derived_specific_occurrence_variable
+        end
+
         data_criteria.instance_variable_set(:@source_data_criteria, candidate_sdc.id)
       end
     end
