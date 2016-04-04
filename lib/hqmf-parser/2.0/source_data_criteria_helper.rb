@@ -62,9 +62,11 @@ module HQMF2
     # this is used to prevent adding duplicate source data criteria entries when one already exists
     def self.find_existing_source_data_criteria(list, candidate)
       list.each do |sdc|
-        if SourceDataCriteriaHelper.identifier(sdc) == SourceDataCriteriaHelper.identifier(candidate)
-          return sdc
-        end
+        # check if we have an exact match on an existing SDC
+        return sdc if SourceDataCriteriaHelper.identifier(sdc) == SourceDataCriteriaHelper.identifier(candidate)
+        # we have another existing copy of the specific occurrence (identified via the constant and occurrence lettering), use that rather than duplicating... there will not be an
+        # exact match for variables since a new child will have been generated
+        return sdc if !sdc.specific_occurrence_const.nil? && sdc.specific_occurrence_const == candidate.specific_occurrence_const && sdc.specific_occurrence == candidate.specific_occurrence
       end
       nil
     end
