@@ -34,6 +34,9 @@ class HQMFVsSimpleTest < Minitest::Test
     hqmf_model.instance_variable_set(:@attributes, [])
     simple_xml_model.instance_variable_set(:@attributes, [])
 
+    # make sure we don't have duplicated specific occurrences... we blow away the SO constant, so this is the best we can check
+    check_for_duplicate_specific_occurrences(hqmf_model)
+
     # remap values in simple_xml and hqmf_model to resolve ignorable differences
     remap_arbitrary_v2_diffs(simple_xml_model, hqmf_model, measure_name)
 
@@ -52,8 +55,23 @@ class HQMFVsSimpleTest < Minitest::Test
     hqmf_json = JSON.parse(hqmf_model.to_json.to_json, max_nesting: 100)
     simple_xml_json = JSON.parse(simple_xml_model.to_json.to_json, max_nesting: 100)
     diff = generate_diff_and_save_to_file(measure_name, hqmf_json, simple_xml_json)
-    print_to_file(measure_name, hqmf_model, simple_xml_model, hqmf_json_orig, simple_xml_json_orig)
-    assert diff.empty?, 'Differences in model between HQMF and SimpleXml... we need a better comparison mechanism'
+    print_to_file(measure_name, hqmf_model, simple_xml_model, hqmf_json_orig, simple_xml_json_orig) unless diff.empty?
+    assert diff.empty?, 'Differences in model between HQMF and SimpleXml.'
+  end
+
+  # check if there are any source data criteria entries for specific occurrences that share the same constant and SO letter... this indicates a duplicated SO
+  # this only really happens in HQMF R2 since there is no SDC list so it is possible to duplicate SO when generating. Since the SO constants are cleared for comparison
+  # this is not caught by the diff testing.
+  def check_for_duplicate_specific_occurrences(hqmf_model)
+    by_const_map = {}
+    hqmf_model.source_data_criteria.each do |dc|
+      next if dc.specific_occurrence_const.nil?
+      key = "#{dc.specific_occurrence_const} #{dc.specific_occurrence}"
+      by_const_map[key] ||= []
+      by_const_map[key] << dc
+    end
+    duplicated_specifics = by_const_map.values.select {|x| x.length > 1}
+    throw "Duplicate specific occurrences in source for HQMF " + (duplicated_specifics.map {|x| x.map(&:id).join(',')}.join(',')) if duplicated_specifics.count > 0
   end
 
   # Initial setup of models and json
@@ -261,11 +279,17 @@ class HQMFVsSimpleTest < Minitest::Test
 
     outfile = File.join("#{RESULTS_DIR}", "#{measure_name}_crit_diff.json")
     File.open(outfile, 'w') do|f|
-      f.puts((hqmf_model.all_data_criteria - hqmf_model.source_data_criteria).collect(&:id))
+      f.puts ">>>>>> HQMF ONLY: "
+      f.puts((hqmf_model.all_data_criteria.collect(&:id) - simple_xml_model.all_data_criteria.collect(&:id)).sort)
       f.puts
-      f.puts((simple_xml_model.all_data_criteria - simple_xml_model.source_data_criteria).collect(&:id))
+      f.puts ">>>>>> SIMPLE ONLY: "
+      f.puts((simple_xml_model.all_data_criteria.collect(&:id) - hqmf_model.all_data_criteria.collect(&:id)).sort)
       f.puts
-      f.puts((hqmf_model.all_data_criteria).collect(&:id))
+      f.puts ">>>>>> HQMF ONLY (SOURCE): "
+      f.puts((hqmf_model.source_data_criteria.collect(&:id) - simple_xml_model.source_data_criteria.collect(&:id)).sort)
+      f.puts
+      f.puts ">>>>>> SIMPLE ONLY (SOURCE): "
+      f.puts((simple_xml_model.source_data_criteria.collect(&:id) - hqmf_model.source_data_criteria.collect(&:id)).sort)
     end
   end
 end
@@ -294,6 +318,14 @@ class HashDataCriteria
     sha256 << "9-#{hash_temporals(criteria.temporal_references, criteria_map)}:"
     sha256 << "10-#{hash_fields(criteria.field_values, criteria_map)}:"
     sha256 << "11-#{criteria.negation_code_list_id}:"
+    sdc = (criteria.source_data_criteria == criteria.id) ? 'SELF' : criteria.source_data_criteria
+    sdc_hash = hash_children([sdc], criteria_map)
+    # check if the hashed SDC is the same as self (different original ID)
+    if ("(#{sha256}12-SELF:)" == sdc_hash )
+      sha256 << "12-SELF:"
+    else
+      sha256 << "12-#{sdc_hash}:"
+    end
 
     # sha256.hexdigest
     sha256

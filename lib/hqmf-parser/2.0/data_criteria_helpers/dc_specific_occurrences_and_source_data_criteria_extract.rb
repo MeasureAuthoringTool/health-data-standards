@@ -44,27 +44,27 @@ module HQMF2
       elsif source_def
         extension = HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@extension')
         root = HQMF2::Utilities.attr_val(source_def, './cda:criteriaReference/cda:id/@root')
-        ["#{extension}_#{root}", root, extension] # return the soruce data criteria itself, the rest will be blank
+        ["#{extension}_#{root}_source", root, extension] # return the soruce data criteria itself, the rest will be blank
       end
     end
 
     # Handle setting the specific and source instance variables with a given occurrence identifier
     def handle_specific_and_source(occurrence_identifier, source_data_criteria_extension, source_data_criteria_root,
                                    specific_occurrence_const, specific_occurrence)
-      source_data_criteria = "#{source_data_criteria_extension}_#{source_data_criteria_root}"
+      source_data_criteria = "#{source_data_criteria_extension}_#{source_data_criteria_root}_source"
       if !occurrence_identifier.blank?
         # if it doesn't exist, add extracted occurrence to the map
         # puts "\tSetting #{@source_data_criteria}-#{@source_data_criteria_root} to #{occurrence_identifier}"
-        @occurrences_map[source_data_criteria] ||= occurrence_identifier
+        @occurrences_map[strip_tokens(source_data_criteria)] ||= occurrence_identifier
         specific_occurrence ||= occurrence_identifier
         specific_occurrence_const = "#{source_data_criteria}".upcase
       else
         # create variable occurrences that do not already exist
         if @is_variable
           # puts "\tSetting #{@source_data_criteria}-#{@source_data_criteria_root} to #{occurrence_identifier}"
-          @occurrences_map[source_data_criteria] ||= occurrence_identifier
+          @occurrences_map[strip_tokens(source_data_criteria)] ||= occurrence_identifier
         end
-        occurrence = @occurrences_map.try(:[], source_data_criteria)
+        occurrence = @occurrences_map.try(:[], strip_tokens(source_data_criteria))
         unless occurrence
           fail "Could not find occurrence mapping for #{source_data_criteria}, #{source_data_criteria_root}"
         end
