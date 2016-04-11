@@ -48,6 +48,7 @@ module HealthDataStandards
 
       field :DENOM, type: Integer
       field :NUMER, type: Integer
+      field :NUMEX, type: Integer
       field :DENEX, type: Integer
       field :DENEXCEP, type: Integer
       field :MSRPOPL, type: Integer
