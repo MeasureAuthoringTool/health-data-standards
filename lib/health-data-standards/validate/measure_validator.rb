@@ -12,7 +12,7 @@ module HealthDataStandards
 	@errors = []
 	@doc = get_document(file)
 	@doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-	measure_ids = HealthDataStandards::CQM::Measure.all.map(&:hqmf_id)
+	measure_ids = HealthDataStandards::CQM::Measure.pluck(:hqmf_id)
 	doc_measure_ids = @doc.xpath(measure_selector).map(&:value).map(&:upcase)
 	#list of all of the set ids in the QRDA
 	doc_neutral_ids = @doc.xpath(neutral_measure_selector).map(&:value).map(&:upcase).sort
