@@ -14,6 +14,7 @@ module HealthDataStandards
       field :IPP, type: Integer
       field :DENOM, type: Integer
       field :NUMER, type: Integer
+      field :NUMEX, type: Integer
       field :antinumerator, type: Integer
       field :DENEX, type: Integer
       field :DENEXCEP, type: Integer

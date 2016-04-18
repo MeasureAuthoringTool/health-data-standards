@@ -68,7 +68,7 @@ module HQMF2
           criteria.field_values.each_pair do |key, value|
             if key == "FLFS"
               fields << HQMF2::Generator.render_template('fulfills', {'value' => value})
-            else   
+            else
               details = HQMF::DataCriteria::FIELDS[key]
               details[:code_system_name] = HealthDataStandards::Util::CodeSystemHelper.code_system_for(details[:code_system])
               details[:id] = "#{criteria.id}_#{key}"
@@ -221,7 +221,7 @@ module HQMF2
 
       def expression_for_observation(doc,observation)
         pre = observation.preconditions[0]
-        if pre && pre.reference 
+        if pre && pre.reference
           dc = doc.data_criteria(pre.reference.id)
           children = dc.children_criteria
           if children && children.length == 2
@@ -384,6 +384,8 @@ module HQMF2
           'denominator'
         when HQMF::PopulationCriteria::NUMER
           'numerator'
+        when HQMF::PopulationCriteria::NUMEX
+          'numeratorExclusion'
         when HQMF::PopulationCriteria::DENEXCEP
           'denominatorException'
         when HQMF::PopulationCriteria::DENEX

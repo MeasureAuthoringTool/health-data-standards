@@ -2,15 +2,16 @@ module HQMF
   # Represents an HQMF population criteria, also supports all the same methods as
   # HQMF::Precondition
   class PopulationCriteria
-  
+
     include HQMF::Conversion::Utilities
 
     attr_reader :preconditions, :id, :type, :title, :hqmf_id, :comments
     attr_accessor :aggregator
-    
+
     IPP = 'IPP'
     DENOM = 'DENOM'
     NUMER = 'NUMER'
+    NUMEX = 'NUMEX'
     DENEXCEP = 'DENEXCEP'
     DENEX = 'DENEX'
     MSRPOPL = 'MSRPOPL'
@@ -18,13 +19,13 @@ module HQMF
     MSRPOPLEX = 'MSRPOPLEX'
 
     STRAT = 'STRAT'
-    
-    ALL_POPULATION_CODES = [STRAT, IPP, DENOM, DENEX, NUMER, DENEXCEP, MSRPOPL, OBSERV, MSRPOPLEX]
-    
+
+    ALL_POPULATION_CODES = [STRAT, IPP, DENOM, DENEX, NUMER, NUMEX, DENEXCEP, MSRPOPL, OBSERV, MSRPOPLEX]
+
     # Create a new population criteria
     # @param [String] id
     # @param [String] hqmf_id
-    # @param [Array#Precondition] preconditions 
+    # @param [Array#Precondition] preconditions
     # @param [String] title (optional)
     def initialize(id, hqmf_id, type, preconditions, title='', aggregator=nil, comments=nil)
       @id = id
@@ -35,7 +36,7 @@ module HQMF
       @aggregator = aggregator
       @comments = comments
     end
-    
+
     # Create a new population criteria from a JSON hash keyed off symbols
     def self.from_json(id, json)
       preconditions = json["preconditions"].map do |precondition|
@@ -46,21 +47,21 @@ module HQMF
       hqmf_id = json['hqmf_id']
       aggregator = json['aggregator']
       comments = json['comments']
-      
+
       HQMF::PopulationCriteria.new(id, hqmf_id, type, preconditions, title, aggregator, comments)
     end
-    
+
     def to_json
       {self.id.to_sym => base_json}
     end
-    
+
     def base_json
       x = nil
       json = build_hash(self, [:conjunction?, :type, :title, :hqmf_id, :aggregator, :comments])
       json[:preconditions] = x if x = json_array(@preconditions)
       json
     end
-    
+
     # Return true of this precondition represents a conjunction with nested preconditions
     # or false of this precondition is a reference to a data criteria
     # if it is an observation population criteria, then it is not a conjunction, it is instead doing a calculation
@@ -71,23 +72,23 @@ module HQMF
     # Get the conjunction code, e.g. allTrue, atLeastOneTrue
     # @return [String] conjunction code
     def conjunction_code
-      
+
       case @type
       when IPP, STRAT, DENOM, NUMER, MSRPOPL
         HQMF::Precondition::ALL_TRUE
-      when DENEXCEP, DENEX, MSRPOPLEX
+      when DENEXCEP, DENEX, MSRPOPLEX, NUMEX
         HQMF::Precondition::AT_LEAST_ONE_TRUE
       else
         raise "Unknown population type [#{@type}]"
       end
-      
+
     end
-    
+
     # Can't have negation on population so this is the same as conjunction_code
     def conjunction_code_with_negation
       conjunction_code
     end
-    
+
     def referenced_data_criteria
       data_criteria_ids = []
       @preconditions.each do |precondition|
@@ -95,7 +96,7 @@ module HQMF
       end if @preconditions
       data_criteria_ids
     end
-    
+
   end
-  
+
 end
