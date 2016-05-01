@@ -21,11 +21,11 @@ class HQMFVsSimpleTest < Minitest::Test
 
   Dir.glob(measure_files).each do |measure_filename|
     measure_name = File.basename(measure_filename, '.xml')
-    #if ["CMS50v4"].index(measure_name) # left in to handle subset testing
+    if ["CMS72v5"].index(measure_name) # left in to handle subset testing
       define_method("test_#{measure_name}") do
         do_roundtrip_test(measure_filename, measure_name)
       end
-    #end
+    end
   end
 
   def do_roundtrip_test(measure_filename, measure_name)
@@ -94,7 +94,7 @@ class HQMFVsSimpleTest < Minitest::Test
   def remap_arbitrary_v2_diffs(simple_xml_model, hqmf_model, measure_name)
     # FIXME: (10/19/2015) removes the source data criteria for patient expired from simplexml, which at this time
     #  does not exist in the HQMF2.1 version or in the human readable version for most measures
-    unless %w(CMS159v4 CMS160v4 CMS172v5 CMS178v5).index(measure_name)
+    unless %w(CMS159v5 CMS160v5 CMS172v6 CMS178v6).index(measure_name)
       simple_xml_model.instance_variable_get(:@source_data_criteria).reject! { |sdc| sdc.definition == 'patient_characteristic_expired' }
     end
 
@@ -155,22 +155,12 @@ class HQMFVsSimpleTest < Minitest::Test
   # Manage corrections needed for individual (or groups of) measures
   def individual_measure_corrections(simple_xml_model, hqmf_model, measure_name)
     # Birthdate is unnecessary on this measure according to human readable, only appear in SimpleXML
-    if measure_name == 'CMS149v4'
+    if measure_name == 'CMS149v5'
       simple_xml_model.instance_variable_get(:@source_data_criteria).reject! { |sdc| sdc.definition == 'patient_characteristic_birthdate' }
     end
 
-    # Removes a code_list_id from a qdm variable (it is present in the measure xml)
-    if ['CMS62v4'].index(measure_name)
-      hqmf_model.all_data_criteria.select { |dc| dc.id == 'qdm_var_During_2F8D4BA8_BA4E_4DC8_9C35_11D4ADFE3E75' }.each do |dc|
-        dc.instance_variable_set(:@code_list_id, nil)
-      end
-      hqmf_model.source_data_criteria.select { |dc| dc.id == 'qdm_var_During_2F8D4BA8_BA4E_4DC8_9C35_11D4ADFE3E75' }.each do |dc|
-        dc.instance_variable_set(:@code_list_id, nil)
-      end
-    end
-
-    # Handles measures that are "regardless of age" or seems to not refer to Ptient birthdate characteristic
-    if %w(CMS31v4 CMS32v5 CMS50v4 CMS55v4 CMS62v4 CMS111v4 CMS129v5 CMS157v4 CMS185v4).index(measure_name)
+    # Handles measures that are "regardless of age" or seem to not refer to Patient birthdate characteristic
+    if %w(CMS9v5 CMS31v5 CMS32v6 CMS50v5 CMS55v5 CMS62v5 CMS111v5 CMS129v6 CMS149v5 CMS157v5 CMS185v5).index(measure_name)
       simple_xml_model.source_data_criteria.reject! { |dc| dc.definition == 'patient_characteristic_birthdate' }
     end
   end
@@ -311,7 +301,7 @@ class HashDataCriteria
     sha256 << "4-#{criteria.negation}:"
     sha256 << "5-#{criteria.specific_occurrence}:"
 
-    # build hashes of each complex child... these will update refereces to other data criteria as the hash is built
+    # build hashes of each complex child... these will update references to other data criteria as the hash is built
     sha256 << "6-#{hash_values(criteria.value)}:"
     sha256 << "7-#{hash_children(criteria.children_criteria, criteria_map)}:"
     sha256 << "8-#{hash_subsets(criteria.subset_operators)}:"
@@ -334,7 +324,8 @@ class HashDataCriteria
   # Hash subset operators
   def self.hash_subsets(list)
     return unless list
-    Digest::SHA256.hexdigest list.map { |x| x.to_json.to_json }.join(',')
+    #Digest::SHA256.hexdigest 
+    list.map { |x| x.to_json.to_json }.join(',')
   end
 
   # Hash temporal references
@@ -344,7 +335,8 @@ class HashDataCriteria
       t.reference.id = hash_criteria(criteria_map[t.reference.id], criteria_map) if criteria_map[t.reference.id]
     end
 
-    Digest::SHA256.hexdigest list.map { |x| x.to_json.to_json }.join(',')
+    #Digest::SHA256.hexdigest
+    list.map { |x| x.to_json.to_json }.join(',')
   end
 
   # Hash child criteria (using the criteria_map)
@@ -363,13 +355,15 @@ class HashDataCriteria
         fv.instance_variable_set(:@reference, hash_criteria(criteria_map[fv.instance_variable_get(:@reference)], criteria_map))
       end
     end
-    Digest::SHA256.hexdigest hash.to_json
+    #Digest::SHA256.hexdigest
+    hash.to_json
   end
 
   # Hash values for the criteria
   def self.hash_values(value)
     return unless value
     value.instance_variable_set(:@title, '') if value.type == 'CD'
-    Digest::SHA256.hexdigest value.to_json.to_json
+    #Digest::SHA256.hexdigest
+    value.to_json.to_json
   end
 end

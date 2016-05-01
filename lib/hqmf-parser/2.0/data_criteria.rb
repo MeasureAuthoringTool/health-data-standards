@@ -22,7 +22,7 @@ module HQMF2
       @occurrences_map = occurrences_map
       basic_setup
       @variable = DataCriteriaMethods.extract_variable(@local_variable_name, @id)
-      @field_values = DataCriteriaMethods.extract_field_values(@entry, @negation)
+      @field_values = DataCriteriaMethods.extract_field_values(@entry, @negation, @data_criteria_references)
       @description = extract_description
       obtain_specific_and_source = SpecificOccurrenceAndSource.new(@entry, @id, @local_variable_name,
                                                                    @data_criteria_references, @occurrences_map)
@@ -281,7 +281,7 @@ module HQMF2
   # Holds methods not tied to the data criteria's instance variables
   class DataCriteriaMethods
     #  Given an entry, and whether or not it's negated, extract out the proper field values for the data criteria.
-    def self.extract_field_values(entry, negation)
+    def self.extract_field_values(entry, negation, data_criteria_references)
       fields = {}
       # extract most fields which use the same structure
       entry.xpath('./*/cda:outboundRelationship[*/cda:code]', HQMF2::Document::NAMESPACES).each do |field|
@@ -302,7 +302,7 @@ module HQMF2
         fields[code_id] = value
       end
 
-      fields.merge! HQMF2::FieldValueHelper.parse_field_values(entry)
+      fields.merge! HQMF2::FieldValueHelper.parse_field_values(entry, data_criteria_references)
       # special case for fulfills operator.  assuming there is only a possibility of having one of these
       fulfills = entry.at_xpath('./*/cda:outboundRelationship[@typeCode="FLFS"]/cda:criteriaReference',
                                 HQMF2::Document::NAMESPACES)

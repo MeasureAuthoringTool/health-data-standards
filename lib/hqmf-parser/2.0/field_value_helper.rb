@@ -1,7 +1,7 @@
 module HQMF2
   # Generates field values based on understanding of the HQMF 2.1 spec
   class FieldValueHelper
-    def self.parse_field_values(entry)
+    def self.parse_field_values(entry, data_criteria_references)
       return if entry.nil?
       criteria = entry.at_xpath('./cda:actCriteria | ./cda:observationCriteria | ./cda:encounterCriteria |
                                  ./cda:procedureCriteria | ./cda:supplyCriteria |
@@ -14,7 +14,7 @@ module HQMF2
       # parse_dset_cd(criteria.at_xpath('./cda:reasonCode', HQMF2::Document::NAMESPACES), 'REASON', fields) unless
       # negated.
       parse_dset_cd(criteria.at_xpath('./cda:priorityCode', HQMF2::Document::NAMESPACES), 'ORDINAL', fields)
-      parse_date_fields(criteria, fields)
+      parse_date_fields(entry, criteria, fields, data_criteria_references)
 
       handle_fields_per_criteria(criteria, fields)
 
@@ -101,23 +101,36 @@ module HQMF2
                   element.at_xpath('@xsi:type', HQMF2::Document::NAMESPACES) == 'ANY')
     end
 
-    def self.parse_date_fields(entry, fields)
-      # handle embded date fields
+    def self.parse_date_fields(entry, criteria, fields, data_criteria_references)
+      # handle embeded date fields
       times = [{ key: 'signeddatetime', field: 'SIGNED_DATETIME', highlow: 'high' },
                { key: 'startdatetime', field:  'START_DATETIME', highlow: 'low' },
                { key: 'stopdatetime', field:  'STOP_DATETIME', highlow: 'high' },
                { key: 'recordeddatetime', field: 'RECORDED_DATETIME', highlow: 'high' }
               ]
       times.each do |e|
-        date = entry.at_xpath("cda:participation[@typeCode='AUT']/cda:role/cda:id/cda:item[@extension = '#{e[:key]}']/../../../cda:time")
+        date = criteria.at_xpath("cda:participation[@typeCode='AUT']/cda:role/cda:id/cda:item[@extension = '#{e[:key]}']/../../../cda:time")
         fields[e[:field]] = Range.new(date, 'IVL_PQ') if date
       end
 
-      # Special case handle effectiveTime element , by default low is start datetime
+      # Handle criteria that have outbound occurrences of a proceedure with additional template ids
+      occr = entry.at_xpath('./*/cda:outboundRelationship[@typeCode="OCCR"]/cda:criteriaReference',
+                                HQMF2::Document::NAMESPACES)
+      if !occr.nil?
+        occr_ext = occr.at_xpath('cda:id/@extension',HQMF2::Document::NAMESPACES)
+        occr_root = occr.at_xpath('cda:id/@root',HQMF2::Document::NAMESPACES)
+        occr_lookup = (occr_ext.text + '_' + occr_root.text).gsub!(/-/, '_')
+        occr = data_criteria_references[occr_lookup]
+      end
+      template_ids = extract_template_ids(criteria)
+      if template_ids.nil? || template_ids.empty?
+        template_ids = extract_template_ids(occr.entry) if !occr.nil?
+      end
+      
+      # Special case handle effectiveTime element, by default low is start datetime
       # and high is stop datetime.  This changes for certain elements
-      template_ids = extract_template_ids(entry)
-      low = entry.at_xpath('./cda:effectiveTime/cda:low/..')
-      high = entry.at_xpath('./cda:effectiveTime/cda:high/..')
+      low = criteria.at_xpath('./cda:effectiveTime/cda:low/..')
+      high = criteria.at_xpath('./cda:effectiveTime/cda:high/..')
 
       fields[low_field_name(template_ids)] = Range.new(low, 'IVL_PQ') if low
 
@@ -166,7 +179,7 @@ module HQMF2
 
     # Extract template ids from the given entry
     def self.extract_template_ids(entry)
-      entry.xpath('./cda:templateId/cda:item', HQMF2::Document::NAMESPACES).collect do |template_def|
+      entry.xpath('./*/cda:templateId/cda:item', HQMF2::Document::NAMESPACES).collect do |template_def|
         HQMF2::Utilities.attr_val(template_def, '@root')
       end
     end

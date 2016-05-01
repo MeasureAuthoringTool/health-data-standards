@@ -7,6 +7,10 @@ module HQMF2
     def initialize(entry, id, local_variable_name, data_criteria_references, occurrences_map)
       @entry = entry
       @id = id
+      # occAof_qdm_var_SatisfiesAll_93D07151_DBA1_4F09_985F_EF09D41FBE48_AB104BED_002B_4C85_9D2C_54353090167E
+      # occAof_qdm_var_SatisfiesAll_93D07151-DBA1-4F09-985F-EF09D41FBE48_AB104BED-002B-4C85-9D2C-54353090167E
+      require 'byebug'; debugger if @id == "occAof_qdm_var_SatisfiesAll_93D07151-DBA1-4F09-985F-EF09D41FBE48_AB104BED-002B-4C85-9D2C-54353090167E"
+      
       @local_variable_name = local_variable_name
       @occurrences_map = occurrences_map
       @is_variable = DataCriteriaMethods.extract_variable(@local_variable_name, @id)
