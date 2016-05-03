@@ -9,10 +9,10 @@ class EncounterTransferImporterTest < Minitest::Test
     enc = HealthDataStandards::Import::Cat1::EntryPackage.new(HealthDataStandards::Import::CDA::EncounterImporter.new(HealthDataStandards::Import::CDA::EntryFinder.new("//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']")), '2.16.840.1.113883.3.560.1.79', 'performed')
     encounters = enc.package_entries(cat1_patient_data_section(doc), nrh)
     encounter = encounters[0]
-    from_time = 20120214
-    to_time = 20120214
-    assert encounter.transferFrom.codes['HL7 Healthcare Service Location'].include?("1024-9")
-    assert encounter.transferTo.codes['HL7 Healthcare Service Location'].include?("1194-0")
+    from_time = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20120214')
+    to_time = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20120214')
+    assert encounter.transferFrom['code'].include?("1024-9")
+    assert encounter.transferTo['code'].include?("1194-0")
     assert_equal encounter.transferFrom.time, from_time
     assert_equal encounter.transferTo.time, to_time
   end
