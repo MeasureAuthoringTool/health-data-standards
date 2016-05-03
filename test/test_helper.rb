@@ -1,4 +1,4 @@
-require_relative "./simplecov"
+require 'simplecov'
 require 'factory_girl'
 
 require_relative '../lib/health-data-standards'
