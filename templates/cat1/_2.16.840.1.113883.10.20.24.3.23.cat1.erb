@@ -93,5 +93,14 @@
     <% if entry.reason.present? -%>
       <%== render(:partial => 'reason', :locals => {:entry => entry,:reason_oids=>field_oids["REASON"]}) %>
     <% end -%>
+
+    <% if entry.principalDiagnosis -%>
+      <entryRelationship typeCode="REFR">
+          <observation classCode="OBS" moodCode="EVN">
+            <code code="8319008" codeSystem="2.16.840.1.113883.6.96" displayName="Principal Diagnosis" codeSystemName="SNOMED CT"/>
+            <%== code_display(entry.principal_diagnosis, 'tag_name' => 'value', 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT'], 'extra_content' => "sdtc:valueSet=\"#{field_oids["PRINCIPAL_DIAGNOSIS"].first}\"") %>
+          </observation>
+      </entryRelationship>
+    <% end -%>
   </encounter>
 </entry>
