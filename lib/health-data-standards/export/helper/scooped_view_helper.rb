@@ -38,8 +38,12 @@ module HealthDataStandards
                 data_criteria_oid = '2.16.840.1.113883.3.560.1.79'
               end
             end
-
             value_set_oid = data_criteria.code_list_id
+            if data_criteria_oid == '2.16.840.1.113883.3.560.1.71'
+              value_set_oid = data_criteria.field_values['TRANSFER_FROM'].code_list_id
+            elsif data_criteria_oid == '2.16.840.1.113883.3.560.1.72'
+              value_set_oid = data_criteria.field_values['TRANSFER_TO'].code_list_id
+            end
             dc = {'data_criteria_oid' => data_criteria_oid, 'value_set_oid' => value_set_oid}
             mapping = mapped_data_criteria[dc] ||= {'result_oids' => [], 'field_oids' =>{}, 'data_criteria' => data_criteria}
             if data_criteria.field_values

@@ -20,7 +20,7 @@ module HealthDataStandards
                                              generate_importer(SymptomActiveImporter, nil, '2.16.840.1.113883.3.560.1.69', 'active'),
                                              generate_importer(DiagnosisActiveImporter, nil, '2.16.840.1.113883.3.560.1.2', 'active'),
                                              generate_importer(CDA::ConditionImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.54']", '2.16.840.1.113883.3.560.1.404'), # patient characteristic age
-                                             generate_importer(CDA::ConditionImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.14']", '2.16.840.1.113883.3.560.1.24', 'resolved'), #diagnosis resolved
+                                             generate_importer(CDA::ConditionImporter, "//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.14']", '2.16.840.1.113883.3.560.1.24', 'resolved'), #diagnosis resolved
                                              generate_importer(DiagnosisInactiveImporter, nil, '2.16.840.1.113883.3.560.1.23', 'inactive'), #diagnosis inactive
                                              generate_importer(ClinicalTrialParticipantImporter, nil, '2.16.840.1.113883.3.560.1.401')]
   
@@ -62,7 +62,10 @@ module HealthDataStandards
                                           generate_importer(LabResultImporter, nil, '2.16.840.1.113883.3.560.1.12')] #lab result
 
           @section_importers[:encounters] = [generate_importer(EncounterPerformedImporter, "./cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']", '2.16.840.1.113883.3.560.1.79', 'performed'), #encounter performed
-                                             generate_importer(EncounterOrderImporter, nil, '2.16.840.1.113883.3.560.1.83', 'ordered')]
+                                             generate_importer(EncounterOrderImporter, nil, '2.16.840.1.113883.3.560.1.83', 'ordered'),
+                                             generate_importer(TransferToImporter, nil, '2.16.840.1.113883.3.560.1.72'),
+                                             generate_importer(TransferFromImporter, nil, '2.16.840.1.113883.3.560.1.71')
+                                           ]
 
           @section_importers[:social_history] = [generate_importer(TobaccoUseImporter, nil, '2.16.840.1.113883.3.560.1.1001', 'completed')]
 

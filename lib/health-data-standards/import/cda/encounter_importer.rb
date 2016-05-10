@@ -18,7 +18,12 @@ module HealthDataStandards
           extract_reason_or_negation(entry_element, encounter)
           extract_admission(entry_element, encounter)
           extract_discharge_disposition(entry_element, encounter)
-          extract_transfers(entry_element, encounter)
+          transfer_elements = entry_element.xpath("./cda:participant[@typeCode='ORG' or 'DST']")
+          if transfer_elements
+            transfer_elements.each do |transfer_element|
+              extract_transfer(transfer_element, encounter)
+            end
+          end
           encounter
         end
     
@@ -62,26 +67,23 @@ module HealthDataStandards
           encounter.discharge_disposition = extract_code(parent_element, "./sdtc:dischargeDispositionCode")
         end
 
-        def extract_transfers(parent_element, encounter)
-          transfer_from_element = parent_element.at_xpath("./cda:participant[@typeCode='ORG']")
-          if (transfer_from_element)
-            transfer_from = Transfer.new(time: transfer_from_element.at_xpath("./cda:time")['value'])
-            transfer_from_subelement = transfer_from_element.at_xpath("./cda:participantRole[@classCode='LOCE']")
-            raw_tf_code = extract_code(transfer_from_subelement, './cda:code')
-            code_hash = {CodeSystemHelper.code_system_for(raw_tf_code["codeSystemOid"]) => [raw_tf_code["code"]]}
-            transfer_from.codes = code_hash
-            encounter.transfer_from = transfer_from
-          end
+        def extract_transfer(transfer_element, encounter)
+          transfer_from, transfer_to = transfer_from_or_to(transfer_element)
+          return unless transfer_to || transfer_from
+          transfer = Transfer.new
+          extract_dates(transfer_element, transfer, 'time')
+          raw_code = extract_code(transfer_element.at_xpath("./cda:participantRole[@classCode='LOCE']"), './cda:code')
+          code_hash = {CodeSystemHelper.code_system_for(raw_code["codeSystemOid"]) => [raw_code["code"]]}
+          transfer['code_system'] = code_hash.keys.first
+          transfer['code'] = code_hash[code_hash.keys.first].first
+          encounter.transfer_from = transfer if transfer_from
+          encounter.transfer_to = transfer if transfer_to
+        end
 
-          transfer_to_element = parent_element.at_xpath("./cda:participant[@typeCode='DST']")
-          if (transfer_to_element)
-            transfer_to = Transfer.new(time: transfer_to_element.at_xpath("./cda:time")['value'])
-            transfer_to_subelement = transfer_to_element.at_xpath("./cda:participantRole[@classCode='LOCE']")
-            raw_tt_code = extract_code(transfer_to_subelement, './cda:code')
-            code_hash = {CodeSystemHelper.code_system_for(raw_tt_code["codeSystemOid"]) => [raw_tt_code["code"]]}
-            transfer_to.codes = code_hash
-            encounter.transfer_to = transfer_to
-          end
+        def transfer_from_or_to(transfer_element)
+          transfer_from = true if transfer_element['typeCode'] && transfer_element['typeCode'] == 'ORG'
+          transfer_to = true if transfer_element['typeCode'] && transfer_element['typeCode'] == 'DST'
+          [transfer_from, transfer_to]
         end
       end
     end
