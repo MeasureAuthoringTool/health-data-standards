@@ -38,7 +38,7 @@ module HealthDataStandards
 
         code_string
       end
-            
+
       def status_code_for(entry)
         case entry.status.to_s.downcase
         when 'active'
