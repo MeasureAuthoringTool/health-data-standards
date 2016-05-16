@@ -62,7 +62,7 @@ module HealthDataStandards
         groups_with_categories = vs_element.xpath("//vs:Group/@ID[../@displayName='CATEGORY']")
         groups_with_categories.each do |group_number|
           measure = vs_element.xpath("//vs:Group[@displayName='CMS eMeasure ID' and @ID='#{group_number}']/vs:Keyword").text
-          categories_for_group = vs_element.xpath("//vs:Group[@displayName='CATEGORY' and @ID='#{group_number}']/vs:Keyword").collect
+          categories_for_group = vs_element.xpath("//vs:Group[@displayName='CATEGORY' and @ID='#{group_number}']/vs:Keyword")
           categories_for_group.each do |category|
             category_hash[measure] << category.text
           end
