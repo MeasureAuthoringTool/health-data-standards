@@ -6,6 +6,7 @@ module HealthDataStandards
       field :display_name, type: String
       field :version, type: String
       field :user_id, type: String # Eventually we need to delete this from bundles when exporting
+      field :categories, type: Hash
 
       belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle", inverse_of: :value_sets
 
@@ -40,16 +41,33 @@ module HealthDataStandards
         vs_element = doc.at_xpath("/vs:RetrieveValueSetResponse/vs:ValueSet|/vs:RetrieveMultipleValueSetsResponse/vs:DescribedValueSet")
         if vs_element
           vs = ValueSet.new(oid: vs_element["ID"], display_name: vs_element["displayName"], version: vs_element["version"])
-          concepts = vs_element.xpath("//vs:Concept").collect do |con|
-            code_system_name = HealthDataStandards::Util::CodeSystemHelper::CODE_SYSTEMS[con["codeSystem"]] || con["codeSystemName"]
-            Concept.new(code: con["code"], 
-                        code_system_name: code_system_name,
-                        code_system_version: con["codeSystemVersion"],
-                        display_name: con["displayName"], code_system: con["codeSystem"])
-          end
-          vs.concepts = concepts
+          vs.concepts = extract_concepts(vs_element)
+          vs.categories = extract_categories(vs_element)
           return vs
         end
+      end
+
+      def self.extract_concepts(vs_element)
+        concepts = vs_element.xpath("//vs:Concept").collect do |con|
+        code_system_name = HealthDataStandards::Util::CodeSystemHelper::CODE_SYSTEMS[con["codeSystem"]] || con["codeSystemName"]
+        Concept.new(code: con["code"], 
+                    code_system_name: code_system_name,
+                    code_system_version: con["codeSystemVersion"],
+                    display_name: con["displayName"], code_system: con["codeSystem"])
+        end
+      end
+
+      def self.extract_categories(vs_element)
+        category_hash = Hash.new {|h,k| h[k]=[]}
+        groups_with_categories = vs_element.xpath("//vs:Group/@ID[../@displayName='CATEGORY']")
+        groups_with_categories.each do |group_number|
+          measure = vs_element.xpath("//vs:Group[@displayName='CMS eMeasure ID' and @ID='#{group_number}']/vs:Keyword").text
+          categories_for_group = vs_element.xpath("//vs:Group[@displayName='CATEGORY' and @ID='#{group_number}']/vs:Keyword")
+          categories_for_group.each do |category|
+            category_hash[measure] << category.text
+          end
+        end
+        category_hash.size > 0 ? category_hash : nil
       end
     end
   end

@@ -9,6 +9,15 @@ class ValueSetTest < Minitest::Test
     assert vs.concepts.any? {|c| c.code_system_version == '2014-09'}
   end
 
+  def test_load_from_xml_with_categories
+    doc = Nokogiri::XML(File.new('test/fixtures/value_sets/value_set_with_categories.xml'))
+    vs = HealthDataStandards::SVS::ValueSet.load_from_xml(doc)
+    assert_equal '1.3.6.1.4.1.33895.1.3.0.45', vs.oid
+    assert_equal 15, vs.categories.size 
+    assert vs.concepts.any? {|c| c.code == "385763009"}
+    assert vs.concepts.any? {|c| c.code_system_version == '2015-09'}
+  end
+
   def test_code_set_map
     doc = Nokogiri::XML(File.new('test/fixtures/value_sets/value_sets.xml'))
     vs = HealthDataStandards::SVS::ValueSet.load_from_xml(doc)

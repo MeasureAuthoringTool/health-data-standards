@@ -68,11 +68,13 @@ module HealthDataStandards
         include_draft = options.fetch(:include_draft, false)
         profile = options.fetch(:profile, DEFAULT_PROFILE)
         effective_date = options.fetch(:effective_date, nil)
+        program_name = options.fetch(:program, nil)
         params = { id: oid, ticket: get_ticket }
         params[:version] = version if version
         params[:includeDraft] = 'yes' if include_draft
         params[:profile] = profile if include_draft
         params[:effectiveDate] = effective_date if effective_date
+        params[:programType] = program_name if program_name
         begin
           vs = RestClient.get(api_url, :params=>params)
         rescue RestClient::ResourceNotFound
