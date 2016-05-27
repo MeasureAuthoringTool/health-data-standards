@@ -42,6 +42,9 @@
           <id root="<%= cda_id.root %>" extension="<%= cda_id.extension %>" />
             <% end -%>
           <% end -%>
+          <% if pp.provider.specialty %>
+          <code code="<%= pp.provider.specialty %>" codeSystemName="Healthcare Provider Taxonomy (HIPAA)" codeSystem="2.16.840.1.113883.6.101"/>
+          <% end %>
           <%== render :partial=>"address" , :collection=>pp.provider.addresses %>
           <%== render :partial=>"telecom", :collection=>pp.provider.telecoms %>
           <assignedPerson>
