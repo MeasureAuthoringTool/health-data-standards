@@ -12,6 +12,7 @@ module HealthDataStandards
     CDA_SDTC_SCHEMA = 'resources/schema/infrastructure/cda/CDA_SDTC.xsd'
     QRDA_CAT1_SCHEMATRON = 'resources/schematron/qrda/cat_1_r2/QRDA Category I Release 2.sch'
     QRDA_CAT1_R3_SCHEMATRON = 'resources/schematron/qrda/cat_1/HL7_CDAR2_QRDA_Category_I_2_12_16.sch'
+    QRDA_CAT1_R3_1_SCHEMATRON = 'resources/schematron/qrda/cat_1_r3_1/HL7 QRDA Category I STU 3.1.sch'
     QRDA_CAT3_SCHEMATRON = 'resources/schematron/qrda/cat_3/QRDA Category III.sch'
     BASE_DIR = File.expand_path("../../../../", __FILE__)
 
@@ -56,6 +57,15 @@ module HealthDataStandards
 
       def initialize
         super("QRDA Cat 1 Validator", File.join(BASE_DIR, QRDA_CAT1_SCHEMATRON))
+      end
+
+    end
+
+    class Cat1R31 < Schematron::Validator
+      include Singleton
+
+      def initialize
+        super("QRDA Cat 1 Validator", File.join(BASE_DIR, QRDA_CAT1_R3_1_SCHEMATRON))
       end
 
     end

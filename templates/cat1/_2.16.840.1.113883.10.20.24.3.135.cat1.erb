@@ -17,7 +17,9 @@
         <!-- Diagnosis template -->
         <templateId root="2.16.840.1.113883.10.20.24.3.135" />
         <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>" />
-        <code code="29308-4" codeSystem="2.16.840.1.113883.6.1" />
+        <code code="29308-4" codeSystem="2.16.840.1.113883.6.1">
+          <translation code="282291009" codeSystem="2.16.840.1.113883.6.96"/>
+        </code>
         <statusCode code="completed" />
         <effectiveTime>
           <!-- Attribute: onset datetime -->
@@ -34,6 +36,15 @@
                             displayName="<%=entry.laterality['title']%>"
                           <% end -%>
                           sdtc:valueSet="<%= oid_for_code(entry.severity,field_oids["LATERALITY"] || [], entry.record["bundle_id"]) %>"
+          />
+        <% end -%>
+        <% if entry.anatomical_location -%>
+          <targetSiteCode code="<%= entry.anatomical_location['code'] %>"
+                          codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.anatomical_location['codeSystem'] || entry.anatomical_location['code_system']) %>"
+                          <% if entry.anatomical_location.has_key?('title') -%>
+                            displayName="<%=entry.anatomical_location['title']%>"
+                          <% end -%>
+                          sdtc:valueSet="<%= oid_for_code(entry.anatomical_location,field_oids["ANATOMICAL_LOCATION_SITE"] || [], entry.record["bundle_id"]) %>"
           />
         <% end -%>
         <% if entry.severity -%>
