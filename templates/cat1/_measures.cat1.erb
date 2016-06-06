@@ -59,6 +59,27 @@
                 </externalDocument>
               </reference>
             </organizer>
+            <% # Only want the epxected values when running from Bonnie
+            unless patient['qrda_expected_values'].nil? -%>
+            <component>
+              <% patient['qrda_expected_values'].each do |qev| -%>
+                <observation classCode="OBS" moodCode="EVN" negationInd="<%= qev['expected_value'] %>">
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                  <value xsi:type="CD"
+                    code="<%= qev['code'] %>"
+                    codeSystem="2.16.840.1.113883.5.4"
+                    codeSystemName="ActCode"
+                    displayName="<%= qev['display_name'] %>"/>
+                  <!-- Explicit reference to the eMeasure population (because some eMeasures have multiple Numerators, etc -->
+                  <reference typeCode="REFR">
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="<%= qev['hqmf_id'] %>"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              <% end -%>
+            </component>
+            <% end -%>
           </entry>
           <% end -%>
         </section>
