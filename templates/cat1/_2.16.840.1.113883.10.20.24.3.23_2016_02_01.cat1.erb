@@ -1,9 +1,9 @@
 <entry>
   <encounter classCode="ENC" moodCode="EVN">
     <!--  Encounter activities template -->
-    <templateId root="2.16.840.1.113883.10.20.22.4.49" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/> 
+    <templateId root="2.16.840.1.113883.10.20.22.4.49" extension="2015-08-01"/> 
     <!-- Encounter performed template -->
-    <templateId root="2.16.840.1.113883.10.20.24.3.23" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/>
+    <templateId root="2.16.840.1.113883.10.20.24.3.23" extension="2016-02-01"/>
     <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
     <%== code_display(entry, 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
     <text><%= entry.description %></text>
@@ -52,55 +52,48 @@
       </participantRole>
     </participant>
     <% end -%>
-    <% if r2_compatibility %>
-    <% if entry.respond_to?(:transferFrom) && entry.transferFrom.present? -%>
-    <participant typeCode="ORG">
-      <!-- Transfer From (Destination) template --> 
-      <templateId root="2.16.840.1.113883.10.20.24.3.81"/> 
-      <time <%= value_or_null_flavor(entry.transferFrom.time) %>/>
-      <participantRole classCode="LOCE">
-        <% 
-           entry.transferFrom.codes[entry.transferFrom.code_system] = [entry.transferFrom.code]
-           transfer_vs_map = [{"set"=>entry.transferFrom.code_system, "values"=>[entry.transferFrom.code]}]
-           transfer_oid = (data_criteria.field_values || {})['TRANSFER_FROM'].try(:code_list_id)
-           options = {'value_set_map' => transfer_vs_map, 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT']}
-           options['extra_content'] = "sdtc:valueSet=\"#{transfer_oid}\"" if transfer_oid
-        %>
-        <%== code_display(entry.transferFrom, options) %>
-      </participantRole> 
-    </participant>
-    <% end -%>
-
-    <% if entry.respond_to?(:transferTo) && entry.transferTo.present? -%>
-    <participant typeCode="DST">
-      <!-- Transfer To (Destination) template --> 
-      <templateId root="2.16.840.1.113883.10.20.24.3.82"/> 
-      <time <%= value_or_null_flavor(entry.transferTo.time) %>/>
-      <participantRole classCode="LOCE">
-        <% 
-           entry.transferTo.codes[entry.transferTo.code_system] = [entry.transferTo.code]
-           transfer_vs_map = [{"set"=>entry.transferTo.code_system, "values"=>[entry.transferTo.code]}]
-           transfer_oid = (data_criteria.field_values || {})['TRANSFER_TO'].try(:code_list_id)
-           options = {'value_set_map' => transfer_vs_map, 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT']}
-           options['extra_content'] = "sdtc:valueSet=\"#{transfer_oid}\"" if transfer_oid
-        %>
-        <%== code_display(entry.transferTo, options) %>
-      </participantRole> 
-    </participant>
-    <% end -%>
-    <% end -%>
-
     <% if entry.reason.present? -%>
       <%== render(:partial => 'reason', :locals => {:entry => entry,:reason_oids=>field_oids["REASON"]}) %>
     <% end -%>
-
-    <% if entry.principalDiagnosis && field_oids["PRINCIPAL_DIAGNOSIS"] -%>
-      <entryRelationship typeCode="REFR">
-          <observation classCode="OBS" moodCode="EVN">
-            <code code="8319008" codeSystem="2.16.840.1.113883.6.96" displayName="Principal Diagnosis" codeSystemName="SNOMED CT"/>
-            <%== code_display(entry.principal_diagnosis, 'tag_name' => 'value', 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT'], 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{field_oids["PRINCIPAL_DIAGNOSIS"].first}\"") %>
-          </observation>
-      </entryRelationship>
+    <% if entry.principalDiagnosis 
+      value_set = oid_for_code(entry.principal_diagnosis.preferred_code, field_oids["PRINCIPAL_DIAGNOSIS"], entry.record["bundle_id"])
+      if value_set %>
+        <entryRelationship typeCode="REFR">
+            <observation classCode="OBS" moodCode="EVN">
+              <code code="8319008" codeSystem="2.16.840.1.113883.6.96" displayName="Principal Diagnosis" codeSystemName="SNOMED CT"/>
+              <%== code_display(entry.principal_diagnosis, 'tag_name' => 'value', 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT'], 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set}\"") %>
+            </observation>
+        </entryRelationship>
+      <% end %>
+    <% end -%>
+    <% if entry.diagnosis
+      value_set = oid_for_code(entry.diagnosis.preferred_code, field_oids["DIAGNOSIS"], entry.record["bundle_id"])
+      if value_set %>
+        <entryRelationship typeCode="REFR">
+            <act classCode="ACT" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.80" extension="2015-08-01"/>
+              <code code="29308-4" codeSystem="2.16.840.1.113883.6.1" displayName="Diagnosis" codeSystemName="LOINC"/>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <!--  Problem observation template -->
+                  <templateId root="2.16.840.1.113883.10.20.22.4.4" extension="2015-08-01"/>
+                  <id root="1.3.6.1.4.1.115" extension="<%= UUID.generate %>"/>
+                  <code code="29308-4" codeSystem="2.16.840.1.113883.6.1">
+                    <translation code="282291009" codeSystem="2.16.840.1.113883.6.96"/>
+                  </code>
+                  <statusCode code="completed"/>
+                  <effectiveTime>
+                    <!-- Attribute: admission datetime -->
+                    <low <%= value_or_null_flavor(entry.start_time) %>/>
+                    <!-- Attribute: discharge datetime -->
+                    <high <%= value_or_null_flavor(entry.end_time) %>/>
+                  </effectiveTime>
+                  <%== code_display(entry.diagnosis, 'tag_name' => 'value', 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT'], 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set}\"") %>
+                </observation>
+              </entryRelationship>
+            </act>
+        </entryRelationship>
+      <% end %>
     <% end -%>
   </encounter>
 </entry>

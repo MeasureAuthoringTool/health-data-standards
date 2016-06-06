@@ -94,15 +94,18 @@ module HealthDataStandards
 
         # Find all of the entries on a patient that match the given data criteria
         def entries_for_data_criteria(data_criteria, patient)
+
           data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                                       data_criteria.status || '',
                                                                                        data_criteria.negation)
+          is_hqmfr2 = true unless data_criteria_oid 
           data_criteria_oid ||= HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                                       data_criteria.status || '',
                                                                                       data_criteria.negation, "r2")
           HealthDataStandards.logger.warn("Looking for dc [#{data_criteria_oid}]")
           filtered_entries = []
           entries = []
+          
           case data_criteria_oid
           when '2.16.840.1.113883.3.560.1.404'
             filtered_entries = handle_patient_expired(patient)
@@ -156,15 +159,14 @@ module HealthDataStandards
                   ttc && !ttc.empty?
                 end
               else
-                # The !! hack makes sure that negation_ind is a boolean
-                entry.is_in_code_set?(codes) && !!entry.negation_ind == data_criteria.negation
+                # The !! hack makes sure that negation_ind is a boolean. negations use the same hqmf templates in r2
+                entry.is_in_code_set?(codes) && (is_hqmfr2 || !!entry.negation_ind == data_criteria.negation)
               end
             end
           end
           if filtered_entries.empty?
             HealthDataStandards.logger.debug("No entries for #{data_criteria.title}")
           end
-
           filtered_entries
         end
 
