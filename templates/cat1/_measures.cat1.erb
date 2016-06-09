@@ -60,9 +60,10 @@
               </reference>
             </organizer>
             <% # Only want the epxected values when running from Bonnie
-            unless patient['qrda_expected_values'].nil? -%>
+            if patient['bonnie'] -%>
             <component>
-              <% patient['qrda_expected_values'].each do |qev| -%>
+              <% qrda_expected_values = patient.qrda_expected_values(measure)
+              qrda_expected_values.each do |qev| -%>
                 <observation classCode="OBS" moodCode="EVN" negationInd="<%= qev['expected_value'] %>">
                   <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
                   <value xsi:type="CD"
