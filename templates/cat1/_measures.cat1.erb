@@ -62,19 +62,37 @@
             <% # Only want the epxected values when running from Bonnie
             if patient['bonnie'] -%>
             <component>
-              <% qrda_expected_values = patient.qrda_expected_values(measure)
+              <% qrda_expected_values = []
+              measure.populations.each_with_index do |pop, idx|
+                pop.each do |pkey, pvalue|
+                  next if pkey == 'id' || pkey == 'title' || pkey.downcase.match(/^strat/) || pkey == 'OBSERV'
+                  this_ev = { code: nil, display_name: nil, hqmf_id: nil, expected_value: nil }
+                  this_ev[:hqmf_id] = measure.population_criteria[pvalue.to_s]['hqmf_id']
+                  if pkey == 'DENEX'
+                    this_ev[:display_name] = 'Denominator Exclusions'
+                  else
+                    this_ev[:display_name] = measure.population_criteria[pvalue.to_s]['title']
+                  end
+                  this_ev[:code] = pkey == 'IPP' ? 'IPOP' : pkey
+                  # Going to assume that any expected_value > 0 is a TRUE
+                  # As per HL7 CDA R2:QRDA I, R1, STU Release 3.1, US Realm, Vol. 2 —Templates and Supporting Material
+                  # Set negationInd="false" to assert true (that the criteria are met by the included data). Set negationInd="true" to assert false (that the criteria are not met by the included data).
+                  this_ev[:expected_value] = patient.expected_values[idx][pkey].to_s == '0' ? 'true' : 'false'
+                  qrda_expected_values << this_ev
+                end
+              end
               qrda_expected_values.each do |qev| -%>
-                <observation classCode="OBS" moodCode="EVN" negationInd="<%= qev['expected_value'] %>">
+                <observation classCode="OBS" moodCode="EVN" negationInd="<%= qev[:expected_value] %>">
                   <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
                   <value xsi:type="CD"
-                    code="<%= qev['code'] %>"
+                    code="<%= qev[:code] %>"
                     codeSystem="2.16.840.1.113883.5.4"
                     codeSystemName="ActCode"
-                    displayName="<%= qev['display_name'] %>"/>
+                    displayName="<%= qev[:display_name] %>"/>
                   <!-- Explicit reference to the eMeasure population (because some eMeasures have multiple Numerators, etc -->
                   <reference typeCode="REFR">
                     <externalObservation classCode="OBS" moodCode="EVN">
-                      <id root="<%= qev['hqmf_id'] %>"/>
+                      <id root="<%= qev[:hqmf_id] %>"/>
                     </externalObservation>
                   </reference>
                 </observation>
