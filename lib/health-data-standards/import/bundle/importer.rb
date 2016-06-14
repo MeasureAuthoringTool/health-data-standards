@@ -111,7 +111,6 @@ module HealthDataStandards
             measure = source_measure.clone
             measure_ids << measure['id']
             measure['bundle_id'] = bundle.id
-<<<<<<< e5b3c9dc54b52d770d203e8b1e05ac89ae52a25a
             Mongoid.default_client["measures"].insert_one(measure)
 
             if update_measures
@@ -120,16 +119,6 @@ module HealthDataStandards
                 if b.version < bundle.version
                   m.merge!(source_measure)
                   Mongoid.default_client["measures"].update_one({"_id" => m["_id"]},m)
-=======
-	    Mongoid.default_client["measures"].insert_one(measure)
-
-            if update_measures
-	      Mongoid.default_client["measures"].find({hqmf_id: measure["hqmf_id"], sub_id: measure["sub_id"]}).each do |m|
-                b = HealthDataStandards::CQM::Bundle.find(m["bundle_id"])
-                if b.version < bundle.version
-                  m.merge!(source_measure)
-		  Mongoid.default_client["measures"].update_one({"_id" => m["_id"]},m)
->>>>>>> Bumps activesupport to 4.2.0.
                 end
               end
             end
@@ -217,11 +206,7 @@ module HealthDataStandards
           entries.each_with_index do |entry, index|
             vs = HealthDataStandards::SVS::ValueSet.new(unpack_json(entry))
             vs['bundle_id'] = bundle.id
-<<<<<<< e5b3c9dc54b52d770d203e8b1e05ac89ae52a25a
             HealthDataStandards::SVS::ValueSet.collection.insert_one(vs.as_document)
-=======
-	    HealthDataStandards::SVS::ValueSet.collection.insert_one(vs.as_document)
->>>>>>> Bumps activesupport to 4.2.0.
             report_progress('Value Sets', (index*100/entries.length)) if index%10 == 0
           end
           puts "\rLoading: Value Sets Complete          "
@@ -249,11 +234,7 @@ module HealthDataStandards
                 end
               end
               document['bundle_id'] = bundle.id
-<<<<<<< e5b3c9dc54b52d770d203e8b1e05ac89ae52a25a
               Mongoid.default_client[collection].insert_one(document)
-=======
-	      Mongoid.default_client[collection].insert_one(document)
->>>>>>> Bumps activesupport to 4.2.0.
             end
           end
           puts "\rLoading: Results Complete          "
