@@ -1,0 +1,45 @@
+<entry>
+  <substanceAdministration classCode="SBADM" moodCode="EVN">
+    <!-- Medication Activity (consolidation) template -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.16" extension="2014-06-09"/>
+    <!-- Medication, Active template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.41" extension="2016-02-01"/>
+
+    <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
+    <text><%= entry.description %></text>
+    <statusCode code="active"/>
+    <effectiveTime xsi:type="IVL_TS">
+        <low <%= value_or_null_flavor(entry.start_time) %>/>
+        <high <%= value_or_null_flavor(entry.end_time) %>/>
+    </effectiveTime>
+    <% if entry.administrationTiming.present?
+      period = entry.administrationTiming['period'] %>
+      <effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A">
+        <period value="<%= period['value']%>" unit="<%= period['unit']%>"/>
+      </effectiveTime>
+    <% end %>
+    <%== render(:partial => 'medication_details', :locals => {:entry => entry, :route_oids=>field_oids["ROUTE"]}) %>
+
+    <% if entry.product_form.present? -%>
+    <administrationUnitCode code="<%= entry.product_form['code'] %>" codeSystem="<%= entry.product_form['codeSystem'] %>"/>
+    <% end -%>
+
+    <consumable>
+      <manufacturedProduct classCode="MANU">
+        <!-- Medication Information (consolidation) template -->
+        <templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/>
+        <id root="<%= UUID.generate %>"/>
+        <manufacturedMaterial>
+          <%== code_display(entry, 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'RxNorm'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+        </manufacturedMaterial>
+        <manufacturerOrganization>
+          <name>Medication Factory Inc.</name>
+        </manufacturerOrganization>
+      </manufacturedProduct>
+    </consumable>
+
+    <%== render(:partial => 'medication_dispense', :collection => entry.fulfillmentHistory, :locals => {:entry => entry, :value_set_map => value_set_map, :value_set_oid => value_set_oid, :r2_compatibility => r2_compatibility}) %>
+
+  </substanceAdministration>
+
+</entry>
