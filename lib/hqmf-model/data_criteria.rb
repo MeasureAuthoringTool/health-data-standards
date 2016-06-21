@@ -354,6 +354,8 @@ module HQMF
     end
 
     def self.template_id_for_definition(definition, status, negation, version="r1")
+      # in r2 negation uses the same template as a positive assertion
+      negation = false if version == "r2"
       get_template_id_map(version).key({'definition' => definition, 'status' => status || '', 'negation' => negation})
     end
 
