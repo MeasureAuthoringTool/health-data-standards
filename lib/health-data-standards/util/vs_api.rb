@@ -57,7 +57,7 @@ module HealthDataStandards
       # The VSAC V2 API needs a profile to be specified when using includeDraft. Future work on this 
       # class could include a function to fetch the list of profiles from the https://vsac.nlm.nih.gov/vsac/profiles
       # call.
-      DEFAULT_PROFILE = "Most Recent CS Versions"
+      DEFAULT_PROFILE = "Most Recent Code System Versions in VSAC"
       
       def initialize(ticket_url, api_url, username, password, ticket_granting_ticket = nil)
         super(ticket_url, api_url, username, password, ticket_granting_ticket)
