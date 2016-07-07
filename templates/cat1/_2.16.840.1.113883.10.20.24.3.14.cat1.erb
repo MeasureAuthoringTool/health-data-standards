@@ -33,19 +33,21 @@
 
     <%== code_display(entry, 'value_set_map' => filtered_vs_map,'tag_name' => 'value', 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT'],
                              'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <% if r2_compatibility %>
     <!-- Status -->
     <entryRelationship typeCode="REFR">
       <observation classCode="OBS" moodCode="EVN">
         <!-- Problem Status (consolidation) template -->
-        <templateId root="2.16.840.1.113883.10.20.22.4.6" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
+        <templateId root="2.16.840.1.113883.10.20.22.4.6"/>
         <!-- Problem Status, Resolved template -->
-        <templateId root="2.16.840.1.113883.10.20.24.3.96" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/>
+        <templateId root="2.16.840.1.113883.10.20.24.3.96"/>
         <id root="<%= UUID.generate %>"/>
         <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="status"/>
         <statusCode code="completed"/>
         <value code="413322009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="resolved" xsi:type="CD"/>
       </observation>
     </entryRelationship>
+    <% end %>
   </observation>
   </entryRelationship>
   </act>
