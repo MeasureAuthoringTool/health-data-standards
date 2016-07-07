@@ -51,10 +51,11 @@
                 sdtc:valueSet="<%= oid_for_code(entry.laterality,field_oids["LATERALITY"] || [], entry.record["bundle_id"]) %>"
             />
     <% end %>
+    <% if r2_compatibility %>
     <entryRelationship typeCode="REFR">
       <observation classCode="OBS" moodCode="EVN">
         <!-- Problem Status (consolidation) template -->
-        <templateId root="2.16.840.1.113883.10.20.22.4.6" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
+        <templateId root="2.16.840.1.113883.10.20.22.4.6" extension="2014-06-09"/>
         <!-- Problem Status, Active template -->
         <templateId root="2.16.840.1.113883.10.20.24.3.94" extension="2015-04-06"/>
         <id root="<%= UUID.generate %>"/>  
@@ -69,6 +70,7 @@
            codeSystemName="SNOMED CT"/>
       </observation>
     </entryRelationship>
+    <% end %>
     <% if entry.severity %>
     <entryRelationship typeCode="REFR">
        <observation classCode="OBS" moodCode="EVN">
