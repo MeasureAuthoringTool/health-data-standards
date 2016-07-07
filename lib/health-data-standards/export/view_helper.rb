@@ -53,7 +53,7 @@ module HealthDataStandards
       def fulfillment_quantity(codes, fulfillmentHistory, dose)
         if (codes["RxNorm"].present?)
           doses = (fulfillmentHistory.quantity_dispensed['value'].to_f / dose['value'].to_f ).to_i
-          return "value='#{doses}'"
+          return "value='#{doses}' unit='1'"
         else
           return "value='#{fulfillmentHistory.quantity_dispensed['value']}' unit='#{fulfillmentHistory.quantity_dispensed['unit']}'"
         end
