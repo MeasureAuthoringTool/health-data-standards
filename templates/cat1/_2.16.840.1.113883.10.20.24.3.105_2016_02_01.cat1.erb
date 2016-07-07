@@ -33,7 +33,10 @@
         <% end %>
         <% if entry.route.present? -%>
         <!-- Attribute: route -->
-        <routeCode code="<%= entry.route['code'] %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.route['code_system']) %>"/>
+          <% vset = oid_for_code(entry.route.code,field_oids["ROUTE"]) %>
+          <% if vset %>
+            <routeCode code="<%= entry.route['code'] %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.route['code_system']) %>" sdtc:valueSet="<%= vset %>"/>
+          <% end %>
         <% end -%>
         
         <!-- Attribute: dose -->

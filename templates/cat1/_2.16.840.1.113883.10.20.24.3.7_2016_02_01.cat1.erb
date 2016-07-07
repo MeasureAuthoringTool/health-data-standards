@@ -15,8 +15,11 @@
     </effectiveTime>
     
     <% if entry.respond_to?(:anatomical_target) && entry.anatomical_target.present? -%>
-    <targetSiteCode code="<%= entry.anatomical_target['code'] %>" 
-                    codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.anatomical_target['code_system']) %>"/>
+      <% vset = oid_for_code(entry.anatomical_target.code,field_oids["ANATOMICAL_LOCATION_SITE"]) %>
+      <% if vset %>
+        <targetSiteCode code="<%= entry.anatomical_target['code'] %>" 
+          codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.anatomical_target['code_system']) %>" sdtc:valueSet="<%= vset %>"/>
+      <% end %>
     <% end -%>
     <participant typeCode="DEV">
       <participantRole classCode="MANU">
