@@ -82,6 +82,9 @@ class HQMFVsSimpleTest < Minitest::Test
     # rebuild hqmf model so that source data criteria are different objects
     hqmf_model = HQMF::Document.from_json(JSON.parse(hqmf_model.to_json.to_json, max_nesting: 100))
 
+    # Only care about the major hqmf version id for the comparison test
+    hqmf_model.instance_variable_set(:@hqmf_version_number, hqmf_model.hqmf_version_number.to_i)
+
     simple_xml = File.join(SIMPLE_XML_ROOT, "#{measure_name}_SimpleXML.xml")
     simple_xml_model = SimpleXml::Parser::V1Parser.new.parse(File.read(simple_xml))
 
