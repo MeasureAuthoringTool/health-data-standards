@@ -2,6 +2,9 @@
     <patientRole>
       <% if (patient.medical_record_number && patient.medical_record_assigner) %>
         <id extension="<%= patient.medical_record_number %>" root="<%= patient.medical_record_assigner %>"/>
+        <% if cms_compatibility %>
+          <id extension="<%= patient.medical_record_number %>" root="1.3.6.1.4.1.115" />
+        <% end %>
       <% else -%>
         <id extension="12345" root="PlaceholderOrganization" />
       <% end -%>
