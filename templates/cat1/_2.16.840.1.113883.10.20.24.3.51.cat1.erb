@@ -9,6 +9,6 @@
       <low <%= value_or_null_flavor(entry.start_time) %>/>
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
-    <value code="428024001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="clinical trial participant" xsi:type="CD"/>
+    <%== code_display(entry, {'tag_name' => 'value', 'value_set_map' => filtered_vs_map,'preferred_code_sets' => ['SNOMED-CT', 'LOINC', 'ICD-9-CM', 'ICD-10-CM'], 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\""}) %>
   </observation>
 </entry>
