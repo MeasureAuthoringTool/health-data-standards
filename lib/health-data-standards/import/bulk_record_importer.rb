@@ -27,7 +27,8 @@ module HealthDataStandards
             end
             next if entry.directory?
             data = zipfile.read(entry.name)
-	    self.import_file(entry.name,data,failed_dir)
+	          status = self.import_file(entry.name,data,failed_dir)
+            raise StandardError, status[:message] if status.is_a?(Hash) && status[:status] === 'error'
           end
         end
 
@@ -48,7 +49,7 @@ module HealthDataStandards
       rescue
         FileUtils.mkdir_p(failed_dir)
         FileUtils.cp(file,File.join(failed_dir,File.basename(file)))
-        File.open(File.join(failed_dir,"#{file}.error")) do |f|
+        File.open(File.join(failed_dir,"#{file}.error"), 'w') do |f|
           f.puts($!.message)
           f.puts($!.backtrace)
         end
@@ -73,6 +74,7 @@ module HealthDataStandards
             f.puts($!.message)
             f.puts($!.backtrace)
           end
+          raise $!
         end
       end
 
