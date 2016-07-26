@@ -62,7 +62,10 @@ module HealthDataStandards
 
           end
 
-          bundle
+          return bundle
+        ensure
+          bundle.done_importing = true unless bundle.nil?
+          bundle.save
         end
 
 
