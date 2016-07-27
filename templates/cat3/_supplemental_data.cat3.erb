@@ -4,7 +4,7 @@
     <observation classCode="OBS" moodCode="EVN">
       <!-- <%= template_name %> -->
       <% template_ids.each do |tid| %>
-        <templateId root="<%= tid %>"/>
+        <templateId root="<%= tid %>" <% if qrda3_version == 'r1_1' %>extension="2016-02-01"<%end%>/>
       <% end %>
         <id nullFlavor="NA" />
       <code code="<%= supplemental_data_code %>" 
