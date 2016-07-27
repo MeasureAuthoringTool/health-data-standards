@@ -147,30 +147,12 @@ module HealthDataStandards
 
         if (codes.is_a? Hash)
           clean_hash = {}
-          
+
           if codes['codeSystem']
-            if codes['title']
-              clean_hash[codes['codeSystem']] = codes['code'] + " (#{codes['title']})"
-            else
-              clean_hash[codes['codeSystem']] = codes['code']
-            end
+            clean_hash[codes['codeSystem']] = clean_hash_code_system(codes)
           elsif codes['_id']
             codes.keys.reject {|key| ['_id'].include? key}.each do |hashkey|
-              value = codes[hashkey]
-              if value.nil?
-                clean_hash[hashkey.titleize] = 'none'
-              elsif value.is_a? Hash
-                hash_result = convert_field_to_hash(hashkey, value)
-                if hash_result.is_a? Hash
-                  clean_hash[hashkey.titleize] = hash_result.map {|key, value| "#{key}: #{value}"}.join(' ')
-                else
-                  clean_hash[hashkey.titleize] = hash_result
-                end
-              elsif value.is_a? Array
-                clean_hash[hashkey.titleize] = value.join(', ')
-              else
-                clean_hash[hashkey.titleize] = convert_field_to_hash(hashkey, value)
-              end
+              clean_hash[hashkey.titleize] = clean_hash_id(codes)
             end
           elsif codes['scalar']
             return "#{codes['scalar']} #{codes['units']}"
@@ -191,6 +173,32 @@ module HealthDataStandards
           else
             codes.to_s
           end
+        end
+      end
+      
+      def clean_hash_code_system(codes)
+        if codes['title']
+          return codes['code'] + " (#{codes['title']})"
+        else
+          return codes['code']
+        end
+      end
+      
+      def clean_hash_id(codes)
+        value = codes[hashkey]
+        if value.nil?
+          return 'none'
+        elsif value.is_a? Hash
+          hash_result = convert_field_to_hash(hashkey, value)
+          if hash_result.is_a? Hash
+            return hash_result.map {|key, value| "#{key}: #{value}"}.join(' ')
+          else
+            return hash_result
+          end
+        elsif value.is_a? Array
+          return value.join(', ')
+        else
+          return convert_field_to_hash(hashkey, value)
         end
       end
       
