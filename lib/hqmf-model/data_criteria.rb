@@ -15,6 +15,15 @@ module HQMF
     SATISFIES_ANY = 'satisfies_any'
     VARIABLE = 'variable'
 
+    # An object containing metadata information for all attributes that are used within the measure data criteria being parsed.
+    #
+    # fields include:
+    # `title`: The QDM human readable title for the attribute.
+    # `coded_entry_method`: this appears to be a way that fields here are referenced within Bonnie.
+    # `field_type`: The type of whatever will be stored for this attribute. This will often be `:timestamp` or `:value`.
+    # `code`: The code for the entry. This should be included to make HQMF generation work properly. This is whatever code is dictated in the HQMF. For Diagnosis, this is in [HQMF QDM IG](http://www.hl7.org/implement/standards/product_brief.cfm?product_id=346) vol 2 page 155 and is `29308-4`.
+    # `code_system`: This is the oid for whatever code system contains `code`. For Diagnosis, this is LOINC: `2.16.840.1.113883.6.1`. This is also located at (http://www.hl7.org/implement/standards/product_brief.cfm?product_id=346) vol 2 page 155.
+    # `template_id`: These appear to be related to HQMFr1 template ids. These appear to be dangerously out of date. Don't use.
     FIELDS = {'ABATEMENT_DATETIME' => {title:'Abatement Datetime', coded_entry_method: :end_date, field_type: :timestamp},
               'ACTIVE_DATETIME' => {title:'Active Date/Time', coded_entry_method: :active_date_time, field_type: :timestamp},
               'ADMISSION_DATETIME' => {title:'Admission Date/Time', coded_entry_method: :admit_time, code: '399423000', code_system:'2.16.840.1.113883.6.96', field_type: :timestamp},
@@ -76,6 +85,7 @@ module HQMF
               'TRANSFER_TO_DATETIME' => {title:'Transfer To Date/Time', coded_entry_method: :transfer_to_time, code: 'DST_TIME', template_id: '2.16.840.1.113883.10.20.24.3.82', field_type: :nested_timestamp}
           }
 
+    # maps attribute codes to the attribute keys
     VALUE_FIELDS = {'399423000' => 'ADMISSION_DATETIME',
                     '42752001' => 'CAUSE',
                     '261773006' => 'CUMULATIVE_MEDICATION_DURATION',
