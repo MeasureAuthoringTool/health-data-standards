@@ -25,7 +25,7 @@ module HealthDataStandards
           file_errors = document.errors.select { |e| e.fatal? || e.error? }
           if file_errors
             file_errors.each do |error|
-              build_error error, :file_name => data[:file_name] ,:validator => :xml_validation
+              build_error error, '/', :file_name => data[:file_name] ,:validator => :xml_validation
             end
           end
           errors = get_errors(document).root.xpath("//svrl:failed-assert",NAMESPACE).map do |el|
