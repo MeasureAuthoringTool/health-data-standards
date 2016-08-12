@@ -38,6 +38,7 @@ class Record
   embeds_many :results, class_name: "LabResult"
   embeds_many :socialhistories, class_name: "Entry"
   embeds_many :care_experiences
+  embeds_many :assessments
 
   alias :social_history :socialhistories
   alias :social_history= :socialhistories=
@@ -50,7 +51,7 @@ class Record
 
   Sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
    :medications, :procedures, :results, :communications, :family_history, :social_history, :vital_signs, :support, :advance_directives,
-   :insurance_providers, :functional_statuses, :care_experiences]
+   :insurance_providers, :functional_statuses, :care_experiences, :assessments]
 
   embeds_many :provider_performances
   embeds_many :addresses, as: :locatable
