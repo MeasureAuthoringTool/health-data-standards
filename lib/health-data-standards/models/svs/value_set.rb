@@ -8,7 +8,7 @@ module HealthDataStandards
       field :categories, type: Hash
       field :bonnie_version_hash, type: String # Incoproates oid, version and concepts
 
-      belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle", inverse_of: :value_sets
+      has_and_belongs_to_many :bundle, class_name: "HealthDataStandards::CQM::Bundle"
 
       index({oid: 1})
       index({display_name: 1})
