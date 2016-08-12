@@ -80,6 +80,7 @@ require_relative 'health-data-standards/models/provider_preference'
 require_relative 'health-data-standards/models/patient_preference'
 require_relative 'health-data-standards/models/care_goal'
 require_relative 'health-data-standards/models/encounter_principal_diagnosis'
+require_relative 'health-data-standards/models/assessment'
 
 require_relative 'health-data-standards/models/qrda/id'
 require_relative 'health-data-standards/models/qrda/device'
