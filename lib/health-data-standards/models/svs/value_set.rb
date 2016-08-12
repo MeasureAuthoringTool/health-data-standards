@@ -47,6 +47,7 @@ module HealthDataStandards
       def self.generate_bonnie_hash(value_set)
         return value_set.bonnie_version_hash if value_set.bonnie_version_hash
         hash_values = value_set.concepts.map { |c| [c.code_system_name, c.code] }.sort.flatten
+        hash_values.unshift(value_set.categories)
         hash_values.unshift(value_set.version)
         hash_values.unshift(value_set.oid)
         bonnie_version_hash = Digest::MD5.hexdigest(hash_values.join('|'))
