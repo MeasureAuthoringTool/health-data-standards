@@ -140,6 +140,7 @@ require_relative 'health-data-standards/import/ccda/care_goal_importer'
 require_relative 'health-data-standards/import/ccda/medical_equipment_importer'
 require_relative 'health-data-standards/import/ccda/insurance_provider_importer'
 
+require_relative 'health-data-standards/import/cat1/device_order_importer'
 require_relative 'health-data-standards/import/cat1/gestational_age_importer'
 require_relative 'health-data-standards/import/cat1/procedure_intolerance_importer'
 require_relative 'health-data-standards/import/cat1/procedure_performed_importer'
