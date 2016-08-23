@@ -10,6 +10,8 @@ require "minitest/reporters"
 
 require 'bundler/setup'
 
+require 'webmock/minitest'
+
 FactoryGirl.find_definitions
 
 db_host = ENV['TEST_DB_HOST'] || 'localhost'
