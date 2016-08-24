@@ -10,15 +10,17 @@ require "minitest/reporters"
 
 require 'bundler/setup'
 
+require 'webmock/minitest'
+
 FactoryGirl.find_definitions
 
 db_host = ENV['TEST_DB_HOST'] || 'localhost'
 
 Mongoid.configure do |config|
-  config.sessions = { default: { hosts: [ "#{db_host}:27017" ], database: 'hds-test' }}
+  config.connect_to('hds-test')
 end
 Mongo::Logger.logger.level = Logger::WARN
-MONGO_DB = Mongoid.default_session
+MONGO_DB = Mongoid.default_client
 
 class Minitest::Test
   extend Minitest::Spec::DSL

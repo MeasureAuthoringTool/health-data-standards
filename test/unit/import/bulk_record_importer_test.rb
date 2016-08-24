@@ -47,10 +47,10 @@ class BulkRecordImporterTest < Minitest::Test
     file = File.new('test/fixtures/bulk_importer/bulk_import_sample_bad.zip')
     err=nil
     begin
-     HealthDataStandards::Import::BulkRecordImporter.import_archive(file,"./tmp/failed")
-   rescue
-    err = $!
-   end
+      HealthDataStandards::Import::BulkRecordImporter.import_archive(file,"./tmp/failed")
+    rescue
+      err = $!
+    end
     assert !err.nil?
     assert_equal 0, Record.count
 
