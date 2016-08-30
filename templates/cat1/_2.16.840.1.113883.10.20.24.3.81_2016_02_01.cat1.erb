@@ -1,7 +1,7 @@
 <entry>
 	<encounter classCode="ENC" moodCode="EVN">
 		<templateId root="2.16.840.1.113883.10.20.24.3.81" extension="2016-02-01"/>
-		<id root="1.3.6.1.4.1.115" extension="<%= entry.transferFrom.id %>"/>
+		<id root="1.3.6.1.4.1.115" extension="<%= "#{entry.transferFrom.id}#{entry.id}".hash.abs.to_s(16) %>"/>
 		<code code="77305-1" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="transferred from"/>
 		<statusCode code="completed"/>
 		<participant typeCode="ORG">
