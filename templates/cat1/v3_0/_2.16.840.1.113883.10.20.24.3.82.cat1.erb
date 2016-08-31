@@ -1,0 +1,23 @@
+<entry>
+  <encounter classCode="ENC" moodCode="EVN">
+  	<templateId root="2.16.840.1.113883.10.20.24.3.82" extension="2016-02-01"/>
+    <id root="1.3.6.1.4.1.115" extension="<%= "#{entry.transferTo.id}#{entry.id}".hash.abs.to_s(16) %>"/>
+  	<code code="77306-9" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Discharge disposition"/>
+  	<statusCode code="completed"/>
+  	<participant typeCode="DST">
+      <time>
+        <low <%= value_or_null_flavor(entry.transferTo.time) %>/>
+      </time>
+      <participantRole classCode="LOCE">
+      <% 
+        entry.transferTo.codes[entry.transferTo.code_system] = [entry.transferTo.code]
+        transfer_vs_map = [{"set"=>entry.transferTo.code_system, "values"=>[entry.transferTo.code]}]
+        transfer_oid = (data_criteria.field_values || {})['TRANSFER_TO'].try(:code_list_id)
+        options = {'value_set_map' => transfer_vs_map, 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT']}
+        options['extra_content'] = "sdtc:valueSet=\"#{transfer_oid}\"" if transfer_oid
+        %>
+        <%== code_display(entry.transferTo, options) %>
+      </participantRole> 
+    </participant>
+  </encounter>
+</entry>
