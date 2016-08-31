@@ -1,0 +1,107 @@
+<entry>
+  <encounter classCode="ENC" moodCode="EVN">
+    <!--  Encounter activities template -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.49" extension="2015-08-01"/> 
+    <!-- Encounter performed template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.23" extension="2016-02-01"/>
+    <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
+    <%== code_display(entry, 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT', 'HCPCS', 'CDT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <text><%= entry.description %></text>
+    <statusCode code="completed"/>
+    <effectiveTime>
+      <!-- We try to look for the admit/discharge times on the encounter if they are
+           there. If not, we fall back to the typical start/end date. -->
+      <low <%= value_or_null_flavor(entry.admit_time || entry.start_time) %>/>
+      <high <%= value_or_null_flavor(entry.discharge_time || entry.end_time) %>/>
+    </effectiveTime>
+    <% if entry.discharge_disposition.present?
+      vset = oid_for_code(entry.discharge_disposition,field_oids["DISCHARGE_STATUS"])
+      if vset %>  
+        <sdtc:dischargeDispositionCode code="<%= entry.discharge_disposition['code'] %>" 
+            codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.discharge_disposition['codeSystem'] || entry.discharge_disposition['code_system']) %>" sdtc:valueSet="<%= vset %>"/>
+      <% end %>
+    <% end -%>
+
+    <% if entry.respond_to?(:facility) && entry.facility.present? -%>
+    <participant typeCode="LOC">
+      <!-- Facility Location template -->
+      <templateId root="2.16.840.1.113883.10.20.24.3.100"/>
+      <time>
+        <!-- Attribute: facility location arrival datetime -->
+        <low <%= value_or_null_flavor(entry.facility.start_time) %>/>
+        <!-- Attribute: facility location departure datetime -->
+        <high <%= value_or_null_flavor(entry.facility.end_time) %>/>
+      </time>
+      <participantRole classCode="SDLOC">
+        <% if entry.facility.code.present? -%>
+          <% vset = oid_for_code(entry.facility.code,field_oids["FACILITY_LOCATION"]) %>
+          <% if vset %>
+            <code code="<%= entry.facility.code['code'] %>" 
+              codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.facility.code['codeSystem'] || entry.facility.code['code_system']) %>" sdtc:valueSet="<%= vset %>"/>
+          <% else %>
+            <code nullFlavor="UNK"/>
+          <% end %>
+        <% else -%>
+        <code nullFlavor="UNK"/>
+        <% end -%>
+        <% if entry.facility.addresses.present? -%>
+        <addr>
+          <streetAddressLine><%= entry.facility.addresses.first.street %></streetAddressLine>
+          <city><%= entry.facility.addresses.first.city %></city>
+          <state><%= entry.facility.addresses.first.state %></state>
+          <postalCode><%= entry.facility.addresses.first.zip %></postalCode>
+          <country><%= entry.facility.addresses.first.country %></country>
+        </addr>
+        <% end -%>
+        <telecom nullFlavor="UNK"/>
+        <playingEntity classCode="PLC">
+          <name><%= entry.facility.name %></name>
+        </playingEntity>
+      </participantRole>
+    </participant>
+    <% end -%>
+    <% if entry.reason.present? -%>
+      <%== render(:partial => 'reason', :locals => {:entry => entry,:reason_oids=>field_oids["REASON"]}) %>
+    <% end -%>
+    <% if entry.principalDiagnosis 
+      value_set = oid_for_code(entry.principal_diagnosis.preferred_code, field_oids["PRINCIPAL_DIAGNOSIS"], entry.record["bundle_id"])
+      if value_set %>
+        <entryRelationship typeCode="REFR">
+            <observation classCode="OBS" moodCode="EVN">
+              <code code="8319008" codeSystem="2.16.840.1.113883.6.96" displayName="Principal Diagnosis" codeSystemName="SNOMED CT"/>
+              <%== code_display(entry.principal_diagnosis, 'tag_name' => 'value', 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT'], 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set}\"") %>
+            </observation>
+        </entryRelationship>
+      <% end %>
+    <% end -%>
+    <% if entry.diagnosis
+      value_set = oid_for_code(entry.diagnosis.preferred_code, field_oids["DIAGNOSIS"], entry.record["bundle_id"])
+      if value_set %>
+        <entryRelationship typeCode="REFR">
+            <act classCode="ACT" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.80" extension="2015-08-01"/>
+              <code code="29308-4" codeSystem="2.16.840.1.113883.6.1" displayName="Diagnosis" codeSystemName="LOINC"/>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <!--  Problem observation template -->
+                  <templateId root="2.16.840.1.113883.10.20.22.4.4" extension="2015-08-01"/>
+                  <id root="1.3.6.1.4.1.115" extension="<%= UUID.generate %>"/>
+                  <code code="29308-4" codeSystem="2.16.840.1.113883.6.1">
+                    <translation code="282291009" codeSystem="2.16.840.1.113883.6.96"/>
+                  </code>
+                  <statusCode code="completed"/>
+                  <effectiveTime>
+                    <!-- Attribute: admission datetime -->
+                    <low <%= value_or_null_flavor(entry.start_time) %>/>
+                    <!-- Attribute: discharge datetime -->
+                    <high <%= value_or_null_flavor(entry.end_time) %>/>
+                  </effectiveTime>
+                  <%== code_display(entry.diagnosis, 'tag_name' => 'value', 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT'], 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set}\"") %>
+                </observation>
+              </entryRelationship>
+            </act>
+        </entryRelationship>
+      <% end %>
+    <% end -%>
+  </encounter>
+</entry>
