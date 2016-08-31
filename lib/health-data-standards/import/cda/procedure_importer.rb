@@ -9,7 +9,7 @@ module HealthDataStandards
           super(entry_finder)
           @entry_class = Procedure
           @value_xpath = "./cda:value | ./cda:entryRelationship[@typeCode='REFR']/cda:observation/cda:value"
-          @ordinality_xpath = "./cda:priorityCode | ./cda:entryRelationship/cda:observation[./cda:code[@code='260870009']]/cda:value"
+          @ordinality_xpath = "./cda:priorityCode"
         end
 
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)

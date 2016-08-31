@@ -5,6 +5,7 @@ module HealthDataStandards
         def initialize(entry_finder=CDA::EntryFinder.new("./cda:entry/cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.64']"))
           super(entry_finder)
           @incision_xpath ="./cda:entryRelationship/cda:procedure[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.89']]/cda:effectiveTime"
+          @ordinality_xpath = "./cda:priorityCode | ./cda:entryRelationship/cda:observation[./cda:code[@code='260870009']]/cda:value"
         end
 
         def create_entry(entry_element, nrh = CDA::NarrativeReferenceHandler.new)
