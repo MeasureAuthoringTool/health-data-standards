@@ -10,10 +10,11 @@ module HealthDataStandards
     #                      provide a different directory if you want to use this class
     #                      outside of the HDS gem
     class TemplateHelper
-      def initialize(template_format, template_subdir = nil, template_directory = nil)
+      def initialize(template_format, template_subdir = nil, template_directory = nil, qrda_version = nil)
         @template_format = template_format
         @template_directory = template_directory
         @template_subdir = template_subdir
+        @qrda_version = qrda_version
         @template_cache = {}
       end
 
@@ -42,8 +43,12 @@ module HealthDataStandards
       protected 
 
       def cache_template(template_name)
+        subdir = @qrda_version
+        
         entry = @template_cache[template_name] || {mtime:-1, erb:nil}
-        filename = File.join(template_root, "#{template_name}.#{@template_format}.erb")
+        template_dir = template_root
+        template_dir = File.join(template_root, subdir) if subdir
+        filename = File.join(template_dir, "#{template_name}.#{@template_format}.erb")
         mtime = File.mtime(filename).to_i
         if mtime > entry[:mtime]
           src = File.read(filename)
