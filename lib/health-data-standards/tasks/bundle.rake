@@ -26,12 +26,15 @@ namespace :bundle do
     options
     nlm_user    - the nlm username to authenticate to the server - will prompt is not supplied
     nlm_passwd  - the nlm password for authenticating to the server - will prompt if not supplied
-    version     - the version of the bundle to download. This will default to the version
+    version     - the version of the bundle to download - this must be supplied
 
    example usage:
     rake bundle:download nlm_name=username nlm_passwd=password version=2.1.0-latest
   }
   task :download => :environment do
+    bundle_version = ENV.fetch("version") do
+      raise ArgumentError.new("Required argument 'version' was not supplied")
+    end
     nlm_user = ENV["nlm_user"]
     nlm_passwd = ENV["nlm_pass"]
     measures_dir = File.join(Dir.pwd, "bundles")
@@ -45,7 +48,6 @@ namespace :bundle do
 					       q.readline = true }
     end
 
-    bundle_version = ENV["version"] || "latest"
     @bundle_name = "bundle-#{bundle_version}.zip"
 
     puts "Downloading and saving #{@bundle_name} to #{measures_dir}"
