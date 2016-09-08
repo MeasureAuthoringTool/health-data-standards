@@ -1,0 +1,26 @@
+<entry>
+  <!--Medication dispensed -->
+  <supply classCode="SPLY" moodCode="EVN">
+    <!--  Medication Dispensed template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.45" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/>
+    <!-- Medication Dispense template -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.18" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
+    <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
+    <text><%= entry.description %></text>
+    <statusCode code="completed"/>
+    <effectiveTime xsi:type="IVL_TS">
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+      <high <%= value_or_null_flavor(entry.end_time) %>/>
+    </effectiveTime>
+    <product>
+      <manufacturedProduct classCode="MANU">
+        <!-- Medication Information (consolidation) template -->
+        <templateId root="2.16.840.1.113883.10.20.22.4.23" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
+        <id root="<%= UUID.generate %>"/>
+        <manufacturedMaterial>
+          <%== code_display(entry, 'preferred_code_sets' =>["RxNorm"], 'value_set_map' => filtered_vs_map, 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+        </manufacturedMaterial>
+      </manufacturedProduct>
+    </product>
+  </supply>
+</entry>

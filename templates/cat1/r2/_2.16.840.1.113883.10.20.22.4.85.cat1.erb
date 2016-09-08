@@ -1,0 +1,19 @@
+<entry>
+  <observation classCode="OBS" moodCode="EVN">
+    <templateId root="2.16.840.1.113883.10.20.22.4.85"/>
+    <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
+    <code code="ASSERTION" 
+          displayName="Assertion" 
+          codeSystem="2.16.840.1.113883.5.4" 
+          codeSystemName="ActCode"/>
+    <statusCode code="completed"/>
+    <effectiveTime>
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+      <high <%= value_or_null_flavor(entry.end_time) %>/>
+    </effectiveTime>
+    <%== code_display(entry, 'preferred_code_sets' => ['SNOMED-CT'],
+                         'tag_name' => 'value',
+                         'value_set_map' => filtered_vs_map,
+                         'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
+  </observation>
+</entry>

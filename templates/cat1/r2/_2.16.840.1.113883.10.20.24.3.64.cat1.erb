@@ -1,0 +1,52 @@
+<entry>
+  <procedure classCode="PROC" moodCode="EVN" <%== negation_indicator(entry) %>>
+    <!--  Procedure performed template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.64" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/>
+    <!-- Procedure Activity Procedure-->
+    <templateId root="2.16.840.1.113883.10.20.22.4.14" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
+    <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
+    <%== code_display(entry, 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'CPT', 'ICD-9-PCS', 'ICD-10-PCS'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <text><%= entry.description %></text>
+    <statusCode code="completed"/>
+    <effectiveTime>
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+      <high <%= value_or_null_flavor(entry.end_time) %>/>
+    </effectiveTime>
+    <%== render(:partial => 'ordinality', :locals => {:entry => entry, :ordinality_oids=>field_oids["ORDINAL"]}) %>
+    <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"], :r2_compatibility => r2_compatibility}) %>
+    <% if entry.respond_to?(:incision_time) && entry.incision_time.present? -%>
+    <entryRelationship typeCode="REFR">
+      <procedure classCode="PROC" moodCode="EVN">
+        <templateId root="2.16.840.1.113883.10.20.24.3.89"/>
+        <id root="1.3.6.1.4.1.115" extension="<%= identifier_for([entry.id, entry.incision_time]) %>" />
+        <code code="34896006" 
+              codeSystem="2.16.840.1.113883.6.96"
+              codeSystemName="SNOMED CT" 
+              displayName="incision"/>
+              <effectiveTime <%= value_or_null_flavor(entry.incision_time) %>/>
+      </procedure>
+    </entryRelationship>
+    <% end -%>
+
+    <% entry.values.each do |value| %>
+      <entryRelationship typeCode="REFR">
+       <observation classCode="OBS" moodCode="EVN">
+         <!-- Conforms to C-CDA R2 Result Observation (V2) -->
+         <templateId root="2.16.840.1.113883.10.20.22.4.2" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
+         <!-- Result (QRDA I R3) -->
+         <templateId root="2.16.840.1.113883.10.20.24.3.87" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/>
+         <id root="1.3.6.1.4.1.115" extension="<%= identifier_for(value) %>"/>
+          <%== code_display(entry, 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'CPT', 'ICD-9-PCS', 'ICD-10-PCS'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+          <statusCode code="completed"/>
+          <effectiveTime>
+            <low <%= value_or_null_flavor(entry.start_time) %>/>
+            <high <%= value_or_null_flavor(entry.end_time) %>/>
+          </effectiveTime>
+         <%== render(:partial=> 'result_value', :locals => {:values => [value]}) %>
+        
+       </observation>
+     </entryRelationship>
+   <% end %>
+  </procedure>
+</entry>
+

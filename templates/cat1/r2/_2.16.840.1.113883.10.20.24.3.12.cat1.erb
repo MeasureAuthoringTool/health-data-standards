@@ -1,0 +1,51 @@
+<entry typeCode="DRIV">
+  <organizer moodCode="EVN" classCode="CLUSTER">
+    <templateId root="2.16.840.1.113883.10.20.22.4.45" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
+    <!--    Family history organizer template   -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.12" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/>
+    <statusCode code="completed"/>
+    <effectiveTime>
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+      <high <%= value_or_null_flavor(entry.end_time) %>/>
+    </effectiveTime>
+    <!-- The subject is currently hardcoded to father -->
+    <subject>
+      <relatedSubject classCode="PRS">
+        <code code="FTH" displayName="Father" 
+              codeSystemName="HL7RoleCode" 
+              codeSystem="2.16.840.1.113883.5.111">
+          <translation code="9947008" 
+                displayName="Biological father" 
+                codeSystemName="SNOMED CT" 
+                codeSystem="2.16.840.1.113883.6.96"/>
+        </code>
+        <subject>
+          <administrativeGenderCode 
+               code="M" codeSystem="2.16.840.1.113883.5.1"
+               codeSystemName="HL7AdministrativeGender" 
+               displayName="Male"/>
+            <birthTime value="1912"/>
+        </subject>
+      </relatedSubject>
+    </subject>
+    <component>
+      <observation classCode="OBS" moodCode="EVN">
+        <templateId root="2.16.840.1.113883.10.20.22.4.46" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
+        <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
+        <code code="55607006" displayName="Problem" 
+              codeSystemName="SNOMED CT" 
+              codeSystem="2.16.840.1.113883.6.96"/>
+        <statusCode code="completed"/>
+        <effectiveTime>
+          <low <%= value_or_null_flavor(entry.start_time) %>/>
+          <high <%= value_or_null_flavor(entry.end_time) %>/>
+        </effectiveTime>
+        <%== code_display(entry, 'value_set_map' => filtered_vs_map,'preferred_code_sets' => ['SNOMED-CT'],
+                         'tag_name' => 'value',
+                         'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
+        <text><%= entry.description %></text>
+      </observation>
+    </component>
+  </organizer>
+</entry>
+
