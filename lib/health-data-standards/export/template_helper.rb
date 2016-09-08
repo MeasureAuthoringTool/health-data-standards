@@ -29,21 +29,23 @@ module HealthDataStandards
 
       # Returns the raw ERb for the template_name provided. This method will look in
       # template_directory/template_subdir/template_name.template_format.erb
-      def template(template_name)
-        cache_template(template_name)
+      def template(template_name, subdir=nil)
+        cache_template(template_name, subdir)
       end
 
       # Basically the same template, but prepends an underscore to the template name
       # to mimic the Rails convention for template fragments
-      def partial(partial_name)
-        cache_template("_#{partial_name}")
+      def partial(partial_name, subdir=nil)
+        cache_template("_#{partial_name}", subdir)
       end
 
       protected 
 
-      def cache_template(template_name)
+      def cache_template(template_name, subdir=nil)
         entry = @template_cache[template_name] || {mtime:-1, erb:nil}
-        filename = File.join(template_root, "#{template_name}.#{@template_format}.erb")
+        template_dir = template_root
+        template_dir = File.join(template_root, subdir) if subdir
+        filename = File.join(template_dir, "#{template_name}.#{@template_format}.erb")
         mtime = File.mtime(filename).to_i
         if mtime > entry[:mtime]
           src = File.read(filename)
