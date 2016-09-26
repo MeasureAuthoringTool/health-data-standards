@@ -1,0 +1,59 @@
+<entry>
+  <act classCode="ACT" moodCode="EVN">
+    <!-- Consolidation CDA: Procedure Activity Act template -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.12" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
+    <templateId root="2.16.840.1.113883.10.20.24.3.34" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/>
+    <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
+    <%== code_display(entry, 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <statusCode code="completed"/>
+    <effectiveTime>
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+      <high <%= value_or_null_flavor(entry.end_time) %>/>
+    </effectiveTime>
+    <entryRelationship typeCode="REFR">
+      <observation classCode="OBS" moodCode="EVN">
+        <!-- Result Observation template (consolidation) -->
+        <templateId root="2.16.840.1.113883.10.20.22.4.2" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
+        <!-- Result template -->
+        <templateId root="2.16.840.1.113883.10.20.24.3.87" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/>
+        <id root="<%= UUID.generate %>"/>
+        <%== code_display(entry, 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+        <text><%= entry.description %></text>
+        <statusCode code="completed"/>
+        <effectiveTime <%= value_or_null_flavor(entry.start_time) %>/>
+        <% ev = entry.values.first
+           if ev.present?
+             if ev.respond_to?(:codes) -%>
+        <%== code_display(ev, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'], 'tag_name' => 'value', 'extra_content' => "xsi:type=\"CD\"") %>
+        <%   elsif ev.respond_to?(:scalar) -%>
+        <%     if is_num?(ev.scalar) -%>
+        <value xsi:type="PQ" value="<%= ev.scalar %>" <% if ev.units -%>unit="<%= ev.units %>"<% end -%>/>
+        <%     elsif is_bool?(ev.scalar)%>
+        <value xsi:type="BL" value="<%= ev.scalar %>" />
+        <%     else -%>
+        <value xsi:type="ST" ><%= ev.scalar %></value> 
+        <%     end 
+             end
+           else -%>
+        <value xsi:type="PQ" nullFlavor="UNK"/>
+        <% end -%>
+
+        <!-- Attribute: Status -->
+        <entryRelationship typeCode="REFR">
+          <observation classCode="OBS" moodCode="EVN">
+            <templateId root="2.16.840.1.113883.10.20.24.3.93"/>
+            <id root="<%= UUID.generate %>"/>
+            <code code="33999-4" 
+                  codeSystem="2.16.840.1.113883.6.1"
+                  codeSystemName="LOINC"
+                  displayName="Status"/>
+            <value xsi:type="CD" 
+                  code="33999-4"
+                  codeSystem="2.16.840.1.113883.6.1"
+                  displayName="Final Report"/>
+          </observation>
+        </entryRelationship>
+      </observation>
+    </entryRelationship>
+  </act>
+</entry>

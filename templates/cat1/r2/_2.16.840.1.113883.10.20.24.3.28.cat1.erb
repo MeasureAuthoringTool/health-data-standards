@@ -1,0 +1,24 @@
+<% vals = entry.values.empty? ? [nil] : entry.values 
+   vals.each do |value| 
+ %>   
+<entry>
+  <observation classCode="OBS" moodCode="EVN">
+    <!-- Functional Status Result Observation (consolidation) template -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.67"/>
+    <!-- Functional Status, Result template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.28" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/>
+    <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
+    <%== code_display(entry, 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <text><%= entry.description %></text>
+    <statusCode code="completed"/>
+
+    <effectiveTime>
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+      <high <%= value_or_null_flavor(entry.end_time) %>/>
+    </effectiveTime>
+
+    <!-- Result -->
+    <%== render(:partial => 'result_value', :locals => {:values => [value], :result_oids=>result_oids}) %>
+  </observation>
+</entry>
+<% end %>

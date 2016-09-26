@@ -28,7 +28,7 @@
         <templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/>
         <id root="<%= UUID.generate %>"/>
         <manufacturedMaterial>
-          <%== code_display(entry, 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['RxNorm', 'SNOMED-CT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+          <%== code_display(entry, 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['RxNorm'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
         </manufacturedMaterial>
       </manufacturedProduct>
     </consumable>
@@ -39,6 +39,6 @@
         <id root="<%= UUID.generate %>"/>
       </assignedAuthor>
     </author>
-    <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"], :r2_compatibility => r2_compatibility}) %>
+    <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"]}) %>
   </substanceAdministration>
 </entry>

@@ -8,7 +8,7 @@
     <!-- Risk Category Assessment -->
     <templateId root="2.16.840.1.113883.10.20.24.3.69" extension="2016-02-01"/>
     <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
-    <%== code_display(entry, 'value_set_map' => filtered_vs_map,'preferred_code_sets' => ['LOINC', 'SNOMED-CT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <%== code_display(entry, 'value_set_map' => filtered_vs_map,'preferred_code_sets' => ['*'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
     <text><%= entry.description %></text>
     <statusCode code="completed"/>
 
@@ -17,7 +17,7 @@
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
     <%== render(:partial => 'result_value', :locals => {:values => [value], :result_oids=>result_oids} ) %>
-    <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"], :r2_compatibility => r2_compatibility}) %>
+    <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"]}) %>
   </observation>
 </entry>
 <% end %>

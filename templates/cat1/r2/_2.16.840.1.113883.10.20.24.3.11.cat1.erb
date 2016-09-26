@@ -1,0 +1,88 @@
+<% if !r2_compatibility %>
+<entry> 
+  <act classCode="ACT" moodCode="EVN">
+  <!-- Conforms to C-CDA Problem Concern Act (V2) -->
+  <templateId root="2.16.840.1.113883.10.20.22.4.3" extension="2014-06-09" />
+  <!-- Diagnosis Active Concern Act -->
+  <templateId root="2.16.840.1.113883.10.20.24.3.121" extension="2014-12-01" />
+  <id root="<%= UUID.generate %>" />
+  <code code="CONC" codeSystem="2.16.840.1.113883.5.6" displayName="Concern" />
+  <!-- The statusCode represents whether this is an active (active),       inactive (suspended) or resolved (completed) diagnosis -->    
+  <statusCode code="active" />
+  <effectiveTime>
+      <!-- Attribute: admission datetime -->
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+      <!-- Attribute: discharge datetime -->
+      <high <%= value_or_null_flavor(entry.end_time) %>/>
+    </effectiveTime>
+  <entryRelationship typeCode="SUBJ">
+<% else %>
+<entry>
+<% end %>
+  <observation classCode="OBS" moodCode="EVN">
+    <!--  Problem observation template -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.4" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
+    <!--  Diagnosis active template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.11" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/>
+    <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
+    <% if !r2_compatibility %>
+    <code code="29308-4" displayName="diagnosis" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+    <% else %>
+    <code code="282291009" displayName="diagnosis" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+    <% end %>
+    <text><%= entry.description %></text>
+    <statusCode code="completed"/>
+    <effectiveTime>
+      <!-- Attribute: admission datetime -->
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+      <!-- Attribute: discharge datetime -->
+      <high <%= value_or_null_flavor(entry.end_time) %>/>
+    </effectiveTime>
+    <%== render(:partial => 'ordinality', :locals => {:entry => entry, :ordinality_oids=>field_oids["ORDINAL"]}) %>
+    <%== code_display(entry, {'tag_name' => 'value', 'value_set_map' => filtered_vs_map,'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'],
+                                                    'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"", 'laterality' => entry.laterality}) %>
+    <% if r2_compatibility %>
+    <entryRelationship typeCode="REFR">
+      <observation classCode="OBS" moodCode="EVN">
+        <!-- Problem Status (consolidation) template -->
+        <templateId root="2.16.840.1.113883.10.20.22.4.6" extension="2014-06-09"/>
+        <!-- Problem Status, Active template -->
+        <templateId root="2.16.840.1.113883.10.20.24.3.94" extension="2015-04-06"/>
+        <id root="<%= UUID.generate %>"/>  
+        <code code="33999-4" 
+          codeSystem="2.16.840.1.113883.6.1"
+          codeSystemName="LOINC" 
+          displayName="status"/>
+        <statusCode code="completed"/>
+        <value xsi:type="CD" code="55561003" 
+           displayName="active"
+           codeSystem="2.16.840.1.113883.6.96" 
+           codeSystemName="SNOMED CT"/>
+      </observation>
+    </entryRelationship>
+    <% end %>
+    <% if entry.severity %>
+    <entryRelationship typeCode="REFR">
+       <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.22.4.8" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
+          <code code="SEV" 
+                codeSystem="2.16.840.1.113883.5.4"/>
+           <statusCode code="completed"/>
+           <value xsi:type="CD"
+                code="<%= entry.severity['code'] %>"
+                codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.severity['codeSystem'] || entry.severity['code_system']) %>"
+              <% if entry.severity.has_key?('title') -%>
+                displayName="<%=entry.severity['title']%>"
+              <% end -%>
+                sdtc:valueSet="<%= oid_for_code(entry.severity,field_oids["SEVERITY"] || [], entry.record["bundle_id"]) %>"
+            />
+       </observation>
+
+    </entryRelationship>
+   <% end %> 
+  </observation>
+<% if !r2_compatibility %>
+    </entryRelationship>
+  </act>
+<% end %>
+</entry>
