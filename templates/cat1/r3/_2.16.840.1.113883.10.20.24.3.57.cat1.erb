@@ -5,9 +5,9 @@
   <!-- Physical Exam Finding -->
   <observation classCode="OBS" moodCode="EVN">
     <!--  Result observation template -->
-    <templateId root="2.16.840.1.113883.10.20.22.4.2" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
+    <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2014-06-09"/>
     <!-- Physical Exam, Finding template -->
-    <templateId root="2.16.840.1.113883.10.20.24.3.57" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/>
+    <templateId root="2.16.840.1.113883.10.20.24.3.57" extension="2014-12-01"/>
     <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
     <%== code_display(entry, 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>    
     <text><%= entry.description %></text>
