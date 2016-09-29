@@ -194,10 +194,10 @@ module HQMF2
       parse_cd(entry.at_xpath("./cda:participation[@typeCode='SBJ']/cda:role[@classCode='PRS']/cda:code",
                               HQMF2::Document::NAMESPACES),
                'RELATIONSHIP', fields)
-      parse_pq(entry.at_xpath("./cda:outboundRelationship[@typeCode='REFV']/cda:observationCriteria/cda:value/cda:high",
+      parse_pq(entry.at_xpath("./cda:outboundRelationship[@typeCode='REFR']/cda:observationCriteria/cda:value/cda:high",
                               HQMF2::Document::NAMESPACES),
                'REFERENCE_RANGE_HIGH', fields)
-      parse_pq(entry.at_xpath("./cda:outboundRelationship[@typeCode='REFV']/cda:observationCriteria/cda:value/cda:low",
+      parse_pq(entry.at_xpath("./cda:outboundRelationship[@typeCode='REFR']/cda:observationCriteria/cda:value/cda:low",
                               HQMF2::Document::NAMESPACES),
                'REFERENCE_RANGE_LOW', fields)
     end
