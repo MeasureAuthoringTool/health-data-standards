@@ -39,6 +39,11 @@ class Record
   embeds_many :socialhistories, class_name: "Entry"
   embeds_many :care_experiences
   embeds_many :assessments
+  # TODO: (LDY 9/29/16) Will the below work? These are not defined in the JSON in the HQMF stuff because we're not parsing HQMF.
+  # also, allergy_intolerance would translate to allergies_intolerances. If this is done automatically, it won't be done correclty.
+  # Does it make sense to do a `class_name` thing like above?
+  embeds_many :adverse_events
+  embeds_many :allergies_intolerances
 
   alias :social_history :socialhistories
   alias :social_history= :socialhistories=
@@ -51,7 +56,7 @@ class Record
 
   Sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
    :medications, :procedures, :results, :communications, :family_history, :social_history, :vital_signs, :support, :advance_directives,
-   :insurance_providers, :functional_statuses, :care_experiences, :assessments]
+   :insurance_providers, :functional_statuses, :care_experiences, :assessments, :adverse_events, :allergies_intolerances]
 
   embeds_many :provider_performances
   embeds_many :addresses, as: :locatable
