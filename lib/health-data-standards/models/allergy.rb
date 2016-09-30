@@ -1,3 +1,4 @@
+# related to CDA parsing
 class Allergy < Entry
   field :type, type: Hash
   field :reaction, type: Hash
