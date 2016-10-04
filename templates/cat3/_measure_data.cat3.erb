@@ -8,9 +8,15 @@
         displayName="Assertion" 
         codeSystemName="ActCode"/>
   <statusCode code="completed"/>
-  <value xsi:type="CD" code="<%= population.type %>" 
-         codeSystem="2.16.840.1.113883.5.1063"  
-         codeSystemName="ObservationValue"/>
+  <% if qrda3_version == 'r1_1' && population.type == 'IPP' %>
+    <value xsi:type="CD" code="IPOP" 
+           codeSystem="2.16.840.1.113883.5.1063"  
+           codeSystemName="ObservationValue"/>
+  <% else %>
+    <value xsi:type="CD" code="<%= population.type %>" 
+           codeSystem="2.16.840.1.113883.5.1063"  
+           codeSystemName="ObservationValue"/>
+  <% end %>
   <!-- Aggregate Count -->
   <entryRelationship typeCode="SUBJ" inversionInd="true">
     <observation classCode="OBS" moodCode="EVN">
