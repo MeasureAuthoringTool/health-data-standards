@@ -25,7 +25,7 @@ class Record
   index medical_record_number: 1
   index test_id: 1
   index bundle_id: 1
-  embeds_many :allergies
+  embeds_many :allergies # used for QDM 5.0 allergy/intollerance
   embeds_many :care_goals, class_name: "Entry" # This can be any number of different entry types
   embeds_many :conditions
   embeds_many :encounters
@@ -43,7 +43,6 @@ class Record
   # also, allergy_intolerance would translate to allergies_intolerances. If this is done automatically, it won't be done correclty.
   # Does it make sense to do a `class_name` thing like above?
   embeds_many :adverse_events
-  embeds_many :allergies_intolerances
 
   alias :social_history :socialhistories
   alias :social_history= :socialhistories=
@@ -56,7 +55,7 @@ class Record
 
   Sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
    :medications, :procedures, :results, :communications, :family_history, :social_history, :vital_signs, :support, :advance_directives,
-   :insurance_providers, :functional_statuses, :care_experiences, :assessments, :adverse_events, :allergies_intolerances]
+   :insurance_providers, :functional_statuses, :care_experiences, :assessments, :adverse_events]
 
   embeds_many :provider_performances
   embeds_many :addresses, as: :locatable
