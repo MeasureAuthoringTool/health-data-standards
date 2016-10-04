@@ -36,7 +36,8 @@ module HQMF
               'DIAGNOSIS' => {title:'Diagnosis', coded_entry_method: :diagnosis, field_type: :value},
               'DISCHARGE_DATETIME' => {title:'Discharge Date/Time', coded_entry_method: :discharge_time, code: '442864001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1025.1', field_type: :timestamp},
               'DISCHARGE_STATUS' => {title:'Discharge Status', coded_entry_method: :discharge_disposition, code: '309039003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1003.2', field_type: :value},
-              'DOSE' => {title:'Dose', coded_entry_method: :dose, code: '398232005', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1004.1', field_type: :value},
+              # TODO: (LDY 10/4/2016) this changed from "dose" to "dosage". it's possible that there's another code associated with this. this code was not available at the time of this change.
+              'DOSE' => {title:'Dosage', coded_entry_method: :dose, code: '398232005', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1004.1', field_type: :value},
               'FACILITY_LOCATION' => {title:'Facility Location', coded_entry_method: :facility, code: 'SDLOC', field_type: :value},
               'FACILITY_LOCATION_ARRIVAL_DATETIME' => {title:'Facility Location Arrival Date/Time', coded_entry_method: :facility_arrival, code: 'SDLOC_ARRIVAL', field_type: :nested_timestamp},
               'FACILITY_LOCATION_DEPARTURE_DATETIME' => {title:'Facility Location Departure Date/Time', coded_entry_method: :facility_departure, code: 'SDLOC_DEPARTURE', field_type: :nested_timestamp},
@@ -73,6 +74,8 @@ module HQMF
               # STATUS is referenced in the code as `qdm_status` because entry/Record already has a `status`/`status_code` field which has a different meaning
               'STATUS' => {title: 'Status', coded_entry_method: :qdm_status, code: '33999-4', code_system:'2.16.840.1.113883.6.1', field_type: :value},
               'STOP_DATETIME' => {title:'Stop Date/Time', coded_entry_method: :end_date, code: '397898000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1026.1', field_type: :timestamp},
+              # TODO: (LDY 10/4/2016) SUPPLY is a new attribute in QDM 5.0. We do not yet have codes/template information for this.
+              'SUPPLY' => {title:'Supply', coded_entry_method: :supply, field_type: :value},
               'TARGET_OUTCOME' => {title:'Target Outcome', coded_entry_method: :target_outcome, code: '385676005', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
               # MISSING Time - The time that the patient passed away
 
