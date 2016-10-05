@@ -35,7 +35,8 @@ module HQMF
               # MISSING Date - The date that the patient passed away. - Patient Characteristic Expired
               'DIAGNOSIS' => {title:'Diagnosis', coded_entry_method: :diagnosis, field_type: :value},
               'DISCHARGE_DATETIME' => {title:'Discharge Date/Time', coded_entry_method: :discharge_time, code: '442864001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1025.1', field_type: :timestamp},
-              'DISCHARGE_STATUS' => {title:'Discharge Status', coded_entry_method: :discharge_disposition, code: '309039003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1003.2', field_type: :value},
+              # TODO: (LDY 10/5/2016) this changed from "discharge status" to "discharge disposition". likely there is a code and template id change necessary. these are not yet known.
+              'DISCHARGE_STATUS' => {title:'Discharge Disposition', coded_entry_method: :discharge_disposition, code: '309039003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1003.2', field_type: :value},
               # TODO: (LDY 10/4/2016) this changed from "dose" to "dosage". it's possible that there's another code associated with this. this code was not available at the time of this change.
               'DOSE' => {title:'Dosage', coded_entry_method: :dose, code: '398232005', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1004.1', field_type: :value},
               'FACILITY_LOCATION' => {title:'Facility Location', coded_entry_method: :facility, code: 'SDLOC', field_type: :value},
