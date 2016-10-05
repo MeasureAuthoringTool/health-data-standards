@@ -67,6 +67,8 @@ module HQMF
               'RELATIONSHIP' => {title:'Relationship', coded_entry_method: :relationship_to_patient, field_type: :value},
               'REMOVAL_DATETIME' => {title:'Removal Date/Time', coded_entry_method: :removal_time, code: '118292001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1032.1', field_type: :timestamp},
               # Result isn't encoded
+              # TODO: (LDY 10/4/2016) RESULT_DATETIME is a new attribute in QDM 5.0. We do not yet have codes/template information for this.
+              'RESULT_DATETIME' => {title:'Result Date/Time', coded_entry_method: :result_date_time, field_type: :timestamp},
               'ROUTE' => {title:'Route', coded_entry_method: :route, code: '263513008', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1020.2', field_type: :value},
               'SEVERITY' => {title:'Severity', coded_entry_method: :severity, code: 'SEV', code_system:'2.16.840.1.113883.5.4', template_id: '2.16.840.1.113883.10.20.22.4.8', field_type: :value},
               'SIGNED_DATETIME' =>  {title:'Signed Date/Time', coded_entry_method: :signed_date_time, field_type: :timestamp},
