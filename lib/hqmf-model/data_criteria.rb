@@ -27,6 +27,9 @@ module HQMF
     FIELDS = {'ABATEMENT_DATETIME' => {title:'Abatement Datetime', coded_entry_method: :end_date, field_type: :timestamp},
               'ACTIVE_DATETIME' => {title:'Active Date/Time', coded_entry_method: :active_date_time, field_type: :timestamp},
               'ADMISSION_DATETIME' => {title:'Admission Date/Time', coded_entry_method: :admit_time, code: '399423000', code_system:'2.16.840.1.113883.6.96', field_type: :timestamp},
+              # QDM 5.0 addition. This is the same as FACILITY_LOCATION.
+              # TODO: (LDY 10/5/2016) this is a new attribute from QDM 5.0. We do not yet have the code or template_id for this. This should be updated when we do.
+              'ADMISSION_SOURCE' => {title:'Admission Source', coded_entry_method: :admission_source, field_type: :value},
               'ANATOMICAL_APPROACH_SITE' => {title:'Anatomical Approach Site', coded_entry_method: :anatomical_approach,  field_type: :value},
               'ANATOMICAL_LOCATION_SITE' => {title:'Anatomical Location Site', coded_entry_method: :anatomical_location,  field_type: :value},
               'ANATOMICAL_STRUCTURE' => {title:'Anatomical Structure', coded_entry_method: :anatomical_structure, code: '91723000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1000.2', field_type: :value},
