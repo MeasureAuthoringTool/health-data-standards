@@ -39,8 +39,9 @@ module HQMF
               # TODO: (LDY 10/4/2016) this changed from "dose" to "dosage". it's possible that there's another code associated with this. this code was not available at the time of this change.
               'DOSE' => {title:'Dosage', coded_entry_method: :dose, code: '398232005', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1004.1', field_type: :value},
               'FACILITY_LOCATION' => {title:'Facility Location', coded_entry_method: :facility, code: 'SDLOC', field_type: :value},
-              'FACILITY_LOCATION_ARRIVAL_DATETIME' => {title:'Facility Location Arrival Date/Time', coded_entry_method: :facility_arrival, code: 'SDLOC_ARRIVAL', field_type: :nested_timestamp},
-              'FACILITY_LOCATION_DEPARTURE_DATETIME' => {title:'Facility Location Departure Date/Time', coded_entry_method: :facility_departure, code: 'SDLOC_DEPARTURE', field_type: :nested_timestamp},
+              # TODO: (LDY 10/5/2016) this changed from 'facility arrival/departure' to 'location period'. likely there is a code and template id change necessary. these are not yet known.
+              'FACILITY_LOCATION_ARRIVAL_DATETIME' => {title:'Location Period Start Date/Time', coded_entry_method: :facility_arrival, code: 'SDLOC_ARRIVAL', field_type: :nested_timestamp},
+              'FACILITY_LOCATION_DEPARTURE_DATETIME' => {title:'Location Period End Date/Time', coded_entry_method: :facility_departure, code: 'SDLOC_DEPARTURE', field_type: :nested_timestamp},
               'FREQUENCY' => {title:'Frequency', coded_entry_method: :administration_timing, code: '307430002', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1006.1', field_type: :value},
               'HEALTH_RECORD_FIELD' => {title: 'Health Record Field', coded_entry_method: :health_record_field, code: '395676008', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.28.3.102:2014-11-24', field_type: :value},
               'INCISION_DATETIME' => {title:'Incision Date/Time', coded_entry_method: :incision_time, code: '34896006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.89', field_type: :timestamp},
