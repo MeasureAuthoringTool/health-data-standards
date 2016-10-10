@@ -10,10 +10,11 @@ module HealthDataStandards
     #                      provide a different directory if you want to use this class
     #                      outside of the HDS gem
     class TemplateHelper
-      def initialize(template_format, template_subdir = nil, template_directory = nil)
+      def initialize(template_format, template_subdir = nil, template_directory = nil, qrda_version = nil)
         @template_format = template_format
         @template_directory = template_directory
         @template_subdir = template_subdir
+        @qrda_version = qrda_version
         @template_cache = {}
       end
 
@@ -29,19 +30,22 @@ module HealthDataStandards
 
       # Returns the raw ERb for the template_name provided. This method will look in
       # template_directory/template_subdir/template_name.template_format.erb
-      def template(template_name, subdir=nil)
-        cache_template(template_name, subdir)
+      def template(template_name, provided_qrda_version=nil)
+        cache_template(template_name, provided_qrda_version)
       end
 
       # Basically the same template, but prepends an underscore to the template name
       # to mimic the Rails convention for template fragments
-      def partial(partial_name, subdir=nil)
-        cache_template("_#{partial_name}", subdir)
+      def partial(partial_name, provided_qrda_version=nil)
+        cache_template("_#{partial_name}", provided_qrda_version)
       end
 
       protected 
 
-      def cache_template(template_name, subdir=nil)
+      def cache_template(template_name, provided_qrda_version=nil)
+        subdir = @qrda_version
+        subdir = provided_qrda_version if provided_qrda_version
+        
         entry = @template_cache[template_name] || {mtime:-1, erb:nil}
         template_dir = template_root
         template_dir = File.join(template_root, subdir) if subdir
