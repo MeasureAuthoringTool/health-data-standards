@@ -14,7 +14,7 @@
 	<%== code_display(ev, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'], 'tag_name' => 'value', 'extra_content' => extra_content) %>
 	<%   elsif ev.respond_to?(:scalar) -%>
 	<%     if is_num?(ev.scalar) -%>
-	<value xsi:type="PQ" value="<%= ev.scalar %>" <% if ev.units && (ev.units != "") -%>unit="<%= ev.units %>"<% end -%>/>
+	<value xsi:type="PQ" value="<%= ev.scalar %>" <% if ev.units && (ev.units != "") -%>unit="<%= ev.units %>"<% else -%>unit="1"<% end -%>/>
 	<%     elsif is_bool?(ev.scalar)%>
 	<value xsi:type="BL" value="<%= ev.scalar %>" />
 	<%     else -%>

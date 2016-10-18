@@ -53,11 +53,18 @@ module HealthDataStandards
             '2.16.840.1.113883.10.20.24.3.101'
           when '2.16.840.1.113883.3.526.3.1189', '2.16.840.1.113883.3.526.3.1170', '2.16.840.1.113883.3.600.2390'
             # Patient Characteristic Tobacco User/Non-User
-            '2.16.840.1.113883.10.20.22.4.85'
+            case qrda_version
+            when 'r3_1'
+              '2.16.840.1.113883.10.20.24.3.103_2016_02_01'
+            when 'r3'
+              '2.16.840.1.113883.10.20.24.3.103'
+            else
+              '2.16.840.1.113883.10.20.22.4.85'
+            end
           else
             # return generic pc observation template for anything not specificly mapped to its own template
             qrda_version == 'r3_1' ? '2.16.840.1.113883.10.20.24.3.103_2016_02_01' : '2.16.840.1.113883.10.20.24.3.103'
-           end
+          end
 
         end
 

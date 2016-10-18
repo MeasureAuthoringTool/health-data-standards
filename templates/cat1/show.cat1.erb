@@ -32,7 +32,7 @@
   <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
   <languageCode code="en"/>
   <!-- reported patient -->
-  <%== render :partial => 'record_target', :locals => {:patient => patient} %>
+  <%== render :partial => 'record_target', :locals => {:patient => patient, :cms_compatibility => cms_compatibility} %>
   <!-- Example of an author who is a device -->
   <% if header %>
     <%== render :partial=>"author", :collection=>header.authors %>
@@ -169,9 +169,9 @@
 
   <component>
     <structuredBody>
-      <%== render :partial => 'measures', :locals => {:measures => measures} %>
+      <%== render :partial => 'measures', :locals => {:measures => measures, :patient => patient} %>
       <%== render :partial => 'reporting_parameters', :locals => {:start_date => start_date, :end_date => end_date, :cms_compatibility => cms_compatibility} %>
-      <%== render :partial => 'patient_data', :locals => {:measures => measures, :patient => patient, :r2_compatibility => r2_compatibility, :cms_compatibility => cms_compatibility} %>
+      <%== render :partial => 'patient_data', :locals => {:measures => measures, :patient => patient, :r2_compatibility => r2_compatibility, :cms_compatibility => cms_compatibility, :qrda_version => qrda_version} %>
     </structuredBody>
   </component>
 </ClinicalDocument>

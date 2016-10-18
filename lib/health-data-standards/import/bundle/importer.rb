@@ -62,7 +62,10 @@ module HealthDataStandards
 
           end
 
-          bundle
+          return bundle
+        ensure
+          bundle.done_importing = true unless bundle.nil?
+          bundle.save
         end
 
 
@@ -175,14 +178,14 @@ module HealthDataStandards
 
         def self.compare_dates(entry, start_date, end_date)
           if entry.start_time * 1000 ==  start_date
-            if entry.end_time == nil 
+            if entry.end_time == nil
               if end_date == nil
                 return true
-              else 
+              else
                 return false
               end
             else entry.end_time * 1000 == end_date
-              return true   
+              return true
             end
           end
           return false
