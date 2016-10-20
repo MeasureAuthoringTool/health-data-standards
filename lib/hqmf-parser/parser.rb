@@ -4,6 +4,7 @@ module HQMF
     HQMF_VERSION_1 = "1.0"
     HQMF_VERSION_2 = "2.0"
 
+    # HQMF v2 Parser for measures that use QDM for measure logic
     class V2Parser
       def initialize
       end
@@ -13,7 +14,7 @@ module HQMF
         HQMF2::Document.new(xml_contents).to_model
       end
 
-      def parse_fileds(xml_contents)
+      def parse_fields(xml_contents)
         result = {}
         doc = HQMF2::Document.parse(xml_contents)
         type = doc.at_xpath('/cda:QualityMeasureDocument/cda:code/@code').value
@@ -39,6 +40,24 @@ module HQMF
 
     end
 
+    # HQMF v2 Parser for measures that use CQL for measure logic
+    class V2CQLParser < V2Parser
+
+      def parse(xml_contents, codes=nil)
+        HQMF::Counter.instance.reset()
+        HQMF2CQL::Document.new(xml_contents).to_model
+      end
+
+      def self.valid?(xml_contents)
+        doc = HQMF2::Document.parse(xml_contents)
+        hqmf2 = !doc.at_xpath("/cda:QualityMeasureDocument/cda:typeId[@root='2.16.840.1.113883.1.3' and @extension='POQM_HD000001UV02']").nil?
+        cql = !doc.at_xpath("/cda:QualityMeasureDocument/cda:relatedDocument/cda:expressionDocument/cda:text[@mediaType='application/cql']").nil?
+        hqmf2 && cql
+      end
+
+    end
+
+    # HQMF v1 Parser for measures that use QDM for measure logic
     class V1Parser
 
       def parse(xml_contents, codes=nil)
