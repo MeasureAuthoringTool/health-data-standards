@@ -1,7 +1,7 @@
 module HQMF2
   # Generates field values based on understanding of the HQMF 2.1 spec
   class FieldValueHelper
-    def self.parse_field_values(entry)
+    def self.parse_field_values(entry, outboundRelationship)
       return if entry.nil?
       criteria = entry.at_xpath('./cda:actCriteria | ./cda:observationCriteria | ./cda:encounterCriteria |
                                  ./cda:procedureCriteria | ./cda:supplyCriteria |
@@ -14,7 +14,7 @@ module HQMF2
       # parse_dset_cd(criteria.at_xpath('./cda:reasonCode', HQMF2::Document::NAMESPACES), 'REASON', fields) unless
       # negated.
       parse_dset_cd(criteria.at_xpath('./cda:priorityCode', HQMF2::Document::NAMESPACES), 'ORDINAL', fields)
-      parse_date_fields(criteria, fields)
+      parse_date_fields(criteria, fields, outboundRelationship)
 
       handle_fields_per_criteria(criteria, fields)
 
@@ -101,7 +101,7 @@ module HQMF2
                   element.at_xpath('@xsi:type', HQMF2::Document::NAMESPACES) == 'ANY')
     end
 
-    def self.parse_date_fields(entry, fields)
+    def self.parse_date_fields(entry, fields, outboundRelationship)
       # handle embded date fields
       times = [{ key: 'signeddatetime', field: 'SIGNED_DATETIME', highlow: 'high' },
                { key: 'startdatetime', field:  'START_DATETIME', highlow: 'low' },
@@ -116,11 +116,11 @@ module HQMF2
       # Special case handle effectiveTime element , by default low is start datetime
       # and high is stop datetime.  This changes for certain elements
       template_ids = extract_template_ids(entry)
+      template_ids = extract_template_ids(outboundRelationship.entry.xpath('./cda:procedureCriteria')) if template_ids.empty? && outboundRelationship
       low = entry.at_xpath('./cda:effectiveTime/cda:low/..')
       high = entry.at_xpath('./cda:effectiveTime/cda:high/..')
 
       fields[low_field_name(template_ids)] = Range.new(low, 'IVL_PQ') if low
-
       fields[high_field_name(template_ids)] = Range.new(high, 'IVL_PQ') if high
     end
 
