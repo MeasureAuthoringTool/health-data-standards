@@ -15,7 +15,7 @@
       <high <%= value_or_null_flavor(entry.discharge_time || entry.end_time) %>/>
     </effectiveTime>
     <% if entry.discharge_disposition.present?
-      vset = oid_for_code(entry.discharge_disposition,field_oids["DISCHARGE_STATUS"])
+      vset = oid_for_code(entry.discharge_disposition,field_oids["DISCHARGE_STATUS"],bundle_id)
       if vset %>  
         <sdtc:dischargeDispositionCode code="<%= entry.discharge_disposition['code'] %>" 
             codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.discharge_disposition['codeSystem'] || entry.discharge_disposition['code_system']) %>" sdtc:valueSet="<%= vset %>"/>
