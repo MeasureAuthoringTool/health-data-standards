@@ -1,0 +1,28 @@
+<% values.compact!
+   if !values.empty?
+      values.each do |ev| 
+	     if ev.respond_to?(:codes) 
+        extra_content = 'xsi:type="CD"'
+        if defined? result_oids
+          preferred_code = ev.preferred_code(['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'])
+          oid = oid_for_code(preferred_code,result_oids, ev.entry.record["bundle_id"])
+          if oid
+            extra_content += " sdtc:valueSet='#{oid}'"
+          end
+        end
+        -%>
+	<%== code_display(ev, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'], 'tag_name' => 'value', 'extra_content' => extra_content) %>
+	<%   elsif ev.respond_to?(:scalar) -%>
+	<%     if is_num?(ev.scalar) -%>
+	<value xsi:type="PQ" value="<%= ev.scalar %>" <% if ev.units && (ev.units != "") -%>unit="<%= ev.units %>"<% else -%>unit="1"<% end -%>/>
+	<%     elsif is_bool?(ev.scalar)%>
+	<value xsi:type="BL" value="<%= ev.scalar %>" />
+	<%     else -%>
+	<value xsi:type="ST" ><%= ev.scalar %></value> 
+	<%     end 
+	     end
+      end
+   # else is empty   
+   else -%>
+<value xsi:type="CD" nullFlavor="UNK"/>
+<% end -%>

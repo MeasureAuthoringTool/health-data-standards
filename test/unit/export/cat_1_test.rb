@@ -24,7 +24,7 @@ class Cat1Test < Minitest::Test
       collection_fixtures('measures')
       @measures = HealthDataStandards::CQM::Measure.all
       @header = generate_header
-      @qrda_xml = HealthDataStandards::Export::Cat1.new.export(@patient, @measures, @start_date, @end_date, @header)
+      @qrda_xml = HealthDataStandards::Export::Cat1.new("r3").export(@patient, @measures, @start_date, @end_date, @header, "r3")
       @doc = Nokogiri::XML(@qrda_xml)
       @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
       @initialized = true
@@ -40,7 +40,7 @@ class Cat1Test < Minitest::Test
                                                  codes: {"SOP" => 349})
       record.insurance_providers << insurance_provider
       puts "Testing Cat I for #{record.first} #{record.last}"
-      doc = Nokogiri::XML(HealthDataStandards::Export::Cat1.new.export(record,valid_measures,@start_date,@end_date, @header))
+      doc = Nokogiri::XML(HealthDataStandards::Export::Cat1.new("r3").export(record,valid_measures,@start_date,@end_date, @header, "r3"))
       assert_equal [], xsd.validate(doc), "Invalid Cat I for #{record.first} #{record.last}"
     end
   end
@@ -51,10 +51,10 @@ class Cat1Test < Minitest::Test
 						 codes: {"SOP" => 349})
       record.insurance_providers << insurance_provider
       puts "Testing Cat I for #{record.first} #{record.last}"
-      doc = Nokogiri::XML(HealthDataStandards::Export::Cat1.new.export(record,@measures,@start_date,@end_date, @header))
+      doc = Nokogiri::XML(HealthDataStandards::Export::Cat1.new("r3").export(record,@measures,@start_date,@end_date, @header, "r3"))
       errors = HealthDataStandards::Validate::Cat1.instance.validate(doc, {file_name: "cat1_good.xml"})
 
-      doc2 = Nokogiri::XML(HealthDataStandards::Export::Cat1.new.export(record,@measures,@start_date,@end_date, nil))
+      doc2 = Nokogiri::XML(HealthDataStandards::Export::Cat1.new("r3").export(record,@measures,@start_date,@end_date, nil, "r3"))
       errors2 = HealthDataStandards::Validate::Cat1.instance.validate(doc, {file_name: "cat1_good.xml"})
 
       assert_equal [], errors, "Invalid Cat I for #{record.first} #{record.last} (with header)"

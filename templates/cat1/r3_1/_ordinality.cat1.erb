@@ -1,0 +1,10 @@
+<% if entry.respond_to?(:ordinality) && entry.ordinality.present? 
+  vset = oid_for_code(entry.ordinality,ordinality_oids || [], entry.record["bundle_id"]) 
+  -%>
+<priorityCode  code="<%= entry.ordinality['code'] %>" 
+              codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.ordinality['codeSystem'] || entry.ordinality['code_system']) %>"
+              <% if vset -%>
+              sdtc:valueSet="<%= vset %>"
+              <% end -%>
+              />
+<% end -%>
