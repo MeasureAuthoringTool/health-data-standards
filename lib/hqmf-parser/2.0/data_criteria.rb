@@ -282,6 +282,9 @@ module HQMF2
   class DataCriteriaMethods
     #  Given an entry, and whether or not it's negated, extract out the proper field values for the data criteria.
     def self.extract_field_values(entry, negation)
+      if HQMF2::Utilities.attr_val(entry, './cda:localVariableName/@value') == 'max_98iRT'
+        debugger
+      end
       fields = {}
       # extract most fields which use the same structure
       entry.xpath('./*/cda:outboundRelationship[*/cda:code]', HQMF2::Document::NAMESPACES).each do |field|

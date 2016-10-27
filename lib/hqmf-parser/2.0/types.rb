@@ -267,6 +267,7 @@ module HQMF2
     def initialize(entry)
       @entry = entry
 
+      debugger
       sequence_number = attr_val('./cda:sequenceNumber/@value')
       qdm_subset_code = attr_val('./qdm:subsetCode/@code')
       subset_code = attr_val('./cda:subsetCode/@code')
@@ -292,7 +293,7 @@ module HQMF2
       end
 
       # TODO: Resolve extracting values embedded in criteria within outboundRel's
-      if @type == 'SUM'
+      unless value_def
         value_def = @entry.at_xpath('./*/*/*/cda:value', HQMF2::Document::NAMESPACES)
       end
 
@@ -309,8 +310,11 @@ module HQMF2
       combined = "#{qdm_subset_code}:#{subset_code}"
       if QDM_TYPE_MAP[combined]
         QDM_TYPE_MAP[combined]
-      else
+      elsif subset_code
         subset_code
+      elsif qdm_subset_code
+        # gets rid of 'QDM_' at the beginning
+        qdm_subset_code.gsub(/QDM_(\w*)/, '\1')
       end
     end
 
