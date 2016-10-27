@@ -122,6 +122,8 @@ class HQMFVsSimpleTest < Minitest::Test
       end
 
       # Ignore STATUS field value from HQMF
+      # The meaning of status has changed over time. Laboratory test and procedure now use status differently.
+      # This change is causing superficial discrepencies between the simplexml and hqmf regarding STATUS.
       dc.field_values.except!('STATUS') unless dc.field_values.nil?
       dc.field_values = nil if !dc.field_values.nil? && dc.field_values.empty?
 

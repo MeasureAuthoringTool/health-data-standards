@@ -118,6 +118,8 @@ module HQMF2
     def same_field_values_check(data_criteria, check_criteria)
       empty = data_criteria.field_values.nil? || data_criteria.field_values.empty?
       # Ignore STATUS (and ORDINAL for CMS172v5)
+      # The meaning of status has changed over time. Laboratory test and procedure now use status differently.
+      # This change is causing superficial discrepencies between the simplexml and hqmf regarding STATUS.
       dc_filtered = data_criteria.field_values.except('STATUS').except('ORDINAL')
       cc_filtered = check_criteria.field_values.except('STATUS').except('ORDINAL')
       left = dc_filtered.nil? || dc_filtered.empty? ? nil : dc_filtered.try(:to_json)
