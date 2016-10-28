@@ -296,6 +296,9 @@ module HQMF2
       unless value_def
         value_def = @entry.at_xpath('./*/*/*/cda:value', HQMF2::Document::NAMESPACES)
       end
+      unless value_def
+        value_def = @entry.at_xpath('./*/cda:lengthOfStayQuantity/cda:uncertainRange', HQMF2::Document::NAMESPACES)
+      end
 
       if value_def
         value_type = value_def.at_xpath('./@xsi:type', HQMF2::Document::NAMESPACES)
