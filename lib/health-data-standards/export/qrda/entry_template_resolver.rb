@@ -32,7 +32,7 @@ module HealthDataStandards
                 raise "No QRDA template available for OID #{hqmf_oid}: #{__FILE__} line #{__LINE__}"
               end
             end
-            "#{oid_tuple['qrda_oid']}#{'_'+oid_tuple[qrda_version] if oid_tuple[qrda_version]}"
+            "#{oid_tuple['qrda_oid']}"
           end
 
         end

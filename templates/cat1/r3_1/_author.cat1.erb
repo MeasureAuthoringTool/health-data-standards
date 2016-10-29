@@ -4,9 +4,9 @@
     <time value="<%= author.time.to_formatted_s(:number) %>"/>
     <assignedAuthor>
       <!-- Registry author ID -->
-      <%== render :partial=>"id", :locals=>{:qrda_version => qrda_version}, :collection=>author.ids, :id=>"identifier" %>
-      <%== render :partial=>"address" , :locals=>{:qrda_version => qrda_version}, :collection=>author.addresses %>
-      <%== render :partial=>"telecom" , :locals=>{:qrda_version => qrda_version}, :collection=>author.telecoms %>
+      <%== render :partial=>"id", :collection=>author.ids, :id=>"identifier" %>
+      <%== render :partial=>"address" , :collection=>author.addresses %>
+      <%== render :partial=>"telecom" , :collection=>author.telecoms %>
 
       <% if author.person %>
         <assignedPerson>
