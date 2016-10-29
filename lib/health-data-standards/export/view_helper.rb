@@ -152,7 +152,7 @@ module HealthDataStandards
             clean_hash[codes['codeSystem']] = clean_hash_code_system(codes)
           elsif codes['_id']
             codes.keys.reject {|key| ['_id'].include? key}.each do |hashkey|
-              clean_hash[hashkey.titleize] = clean_hash_id(codes)
+              clean_hash[hashkey.titleize] = clean_hash_id(codes, hashkey)
             end
           elsif codes['scalar']
             return "#{codes['scalar']} #{codes['units']}"
@@ -184,7 +184,7 @@ module HealthDataStandards
         end
       end
       
-      def clean_hash_id(codes)
+      def clean_hash_id(codes, hashkey)
         value = codes[hashkey]
         if value.nil?
           return 'none'
