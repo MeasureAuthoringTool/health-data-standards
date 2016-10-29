@@ -45,8 +45,8 @@
           <% if pp.provider.specialty %>
           <code code="<%= pp.provider.specialty %>" codeSystemName="Healthcare Provider Taxonomy (HIPAA)" codeSystem="2.16.840.1.113883.6.101"/>
           <% end %>
-          <%== render :partial=>"address" , :locals=>{:qrda_version => qrda_version}, :collection=>pp.provider.addresses %>
-          <%== render :partial=>"telecom", :locals=>{:qrda_version => qrda_version}, :collection=>pp.provider.telecoms %>
+          <%== render :partial=>"address" , :collection=>pp.provider.addresses %>
+          <%== render :partial=>"telecom", :collection=>pp.provider.telecoms %>
           <assignedPerson>
           <name>
              <given><%= pp.provider.given_name %></given>
@@ -61,11 +61,11 @@
             <% end -%>
             <%if pp.provider.organization %>
               <name><%= pp.provider.organization.name %></name>
-              <%== render :partial=>"address" , :locals=>{:qrda_version => qrda_version}, :collection=>pp.provider.organization.addresses %>
-              <%== render :partial=>"telecom", :locals=>{:qrda_version => qrda_version}, :collection=>pp.provider.organization.telecoms %>
+              <%== render :partial=>"address" , :collection=>pp.provider.organization.addresses %>
+              <%== render :partial=>"telecom", :collection=>pp.provider.organization.telecoms %>
             <% else %>
-              <%== render :partial=>"address" , :locals=>{:qrda_version => qrda_version}, :collection=>pp.provider.addresses %>
-              <%== render :partial=>"telecom", :locals=>{:qrda_version => qrda_version}, :collection=>pp.provider.telecoms %>
+              <%== render :partial=>"address" , :collection=>pp.provider.addresses %>
+              <%== render :partial=>"telecom", :collection=>pp.provider.telecoms %>
             <% end %>
           </representedOrganization>
         </assignedEntity>

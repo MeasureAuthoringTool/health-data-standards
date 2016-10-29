@@ -32,10 +32,10 @@
   <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
   <languageCode code="en"/>
   <!-- reported patient -->
-  <%== render :partial => 'record_target', :locals => {:patient => patient, :qrda_version => qrda_version} %>
+  <%== render :partial => 'record_target', :locals => {:patient => patient, :cms_compatibility => cms_compatibility} %>
   <!-- Example of an author who is a device -->
   <% if header %>
-    <%== render :partial=>"author", :locals=>{:qrda_version => qrda_version}, :collection=>header.authors %>
+    <%== render :partial=>"author", :collection=>header.authors %>
     <!-- SHALL have 1..* author. MAY be device or person.
       The author of the CDA document in this example is a device at a data submission vendor/registry. -->
 
@@ -44,7 +44,7 @@
     <!-- SHALL -->
     <custodian>
       <assignedCustodian>
-        <%== render :partial=>"organization", :locals=>{organization: header.custodian.organization, :qrda_version => qrda_version, tag_name: "representedCustodianOrganization"} %>
+        <%== render :partial=>"organization", :locals=>{organization: header.custodian.organization, tag_name: "representedCustodianOrganization"} %>
       </assignedCustodian>
     </custodian>
     <!-- This needs to take reporting program into account EH/EP-->
@@ -65,9 +65,9 @@
       <signatureCode code="S"/>
       <assignedEntity>
         <!-- SHALL ID -->
-        <%== render :partial=>"id", :locals=>{:qrda_version => qrda_version}, :collection=>header.legal_authenticator.ids, :id=>"identifier" %>
-        <%== render :partial=>"address" , :locals=>{:qrda_version => qrda_version}, :collection=>header.legal_authenticator.addresses %>
-	<%== render :partial => "telecom", :locals=>{:qrda_version => qrda_version}, :collection => header.legal_authenticator.telecoms %>
+        <%== render :partial=>"id", :collection=>header.legal_authenticator.ids, :id=>"identifier" %>
+        <%== render :partial=>"address" , :collection=>header.legal_authenticator.addresses %>
+	<%== render :partial => "telecom", :collection => header.legal_authenticator.telecoms %>
         <assignedPerson>
           <name>
              <given><%= header.legal_authenticator.person.given %></given>
@@ -75,7 +75,7 @@
           </name>
        </assignedPerson>
 
-        <%== render :partial=>"organization", :locals=>{organization: header.legal_authenticator.organization, tag_name: "representedOrganization", :qrda_version => qrda_version} %>
+        <%== render :partial=>"organization", :locals=>{organization: header.legal_authenticator.organization, tag_name: "representedOrganization"} %>
       </assignedEntity>
     </legalAuthenticator>
   <% else %>
@@ -165,12 +165,12 @@
     </legalAuthenticator>
   <% end %>
 
-  <%== render :partial => 'providers', :locals => {:patient => patient, :qrda_version => qrda_version} %>
+  <%== render :partial => 'providers', :locals => {:patient => patient} %>
 
   <component>
     <structuredBody>
-      <%== render :partial => 'measures', :locals => {:measures => measures, :qrda_version => qrda_version} %>
-      <%== render :partial => 'reporting_parameters', :locals => {:start_date => start_date, :end_date => end_date, :cms_compatibility => cms_compatibility, :qrda_version => qrda_version} %>
+      <%== render :partial => 'measures', :locals => {:measures => measures, :patient => patient} %>
+      <%== render :partial => 'reporting_parameters', :locals => {:start_date => start_date, :end_date => end_date, :cms_compatibility => cms_compatibility} %>
       <%== render :partial => 'patient_data', :locals => {:measures => measures, :patient => patient, :cms_compatibility => cms_compatibility, :qrda_version => qrda_version} %>
     </structuredBody>
   </component>
