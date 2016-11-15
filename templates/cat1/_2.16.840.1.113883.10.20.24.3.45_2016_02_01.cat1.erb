@@ -1,5 +1,5 @@
 <entry>
-  <act classCode="ACT" moodCode="EVN">
+  <act classCode="ACT" moodCode="EVN" <%== negation_indicator(entry) %>>
     <!-- Medication Dispensed Act -->
     <templateId root="2.16.840.1.113883.10.20.24.3.139"/>
     <id root="<%= UUID.generate %>" />
@@ -30,5 +30,6 @@
         </product>
       </supply>
     </entryRelationship>
+    <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"], :r2_compatibility => r2_compatibility}) %>
   </act>
 </entry>

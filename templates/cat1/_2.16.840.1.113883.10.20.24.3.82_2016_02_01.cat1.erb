@@ -1,5 +1,5 @@
 <entry>
-  <act classCode="ACT" moodCode="EVN">
+  <act classCode="ACT" moodCode="EVN" <%== negation_indicator(entry) %>>
     <!-- Transfer To Act -->
     <templateId root="2.16.840.1.113883.10.20.24.3.142"/>
     <id root="<%= UUID.generate %>" />
@@ -27,5 +27,6 @@
         </participant>
       </encounter>
     </entryRelationship>
+    <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"], :r2_compatibility => r2_compatibility}) %>
   </act>
 </entry>

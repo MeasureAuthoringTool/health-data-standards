@@ -1,5 +1,5 @@
 <entry>
-  <act classCode="ACT" moodCode="RQO">
+  <act classCode="ACT" moodCode="RQO" <%== negation_indicator(entry) %>>
     <templateId root="2.16.840.1.113883.10.20.24.3.132"/>
     <id root="<%= UUID.generate %>" />
     <code code="ENC" codeSystem="2.16.840.1.113883.5.6" displayName="Encounter" codeSystemName="ActClass"/>
@@ -25,5 +25,6 @@
 
       </encounter>
     </entryRelationship>
+    <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"], :r2_compatibility => r2_compatibility}) %>
   </act>
 </entry>
