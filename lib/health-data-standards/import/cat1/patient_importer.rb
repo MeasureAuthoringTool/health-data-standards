@@ -31,6 +31,7 @@ module HealthDataStandards
                                               generate_importer(CDA::MedicationImporter, "./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.42']/cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.16']", '2.16.840.1.113883.3.560.1.14', 'administered'), #medication administered
                                               generate_importer(CDA::MedicationImporter, "./cda:entry/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.47']", '2.16.840.1.113883.3.560.1.17', 'ordered'), #medication order TODO: ADD NEGATON REASON HANDLING SOMEHOW
                                               generate_importer(MedicationDispensedImporter, nil, '2.16.840.1.113883.3.560.1.8', 'dispensed'),
+                                              generate_importer(MedicationDispensedActImporter, nil, '2.16.840.1.113883.3.560.1.8', 'dispensed'),
                                               generate_importer(ImmunizationAdministeredImporter, nil, '2.16.840.1.113883.10.20.28.3.112', 'administered')] #immunization
           @section_importers[:communications] = [generate_importer(CDA::CommunicationImporter, "./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.3']", '2.16.840.1.113883.3.560.1.31'), #comm from provider to patient
                                                  generate_importer(CDA::CommunicationImporter, "./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.2']", '2.16.840.1.113883.3.560.1.30'), #comm from patient to provider
@@ -65,9 +66,13 @@ module HealthDataStandards
                                           generate_importer(LabResultImporter, nil, '2.16.840.1.113883.3.560.1.12')] #lab result
 
           @section_importers[:encounters] = [generate_importer(EncounterPerformedImporter, "./cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']", '2.16.840.1.113883.3.560.1.79', 'performed'), #encounter performed
+                                             generate_importer(EncounterPerformedActImporter, nil, '2.16.840.1.113883.3.560.1.79'),
+                                             generate_importer(EncounterOrderActImporter, nil, '2.16.840.1.113883.3.560.1.83', 'ordered'),
                                              generate_importer(EncounterOrderImporter, nil, '2.16.840.1.113883.3.560.1.83', 'ordered'),
                                              generate_importer(TransferToImporter, nil, '2.16.840.1.113883.3.560.1.72'),
-                                             generate_importer(TransferFromImporter, nil, '2.16.840.1.113883.3.560.1.71')
+                                             generate_importer(TransferFromImporter, nil, '2.16.840.1.113883.3.560.1.71'),
+                                             generate_importer(TransferToActImporter, nil, '2.16.840.1.113883.3.560.1.72'),
+                                             generate_importer(TransferFromActImporter, nil, '2.16.840.1.113883.3.560.1.71')
                                            ]
 
           @section_importers[:social_history] = [generate_importer(TobaccoUseImporter, nil, '2.16.840.1.113883.3.560.1.1001', 'completed')]
