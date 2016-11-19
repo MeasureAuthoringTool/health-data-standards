@@ -23,7 +23,7 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 	  	entry = Entry.new(vals)
 			entry.shift_dates(date_shift)
 			entry_shift_assertions(vals,date_shift, entry)
-	  end						
+	  end
 
 
 	end
@@ -39,7 +39,7 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 				entry.shift_dates(date_shift)
 				entry_shift_assertions(e_vals,date_shift, entry)
 			end
-	  end				
+	  end
 	end
 
 	def test_encounter_shift
@@ -50,18 +50,18 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 												{admitTime: nil}, {dischargeTime: nil},
 												{admitTime: nil}, {dischargeTime: nil}]
 		facility_values = [{start_time: nil, end_time: 20}]
-												
+
 		values.each do |vals|
 			encounter_values.each do |enc_vals|
 				facility_values.each do |fac_vals|
 					e_vals = vals.merge enc_vals
 			  	entry = Encounter.new(e_vals)
-			  	entry.facility = Facility.new(fac_vals)
+			  	entry.facility = HealthDataStandards::Facility.new(fac_vals)
 					entry.shift_dates(date_shift)
 					entry_shift_assertions(e_vals,date_shift, entry) {|ev,ds,ent| entry_shift_assertions(fac_vals,ds,entry.facility)}
 				end
 			end
-	  end				
+	  end
 
 	end
 
@@ -73,7 +73,7 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 												{start_time: nil, end_time: 1},
 												{start_time: 1, end_time: 1}]
 		facility_values.each do |fac_vals|
-			facility = Facility.new(fac_vals)
+			facility = HealthDataStandards::Facility.new(fac_vals)
 			facility.shift_dates(date_shift)
 			entry_shift_assertions(fac_vals,date_shift, facility)
 		end
@@ -133,8 +133,8 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 				entry.shift_dates(date_shift)
 				entry_shift_assertions(e_vals,date_shift, entry)
 			end
-	  end				
-	end	
+	  end
+	end
 
 	def test_medication_shift
 
@@ -151,10 +151,10 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 					entry_shift_assertions(ful_hist,date_shift,entry.fulfillmentHistory[0])
 					entry_shift_assertions(order_inf,date_shift,entry.orderInformation[0])
 				end
-	  end				
+	  end
 
 
-	end	
+	end
 
 	def test_order_information_shift
 
@@ -183,7 +183,7 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 				entry.shift_dates(date_shift)
 				entry_shift_assertions(e_vals,date_shift, entry)
 			end
-	  end				
+	  end
 	end
 
 	def test_provider_performance_shift
@@ -214,7 +214,7 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 			entry.shift_dates(date_shift)
 			entry_shift_assertions(vals,date_shift, entry)
 		end
-			
+
 	end
 
 
