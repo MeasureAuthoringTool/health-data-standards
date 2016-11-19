@@ -17,6 +17,11 @@ The Quality Measure engine relies on a MongoDB [MongoDB](http://www.mongodb.org/
 
     http://www.mongodb.org/display/DOCS/Quickstart
 
+If your project requires that models be in a namespace (HealthDataStandards::Facility instead of Facility),
+you can define the environment variable SKIP_BASE_MODELS and they will no longer
+be defined. Current models scoped this way:
+Facility
+
 Project Practices
 =================
 
