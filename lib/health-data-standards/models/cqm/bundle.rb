@@ -16,6 +16,7 @@ module HealthDataStandards
       field :measure_period_start
       field :records, type: Array
       field :active, type: Boolean
+      field :done_importing, type: Boolean, default: false
 
       validates_presence_of :version
 

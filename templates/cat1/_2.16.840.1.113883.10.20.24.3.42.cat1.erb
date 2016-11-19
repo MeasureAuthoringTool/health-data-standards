@@ -27,7 +27,7 @@
             <templateId root="2.16.840.1.113883.10.20.22.4.23" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
             <id root="<%= UUID.generate %>"/>
             <manufacturedMaterial>
-              <%== code_display(entry, 'value_set_map' => value_set_map, 'preferred_code_sets' => ['RxNorm', 'CVX', 'SNOMED-CT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+              <%== code_display(entry, 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['RxNorm', 'CVX', 'SNOMED-CT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
             </manufacturedMaterial>
           </manufacturedProduct>
         </consumable>

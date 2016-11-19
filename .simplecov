@@ -1,4 +1,3 @@
-require 'simplecov'
 SimpleCov.command_name 'Unit Tests'
 SimpleCov.start do
   add_filter "test/"
@@ -8,6 +7,7 @@ SimpleCov.start do
   add_group "Models", "lib/health-data-standards/models"
   add_group "Utilities", "lib/health-data-standards/util"
   add_group "Validate", "lib/health-data-standards/validate"
+  add_group "HQMF R2", "lib/hqmf-parser/2.0"
 end
 
 class SimpleCov::Formatter::QualityFormatter

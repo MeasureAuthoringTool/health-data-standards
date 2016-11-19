@@ -48,6 +48,7 @@ module HealthDataStandards
 
       field :DENOM, type: Integer
       field :NUMER, type: Integer
+      field :NUMEX, type: Integer
       field :DENEX, type: Integer
       field :DENEXCEP, type: Integer
       field :MSRPOPL, type: Integer
@@ -57,6 +58,7 @@ module HealthDataStandards
       field :IPP, type: Integer
       field :measure_id, type: String
       field :sub_id, type: String
+      field :patient_id, type: BSON::ObjectId
     end
 
   end

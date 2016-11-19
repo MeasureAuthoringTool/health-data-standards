@@ -20,7 +20,7 @@ module HealthDataStandards
         # Given a set of measures, find the data criteria/value set pairs that are unique across all of them
         # Returns an Array of Hashes. Hashes will have a three key/value pairs. One for the data criteria oid,
         # one for the value set oid and one for the data criteria itself
-        def unique_data_criteria(measures)
+        def unique_data_criteria(measures, r2_compatibility)
           all_data_criteria = measures.map {|measure| measure.all_data_criteria}.flatten
           mapped_data_criteria = {}
 
@@ -28,16 +28,24 @@ module HealthDataStandards
             data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                               (data_criteria.status || ""),
                                                                               data_criteria.negation)
+          data_criteria_oid ||= HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
+                                                                                (data_criteria.status || ""),
+                                                                                data_criteria.negation, "r2")
 
             # change a transfer to an encounter since we pull back and write encounters
-            if ['2.16.840.1.113883.3.560.1.71', '2.16.840.1.113883.3.560.1.72'].include? data_criteria_oid
-              data_criteria_oid = '2.16.840.1.113883.3.560.1.79'
+            if r2_compatibility
+              if ['2.16.840.1.113883.3.560.1.71', '2.16.840.1.113883.3.560.1.72'].include? data_criteria_oid
+                data_criteria_oid = '2.16.840.1.113883.3.560.1.79'
+              end
             end
-
             value_set_oid = data_criteria.code_list_id
+            if data_criteria_oid == '2.16.840.1.113883.3.560.1.71'
+              value_set_oid = data_criteria.field_values['TRANSFER_FROM'].code_list_id
+            elsif data_criteria_oid == '2.16.840.1.113883.3.560.1.72'
+              value_set_oid = data_criteria.field_values['TRANSFER_TO'].code_list_id
+            end
             dc = {'data_criteria_oid' => data_criteria_oid, 'value_set_oid' => value_set_oid}
             mapping = mapped_data_criteria[dc] ||= {'result_oids' => [], 'field_oids' =>{}, 'data_criteria' => data_criteria}
-
             if data_criteria.field_values
               data_criteria.field_values.each_pair do |field,descr|
                 if descr && descr.type == "CD"
@@ -45,7 +53,9 @@ module HealthDataStandards
                 end
               end
             end
-
+            if data_criteria.negation
+              (mapping['field_oids']["REASON"] ||= []) << data_criteria.negation_code_list_id
+            end
             if data_criteria.value && data_criteria.value.type == "CD"
               mapping["result_oids"] << data_criteria.value.code_list_id
             end
@@ -63,6 +73,10 @@ module HealthDataStandards
             data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                                         data_criteria.status || '',
                                                                                         data_criteria.negation)
+            data_criteria_oid ||= HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
+                                                                                        data_criteria.status || '',
+                                                                                        data_criteria.negation, "r2")
+
             if entry.respond_to?(:oid) && (entry.oid == data_criteria_oid)
               codes = *(value_set_map(entry.record["bundle_id"])[data_criteria_info['value_set_oid']] || [])
               if codes.empty?
@@ -80,12 +94,18 @@ module HealthDataStandards
 
         # Find all of the entries on a patient that match the given data criteria
         def entries_for_data_criteria(data_criteria, patient)
+
           data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                                       data_criteria.status || '',
                                                                                        data_criteria.negation)
-          HealthDataStandards.logger.warn("Looking for dc [#{data_criteria_oid}]")
+          is_hqmfr2 = true unless data_criteria_oid
+          data_criteria_oid ||= HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
+                                                                                      data_criteria.status || '',
+                                                                                      data_criteria.negation, "r2")
+          HealthDataStandards.logger.debug("Looking for dc [#{data_criteria_oid}]")
           filtered_entries = []
           entries = []
+
           case data_criteria_oid
           when '2.16.840.1.113883.3.560.1.404'
             filtered_entries = handle_patient_expired(patient)
@@ -129,23 +149,24 @@ module HealthDataStandards
               elsif data_criteria_oid == '2.16.840.1.113883.3.560.1.71'
                 if (entry.transferFrom)
                   entry.transferFrom.codes[entry.transferFrom.code_system] = [entry.transferFrom.code]
-                  !entry.transferFrom.codes_in_code_set(codes).empty?
+                  tfc = entry.transferFrom.codes_in_code_set(codes).values.first
+                  tfc && !tfc.empty?
                 end
               elsif data_criteria_oid == '2.16.840.1.113883.3.560.1.72'
                 if (entry.transferTo)
                   entry.transferTo.codes[entry.transferTo.code_system] = [entry.transferTo.code]
-                  !entry.transferTo.codes_in_code_set(codes).empty?
+                  ttc = entry.transferTo.codes_in_code_set(codes).values.first
+                  ttc && !ttc.empty?
                 end
               else
-                # The !! hack makes sure that negation_ind is a boolean
-                entry.is_in_code_set?(codes) && !!entry.negation_ind == data_criteria.negation
+                # The !! hack makes sure that negation_ind is a boolean. negations use the same hqmf templates in r2
+                entry.is_in_code_set?(codes) && (is_hqmfr2 || !!entry.negation_ind == data_criteria.negation)
               end
             end
           end
           if filtered_entries.empty?
             HealthDataStandards.logger.debug("No entries for #{data_criteria.title}")
           end
-
           filtered_entries
         end
 

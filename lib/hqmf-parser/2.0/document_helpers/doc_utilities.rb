@@ -3,18 +3,62 @@ module HQMF2
   module DocumentUtilities
     # Create grouper data criteria for encapsulating variable data criteria
     # and update document data criteria list and references map
-    def handle_variable(data_criteria)
+    def handle_variable(data_criteria, collapsed_source_data_criteria)
+
       if data_criteria.is_derived_specific_occurrence_variable
         data_criteria.handle_derived_specific_occurrence_variable
+        extract_source_data_criteria(data_criteria)
         return
       end
+
+      tmp_id = data_criteria.id
 
       grouper_data_criteria = data_criteria.extract_variable_grouper
       return unless grouper_data_criteria
       @data_criteria_references[data_criteria.id] = data_criteria
       @data_criteria_references[grouper_data_criteria.id] = grouper_data_criteria
+
+      # create a source data criteria for the grouping data critera we just created
+      sdc = SourceDataCriteriaHelper.strip_non_sc_elements(grouper_data_criteria)
+      @source_data_criteria << sdc
+      
+      # check if the original source has been collapsed when generating the SDC list (we need to reference the collapsed version in the sdc list)
+      if collapsed_source_data_criteria[tmp_id]
+        data_criteria.instance_variable_set(:@source_data_criteria, collapsed_source_data_criteria[tmp_id])
+      else
+        # check if we need to add _source suffix (most source data criteria are segmented with '_source' suffixes)
+        data_criteria_sdc = find(@source_data_criteria, :id, "#{tmp_id}_source") 
+        if data_criteria_sdc
+          data_criteria.instance_variable_set(:@source_data_criteria, data_criteria_sdc.id)
+          data_criteria_sdc.instance_variable_set(:@variable, false)
+        # if it's not a derived data criteria then we may need to strip off temporal references, fields, etc as a new source data criteria
+        elsif !['derived', 'satisfies_any', 'satisfies_all'].include?(data_criteria.definition)
+          extract_source_data_criteria(data_criteria)
+        end
+      end
+
       @data_criteria << grouper_data_criteria
-      @source_data_criteria << SourceDataCriteriaHelper.strip_non_sc_elements(grouper_data_criteria)
+    end
+
+    def extract_source_data_criteria (data_criteria)
+      # check if we have temporal references other non-SDC elements on this data criteria.
+      # if we do, we need to create a new SDC to reference
+      if !SourceDataCriteriaHelper.already_stripped?(data_criteria)
+        candidate_sdc = SourceDataCriteriaHelper.strip_non_sc_elements(data_criteria.clone)
+        candidate_sdc.instance_variable_set(:@id, "#{candidate_sdc.id}_source")
+        candidate_sdc.instance_variable_set(:@source_data_criteria, candidate_sdc.id)
+
+        existing_candidate = SourceDataCriteriaHelper.find_existing_source_data_criteria(@source_data_criteria, candidate_sdc)
+        if existing_candidate
+          candidate_sdc = existing_candidate
+        else
+          @source_data_criteria << candidate_sdc
+          # Specific occurrence variables need a copy of the source in the data criteria to display variable results
+          @data_criteria << candidate_sdc if data_criteria.is_derived_specific_occurrence_variable
+        end
+
+        data_criteria.instance_variable_set(:@source_data_criteria, candidate_sdc.id)
+      end
     end
 
     # Checks if one data criteria is covered by another (has all the appropriate elements of)

@@ -15,12 +15,13 @@
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
     
-     <%== code_display(entry, 'value_set_map' => value_set_map,'preferred_code_sets' => ['SNOMED-CT'], 'tag_name' => 'value', 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
+     <%== code_display(entry, 'value_set_map' => filtered_vs_map,'preferred_code_sets' => ['SNOMED-CT'], 'tag_name' => 'value', 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
+     <% if r2_compatibility %>
     <!-- Status -->
     <entryRelationship typeCode="REFR">
       <observation classCode="OBS" moodCode="EVN">
         <!-- Problem Status (consolidation) template -->
-        <templateId root="2.16.840.1.113883.10.20.22.4.6" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
+        <templateId root="2.16.840.1.113883.10.20.22.4.6"/>
         <!-- Problem Status, Active template -->
         <templateId root="2.16.840.1.113883.10.20.24.3.94"/>
         <id root="<%= UUID.generate %>"/>  
@@ -29,5 +30,6 @@
         <value code="55561003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="active" xsi:type="CD"/>
       </observation>
     </entryRelationship>
+    <% end %>
   </observation>
 </entry>

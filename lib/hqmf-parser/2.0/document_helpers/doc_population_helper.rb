@@ -94,6 +94,7 @@ module HQMF2
         HQMF::PopulationCriteria::IPP => 'initialPopulationCriteria',
         HQMF::PopulationCriteria::DENOM => 'denominatorCriteria',
         HQMF::PopulationCriteria::NUMER => 'numeratorCriteria',
+        HQMF::PopulationCriteria::NUMEX => 'numeratorExclusionCriteria',
         HQMF::PopulationCriteria::DENEXCEP => 'denominatorExceptionCriteria',
         HQMF::PopulationCriteria::DENEX => 'denominatorExclusionCriteria',
         HQMF::PopulationCriteria::MSRPOPL => 'measurePopulationCriteria',

@@ -20,7 +20,7 @@ module HealthDataStandards
           condition = super
 
           extract_ordinality(entry_element, condition)
-          extract_negation(entry_element, condition)
+          extract_reason_or_negation(entry_element, condition)
           extract_priority(entry_element, condition)
 
           if @provider_xpath
@@ -45,6 +45,22 @@ module HealthDataStandards
           priority_element = entry_element.at_xpath(@priority_xpath)
           if priority_element
             condition.priority = priority_element['value'].to_i
+          end
+        end
+
+        def extract_severity(entry_element,condition)
+          severity = entry_element.at_xpath(@severity_xpath)
+          if(severity)
+            condition.severity = { 'code_system' => CodeSystemHelper.code_system_for(severity['codeSystem']), 'code' => severity['code'] }
+          end
+        end
+
+        def extract_laterality(entry_element,condition)
+          laterality = entry_element.at_xpath(@laterality_xpath)
+          if laterality
+            # kept to be backward compatible
+            condition.laterality = { 'code_system' => CodeSystemHelper.code_system_for(laterality['codeSystem']), 'code' => laterality['code'] }
+            condition.anatomical_location = { 'code_system' => CodeSystemHelper.code_system_for(laterality['codeSystem']), 'code' => laterality['code'] }
           end
         end
       end

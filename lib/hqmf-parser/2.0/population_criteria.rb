@@ -115,7 +115,8 @@ module HQMF2
       when HQMF::PopulationCriteria::IPP, HQMF::PopulationCriteria::DENOM, HQMF::PopulationCriteria::NUMER,
            HQMF::PopulationCriteria::MSRPOPL, HQMF::PopulationCriteria::STRAT
         HQMF::Precondition::ALL_TRUE
-      when HQMF::PopulationCriteria::DENEXCEP, HQMF::PopulationCriteria::DENEX, HQMF::PopulationCriteria::MSRPOPLEX
+      when HQMF::PopulationCriteria::DENEXCEP, HQMF::PopulationCriteria::DENEX, HQMF::PopulationCriteria::MSRPOPLEX,
+           HQMF::PopulationCriteria::NUMEX
         HQMF::Precondition::AT_LEAST_ONE_TRUE
       else
         fail "Unknown population type [#{@type}]"

@@ -15,13 +15,16 @@
     </effectiveTime>
     
     <% if entry.respond_to?(:anatomical_target) && entry.anatomical_target.present? -%>
-    <targetSiteCode code="<%= entry.anatomical_target['code'] %>" 
-                    codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.anatomical_target['code_system']) %>"/>
+      <% vset = oid_for_code(entry.anatomical_target.code,field_oids["LATERALITY"]) %>
+      <% if vset %>
+        <targetSiteCode code="<%= entry.anatomical_target['code'] %>" 
+          codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.anatomical_target['code_system']) %>" sdtc:valueSet="<%= vset %>"/>
+      <% end %>
     <% end -%>
     <participant typeCode="DEV">
       <participantRole classCode="MANU">
         <playingDevice classCode="DEV">
-          <%== code_display(entry, 'value_set_map' => value_set_map, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-PCS', 'ICD-10-PCS', 'CPT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+          <%== code_display(entry, 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-PCS', 'ICD-10-PCS', 'CPT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
         </playingDevice>
       </participantRole>
     </participant>

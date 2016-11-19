@@ -39,14 +39,13 @@
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
     <%== render(:partial => 'ordinality', :locals => {:entry => entry, :ordinality_oids=>field_oids["ORDINAL"]}) %>
-    
-    <%== code_display(entry, {'tag_name' => 'value', 'value_set_map' => value_set_map,'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'],
-                                                    'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\""}) %>
-
+    <%== code_display(entry, {'tag_name' => 'value', 'value_set_map' => filtered_vs_map,'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'],
+                                                    'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"", 'laterality' => entry.laterality}) %>
+    <% if r2_compatibility %>
     <entryRelationship typeCode="REFR">
       <observation classCode="OBS" moodCode="EVN">
         <!-- Problem Status (consolidation) template -->
-        <templateId root="2.16.840.1.113883.10.20.22.4.6" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
+        <templateId root="2.16.840.1.113883.10.20.22.4.6" extension="2014-06-09"/>
         <!-- Problem Status, Active template -->
         <templateId root="2.16.840.1.113883.10.20.24.3.94" extension="2015-04-06"/>
         <id root="<%= UUID.generate %>"/>  
@@ -61,9 +60,8 @@
            codeSystemName="SNOMED CT"/>
       </observation>
     </entryRelationship>
-    <% if entry.severity
-
-      %>
+    <% end %>
+    <% if entry.severity %>
     <entryRelationship typeCode="REFR">
        <observation classCode="OBS" moodCode="EVN">
           <templateId root="2.16.840.1.113883.10.20.22.4.8" <% if !r2_compatibility %>extension="2014-06-09"<%end%>/>
@@ -76,7 +74,7 @@
               <% if entry.severity.has_key?('title') -%>
                 displayName="<%=entry.severity['title']%>"
               <% end -%>
-                sdtc:valueSet="<%= field_oids['SEVERITY'][0] %>"
+                sdtc:valueSet="<%= oid_for_code(entry.severity,field_oids["SEVERITY"] || [], entry.record["bundle_id"]) %>"
             />
        </observation>
 

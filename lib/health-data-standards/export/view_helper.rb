@@ -5,7 +5,6 @@ module HealthDataStandards
         options['tag_name'] ||= 'code'
         options['attribute'] ||= :codes
         options['exclude_null_flavor'] ||= false
-        code_string = nil
         # allowing wild card matching of any code system for generic templates
         # valueset filtering should filter out a decent code
         pcs = if options['preferred_code_sets'] && options['preferred_code_sets'].index("*")
@@ -14,8 +13,26 @@ module HealthDataStandards
         else
           options['preferred_code_sets']
         end
+        create_code_string(entry, entry.preferred_code(pcs, options['attribute'], options['value_set_map']), options)
+      end
 
-        preferred_code = entry.preferred_code(pcs, options['attribute'], options['value_set_map'])
+      def create_code_string(entry, preferred_code, options={})
+        
+        code_string = create_code_display_string(entry, preferred_code, options)
+        
+        code_string += "<originalText>#{ERB::Util.html_escape entry.description}</originalText>" if entry.respond_to?(:description)
+
+        code_string += create_laterality_code_string(entry, options) if options["laterality"]
+        
+        code_string += create_translations_code_string(entry, options) if options["attribute"] == :codes && entry.respond_to?(:translation_codes)
+        
+        code_string += "</#{options['tag_name']}>"
+
+        code_string
+      end
+
+      def create_code_display_string(entry, preferred_code, options={})
+        code_string = nil
         if preferred_code
           code_system_oid = HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(preferred_code['code_set'])
           code_string = "<#{options['tag_name']} code=\"#{preferred_code['code']}\" codeSystem=\"#{code_system_oid}\" #{options['extra_content']}>"
@@ -24,20 +41,23 @@ module HealthDataStandards
           code_string += "nullFlavor=\"UNK\" " unless options["exclude_null_flavor"]
           code_string += "#{options['extra_content']}>"
         end
-        
-        
-        
-        if options["attribute"] == :codes && entry.respond_to?(:translation_codes)
-          code_string += "<originalText>#{ERB::Util.html_escape entry.description}</originalText>" if entry.respond_to?(:description)
-          entry.translation_codes(options['preferred_code_sets'], options['value_set_map']).each do |translation|
-            code_string += "<translation code=\"#{translation['code']}\" codeSystem=\"#{HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(translation['code_set'])}\"/>\n"
-          end
-        end
-        
-        code_string += "</#{options['tag_name']}>"
         code_string
       end
-            
+
+      def create_laterality_code_string(entry, options={})
+        code_string = "\n<!-- QDM Attribute: Laterality -->\n<qualifier>\n<name code='182353008' codeSystem='2.16.840.1.113883.6.96' displayName='Side' />\n"
+        code_string += "<value xsi:type='CD' code='#{options['laterality']['code']}' displayName='#{options['laterality']['title']}' sdtc:valueSet='#{oid_for_code(entry.laterality,field_oids['LATERALITY'])}'
+                       codeSystem='#{HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(options['laterality']['code_system'])}'/>\n</qualifier>\n"
+      end
+
+      def create_translations_code_string(entry, options={})
+        code_string = ''
+        entry.translation_codes(options['preferred_code_sets'], options['value_set_map']).each do |translation|
+          code_string += "<translation code=\"#{translation['code']}\" codeSystem=\"#{HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(translation['code_set'])}\"/>\n"
+        end
+        code_string
+      end
+
       def status_code_for(entry)
         case entry.status.to_s.downcase
         when 'active'
@@ -52,7 +72,7 @@ module HealthDataStandards
       def fulfillment_quantity(codes, fulfillmentHistory, dose)
         if (codes["RxNorm"].present?)
           doses = (fulfillmentHistory.quantity_dispensed['value'].to_f / dose['value'].to_f ).to_i
-          return "value='#{doses}'"
+          return "value='#{doses}' unit='1'"
         else
           return "value='#{fulfillmentHistory.quantity_dispensed['value']}' unit='#{fulfillmentHistory.quantity_dispensed['unit']}'"
         end
@@ -67,10 +87,36 @@ module HealthDataStandards
       end
 
       def dose_quantity(codes, dose)
-        if (codes["RxNorm"].present?)
-          return "value='1'"
+        if (codes["RxNorm"].present? || codes["CVX"].present?)
+          if dose['unit'].present?
+            return "value='1' unit='#{ucum_for_dose_quantity(dose['unit'])}'"
+          else
+            return "value='1'"
+          end
         else
-          return "value=#{dose['value']} unit=#{dose['unit']}" 
+          return "value='#{dose['scalar']}' unit='#{dose['units']}'"
+        end
+      end
+
+      def ucum_for_dose_quantity(unit)
+        case unit
+        when 'capsule(s)'
+          '{Capsule}'
+        when 'tablet(s)'
+          '{tbl}'
+        else
+          unit
+        end
+      end
+
+      def ucum_for_dose_quantity(unit)
+        case unit
+        when 'capsule(s)'
+          '{Capsule}'
+        when 'tablet(s)'
+          '{tbl}'
+        else
+          unit
         end
       end
 
@@ -101,30 +147,12 @@ module HealthDataStandards
 
         if (codes.is_a? Hash)
           clean_hash = {}
-          
+
           if codes['codeSystem']
-            if codes['title']
-              clean_hash[codes['codeSystem']] = codes['code'] + " (#{codes['title']})"
-            else
-              clean_hash[codes['codeSystem']] = codes['code']
-            end
+            clean_hash[codes['codeSystem']] = clean_hash_code_system(codes)
           elsif codes['_id']
             codes.keys.reject {|key| ['_id'].include? key}.each do |hashkey|
-              value = codes[hashkey]
-              if value.nil?
-                clean_hash[hashkey.titleize] = 'none'
-              elsif value.is_a? Hash
-                hash_result = convert_field_to_hash(hashkey, value)
-                if hash_result.is_a? Hash
-                  clean_hash[hashkey.titleize] = hash_result.map {|key, value| "#{key}: #{value}"}.join(' ')
-                else
-                  clean_hash[hashkey.titleize] = hash_result
-                end
-              elsif value.is_a? Array
-                clean_hash[hashkey.titleize] = value.join(', ')
-              else
-                clean_hash[hashkey.titleize] = convert_field_to_hash(hashkey, value)
-              end
+              clean_hash[hashkey.titleize] = clean_hash_id(codes)
             end
           elsif codes['scalar']
             return "#{codes['scalar']} #{codes['units']}"
@@ -145,6 +173,32 @@ module HealthDataStandards
           else
             codes.to_s
           end
+        end
+      end
+      
+      def clean_hash_code_system(codes)
+        if codes['title']
+          return codes['code'] + " (#{codes['title']})"
+        else
+          return codes['code']
+        end
+      end
+      
+      def clean_hash_id(codes)
+        value = codes[hashkey]
+        if value.nil?
+          return 'none'
+        elsif value.is_a? Hash
+          hash_result = convert_field_to_hash(hashkey, value)
+          if hash_result.is_a? Hash
+            return hash_result.map {|key, value| "#{key}: #{value}"}.join(' ')
+          else
+            return hash_result
+          end
+        elsif value.is_a? Array
+          return value.join(', ')
+        else
+          return convert_field_to_hash(hashkey, value)
         end
       end
       

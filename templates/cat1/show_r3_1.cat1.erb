@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<% if !measures.empty? %>
+<% reporting_program = if measures.first.type == 'ep'
+    'PQRS_MU_INDIVIDUAL'
+    else
+    'HQR_EHR'
+    end -%>
+<ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns="urn:hl7-org:v3"
+ xmlns:voc="urn:hl7-org:v3/voc"
+ xmlns:sdtc="urn:hl7-org:sdtc">
+  <!-- QRDA Header -->
+  <realmCode code="US"/>
+  <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
+  <!-- US Realm Header Template Id -->
+  <templateId root="2.16.840.1.113883.10.20.22.1.1" extension="2015-08-01"/>
+  <!-- QRDA templateId -->
+  <templateId root="2.16.840.1.113883.10.20.24.1.1" extension="2016-02-01"/>
+  <!-- QDM-based QRDA templateId -->
+  <templateId root="2.16.840.1.113883.10.20.24.1.2" extension="2016-02-01"/>
+  <% if cms_compatibility %>
+  <!-- CMS QRDA templateId -->
+  <templateId root="2.16.840.1.113883.10.20.24.1.3" extension="2015-07-01" />
+  <% end %>
+  <!-- This is the globally unique identifier for this QRDA document -->
+  <id root="<%= UUID.generate %>"/>
+  <!-- QRDA document type code -->
+  <code code="55182-0" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Quality Measure Report"/>
+  <title>QRDA Incidence Report</title>
+  <!-- This is the document creation time -->
+  <effectiveTime value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
+  <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
+  <languageCode code="en"/>
+  <!-- reported patient -->
+  <%== render :partial => 'record_target', :locals => {:patient => patient} %>
+  <!-- Example of an author who is a device -->
+  <% if header %>
+    <%== render :partial=>"author", :collection=>header.authors %>
+    <!-- SHALL have 1..* author. MAY be device or person.
+      The author of the CDA document in this example is a device at a data submission vendor/registry. -->
+
+    <!-- The custodian of the CDA document is the same as the legal authenticator in this
+    example and represents the reporting organization. -->
+    <!-- SHALL -->
+    <custodian>
+      <assignedCustodian>
+        <%== render :partial=>"organization", :locals=>{organization: header.custodian.organization, tag_name: "representedCustodianOrganization"} %>
+      </assignedCustodian>
+    </custodian>
+    <!-- This needs to take reporting program into account EH/EP-->
+    <% if cms_compatibility %>
+    <informationRecipient>
+      <intendedRecipient>
+        <id root="2.16.840.1.113883.3.249.7" extension="<%= reporting_program %>"/>
+      </intendedRecipient>
+    </informationRecipient>
+    <% end %>
+    <!-- The legal authenticator of the CDA document is a single person who is at the
+      same organization as the custodian in this example. This element must be present. -->
+    <!-- SHALL -->
+    <legalAuthenticator>
+      <!-- SHALL -->
+      <time value="<%= header.legal_authenticator.time.utc.to_formatted_s(:number) %>"/>
+      <!-- SHALL -->
+      <signatureCode code="S"/>
+      <assignedEntity>
+        <!-- SHALL ID -->
+        <%== render :partial=>"id", :collection=>header.legal_authenticator.ids, :id=>"identifier" %>
+        <%== render :partial=>"address" , :collection=>header.legal_authenticator.addresses %>
+	<%== render :partial => "telecom", :collection => header.legal_authenticator.telecoms %>
+        <assignedPerson>
+          <name>
+             <given><%= header.legal_authenticator.person.given %></given>
+             <family><%= header.legal_authenticator.person.family %></family>
+          </name>
+       </assignedPerson>
+
+        <%== render :partial=>"organization", :locals=>{organization: header.legal_authenticator.organization, tag_name: "representedOrganization"} %>
+      </assignedEntity>
+    </legalAuthenticator>
+  <% else %>
+    <author>
+      <time value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
+      <assignedAuthor>
+        <!-- id extension="Cypress" root="2.16.840.1.113883.19.5"/ -->
+        <!-- NPI -->
+        <% if cms_compatibility %>
+        <% patient.provider_performances.each do |pp| -%>
+        <% pp.provider.cda_identifiers.each do |cda_id| -%>
+            <% if cda_id.root.eql?('2.16.840.1.113883.4.6') -%>
+            <id root="2.16.840.1.113883.4.6" extension="<%= cda_id.extension %>" />
+            <% end -%>
+            <% end -%>
+            <% end -%>
+          <% else %>
+        <id extension="FakeNPI" root="2.16.840.1.113883.4.6"/>
+        <% end %>
+        <addr>
+          <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+          <city>Bedford</city>
+          <state>MA</state>
+          <postalCode>01730</postalCode>
+          <country>US</country>
+        </addr>
+        <telecom use="WP" value="tel:(781)271-3000"/>
+        <assignedAuthoringDevice>
+          <manufacturerModelName>Cypress</manufacturerModelName >
+          <softwareName>Cypress</softwareName >
+        </assignedAuthoringDevice >
+      </assignedAuthor>
+    </author>
+    <custodian>
+      <assignedCustodian>
+        <representedCustodianOrganization>
+          <!-- HQR Only -->
+          <% if cms_compatibility && reporting_program == 'HQR_EHR' %>
+            <id root="2.16.840.1.113883.4.336" extension="800890"/>
+          <% else %>
+            <id root="2.16.840.1.113883.19.5"/>
+          <% end %>
+          <name>Cypress Test Deck</name>
+          <telecom use="WP" value="tel:(781)271-3000"/>
+          <addr>
+            <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+            <city>Bedford</city>
+            <state>MA</state>
+            <postalCode>01730</postalCode>
+            <country>US</country>
+          </addr>
+        </representedCustodianOrganization>
+      </assignedCustodian>
+    </custodian>
+    <!-- This needs to take reporting program into account EH/EP-->
+    <% if cms_compatibility %>
+    <informationRecipient>
+      <intendedRecipient>
+        <id root="2.16.840.1.113883.3.249.7" extension="<%= reporting_program %>"/>
+      </intendedRecipient>
+    </informationRecipient>
+    <% end %>
+    <legalAuthenticator>
+      <time value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
+      <signatureCode code="S"/>
+      <assignedEntity>
+        <id root="bc01a5d1-3a34-4286-82cc-43eb04c972a7"/>
+        <addr>
+          <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+          <city>Bedford</city>
+          <state>MA</state>
+          <postalCode>01730</postalCode>
+          <country>US</country>
+        </addr>
+        <telecom use="WP" value="tel:(781)271-3000"/>
+        <assignedPerson>
+          <name>
+             <given>Henry</given>
+             <family>Seven</family>
+          </name>
+       </assignedPerson>
+        <representedOrganization>
+          <id root="2.16.840.1.113883.19.5"/>
+          <name>Cypress</name>
+        </representedOrganization>
+      </assignedEntity>
+    </legalAuthenticator>
+  <% end %>
+
+  <%== render :partial => 'providers', :locals => {:patient => patient} %>
+
+  <component>
+    <structuredBody>
+      <%== render :partial => 'measures', :locals => {:measures => measures} %>
+      <%== render :partial => 'reporting_parameters', :locals => {:start_date => start_date, :end_date => end_date, :cms_compatibility => cms_compatibility} %>
+      <%== render :partial => 'patient_data_r3_1', :locals => {:measures => measures, :patient => patient, :r2_compatibility => r2_compatibility, :cms_compatibility => cms_compatibility, :qrda_version => qrda_version} %>
+    </structuredBody>
+  </component>
+</ClinicalDocument>
+<% else %>
+<ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns="urn:hl7-org:v3"
+ xmlns:voc="urn:hl7-org:v3/voc"
+ xmlns:sdtc="urn:hl7-org:sdtc"/>
+<% end %>

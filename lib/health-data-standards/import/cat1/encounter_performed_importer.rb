@@ -5,16 +5,32 @@ module HealthDataStandards
         def initialize(entry_finder=CDA::EntryFinder.new("./cda:entry/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']"))
           super(entry_finder)
           @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation"
+          @principal_diagnosis_xpath = "./cda:entryRelationship/cda:observation[cda:code/@code='8319008']"
+          @diagnosis_xpath = "./cda:entryRelationship/cda:act/cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.4']"
         end
 
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
           encounter = super
           extract_admit_time(entry_element, encounter)
           extract_reason(entry_element, encounter, nrh)
+          encounter.principal_diagnosis = extract_diagnosis(entry_element, @principal_diagnosis_xpath)
+          encounter.diagnosis = extract_diagnosis(entry_element, @diagnosis_xpath)
           encounter
         end
 
         private
+
+        def extract_diagnosis(parent_element, xpath)
+          diagnosis_element = parent_element.at_xpath(xpath)
+          if(diagnosis_element)
+            diagnosis = Entry.new
+            extract_workaround_codes(diagnosis_element, diagnosis)
+            diagnosis.codes[diagnosis['code_system']] ||= []
+            diagnosis.codes[diagnosis['code_system']] << diagnosis['code']
+            return diagnosis
+          end
+          nil
+        end
 
         def extract_reason(parent_element, encounter, nrh)
           reason_element = parent_element.at_xpath(@reason_xpath)

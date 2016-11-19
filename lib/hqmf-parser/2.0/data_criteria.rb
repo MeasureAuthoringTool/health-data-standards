@@ -3,16 +3,16 @@ module HQMF2
   class DataCriteria
     include HQMF2::Utilities, HQMF2::DataCriteriaTypeAndDefinitionExtraction, HQMF2::DataCriteriaPostProcessing
 
+    attr_accessor :id
+    attr_accessor :original_id
     attr_reader :property, :type, :status, :value, :effective_time, :section
     attr_reader :temporal_references, :subset_operators, :children_criteria
     attr_reader :derivation_operator, :negation, :negation_code_list_id, :description
     attr_reader :field_values, :source_data_criteria, :specific_occurrence_const
     attr_reader :specific_occurrence, :comments, :is_derived_specific_occurrence_variable
-    attr_reader :id, :entry, :definition, :variable, :local_variable_name
+    attr_reader :entry, :definition, :variable, :local_variable_name
 
     CRITERIA_GLOB = "*[substring(name(),string-length(name())-7) = \'Criteria\']"
-
-    # TODO: Clean up debug print statements!
 
     # Create a new instance based on the supplied HQMF entry
     # @param [Nokogiri::XML::Element] entry the parsed HQMF entry
@@ -107,6 +107,8 @@ module HQMF2
       end
       @specific_occurrence = nil
       @specific_occurrence_const = nil
+      # set the source data criteria id to the id for variables
+      @source_data_criteria = @id
       DataCriteria.new(@entry, @data_criteria_references, @occurrences_map).extract_as_grouper
     end
 
@@ -139,6 +141,41 @@ module HQMF2
         duplicate_child_info(reference_criteria)
         @children_criteria = reference_criteria.children_criteria
       end
+    end
+
+    # clone method. This is needed because we need to extract a new source data criteria for variables
+    # typically "cloning" is done by re-parsing the xml entry, however with post processing that does
+    # not give us the correct SDC data when we are trying to recreate since we are looping back through
+    # the same data criteria before it has finished processing: See: DocUtilities.extract_source_data_criteria
+    def clone
+      other = DataCriteria.new(@entry, @data_criteria_references, @occurrences_map)
+      other.instance_variable_set(:@id, @id)
+      other.instance_variable_set(:@original_id, @original_id)
+      other.instance_variable_set(:@property, @property)
+      other.instance_variable_set(:@type, @type)
+      other.instance_variable_set(:@status, @status)
+      other.instance_variable_set(:@code_list_id, @code_list_id)
+      other.instance_variable_set(:@value, @value)
+      other.instance_variable_set(:@effective_time, @effective_time)
+      other.instance_variable_set(:@section, @section)
+      other.instance_variable_set(:@temporal_references, @temporal_references)
+      other.instance_variable_set(:@subset_operators, @subset_operators)
+      other.instance_variable_set(:@children_criteria, @children_criteria)
+      other.instance_variable_set(:@derivation_operator, @derivation_operator)
+      other.instance_variable_set(:@negation, @negation)
+      other.instance_variable_set(:@negation_code_list_id, @negation_code_list_id)
+      other.instance_variable_set(:@description, @description)
+      other.instance_variable_set(:@field_values, @field_values)
+      other.instance_variable_set(:@source_data_criteria, @source_data_criteria)
+      other.instance_variable_set(:@specific_occurrence_const, @specific_occurrence_const)
+      other.instance_variable_set(:@specific_occurrence, @specific_occurrence)
+      other.instance_variable_set(:@comments, @comments)
+      other.instance_variable_set(:@is_derived_specific_occurrence_variable, @is_derived_specific_occurrence_variable)
+      other.instance_variable_set(:@entry, @entry)
+      other.instance_variable_set(:@definition, @definition)
+      other.instance_variable_set(:@variable, @variable)
+      other.instance_variable_set(:@local_variable_name, @local_variable_name)
+      other
     end
 
     private

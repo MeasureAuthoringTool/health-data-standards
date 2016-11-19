@@ -3,8 +3,9 @@ class Encounter < Entry
   field :dischargeDisposition, as: :discharge_disposition, type: Hash
   field :admitTime, as: :admit_time, type: Integer
   field :dischargeTime, as: :discharge_time, type: Integer
-  field :principalDiagnosis, as: :principal_diagnosis, type: Hash
-  field :diagnosis, type: Hash
+
+  embeds_one :principalDiagnosis, class_name: "EncounterPrincipalDiagnosis"
+  embeds_one :diagnosis, class_name: "EncounterPrincipalDiagnosis"
 
   embeds_one :transferTo, class_name: "Transfer"
   embeds_one :transferFrom, class_name: "Transfer"
@@ -18,6 +19,8 @@ class Encounter < Entry
   alias :transfer_to= :transferTo=
   alias :transfer_from :transferFrom
   alias :transfer_from= :transferFrom=
+  alias :principal_diagnosis :principalDiagnosis
+  alias :principal_diagnosis= :principalDiagnosis=
 
   def shift_dates(date_diff)
     super

@@ -6,11 +6,12 @@
     
     if reason.present?
       vset = oid_for_code(reason,reason_oids, entry.record["bundle_id"])
+      if vset
   -%>
 <entryRelationship typeCode="RSON">
   <observation classCode="OBS" moodCode="EVN">
     <templateId root="2.16.840.1.113883.10.20.24.3.88" <% if !r2_compatibility %>extension="2014-12-01"<%end%>/>
-    <id extension="<%= identifier_for([reason, entry.start_time]) %>" />
+    <id root="1.3.6.1.4.1.115" extension="<%= identifier_for([reason, entry.start_time]) %>" />
     <% if !r2_compatibility %>
     <code code="77301-0"
           codeSystem="2.16.840.1.113883.6.1"
@@ -36,10 +37,9 @@
        <% if reason.respond_to?('title') || reason.has_key?('title') -%>
          displayName="<%=reason['title']%>"
        <% end -%>
-       <% if vset -%>
          sdtc:valueSet="<%= vset %>"
-       <% end -%>
          />
   </observation>
 </entryRelationship>
+  <% end -%>
 <% end -%>

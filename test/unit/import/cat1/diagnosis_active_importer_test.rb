@@ -9,7 +9,7 @@ class DiagnosisActiveImporterTest < Minitest::Test
     diag = HealthDataStandards::Import::Cat1::EntryPackage.new(HealthDataStandards::Import::Cat1::DiagnosisActiveImporter.new, '2.16.840.1.113883.3.560.1.2', 'active')
     diagnoses = diag.package_entries(cat1_patient_data_section(doc), nrh)
     diagnosis = diagnoses[0]
-    severity = {"SNOMED-CT" =>["55561003"]}
+    severity = { 'code_system' => 'SNOMED-CT', 'code' => '55561003'}
     assert diagnosis.codes['ICD-9-CM'].include?("999.34")
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19890903081502')
     expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('19890904034509')

@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:hl7-org:v3" xmlns:voc="urn:hl7-org:v3/voc" xmlns:sdtc="urn:hl7-org:sdtc">
+  <component>
+    <structuredBody>
+      <component>
+        <section>
+          <templateId root="2.16.840.1.113883.10.20.24.2.1"/>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <!-- Conforms to C-CDA 2.1 Problem Concern Act (V3) -->
+              <templateId root="2.16.840.1.113883.10.20.22.4.3" extension="2015-08-01" />
+              <!-- Diagnosis Concern Act -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.137" />
+              <id root="<%= UUID.generate %>" />
+              <code code="CONC" codeSystem="2.16.840.1.113883.5.6" displayName="Concern" />
+              <statusCode code="active" />
+              <effectiveTime>
+                <!-- Attribute: admission datetime -->
+                <low value="19890903081502"/>
+                <!-- Attribute: discharge datetime -->
+                <high value="19890904034509"/>
+              </effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Conforms to C-CDA R2.1 Problem Observation (V3) -->
+                  <templateId root="2.16.840.1.113883.10.20.22.4.4" extension="2015-08-01" />
+                  <!-- Diagnosis template -->
+                  <templateId root="2.16.840.1.113883.10.20.24.3.135" />
+                  <id root="50f84db97042f9366f00001b"/>
+                  <code code="282291009" displayName="diagnosis" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+                  <text>Diagnosis Hospital Measures - Any infection (Code List: 2.16.840.1.113883.3.666.5.696)</text>
+                  <statusCode code="completed"/>
+                  <effectiveTime>
+                    <!-- Attribute: admission datetime -->
+                    <low value="19890903081502"/>
+                    <!-- Attribute: discharge datetime -->
+                    <high value="19890904034509"/>
+                  </effectiveTime>
+                  <value code="999.34" codeSystem="2.16.840.1.113883.6.103" xsi:type="CD" sdtc:valueSet="2.16.840.1.113883.3.666.5.696">
+                    <originalText>Diagnosis Hospital Measures - Any infection (Code List: 2.16.840.1.113883.3.666.5.696)</originalText>
+                    <translation code="T86.842" codeSystem="2.16.840.1.113883.6.90"/>
+                  </value>
+                  <entryRelationship typeCode="REFR">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Problem Status (consolidation) template -->
+                      <templateId root="2.16.840.1.113883.10.20.22.4.6"/>
+                      <!-- Problem Status, Active template -->
+                      <templateId root="2.16.840.1.113883.10.20.24.3.94"/>
+                      <id root="1fddfe00-4308-0130-0ade-680688cbd736"/>
+                      <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="status"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"/>
+                    </observation>
+                  </entryRelationship>
+
+                 <entryRelationship typeCode="REFR">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Problem Status (consolidation) template -->
+                      <templateId root="2.16.840.1.113883.10.20.22.4.6"/>
+                      <!-- Problem Status, Active template -->
+                      <templateId root="2.16.840.1.113883.10.20.24.3.94"/>
+                      <id root="1fddfe00-4308-0130-0ade-680688cbd736"/>
+                      <code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="status"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"/>
+                    </observation>
+                  </entryRelationship>
+
+                  <entryRelationship typeCode="REFR">
+                   <observation classCode="OBS" moodCode="EVN">
+                      <templateId root="2.16.840.1.113883.10.20.22.4.8"/>
+                      <code code="SEV" 
+                            codeSystem="2.16.840.1.113883.5.4"/>
+                       <statusCode code="completed"/>
+                       <value xsi:type="CD" code="55561003" displayName="active" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"/>
+                    </observation>
+
+                   </entryRelationship>
+                 </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>

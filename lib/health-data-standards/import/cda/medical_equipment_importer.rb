@@ -14,6 +14,7 @@ module HealthDataStandards
           extract_manufacturer(entry_element, medical_equipment)
           extract_anatomical_structure(entry_element, medical_equipment)
           extract_removal_time(entry_element, medical_equipment)
+          extract_reason_or_negation(entry_element, medical_equipment)
           medical_equipment
         end
 

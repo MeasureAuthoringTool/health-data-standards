@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="cda.xsl"?>
+<ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:hl7-org:v3" xmlns:voc="urn:hl7-org:v3/voc" xmlns:sdtc="urn:hl7-org:sdtc">
+  <component>
+    <structuredBody>
+      <component>
+        <section>
+          <templateId root="2.16.840.1.113883.10.20.24.2.1"/>
+          <entry>
+            <act classCode="ACT" moodCode="EVN" >
+              <!-- Immunization, Administered template -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.140"/>
+              <id root="9c09831a-9e99-4f9c-96de-9ce334f943d7"/>
+              <code code="416118004" displayName="Administration" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+              <statusCode code="completed"/>
+              <effectiveTime xsi:type="IVL_TS">
+                  <low value='19890509170647'/>
+                  <high value='19890509173724'/>
+              </effectiveTime>
+              <entryRelationship typeCode="COMP">
+                <substanceAdministration classCode="SBADM" moodCode="EVN">
+                    <!-- C-CDA R2 Immunization Activity -->
+                    <templateId root="2.16.840.1.113883.10.20.22.4.52" extension="2014-06-09"/>
+                    <id root="1ea77951-61f4-425f-bb69-dd396d63c44f"/>
+                    <statusCode code="completed"/>
+                    <effectiveTime xsi:type="IVL_TS">
+                      <low value='19890509170647'/>
+                      <high value='19890509173724'/>
+                    </effectiveTime>
+                    <consumable>
+                      <manufacturedProduct classCode="MANU">
+                        <!-- C-CDA R2.1 Immunization Medication Information (V2) -->
+                        <templateId root="2.16.840.1.113883.10.20.22.4.23"/>
+                        <id root="28c6a620-4307-0130-0add-680688cbd736"/>
+                        <manufacturedMaterial>
+                          <code code="33" codeSystem="2.16.840.1.113883.6.59" displayName="Pneumococcal polysaccharide vaccine" codeSystemName="CVX"/>
+                        </manufacturedMaterial>
+                        <manufacturerOrganization>
+                          <name>Medication Factory Inc.</name>
+                        </manufacturerOrganization>
+                      </manufacturedProduct>
+                    </consumable>
+                </substanceAdministration>
+              </entryRelationship>
+            </act>
+          </entry>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>
