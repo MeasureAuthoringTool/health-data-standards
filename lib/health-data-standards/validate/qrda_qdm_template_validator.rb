@@ -157,11 +157,14 @@ module HealthDataStandards
       # specified QRDA version
       def validate(file, data={})
         @errors = []
-        @doc = get_document(file)
-        @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-        extract_entries.each do |entry|
-          # each entry is evaluated separetly.
-          entry_value_for_qrda_version(entry, data)
+        # if validator does not support the qrda version specified, no checks are made
+        unless @templateshash.nil?
+          @doc = get_document(file)
+          @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+          extract_entries.each do |entry|
+            # each entry is evaluated separetly.
+            entry_value_for_qrda_version(entry, data)
+          end
         end
         @errors
       end
