@@ -6,6 +6,10 @@ module HealthDataStandards
         include HealthDataStandards::SVS
         VS_MAP = {}
 
+        def clear_vs_map(bundle_id=nil)
+          VS_MAP[bundle_id] = nil
+        end
+
         def value_set_map(bundle_id=nil)
           bundle_id_to_use = nil
           if bundle_id
