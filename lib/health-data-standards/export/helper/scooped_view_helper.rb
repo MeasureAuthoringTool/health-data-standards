@@ -7,6 +7,10 @@ module HealthDataStandards
         VS_MAP = {}
 
         def clear_vs_map(bundle_id=nil)
+          if bundle_id.nil?
+            latest_bundle_id = HealthDataStandards::CQM::Bundle.latest_bundle_id
+            bundle_id = BSON::ObjectId.from_string(latest_bundle_id) if latest_bundle_id
+          end
           VS_MAP[bundle_id] = nil
         end
 
