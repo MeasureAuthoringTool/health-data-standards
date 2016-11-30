@@ -18,6 +18,7 @@ module HealthDataStandards
 
       #default qrda_version should default to latest version
       def export(patient, measures, start_date, end_date, header=nil, qrda_version='r3_1', cms_compatibility=false)
+        #this will ensure that any value_sets that have been added to a bundle since the last qrda export will be picked up.
         clear_vs_map(patient.bundle_id)
         
         qrda_version = qrda_version.nil? ? @@most_recent_qrda_version : qrda_version
