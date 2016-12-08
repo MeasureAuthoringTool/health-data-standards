@@ -7,6 +7,7 @@ module HealthDataStandards
         options['exclude_null_flavor'] ||= false
         # allowing wild card matching of any code system for generic templates
         # valueset filtering should filter out a decent code
+        # TODO: Can we add nil? logic to the function?  Make it so that we don't have to include the preferred_code_sets['*'] if we want all?
         pcs = if options['preferred_code_sets'] && options['preferred_code_sets'].index("*")
           # all of the code_systems that we know about
           HealthDataStandards::Util::CodeSystemHelper::CODE_SYSTEMS.values | HealthDataStandards::Util::CodeSystemHelper::CODE_SYSTEM_ALIASES.keys
@@ -152,7 +153,7 @@ module HealthDataStandards
             clean_hash[codes['codeSystem']] = clean_hash_code_system(codes)
           elsif codes['_id']
             codes.keys.reject {|key| ['_id'].include? key}.each do |hashkey|
-              clean_hash[hashkey.titleize] = clean_hash_id(codes)
+              clean_hash[hashkey.titleize] = clean_hash_id(codes, hashkey)
             end
           elsif codes['scalar']
             return "#{codes['scalar']} #{codes['units']}"
@@ -184,7 +185,7 @@ module HealthDataStandards
         end
       end
       
-      def clean_hash_id(codes)
+      def clean_hash_id(codes, hashkey)
         value = codes[hashkey]
         if value.nil?
           return 'none'

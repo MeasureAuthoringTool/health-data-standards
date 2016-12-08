@@ -19,12 +19,12 @@ class Cat1RoundtripTest < Minitest::Test
     start_date = Time.now.years_ago(1)
     end_date = Time.now
     measure = HealthDataStandards::CQM::Measure.where({name: "Mary Berry's Wacky Wild Measure"}).first
-    qrda_xml = HealthDataStandards::Export::Cat1.new.export(patient, [measure], start_date, end_date)
-
+    qrda_xml = HealthDataStandards::Export::Cat1.new("r3").export(patient, [measure], start_date, end_date, nil, "r3")
     # Import
     doc_import = Nokogiri::XML(qrda_xml)
     doc_import.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     doc_import.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+  
     patient_import = Record.new
     HealthDataStandards::Import::C32::PatientImporter.instance.get_demographics(patient_import, doc_import)
     HealthDataStandards::Import::Cat1::PatientImporter.instance.import_sections(patient_import, doc_import)

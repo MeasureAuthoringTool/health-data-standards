@@ -1,0 +1,16 @@
+<% if entry.respond_to?(:route) && entry.route.present? 
+      # hard coded to NCI Thesaurus for the code system since Cat I mandates that
+      vset = oid_for_code(entry.route,route_oids, entry.record["bundle_id"])
+-%>
+<routeCode code="<%= entry.route['code'] %>" 
+           codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.route['code_system']) %>" 
+            <% if vset -%>
+              sdtc:valueSet="<%= vset %>"
+            <% end -%>
+           />
+<% end -%>
+<% if entry.negationInd %>
+	<doseQuantity nullFlavor="NA"/>
+<% elsif entry.respond_to?(:dose) && entry.dose.present? -%>
+<doseQuantity <%= dose_quantity(entry.codes, entry.dose) %>/>
+<% end -%>
