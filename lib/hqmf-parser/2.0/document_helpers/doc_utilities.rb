@@ -106,11 +106,26 @@ module HQMF2
     def complex_coverage(data_criteria, check_criteria)
       same_value = data_criteria.value.nil? ||
                    data_criteria.value.try(:to_model).try(:to_json) == check_criteria.value.try(:to_model).try(:to_json)
-      same_field_values = data_criteria.field_values.nil? || data_criteria.field_values.empty? ||
-                          data_criteria.field_values.try(:to_json) == check_criteria.field_values.try(:to_json)
+
+      same_field_values = same_field_values_check(data_criteria, check_criteria)
+
       same_negation_values = data_criteria.negation_code_list_id.nil? ||
                              data_criteria.negation_code_list_id == check_criteria.negation_code_list_id
-      same_value && same_field_values && same_negation_values
+
+      same_value && same_negation_values && same_field_values
     end
+    
+    def same_field_values_check(data_criteria, check_criteria)
+      empty = data_criteria.field_values.nil? || data_criteria.field_values.empty?
+      # Ignore STATUS (and ORDINAL for CMS172v5)
+      # The meaning of status has changed over time. Laboratory test and procedure now use status differently.
+      # This change is causing superficial discrepencies between the simplexml and hqmf regarding STATUS.
+      dc_filtered = data_criteria.field_values.except('STATUS').except('ORDINAL')
+      cc_filtered = check_criteria.field_values.except('STATUS').except('ORDINAL')
+      left = dc_filtered.nil? || dc_filtered.empty? ? nil : dc_filtered.try(:to_json)
+      right = cc_filtered.nil? || cc_filtered.empty? ? nil : cc_filtered.try(:to_json)
+      return empty || left == right
+    end
+    
   end
 end

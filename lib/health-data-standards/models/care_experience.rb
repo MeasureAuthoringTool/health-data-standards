@@ -1,0 +1,2 @@
+class CareExperience < Entry
+end

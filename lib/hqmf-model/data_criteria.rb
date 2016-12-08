@@ -15,6 +15,15 @@ module HQMF
     SATISFIES_ANY = 'satisfies_any'
     VARIABLE = 'variable'
 
+    # An object containing metadata information for all attributes that are used within the measure data criteria being parsed.
+    #
+    # fields include:
+    # `title`: The QDM human readable title for the attribute.
+    # `coded_entry_method`: this appears to be a way that fields here are referenced within Bonnie.
+    # `field_type`: The type of whatever will be stored for this attribute. This will often be `:timestamp` or `:value`.
+    # `code`: The code for the entry. This should be included to make HQMF generation work properly. This is whatever code is dictated in the HQMF. For Diagnosis, this is in [HQMF QDM IG](http://www.hl7.org/implement/standards/product_brief.cfm?product_id=346) vol 2 page 155 and is `29308-4`.
+    # `code_system`: This is the oid for whatever code system contains `code`. For Diagnosis, this is LOINC: `2.16.840.1.113883.6.1`. This is also located at (http://www.hl7.org/implement/standards/product_brief.cfm?product_id=346) vol 2 page 155.
+    # `template_id`: These appear to be related to HQMFr1 template ids. These appear to be dangerously out of date. Don't use.
     FIELDS = {'ABATEMENT_DATETIME' => {title:'Abatement Datetime', coded_entry_method: :end_date, field_type: :timestamp},
               'ACTIVE_DATETIME' => {title:'Active Date/Time', coded_entry_method: :active_date_time, field_type: :timestamp},
               'ADMISSION_DATETIME' => {title:'Admission Date/Time', coded_entry_method: :admit_time, code: '399423000', code_system:'2.16.840.1.113883.6.96', field_type: :timestamp},
@@ -32,6 +41,7 @@ module HQMF
               'FACILITY_LOCATION_ARRIVAL_DATETIME' => {title:'Facility Location Arrival Date/Time', coded_entry_method: :facility_arrival, code: 'SDLOC_ARRIVAL', field_type: :nested_timestamp},
               'FACILITY_LOCATION_DEPARTURE_DATETIME' => {title:'Facility Location Departure Date/Time', coded_entry_method: :facility_departure, code: 'SDLOC_DEPARTURE', field_type: :nested_timestamp},
               'FREQUENCY' => {title:'Frequency', coded_entry_method: :administration_timing, code: '307430002', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1006.1', field_type: :value},
+              'HEALTH_RECORD_FIELD' => {title: 'Health Record Field', coded_entry_method: :health_record_field, code: '395676008', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.28.3.102:2014-11-24', field_type: :value},
               'INCISION_DATETIME' => {title:'Incision Date/Time', coded_entry_method: :incision_time, code: '34896006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.89', field_type: :timestamp},
               'LATERALITY' => {title:'Laterality', coded_entry_method: :laterality, code: '272741003', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
               'LENGTH_OF_STAY' => {title:'Length of Stay', coded_entry_method: :length_of_stay, code: '183797002', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1029.3', field_type: :value},
@@ -60,7 +70,8 @@ module HQMF
               'SEVERITY' => {title:'Severity', coded_entry_method: :severity, code: 'SEV', code_system:'2.16.840.1.113883.5.4', template_id: '2.16.840.1.113883.10.20.22.4.8', field_type: :value},
               'SIGNED_DATETIME' =>  {title:'Signed Date/Time', coded_entry_method: :signed_date_time, field_type: :timestamp},
               'START_DATETIME' => {title:'Start Date/Time', coded_entry_method: :start_date, code: '398201009', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1027.1', field_type: :timestamp},
-              # MISSING Status - Indicates the particular stage of the action represented by the datatype.
+              # STATUS is referenced in the code as `qdm_status` because entry/Record already has a `status`/`status_code` field which has a different meaning
+              'STATUS' => {title: 'Status', coded_entry_method: :qdm_status, code: '33999-4', code_system:'2.16.840.1.113883.6.1', field_type: :value},
               'STOP_DATETIME' => {title:'Stop Date/Time', coded_entry_method: :end_date, code: '397898000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1026.1', field_type: :timestamp},
               'TARGET_OUTCOME' => {title:'Target Outcome', coded_entry_method: :target_outcome, code: '385676005', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
               # MISSING Time - The time that the patient passed away
@@ -74,6 +85,7 @@ module HQMF
               'TRANSFER_TO_DATETIME' => {title:'Transfer To Date/Time', coded_entry_method: :transfer_to_time, code: 'DST_TIME', template_id: '2.16.840.1.113883.10.20.24.3.82', field_type: :nested_timestamp}
           }
 
+    # maps attribute codes to the attribute keys
     VALUE_FIELDS = {'399423000' => 'ADMISSION_DATETIME',
                     '42752001' => 'CAUSE',
                     '261773006' => 'CUMULATIVE_MEDICATION_DURATION',
@@ -84,8 +96,9 @@ module HQMF
                     'SDLOC'     => 'FACILITY_LOCATION',
                     'SDLOC_ARRIVAL'   => 'FACILITY_LOCATION_ARRIVAL_DATETIME',
                     'SDLOC_DEPARTURE' => 'FACILITY_LOCATION_DEPARTURE_DATETIME',
-                    '307430002' =>'FREQUENCY',
-                    '260864003' =>'FREQUENCY', # previous
+                    '307430002' => 'FREQUENCY',
+                    '260864003' => 'FREQUENCY', # previous
+                    '395676008' => 'HEALTH_RECORD_FIELD',
                     '34896006'  => 'INCISION_DATETIME',
                     '272741003' => 'LATERALITY',
                     '183797002' => 'LENGTH_OF_STAY',
@@ -102,6 +115,7 @@ module HQMF
                     '263513008' => 'ROUTE',
                     'SEV'       => 'SEVERITY',
                     '398201009' => 'START_DATETIME',
+                    '33999-4'   => 'STATUS',
                     '397898000' => 'STOP_DATETIME',
                     '385676005' => 'TARGET_OUTCOME',
 
