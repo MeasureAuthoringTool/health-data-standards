@@ -1,6 +1,9 @@
 require 'test_helper'
 
 class RecordTest < Minitest::Test
+  def setup
+    collection_fixtures('records')
+  end
 
   def test_entries_for_oid
     record = FactoryGirl.create(:bigger_record)
@@ -92,5 +95,16 @@ class RecordTest < Minitest::Test
     record.dedup_record!
 
     assert_equal 3, record.encounters.size
+  end
+
+  def test_dedup_section_naively
+    # fixture: patient_with_duplicated_medications_section.json
+    record = Record.where(first: 'GP_Peds').first
+
+    assert_equal 37, record.medications.size
+
+    record.dedup_record!
+
+    assert_equal 29, record.medications.size
   end
 end
