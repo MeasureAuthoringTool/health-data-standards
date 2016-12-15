@@ -173,7 +173,7 @@ module HealthDataStandards
         # an entry may have multiple templateIds
         tids = entry.xpath('./*/cda:templateId')
         # an entry only needs one valid templateId to be acceptable
-        unless tids.map { |tid| @templateshash.has_key?(tid['root']) && @templateshash[tid['root']] == tid['extension'] }.include?true
+        unless tids.map { |tid| @templateshash.has_key?(tid['root']) && @templateshash[tid['root']] == tid['extension'] }.include? true
           msg = "#{tids.map { |tid| "#{tid['root']}:#{tid['extension']}" }} are not valid Patient Data Section QDM entries for this QRDA Version"
           @errors << build_error(msg, entry.path, data[:file_name])
         end
