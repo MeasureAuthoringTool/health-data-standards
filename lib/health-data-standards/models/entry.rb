@@ -24,6 +24,7 @@ class Entry
   field :negationReason, as: :negation_reason, type: Hash
   field :oid, type: String
   field :reason, type: Hash
+  field :health_record_field, type: Hash
   
   attr_protected :version
   attr_protected :_id

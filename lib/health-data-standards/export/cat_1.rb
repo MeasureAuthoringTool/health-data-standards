@@ -1,30 +1,36 @@
 module HealthDataStandards
   module Export
     class Cat1
-      def initialize
-        template_helper = HealthDataStandards::Export::TemplateHelper.new('cat1', 'cat1')
+      include HealthDataStandards::Export::Helper::ScoopedViewHelper
+      
+      def initialize(qrda_version = nil)
+        template_helper = HealthDataStandards::Export::TemplateHelper.new('cat1', 'cat1', nil, qrda_version)
         @rendering_context = HealthDataStandards::Export::RenderingContext.new
         @rendering_context.template_helper = template_helper
         @rendering_context.extensions = [HealthDataStandards::Export::Helper::Cat1ViewHelper]
       end
 
+
       @@vs_map = nil
 
-      def export(patient, measures, start_date, end_date, header=nil, qrda_version=nil, cms_compatibility=false)
-        # r2_compatibility is being set for backward compatibility, only used in original 'show' templates
-        if qrda_version == 'r3_1' 
-          qrda_template = 'show_r3_1'
-          r2_compatibility = false
-        elsif qrda_version == 'r3'
-          qrda_template = 'show'
-          r2_compatibility = false
-        elsif qrda_version == 'r2'
-          qrda_template = 'show'
+      @@most_recent_qrda_version = 'r3_1'
+      @@valid_qrda_versions = ['r3_1', 'r3', 'r2']
+
+      #default qrda_version should default to latest version
+      def export(patient, measures, start_date, end_date, header=nil, qrda_version='r3_1', cms_compatibility=false)
+        #this will ensure that any value_sets that have been added to a bundle since the last qrda export will be picked up.
+        clear_vs_map(patient.bundle_id)
+        
+        qrda_version = qrda_version.nil? ? @@most_recent_qrda_version : qrda_version
+        if (!@@valid_qrda_versions.include? qrda_version)
+          raise "Unknown QRDA version provided"
+        end
+
+        qrda_template = 'show'
+        r2_compatibility = false
+
+        if qrda_version == 'r2'
           r2_compatibility = true
-        # defaults to QRDA R3 'show' templates (prior to version specific templates)
-        else
-          qrda_template = 'show'
-          r2_compatibility = false
         end
         @rendering_context.render(:template => qrda_template, :locals => {:patient => patient, :measures => measures,
 						:start_date => start_date, :end_date => end_date, :header => header, :qrda_version => qrda_version,

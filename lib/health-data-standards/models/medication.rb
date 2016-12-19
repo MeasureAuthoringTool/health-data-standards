@@ -22,6 +22,19 @@ class Medication < Entry
   field :method ,   type: Hash 
   field :active_datetime ,  type: Integer
   field :signed_datetime ,  type: Integer
+  
+  # This is used for Medicaton, Order. It is the total number of times a dose of a particular
+  # medication can be administered. This, coupled with the administrationTiming will
+  # give the cumulative medication duration.
+  # E.g.
+  #  allowedAdministrations = 90 doses
+  #  administrationTiming = 1 dose / 12 hours
+  #  cumulativeMedicationDuration = allowedAdministrations / administrationTiming * (time conversion)
+  #  cumulativeMedicationDuration = (90 doses) * (12 hours)/(1 dose) * (1 day)/(24 hours) = 45 days
+  # Medication, Order can't use fulfillmentHistory because the fulfillment of the 
+  # medication has not yet happened.
+  # This corresponds to 'repeatNumber' in the QRDA representation
+  field :allowedAdministrations, as: :allowed_administrations, type: Integer
 
   # There are currently no importers that support this field
   # It is expected to be a scalar and value, such as 7 days

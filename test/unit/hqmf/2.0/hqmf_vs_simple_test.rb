@@ -21,7 +21,7 @@ class HQMFVsSimpleTest < Minitest::Test
 
   Dir.glob(measure_files).each do |measure_filename|
     measure_name = File.basename(measure_filename, '.xml')
-    #if ["CMS50v4"].index(measure_name) # left in to handle subset testing
+    #if ["CMS172v5"].index(measure_name) # left in to handle subset testing
       define_method("test_#{measure_name}") do
         do_roundtrip_test(measure_filename, measure_name)
       end
@@ -125,6 +125,12 @@ class HQMFVsSimpleTest < Minitest::Test
         dc.instance_variable_set(:@code_list_id, '')
         dc.instance_variable_set(:@inline_code_list, '')
       end
+
+      # Ignore STATUS field value from HQMF
+      # The meaning of status has changed over time. Laboratory test and procedure now use status differently.
+      # This change is causing superficial discrepencies between the simplexml and hqmf regarding STATUS.
+      dc.field_values.except!('STATUS') unless dc.field_values.nil?
+      dc.field_values = nil if !dc.field_values.nil? && dc.field_values.empty?
 
       # Changes specific occurrence consts to a generalized naming pattern
       # The goal is to reduce errors from arbitrary naming patterns that can

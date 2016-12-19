@@ -32,7 +32,7 @@ module HealthDataStandards
                 raise "No QRDA template available for OID #{hqmf_oid}: #{__FILE__} line #{__LINE__}"
               end
             end
-            "#{oid_tuple['qrda_oid']}#{'_'+oid_tuple[qrda_version] if oid_tuple[qrda_version]}"
+            "#{oid_tuple['qrda_oid']}"
           end
 
         end
@@ -46,7 +46,7 @@ module HealthDataStandards
           when '2.16.840.1.113883.3.526.3.1279'
             # Patient Characteristic Observation Assertion template for
             # Patient Characteristic: ECOG Performance Status-Poor
-            qrda_version == 'r3_1' ? '2.16.840.1.113883.10.20.24.3.103_2016_02_01' : '2.16.840.1.113883.10.20.24.3.103'
+            '2.16.840.1.113883.10.20.24.3.103'
           when '2.16.840.1.113883.3.117.1.7.1.402', '2.16.840.1.113883.3.117.1.7.1.403',
                '2.16.840.1.113883.3.117.1.7.1.287', '2.16.840.1.113883.3.117.1.7.1.307'
             # Patient Charasteristic Gestational Age
@@ -54,16 +54,14 @@ module HealthDataStandards
           when '2.16.840.1.113883.3.526.3.1189', '2.16.840.1.113883.3.526.3.1170', '2.16.840.1.113883.3.600.2390'
             # Patient Characteristic Tobacco User/Non-User
             case qrda_version
-            when 'r3_1'
-              '2.16.840.1.113883.10.20.24.3.103_2016_02_01'
-            when 'r3'
+            when 'r3_1', 'r3'
               '2.16.840.1.113883.10.20.24.3.103'
             else
               '2.16.840.1.113883.10.20.22.4.85'
             end
           else
             # return generic pc observation template for anything not specificly mapped to its own template
-            qrda_version == 'r3_1' ? '2.16.840.1.113883.10.20.24.3.103_2016_02_01' : '2.16.840.1.113883.10.20.24.3.103'
+            '2.16.840.1.113883.10.20.24.3.103'
           end
 
         end

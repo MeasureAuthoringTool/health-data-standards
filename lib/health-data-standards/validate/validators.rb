@@ -5,6 +5,7 @@ require_relative 'schematron_validator'
 require_relative 'measure_validator'
 require_relative 'data_validator'
 require_relative 'performance_rate_validator'
+require_relative 'qrda_qdm_template_validator'
 
 module HealthDataStandards
   module Validate
