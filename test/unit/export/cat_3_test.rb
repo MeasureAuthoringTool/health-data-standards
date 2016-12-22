@@ -9,7 +9,8 @@ class Cat3Test < Minitest::Test
     @header = generate_header
     @measure_id = "8A4D92B2-397A-48D2-0139-C648B33D5582"
     measure = {'hqmf_id' => @measure_id, 'hqmf_set_id' => "AAAAAAAA-397A-48D2-0139-C648B33D5582"}
-    @qrda_xml = HealthDataStandards::Export::Cat3.new.export([measure],@header, 1356998340, @start_date, @end_date)
+    cat3_exporter = HealthDataStandards::Export::Cat3.new('r1')
+    @qrda_xml = cat3_exporter.export([measure],@header, 1356998340, @start_date, @end_date)
     @doc = Nokogiri::XML(@qrda_xml)
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
   end
