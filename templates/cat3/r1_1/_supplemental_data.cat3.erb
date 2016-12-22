@@ -4,18 +4,12 @@
     <observation classCode="OBS" moodCode="EVN">
       <!-- <%= template_name %> -->
       <% template_ids.each do |tid| %>
-        <templateId root="<%= tid %>" <% if qrda3_version == 'r1_1' %>extension="2016-02-01"<%end%>/>
+        <templateId root="<%= tid %>" extension="2016-02-01"/>
       <% end %>
         <id nullFlavor="NA" />
       <code code="<%= supplemental_data_code %>" 
             codeSystem="<%= supplemental_data_code_system %>"/>
       <statusCode code="completed"/>
-      <% if qrda3_version == 'r1' && template_name == 'Payer Supplemental Data' %>
-      <effectiveTime>
-        <low nullFlavor="NA"/>
-        <high nullFlavor="NA"/>
-      </effectiveTime>
-      <% end %>
       <% if supplemental_data_value_code == "" || supplemental_data_value_code == "UNK" -%>
       <value xsi:type="CD" 
              nullFlavor="UNK" />
