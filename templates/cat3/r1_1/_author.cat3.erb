@@ -1,0 +1,28 @@
+ <!-- SHALL have 1..* author. MAY be device or person. 
+    The author of the CDA document in this example is a device at a data submission vendor/registry. -->
+  <author>
+    <time value="<%= author.time.to_formatted_s(:number) %>"/>
+    <assignedAuthor>
+      <!-- Registry author ID -->
+      <%== render :partial=>"id", :collection=>author.ids, :id=>"identifier" %>
+      <%== render :partial=>"address" , :collection=>author.addresses %>
+      <%== render :partial=>"telecom" , :collection=>author.telecoms %>
+
+      <% if author.person %>
+        <assignedPerson>
+        <name>
+           <given><%= author.person.given %></given>
+           <family><%= author.person.family %></family>
+        </name>
+        </assignedPerson> 
+      <% elsif author.device %>
+       <assignedAuthoringDevice>
+         <manufacturerModelName><%= author.device.model %></manufacturerModelName>
+         <softwareName><%= author.device.name %></softwareName>
+       </assignedAuthoringDevice>
+      <% end %> 
+     
+     <%== render :partial=>"organization", :locals=>{organization: author.organization, tag_name: "representedOrganization"} %>
+
+    </assignedAuthor>
+  </author>
