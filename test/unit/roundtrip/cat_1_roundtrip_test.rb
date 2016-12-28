@@ -25,7 +25,8 @@ class Cat1RoundtripTest < Minitest::Test
     doc_import = Nokogiri::XML(qrda_xml)
     doc_import.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     doc_import.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
-  
+    require 'pry'
+
     patient_import = Record.new
     HealthDataStandards::Import::C32::PatientImporter.instance.get_demographics(patient_import, doc_import)
     HealthDataStandards::Import::Cat1::PatientImporter.instance.import_sections(patient_import, doc_import)
@@ -60,7 +61,9 @@ class Cat1RoundtripTest < Minitest::Test
     assert_equal allergy.codes, allergy_import.codes
 
     # Compare Medical Equipment Attributes
-    assert_equal medical_equipment.codes, medical_equipment_import.codes
+    # Both codes are in the negated valueset
+    assert_equal 1, HealthDataStandards::SVS::ValueSet.where('concepts.code' => medical_equipment.codes.first[1][0]).in(oid: medical_equipment_import.codes['NA_VALUESET'][0]).count
+    assert_equal 1, HealthDataStandards::SVS::ValueSet.where('concepts.code' => medical_equipment_import.codes.first[1][0]).in(oid: medical_equipment_import.codes['NA_VALUESET'][0]).count
 
   end
 
