@@ -25,7 +25,6 @@ class Cat1RoundtripTest < Minitest::Test
     doc_import = Nokogiri::XML(qrda_xml)
     doc_import.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     doc_import.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
-    require 'pry'
 
     patient_import = Record.new
     HealthDataStandards::Import::C32::PatientImporter.instance.get_demographics(patient_import, doc_import)
