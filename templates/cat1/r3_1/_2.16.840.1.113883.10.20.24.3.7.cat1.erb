@@ -8,23 +8,23 @@
     <code code="360030002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="application of device"/>
     <text><%= entry.description %></text>
     <statusCode code="completed"/>
-    
+
     <effectiveTime>
       <low <%= value_or_null_flavor(entry.start_time) %>/>
       <high <%= value_or_null_flavor(entry.removal_time || entry.end_time) %>/>
     </effectiveTime>
-    
+
     <% if entry.respond_to?(:anatomical_target) && entry.anatomical_target.present? -%>
       <% vset = oid_for_code(entry.anatomical_target.code,field_oids["ANATOMICAL_LOCATION_SITE"], entry.record["bundle_id"]) %>
       <% if vset %>
-        <targetSiteCode code="<%= entry.anatomical_target['code'] %>" 
+        <targetSiteCode code="<%= entry.anatomical_target['code'] %>"
           codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.anatomical_target['code_system']) %>" sdtc:valueSet="<%= vset %>"/>
       <% end %>
     <% end -%>
     <participant typeCode="DEV">
       <participantRole classCode="MANU">
         <playingDevice classCode="DEV">
-          <%== code_display(entry, 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-PCS', 'ICD-10-PCS', 'CPT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+          <%== code_display(entry, 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['*'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
         </playingDevice>
       </participantRole>
     </participant>
