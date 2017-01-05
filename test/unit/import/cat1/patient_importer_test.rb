@@ -2,6 +2,13 @@ require 'test_helper'
 
 class PatientImporterTest < Minitest::Test
 
+  def setup
+    dump_database
+    collection_fixtures('health_data_standards_svs_value_sets', '_id', 'bundle_id')
+    collection_fixtures('bundles', '_id')
+    collection_fixtures('measures')
+  end
+
   def test_care_goal
     patient = build_record_from_xml('test/fixtures/cat1_fragments/care_goal_fragment.xml')
     care_goal = patient.care_goals.first
@@ -165,6 +172,16 @@ class PatientImporterTest < Minitest::Test
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20000328001401')
     expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20000328012924')
     assert med_order.codes['RxNorm'].include?('866439')
+    assert_equal expected_start, med_order.start_time
+    assert_equal expected_end, med_order.end_time
+  end
+
+  def test_medication_order_no_code
+    patient = build_record_from_xml('test/fixtures/cat1_fragments/medication_order_fragment_no_code.xml')
+    med_order = patient.medications.first
+    expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20000328001401')
+    expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20000328012924')
+    assert med_order.codes['RxNorm'].include?('200031')
     assert_equal expected_start, med_order.start_time
     assert_equal expected_end, med_order.end_time
   end
