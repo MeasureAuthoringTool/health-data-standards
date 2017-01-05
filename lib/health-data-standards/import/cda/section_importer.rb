@@ -173,7 +173,10 @@ module HealthDataStandards
           return person
         end
 
-        def extract_reason_or_negation(parent_element, entry)
+        # extracts the reason or negation data. if an element is negated and the code has a null flavor, a random code is assigned for calculation
+        # coded_parent_element is the 'parent' element when the coded is nested (e.g., medication order)
+        def extract_reason_or_negation(parent_element, entry, coded_parent_element = nil)
+          coded_parent_element ||= parent_element
           reason_element = parent_element.at_xpath("./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value | ./cda:entryRelationship[@typeCode='RSON']/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:code")
           negation_indicator = parent_element['negationInd']
           if reason_element
@@ -188,6 +191,17 @@ module HealthDataStandards
             end
           elsif negation_indicator
             entry.negation_ind = negation_indicator.eql?('true')
+          end
+          extract_negated_code(coded_parent_element, entry)
+        end
+
+        def extract_negated_code(coded_parent_element, entry)
+          code_elements = coded_parent_element.xpath(@code_xpath)
+          code_elements.each do |code_element|
+            if code_element['nullFlavor'] == 'NA' && code_element['sdtc:valueSet']
+              # A "code" is added to indicate the Non-Applicable valueset.
+              entry.add_code(code_element['sdtc:valueSet'], 'NA_VALUESET')
+            end
           end
         end
 

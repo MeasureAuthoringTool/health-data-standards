@@ -19,7 +19,8 @@ class Cat1Test < Minitest::Test
       @start_date = Time.now.years_ago(1)
       @end_date = Time.now
 
-      collection_fixtures('health_data_standards_svs_value_sets', '_id')
+      collection_fixtures('health_data_standards_svs_value_sets', '_id', 'bundle_id')
+      collection_fixtures('bundles', '_id')
 
       collection_fixtures('measures')
       @measures = HealthDataStandards::CQM::Measure.all

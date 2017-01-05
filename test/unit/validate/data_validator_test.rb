@@ -5,7 +5,8 @@ class DataValidatorTest < ActiveSupport::TestCase
   setup do
     collection_fixtures('bundles', '_id')
     collection_fixtures('measures')
-    collection_fixtures('health_data_standards_svs_value_sets', '_id',)
+    collection_fixtures('health_data_standards_svs_value_sets', '_id', 'bundle_id')
+    collection_fixtures('bundles', '_id')
     HealthDataStandards::SVS::ValueSet.all.update_all(bundle_id: "4fdb62e01d41c820f6000001")
     @bundle = HealthDataStandards::CQM::Bundle.find("4fdb62e01d41c820f6000001")
     measures = @bundle.measures
