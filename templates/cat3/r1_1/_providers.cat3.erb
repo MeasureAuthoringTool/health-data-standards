@@ -1,0 +1,57 @@
+<documentationOf typeCode="DOC">
+  <serviceEvent classCode="PCPR"> <!-- care provision -->
+  <% if providers.empty? -%>
+    <!-- No provider data found in the patient record
+         putting in a fake provider -->
+    <effectiveTime>
+      <low value="20020716"/>
+      <high value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
+    </effectiveTime>
+    <!-- You can include multiple performers, each with an NPI, TIN, CCN. -->
+    <performer typeCode="PRF">
+      <time>
+        <low value="20020716"/>
+        <high value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
+      </time>
+      <assignedEntity>
+        <!-- This is the provider NPI -->
+        <id root="2.16.840.1.113883.4.6" extension="111111111" />
+        <representedOrganization>
+          <!-- This is the organization TIN -->
+          <id root="2.16.840.1.113883.4.2" extension="1234567" />
+          <!-- This is the organization CCN -->
+          <id root="2.16.840.1.113883.4.336" extension="54321" />
+        </representedOrganization>
+      </assignedEntity>
+    </performer>
+  <% else -%>
+    <% providers.each do |prov| -%>
+      <effectiveTime>
+        <low value= "<%= start_date.utc.to_formatted_s(:number) %>" />
+        <high value= "<%= end_date.utc.to_formatted_s(:number) %>" />
+      </effectiveTime>
+      <!-- You can include multiple performers, each with an NPI, TIN, CCN. -->
+      <performer typeCode="PRF">
+        <time>
+          <low value="<%= start_date.utc.to_formatted_s(:number) %>" />
+          <high value="<%= end_date.utc.to_formatted_s(:number) %>" />
+        </time>
+        <assignedEntity>
+          <% prov.cda_identifiers.each do |cda_id| -%>
+            <% unless cda_id.root.eql? '2.16.840.1.113883.4.2' -%>
+          <id root="<%= cda_id.root %>" extension="<%= cda_id.extension %>" />
+            <% end -%>
+          <% end -%>
+          <representedOrganization>
+            <% prov.cda_identifiers.each do |cda_id| -%>
+              <% if cda_id.root.eql?('2.16.840.1.113883.4.2') -%>
+                <id root="2.16.840.1.113883.4.2" extension="<%= cda_id.extension %>" />
+              <% end -%>
+            <% end -%>
+          </representedOrganization>
+        </assignedEntity>
+      </performer>
+    <% end -%>
+  <% end -%>
+  </serviceEvent>
+</documentationOf>
