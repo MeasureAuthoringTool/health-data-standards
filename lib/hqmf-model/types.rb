@@ -446,12 +446,12 @@ module HQMF
     end
       
     def self.from_json(json)
-      @range = HQMF::Range.from_json(json["range"]) if json["range"]
-      HQMF::Component.new(json['type'], json['value'])
+      @range = HQMF::Range.from_json(json['range']) if json['range']
+      HQMF::Component.new(json['code'], json['value'])
     end
 
     def to_json
-      hash = build_hash(self, [:type, :value])
+      hash = build_hash(self, [:code, :value])
       hash[:range] = @range.to_json if @range
       hash
     end  
