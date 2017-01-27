@@ -155,7 +155,6 @@ module HQMF
   class Coded
     include HQMF::Conversion::Utilities
     attr_reader :type, :system, :code, :code_list_id, :title, :null_flavor, :original_text
-    
     # Create a new HQMF::Coded
     # @param [String] type
     # @param [String] system
@@ -285,9 +284,7 @@ module HQMF
 
     def self.from_json(json)
       type = json["type"] if json["type"]
-
-      value = HQMF::DataCriteria.convert_value(json["value"]) if json["value"]
-      
+      value = HQMF::DataCriteria.convert_value(json["value"]) if json["value"]  
       HQMF::SubsetOperator.new(type,value)
     end
     
@@ -426,6 +423,68 @@ module HQMF
     def ==(other)
       check_equality(self,other)
     end
+  end
+  
+  class Collection
+    include HQMF::Conversion::Utilities
+    attr_accessor :type, :values
+    
+    def initialize(type, values)
+      @type = type || 'COL'
+      @values = values || []
+    end
+
+    def self.from_json(json)
+      json = json.with_indifferent_access
+      values = []
+      type = json['type']
+      json['values'].each { |value| values.push(HQMF::DataCriteria.convert_value(value))}
+      HQMF::Collection.new(type, values)
+    end
+
+    def to_json
+      json = build_hash(self, [:type])
+      json[:values] = []
+      @values.each {|value| json[:values] << value.to_json  }
+      json    
+    end
+
+    def ==(other)
+      check_equality(self,other)
+    end
+  end
+  
+  class Component
+    include HQMF::Conversion::Utilities
+    # From QDM 5.02 "A Component attribute includes a code and result"
+    # "for laboratorytest performed includes optional reference range high and reference range low"
+    attr_accessor :type, :code, :result, :range
+    
+    def initialize(type, code, value, unit, code_list_id, title, low = nil, high = nil)
+      @type = type || 'CMP'
+      @code = HQMF::Coded.new(@type, nil, nil, code_list_id, title)
+      @result = HQMF::Value.new(@type,unit,value,nil,nil,nil)
+      if(!high.nil? || !low.nil?)
+        # TODO: Determing if IVL_PQ (interval of physical quantity) is correct hl7 datatype for this
+        #@range = HQMF::Range.new('IVL_PQ', low, high, nil)
+      else
+        @range = nil
+      end
+    end
+      
+    def self.from_json(json)
+      code = json['code'] if json['code']
+      HQMF::Component.new(json["type"], code, json['value'], json['unit'], json['code_list_id'], json['title'])
+    end
+
+    def to_json
+      hash = build_hash(self, [:type])
+      hash['code'] = @code.to_json
+      hash['result'] = @result.to_json
+      # TODO: add range support for laboratorytest as specified by 5.01
+      #hash[:range] = @range.to_json if @range
+      hash
+    end  
   end
   
 end

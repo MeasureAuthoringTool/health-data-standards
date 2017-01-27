@@ -17,7 +17,9 @@ class Procedure < Entry
 
   # QDM 5.0 addition to Diagnostic Study, Performed
   field :result_date_time,    type: Integer
-
+  # Component attribute is for Diagnostic, Performed which is classified as a procedure
+  field :components,          type: Hash
+ 
   embeds_one :facility
 
   belongs_to :performer, class_name: "Provider"
