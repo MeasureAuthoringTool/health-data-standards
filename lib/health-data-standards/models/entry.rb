@@ -25,7 +25,7 @@ class Entry
   field :oid, type: String
   field :reason, type: Hash
   field :health_record_field, type: Hash
-  
+    
   attr_protected :version
   attr_protected :_id
   attr_protected :created_at

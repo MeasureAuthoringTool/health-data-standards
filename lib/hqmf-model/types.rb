@@ -428,4 +428,33 @@ module HQMF
     end
   end
   
+  class Component
+    include HQMF::Conversion::Utilities
+    # From QDM 5.02 "A Component attribute includes a code and result"
+    # "for laboratorytest performed includes optional reference range high and reference range low"
+    attr_accessor :code, :value, :low, :high
+    
+    def initialize(code, value, low = nil, high = nil)
+      @type = type
+      @value = value
+      if (high? || low?)
+        # TODO: Determing if IVL_PQ (interval of physical quantity) is correct hl7 datatype for this
+        @range = HQMF::Range.new('IVL_PQ', low, high, nil)
+      else
+        @range = nil
+      end
+    end
+      
+    def self.from_json(json)
+      @range = HQMF::Range.from_json(json["range"]) if json["range"]
+      HQMF::Component.new(json['type'], json['value'])
+    end
+
+    def to_json
+      hash = build_hash(self, [:type, :value])
+      hash[:range] = @range.to_json if @range
+      hash
+    end  
+  end
+  
 end

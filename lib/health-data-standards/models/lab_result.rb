@@ -12,6 +12,7 @@ class LabResult < Entry
   # than the status associated with the `Entry` object, which relates to the data criteria
   # status as defined in health-data-standards/lib/hqmf-model/data_criteria.json.
   field :qdm_status, type: Hash
+  field :components,           type: Array, default: []
   
   # QDM 5.0 addition to Laboratory Test, Performed
   field :result_date_time,    type: Integer

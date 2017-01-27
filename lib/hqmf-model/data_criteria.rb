@@ -34,6 +34,8 @@ module HQMF
               'ANATOMICAL_LOCATION_SITE' => {title:'Anatomical Location Site', coded_entry_method: :anatomical_location,  field_type: :value},
               'ANATOMICAL_STRUCTURE' => {title:'Anatomical Structure', coded_entry_method: :anatomical_structure, code: '91723000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1000.2', field_type: :value},
               'CAUSE' => {title:'Cause', coded_entry_method: :cause_of_death, code: '42752001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1017.2', field_type: :value},
+              # TODO: Determine actual code and code_system for component attribute
+              'COMPONENTS' => {title: 'Components', coded_entry_method: :components, code: '1234567', code_system: '2.16.840.1.113883.6.96', field_type: :value},
               'CUMULATIVE_MEDICATION_DURATION' => {title:'Cumulative Medication Duration', coded_entry_method: :cumulative_medication_duration, code: '261773006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1001.3', field_type: :value},
               # MISSING Date - The date that the patient passed away. - Patient Characteristic Expired
               'DIAGNOSIS' => {title:'Diagnosis', coded_entry_method: :diagnosis, field_type: :value},
@@ -98,6 +100,8 @@ module HQMF
     # maps attribute codes to the attribute keys
     VALUE_FIELDS = {'399423000' => 'ADMISSION_DATETIME',
                     '42752001' => 'CAUSE',
+                    # TODO: Fill in actual code for component
+                    '1234567'   => 'COMPONENTS',
                     '261773006' => 'CUMULATIVE_MEDICATION_DURATION',
                     '363819003' => 'CUMULATIVE_MEDICATION_DURATION', # previous
                     '442864001' => 'DISCHARGE_DATETIME',
