@@ -435,7 +435,7 @@ module HQMF
     attr_accessor :code, :value, :low, :high
     
     def initialize(code, value, low = nil, high = nil)
-      @type = type
+      @code = code
       @value = value
       if (high? || low?)
         # TODO: Determing if IVL_PQ (interval of physical quantity) is correct hl7 datatype for this
