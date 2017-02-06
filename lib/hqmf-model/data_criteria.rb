@@ -27,6 +27,9 @@ module HQMF
     FIELDS = {'ABATEMENT_DATETIME' => {title:'Abatement Datetime', coded_entry_method: :end_date, field_type: :timestamp},
               'ACTIVE_DATETIME' => {title:'Active Date/Time', coded_entry_method: :active_date_time, field_type: :timestamp},
               'ADMISSION_DATETIME' => {title:'Admission Date/Time', coded_entry_method: :admit_time, code: '399423000', code_system:'2.16.840.1.113883.6.96', field_type: :timestamp},
+              # QDM 5.0 addition. This is the same as FACILITY_LOCATION.
+              # TODO: (LDY 10/5/2016) this is a new attribute from QDM 5.0. We do not yet have the code or template_id for this. This should be updated when we do.
+              'ADMISSION_SOURCE' => {title:'Admission Source', coded_entry_method: :admission_source, field_type: :value},
               'ANATOMICAL_APPROACH_SITE' => {title:'Anatomical Approach Site', coded_entry_method: :anatomical_approach,  field_type: :value},
               'ANATOMICAL_LOCATION_SITE' => {title:'Anatomical Location Site', coded_entry_method: :anatomical_location,  field_type: :value},
               'ANATOMICAL_STRUCTURE' => {title:'Anatomical Structure', coded_entry_method: :anatomical_structure, code: '91723000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1000.2', field_type: :value},
@@ -35,11 +38,14 @@ module HQMF
               # MISSING Date - The date that the patient passed away. - Patient Characteristic Expired
               'DIAGNOSIS' => {title:'Diagnosis', coded_entry_method: :diagnosis, field_type: :value},
               'DISCHARGE_DATETIME' => {title:'Discharge Date/Time', coded_entry_method: :discharge_time, code: '442864001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1025.1', field_type: :timestamp},
-              'DISCHARGE_STATUS' => {title:'Discharge Status', coded_entry_method: :discharge_disposition, code: '309039003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1003.2', field_type: :value},
-              'DOSE' => {title:'Dose', coded_entry_method: :dose, code: '398232005', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1004.1', field_type: :value},
+              # TODO: (LDY 10/5/2016) this changed from "discharge status" to "discharge disposition". likely there is a code and template id change necessary. these are not yet known.
+              'DISCHARGE_STATUS' => {title:'Discharge Disposition', coded_entry_method: :discharge_disposition, code: '309039003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1003.2', field_type: :value},
+              # TODO: (LDY 10/4/2016) this changed from "dose" to "dosage". it's possible that there's another code associated with this. this code was not available at the time of this change.
+              'DOSE' => {title:'Dosage', coded_entry_method: :dose, code: '398232005', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1004.1', field_type: :value},
               'FACILITY_LOCATION' => {title:'Facility Location', coded_entry_method: :facility, code: 'SDLOC', field_type: :value},
-              'FACILITY_LOCATION_ARRIVAL_DATETIME' => {title:'Facility Location Arrival Date/Time', coded_entry_method: :facility_arrival, code: 'SDLOC_ARRIVAL', field_type: :nested_timestamp},
-              'FACILITY_LOCATION_DEPARTURE_DATETIME' => {title:'Facility Location Departure Date/Time', coded_entry_method: :facility_departure, code: 'SDLOC_DEPARTURE', field_type: :nested_timestamp},
+              # TODO: (LDY 10/5/2016) this changed from 'facility arrival/departure' to 'location period'. likely there is a code and template id change necessary. these are not yet known.
+              'FACILITY_LOCATION_ARRIVAL_DATETIME' => {title:'Location Period Start Date/Time', coded_entry_method: :facility_arrival, code: 'SDLOC_ARRIVAL', field_type: :nested_timestamp},
+              'FACILITY_LOCATION_DEPARTURE_DATETIME' => {title:'Location Period End Date/Time', coded_entry_method: :facility_departure, code: 'SDLOC_DEPARTURE', field_type: :nested_timestamp},
               'FREQUENCY' => {title:'Frequency', coded_entry_method: :administration_timing, code: '307430002', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1006.1', field_type: :value},
               'HEALTH_RECORD_FIELD' => {title: 'Health Record Field', coded_entry_method: :health_record_field, code: '395676008', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.28.3.102:2014-11-24', field_type: :value},
               'INCISION_DATETIME' => {title:'Incision Date/Time', coded_entry_method: :incision_time, code: '34896006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.89', field_type: :timestamp},
@@ -59,13 +65,15 @@ module HQMF
               'REACTION'=> {title:'Reaction', coded_entry_method: :reaction, code: '263851003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.85', field_type: :value},
               'REASON' => {title:'Reason', coded_entry_method: :reason, code: '410666004', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.88', field_type: :value},
               'RECORDED_DATETIME' => {title:'Recorded Datetime', coded_entry_method: :start_date, field_type: :timestamp},
-              'REFERENCE_RANGE_HIGH' => {title:'Reference Range High', coded_entry_method: :reference_range_high, field_type: :value},
-              'REFERENCE_RANGE_LOW' => {title:'Reference Range Low', coded_entry_method: :reference_range_low, field_type: :value},
+              'REFERENCE_RANGE_HIGH' => {title:'Reference Range - High', coded_entry_method: :reference_range_high, field_type: :value},
+              'REFERENCE_RANGE_LOW' => {title:'Reference Range - Low', coded_entry_method: :reference_range_low, field_type: :value},
               'REFILLS' => {title:'Refills', coded_entry_method: :refills,  field_type: :value},
               'RELATED_TO' => {title:'Related To', coded_entry_method: :related_to,  code: 'REL', codeSystem: '2.16.840.1.113883.1.11.11603', field_type: :value},
               'RELATIONSHIP' => {title:'Relationship', coded_entry_method: :relationship_to_patient, field_type: :value},
               'REMOVAL_DATETIME' => {title:'Removal Date/Time', coded_entry_method: :removal_time, code: '118292001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1032.1', field_type: :timestamp},
               # Result isn't encoded
+              # TODO: (LDY 10/4/2016) RESULT_DATETIME is a new attribute in QDM 5.0. We do not yet have codes/template information for this.
+              'RESULT_DATETIME' => {title:'Result Date/Time', coded_entry_method: :result_date_time, field_type: :timestamp},
               'ROUTE' => {title:'Route', coded_entry_method: :route, code: '263513008', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1020.2', field_type: :value},
               'SEVERITY' => {title:'Severity', coded_entry_method: :severity, code: 'SEV', code_system:'2.16.840.1.113883.5.4', template_id: '2.16.840.1.113883.10.20.22.4.8', field_type: :value},
               'SIGNED_DATETIME' =>  {title:'Signed Date/Time', coded_entry_method: :signed_date_time, field_type: :timestamp},
@@ -73,6 +81,8 @@ module HQMF
               # STATUS is referenced in the code as `qdm_status` because entry/Record already has a `status`/`status_code` field which has a different meaning
               'STATUS' => {title: 'Status', coded_entry_method: :qdm_status, code: '33999-4', code_system:'2.16.840.1.113883.6.1', field_type: :value},
               'STOP_DATETIME' => {title:'Stop Date/Time', coded_entry_method: :end_date, code: '397898000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1026.1', field_type: :timestamp},
+              # TODO: (LDY 10/4/2016) SUPPLY is a new attribute in QDM 5.0. We do not yet have codes/template information for this.
+              'SUPPLY' => {title:'Supply', coded_entry_method: :supply, field_type: :value},
               'TARGET_OUTCOME' => {title:'Target Outcome', coded_entry_method: :target_outcome, code: '385676005', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
               # MISSING Time - The time that the patient passed away
 
