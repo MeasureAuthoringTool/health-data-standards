@@ -13,7 +13,10 @@ class Procedure < Entry
   field :qdm_status,          type: Hash
 
   field :radiation_dose,      type: Hash 
-  field :radiation_duration,  type: Hash 
+  field :radiation_duration,  type: Hash
+
+  # QDM 5.0 addition to Diagnostic Study, Performed
+  field :result_date_time,    type: Integer
 
   embeds_one :facility
 
