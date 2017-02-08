@@ -132,7 +132,7 @@ module HealthDataStandards
         end
 
         def extract_value(parent_element, value_element, entry)
-          if value_element
+          if value_element && !value_element['nullFlavor']
             value = value_element['value']
             if value.present?
               unit = value_element['unit']
