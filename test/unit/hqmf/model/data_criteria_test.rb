@@ -19,6 +19,16 @@ module HQMFModel
       # ignore custom fulfills and previous ordinal field values
       mismatches -= ["FLFS - FULFILLS", "ORDINAL - ORDINALITY"]
 
+      # ignore changes needed when converting to qdm 5.0
+      mismatches -= [
+        "DISCHARGE_STATUS - DISCHARGE_DISPOSITION",
+        "DOSE - DOSAGE",
+        "FACILITY_LOCATION_ARRIVAL_DATETIME - LOCATION_PERIOD_START_DATETIME",
+        "FACILITY_LOCATION_DEPARTURE_DATETIME - LOCATION_PERIOD_END_DATETIME",
+        "REFERENCE_RANGE_HIGH - REFERENCE_RANGE_-_HIGH",
+        "REFERENCE_RANGE_LOW - REFERENCE_RANGE_-_LOW"
+      ]
+
       assert mismatches.empty?, "Mismatches found: #{mismatches}."
 
     end
