@@ -7,6 +7,12 @@ module HealthDataStandards
           @entry_class = Procedure
         end
 
+        def create_entry(entry_element, nrh = CDA::NarrativeReferenceHandler.new)
+          procedure = super
+          extract_reason_or_negation(entry_element, procedure)
+          procedure
+        end
+
         private
 
         def extract_dates(parent_element, entry, element_name="author")
