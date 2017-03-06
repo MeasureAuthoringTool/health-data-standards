@@ -78,6 +78,17 @@ module HQMF2
       find(@data_criteria, :local_variable_name, local_variable_name)
     end
 
+    # Get ids of data criteria directly referenced by others
+    # @return [Array] an array of ids of directly referenced data criteria
+    def all_reference_ids
+      @reference_ids
+    end
+
+    # Adds id of a data criteria to the list of reference ids
+    def add_reference_id(id)
+      @reference_ids << id
+    end
+
     # Parse an XML document from the supplied contents
     # @return [Nokogiri::XML::Document]
     def self.parse(hqmf_contents)
