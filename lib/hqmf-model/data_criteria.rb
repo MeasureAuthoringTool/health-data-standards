@@ -35,7 +35,7 @@ module HQMF
               'ANATOMICAL_STRUCTURE' => {title:'Anatomical Structure', coded_entry_method: :anatomical_structure, code: '91723000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1000.2', field_type: :value},
               'CAUSE' => {title:'Cause', coded_entry_method: :cause_of_death, code: '42752001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1017.2', field_type: :value},
               # TODO: Determine actual code and code_system for component attribute
-              'COMPONENTS' => {title: 'Components', coded_entry_method: :components, code: '1234567', code_system: '2.16.840.1.113883.6.96', field_type: :value},
+              'COMPONENT' => {title: 'Component', coded_entry_method: :components, code: '1234567', code_system: '2.16.840.1.113883.6.96', field_type: :value},
               'CUMULATIVE_MEDICATION_DURATION' => {title:'Cumulative Medication Duration', coded_entry_method: :cumulative_medication_duration, code: '261773006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1001.3', field_type: :value},
               # MISSING Date - The date that the patient passed away. - Patient Characteristic Expired
               'DIAGNOSIS' => {title:'Diagnosis', coded_entry_method: :diagnosis, field_type: :value},
@@ -445,6 +445,10 @@ module HQMF
         when 'ACT'
           # Currentlty forcing this as the SimpleXML reresentation contains a fulfills for these types
           value = HQMF::TypedReference.new(json["reference"], 'FLFS', '')
+        when 'CMP'
+          value = HQMF::Component.from_json(json)
+        when 'COL'
+          value = HQMF::GenericCollection.from_json(json)
         else
           raise "Unknown value type [#{type}]"
         end
