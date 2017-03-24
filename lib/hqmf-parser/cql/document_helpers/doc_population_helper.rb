@@ -17,16 +17,19 @@ module HQMF2CQL
       [@populations_cql_map, @observations]
     end
 
-    # Extracts the measure observations, will return true if one exists
+    # Extracts potential measure observations from the CQL based HQMF.
+    # Returns an array of zero or more elements
     def extract_observations
       observations = []
 
-      # look for observation data in separate section but create a population for it if it exists
+      # Look for observations in the measureObservationSection of the CQL based HQMF document, and if they exist extract the name of the CQL statement that calculates the observation.
       observation_section = @doc.xpath('/cda:QualityMeasureDocument/cda:component/cda:measureObservationSection',
                                        HQMF2::Document::NAMESPACES)
 
       unless observation_section.empty?
         observation_section.each do |entry|
+          # The at_xpath(...).values returns an array of a single element.
+          # The match returns an array and since we don't want the double quotes we take the second element
           observations << entry.at_xpath("*/cda:measureObservationDefinition/cda:value/cda:expression").values.first.match('\"([A-Za-z0-9]+)\"')[1]
         end
       end

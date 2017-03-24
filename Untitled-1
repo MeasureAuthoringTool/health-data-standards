@@ -1,0 +1,38 @@
+    # Extracts the measure observations, will return true if one exists
+    def extract_observations
+      observations = []
+
+
+      # look for observation data in separate section but create a population for it if it exists
+      observation_section = @doc.xpath('/cda:QualityMeasureDocument/cda:component/cda:measureObservationSection', HQMF2::Document::NAMESPACES)
+
+      debugger
+      unless observation_section.empty?
+        
+        #TODO: get name of cql observation thing
+        extracted_measure_observations = []
+        @doc.xpath('/cda:QualityMeasureDocument/cda:component/cda:measureObservationSection/cda:definition', HQMF2::Document::NAMESPACES).each do |entry|
+          debugger
+        end
+        
+        observation_section.each do |entry|
+          puts observation_section.at_xpath("*/cda:measureObservationDefinition/cda:value/cda:expression").values
+          extracted_measure_observations << observation_section.at_xpath("*/cda:measureObservationDefinition/cda:value/cda:expression").values
+        end
+        debugger
+        observations << "EDStayTime"
+        
+      end
+
+      observations
+    end
+
+
+
+
+    @doc.xpath('/cda:QualityMeasureDocument/cda:component/cda:measureObservationSection', HQMF2::Document::NAMESPACES)
+
+
+    { 'cda' => 'urn:hl7-org:v3', 'xsi' => 'http://www.w3.org/2001/XMLSchema-instance', 'qdm' => 'urn:hhs-qdm:hqmf-r2-extensions:v1' }
+
+    observation_section.at_xpath('*/cda:measureObservationDefinition/cda:value/cda:expression', HQMF2::Document::NAMESPACES).values
