@@ -3,24 +3,19 @@ module HQMF2CQL
   class DocumentPopulationHelper < HQMF2::DocumentPopulationHelper
     include HQMF2::Utilities
 
-    def initialize(entry, doc, document, id_generator, reference_ids = {})
-      @entry = entry
-      @doc = doc
-      @document = document
-      @id_generator = id_generator
-      @reference_ids = reference_ids
-    end
-
     def extract_populations
       @populations_cql_map = extract_populations_cql_map
-      @observations = extract_observations
-      [@populations_cql_map, @observations]
+      extract_populations_and_criteria
+      # Return
+      [@populations, @population_criteria, @populations_cql_map, @observations]
     end
 
     # Extracts potential measure observations from the CQL based HQMF.
-    # Returns an array of zero or more elements
+    # This function needs to return a boolean so that it will continue to work with 
+    #   HQMF2::DocumentPopulationHelper::extract_populations_and_criteria
+    # This function is being overridden because in CQL the observations are no longer data criteria in the HQMF.
     def extract_observations
-      observations = []
+      @observations = []
 
       # Look for observations in the measureObservationSection of the CQL based HQMF document, and if they exist extract the name of the CQL statement that calculates the observation.
       observation_section = @doc.xpath('/cda:QualityMeasureDocument/cda:component/cda:measureObservationSection',
@@ -30,10 +25,11 @@ module HQMF2CQL
         observation_section.each do |entry|
           # The at_xpath(...).values returns an array of a single element.
           # The match returns an array and since we don't want the double quotes we take the second element
-          observations << entry.at_xpath("*/cda:measureObservationDefinition/cda:value/cda:expression").values.first.match('\"([A-Za-z0-9]+)\"')[1]
+          @observations << entry.at_xpath("*/cda:measureObservationDefinition/cda:value/cda:expression").values.first.match('\"([A-Za-z0-9]+)\"')[1]
         end
       end
-      observations
+
+      !@observations.empty?
     end
 
     # Extracts the mappings between actual HQMF populations and their

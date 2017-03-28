@@ -13,15 +13,17 @@ module HQMF2CQL
 
       # Extract the population criteria and population collections
       pop_helper = HQMF2CQL::DocumentPopulationHelper.new(@entry, @doc, self, @id_generator, @reference_ids)
-      @populations_cql_map, @observations = pop_helper.extract_populations
+      # @populations_cql_map and @observations are needed by the frontend
+      @populations, @population_criteria, @populations_cql_map, @observations = pop_helper.extract_populations
     end
 
     # Generates this classes hqmf-model equivalent.
     def to_model
       dcs = all_data_criteria.collect(&:to_model)
       sdc = source_data_criteria.collect(&:to_model)
+      pcs = all_population_criteria.collect(&:to_model)
       HQMF::Document.new(@id, @id, @hqmf_set_id, @hqmf_version_number, @cms_id,
-                         title, description, [], dcs, sdc,
+                         title, description, pcs, dcs, sdc,
                          @attributes, @measure_period, @populations,
                          populations_cql_map=@populations_cql_map, observations=@observations)
     end
