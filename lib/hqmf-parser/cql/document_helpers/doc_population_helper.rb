@@ -25,7 +25,7 @@ module HQMF2CQL
         observation_section.each do |entry|
           # The at_xpath(...).values returns an array of a single element.
           # The match returns an array and since we don't want the double quotes we take the second element
-          @observations << entry.at_xpath("*/cda:measureObservationDefinition/cda:value/cda:expression").values.first.match('\"([A-Za-z0-9]+)\"')[1]
+          @observations << entry.at_xpath("*/cda:measureObservationDefinition/cda:value/cda:expression").values.first.match('\\"([A-Za-z0-9 ]+)\\"')[1]
         end
       end
 
