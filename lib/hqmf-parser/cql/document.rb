@@ -58,7 +58,8 @@ module HQMF2CQL
           HQMF::PopulationCriteria::DENEXCEP => 'denominatorExceptionCriteria',
           HQMF::PopulationCriteria::DENEX => 'denominatorExclusionCriteria',
           HQMF::PopulationCriteria::MSRPOPL => 'measurePopulationCriteria',
-          HQMF::PopulationCriteria::MSRPOPLEX => 'measurePopulationExclusionCriteria'
+          HQMF::PopulationCriteria::MSRPOPLEX => 'measurePopulationExclusionCriteria',
+          HQMF::PopulationCriteria::STRAT => 'stratifierCriteria'
         }.each_pair do |criteria_id, criteria_element_name|
           criteria_def = population_def.at_xpath("cda:#{criteria_element_name}", HQMF2::Document::NAMESPACES)
           if criteria_def
