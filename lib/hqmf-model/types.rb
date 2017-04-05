@@ -425,7 +425,7 @@ module HQMF
     end
   end
   
-  class GenericCollection
+  class Collection
     include HQMF::Conversion::Utilities
     attr_accessor :type, :values
     
@@ -439,7 +439,7 @@ module HQMF
       values = []
       type = json['type']
       json['values'].each { |value| values.push(HQMF::DataCriteria.convert_value(value))}
-      HQMF::GenericCollection.new(type,values)
+      HQMF::Collection.new(type, values)
     end
 
     def to_json
@@ -460,8 +460,8 @@ module HQMF
     # "for laboratorytest performed includes optional reference range high and reference range low"
     attr_accessor :type, :code, :result, :range
     
-    def initialize(code, value, unit, code_list_id, title, low = nil, high = nil)
-      @type = 'CMP'
+    def initialize(type, code, value, unit, code_list_id, title, low = nil, high = nil)
+      @type = type || 'CMP'
       @code = HQMF::Coded.new(@type, nil, nil, code_list_id, title)
       @result = HQMF::Value.new(@type,unit,value,nil,nil,nil)
       if(!high.nil? || !low.nil?)
@@ -474,13 +474,14 @@ module HQMF
       
     def self.from_json(json)
       code = json['code'] if json['code']
-      HQMF::Component.new(code, json['value'], json['unit'], json['code_list_id'], json['title'])
+      HQMF::Component.new(json["type"], code, json['value'], json['unit'], json['code_list_id'], json['title'])
     end
 
     def to_json
       hash = build_hash(self, [:type])
       hash['code'] = @code.to_json
       hash['result'] = @result.to_json
+      # TODO: add range support for laboratorytest as specified by 5.01
       #hash[:range] = @range.to_json if @range
       hash
     end  
