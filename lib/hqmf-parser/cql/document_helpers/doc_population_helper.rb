@@ -17,18 +17,21 @@ module HQMF2CQL
     def extract_observations
       @observations = []
 
-      # Look for observations in the measureObservationSection of the CQL based HQMF document, and if they exist extract the name of the CQL statement that calculates the observation.
+      # Look for observations in the measureObservationSection of the CQL based HQMF document, and if they exist extract the name of the CQL statement that calculates the observation. This is the name of the "define function" statement in the CQL.
+      # In addition to the function name we also need to retreive the parameter for the function.
       observation_section = @doc.xpath('/cda:QualityMeasureDocument/cda:component/cda:measureObservationSection',
                                        HQMF2::Document::NAMESPACES)
 
       unless observation_section.empty?
         observation_section.each do |entry|
+          cql_define_function = {}
           # The at_xpath(...).values returns an array of a single element.
           # The match returns an array and since we don't want the double quotes we take the second element
-          @observations << entry.at_xpath("*/cda:measureObservationDefinition/cda:value/cda:expression").values.first.match('\\"([A-Za-z0-9 ]+)\\"')[1]
+          cql_define_function[:function_name] = entry.at_xpath("*/cda:measureObservationDefinition/cda:value/cda:expression").values.first.match('\\"([A-Za-z0-9 ]+)\\"')[1]
+          cql_define_function[:parameter] = entry.at_xpath("*/cda:measureObservationDefinition/cda:component/cda:criteriaReference/cda:id").attributes['extension'].value.match('\\"([A-Za-z0-9 ]+)\\"')[1]
+          @observations << cql_define_function
         end
       end
-
       !@observations.empty?
     end
 
