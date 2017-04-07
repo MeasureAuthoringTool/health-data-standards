@@ -5,7 +5,8 @@ class HTMLTest < Minitest::Test
   def setup
     dump_database
     collection_fixtures('records', '_id')
-    collection_fixtures('health_data_standards_svs_value_sets', '_id')
+    collection_fixtures('health_data_standards_svs_value_sets', '_id', 'bundle_id')
+    collection_fixtures('bundles', '_id')
     collection_fixtures('measures')
 
     @record = Record.find('4dcbecdb431a5f5878000004')

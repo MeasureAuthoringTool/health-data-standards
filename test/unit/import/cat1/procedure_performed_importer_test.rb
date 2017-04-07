@@ -1,6 +1,14 @@
 require 'test_helper'
 
 class ProcedurePerformedImporterTest < Minitest::Test
+
+  def setup
+    dump_database
+    collection_fixtures('health_data_standards_svs_value_sets', '_id', 'bundle_id')
+    collection_fixtures('bundles', '_id')
+    collection_fixtures('measures')
+  end
+
   def test_procedure_performed
    	doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/procedure_performed_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
@@ -27,6 +35,18 @@ class ProcedurePerformedImporterTest < Minitest::Test
     p_p= HealthDataStandards::Import::Cat1::EntryPackage.new(HealthDataStandards::Import::Cat1::ProcedurePerformedImporter.new, '2.16.840.1.113883.3.560.1.6', 'ordered')
     procedures_performed = p_p.package_entries(cat1_patient_data_section(doc), nrh)
     procedure_performed = procedures_performed[0]
+    assert procedure_performed.ordinality['SNOMED-CT'].include?('63161005')
+  end
+
+  def test_procedure_performed_r31_negated_code
+    doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/procedure_performed_fragment_r31_no_code.xml'))
+    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+    nrh = HealthDataStandards::Import::CDA::NarrativeReferenceHandler.new
+    nrh.build_id_map(doc)
+    p_p= HealthDataStandards::Import::Cat1::EntryPackage.new(HealthDataStandards::Import::Cat1::ProcedurePerformedImporter.new, '2.16.840.1.113883.3.560.1.6', 'ordered')
+    procedures_performed = p_p.package_entries(cat1_patient_data_section(doc), nrh)
+    procedure_performed = procedures_performed[0]
+    assert procedure_performed.codes['SNOMED-CT'].include?('236209003') # original code was nullFlavor="NA" 236209003 is first code in valueset
     assert procedure_performed.ordinality['SNOMED-CT'].include?('63161005')
   end
 end
