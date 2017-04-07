@@ -75,6 +75,8 @@ module HQMF2
       parts = exp.to_s.split('-')
       dc = parse_parts_to_dc(parts)
       @doc.add_data_criteria(dc)
+      # Update reference_ids with any newly referenced data criteria
+      dc.children_criteria.each { |cc| @doc.add_reference_id(cc) } unless dc.children_criteria.nil?
       dc
     end
 

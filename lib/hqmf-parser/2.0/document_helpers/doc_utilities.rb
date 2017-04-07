@@ -67,7 +67,8 @@ module HQMF2
 
       base_criteria_defs = %w(patient_characteristic_ethnicity patient_characteristic_gender patient_characteristic_payer patient_characteristic_race)
       to_reject = true
-      to_reject &&= @reference_ids.index(dc.id).nil? # don't reject if anything refers directly to this criteria
+      # don't reject if anything refers directly to this criteria
+      to_reject &&= @reference_ids.index(dc.id).nil?
       # don't reject if it is a "base" criteria (no references but must exist)
       to_reject &&= !base_criteria_defs.include?(dc.definition)
       # keep referral occurrence
@@ -126,6 +127,5 @@ module HQMF2
       right = cc_filtered.nil? || cc_filtered.empty? ? nil : cc_filtered.try(:to_json)
       return empty || left == right
     end
-    
   end
 end
