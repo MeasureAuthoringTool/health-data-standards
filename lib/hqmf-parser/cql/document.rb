@@ -37,8 +37,6 @@ module HQMF2CQL
         dc = HQMF2::DataCriteria.new(entry) # Create new data criteria
         sdc = dc.clone # Clone data criteria
         sdc.id += '_source' # Make it a source
-
-        # REVIEW: For HQMF + CQL, do we need both DC and SDC?
         @data_criteria << dc
         @source_data_criteria << sdc
       end
