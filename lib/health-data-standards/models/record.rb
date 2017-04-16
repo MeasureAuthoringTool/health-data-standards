@@ -64,7 +64,8 @@ class Record
   def self.update_or_create(data)
     existing = Record.where(medical_record_number: data.medical_record_number).first
     if existing
-      existing.update_attributes!(data.attributes.except('_id'))
+      existing.merge!(data)
+      existing.save!
       existing
     else
       data.save!
@@ -147,6 +148,20 @@ class Record
 
     end
 
+  end
+
+  def merge!(other)
+    # demographics
+    self.attributes.merge!(other.attributes.except('_id'))
+
+    # entries
+    Sections.each do |section|
+      other_val = other.send(section)
+      if other_val != []
+        my_val = self.send(section) || []
+        self.send("#{section}=", my_val.concat(other_val))
+      end
+    end
   end
 
   private
