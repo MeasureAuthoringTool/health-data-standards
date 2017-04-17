@@ -38,7 +38,7 @@ class Cat1Test < Minitest::Test
      valid_measures = @measures.select { |m| m.hqmf_id.length > 4 } #make sure there is a valid hqmf_id
      Record.all.each do |record|
       insurance_provider = InsuranceProvider.new(start_time: Time.new(2008,1,1).to_i,
-                                                 codes: {"SOP" => 349})
+                                                 codes: {"SOP" => [349]})
       record.insurance_providers << insurance_provider
       puts "Testing Cat I for #{record.first} #{record.last}"
       doc = Nokogiri::XML(HealthDataStandards::Export::Cat1.new("r3").export(record,valid_measures,@start_date,@end_date, @header, "r3"))
@@ -46,10 +46,10 @@ class Cat1Test < Minitest::Test
     end
   end
 
-  def test_schematron_validation
-     Record.all.each do |record|
+  def test_schematron_validation_qrda_r3
+    Record.all.each do |record|
       insurance_provider = InsuranceProvider.new(start_time: Time.new(2008,1,1).to_i,
-						 codes: {"SOP" => 349})
+						 codes: {"SOP" => [349]})
       record.insurance_providers << insurance_provider
       puts "Testing Cat I for #{record.first} #{record.last}"
       doc = Nokogiri::XML(HealthDataStandards::Export::Cat1.new("r3").export(record,@measures,@start_date,@end_date, @header, "r3"))
@@ -64,10 +64,26 @@ class Cat1Test < Minitest::Test
     end
   end
 
+  def test_schematron_validation_qrda_r4
+    # Patients with retired 'data criteria' (e.g., Diagnosis, Active) will fail export with QRDA Cat I R4.
+    Record.where(last: "QRDAR4").each do |record|
+      puts "Testing Cat I for #{record.first} #{record.last}"
+      doc = Nokogiri::XML(HealthDataStandards::Export::Cat1.new("r4").export(record,@measures,Time.at(1420070400),Time.at(1451606399), @header, "r4"))
+      errors = HealthDataStandards::Validate::Cat1R4.instance.validate(doc, {file_name: "cat1_good.xml"})
+
+      doc2 = Nokogiri::XML(HealthDataStandards::Export::Cat1.new("r4").export(record,@measures,@start_date,@end_date, nil, "r4"))
+      errors2 = HealthDataStandards::Validate::Cat1R4.instance.validate(doc, {file_name: "cat1_good.xml"})
+
+      assert_equal [], errors, "Invalid Cat I for #{record.first} #{record.last} (with header)"
+      assert_equal [], errors2, "Invalid Cat I for #{record.first} #{record.last} (w/o header)"
+
+    end
+  end
+
   def test_schematron_r2_validation
-     Record.all.each do |record|
+    Record.all.each do |record|
       insurance_provider = InsuranceProvider.new(start_time: Time.new(2008,1,1).to_i,
-             codes: {"SOP" => 349})
+             codes: {"SOP" => [349]})
       record.insurance_providers << insurance_provider
       puts "Testing Cat I for #{record.first} #{record.last}"
       doc = Nokogiri::XML(HealthDataStandards::Export::Cat1R2.new.export(record,@measures,@start_date,@end_date, @header))
