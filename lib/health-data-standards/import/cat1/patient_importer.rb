@@ -13,6 +13,7 @@ module HealthDataStandards
         def initialize
           # This differs from other HDS patient importers in that sections can have multiple importers
           @section_importers = {}
+          @section_importers[:assessments] = [generate_importer(CDA::ProcedureImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.144']", '2.16.840.1.113883.10.20.28.3.117')] #assessment performed
           @section_importers[:care_goals] = [generate_importer(CDA::SectionImporter, "./cda:entry/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.1']", '2.16.840.1.113883.3.560.1.9')] #care goal
           
           @section_importers[:conditions] = [generate_importer(GestationalAgeImporter, nil, '2.16.840.1.113883.3.560.1.1001'),
