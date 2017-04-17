@@ -97,4 +97,8 @@ class VSApiTest < Minitest::Test
     end
   end
 
+  test failing_assert
+    assert false
+  end
+
 end
