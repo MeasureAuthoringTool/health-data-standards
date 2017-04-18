@@ -28,8 +28,6 @@ class HQMF2CQLTest < Minitest::Test
     
     model = HQMF2CQL::Document.new(File.open(measure_filename).read).to_model
 
-    #require 'byebug'; debugger
-
     diff = ''
     assert diff.empty?, 'Diff is not empty.'
   end
