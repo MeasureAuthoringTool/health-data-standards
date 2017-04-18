@@ -9,7 +9,9 @@ services:
 env:
   - "JRUBY_OPTS=-J-Xmx1024m"
 
-script: bundle exec rake test
+script:
+  - bundle exec bundle-audit check --update
+  - bundle exec rake test
 
 notifications:
   email:
