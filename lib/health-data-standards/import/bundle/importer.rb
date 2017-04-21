@@ -64,8 +64,11 @@ module HealthDataStandards
 
           return bundle
         ensure
-          bundle.done_importing = true unless bundle.nil?
-          bundle.save
+          # If the bundle is nil or the bundle has never been saved then do not set done_importing or run save.
+          if bundle && bundle.created_at
+            bundle.done_importing = true
+            bundle.save
+          end
         end
 
 

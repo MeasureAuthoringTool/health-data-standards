@@ -6,6 +6,14 @@ module HealthDataStandards
         include HealthDataStandards::SVS
         VS_MAP = {}
 
+        def clear_vs_map(bundle_id=nil)
+          if bundle_id.nil?
+            latest_bundle_id = HealthDataStandards::CQM::Bundle.latest_bundle_id
+            bundle_id = BSON::ObjectId.from_string(latest_bundle_id) if latest_bundle_id
+          end
+          VS_MAP[bundle_id] = nil
+        end
+
         def value_set_map(bundle_id=nil)
           bundle_id_to_use = nil
           if bundle_id
@@ -98,14 +106,14 @@ module HealthDataStandards
           data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                                       data_criteria.status || '',
                                                                                        data_criteria.negation)
-          is_hqmfr2 = true unless data_criteria_oid 
+          is_hqmfr2 = true unless data_criteria_oid
           data_criteria_oid ||= HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                                       data_criteria.status || '',
                                                                                       data_criteria.negation, "r2")
-          HealthDataStandards.logger.warn("Looking for dc [#{data_criteria_oid}]")
+          HealthDataStandards.logger.debug("Looking for dc [#{data_criteria_oid}]")
           filtered_entries = []
           entries = []
-          
+
           case data_criteria_oid
           when '2.16.840.1.113883.3.560.1.404'
             filtered_entries = handle_patient_expired(patient)
