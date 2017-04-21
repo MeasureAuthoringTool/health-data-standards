@@ -71,7 +71,11 @@ module HealthDataStandards
         def extract_status(parent_element, entry)
           status_element = parent_element.at_xpath(@status_xpath)
           if status_element
-            entry.status_code = {CodeSystemHelper.code_system_for(status_element['codeSystem']) => [status_element['code']]}
+            if status_element['codeSystem']
+              entry.status_code = {CodeSystemHelper.code_system_for(status_element['codeSystem']) => [status_element['code']]}
+            else
+              entry.status = status_element['code'] if status_element['code']
+            end
           end
         end
 

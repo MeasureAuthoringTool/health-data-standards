@@ -60,14 +60,14 @@ module HealthDataStandards
           @section_importers[:results] = CDA::ResultImporter.new
           @section_importers[:vital_signs] = CDA::VitalSignImporter.new
           @section_importers[:medications] = CDA::MedicationImporter.new
-          @section_importers[:conditions] = ConditionImporter.new
+          @section_importers[:conditions] = CDA::ConditionImporter.new
           @section_importers[:social_history] = CDA::SectionImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.19']"))
           @section_importers[:care_goals] = CareGoalImporter.new
           @section_importers[:medical_equipment] = CDA::MedicalEquipmentImporter.new
           @section_importers[:allergies] = CDA::AllergyImporter.new
           @section_importers[:immunizations] = ImmunizationImporter.new
           @section_importers[:insurance_providers] = InsuranceProviderImporter.new
-        end
+        end       
 
         # @param [boolean] value for check_usable_entries...importer uses true, stats uses false 
         def check_usable(check_usable_entries)
@@ -113,7 +113,9 @@ module HealthDataStandards
           nrh = CDA::NarrativeReferenceHandler.new
           nrh.build_id_map(doc)
           @section_importers.each_pair do |section, importer|
-            record.send(section.to_setter, importer.create_entries(doc, nrh))
+            entries = importer.package_entries(doc, nrh) if defined? importer.package_entries
+            entries = importer.create_entries(doc, nrh)  if defined? importer.create_entries
+            record.send(section.to_setter, entries)
           end
         end
 
@@ -123,6 +125,8 @@ module HealthDataStandards
         # @param [Hash] patient A hash that is used to represent the patient
         # @param [Nokogiri::XML::Node] doc The C32 document parsed by Nokogiri
         def get_demographics(patient, doc)
+          entity_node = doc.at_xpath('/cda:ClinicalDocument/cda:id')
+          patient[:entity_id] = entity_node['extension'] if entity_node        
           effective_date = doc.at_xpath('/cda:ClinicalDocument/cda:effectiveTime')['value']
           patient.effective_time = HL7Helper.timestamp_to_integer(effective_date)
           patient_role_element = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole')
@@ -148,7 +152,8 @@ module HealthDataStandards
           patient.marital_status = {code: marital_status_node['code'], code_set: "HL7 Marital Status"} if marital_status_node
           ra_node = patient_element.at_xpath("./cda:religiousAffiliationCode")
           patient.religious_affiliation = {code: ra_node['code'], code_set: "Religious Affiliation"} if ra_node
-          languages = patient_element.search('languageCommunication').map {|lc| lc.at_xpath('cda:languageCode')['code'] }
+          
+          languages = patient_element.search('languageCommunication').map {|lc| lc.at_xpath('cda:languageCode')['code'] if lc.at_xpath('cda:languageCode') }
           patient.languages = languages unless languages.empty?
           
           patient.addresses = patient_role_element.xpath("./cda:addr").map { |addr| import_address(addr) }

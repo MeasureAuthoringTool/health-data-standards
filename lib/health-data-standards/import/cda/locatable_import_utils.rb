@@ -15,10 +15,10 @@ module HealthDataStandards
         end
 
         def import_telecom(telecom_element)
-          tele = Telecom.new
-          tele.value = telecom_element['value']
-          tele.use = telecom_element['use']
-          tele
+            tele = Telecom.new
+            tele.value = telecom_element['value']
+            tele.use = telecom_element['use']
+            tele
         end
       end
     end

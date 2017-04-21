@@ -39,6 +39,13 @@ module HealthDataStandards
             cda_idents.push(CDAIdentifier.new(root: ident_root, extension: ident_extension)) if ident_root.present?
           end
 
+          #6706 - Added below section to import TIN - "2.16.840.1.113883.4.2"
+          entity.xpath("./cda:representedOrganization/cda:id").each do |cda_ident|
+	          ident_root = cda_ident['root']
+	          ident_extension = cda_ident['extension']
+	          cda_idents.push(CDAIdentifier.new(root: ident_root, extension: ident_extension)) if ident_root.present?
+	        end
+
           name = entity.at_xpath("./cda:assignedPerson/cda:name")
           provider[:title]        = extract_data(name, "./cda:prefix")
           provider[:given_name]   = extract_data(name, "./cda:given[1]")

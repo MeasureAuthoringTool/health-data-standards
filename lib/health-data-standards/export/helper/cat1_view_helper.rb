@@ -14,8 +14,7 @@ module HealthDataStandards
                                                                                                                                    :filtered_vs_map => vs_map,
                                                                                                                                    :result_oids => dc["result_oids"],
                                                                                                                                    :field_oids => dc["field_oids"],
-                                                                                                                                   :r2_compatibility => r2_compatibility,
-                                                                                                                                   :bundle_id => bundle_id})
+                                                                                                                                   :r2_compatibility => r2_compatibility})
           end
           html_array.join("\n")
         end
@@ -23,6 +22,7 @@ module HealthDataStandards
         def render_patient_data(patient, measures, r2_compatibility, qrda_version = nil)
           HealthDataStandards.logger.warn("Generating CAT I for #{patient.first} #{patient.last}")
           udcs = unique_data_criteria(measures, r2_compatibility)
+
           data_criteria_html = udcs.map do |udc|
             # If there's an error exporting particular criteria, re-raise an error that includes useful debugging info
             begin
@@ -47,7 +47,7 @@ module HealthDataStandards
           return nil if codedValue.nil?
           valueset_oids ||=[]
           code = codedValue["code"]
-          code_system = codedValue["code_set"] || codedValue["code_system"]
+          code_system = codedValue["code_set"] || codedValue["code_system"] || codedValue["codeSystem"]
           vs_map = (value_set_map(bundle_id) || {})
           valueset_oids.each do |vs_oid|
             oid_list = (vs_map[vs_oid] || [])

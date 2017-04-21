@@ -13,6 +13,7 @@ module HealthDataStandards
       class MedicationImporter < SectionImporter
         def initialize(entry_finder=EntryFinder.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.112']/cda:entry/cda:substanceAdministration"))
           super(entry_finder)
+          @status_xpath = "./cda:statusCode"
           @code_xpath = "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code"
           @description_xpath = "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code/cda:originalText/cda:reference[@value]"
           @type_of_med_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.8.1']/cda:code"
@@ -45,7 +46,7 @@ module HealthDataStandards
 
           extract_fulfillment_history(entry_element, medication)
           extract_reason_or_negation(entry_element, medication)
-
+          medication.freeTextSig = entry_element.at_xpath("./cda:text").try("text")
           medication
         end
 

@@ -72,6 +72,10 @@ module HealthDataStandards
           return unless transfer_to || transfer_from
           transfer = Transfer.new
           extract_dates(transfer_element, transfer, 'time')
+          if !transfer['time']
+              transfer['time'] = transfer['start_time'] if transfer['start_time']
+              transfer['time'] = transfer['end_time'] if transfer['end_time']
+          end   
           raw_code = extract_code(transfer_element.at_xpath("./cda:participantRole[@classCode='LOCE']"), './cda:code')
           code_hash = {CodeSystemHelper.code_system_for(raw_code["codeSystemOid"]) => [raw_code["code"]]}
           transfer['code_system'] = code_hash.keys.first
