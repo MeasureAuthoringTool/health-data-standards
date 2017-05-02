@@ -87,7 +87,7 @@ module HealthDataStandards
           import_sections(record, doc)
           get_patient_expired(record, doc)
           record.dedup_record!
-          #normalize_references(record)
+          normalize_references(record)
           record
         end
 
