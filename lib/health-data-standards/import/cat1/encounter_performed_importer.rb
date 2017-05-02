@@ -23,7 +23,7 @@ module HealthDataStandards
         def extract_diagnosis(parent_element, xpath)
           diagnosis_element = parent_element.at_xpath(xpath)
           if(diagnosis_element)
-            diagnosis = Entry.new
+            diagnosis = EncounterPrincipalDiagnosis.new
             extract_workaround_codes(diagnosis_element, diagnosis)
             diagnosis.codes[diagnosis['code_system']] ||= []
             diagnosis.codes[diagnosis['code_system']] << diagnosis['code']
