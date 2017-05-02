@@ -116,8 +116,8 @@ module HealthDataStandards
               valueSetKey = code_element['sdtc:valueSet']
               valueSet = HealthDataStandards::SVS::ValueSet.by_oid(valueSetKey).first if valueSetKey
               concept = valueSet.concepts[0] if valueSet
-              if concept && concept['code_system_name'] && concept['code']
-                entry.add_code(concept['code'], CodeSystemHelper.code_system_for(concept['code_system_name']))
+              if concept && concept['code_system'] && concept['code']
+                entry.add_code(concept['code'], CodeSystemHelper.code_system_for(concept['code_system']))
               end
             end
           end
