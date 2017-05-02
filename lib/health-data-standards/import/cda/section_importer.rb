@@ -106,6 +106,21 @@ module HealthDataStandards
               add_code_if_present(translation, entry)
             end
           end
+          extract_codes_if_negation(parent_element, entry)
+        end
+
+        def extract_codes_if_negation(parent_element, entry)
+          if parent_element['negationInd'] == 'true'
+            code_elements = parent_element.xpath(@code_xpath)
+            code_elements.each do | code_element |
+              valueSetKey = code_element['sdtc:valueSet']
+              valueSet = HealthDataStandards::SVS::ValueSet.by_oid(valueSetKey).first if valueSetKey
+              concept = valueSet.concepts[0] if valueSet
+              if concept && concept['code_system_name'] && concept['code']
+                entry.add_code(concept['code'], CodeSystemHelper.code_system_for(concept['code_system_name']))
+              end
+            end
+          end
         end
 
         def add_code_if_present(code_element, entry)
