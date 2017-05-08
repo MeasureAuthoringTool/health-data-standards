@@ -67,7 +67,7 @@ module HQMF2
 
     # Extract the negation (and the negation_code_list_id if appropriate)
     def extract_negation
-      negation = (attr_val('./*/@actionNegationInd') == 'true')
+      negation = (attr_val('./*/@actionNegationInd').to_s.downcase == 'true')
       negation_code_list_id = nil
       if negation
         res = @entry.at_xpath('./*/cda:outboundRelationship/*/cda:code[@code="410666004"]/../cda:value/@valueSet',
