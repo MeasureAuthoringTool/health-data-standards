@@ -13,7 +13,7 @@
         <id root="<%= UUID.generate %>"/>
         <code nullFlavor="NA"/>
         <statusCode code="completed"/>
-        <effectiveTime value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
+        <effectiveTime value="<%= Time.now.utc.strftime("%Y%m%d") %>"/>
           <component>
            <observation classCode="OBS" moodCode="EVN">
             <templateId root="2.16.840.1.113883.10.20.22.4.2"/>
@@ -39,7 +39,7 @@
               <reference value="#results-desc-<%= i %>"/>
             </text>
             <statusCode code="completed"/>
-            <effectiveTime <%= value_or_null_flavor(entry.as_point_in_time) %>/>
+            <effectiveTime <%= date_value_or_null_flavor(entry.as_point_in_time) %>/>
               <% ev = entry.values.first
                 if ev.present? && ev.respond_to?(:scalar) -%>
                <% if is_num?(ev.scalar) -%>
