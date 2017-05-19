@@ -21,7 +21,6 @@ module HQMF2CQL
       # In addition to the function name we also need to retreive the parameter for the function.
       observation_section = @doc.xpath('/cda:QualityMeasureDocument/cda:component/cda:measureObservationSection',
                                        HQMF2::Document::NAMESPACES)
-
       unless observation_section.empty?
         observation_section.each do |entry|
           cql_define_function = {}
@@ -58,14 +57,13 @@ module HQMF2CQL
                 !criteria_def.xpath("cda:component[@typeCode='COMP']/cda:measureAttribute/cda:code[@code='SDE']").empty?
             cql_statement = criteria_def.at_xpath("*/*/cda:id", HQMF2::Document::NAMESPACES).attribute('extension').to_s.match(/"([^"]*)"/)
             if populations_cql_map[criteria_id].nil?
-              populations_cql_map[criteria_id] = {}
+              populations_cql_map[criteria_id] = []
             end
             population_criteria_name = criteria_def.parent.parent.at_xpath("cda:id")['extension']
             cql_statement = cql_statement.to_s.delete('\\"')
-            unless populations_cql_map[criteria_id].has_key? population_criteria_name
-              populations_cql_map[criteria_id][population_criteria_name] = []
+            unless populations_cql_map[criteria_id].include? cql_statement
+              populations_cql_map[criteria_id].push cql_statement
             end
-            populations_cql_map[criteria_id][population_criteria_name].push(cql_statement)
           end
         end
       end
