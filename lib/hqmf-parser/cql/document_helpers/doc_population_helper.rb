@@ -59,7 +59,6 @@ module HQMF2CQL
             if populations_cql_map[criteria_id].nil?
               populations_cql_map[criteria_id] = []
             end
-            population_criteria_name = criteria_def.parent.parent.at_xpath("cda:id")['extension']
             cql_statement = cql_statement.to_s.delete('\\"')
             unless populations_cql_map[criteria_id].include? cql_statement
               populations_cql_map[criteria_id].push cql_statement
