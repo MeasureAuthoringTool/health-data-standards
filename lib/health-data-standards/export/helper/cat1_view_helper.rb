@@ -52,7 +52,7 @@ module HealthDataStandards
           valueset_oids.each do |vs_oid|
             oid_list = (vs_map[vs_oid] || [])
             oid_map = Hash[oid_list.collect{|x| [x["set"],x["values"]]}]
-            if (oid_map[code_system] || []).include? code
+            if ((oid_map[code_system] || []).index code).nil?
               return vs_oid
             end
           end
