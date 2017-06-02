@@ -21,7 +21,6 @@ module HQMF2CQL
       # In addition to the function name we also need to retreive the parameter for the function.
       observation_section = @doc.xpath('/cda:QualityMeasureDocument/cda:component/cda:measureObservationSection',
                                        HQMF2::Document::NAMESPACES)
-
       unless observation_section.empty?
         observation_section.each do |entry|
           cql_define_function = {}
@@ -48,17 +47,21 @@ module HQMF2CQL
           HQMF::PopulationCriteria::DENEXCEP => 'denominatorExceptionCriteria',
           HQMF::PopulationCriteria::DENEX => 'denominatorExclusionCriteria',
           HQMF::PopulationCriteria::MSRPOPL => 'measurePopulationCriteria',
-          HQMF::PopulationCriteria::MSRPOPLEX => 'measurePopulationExclusionCriteria'
+          HQMF::PopulationCriteria::MSRPOPLEX => 'measurePopulationExclusionCriteria',
+          HQMF::PopulationCriteria::STRAT => 'stratifierCriteria'
         }.each_pair do |criteria_id, criteria_element_name|
           criteria_def = population_def.at_xpath("cda:#{criteria_element_name}", HQMF2::Document::NAMESPACES)
           if criteria_def
+            # ignore Supplemental Data Elements
+            next if HQMF::PopulationCriteria::STRAT == criteria_id &&
+                !criteria_def.xpath("cda:component[@typeCode='COMP']/cda:measureAttribute/cda:code[@code='SDE']").empty?
             cql_statement = criteria_def.at_xpath("*/*/cda:id", HQMF2::Document::NAMESPACES).attribute('extension').to_s.match(/"([^"]*)"/)
             if populations_cql_map[criteria_id].nil?
               populations_cql_map[criteria_id] = []
             end
             cql_statement = cql_statement.to_s.delete('\\"')
             unless populations_cql_map[criteria_id].include? cql_statement
-              populations_cql_map[criteria_id].push(cql_statement)
+              populations_cql_map[criteria_id].push cql_statement
             end
           end
         end
