@@ -13,19 +13,19 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rest-client', '~>1.8.0'
   s.add_dependency 'erubis', '~> 2.7.0'
-  s.add_dependency 'mongoid', '~> 4.0.0'
-  s.add_dependency 'mongoid-tree', '~> 1.0.4'
-  s.add_dependency 'activesupport', '~> 4.1.1'
-  s.add_dependency 'protected_attributes', '~> 1.0.5'
-  s.add_dependency 'uuid', '~> 2.3.7'
-  s.add_dependency 'builder', '~> 3.1'
-  s.add_dependency 'nokogiri', '~> 1.6.8'
-  s.add_dependency 'highline', "~> 1.7.0"
+  s.add_dependency 'mongoid', '~> 5.2.1'
+  s.add_dependency 'mongoid-tree', '~> 2.1.0'
+  # s.add_dependency 'activesupport', '~> 5.0.1'
+  s.add_dependency 'protected_attributes', '~> 1.0.9'
+  s.add_dependency 'uuid', '~> 2.3.8'
+  s.add_dependency 'builder', '~> 3.2.3'
+  s.add_dependency 'nokogiri', '~> 1.8.0'
+  s.add_dependency 'highline', "~> 1.7.8"
 
   s.add_dependency 'rubyzip', '0.9.9'
 
   s.add_dependency 'log4r', '~> 1.1.10'
-  s.add_dependency 'memoist', '~> 0.9.1'
+  s.add_dependency 'memoist', '~> 0.9.3'
 
   s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/**/*.erb') + Dir.glob('lib/**/*.json') + Dir.glob('lib/**/*.erb') + Dir.glob('lib/health-data-standards/tasks/*.rake') +
             ["Gemfile", "README.md", "Rakefile"] + Dir.glob('resources/schema/**/*') + Dir.glob('resources/schematron/**/*')
