@@ -53,6 +53,7 @@ module HealthDataStandards
           provider[:organization] = OrganizationImporter.instance.extract_organization(entity.at_xpath("./cda:representedOrganization"))
           provider[:specialty]    = extract_data(entity, "./cda:code/@code")
           time                    = performer.xpath(performer, "./cda:time")
+          time                    = performer.xpath(performer, "../cda:effectiveTime") if time.nil? || time.empty?
           
           if use_dates
             provider[:start]        = extract_date(time, "./cda:low/@value")
