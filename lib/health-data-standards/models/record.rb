@@ -21,6 +21,8 @@ class Record
   field :medical_record_number, type: String
   field :medical_record_assigner, type: String
   field :expired, type: Boolean
+  field :entity_id, type: String
+  field :attributed_provider_id, type: BSON::ObjectId #used when use_attributed_provider is ON
 
   index "last" => 1
   index medical_record_number: 1
