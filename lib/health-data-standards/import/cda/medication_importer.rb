@@ -39,7 +39,7 @@ module HealthDataStandards
           medication.indication = extract_code(entry_element, @indication_xpath, 'SNOMED-CT')
           medication.vehicle = extract_code(entry_element, @vehicle_xpath, 'SNOMED-CT')
 
-          medication.allowed_administrations = extract_scalar(entry_element, "./cda:repeatNumber")
+          medication.allowed_administrations = extract_scalar(entry_element, "./cda:repeatNumber").value unless extract_scalar(entry_element, "./cda:repeatNumber").nil?
 
           extract_order_information(entry_element, medication)
 
@@ -52,10 +52,9 @@ module HealthDataStandards
         private
 
         def extract_reason_or_negation(parent_element, medication)
-          negation_indicator = parent_element['negationInd']
-          if negation_indicator.nil? && parent_element.parent.name == "entryRelationship"
-            super(parent_element.parent.parent, medication)
-          elsif negation_indicator.eql?('true')
+          if parent_element.parent.name == "entryRelationship"
+            super(parent_element.parent.parent, medication, parent_element)
+          else
             super(parent_element, medication)
           end
         end
