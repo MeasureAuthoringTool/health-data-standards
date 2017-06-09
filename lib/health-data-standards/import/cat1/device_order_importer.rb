@@ -10,7 +10,7 @@ module HealthDataStandards
         def create_entry(entry_element, nrh = CDA::NarrativeReferenceHandler.new)
           medical_equipment = super
           # the negation is at the level of the encapsulating Device Order Act Template (parent.parent)
-          extract_reason_or_negation(entry_element.parent.parent, medical_equipment)
+          extract_reason_or_negation(entry_element.parent.parent, medical_equipment, entry_element)
           medical_equipment
         end
 
