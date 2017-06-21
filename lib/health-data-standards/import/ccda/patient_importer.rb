@@ -11,7 +11,8 @@ module HealthDataStandards
           @section_importers[:vital_signs] = [generate_importer(VitalSignImporter, nil, '2.16.840.1.113883.3.560.1.57', 'performed')] #VitalSignImporter.new#
           @section_importers[:medications] = [generate_importer(MedicationImporter, nil, '2.16.840.1.113883.3.560.1.13')] #MedicationImporter.new
           @section_importers[:conditions] = [generate_importer(ConditionImporter, nil, '2.16.840.1.113883.3.560.1.2', 'active'), #ConditionImporter.new
-                                             generate_importer(Cat1::EcogStatusImporter, nil, '2.16.840.1.113883.3.560.1.1001')]
+                                             generate_importer(Cat1::EcogStatusImporter, nil, '2.16.840.1.113883.3.560.1.1001'),
+                                             generate_importer(Cat1::TobaccoUseImporter, nil, '2.16.840.1.113883.3.560.1.1001', 'completed')]
           @section_importers[:social_history] = [CDA::SectionImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.38' or cda:templateId/@root='2.16.840.1.113883.10.20.15.3.8']"))]
           @section_importers[:care_goals] = [CareGoalImporter.new]
           @section_importers[:medical_equipment] = [MedicalEquipmentImporter.new]
