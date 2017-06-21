@@ -68,5 +68,19 @@ module HQMF2CQL
       end
       populations_cql_map
     end
+
+    # Extracts the name of the main cql library from the Population Criteria Section
+    def extract_main_library
+      population_criteria_sections = @doc.xpath("//cda:populationCriteriaSection/cda:component[@typeCode='COMP']", HQMF2::Document::NAMESPACES)
+      criteria_section = population_criteria_sections.at_xpath("cda:initialPopulationCriteria", HQMF2::Document::NAMESPACES)
+      if criteria_section
+        # Example: the full name for the population criteria section is "BonnieNesting01.\"Initial Population\""
+        # The regex returns everything before the "."  (BonnieNesting01), which is the file name of the cql measure
+        cql_main_library_name = criteria_section.at_xpath("*/*/cda:id", HQMF2::Document::NAMESPACES).attribute('extension').to_s.match(/[^.]*/).to_s
+      else
+        nil
+      end
+    end
+
   end
 end

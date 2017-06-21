@@ -15,6 +15,7 @@ module HQMF2CQL
       pop_helper = HQMF2CQL::DocumentPopulationHelper.new(@entry, @doc, self, @id_generator, @reference_ids)
       # @populations_cql_map and @observations are needed by the frontend
       @populations, @population_criteria, @populations_cql_map, @observations = pop_helper.extract_populations
+      @cql_measure_library = pop_helper.extract_main_library
     end
 
     # Generates this classes hqmf-model equivalent.
@@ -25,7 +26,7 @@ module HQMF2CQL
       HQMF::Document.new(@id, @id, @hqmf_set_id, @hqmf_version_number, @cms_id,
                          title, description, pcs, dcs, sdc,
                          @attributes, @measure_period, @populations,
-                         populations_cql_map=@populations_cql_map, observations=@observations)
+                         populations_cql_map=@populations_cql_map, cql_measure_library=@cql_measure_library, observations=@observations)
     end
 
     # Extracts data criteria from the HQMF document.
