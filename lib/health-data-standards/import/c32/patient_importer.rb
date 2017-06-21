@@ -55,24 +55,26 @@ module HealthDataStandards
         #    ./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code
         def initialize(check_usable = true)
           @section_importers = {}
-          @section_importers[:encounters] = CDA::EncounterImporter.new
-          @section_importers[:procedures] = CDA::ProcedureImporter.new
-          @section_importers[:results] = CDA::ResultImporter.new
-          @section_importers[:vital_signs] = CDA::VitalSignImporter.new
-          @section_importers[:medications] = CDA::MedicationImporter.new
-          @section_importers[:conditions] = CDA::ConditionImporter.new
-          @section_importers[:social_history] = CDA::SectionImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.19']"))
-          @section_importers[:care_goals] = CareGoalImporter.new
-          @section_importers[:medical_equipment] = CDA::MedicalEquipmentImporter.new
-          @section_importers[:allergies] = CDA::AllergyImporter.new
-          @section_importers[:immunizations] = ImmunizationImporter.new
-          @section_importers[:insurance_providers] = InsuranceProviderImporter.new
+          @section_importers[:encounters] = [CDA::EncounterImporter.new]
+          @section_importers[:procedures] = [CDA::ProcedureImporter.new]
+          @section_importers[:results] = [CDA::ResultImporter.new]
+          @section_importers[:vital_signs] = [CDA::VitalSignImporter.new]
+          @section_importers[:medications] = [CDA::MedicationImporter.new]
+          @section_importers[:conditions] = [CDA::ConditionImporter.new]
+          @section_importers[:social_history] = [CDA::SectionImporter.new(CDA::EntryFinder.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.19']"))]
+          @section_importers[:care_goals] = [CareGoalImporter.new]
+          @section_importers[:medical_equipment] = [CDA::MedicalEquipmentImporter.new]
+          @section_importers[:allergies] = [CDA::AllergyImporter.new]
+          @section_importers[:immunizations] = [ImmunizationImporter.new]
+          @section_importers[:insurance_providers] = [InsuranceProviderImporter.new]
         end       
 
         # @param [boolean] value for check_usable_entries...importer uses true, stats uses false 
         def check_usable(check_usable_entries)
-          @section_importers.each_pair do |section, importer|
-            importer.check_for_usable = check_usable_entries
+          @section_importers.each_pair do |section, importers|
+            importers.each do |importer|
+              importer.check_for_usable = check_usable_entries
+            end
           end
         end
 
@@ -112,10 +114,12 @@ module HealthDataStandards
         def create_c32_hash(record, doc)
           nrh = CDA::NarrativeReferenceHandler.new
           nrh.build_id_map(doc)
-          @section_importers.each_pair do |section, importer|
-            entries = importer.package_entries(doc, nrh) if defined? importer.package_entries
-            entries = importer.create_entries(doc, nrh)  if defined? importer.create_entries
-            record.send(section.to_setter, entries)
+          @section_importers.each_pair do |section, importers|
+            importers.each do |importer|
+              entries = importer.package_entries(doc, nrh) if defined? importer.package_entries
+              entries = importer.create_entries(doc, nrh)  if defined? importer.create_entries
+              record.send(section) << entries
+            end
           end
         end
 
