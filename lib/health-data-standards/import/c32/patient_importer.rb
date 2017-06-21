@@ -99,7 +99,7 @@ module HealthDataStandards
         # @param [Record] c32_patient to check the conditions on and set the expired
         #               property if applicable
         def check_for_cause_of_death(c32_patient)
-          cause_of_death = c32_patient.conditions.detect {|condition| condition.cause_of_death }
+          cause_of_death = c32_patient.conditions.detect {|condition| condition['cause_of_death'] }
           if cause_of_death
             c32_patient.expired = true
             c32_patient.deathdate = cause_of_death.time_of_death
