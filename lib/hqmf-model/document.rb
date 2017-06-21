@@ -9,7 +9,7 @@ module HQMF
 
     include HQMF::Conversion::Utilities
 
-    attr_reader :id, :title, :description, :measure_period, :attributes, :populations, :source_data_criteria, :hqmf_id, :hqmf_set_id, :hqmf_version_number, :cms_id, :populations_cql_map, :observations
+    attr_reader :id, :title, :description, :measure_period, :attributes, :populations, :source_data_criteria, :hqmf_id, :hqmf_set_id, :hqmf_version_number, :cms_id, :populations_cql_map, :cql_measure_library, :observations
   
     # Create a new HQMF::Document which can be converted to JavaScript
     # @param [String] id
@@ -24,7 +24,7 @@ module HQMF
     # @param [Array#Attribute] attributes
     # @param [Array#Hash] populations
     # @param [Range] measure_period
-    def initialize(id, hqmf_id, hqmf_set_id, hqmf_version_number, cms_id, title, description, population_criteria, data_criteria, source_data_criteria, attributes, measure_period, populations=nil, populations_cql_map=nil, observations=nil)
+    def initialize(id, hqmf_id, hqmf_set_id, hqmf_version_number, cms_id, title, description, population_criteria, data_criteria, source_data_criteria, attributes, measure_period, populations=nil, populations_cql_map=nil, cql_measure_library=nil, observations=nil)
       @id = id
       @hqmf_id = hqmf_id
       @hqmf_set_id = hqmf_set_id
@@ -47,6 +47,7 @@ module HQMF
       ]
       @measure_period = measure_period
       @populations_cql_map = populations_cql_map
+      @cql_measure_library = cql_measure_library
       @observations = observations
     end
     
@@ -109,6 +110,8 @@ module HQMF
       json[:populations_cql_map] = @populations_cql_map
 
       json[:observations] = @observations
+
+      json[:cql_measure_library] = @cql_measure_library
 
       json[:measure_period] = @measure_period.to_json
 
