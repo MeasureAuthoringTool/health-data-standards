@@ -5,7 +5,7 @@ module HealthDataStandards
         def hqmf_qrda_oid_map
           if @hqmf_qrda_oid_map.blank?
             template_id_file = File.expand_path('../hqmf-qrda-oids.json', __FILE__)
-            @hqmf_qrda_oid_map = JSON.parse(File.read(template_id_file))  
+            @hqmf_qrda_oid_map = JSON.parse(File.read(template_id_file))
           end
           @hqmf_qrda_oid_map
         end
@@ -22,8 +22,6 @@ module HealthDataStandards
             oid_tuple = hqmf_qrda_oid_map.find {|map_tuple| map_tuple['hqmf_oid'] == hqmf_oid }
             if oid_tuple.nil?
               if hqmf_oid.nil?
-                puts "hqmf_oid is nil. likely due to discrepencies between QDM 4.2 and QRDA R3 "\
-                     "(e.g. only Diagnosis, not Diagnosis Active)."
                 raise "This may be due to a discrepency between QDM 4.2 and QRDA R3. "\
                       "Expected cases for this error include: "\
                       "Diagnosis, Family History, Symptom, Immunization data types, "\
