@@ -67,7 +67,7 @@ module HealthDataStandards
             entry.description = parent_element.at_xpath("./cda:text").try("text")
           end
           #fallback extract description
-          if !entry.description
+          if entry.description.nil? || entry.description.blank? || entry.description.empty? 
             code_elements = parent_element.xpath(@code_xpath)
             code_element = code_elements[0] if code_elements
             entry.description = code_element['displayName'] if code_element
