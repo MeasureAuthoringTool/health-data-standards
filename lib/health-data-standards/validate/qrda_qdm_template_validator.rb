@@ -209,6 +209,7 @@ module HealthDataStandards
         @templateshash = case qrda_version
           when 'r3' then QRDA_CAT_1_R3_QDM_OIDS
           when 'r3_1' then QRDA_CAT_1_R3_1_QDM_OIDS
+          when 'r4' then QRDA_CAT_1_R4_QDM_OIDS
           end
       end
 
