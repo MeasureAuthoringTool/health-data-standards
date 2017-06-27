@@ -1,0 +1,14 @@
+<entry>
+  <observation classCode="OBS" moodCode="GOL">
+    <!-- Conforms to C-CDA R2 Goal Observation -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.121" />
+    <templateId root="2.16.840.1.113883.10.20.24.3.1" extension="2016-02-01"/>
+    <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
+    <%== code_display(entry,'value_set_map' => filtered_vs_map, 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <text><%= entry.description %></text>
+    <statusCode code="active"/>
+    <effectiveTime>
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+    </effectiveTime>
+  </observation>
+</entry>
