@@ -14,6 +14,8 @@ class ReportedResultExtractorTest < ActiveSupport::TestCase
 
     #make sure the OBSERV result (the actual CV value) equals the value from the XML
     assert_equal results["OBSERV"], 240.0
+    assert_equal results[:supplemental_data]["IPP"]["PAYER"]["D"], 5
+    assert_equal results[:supplemental_data]["MSRPOPL"]["PAYER"]["349"], 5
 
   end
 end
