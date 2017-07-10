@@ -20,9 +20,9 @@ module HQMF2CQL
 
     # Generates this classes hqmf-model equivalent.
     def to_model
-      dcs = all_data_criteria.collect(&:to_model)
-      sdc = source_data_criteria.collect(&:to_model)
-      pcs = all_population_criteria.collect(&:to_model)
+      dcs = all_data_criteria.compact.collect(&:to_model)
+      sdc = source_data_criteria.compact.collect(&:to_model)
+      pcs = all_population_criteria.compact.collect(&:to_model)
       HQMF::Document.new(@id, @id, @hqmf_set_id, @hqmf_version_number, @cms_id,
                          title, description, pcs, dcs, sdc,
                          @attributes, @measure_period, @populations,
