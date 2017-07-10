@@ -23,6 +23,19 @@ module HQMF2CQL
                                        HQMF2::Document::NAMESPACES)
       unless observation_section.empty?
         observation_section.each do |entry|
+          # Need to add population criteria for observations
+          criteria_id = 'OBSERV'
+          criteria = HQMF2::PopulationCriteria.new(entry.xpath('cda:definition'), @document, @id_generator)
+          criteria.type = 'OBSERV'
+          if @ids_by_hqmf_id["#{criteria.hqmf_id}"]
+            criteria.create_human_readable_id(@ids_by_hqmf_id[criteria.hqmf_id])
+          else
+            criteria.create_human_readable_id(population_id_with_counter(criteria_id))
+            @ids_by_hqmf_id["#{criteria.hqmf_id}"] = criteria.id
+          end
+          @population_criteria << criteria
+
+          # Extract CQL function specific details
           cql_define_function = {}
           # The at_xpath(...).values returns an array of a single element.
           # The match returns an array and since we don't want the double quotes we take the second element

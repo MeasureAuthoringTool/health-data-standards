@@ -34,7 +34,7 @@ module HQMF2
       else
         # Extract the data criteria this population references
         dc = handle_observation_criteria
-        @preconditions = [Precondition.new(id_generator.next_id, nil, nil, false, HQMF2::Reference.new(dc.id))]
+        @preconditions = [Precondition.new(id_generator.next_id, nil, nil, false, HQMF2::Reference.new(dc.id))] if dc
       end
     end
 
