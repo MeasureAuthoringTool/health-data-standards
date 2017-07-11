@@ -12,6 +12,16 @@ module HealthDataStandards
           #health status
           #age at onset
         end
+
+        def extract_dates(parent_element, entry, element_name="effectiveTime")
+          super
+          if parent_element.at_xpath("../../cda:#{element_name}/cda:low")
+            entry[:start_time] = HL7Helper.timestamp_to_integer(parent_element.at_xpath("../../cda:#{element_name}/cda:low")['value'])
+          end
+          if parent_element.at_xpath("../../cda:#{element_name}/cda:high")
+            entry[:end_time] = HL7Helper.timestamp_to_integer(parent_element.at_xpath("../../cda:#{element_name}/cda:high")['value'])
+          end
+        end
         
       end
     end
