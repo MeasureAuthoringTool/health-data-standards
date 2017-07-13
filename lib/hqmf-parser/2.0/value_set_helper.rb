@@ -90,7 +90,10 @@ module HQMF2
       '2.16.840.1.113883.10.20.28.3.115' => { valueset_path: "./*/cda:participation[@typeCode='CSM']/cda:role/cda:playingMaterial[@classCode='MMAT']/cda:code", result_path: nil },
       '2.16.840.1.113883.10.20.28.3.116' => { valueset_path: './*/cda:value', result_path: nil },
       '2.16.840.1.113883.10.20.28.3.117' => { valueset_path: './*/cda:code', result_path: './*/cda:value' },
-      '2.16.840.1.113883.10.20.28.3.118' => { valueset_path: './*/cda:code', result_path: nil }
+      '2.16.840.1.113883.10.20.28.3.118' => { valueset_path: './*/cda:code', result_path: nil },
+      '2.16.840.1.113883.10.20.28.3.119' => { valueset_path: "./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingEntity[@classCode='MMAT']/cda:code", result_path: nil },
+      '2.16.840.1.113883.10.20.28.3.120' => { valueset_path: "./*/cda:participation[@typeCode='CSM']/cda:role[@classCode='MANU']/cda:playingEntity[@classCode='MMAT']/cda:code", result_path: nil }
+
     }
     # rubocop:enable Metrics/LineLength
 
