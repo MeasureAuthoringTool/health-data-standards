@@ -24,12 +24,12 @@ module HQMF2CQL
         # MAT 5.3; we want to support measures exported using 5.3, but also
         # measures that were exported using previous versions of the MAT.
 
-        # Try a lookup using the older template oids.
-        defs = HQMF::DataCriteria.definition_for_template_id(template_id, 'r2')
-        
-        # If the old template oids didn't work, try a lookup using the newer
+        # Try a lookup using the newer template oids.
+        defs = HQMF::DataCriteria.definition_for_template_id(template_id, 'r2cql')
+
+        # If the new template oids didn't work, try a lookup using the older
         # template oids.
-        defs = HQMF::DataCriteria.definition_for_template_id(template_id, 'r2cql') unless defs
+        defs = HQMF::DataCriteria.definition_for_template_id(template_id, 'r2') unless defs
 
         if defs
           @definition = defs['definition']

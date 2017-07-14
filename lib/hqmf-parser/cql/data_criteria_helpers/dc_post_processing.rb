@@ -28,12 +28,12 @@ module HQMF2CQL
         # MAT 5.3; we want to support measures exported using 5.3, but also
         # measures that were exported using previous versions of the MAT.
 
-        # Try a lookup using the older template oids.
-        mapping = HQMF2::ValueSetHelper.get_mapping_for_template(t)
+        # Try a lookup using the newer template oids.
+        mapping = HQMF2CQL::ValueSetHelper.get_mapping_for_template(t)
 
-        # If the old template oids didn't work, try a lookup using the newer
+        # If the new template oids didn't work, try a lookup using the older
         # template oids.
-        mapping = HQMF2CQL::ValueSetHelper.get_mapping_for_template(t) unless mapping
+        mapping = HQMF2::ValueSetHelper.get_mapping_for_template(t)unless mapping
 
         handle_mapping_template(mapping)
         break if mapping # Quit if one template id with a mapping has set these values
