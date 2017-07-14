@@ -37,7 +37,11 @@ require_relative 'hqmf-parser/2.0/population_criteria'
 require_relative 'hqmf-parser/2.0/precondition'
 
 require_relative 'hqmf-parser/cql/document'
+require_relative 'hqmf-parser/cql/data_criteria_helpers/dc_definition_from_template_or_type_extract'
 require_relative 'hqmf-parser/cql/document_helpers/doc_population_helper'
+require_relative 'hqmf-parser/cql/data_criteria_helpers/dc_post_processing'
+require_relative 'hqmf-parser/cql/data_criteria'
+require_relative 'hqmf-parser/cql/value_set_helper'
 
 require_relative 'hqmf-model/data_criteria.rb'
 require_relative 'hqmf-model/document.rb'
