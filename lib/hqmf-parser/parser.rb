@@ -52,6 +52,10 @@ module HQMF
         doc = HQMF2::Document.parse(xml_contents)
         hqmf2 = !doc.at_xpath("/cda:QualityMeasureDocument/cda:typeId[@root='2.16.840.1.113883.1.3' and @extension='POQM_HD000001UV02']").nil?
         cql = !doc.at_xpath("/cda:QualityMeasureDocument/cda:relatedDocument/cda:expressionDocument/cda:text[@mediaType='application/cql']").nil?
+        if !cql
+          # The media type changed for MAT version 5.3
+          cql = !doc.at_xpath("/cda:QualityMeasureDocument/cda:relatedDocument/cda:expressionDocument/cda:text[@mediaType='text/cql']").nil?
+        end
         hqmf2 && cql
       end
 
