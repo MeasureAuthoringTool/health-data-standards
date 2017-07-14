@@ -24,10 +24,7 @@ module HealthDataStandards
           kv_pair = template_id_map(version).find {|k, v| v['definition'] == definition &&
                                                  v['status'] == status &&
                                                  v['negation'] == negation}
-        when "r2"
-          kv_pair = template_id_map(version).find {|k, v| v['definition'] == definition &&
-                                                 v['status'] == status}
-        when "r2cql"
+        when "r2", "r2cql"
           kv_pair = template_id_map(version).find {|k, v| v['definition'] == definition &&
                                                  v['status'] == status}
         end
