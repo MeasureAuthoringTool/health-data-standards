@@ -6,13 +6,13 @@ module HQMF2CQL
     def extract_populations
       @populations_cql_map = extract_populations_cql_map
       extract_populations_and_criteria
-      # Return
+      # Return via destructuring
       [@populations, @population_criteria, @populations_cql_map, @observations]
     end
 
     # Extracts potential measure observations from the CQL based HQMF.
     # This function needs to return a boolean so that it will continue to work with 
-    #   HQMF2::DocumentPopulationHelper::extract_populations_and_criteria
+    # HQMF2::DocumentPopulationHelper::extract_populations_and_criteria
     # This function is being overridden because in CQL the observations are no longer data criteria in the HQMF.
     def extract_observations
       @observations = []
@@ -65,7 +65,7 @@ module HQMF2CQL
         }.each_pair do |criteria_id, criteria_element_name|
           criteria_def = population_def.at_xpath("cda:#{criteria_element_name}", HQMF2::Document::NAMESPACES)
           if criteria_def
-            # ignore Supplemental Data Elements
+            # Ignore Supplemental Data Elements
             next if HQMF::PopulationCriteria::STRAT == criteria_id &&
                 !criteria_def.xpath("cda:component[@typeCode='COMP']/cda:measureAttribute/cda:code[@code='SDE']").empty?
             cql_statement = criteria_def.at_xpath("*/*/cda:id", HQMF2::Document::NAMESPACES).attribute('extension').to_s.match(/"([^"]*)"/)
@@ -82,7 +82,7 @@ module HQMF2CQL
       populations_cql_map
     end
 
-    # Extracts the name of the main cql library from the Population Criteria Section
+    # Extracts the name of the main cql library from the Population Criteria Section.
     def extract_main_library
       population_criteria_sections = @doc.xpath("//cda:populationCriteriaSection/cda:component[@typeCode='COMP']", HQMF2::Document::NAMESPACES)
       criteria_section = population_criteria_sections.at_xpath("cda:initialPopulationCriteria", HQMF2::Document::NAMESPACES)
