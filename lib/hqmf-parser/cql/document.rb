@@ -35,7 +35,7 @@ module HQMF2CQL
       extracted_data_criteria = []
       @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:dataCriteriaSection/cda:entry', NAMESPACES).each do |entry|
         extracted_data_criteria << entry
-        dc = HQMF2::DataCriteria.new(entry) # Create new data criteria
+        dc = HQMF2CQL::DataCriteria.new(entry) # Create new data criteria
         sdc = dc.clone # Clone data criteria
         sdc.id += '_source' # Make it a source
 

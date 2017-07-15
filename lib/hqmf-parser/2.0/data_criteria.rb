@@ -148,7 +148,10 @@ module HQMF2
     # not give us the correct SDC data when we are trying to recreate since we are looping back through
     # the same data criteria before it has finished processing: See: DocUtilities.extract_source_data_criteria
     def clone
-      other = DataCriteria.new(@entry, @data_criteria_references, @occurrences_map)
+      # Using 'self.class.new' in order to allow this DataCriteria class as
+      # well as any future new extending DataCriteria classes to use this clone
+      # function.
+      other = self.class.new(@entry, @data_criteria_references, @occurrences_map)
       other.instance_variable_set(:@id, @id)
       other.instance_variable_set(:@original_id, @original_id)
       other.instance_variable_set(:@property, @property)

@@ -11,7 +11,8 @@ module HealthDataStandards
         if @id_map.blank?
           @id_map = {
             'r1' => JSON.parse(File.read(File.expand_path('../hqmf_template_oid_map.json', __FILE__))),
-            'r2' => JSON.parse(File.read(File.expand_path('../hqmfr2_template_oid_map.json', __FILE__)))
+            'r2' => JSON.parse(File.read(File.expand_path('../hqmfr2_template_oid_map.json', __FILE__))),
+            'r2cql' => JSON.parse(File.read(File.expand_path('../hqmfr2cql_template_oid_map.json', __FILE__)))
           }
         end
         @id_map[version]
@@ -23,7 +24,7 @@ module HealthDataStandards
           kv_pair = template_id_map(version).find {|k, v| v['definition'] == definition &&
                                                  v['status'] == status &&
                                                  v['negation'] == negation}
-        when "r2"
+        when "r2", "r2cql"
           kv_pair = template_id_map(version).find {|k, v| v['definition'] == definition &&
                                                  v['status'] == status}
         end
