@@ -23,7 +23,7 @@ class Encounter < Entry
   alias :principal_diagnosis :principalDiagnosis
   alias :principal_diagnosis= :principalDiagnosis=
   alias :admissionSource :admission_source
-  alias :admissionSource :admission_source=
+  alias :admissionSource= :admission_source=
 
   def shift_dates(date_diff)
     super
