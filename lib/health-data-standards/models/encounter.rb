@@ -11,7 +11,7 @@ class Encounter < Entry
   embeds_one :transferFrom, class_name: "Transfer"
 
   embeds_one :facility
-  embeds_one :admission_source, class_name: "Facility"
+  embeds_one :admission_source, class_name: "AdmissionSource"
   embeds_one :reason, class_name: "Entry"
 
   belongs_to :performer, class_name: "Provider"
@@ -22,6 +22,8 @@ class Encounter < Entry
   alias :transfer_from= :transferFrom=
   alias :principal_diagnosis :principalDiagnosis
   alias :principal_diagnosis= :principalDiagnosis=
+  alias :admissionSource :admission_source
+  alias :admissionSource= :admission_source=
 
   def shift_dates(date_diff)
     super
