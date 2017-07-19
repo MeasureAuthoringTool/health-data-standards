@@ -28,9 +28,11 @@ module HealthDataStandards
 
         def extract_informant_provider(doc)
           informant = doc.xpath("//cda:informant[position()=1]")
-          informant_prov = extract_informant_provider_data(informant)
-          provider = find_or_create_provider(informant_prov)
-          provider
+          if informant
+            informant_prov = extract_informant_provider_data(informant)
+            provider = find_or_create_provider(informant_prov)
+          end
+          provider ? provider : nil
         end
 
         private
