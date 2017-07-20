@@ -2,9 +2,10 @@ class Provider
   include Personable
   include Mongoid::Tree
   include Mongoid::Attributes::Dynamic
-  
+
   NPI_OID = '2.16.840.1.113883.4.6'
   TAX_ID_OID = '2.16.840.1.113883.4.2'
+  CCN_OID = '2.16.840.1.113883.4.336'.freeze
 
   field :specialty   , type: String
   field :phone       , type: String
@@ -38,6 +39,21 @@ class Provider
   def tin
     cda_id_tin = self.cda_identifiers.where(root: TAX_ID_OID).first
     cda_id_tin ? cda_id_tin.extension : nil
+  end
+
+  def ccn=(a_ccn)
+    cda_id_ccn = self.cda_identifiers.where(root: CCN_OID).first
+    if cda_id_ccn
+      cda_id_ccn.extension = a_ccn
+      cda_id_ccn.save!
+    else
+      self.cda_identifiers << CDAIdentifier.new(root: CCN_OID, extension: a_ccn)
+    end
+  end
+
+  def ccn
+    cda_id_ccn = self.cda_identifiers.where(root: CCN_OID).first
+    cda_id_ccn ? cda_id_ccn.extension : nil
   end
 
   def records(effective_date=nil)
