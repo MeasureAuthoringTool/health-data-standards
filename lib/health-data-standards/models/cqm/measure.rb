@@ -185,7 +185,7 @@ module HealthDataStandards
       # UnisLink - Custom prefilter method for encounter dates
       def prefilter_enc_qry(effective_start_date, effective_date)
         query = []
-        if self.prefilter_enc_qry && effective_start_date && effective_date
+        if self.use_enc_prefilter && effective_start_date && effective_date
           query = [{"encounters.time" => {"$gte" => effective_start_date, "$lte" => effective_date}}, 
                    {"encounters.start_time" => {"$gte" => effective_start_date, "$lte" => effective_date}}]
         end
