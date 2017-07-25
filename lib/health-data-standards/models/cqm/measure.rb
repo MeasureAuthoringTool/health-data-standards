@@ -181,16 +181,7 @@ module HealthDataStandards
           end
         end
       end
-
-      # UnisLink - Custom prefilter method for encounter dates
-      def prefilter_enc_qry(effective_start_date, effective_date)
-        query = []
-        if self.use_enc_prefilter && effective_start_date && effective_date
-          query = [{"encounters.time" => {"$gte" => effective_start_date, "$lte" => effective_date}}, 
-                   {"encounters.start_time" => {"$gte" => effective_start_date, "$lte" => effective_date}}]
-        end
-      end
-
+      
       # For submeasures, this will return something like IPP_1
       def ipp_id
         ipp_hqmf_id = self.population_ids['IPP']
