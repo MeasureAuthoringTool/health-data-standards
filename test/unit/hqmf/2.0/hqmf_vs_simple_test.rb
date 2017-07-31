@@ -192,6 +192,10 @@ class HQMFVsSimpleTest < Minitest::Test
     #  or is superfluous in HQMF (they both contain "STRAT"s)
     hqmf_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, _value| key == 'stratification' } }
 
+    # the population_index and stratification_index were added to support CQL work and do not affect QDM-based measures
+    hqmf_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, _value| key == 'population_index' } }
+    hqmf_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, _value| key == 'stratification_index' } }
+
     # population titles in HQMF2 can be ignored
     hqmf_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, _value| key == 'title' } }
     simple_xml_model.instance_variable_get(:@populations).map! { |pop| pop.reject { |key, _value| key == 'title' } }
