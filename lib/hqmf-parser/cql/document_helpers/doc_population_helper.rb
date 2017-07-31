@@ -73,9 +73,7 @@ module HQMF2CQL
               populations_cql_map[criteria_id] = []
             end
             cql_statement = cql_statement.to_s.delete('\\"')
-            unless populations_cql_map[criteria_id].include? cql_statement
-              populations_cql_map[criteria_id].push cql_statement
-            end
+            populations_cql_map[criteria_id].push cql_statement
           end
         end
       end
