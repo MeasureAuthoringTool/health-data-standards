@@ -110,7 +110,6 @@ module HealthDataStandards
           data_criteria_oid ||= HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                                       data_criteria.status || '',
                                                                                       data_criteria.negation, "r2")
-          HealthDataStandards.logger.warn("Looking for dc [#{data_criteria_oid}]")
           filtered_entries = []
           entries = []
           
