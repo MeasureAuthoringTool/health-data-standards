@@ -55,7 +55,7 @@ module HQMF2CQL
       population_def.xpath(stratifier_criteria_xpath, HQMF2::Document::NAMESPACES)
         .each_with_index do |criteria_def, criteria_def_index|
         # Skip this Stratification if any precondition doesn't contain any preconditions
-        next unless PopulationCriteria.new(criteria_def, @document, @id_generator)
+        next unless HQMF2::PopulationCriteria.new(criteria_def, @document, @id_generator)
                     .preconditions.all? { |prcn| prcn.preconditions.length > 0 }
         index = number_of_populations + ((population_index - 1) * criteria_def.xpath('./*/cda:precondition').length) +
                 criteria_def_index
