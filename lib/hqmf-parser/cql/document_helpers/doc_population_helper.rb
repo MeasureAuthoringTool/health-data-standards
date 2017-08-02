@@ -47,6 +47,33 @@ module HQMF2CQL
       !@observations.empty?
     end
 
+    # Generate the stratifications of populations, if any exist
+    # for CQL, adds 'population_index' and 'stratification_index'
+    def handle_stratifications(population_def, number_of_populations, population, id_def, population_index)
+      # handle stratifications (EP137, EP155)
+      stratifier_criteria_xpath = "cda:component/cda:stratifierCriteria[not(cda:component/cda:measureAttribute/cda:code[@code  = 'SDE'])]/.."
+      population_def.xpath(stratifier_criteria_xpath, HQMF2::Document::NAMESPACES)
+        .each_with_index do |criteria_def, criteria_def_index|
+        # Skip this Stratification if any precondition doesn't contain any preconditions
+        next unless PopulationCriteria.new(criteria_def, @document, @id_generator)
+                    .preconditions.all? { |prcn| prcn.preconditions.length > 0 }
+        index = number_of_populations + ((population_index - 1) * criteria_def.xpath('./*/cda:precondition').length) +
+                criteria_def_index
+        criteria_id = HQMF::PopulationCriteria::STRAT
+        stratified_population = population.dup
+        stratified_population['stratification'] = criteria_def.at_xpath('./*/cda:id/@root').try(:value) ||
+                                                  "#{criteria_id}-#{criteria_def_index}"
+        build_population_criteria(criteria_def, criteria_id, stratified_population)
+
+        stratified_population['id'] = id_def ? "#{id_def.value} - Stratification #{criteria_def_index + 1}" : "Population#{index}"
+        title_def = population_def.at_xpath('cda:title/@value', HQMF2::Document::NAMESPACES)
+        stratified_population['title'] = title_def ? "#{title_def.value} - Stratification #{criteria_def_index + 1}" : "Population #{index}"
+        stratified_population['population_index'] = population_index
+        stratified_population['stratification_index'] = criteria_def_index
+        @stratifications << stratified_population
+      end
+    end
+
     # Extracts the mappings between actual HQMF populations and their
     # corresponding CQL define statements.
     def extract_populations_cql_map
