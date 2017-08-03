@@ -27,8 +27,8 @@ module HQMF2CQL
       # remove * Value Set from title
       title_match = title.match(/(.*) \w+ [Vv]alue [Ss]et/)
       @title = title_match[1] if title_match && title_match.length > 1
-
-      @description = "#{@description}: #{title}"
+      
+      @description = "#{@description}: #{title}" if (/: #{title}$/).match(@description).nil?
     end
   end
 end
