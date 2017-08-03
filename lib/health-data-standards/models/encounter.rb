@@ -5,7 +5,7 @@ class Encounter < Entry
   field :dischargeTime, as: :discharge_time, type: Integer
 
   embeds_one :principalDiagnosis, class_name: "EncounterPrincipalDiagnosis"
-  embeds_one :diagnosis, class_name: "EncounterPrincipalDiagnosis"
+  embeds_one :diagnoses, class_name: "EncounterPrincipalDiagnosis"
   
   embeds_one :transferTo, class_name: "Transfer"
   embeds_one :transferFrom, class_name: "Transfer"
