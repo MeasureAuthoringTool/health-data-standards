@@ -1,7 +1,5 @@
 require_relative '../../../test_helper'
 
-require 'pry'
-
 class DataCriteriaTest <  Minitest::Test
   HQMF_CQL_ROOT = File.join('test', 'fixtures', 'hqmf', 'cql')
 
