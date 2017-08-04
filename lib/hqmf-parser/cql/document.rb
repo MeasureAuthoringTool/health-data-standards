@@ -55,17 +55,15 @@ module HQMF2CQL
       description_hash = {}
       data_criteria_index_lookup = {}
       # Find the criteria that are negated
-      # At the same time build a hash of criteria and their descriptions
+      # At the same time build a hash of all criteria and their code_list_id, definition, status, and negation status
       @data_criteria.each_with_index do |criterion, source_index|
         negated_criteria[source_index] = criterion if criterion.negation
-        # Using the criterion name as there might be multiples of the same description
-        # description_hash[criterion] = detail['description']
         data_criteria_index_lookup[source_index] = [criterion.code_list_id, criterion.definition, criterion.status, criterion.negation]
       end
 
       unless negated_criteria.count == 0
         negated_criteria.each do |negated_index, criterion|
-          # Check if there is a criterion has the affirmative description
+          # Check if there is a criterion with the same OID, definition and status BUT that isn't negated
           unless data_criteria_index_lookup.value?([criterion.code_list_id, criterion.definition, criterion.status, false])
             # Make the new name based on the title, definition, and status
             spoofed_title = criterion.title.gsub(' ', '')
@@ -78,11 +76,11 @@ module HQMF2CQL
             # Remove negation from description
             # sometimes "Not Done" used: "Communication: From Provider To Patient, Not Done"
             # should transform to "Communication: From Provider To Patient"
-            description = description.gsub(', Not Done', '')
+            description.gsub!(', Not Done', '')
             
             # sometimes just "Not" used: "Encounter, Not Performed"
             # should transform to "Encounter, Performed"
-            description = description.gsub(', Not', ', ')
+            description.gsub!(', Not', ',')
             
             criterion.instance_variable_set(:@description, description)
             criterion.instance_variable_set(:@source_data_criteria, 'Derived from ' + criterion.source_data_criteria)
