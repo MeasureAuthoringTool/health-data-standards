@@ -12,9 +12,6 @@ class Procedure < Entry
   # status as defined in health-data-standards/lib/hqmf-model/data_criteria.json.
   field :qdm_status,          type: Hash
 
-  field :radiation_dose,      type: Hash 
-  field :radiation_duration,  type: Hash
-
   # QDM 5.0 addition to Diagnostic Study, Performed
   field :result_date_time,    type: Integer
   # Component attribute is for Diagnostic, Performed which is classified as a procedure
