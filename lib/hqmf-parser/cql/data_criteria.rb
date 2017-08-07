@@ -28,7 +28,30 @@ module HQMF2CQL
       title_match = title.match(/(.*) \w+ [Vv]alue [Ss]et/)
       @title = title_match[1] if title_match && title_match.length > 1
       
-      @description = "#{@description}: #{title}" if (/: #{title}$/).match(@description).nil?
+      @description = "#{@description}: #{title}"
     end
+
+    # In certain situations it is necessary to have a negated data criterion 
+    # copied to a "positive" form.
+    def make_criterion_positive
+      @negation = false
+
+      # Remove negation from description
+      # sometimes "Not Done" used: "Communication: From Provider To Patient, Not Done"
+      # should transform to "Communication: From Provider To Patient"
+      @description.gsub!(', Not Done', '')
+      
+      # sometimes just "Not" used: "Encounter, Not Performed"
+      # should transform to "Encounter, Performed"
+      @description.gsub!(', Not', ',')
+
+      @source_data_criteria = 'Derived from ' + @source_data_criteria
+            
+      # Looking to remove the word 'Not'.  Using lookahead and lookbehind in the regex
+      # criterion.id = criterion.id.gsub(/(?<=[a-z])Not(?=[A-Z])/, '') + '_spoof'
+      @id = @id.gsub(/(?<=[a-z])Not(?=[A-Z])/, '') + '_spoofed'
+
+    end
+    
   end
 end
