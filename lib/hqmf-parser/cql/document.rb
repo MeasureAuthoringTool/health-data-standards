@@ -65,10 +65,10 @@ module HQMF2CQL
         negated_criteria.each do |criterion|
           # Check if there is a criterion with the same OID, definition and status BUT that isn't negated
           unless data_criteria_index_lookup.value?([criterion.code_list_id, criterion.definition, criterion.status, false])
-            smiley_face = criterion.clone
-            smiley_face.make_criterion_positive
-            @data_criteria << smiley_face
-            sdc = smiley_face.clone
+            spoofed_positive_instance = criterion.clone
+            spoofed_positive_instance.make_criterion_positive
+            @data_criteria << spoofed_positive_instance
+            sdc = spoofed_positive_instance.clone
             sdc.id += '_source'
             @source_data_criteria << sdc
           end
