@@ -3,9 +3,9 @@ class Encounter < Entry
   field :dischargeDisposition, as: :discharge_disposition, type: Hash
   field :admitTime, as: :admit_time, type: Integer
   field :dischargeTime, as: :discharge_time, type: Integer
+  field :diagnosis, type: Hash # This is a Hash to align with the 'Collection' object
 
   embeds_one :principalDiagnosis, class_name: "EncounterPrincipalDiagnosis"
-  embeds_one :diagnosis, class_name: "EncounterPrincipalDiagnosis"
   
   embeds_one :transferTo, class_name: "Transfer"
   embeds_one :transferFrom, class_name: "Transfer"
