@@ -37,7 +37,7 @@ module HealthDataStandards
         if preferred_code
           code_system_oid = HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(preferred_code['code_set'])
           code_string = "<#{options['tag_name']} code=\"#{preferred_code['code']}\" codeSystem=\"#{code_system_oid}\" #{options['extra_content']} "
-          code_string += "displayName=\"#{ERB::Util.html_escape entry.description}\"" if entry.respond_to?(:description)
+          code_string += "displayName=\"#{ERB::Util.html_escape entry.description}\"" if entry.respond_to?(:description) && !entry.description.empty?
           code_string += ">"
         else
           code_string = "<#{options['tag_name']} "
