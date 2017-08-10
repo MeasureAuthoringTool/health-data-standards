@@ -486,5 +486,28 @@ module HQMF
       hash
     end  
   end
+
+  class Facility
+    include HQMF::Conversion::Utilities
+    # A Facility has a 'Facility Location' code as well as a 'Location Period'.
+    # A 'Location Period' is a start time and end time.
+    attr_accessor :type, :code, 
+    
+    def self.new(type, code, code_list_id, title)
+      @type = type || 'FAC'
+      @code = HQMF::Coded.new(@type, nil, nil, code_list_id, title)
+    end
+      
+    def self.from_json(json)
+      code = json['code'] if json['code']
+      HQMF::Facility.new(json["type"], code, json['code_list_id'], json['title'])
+    end
+
+    def to_json
+      hash = build_hash(self, [:type])
+      hash['code'] = @code.to_json
+      hash
+    end  
+  end
   
 end
