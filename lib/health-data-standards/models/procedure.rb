@@ -20,7 +20,7 @@ class Procedure < Entry
   # Component attribute is for Diagnostic, Performed which is classified as a procedure
   field :components,          type: Hash
  
-  embeds_one :facility
+  field :facility,            type: Hash # Hash to align with 'Collections' object
 
   belongs_to :performer, class_name: "Provider"
 
