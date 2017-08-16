@@ -89,7 +89,8 @@ module HQMF
               # MISSING Time - The time that the patient passed away
 
               # Custom field values
-              'FLFS' => {title:'Fulfills', coded_entry_method: :fulfills, code: 'FLFS', field_type: :reference},
+              # QDM 5.3 Update: "Related To" replaces Fulfills. We are keeping the fulfills code and only make changes to the UI.
+              'FLFS' => {title:'Related To', coded_entry_method: :fulfills, code: 'FLFS', field_type: :reference},
               'SOURCE' => {title:'Source', coded_entry_method: :source, code: '260753009', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.2001.2', field_type: :value},
               'TRANSFER_FROM' => {title:'Transfer From', coded_entry_method: :transfer_from, code: 'TRANSFER_FROM', template_id: '2.16.840.1.113883.10.20.24.3.81', field_type: :value},
               'TRANSFER_FROM_DATETIME' => {title:'Transfer From Date/Time', coded_entry_method: :transfer_from_time, code: 'ORG_TIME', template_id: '2.16.840.1.113883.10.20.24.3.81', field_type: :nested_timestamp},
