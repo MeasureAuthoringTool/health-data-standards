@@ -28,17 +28,13 @@ class Encounter < Entry
   def shift_dates(date_diff)
     super
     if self.facility
-      self.shift_facility_dates(date_diff)
+      # Facility is now stored as a Hash; shift its dates by updating its start_time and end_time values.
+      self.facility['start_time'] += date_diff if self.facility['start_time']
+      self.facility['end_time'] += date_diff if self.facility['end_time']
     end
     
     self.admitTime = (self.admitTime.nil?) ? nil : self.admitTime + date_diff
     self.dischargeTime = (self.dischargeTime.nil?) ? nil : self.dischargeTime + date_diff
-  end
-
-  def shift_facility_dates(date_diff)
-    # Facility is now stored as a Hash; shift its dates by updating its start_time and end_time values.
-    self.facility['start_time'] += date_diff if self.facility['start_time']
-    self.facility['end_time'] += date_diff if self.facility['end_time']
   end
 
 end
