@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'byebug'
 class DateShiftTest  < Minitest::Test
 
 ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},

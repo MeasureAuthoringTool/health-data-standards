@@ -38,13 +38,8 @@ class Encounter < Entry
   def shift_facility_dates(date_diff)
     # Facility is now stored as a Hash; shift its dates by updating its start_time and end_time values.
     if self.facility
-      if self.facility['start_time']
-        self.facility['start_time'] = self.facility['start_time'] + date_diff
-      end
-
-      if self.facility['end_time']
-        self.facility['end_time'] = self.facility['end_time'] + date_diff
-      end
+      self.facility['start_time'] += date_diff if self.facility['start_time']
+      self.facility['end_time'] += date_diff if self.facility['end_time']
     end
   end
 

@@ -4,7 +4,6 @@ class Facility
   
   field :name, type: String
   field :code, type: Hash
-  field :type, type: String
   
   field :start_time, type: Integer
   field :end_time, type: Integer
