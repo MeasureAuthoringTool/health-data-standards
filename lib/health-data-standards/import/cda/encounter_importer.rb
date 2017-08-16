@@ -42,7 +42,7 @@ module HealthDataStandards
             facility.telecoms = participant_element.xpath("./cda:telecom").try(:map) {|te| import_telecom(te)}
             facility.code = extract_code(participant_element, './cda:code')
             extract_dates(participant_element.parent, facility, "time")
-            encounter.facility = facility
+            encounter.facility = facility.as_json()
           end
         end
     

@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'byebug'
 class DateShiftTest  < Minitest::Test
 
 ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
@@ -56,9 +57,9 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 				facility_values.each do |fac_vals|
 					e_vals = vals.merge enc_vals
 			  	entry = Encounter.new(e_vals)
-			  	entry.facility = Facility.new(fac_vals)
+				  entry.facility = Facility.new(fac_vals).as_json()
 					entry.shift_dates(date_shift)
-					entry_shift_assertions(e_vals,date_shift, entry) {|ev,ds,ent| entry_shift_assertions(fac_vals,ds,entry.facility)}
+					entry_shift_assertions(e_vals,date_shift, entry) {|ev,ds,ent| entry_shift_assertions(fac_vals,ds,Facility.new(entry.facility))}
 				end
 			end
 	  end				

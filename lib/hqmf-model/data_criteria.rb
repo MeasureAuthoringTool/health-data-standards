@@ -447,6 +447,8 @@ module HQMF
           value = HQMF::Component.from_json(json)
         when 'COL'
           value = HQMF::Collection.from_json(json)
+        when 'FAC'
+          value = Facility.new(json)
         else
           raise "Unknown value type [#{type}]"
         end
