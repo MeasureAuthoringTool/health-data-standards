@@ -1,4 +1,3 @@
-
 require 'test_helper'
 
 class EncounterImporterTest < Minitest::Test
@@ -17,12 +16,12 @@ class EncounterImporterTest < Minitest::Test
     assert encounter.codes['CPT'].include? '99241'
     assert_equal encounter.performer.title, "Dr."
     assert_equal 'Kildare', encounter.performer.family_name
-    assert_equal encounter.facility.name, 'Good Health Clinic'
+    assert_equal encounter.facility['name'], 'Good Health Clinic'
     assert encounter.reason.codes['SNOMED-CT'].include? '308292007'
     assert_equal encounter.admit_type['code'], 'xyzzy'
     assert_equal encounter.admit_type['codeSystem'], 'CPT'
-    assert_equal 'HL7 Healthcare Service Location', encounter.facility.code['codeSystem']
-    assert_equal Time.gm(2000, 4, 7).to_i, encounter.facility.start_time
-    assert_equal '1117-1', encounter.facility.code['code']
+    assert_equal 'HL7 Healthcare Service Location', encounter.facility['code']['codeSystem']
+    assert_equal Time.gm(2000, 4, 7).to_i, encounter.facility['start_time']
+    assert_equal '1117-1', encounter.facility['code']['code']
   end
 end
