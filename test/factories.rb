@@ -26,7 +26,7 @@ FactoryGirl.define do
     f.admit_type      {{"NUBC" => ["12345678"]}}
     f.discharge_disposition {{"NUBC" => ["23456789"]}}
     f.description       "Sample Encounter"
-    f.facility { FactoryGirl.build(:organization) }
+    f.facility { FactoryGirl.build(:organization).as_json() }
     f.sequence :oid do |n|
       "1.2.3.#{n}"
     end
