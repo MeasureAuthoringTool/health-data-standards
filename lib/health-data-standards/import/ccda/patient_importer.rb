@@ -11,8 +11,8 @@ module HealthDataStandards
           @section_importers[:results] = [generate_importer(ResultImporter, nil, '2.16.840.1.113883.3.560.1.5', 'performed')] #ResultImporter.new#
           @section_importers[:vital_signs] = [generate_importer(VitalSignImporter, nil, '2.16.840.1.113883.3.560.1.57', 'performed')] #VitalSignImporter.new#
           @section_importers[:medications] = [generate_importer(MedicationImporter, nil, '2.16.840.1.113883.3.560.1.13'),
-                                              generate_importer(CDA::MedicationImporter, "//cda:entry/cda:substanceAdministration[cda:entryRelationship/cda:supply/cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.17']", '2.16.840.1.113883.3.560.1.17', 'ordered'), 
-                                              generate_importer(CDA::MedicationImporter, "//cda:entry/cda:substanceAdministration[cda:entryRelationship/cda:supply/cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.18']", '2.16.840.1.113883.3.560.1.8', 'dispensed')]
+                                              generate_importer(MedicationOrderImporter, nil, '2.16.840.1.113883.3.560.1.17', 'ordered'), 
+                                              generate_importer(MedicationDispensedImporter, nil, '2.16.840.1.113883.3.560.1.8', 'dispensed')]
           @section_importers[:conditions] = [generate_importer(ConditionImporter, nil, '2.16.840.1.113883.3.560.1.2', 'active'), #ConditionImporter.new
                                              generate_importer(Cat1::EcogStatusImporter, nil, '2.16.840.1.113883.3.560.1.1001'),
                                              generate_importer(Cat1::TobaccoUseImporter, nil, '2.16.840.1.113883.3.560.1.1001', 'completed')]
