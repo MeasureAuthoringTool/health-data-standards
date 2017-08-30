@@ -19,7 +19,7 @@ module HQMFModel
       
       expected_mismatches = [
         # ignore custom fulfills and previous ordinal field values
-        "FLFS - FULFILLS",
+        "FLFS - RELATED_TO",
         "ORDINAL - ORDINALITY",
         # the following represent display name changes that were necessary for the QDM 5.0 update
         "DISCHARGE_STATUS - DISCHARGE_DISPOSITION",
