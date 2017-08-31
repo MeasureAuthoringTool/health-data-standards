@@ -180,8 +180,8 @@ module HQMF2
       value_obj = nil
       value_obj = handle_attribute_value(attribute, value) if attribute.at_xpath('./cda:value', NAMESPACES)
 
-      # Handle the cms_id
-      @cms_id = "CMS#{value}v#{@hqmf_version_number}" if name.include? 'eMeasure Identifier'
+      # Handle the cms_id - changed to eCQM in MAT 5.4 (QDM 5.3)
+      @cms_id = "CMS#{value}v#{@hqmf_version_number}" if (name.include? 'eMeasure Identifier') || (name.include? 'eCQM Identifier')
 
       HQMF::Attribute.new(id, code, value, nil, name, id_obj, code_obj, value_obj)
     end
