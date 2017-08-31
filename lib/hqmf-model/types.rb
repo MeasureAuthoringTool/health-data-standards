@@ -494,7 +494,6 @@ module HQMF
     # @param [String] type
     # @param [Value] numerator
     # @param [Value] denominator
-  
     def initialize(type, numerator, denominator)
       @type = type || 'RT'
       @numerator = numerator
@@ -518,10 +517,6 @@ module HQMF
 
     def to_json
       build_hash(self, [:type, :numerator, :denominator])
-    end
-    
-    def stringify
-      "#{numerator? '\''}#{denominator}"
     end
 
     def ==(other)
