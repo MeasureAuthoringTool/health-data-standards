@@ -8,6 +8,8 @@ module HealthDataStandards
       field :user_id, type: String # Eventually we need to delete this from bundles when exporting
       field :categories, type: Hash
 
+      field :profile, type: String
+
       belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle", inverse_of: :value_sets
 
       index({oid: 1})
