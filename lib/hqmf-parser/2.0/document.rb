@@ -191,8 +191,8 @@ module HQMF2
       value_obj = nil
       value_obj = handle_attribute_value(attribute, value) if attribute.at_xpath('./cda:value', NAMESPACES)
 
-      # Handle the cms_id
-      @cms_id = "CMS#{value}v#{@hqmf_version_number.to_i}" if name.include? 'eMeasure Identifier'
+      # Handle the cms_id - changed to eCQM in MAT 5.4 (QDM 5.3)
+      @cms_id = "CMS#{value}v#{@hqmf_version_number}" if (name.include? 'eMeasure Identifier') || (name.include? 'eCQM Identifier')
 
       HQMF::Attribute.new(id, code, value, nil, name, id_obj, code_obj, value_obj)
     end
@@ -283,7 +283,7 @@ module HQMF2
         end
       end
     end
-    
+
     # For specific occurrence data criteria, make sure the source data criteria reference points
     # to the correct source data criteria.
     def handle_specific_source_data_criteria_reference(criteria)
@@ -299,6 +299,6 @@ module HQMF2
         original_sdc.instance_variable_set(:@code_list_id, criteria.code_list_id)
       end
     end
-    
+
   end
 end
