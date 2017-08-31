@@ -450,6 +450,8 @@ module HQMF
           value = HQMF::Collection.from_json(json)
         when 'FAC'
           value = Facility.new(json)
+        when 'RT'
+          value = HQMF::Ratio.from_json(json)
         else
           raise "Unknown value type [#{type}]"
         end
