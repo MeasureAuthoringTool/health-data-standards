@@ -78,7 +78,7 @@ class Entry
     when 'resolved'
       self.status_code = {'SNOMED-CT' => ['413322009']}
     else
-      self.status_code = {'HL7 ActStatus' => [status_text]}
+      self.status_code = { 'HL7 ActStatus' => [status_text].flatten }
     end
   end
   
