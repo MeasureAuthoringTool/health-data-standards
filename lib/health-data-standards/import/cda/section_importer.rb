@@ -199,7 +199,9 @@ module HealthDataStandards
         end
 
         def extract_reason_or_negation(parent_element, entry)
-          reason_element = parent_element.at_xpath("./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value | ./cda:entryRelationship[@typeCode='RSON']/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:code")
+          reason_element = parent_element.at_xpath("./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value 
+                                    | ./cda:entryRelationship[@typeCode='RSON']/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:code
+                                    | ./cda:entryRelationship[@typeCode='RSON'][cda:templateId/@root='2.16.840.1.113883.10.20.22.4.53']/cda:observation/cda:code")
           negation_indicator = parent_element['negationInd']
           if reason_element
             code_system_oid = reason_element['codeSystem']
