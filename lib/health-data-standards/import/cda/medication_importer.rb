@@ -65,9 +65,9 @@ module HealthDataStandards
         def extract_codes_if_negation(parent_element, entry)
           negation_indicator = parent_element['negationInd']
           if negation_indicator.nil? && parent_element.parent.name == "entryRelationship"
-            super(parent_element.parent.parent, medication)
+            super(parent_element.parent.parent, entry)
           elsif negation_indicator.eql?('true')
-            super(parent_element, medication)
+            super(parent_element, entry)
           end
         end        
 
