@@ -65,9 +65,18 @@ module HealthDataStandards
         def extract_codes_if_negation(parent_element, entry)
           negation_indicator = parent_element['negationInd']
           if negation_indicator.nil? && parent_element.parent.name == "entryRelationship"
-            super(parent_element.parent.parent, entry)
-          elsif negation_indicator.eql?('true')
-            super(parent_element, entry)
+            negation_indicator = parent_element.parent.parent['negationInd']
+          end
+          if negation_indicator.eql?('true')
+            code_elements = parent_element.xpath(@code_xpath)
+            code_elements.each do | code_element |
+              valueSetKey = code_element['sdtc:valueSet']
+              valueSet = HealthDataStandards::SVS::ValueSet.by_oid(valueSetKey).first if valueSetKey
+              concept = valueSet.concepts[0] if valueSet
+              if concept && concept['code_system'] && concept['code']
+                entry.add_code(concept['code'], CodeSystemHelper.code_system_for(concept['code_system']))
+              end
+            end
           end
         end        
 
