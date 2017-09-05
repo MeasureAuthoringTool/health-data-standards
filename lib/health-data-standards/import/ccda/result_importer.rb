@@ -22,6 +22,19 @@ module HealthDataStandards
 
         end
 
+        
+        def extract_values(parent_element, entry)
+          super
+          if !entry.values.present?
+            referenceValue = parent_element.xpath("./cda:code/cda:originalText/cda:reference/@value")
+            referenceKey = referenceValue.first.value.gsub('#','') if referenceValue && referenceValue.first
+            value_element = parent_element.xpath("//cda:content[@ID='#{referenceKey}']/../../cda:td[3]")
+            extract_value(parent_element, value_element.first, entry) if value_element.first
+          end
+        end
+
+
+
       end
     end
   end
