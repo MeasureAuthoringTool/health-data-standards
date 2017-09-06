@@ -445,7 +445,12 @@ module HQMF
           # Currentlty forcing this as the SimpleXML reresentation contains a fulfills for these types
           value = HQMF::TypedReference.new(json["reference"], 'FLFS', '')
         when 'CMP'
-          value = HQMF::Component.from_json(json)
+          # For ResultComponent, json will have a value or "" for referenceRangeLow_value, for Component, will be nil
+          if json['referenceRangeLow_value']
+            value = ResultComponent.new(json)
+          else
+            value = Component.new(json)
+          end
         when 'COL'
           value = HQMF::Collection.from_json(json)
         when 'FAC'
