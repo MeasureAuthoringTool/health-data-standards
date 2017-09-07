@@ -9,7 +9,7 @@ module HealthDataStandards
           @section_importers[:procedures] = [generate_importer(ProcedureImporter, nil, '2.16.840.1.113883.3.560.1.57', ['performed', 'ordered']),
                                              generate_importer(CDA::ProcedureImporter, "//cda:entry/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.103' or cda:templateId/@root='2.16.840.1.113883.10.20.22.4.78']", '2.16.840.1.113883.3.560.1.21')] #ProcedureImporter.new#
           @section_importers[:results] = [generate_importer(ResultImporter, nil, '2.16.840.1.113883.3.560.1.5', 'performed'), #ResultImporter.new#
-                                          generate_importer(CDA::ResultImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.26']", '2.16.840.1.113883.3.560.1.85')]  #functional status, performed 
+                                          generate_importer(CDA::ResultImporter, "//cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.26']", '2.16.840.1.113883.3.560.1.85')]  #functional status, performed 
           @section_importers[:vital_signs] = [generate_importer(VitalSignImporter, nil, '2.16.840.1.113883.3.560.1.57', 'performed')] #VitalSignImporter.new#
           @section_importers[:medications] = [generate_importer(MedicationImporter, nil, '2.16.840.1.113883.3.560.1.13'),
                                               generate_importer(MedicationOrderImporter, nil, '2.16.840.1.113883.3.560.1.17', 'ordered'), 
