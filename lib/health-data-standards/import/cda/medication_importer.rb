@@ -52,7 +52,6 @@ module HealthDataStandards
 
         private
 
-        #unislink - medication reason imported by base - REVERTED
         def extract_reason_or_negation(parent_element, medication)
           negation_indicator = parent_element['negationInd']
           if negation_indicator.nil? && parent_element.parent.name == "entryRelationship"
