@@ -72,7 +72,7 @@ module HealthDataStandards
         params = { id: oid, ticket: get_ticket }
         params[:version] = version if version
         params[:includeDraft] = 'yes' if profile && include_draft
-        params[:profile] = profile
+        params[:profile] = profile if profile
         params[:effectiveDate] = effective_date if effective_date
         params[:programType] = program_name if program_name
         begin
