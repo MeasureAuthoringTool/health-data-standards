@@ -8,8 +8,6 @@ module HealthDataStandards
           @status_xpath = "./cda:statusCode"
           @code_xpath = "./cda:product/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code"
           @description_xpath = "./cda:product/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code/cda:originalText/cda:reference[@value]"
-          @type_of_med_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.8.1']/cda:code"
-          @indication_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.1.28']/cda:code"          
         end
 
         def extract_dates(parent_element, entry, element_name="effectiveTime")
