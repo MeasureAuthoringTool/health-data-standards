@@ -59,7 +59,8 @@ module HealthDataStandards
           laterality = entry_element.at_xpath(@laterality_xpath)
           if laterality
             # kept to be backward compatible
-            condition.laterality = { 'code_system' => CodeSystemHelper.code_system_for(laterality['codeSystem']), 'code' => laterality['code'] }
+            # UNISLINK
+            # condition.laterality = { 'code_system' => CodeSystemHelper.code_system_for(laterality['codeSystem']), 'code' => laterality['code'] }
             condition.anatomical_location = { 'code_system' => CodeSystemHelper.code_system_for(laterality['codeSystem']), 'code' => laterality['code'] }
           end
         end
