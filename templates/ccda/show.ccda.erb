@@ -47,8 +47,13 @@
   <author>
     <time value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
     <assignedAuthor>
-      <id/>
-      <addr/>
+      <id nullFlavor="NA"/>
+      <addr>
+        <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+        <city>Bedford</city>
+        <state>MA</state>
+        <postalCode>01730</postalCode>
+      </addr>
       <telecom value="tel:+1-781-271-3000"/>
       <assignedPerson>
         <name>Auto Generated</name>
@@ -58,7 +63,7 @@
   <custodian>
     <assignedCustodian>
       <representedCustodianOrganization>
-        <id/>
+        <id nullFlavor="NA"/>
         <name>Cypress</name>
         <telecom value="tel:+1-781-271-3000"/>
         <addr>
@@ -70,6 +75,14 @@
       </representedCustodianOrganization>
     </assignedCustodian>
   </custodian>
+  <documentationOf>
+    <serviceEvent classCode="PCPR">
+      <effectiveTime>
+        <low value="<%= Time.at(patient.birthdate).utc.to_formatted_s(:number) %>"/>
+        <high value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
+      </effectiveTime>
+    </serviceEvent>
+  </documentationOf>
   <component>
     <structuredBody>
       <% if patient.allergies.present? -%>
