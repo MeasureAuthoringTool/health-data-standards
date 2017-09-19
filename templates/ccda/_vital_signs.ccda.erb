@@ -22,7 +22,7 @@
             <id root="<%= UUID.generate %>"/>
             <%== code_display(entry, {'preferred_code_sets' => ['LOINC','SNOMED-CT']}) %>
             <text>
-              <reference value="vitals-desc-<%= i %>"/>
+              <reference value="#vitals-desc-<%= i %>"/>
             </text>
             <statusCode code="completed"/>
             <effectiveTime <%= value_or_null_flavor(entry.as_point_in_time) %>/>

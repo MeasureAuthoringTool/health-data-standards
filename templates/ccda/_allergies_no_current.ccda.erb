@@ -1,34 +1,9 @@
 <component>
   <!-- Allergies: patient has no allergies -->
-  <section>
-    <templateId root="2.16.840.1.113883.10.20.22.2.6"/>
+  <section nullFlavor="NI">
+    <templateId root="2.16.840.1.113883.10.20.22.2.6.1"/>
     <code code="48765-2" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Allergy List"/>
     <title>Allergies</title>                
     <text>There are no current allergies at the time of this document's creation.</text>
-    <entry typeCode="DRIV">
-      <act classCode="ACT" moodCode="EVN">
-        <templateId root="2.16.840.1.113883.10.20.22.4.30"/>
-        <id root="<%= UUID.generate %>"/>
-        <code nullFlavor="NA"/>
-        <statusCode code="active"/>
-        <effectiveTime>
-          <low nullFlavor="NA"/>
-        </effectiveTime>					
-        <entryRelationship typeCode="SUBJ" inversionInd="false">
-          <observation classCode="OBS" moodCode="EVN" negationInd="true">
-            <templateId root="2.16.840.1.113883.10.20.22.4.7"/>
-            <id root="<%= UUID.generate %>"/>
-            <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
-            <statusCode code="completed"/>
-            <effectiveTime>
-              <low nullFlavor="UNK"/>
-            </effectiveTime>
-            
-            <value xsi:type="CD" code="419199007"
-              codeSystem="2.16.840.1.113883.6.96" displayName="Allergy to Substance"/>
-          </observation>
-        </entryRelationship>
-      </act>
-    </entry>
   </section>
 </component>
