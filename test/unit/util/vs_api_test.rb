@@ -69,6 +69,14 @@ class VSApiTest < Minitest::Test
     end
   end
   
+  def test_api_v2_with_include_draft_no_profile
+    valueset_xml = %{<?xml version="1.0" encoding="UTF-8"?><RetrieveValueSetResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" cacheExpirationHint="2012-09-20T00:00:00-04:00" xmlns:nlm="urn:ihe:iti:svs:2008" xmlns="urn:ihe:iti:svs:2008"><ValueSet id="2.16.840.1.113883.11.20.9.23" version="Draft"></ValueSet></RetrieveValueSetResponse>}
+    api = HealthDataStandards::Util::VSApiV2.new("https://localhost/token", "https://localhost/vsservice", "myusername", "mypassword")
+    assert_raises HealthDataStandards::Util::MalformedVSQueryError do
+      api.get_valueset("oid", include_draft: true)
+    end
+  end
+  
   def test_api_v2_with_include_draft_specified_profile
     valueset_xml = %{<?xml version="1.0" encoding="UTF-8"?><RetrieveValueSetResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" cacheExpirationHint="2012-09-20T00:00:00-04:00" xmlns:nlm="urn:ihe:iti:svs:2008" xmlns="urn:ihe:iti:svs:2008"><ValueSet id="2.16.840.1.113883.11.20.9.23" version="Draft"></ValueSet></RetrieveValueSetResponse>}
     stub_request(:get,'https://localhost/vsservice').with(:query =>{:id=>"oid", :ticket=>"ticket", :includeDraft=>"yes", :profile=>"Test Profile"}).to_return(:body=>valueset_xml)

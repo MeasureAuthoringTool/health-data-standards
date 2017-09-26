@@ -4,6 +4,8 @@ module HealthDataStandards
   module Util
     class VSNotFoundError < StandardError
     end
+    class MalformedVSQueryError < StandardError
+    end
 
     class VSApi
       attr_accessor :api_url, :ticket_url, :username, :password
@@ -69,6 +71,9 @@ module HealthDataStandards
         profile = options.fetch(:profile, nil)
         effective_date = options.fetch(:effective_date, nil)
         program_name = options.fetch(:program, nil)
+        if profile.nil? && include_draft
+          raise MalformedVSQueryError, "Include Draft Specified, no Profile provided"
+        end
         params = { id: oid, ticket: get_ticket }
         params[:version] = version if version
         params[:includeDraft] = 'yes' if profile && include_draft
