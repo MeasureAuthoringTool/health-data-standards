@@ -27,7 +27,15 @@ class Encounter < Entry
     if self.facility
       self.facility.shift_dates(date_diff)
     end
-    
+
+    if self.transferTo
+      self.transferTo.shift_dates(date_diff)
+    end
+
+    if self.transferFrom
+      self.transferFrom.shift_dates(date_diff)
+    end
+
     self.admitTime = (self.admitTime.nil?) ? nil : self.admitTime + date_diff
     self.dischargeTime = (self.dischargeTime.nil?) ? nil : self.dischargeTime + date_diff
   end
