@@ -2,11 +2,11 @@
 <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:v3 http://xreg2.nist.gov:8080/hitspValidation/schema/cdar2c32/infrastructure/cda/C32_CDA.xsd">
   <realmCode code="US"/>
   <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
-  <templateId root="2.16.840.1.113883.10.20.22.1.1" />
-  <templateId root='2.16.840.1.113883.10.20.22.1.2'/> 
+  <templateId root="2.16.840.1.113883.10.20.22.1.1" extension="2015-08-01"/>
+  <templateId root="2.16.840.1.113883.10.20.22.1.2" extension="2015-08-01"/> 
   <id root="2.16.840.1.113883.19.5" extension="<%= patient.id %>" assigningAuthorityName="Cypress Project"/>
   <code code="34133-9" displayName="Summarization of episode note" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
-  <title>Cypress C32 Patient Test Record: <%= patient.first %> <%= patient.last %></title>
+  <title>Cypress C-CDA R2.1 Patient Test Record: <%= patient.first %> <%= patient.last %></title>
   <effectiveTime value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
   <confidentialityCode code="N"/>
   <languageCode code="en-US"/>
@@ -98,8 +98,8 @@
       <% if patient.results.present? -%>
         <%== render :partial => 'results', :locals => {:entries => patient.results} %>
       <% else -%>
-        <%== render :partial => 'results_no_current', :locals => {:entries => patient.medications} %>
-      <% end %>
+        <%== render :partial => 'results_no_current', :locals => {:entries => patient.results} %>
+      <% end -%>
       <% if patient.conditions.present? -%>
         <%== render :partial => 'conditions', :locals => {:entries => patient.conditions} %>
       <% else %>
@@ -108,13 +108,15 @@
       <% if patient.procedures.present? -%>
         <%== render :partial => 'procedures', :locals => {:entries => patient.procedures} %>
       <% else %>
-        <%== render :partial => 'procedures_no_current', :locals => {:entries => patient.conditions} %>
+        <%== render :partial => 'procedures_no_current', :locals => {:entries => patient.procedures} %>
       <% end -%>
 	    <% if patient.encounters.present? -%>
         <%== render :partial => 'encounters', :locals => {:entries => patient.encounters} %>
       <% end -%>
       <% if patient.vital_signs.present? -%>
         <%== render :partial => 'vital_signs', :locals => {:entries => patient.vital_signs} %>
+      <% else %>
+        <%== render :partial => 'vital_signs_no_current', :locals => {:entries => patient.vital_signs} %>
       <% end -%>
       <% if patient.immunizations.present? -%>
         <%== render :partial => 'immunizations', :locals => {:entries => patient.immunizations} %>
@@ -124,6 +126,8 @@
       <% end -%>
       <% if patient.social_history.present? -%>
         <%== render :partial => 'social_history', :locals => {:entries => patient.social_history} %>
+      <% else %>
+        <%== render :partial => 'social_history_no_current', :locals => {:entries => patient.social_history} %>
       <% end -%>
       <% if patient.medical_equipment.present? -%>
         <%== render :partial => 'medical_equipment', :locals => {:entries => patient.medical_equipment} %>
