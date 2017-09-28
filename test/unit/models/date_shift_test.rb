@@ -50,15 +50,31 @@ ENTRY_VALUES = [{start_time: nil, end_time: nil, time: nil},
 												{admitTime: nil}, {dischargeTime: nil},
 												{admitTime: nil}, {dischargeTime: nil}]
 		facility_values = [{start_time: nil, end_time: 20}]
+		transfer_from_values = [{time: 10}]
+		transfer_to_values = [{time: 10}]
 												
 		values.each do |vals|
 			encounter_values.each do |enc_vals|
 				facility_values.each do |fac_vals|
 					e_vals = vals.merge enc_vals
-			  	entry = Encounter.new(e_vals)
-			  	entry.facility = Facility.new(fac_vals)
+					entry = Encounter.new(e_vals)
+					entry.facility = Facility.new(fac_vals)
 					entry.shift_dates(date_shift)
 					entry_shift_assertions(e_vals,date_shift, entry) {|ev,ds,ent| entry_shift_assertions(fac_vals,ds,entry.facility)}
+				end
+				transfer_from_values.each do |t_from_vals|
+					e_vals = vals.merge enc_vals
+					entry = Encounter.new(e_vals)
+					entry.transferFrom = Transfer.new(t_from_vals)
+					entry.shift_dates(date_shift)
+					entry_shift_assertions(e_vals,date_shift, entry) {|ev,ds,ent| entry_shift_assertions(t_from_vals,ds,entry.transferFrom)}
+				end
+				transfer_to_values.each do |t_to_vals|
+					e_vals = vals.merge enc_vals
+					entry = Encounter.new(e_vals)
+					entry.transferTo = Transfer.new(t_to_vals)
+					entry.shift_dates(date_shift)
+					entry_shift_assertions(e_vals,date_shift, entry) {|ev,ds,ent| entry_shift_assertions(t_to_vals,ds,entry.transferTo)}
 				end
 			end
 	  end				
