@@ -115,6 +115,7 @@ module HealthDataStandards
           nrh = CDA::NarrativeReferenceHandler.new
           nrh.build_id_map(doc)
           @section_importers.each_pair do |section, importers|
+            Rails.logger.info "import*** #{Time.now.to_s} patient #{@patient_identifier} section #{section}"
             importers.each do |importer|
               entries = importer.package_entries(doc, nrh) if defined? importer.package_entries
               entries = importer.create_entries(doc, nrh)  if defined? importer.create_entries
@@ -131,6 +132,7 @@ module HealthDataStandards
         def get_demographics(patient, doc)
           entity_node = doc.at_xpath('/cda:ClinicalDocument/cda:id')
           patient[:entity_id] = entity_node['extension'] if entity_node
+          @patient_identifier = patient[:entity_id] || ""
           effective_date = doc.at_xpath('/cda:ClinicalDocument/cda:effectiveTime')['value']
           patient.effective_time = HL7Helper.timestamp_to_integer(effective_date)
           patient_role_element = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole')
