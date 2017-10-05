@@ -59,8 +59,6 @@ module HealthDataStandards
       # The VSAC V2 API needs a profile to be specified when using includeDraft. Future work on this 
       # class could include a function to fetch the list of profiles from the https://vsac.nlm.nih.gov/vsac/profiles
       # call.
-      DEFAULT_PROFILE = "Most Recent CS Versions"
-      
       def initialize(ticket_url, api_url, username, password, ticket_granting_ticket = nil)
         super(ticket_url, api_url, username, password, ticket_granting_ticket)
       end
@@ -71,7 +69,7 @@ module HealthDataStandards
         profile = options.fetch(:profile, nil)
         effective_date = options.fetch(:effective_date, nil)
         program_name = options.fetch(:program, nil)
-        if profile.nil? && include_draft
+        if (profile.nil? || profile.empty?) && include_draft
           raise MalformedVSQueryError, "Include Draft Specified, no Profile provided"
         end
         params = { id: oid, ticket: get_ticket }
