@@ -57,7 +57,7 @@ module HealthDataStandards
           negation_indicator = parent_element['negationInd']
           if negation_indicator.nil? && parent_element.parent.name == "entryRelationship"
             super(parent_element.parent.parent, medication)
-          elsif negation_indicator.eql?('true')
+          else #if negation_indicator.eql?('true') #UNISLINK - process Cat1
             super(parent_element, medication)
           end
         end
