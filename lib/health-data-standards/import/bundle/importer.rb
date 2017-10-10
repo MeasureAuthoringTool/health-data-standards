@@ -31,7 +31,7 @@ module HealthDataStandards
 
             bundle = unpack_bundle(zip_file)
 
-            bundle_versions = Hash[* HealthDataStandards::CQM::Bundle.where({}).collect{|b| [b._id, b.version]}.flatten]
+            bundle_versions = Hash[* HealthDataStandards::CQM::Bundle.where({:deprecated.ne => true}).collect{|b| [b._id, b.version]}.flatten]
             if bundle_versions.invert[bundle.version] && !(options[:delete_existing])
               raise "A bundle with version #{bundle.version} already exists in the database. "
             end
