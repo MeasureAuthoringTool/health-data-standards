@@ -55,7 +55,6 @@ module HealthDataStandards
 
     class VSApiV2 < VSApi
       
-      # This default profile is used when the include_draft option is true without a profile specified.
       # The VSAC V2 API needs a profile to be specified when using includeDraft. Future work on this 
       # class could include a function to fetch the list of profiles from the https://vsac.nlm.nih.gov/vsac/profiles
       # call.
