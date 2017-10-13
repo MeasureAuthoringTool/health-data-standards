@@ -35,6 +35,22 @@ module HealthDataStandards
           provider ? provider : nil
         end
 
+        def extract_informant_providers(doc)
+          informants = doc.xpath("//cda:informant")
+          informants.map do | informant |
+            informant_prov = extract_informant_provider_data(informant)
+
+            if !informant_prov[:cda_identifiers].nil? && !informant_prov[:cda_identifiers].empty?
+              clinical_groups_nodes = informant_prov[:cda_identifiers].select {|x| x[:root] == 'clinical.group.ids'}
+              group_codes = clinical_groups_nodes[0].extension if !clinical_groups_nodes.empty?
+              informant_prov[:cda_identifiers].delete_if {|x| x[:root] == 'clinical.group.ids'}
+            end
+            
+            ip = find_or_create_provider(informant_prov)
+            { :provider => ip, :group_codes => group_codes }
+          end
+        end
+
         private
 
         def extract_informant_provider_data(informant, use_dates=true, entity_path="./cda:assignedEntity")
