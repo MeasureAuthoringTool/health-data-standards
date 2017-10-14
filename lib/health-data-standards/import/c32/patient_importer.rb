@@ -115,10 +115,10 @@ module HealthDataStandards
           nrh = CDA::NarrativeReferenceHandler.new
           nrh.build_id_map(doc)
           @section_importers.each_pair do |section, importers|
-            Rails.logger.info "import*** #{Time.now.to_s} patient #{@patient_identifier} section #{section}"
             importers.each do |importer|
               entries = importer.package_entries(doc, nrh) if defined? importer.package_entries
               entries = importer.create_entries(doc, nrh)  if defined? importer.create_entries
+              Rails.logger.info "import*** #{Time.now.to_s} patient #{@patient_identifier} section #{section} entries #{entries.count}"
               record.send(section) << entries
             end
           end
