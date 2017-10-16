@@ -42,9 +42,7 @@ class Minitest::Test
 
   # Delete all collections from the database.
   def dump_database
-    Mongoid.session(:default).collections.each do |collection|
-      collection.drop unless collection.name.include?('system.')
-    end
+    Mongoid.default_session.drop()
   end
 
 end
