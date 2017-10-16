@@ -6,9 +6,9 @@ module HealthDataStandards
 
         def decode_hqmf_section(section, oid)
           if oid
-	    definition = HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id(oid)
-	    definition ||= HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id(oid, 'r2')
-	    definition['definition'].pluralize.to_sym
+            definition = HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id(oid)
+            definition ||= HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id(oid, 'r2')
+            definition['definition'].pluralize.to_sym
           else
             section
           end
@@ -16,9 +16,9 @@ module HealthDataStandards
 
         def decode_hqmf_status(status, oid)
           if oid
-	    definition = HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id(oid)
-	    definition ||= HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id(oid, 'r2')
-	    definition['status']
+            definition = HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id(oid)
+            definition ||= HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id(oid, 'r2')
+            definition['status']
           else
             status
           end
@@ -26,14 +26,14 @@ module HealthDataStandards
 
         def decode_hqmf_description(description, oid)
           if oid
-	    definition = HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id(oid)
-	    definition ||= HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id(oid, 'r2')
-	    definition_text = definition['definition']
-	    status_text = definition['status']
+            definition = HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id(oid)
+            definition ||= HealthDataStandards::Util::HQMFTemplateHelper.definition_for_template_id(oid, 'r2')
+            definition_text = definition['definition']
+            status_text = definition['status']
             unless status.blank?
-	      "#{definition_text.titleize}, #{status_text.titleize}".to_sym
+              "#{definition_text.titleize}, #{status_text.titleize}".to_sym
             else
-	      "#{definition_text.titleize}".to_sym
+              "#{definition_text.titleize}".to_sym
             end
           else
             description
