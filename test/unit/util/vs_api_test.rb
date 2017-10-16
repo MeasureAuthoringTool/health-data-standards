@@ -31,15 +31,15 @@ class VSApiTest < Minitest::Test
       unless valueset_xml_version[valueset_xml[0]] == ""
         stub_request(:get,'https://localhost/vsservice').with(:query =>{:id=>"oid", :ticket=>"ticket", :effectiveDate=>valueset_xml_version[valueset_xml[0]]}).to_return(:body=>valueset_xml_by_date[valueset_xml[0]])
         assert_equal valueset_xml_by_date[valueset_xml[0]], api.get_valueset("oid", valueset_xml_version[valueset_xml[0]])
-        vs_call_1 = api.get_valueset("oid", valueset_xml_version[valueset_xml[0]])
-        assert_equal valueset_xml_by_date[valueset_xml[0]], vs_call_1
+        vs = api.get_valueset("oid", valueset_xml_version[valueset_xml[0]])
+        assert_equal valueset_xml_by_date[valueset_xml[0]], vs
       end
 
       if valueset_xml_version[valueset_xml[0]] == ""
         stub_request(:get,'https://localhost/vsservice').with(:query =>{:id=>"oid", :ticket=>"ticket"}).to_return(:body=>valueset_xml_by_date[valueset_xml[0]])
         assert_equal valueset_xml_by_date[valueset_xml[0]], api.get_valueset("oid")
-        vs_call_2 = api.get_valueset("oid")
-        assert_equal valueset_xml_by_date[valueset_xml[0]], vs_call_2
+        vs = api.get_valueset("oid")
+        assert_equal valueset_xml_by_date[valueset_xml[0]], vs
       end
     end
 	end
