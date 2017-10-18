@@ -2,7 +2,7 @@ require 'test_helper'
 require 'webmock'
 class VSApiTest < Minitest::Test
   include WebMock::API
-
+"test"
   def initialize(name = nil)
     stub_request(:post,'https://localhost/token').with(:body =>{"password"=>"mypassword", "username"=>"myusername"}).to_return( :body=>"proxy_ticket")
     stub_request(:post,'https://localhost/token/proxy_ticket').with(:body =>{"service"=>"http://umlsks.nlm.nih.gov"}).to_return( :body=>"ticket")
