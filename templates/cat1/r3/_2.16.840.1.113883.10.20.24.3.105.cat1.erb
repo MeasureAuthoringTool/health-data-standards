@@ -12,11 +12,11 @@
       <low <%= value_or_null_flavor(entry.start_time) %>/>
     </effectiveTime>
     <entryRelationship typeCode="SUBJ">
-      <substanceAdministration moodCode="EVN" classCode="SBADM" <%== negation_indicator(entry) %>>
+      <substanceAdministration moodCode="EVN" classCode="SBADM">
         <!-- Medication Activity (consolidation) template -->
-        <templateId root="2.16.840.1.113883.10.20.22.4.16"/> 
+        <templateId root="2.16.840.1.113883.10.20.22.4.16" extension="2014-06-09"/> 
         <!-- Medication, Active template -->
-        <templateId root="2.16.840.1.113883.10.20.24.3.41"/>
+        <templateId root="2.16.840.1.113883.10.20.24.3.41" extension="2014-12-01"/>
         
         <id root="<%= UUID.generate %>"/>
         <text><%= entry.description %></text>
@@ -33,7 +33,7 @@
         <% end %>
         <% if entry.route.present? -%>
         <!-- Attribute: route -->
-          <% vset = oid_for_code(entry.route.code,field_oids["ROUTE"]) %>
+          <% vset = oid_for_code(entry.route.code,field_oids["ROUTE"], entry.record["bundle_id"]) %>
           <% if vset %>
             <routeCode code="<%= entry.route['code'] %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.route['code_system']) %>" sdtc:valueSet="<%= vset %>"/>
           <% end %>
@@ -61,8 +61,8 @@
             </manufacturerOrganization>
           </manufacturedProduct>
         </consumable>
-        <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"]}) %>
       </substanceAdministration>
     </entryRelationship>
+    <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"]}) %>
   </act>
 </entry>

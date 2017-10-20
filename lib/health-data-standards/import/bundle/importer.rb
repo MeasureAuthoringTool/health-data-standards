@@ -64,8 +64,11 @@ module HealthDataStandards
 
           return bundle
         ensure
-          bundle.done_importing = true unless bundle.nil?
-          bundle.save
+          # If the bundle is nil or the bundle has never been saved then do not set done_importing or run save.
+          if bundle && bundle.created_at
+            bundle.done_importing = true
+            bundle.save
+          end
         end
 
 
@@ -75,11 +78,12 @@ module HealthDataStandards
         # @param [String] fn The body of the function being saved.
         def self.save_system_js_fn(name, fn)
           fn = "function () {\n #{fn} \n }"
-          Mongoid.default_session['system.js'].find('_id' => name).upsert(
-            {
-              "_id" => name,
-              "value" => BSON::Code.new(fn)
-            }
+          Mongoid.default_client['system.js'].replace_one({
+                "_id" => name},
+                    {
+                      "_id" => name,
+                      "value" => BSON::Code.new(fn)
+              },{upsert: true}
           )
         end
 
@@ -113,14 +117,14 @@ module HealthDataStandards
             measure = source_measure.clone
             measure_ids << measure['id']
             measure['bundle_id'] = bundle.id
-            Mongoid.default_session["measures"].insert(measure)
+            Mongoid.default_client["measures"].insert_one(measure)
 
             if update_measures
-              Mongoid.default_session["measures"].where({hqmf_id: measure["hqmf_id"], sub_id: measure["sub_id"]}).each do |m|
+              Mongoid.default_client["measures"].find({hqmf_id: measure["hqmf_id"], sub_id: measure["sub_id"]}).each do |m|
                 b = HealthDataStandards::CQM::Bundle.find(m["bundle_id"])
                 if b.version < bundle.version
                   m.merge!(source_measure)
-                  Mongoid.default_session["measures"].where({"_id" => m["_id"]}).update(m)
+                  Mongoid.default_client["measures"].update_one({"_id" => m["_id"]},m)
                 end
               end
             end
@@ -208,7 +212,7 @@ module HealthDataStandards
           entries.each_with_index do |entry, index|
             vs = HealthDataStandards::SVS::ValueSet.new(unpack_json(entry))
             vs['bundle_id'] = bundle.id
-            HealthDataStandards::SVS::ValueSet.collection.insert(vs.as_document)
+            HealthDataStandards::SVS::ValueSet.collection.insert_one(vs.as_document)
             report_progress('Value Sets', (index*100/entries.length)) if index%10 == 0
           end
           puts "\rLoading: Value Sets Complete          "
@@ -236,7 +240,7 @@ module HealthDataStandards
                 end
               end
               document['bundle_id'] = bundle.id
-              Mongoid.default_session[collection].insert(document)
+              Mongoid.default_client[collection].insert_one(document)
             end
           end
           puts "\rLoading: Results Complete          "

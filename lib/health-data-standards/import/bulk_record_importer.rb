@@ -7,7 +7,7 @@ module HealthDataStandards
         failed_dir ||= File.join(source_dir, '../', 'failed_imports')
         files = Dir.glob(File.join(source_dir, '*.*'))
         files.each do |file|
-	   self.import_file(file,File.new(file).read,failed_dir)
+          self.import_file(file,File.new(file).read,failed_dir)
         end
       end
 
@@ -27,7 +27,8 @@ module HealthDataStandards
             end
             next if entry.directory?
             data = zipfile.read(entry.name)
-	    self.import_file(entry.name,data,failed_dir)
+            status = self.import_file(entry.name,data,failed_dir)
+            raise StandardError, status[:message] if status.is_a?(Hash) && status[:status] === 'error'
           end
         end
 
@@ -48,7 +49,7 @@ module HealthDataStandards
       rescue
         FileUtils.mkdir_p(failed_dir)
         FileUtils.cp(file,File.join(failed_dir,File.basename(file)))
-        File.open(File.join(failed_dir,"#{file}.error")) do |f|
+        File.open(File.join(failed_dir,"#{file}.error"), 'w') do |f|
           f.puts($!.message)
           f.puts($!.backtrace)
         end
@@ -60,9 +61,9 @@ module HealthDataStandards
         begin
           ext = File.extname(name)
           if ext == ".json"
-	    self.import_json(data)
+            self.import_json(data)
           else
-	    self.import(data)
+            self.import(data)
           end
         rescue
           FileUtils.mkdir_p(File.dirname(File.join(failed_dir,name)))
@@ -73,6 +74,7 @@ module HealthDataStandards
             f.puts($!.message)
             f.puts($!.backtrace)
           end
+          raise $!
         end
       end
 

@@ -1,0 +1,54 @@
+  <recordTarget>
+    <patientRole>
+      <% if (patient.medical_record_number && patient.medical_record_assigner) %>
+        <id extension="<%= patient.medical_record_number %>" root="<%= patient.medical_record_assigner %>"/>
+        <% if cms_compatibility %>
+          <id extension="<%= patient.medical_record_number %>" root="1.3.6.1.4.1.115" />
+        <% end %>
+      <% else -%>
+        <id extension="12345" root="PlaceholderOrganization" />
+      <% end -%>
+      <addr use="HP">
+        <% if patient.addresses.present?
+            patient.addresses.each do |address| -%>
+            <streetAddressLine><%= address.street.join(' ') %></streetAddressLine>
+            <city><%= address.city %></city>
+            <state><%= address.state %></state>
+            <postalCode><%= address.zip %></postalCode>
+            <country><%= address.country %></country>
+          <% end -%>
+        <% else -%>
+          <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+          <city>Bedford</city>
+          <state>MA</state>
+          <postalCode>01730</postalCode>
+          <country>US</country>
+        <% end -%>
+      </addr>
+      <telecom use="WP" value="tel:+1-781-271-3000"/>
+      <patient>
+        <name>
+          <given><%= patient.first %></given>
+          <family><%= patient.last %></family>
+        </name>
+        <administrativeGenderCode code="<%= patient.gender %>" codeSystem="2.16.840.1.113883.5.1" codeSystemName="HL7 AdministrativeGender"/>
+        <birthTime value="<%= Time.at(patient.birthdate).utc.to_formatted_s(:number) %>"/>
+        <% if (patient.race) %>
+          <raceCode code="<%= patient.race['code'] %>" <% if patient.race['name']%>displayName="<%= patient.race['name'] %>"<% end %> codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
+        <% end %>
+        <% if (patient.ethnicity) %>
+          <ethnicGroupCode code="<%= patient.ethnicity['code'] %>" <% if patient.ethnicity['name']%>displayName="<%= patient.ethnicity['name'] %>"<% end %> codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
+        <% end %>
+        <%
+          languages = patient.languages
+          languages = ["eng"] if languages.nil? or languages.empty?
+          languages.each do |language|%>
+          <languageCommunication>
+            <templateId root="2.16.840.1.113883.3.88.11.83.2" assigningAuthorityName="HITSP/C83"/>
+            <templateId root="1.3.6.1.4.1.19376.1.5.3.1.2.1" assigningAuthorityName="IHE/PCC"/>
+            <languageCode code="<%= language %>"/>
+          </languageCommunication>
+        <% end %>
+      </patient>
+    </patientRole>
+  </recordTarget>

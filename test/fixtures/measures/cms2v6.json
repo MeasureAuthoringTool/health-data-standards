@@ -1,0 +1,964 @@
+{
+  "id": "40280381-537C-F767-0153-C378BD7207A5",
+  "nqf_id": "0418",
+  "hqmf_id": "40280381-537C-F767-0153-C378BD7207A5",
+  "hqmf_set_id": "9A031E24-3D9B-11E1-8634-00237D5BF174",
+  "hqmf_version_number": 6,
+  "cms_id": "CMS2v6",
+  "name": "Preventive Care and Screening: Screening for Depression and Follow-Up Plan",
+  "bundle_id" : "4fdb62e01d41c820f6000002",
+  "description": "Percentage of patients aged 12 years and older screened for depression on the date of the encounter using an age appropriate standardized depression screening tool AND if positive, a follow-up plan is documented on the date of the positive screen",
+  "type": "ep",
+  "category": "Core",
+  "map_fn": "function() {\n          var patient = this;\n          var effective_date = <%= effective_date %>;\n          var enable_logging = <%= enable_logging %>;\n          var enable_rationale = <%= enable_rationale %>;\n          var short_circuit = <%= short_circuit %>;\n\n        <% if (!test_id.nil? && test_id.class==Moped::BSON::ObjectId) %>\n          var test_id = new ObjectId(\"<%= test_id %>\");\n        <% else %>\n          var test_id = null;\n        <% end %>\n\n          hqmfjs = {}\n          <%= init_js_frameworks %>\n\n          hqmfjs.effective_date = effective_date;\n          hqmfjs.test_id = test_id;\n\n          \n        var patient_api = new hQuery.Patient(patient);\n\n        \n        // #########################\n        // ##### DATA ELEMENTS #####\n        // #########################\n\n        hqmfjs.nqf_id = '0418';\n        hqmfjs.hqmf_id = '40280381-537C-F767-0153-C378BD7207A5';\n        hqmfjs.sub_id = null;\n        if (typeof(test_id) == 'undefined') hqmfjs.test_id = null;\n\n        OidDictionary = {'2.16.840.1.113883.3.600.1542':{'SNOMED-CT':['10197000','10997001','165171009','165190001','370803007','38756009','428161000124109','45392008','79094001','90407005']},'2.16.840.1.113883.3.600.1545':{'SNOMED-CT':['10197000','10997001','165171009','165190001','370803007','38756009','428151000124107','45392008','79094001','90407005']},'2.16.840.1.113883.3.600.2452':{'LOINC':['73831-0']},'2.16.840.1.113883.3.600.2449':{'LOINC':['73832-8']},'2.16.840.1.113883.3.600.469':{'RxNorm':['1190110','248642','310384','310385','310386','313989','313990','313995','803293']},'2.16.840.1.113883.3.600.470':{'RxNorm':['1000048','1000054','1000058','1000064','1000070','1000076','1000097','1041790','1086772','1086778','1086784','1086789','1092185','1098649','1098666','1098670','1098674','1098678','1098710','1099288','1099292','1099296','1099300','1099304','1099316','1111695','1119617','1190110','1232585','1245038','1291263','1298857','1298861','1298870','1301023','1301024','197363','197364','197365','197366','198045','198046','198047','198640','198641','199283','199318','199333','199820','200145','200368','200371','237786','245373','245562','248642','251200','252463','252712','252714','253086','259197','260001','260002','282962','283406','283407','283485','283672','284046','309313','309314','310384','310385','310386','310410','311725','311726','312036','312242','312347','312938','312940','312941','313447','313496','313497','313498','313499','313580','313581','313582','313583','313584','313585','313586','313989','313990','313995','314111','314277','317136','349332','349591','349592','349593','349594','349595','351249','351250','351285','410503','476809','485514','577208','596926','596930','596934','608139','608143','730440','730441','730442','790264','790288','794947','803293','808744','808748','808751','808753','835564','835568','835572','835577','835582','835589','835591','835593','856364','856369','856373','856377','856706','856720','856762','856769','856773','856783','856792','856797','856825','856834','856840','856845','856853','857291','857296','857297','857301','857305','857315','859186','859190','859193','861064','865206','865210','865214','884808','884813','884821','884824','895018','895020','895023','898697','898704','899262','903873','903879','903884','903887','903891','905168','905172','966787','966793','993503','993518','993536','993541','993550','993557','993567','993681','993687','993691','994911']},'2.16.840.1.113883.3.600.1916':{'SNOMED-CT':['10197000','108220007','108221006','108224003','108250004','108311000','13607009','14736009','165171009','171207006','18512000','185349003','185463005','185465003','252592009','252603000','270427003','270430005','274803000','277404009','302440009','30346009','308335008','32537008','35025007','370803007','37894004','390906007','406547006','410155007','410157004','43362002','46662001','48423005','53555003','67533008','78318003','83607001','8411005','86013001','90526000','91573000'],'CPT':['90791','90792','90832','90834','90837','92625','96116','96118','96150','96151','97003','99201','99202','99203','99204','99205','99212','99213','99214','99215','99384','99385','99386','99387','99394','99395','99396','99397'],'HCPCS':['G0101','G0402','G0438','G0439','G0444']},'2.16.840.1.113883.3.600.467':{'SNOMED-CT':['372067001','385721005','385724002','385725001','385726000','385727009','385887004','385889001','385890005','401277000','410223002','410224008','410225009','410226005','410227001','410228006','410229003','410230008','410231007','410232000','410233005','410234004','425604002','439141002','5694008','88848003','91310009']},'2.16.840.1.113883.3.600.468':{'SNOMED-CT':['372067001','385721005','385724002','385725001','385726000','385727009','385887004','385889001','385890005','401277000','410223002','410224008','410225009','410226005','410227001','410228006','410229003','410230008','410231007','410232000','410233005','410234004','425604002','439141002','5694008','88848003','91310009']},'2.16.840.1.113883.3.600.537':{'SNOMED-CT':['183524004','183583007','183851006','183866009','305922005','306136006','306137002','306226009','306227000','306252003','306291008','306294000','308459004','308477009','309627007','390866009','401174001','429387009','61801003']},'2.16.840.1.113883.3.600.538':{'SNOMED-CT':['103696004','14129001','183524004','183528001','183583007','183866009','305922005','306136006','306137002','306138007','306204008','306226009','306227000','306252003','306294000','308459004','308477009','390866009','401174001','429387009','61801003']},'2.16.840.1.113883.3.600.559':{'SNOMED-CT':['225337009']},'2.16.840.1.113883.3.600.450':{'SNOMED-CT':['10875004','10981006','111485001','1196001','13313007','13581000','13746004','14495005','1499003','162004','16295005','16506000','17782008','191618007','191620005','191621009','191623007','191625000','191627008','191629006','191630001','191632009','191634005','191636007','191638008','191639000','191641004','191643001','192362008','19300006','20960007','21900002','22121000','22407005','231444002','26203008','26530004','28663008','28884001','29929003','30520009','30687003','30935000','31446002','33380008','34315001','3530005','35481005','35846004','36583000','371596008','371599001','371600003','371604007','38368003','40926005','41552001','41832009','41836007','43568002','43769008','4441000','45479006','46229002','48937005','49468007','49512000','51637008','53049002','53607008','54761006','55516002','5703000','59617007','61403008','63249007','64731001','65042007','66631006','68569003','70546001','71294008','71984005','73471000','74686005','75360000','75752004','78269000','78640000','79584002','81319007','82998009','83225003','85248005','86058007','87203005','87950005','9340000'],'ICD-9-CM':['296.40','296.41','296.42','296.43','296.44','296.45','296.46','296.52','296.80'],'ICD-10-CM':['F31.11','F31.12','F31.13','F31.2','F31.73','F31.74','F31.9']},'2.16.840.1.113883.3.600.145':{'SNOMED-CT':['14183003','15193003','15639000','18818009','191610000','191611001','191613003','191616006','191659001','192080009','19527009','19694002','20250007','231504006','231542000','2506003','25922000','2618002','268621008','28475009','3109008','319768000','320751009','33078009','35489007','36170009','36474008','36923009','370143000','38451003','38694004','39809009','40379007','40568001','42925002','430852001','442057004','48589009','63778009','66344007','67711008','69392006','71336009','73867007','75084000','75837004','76441001','77486005','77911002','78667006','79298009','81319007','83176005','832007','84760002','85080004','87512008'],'ICD-9-CM':['290.13','290.21','290.43','296.20','296.21','296.22','296.23','296.24','296.25','296.26','296.30','296.31','296.32','296.33','296.34','296.36','296.82','298.0','300.4','301.12','309.0','309.1','309.28','311'],'ICD-10-CM':['F01.51','F32.0','F32.1','F32.2','F32.3','F32.4','F32.5','F32.8','F32.9','F33.0','F33.1','F33.2','F33.3','F33.42','F33.9','F34.1','F43.21','F43.23']},'2.16.840.1.113883.3.600.2451':{'SNOMED-CT':['428171000124102']},'2.16.840.1.113883.3.600.2450':{'SNOMED-CT':['428181000124104']},'2.16.840.1.113883.3.600.1.1502':{'SNOMED-CT':['183932001','397745006','407563006','428119001']},'2.16.840.1.113883.3.600.791':{'SNOMED-CT':['105480006','183944003','183945002','413310006','413311005','413312003']},'2.16.840.1.114222.4.11.3591':{'Source of Payment Typology':['1','11','111','112','113','119','12','121','122','123','129','19','2','21','211','212','213','219','22','23','24','25','29','3','31','311','3111','3112','3113','3114','3115','3116','3119','312','3121','3122','3123','313','32','321','3211','3212','32121','32122','32123','32124','32125','32126','322','3221','3222','3223','3229','33','331','332','333','334','34','341','342','343','349','35','36','361','362','369','37','371','3711','3712','3713','372','379','38','381','3811','3812','3813','3819','382','389','39','4','41','42','43','44','5','51','511','512','513','514','515','519','52','521','522','523','529','53','54','55','59','6','61','611','612','613','619','62','63','64','69','7','71','72','73','79','8','81','82','821','822','823','83','84','85','89','9','91','92','93','94','95','951','953','954','959','96','98','99','9999']},'2.16.840.1.113762.1.4.1':{'AdministrativeGender':['F','M']},'2.16.840.1.114222.4.11.836':{'CDC Race':['1002-5','2028-9','2054-5','2076-8','2106-3','2131-1']},'2.16.840.1.114222.4.11.837':{'CDC Race':['2135-2','2186-5']}};\n\n        // Measure variables\nvar MeasurePeriod = {\n  \"low\": new TS(\"201201010000\", true),\n  \"high\": new TS(\"201212312359\", true)\n}\nhqmfjs.MeasurePeriod = function(patient) {\n  return [new hQuery.CodedEntry(\n    {\n      \"start_time\": MeasurePeriod.low.asDate().getTime()/1000,\n      \"end_time\": MeasurePeriod.high.asDate().getTime()/1000,\n      \"codes\": {}\n    }\n  )];\n}\nif (typeof effective_date === 'number') {\n  MeasurePeriod.high.date = new Date(1000*effective_date);\n  // add one minute before pulling off the year.  This turns 12-31-2012 23:59 into 1-1-2013 00:00 => 1-1-2012 00:00\n  MeasurePeriod.low.date = new Date(1000*(effective_date+60));\n  MeasurePeriod.low.date.setFullYear(MeasurePeriod.low.date.getFullYear()-1);\n}\n\n// Data critera\nhqmfjs.OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279e2232_source = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedures\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.2452\", \"specificOccurrence\": \"OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279e2232_source\"};\n  var events = patient.getEvents(eventCriteria);\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279d222d_source = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedures\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.2449\", \"specificOccurrence\": \"OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279d222d_source\"};\n  var events = patient.getEvents(eventCriteria);\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.Additionalevaluationfordepression_adolescent_InterventionPerformed_ffd9cd79_d134_4258_91f1_abb87efb104d = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.1542\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.Additionalevaluationfordepression_adult_InterventionPerformed_af06cc6b_5791_459e_9d68_631da83207a8 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.1545\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279e2232 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedures\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.2452\", \"specificOccurrence\": \"OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279e2232_source\"};\n  var events = patient.getEvents(eventCriteria);\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279d222d = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedures\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.2449\", \"specificOccurrence\": \"OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279d222d_source\"};\n  var events = patient.getEvents(eventCriteria);\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.Depressionmedications_adolescent_MedicationOrder_40280381_3e93_d1af_013e_9f64279f224f = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allMedications\", \"statuses\": [\"ordered\"], \"includeEventsWithoutStatus\": false, \"valueSetId\": \"2.16.840.1.113883.3.600.469\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.Depressionmedications_adult_MedicationOrder_40280381_3e93_d1af_013e_9f64279f2250 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allMedications\", \"statuses\": [\"ordered\"], \"includeEventsWithoutStatus\": false, \"valueSetId\": \"2.16.840.1.113883.3.600.470\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.DepressionScreeningEncounterCodes_EncounterPerformed_04f6615c_81c1_449c_b477_70a87697193a = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.1916\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.Follow_upfordepression_adolescent_InterventionPerformed_40280381_3e93_d1af_013e_9f64279f2251 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.467\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.Follow_upfordepression_adult_InterventionPerformed_40280381_3e93_d1af_013e_9f64279f2252 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.468\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.ReferralforDepressionAdolescent_InterventionOrder_40280381_3e93_d1af_013e_9f64279f2253 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"ordered\"], \"includeEventsWithoutStatus\": false, \"valueSetId\": \"2.16.840.1.113883.3.600.537\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.ReferralforDepressionAdult_InterventionOrder_40280381_3e93_d1af_013e_9f64279f2254 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"ordered\"], \"includeEventsWithoutStatus\": false, \"valueSetId\": \"2.16.840.1.113883.3.600.538\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.SuicideRiskAssessment_ProcedurePerformed_40280381_3e93_d1af_013e_9f6427a0225e = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.559\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.prefix_6bd73930_cae4_40ca_8b08_712f379049f9_a2d7bb92_e6fb_42a1_b866_ab69ec275a70 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedures\", \"includeEventsWithoutStatus\": true, \"negated\": true, \"negationValueSetId\": \"2.16.840.1.113883.3.600.1.1502\", \"valueSetId\": \"2.16.840.1.113883.3.600.2452\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.prefix_536b5031_eb3a_4d7f_91f7_88a4c87206cb_793d57fa_5f9a_4333_a99f_0ef98ccc67ff = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedures\", \"includeEventsWithoutStatus\": true, \"negated\": true, \"negationValueSetId\": \"2.16.840.1.113883.3.600.1.1502\", \"valueSetId\": \"2.16.840.1.113883.3.600.2449\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.prefix_71e99ebf_6306_40e1_9953_a7b81a441a2c_a2d7bb92_e6fb_42a1_b866_ab69ec275a70 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedures\", \"includeEventsWithoutStatus\": true, \"negated\": true, \"negationValueSetId\": \"2.16.840.1.113883.3.600.791\", \"valueSetId\": \"2.16.840.1.113883.3.600.2452\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.prefix_97588de2_0119_43ac_963c_6c487ab60642_793d57fa_5f9a_4333_a99f_0ef98ccc67ff = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedures\", \"includeEventsWithoutStatus\": true, \"negated\": true, \"negationValueSetId\": \"2.16.840.1.113883.3.600.791\", \"valueSetId\": \"2.16.840.1.113883.3.600.2449\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.Ethnicity_PatientCharacteristicEthnicity_40280381_3e93_d1af_013e_9f6427a02265 = function(patient, initialSpecificContext) {\n  var value = patient.ethnicity() || null;\n  matching = matchingValue(value, null);\n  matching.specificContext=hqmf.SpecificsManager.identity();\n  return matching;\n}\n\nhqmfjs.ONCAdministrativeSex_PatientCharacteristicSex_40280381_3e93_d1af_013e_9f6427a02263 = function(patient, initialSpecificContext) {\n  var value = patient.gender() || null;\n  matching = matchingValue(value, new CD(\"F\", \"Administrative Sex\"));\n  matching.specificContext=hqmf.SpecificsManager.identity();\n  return matching;\n}\n\nhqmfjs.Payer_PatientCharacteristicPayer_40280381_3e93_d1af_013e_9f6427a02266 = function(patient, initialSpecificContext) {\n  var value = patient.payer() || null;\n  if (value === null) {\n    matching = new Boolean(false);\n  } else {\n    matching = new Boolean(value.includedIn({\"Source of Payment Typology\":[\"1\",\"11\",\"111\",\"112\",\"113\",\"119\",\"12\",\"121\",\"122\",\"123\",\"129\",\"19\",\"2\",\"21\",\"211\",\"212\",\"213\",\"219\",\"22\",\"23\",\"24\",\"25\",\"29\",\"3\",\"31\",\"311\",\"3111\",\"3112\",\"3113\",\"3114\",\"3115\",\"3116\",\"3119\",\"312\",\"3121\",\"3122\",\"3123\",\"313\",\"32\",\"321\",\"3211\",\"3212\",\"32121\",\"32122\",\"32123\",\"32124\",\"32125\",\"32126\",\"322\",\"3221\",\"3222\",\"3223\",\"3229\",\"33\",\"331\",\"332\",\"333\",\"334\",\"34\",\"341\",\"342\",\"343\",\"349\",\"35\",\"36\",\"361\",\"362\",\"369\",\"37\",\"371\",\"3711\",\"3712\",\"3713\",\"372\",\"379\",\"38\",\"381\",\"3811\",\"3812\",\"3813\",\"3819\",\"382\",\"389\",\"39\",\"4\",\"41\",\"42\",\"43\",\"44\",\"5\",\"51\",\"511\",\"512\",\"513\",\"514\",\"515\",\"519\",\"52\",\"521\",\"522\",\"523\",\"529\",\"53\",\"54\",\"55\",\"59\",\"6\",\"61\",\"611\",\"612\",\"613\",\"619\",\"62\",\"63\",\"64\",\"69\",\"7\",\"71\",\"72\",\"73\",\"79\",\"8\",\"81\",\"82\",\"821\",\"822\",\"823\",\"83\",\"84\",\"85\",\"89\",\"9\",\"91\",\"92\",\"93\",\"94\",\"95\",\"951\",\"953\",\"954\",\"959\",\"96\",\"98\",\"99\",\"9999\"]}));\n  }\n  matching.specificContext=hqmf.SpecificsManager.identity();\n  return matching;\n}\n\nhqmfjs.Race_PatientCharacteristicRace_40280381_3e93_d1af_013e_9f6427a02264 = function(patient, initialSpecificContext) {\n  var value = patient.race() || null;\n  if (value === null) {\n    matching = new Boolean(false);\n  } else {\n    matching = new Boolean(value.includedIn({\"CDC Race\":[\"1002-5\",\"2028-9\",\"2054-5\",\"2076-8\",\"2106-3\",\"2131-1\"]}));\n  }\n  matching.specificContext=hqmf.SpecificsManager.identity();\n  return matching;\n}\n\nhqmfjs.Agegrtr_thn_eql_12yearsat_5683FB27_9D26_4106_B9EC_23F83DB3362F_A92238D2_7028_4FE9_BA4C_6AE60E3C4116 = function(patient, initialSpecificContext) {\n  var value = patient.birthtime() || null;\n  var events = value ? [value] : [];\n  events = SBS(events, hqmfjs.MeasurePeriod(patient), new IVL_PQ(new PQ(12, \"a\", true), null));\n  events.specificContext=events.specificContext||hqmf.SpecificsManager.identity();\n  return events;\n}\n\nhqmfjs.Agegrtr_thn_eql_18yearsat_33C77439_0862_43DF_81BB_CB360A920F8B_9D8CA1D6_FA60_4B44_9995_1E9638C33282 = function(patient, initialSpecificContext) {\n  var value = patient.birthtime() || null;\n  var events = value ? [value] : [];\n  events = SBS(events, hqmfjs.MeasurePeriod(patient), new IVL_PQ(new PQ(18, \"a\", true), null));\n  events.specificContext=events.specificContext||hqmf.SpecificsManager.identity();\n  return events;\n}\n\nhqmfjs.Ageless_thn_18yearsat_ACDF8CBD_3CCF_4D5C_BD06_2F52375CC698_5A80031F_6D8C_4835_8FAE_8FE15BAD6A3B = function(patient, initialSpecificContext) {\n  var value = patient.birthtime() || null;\n  var events = value ? [value] : [];\n  events = SBS(events, hqmfjs.MeasurePeriod(patient), new IVL_PQ(null, new PQ(18, \"a\", false)));\n  events.specificContext=events.specificContext||hqmf.SpecificsManager.identity();\n  return events;\n}\n\nhqmfjs.During_AEFA4179_C538_4FFE_AF76_44D03796BE9A_F53CA3C0_91B8_47D8_BF83_4E8013FFCD9F = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.1916\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.StartsBeforeStartOf_365FF4D1_AA52_470F_8C3D_8010D56305F0_3c230357_a77e_4b04_95b6_64edea004a54 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProblems\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.450\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = SBS(events, hqmfjs.During_AEFA4179_C538_4FFE_AF76_44D03796BE9A_F53CA3C0_91B8_47D8_BF83_4E8013FFCD9F(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.Overlaps_83AE16C2_28FE_4736_A6D0_888141A68343_3c230357_a77e_4b04_95b6_64edea004a54 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProblems\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.450\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = OVERLAP(events, hqmfjs.During_AEFA4179_C538_4FFE_AF76_44D03796BE9A_F53CA3C0_91B8_47D8_BF83_4E8013FFCD9F(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.SatisfiesAll_66A3D16A_7D48_4650_9CF9_BD2559D727AF_505E166D_750D_4EC8_9781_99D893D89AE8 = function(patient, initialSpecificContext) {\n  var events = INTERSECT(\n    hqmfjs.StartsBeforeStartOf_365FF4D1_AA52_470F_8C3D_8010D56305F0_3c230357_a77e_4b04_95b6_64edea004a54(patient, initialSpecificContext),\n    hqmfjs.Overlaps_83AE16C2_28FE_4736_A6D0_888141A68343_3c230357_a77e_4b04_95b6_64edea004a54(patient, initialSpecificContext)\n  );\n\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.StartsBeforeStartOf_0A042CD1_4C41_4816_B208_D83273570AA1_194d7683_260a_4fd3_aa65_bb27d2cf81bc = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProblems\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.145\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = SBS(events, hqmfjs.During_AEFA4179_C538_4FFE_AF76_44D03796BE9A_F53CA3C0_91B8_47D8_BF83_4E8013FFCD9F(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.Overlaps_305F872F_F087_4B01_B059_83CF9D3F5851_194d7683_260a_4fd3_aa65_bb27d2cf81bc = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProblems\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.145\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = OVERLAP(events, hqmfjs.During_AEFA4179_C538_4FFE_AF76_44D03796BE9A_F53CA3C0_91B8_47D8_BF83_4E8013FFCD9F(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.SatisfiesAll_6CCD43CD_F5B2_4C66_9919_CBFC1618CF3F_AA746EB4_B1B8_4C22_97D6_D3B0822184F6 = function(patient, initialSpecificContext) {\n  var events = INTERSECT(\n    hqmfjs.StartsBeforeStartOf_0A042CD1_4C41_4816_B208_D83273570AA1_194d7683_260a_4fd3_aa65_bb27d2cf81bc(patient, initialSpecificContext),\n    hqmfjs.Overlaps_305F872F_F087_4B01_B059_83CF9D3F5851_194d7683_260a_4fd3_aa65_bb27d2cf81bc(patient, initialSpecificContext)\n  );\n\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.During_F26213B0_60AA_4A64_9220_5D7B727FBABC_04f6615c_81c1_449c_b477_70a87697193a = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.1916\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.During_C54F9B35_88BB_49BF_B045_957052AD9C68_06DB3890_23E6_4C58_B2B1_C197A107453C = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedures\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.2452\", \"specificOccurrence\": \"OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279e2232_source\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByValue(events, new ANYNonNull());\n  if (events.length > 0 || !Logger.short_circuit) events = DURING(events, hqmfjs.During_F26213B0_60AA_4A64_9220_5D7B727FBABC_04f6615c_81c1_449c_b477_70a87697193a(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  events = RECENT(events, initialSpecificContext);\n  return events;\n}\n\nhqmfjs.prefix_98807327_1e74_48ac_afd8_bb4fde9c3224_FA78751E_B948_4431_82CF_74623BF627F8 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedures\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.2452\", \"specificOccurrence\": \"OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279e2232_source\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByValue(events, new CodeList(getCodes(\"2.16.840.1.113883.3.600.2451\")));\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.prefix_2183e135_4b36_4fee_9bf4_063a3f1de6f8_BF2E4ED5_3202_40AA_9E61_699B2B96DEA8 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedures\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.2452\", \"specificOccurrence\": \"OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279e2232_source\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByValue(events, new CodeList(getCodes(\"2.16.840.1.113883.3.600.2450\")));\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.prefix_2c73ea70_3c66_4ce7_abf7_19c889e8ce40_B867A301_55B6_46F6_8178_C243A6B65B25 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedures\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.2449\", \"specificOccurrence\": \"OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279d222d_source\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByValue(events, new CodeList(getCodes(\"2.16.840.1.113883.3.600.2451\")));\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.b3dd103a_825a_473a_bb02_3a5b2542dd21_70B4C343_92CA_4A17_861A_18D399B19EF2 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedures\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.2449\", \"specificOccurrence\": \"OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279d222d_source\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByValue(events, new CodeList(getCodes(\"2.16.840.1.113883.3.600.2450\")));\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.less_thn_eql_1daysStartsAfterOrConcurrentWithStartOf_80F6909A_A0DA_4076_B2D3_CD2A01B1DD72_50FDBFD9_4207_45EA_81C1_ADABB8C19FB0 = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.Additionalevaluationfordepression_adolescent_InterventionPerformed_ffd9cd79_d134_4258_91f1_abb87efb104d(patient, initialSpecificContext),\n    hqmfjs.ReferralforDepressionAdolescent_InterventionOrder_40280381_3e93_d1af_013e_9f64279f2253(patient, initialSpecificContext),\n    hqmfjs.Depressionmedications_adolescent_MedicationOrder_40280381_3e93_d1af_013e_9f64279f224f(patient, initialSpecificContext),\n    hqmfjs.Follow_upfordepression_adolescent_InterventionPerformed_40280381_3e93_d1af_013e_9f64279f2251(patient, initialSpecificContext),\n    hqmfjs.SuicideRiskAssessment_ProcedurePerformed_40280381_3e93_d1af_013e_9f6427a0225e(patient, initialSpecificContext)\n  );\n\n  if (events.length > 0 || !Logger.short_circuit) events = SACW(events, hqmfjs.OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279e2232(patient), new IVL_PQ(null, new PQ(1, \"d\", true)));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.less_thn_eql_1daysStartsAfterOrConcurrentWithStartOf_9036D018_A88B_431C_AEA2_038FD8A1EEF3_7CEB7508_79F3_4AC0_BF18_82851F029228 = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.Additionalevaluationfordepression_adult_InterventionPerformed_af06cc6b_5791_459e_9d68_631da83207a8(patient, initialSpecificContext),\n    hqmfjs.ReferralforDepressionAdult_InterventionOrder_40280381_3e93_d1af_013e_9f64279f2254(patient, initialSpecificContext),\n    hqmfjs.Depressionmedications_adult_MedicationOrder_40280381_3e93_d1af_013e_9f64279f2250(patient, initialSpecificContext),\n    hqmfjs.Follow_upfordepression_adult_InterventionPerformed_40280381_3e93_d1af_013e_9f64279f2252(patient, initialSpecificContext),\n    hqmfjs.SuicideRiskAssessment_ProcedurePerformed_40280381_3e93_d1af_013e_9f6427a0225e(patient, initialSpecificContext)\n  );\n\n  if (events.length > 0 || !Logger.short_circuit) events = SACW(events, hqmfjs.OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279d222d(patient), new IVL_PQ(null, new PQ(1, \"d\", true)));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.During_D75EC90C_0C11_4FDC_973A_08E117554ADD_04f6615c_81c1_449c_b477_70a87697193a = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.1916\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.During_FEC12CD0_2C65_4F77_9748_AA06BCC2D5A2_C3139BF8_0A1D_4DF0_A138_CCBAF87F8408 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedures\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.2449\", \"specificOccurrence\": \"OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279d222d_source\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByValue(events, new ANYNonNull());\n  if (events.length > 0 || !Logger.short_circuit) events = DURING(events, hqmfjs.During_D75EC90C_0C11_4FDC_973A_08E117554ADD_04f6615c_81c1_449c_b477_70a87697193a(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  events = RECENT(events, initialSpecificContext);\n  return events;\n}\n\nhqmfjs.During_13DD1035_BBDF_4989_A087_1AB95DF7176C_09A856E5_AFFD_46CC_B436_B7B48FB0C5A2 = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.prefix_6bd73930_cae4_40ca_8b08_712f379049f9_a2d7bb92_e6fb_42a1_b866_ab69ec275a70(patient, initialSpecificContext),\n    hqmfjs.prefix_71e99ebf_6306_40e1_9953_a7b81a441a2c_a2d7bb92_e6fb_42a1_b866_ab69ec275a70(patient, initialSpecificContext)\n  );\n\n  if (events.length > 0 || !Logger.short_circuit) events = DURING(events, hqmfjs.DepressionScreeningEncounterCodes_EncounterPerformed_04f6615c_81c1_449c_b477_70a87697193a(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.During_66BAFADF_0D08_4D89_AC7C_11F0CF442A09_32966FFB_59D9_45CE_9683_159016F5AFD2 = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.prefix_536b5031_eb3a_4d7f_91f7_88a4c87206cb_793d57fa_5f9a_4333_a99f_0ef98ccc67ff(patient, initialSpecificContext),\n    hqmfjs.prefix_97588de2_0119_43ac_963c_6c487ab60642_793d57fa_5f9a_4333_a99f_0ef98ccc67ff(patient, initialSpecificContext)\n  );\n\n  if (events.length > 0 || !Logger.short_circuit) events = DURING(events, hqmfjs.DepressionScreeningEncounterCodes_EncounterPerformed_04f6615c_81c1_449c_b477_70a87697193a(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.During_28180DE5_4FBE_4325_A180_AB28A20F320D_340CFBD3_40DD_483D_B59C_AB70092FCA0F = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedures\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.2452\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.During_CCA81F8A_B2A9_4C88_A67B_990628149CEA_CBCCB648_D273_4201_A80E_D3885CC81EE0 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedures\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.600.2449\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\n\n\n        // #########################\n        // ##### MEASURE LOGIC #####\n        // #########################\n\n        hqmfjs.initializeSpecifics = function(patient_api, hqmfjs) { hqmf.SpecificsManager.initialize(patient_api,hqmfjs,{\"id\":\"OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279e2232_source\",\"type\":\"OCCURRENCEA_ADOLESCENTDEPRESSIONSCREENING_RISKCATEGORYASSESSMENT_A2D7BB92_E6FB_42A1_B866_AB69EC275A70_SOURCE\",\"function\":\"OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279e2232_source\"},{\"id\":\"OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279d222d_source\",\"type\":\"OCCURRENCEA_ADULTDEPRESSIONSCREENING_RISKCATEGORYASSESSMENT_793D57FA_5F9A_4333_A99F_0EF98CCC67FF_SOURCE\",\"function\":\"OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279d222d_source\"}) }\n\n        // INITIAL PATIENT POPULATION\n        hqmfjs.IPP = function(patient, initialSpecificContext) {\n  population_criteria_fn = allTrue('IPP', patient, initialSpecificContext,\n    allTrue('3', patient, initialSpecificContext, hqmfjs.Agegrtr_thn_eql_12yearsat_5683FB27_9D26_4106_B9EC_23F83DB3362F_A92238D2_7028_4FE9_BA4C_6AE60E3C4116, hqmfjs.During_AEFA4179_C538_4FFE_AF76_44D03796BE9A_F53CA3C0_91B8_47D8_BF83_4E8013FFCD9F\n    )\n  );\n  if (typeof(population_criteria_fn) == 'function') {\n  \treturn population_criteria_fn();\n  } else {\n  \treturn population_criteria_fn;\n  }\n};\n\n\n        // STRATIFICATION\n        hqmfjs.STRAT=null;\n        // DENOMINATOR\n        hqmfjs.DENOM = function(patient) { return new Boolean(true); }\n        // NUMERATOR\n        hqmfjs.NUMER = function(patient, initialSpecificContext) {\n  population_criteria_fn = allTrue('NUMER', patient, initialSpecificContext,\n    allTrue('23', patient, initialSpecificContext,\n      atLeastOneTrue('22', patient, initialSpecificContext,\n        allTrue('7', patient, initialSpecificContext, hqmfjs.During_C54F9B35_88BB_49BF_B045_957052AD9C68_06DB3890_23E6_4C58_B2B1_C197A107453C, hqmfjs.prefix_98807327_1e74_48ac_afd8_bb4fde9c3224_FA78751E_B948_4431_82CF_74623BF627F8, hqmfjs.Ageless_thn_18yearsat_ACDF8CBD_3CCF_4D5C_BD06_2F52375CC698_5A80031F_6D8C_4835_8FAE_8FE15BAD6A3B\n        ),\n        allTrue('12', patient, initialSpecificContext, hqmfjs.During_C54F9B35_88BB_49BF_B045_957052AD9C68_06DB3890_23E6_4C58_B2B1_C197A107453C, hqmfjs.prefix_2183e135_4b36_4fee_9bf4_063a3f1de6f8_BF2E4ED5_3202_40AA_9E61_699B2B96DEA8, hqmfjs.less_thn_eql_1daysStartsAfterOrConcurrentWithStartOf_80F6909A_A0DA_4076_B2D3_CD2A01B1DD72_50FDBFD9_4207_45EA_81C1_ADABB8C19FB0, hqmfjs.Ageless_thn_18yearsat_ACDF8CBD_3CCF_4D5C_BD06_2F52375CC698_5A80031F_6D8C_4835_8FAE_8FE15BAD6A3B\n        ),\n        allTrue('16', patient, initialSpecificContext, hqmfjs.During_FEC12CD0_2C65_4F77_9748_AA06BCC2D5A2_C3139BF8_0A1D_4DF0_A138_CCBAF87F8408, hqmfjs.prefix_2c73ea70_3c66_4ce7_abf7_19c889e8ce40_B867A301_55B6_46F6_8178_C243A6B65B25, hqmfjs.Agegrtr_thn_eql_18yearsat_33C77439_0862_43DF_81BB_CB360A920F8B_9D8CA1D6_FA60_4B44_9995_1E9638C33282\n        ),\n        allTrue('21', patient, initialSpecificContext, hqmfjs.During_FEC12CD0_2C65_4F77_9748_AA06BCC2D5A2_C3139BF8_0A1D_4DF0_A138_CCBAF87F8408, hqmfjs.b3dd103a_825a_473a_bb02_3a5b2542dd21_70B4C343_92CA_4A17_861A_18D399B19EF2, hqmfjs.less_thn_eql_1daysStartsAfterOrConcurrentWithStartOf_9036D018_A88B_431C_AEA2_038FD8A1EEF3_7CEB7508_79F3_4AC0_BF18_82851F029228, hqmfjs.Agegrtr_thn_eql_18yearsat_33C77439_0862_43DF_81BB_CB360A920F8B_9D8CA1D6_FA60_4B44_9995_1E9638C33282\n        )\n      )\n    )\n  );\n  if (typeof(population_criteria_fn) == 'function') {\n  \treturn population_criteria_fn();\n  } else {\n  \treturn population_criteria_fn;\n  }\n};\n\n\n        hqmfjs.NUMEX = function(patient) { return new Boolean(false); }\n        hqmfjs.DENEX = function(patient, initialSpecificContext) {\n  population_criteria_fn = atLeastOneTrue('DENEX', patient, initialSpecificContext,\n    atLeastOneTrue('37', patient, initialSpecificContext, hqmfjs.SatisfiesAll_6CCD43CD_F5B2_4C66_9919_CBFC1618CF3F_AA746EB4_B1B8_4C22_97D6_D3B0822184F6, hqmfjs.SatisfiesAll_66A3D16A_7D48_4650_9CF9_BD2559D727AF_505E166D_750D_4EC8_9781_99D893D89AE8\n    )\n  );\n  if (typeof(population_criteria_fn) == 'function') {\n  \treturn population_criteria_fn();\n  } else {\n  \treturn population_criteria_fn;\n  }\n};\n\n\n        hqmfjs.DENEXCEP = function(patient, initialSpecificContext) {\n  population_criteria_fn = atLeastOneTrue('DENEXCEP', patient, initialSpecificContext,\n    atLeastOneTrue('34', patient, initialSpecificContext,\n      allTrue('28', patient, initialSpecificContext, hqmfjs.During_13DD1035_BBDF_4989_A087_1AB95DF7176C_09A856E5_AFFD_46CC_B436_B7B48FB0C5A2,\n        atLeastOneTrue('27', patient, initialSpecificContext,\n          allFalse('26', patient, initialSpecificContext, hqmfjs.During_28180DE5_4FBE_4325_A180_AB28A20F320D_340CFBD3_40DD_483D_B59C_AB70092FCA0F\n          )\n        )\n      ),\n      allTrue('33', patient, initialSpecificContext, hqmfjs.During_66BAFADF_0D08_4D89_AC7C_11F0CF442A09_32966FFB_59D9_45CE_9683_159016F5AFD2,\n        atLeastOneTrue('32', patient, initialSpecificContext,\n          allFalse('31', patient, initialSpecificContext, hqmfjs.During_CCA81F8A_B2A9_4C88_A67B_990628149CEA_CBCCB648_D273_4201_A80E_D3885CC81EE0\n          )\n        )\n      )\n    )\n  );\n  if (typeof(population_criteria_fn) == 'function') {\n  \treturn population_criteria_fn();\n  } else {\n  \treturn population_criteria_fn;\n  }\n};\n\n\n        // CV\n        hqmfjs.MSRPOPL = function(patient) { return new Boolean(true); }\n        hqmfjs.MSRPOPLEX = function(patient) { return new Boolean(false); }\n        hqmfjs.OBSERV = function(patient) { return new Boolean(false); }\n        // VARIABLES\n        hqmfjs.VARIABLES = function(patient, initialSpecificContext) {\nreturn false;\n}\n        \n\n        var occurrenceId = null;\n\n        hqmfjs.initializeSpecifics(patient_api, hqmfjs)\n\n        var population = function() {\n          return executeIfAvailable(hqmfjs.IPP, patient_api);\n        }\n        var stratification = null;\n        if (hqmfjs.STRAT) {\n          stratification = function() {\n            return hqmf.SpecificsManager.setIfNull(executeIfAvailable(hqmfjs.STRAT, patient_api));\n          }\n        }\n        var denominator = function() {\n          return executeIfAvailable(hqmfjs.DENOM, patient_api);\n        }\n        var numerator = function() {\n          return executeIfAvailable(hqmfjs.NUMER, patient_api);\n        }\n        var exclusion = function() {\n          return executeIfAvailable(hqmfjs.DENEX, patient_api);\n        }\n        var denexcep = function() {\n          return executeIfAvailable(hqmfjs.DENEXCEP, patient_api);\n        }\n        var numex = function() {\n          return executeIfAvailable(hqmfjs.NUMEX, patient_api);\n        }\n        var msrpopl = function() {\n          return executeIfAvailable(hqmfjs.MSRPOPL, patient_api);\n        }\n        var msrpoplex = function() {\n          return executeIfAvailable(hqmfjs.MSRPOPLEX, patient_api);\n        }\n        var observ = function(specific_context) {\n          \n          var observFunc = hqmfjs.OBSERV\n          if (typeof(observFunc)==='function')\n            return observFunc(patient_api, specific_context);\n          else\n            return [];\n        }\n\n        var variables = function() {\n          if (Logger.enable_rationale) {\n            return executeIfAvailable(hqmfjs.VARIABLES, patient_api);\n          }\n        }\n\n        var executeIfAvailable = function(optionalFunction, patient_api) {\n          if (typeof(optionalFunction)==='function') {\n            result = optionalFunction(patient_api);\n            \n            return result;\n          } else {\n            return false;\n          }\n        }\n\n        \n        if (typeof Logger != 'undefined') {\n          // clear out logger\n          Logger.logger = [];\n          Logger.rationale={};\n          if (typeof short_circuit == 'undefined') short_circuit = true;\n\n          // turn on logging if it is enabled\n          if (enable_logging || enable_rationale) {\n            injectLogger(hqmfjs, enable_logging, enable_rationale, short_circuit);\n          } else {\n            Logger.enable_rationale = false;\n            Logger.short_circuit = short_circuit;\n          }\n        }\n\n        try {\n          map(patient, population, denominator, numerator, exclusion, denexcep, msrpopl, msrpoplex, observ, occurrenceId,false,stratification, variables, numex);\n        } catch(err) {\n          print(err.stack);\n          throw err;\n        }\n\n        \n        };\n        ",
+  "continuous_variable": false,
+  "episode_of_care": false,
+  "data_criteria": [{
+      "Additionalevaluationfordepression_adolescent_InterventionPerformed_ffd9cd79_d134_4258_91f1_abb87efb104d": {
+        "title": "Additional evaluation for depression - adolescent",
+        "description": "Intervention, Performed: Additional evaluation for depression - adolescent",
+        "code_list_id": "2.16.840.1.113883.3.600.1542",
+        "type": "interventions",
+        "definition": "intervention",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Additionalevaluationfordepression_adolescent_InterventionPerformed_ffd9cd79_d134_4258_91f1_abb87efb104d_source",
+        "variable": false
+      },
+      "Additionalevaluationfordepression_adult_InterventionPerformed_af06cc6b_5791_459e_9d68_631da83207a8": {
+        "title": "Additional evaluation for depression - adult",
+        "description": "Intervention, Performed: Additional evaluation for depression - adult",
+        "code_list_id": "2.16.840.1.113883.3.600.1545",
+        "type": "interventions",
+        "definition": "intervention",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Additionalevaluationfordepression_adult_InterventionPerformed_af06cc6b_5791_459e_9d68_631da83207a8_source",
+        "variable": false
+      },
+      "OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279e2232": {
+        "title": "Adolescent Depression Screening",
+        "description": "Risk Category Assessment: Adolescent Depression Screening",
+        "code_list_id": "2.16.840.1.113883.3.600.2452",
+        "type": "risk_category_assessments",
+        "definition": "risk_category_assessment",
+        "hard_status": false,
+        "negation": false,
+        "specific_occurrence": "A",
+        "specific_occurrence_const": "OCCURRENCEA_ADOLESCENTDEPRESSIONSCREENING_RISKCATEGORYASSESSMENT_A2D7BB92_E6FB_42A1_B866_AB69EC275A70_SOURCE",
+        "source_data_criteria": "OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279e2232_source",
+        "variable": false
+      },
+      "OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279d222d": {
+        "title": "Adult Depression Screening",
+        "description": "Risk Category Assessment: Adult Depression Screening",
+        "code_list_id": "2.16.840.1.113883.3.600.2449",
+        "type": "risk_category_assessments",
+        "definition": "risk_category_assessment",
+        "hard_status": false,
+        "negation": false,
+        "specific_occurrence": "A",
+        "specific_occurrence_const": "OCCURRENCEA_ADULTDEPRESSIONSCREENING_RISKCATEGORYASSESSMENT_793D57FA_5F9A_4333_A99F_0EF98CCC67FF_SOURCE",
+        "source_data_criteria": "OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279d222d_source",
+        "variable": false
+      },
+      "Depressionmedications_adolescent_MedicationOrder_40280381_3e93_d1af_013e_9f64279f224f": {
+        "title": "Depression medications - adolescent",
+        "description": "Medication, Order: Depression medications - adolescent",
+        "code_list_id": "2.16.840.1.113883.3.600.469",
+        "type": "medications",
+        "definition": "medication",
+        "status": "ordered",
+        "hard_status": true,
+        "negation": false,
+        "source_data_criteria": "Depressionmedications_adolescent_MedicationOrder_40280381_3e93_d1af_013e_9f64279f224f_source",
+        "variable": false
+      },
+      "Depressionmedications_adult_MedicationOrder_40280381_3e93_d1af_013e_9f64279f2250": {
+        "title": "Depression medications - adult",
+        "description": "Medication, Order: Depression medications - adult",
+        "code_list_id": "2.16.840.1.113883.3.600.470",
+        "type": "medications",
+        "definition": "medication",
+        "status": "ordered",
+        "hard_status": true,
+        "negation": false,
+        "source_data_criteria": "Depressionmedications_adult_MedicationOrder_40280381_3e93_d1af_013e_9f64279f2250_source",
+        "variable": false
+      },
+      "DepressionScreeningEncounterCodes_EncounterPerformed_04f6615c_81c1_449c_b477_70a87697193a": {
+        "title": "Depression Screening  Encounter Codes",
+        "description": "Encounter, Performed: Depression Screening Encounter Codes",
+        "code_list_id": "2.16.840.1.113883.3.600.1916",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "DepressionScreeningEncounterCodes_EncounterPerformed_04f6615c_81c1_449c_b477_70a87697193a_source",
+        "variable": false
+      },
+      "Follow_upfordepression_adolescent_InterventionPerformed_40280381_3e93_d1af_013e_9f64279f2251": {
+        "title": "Follow-up for depression - adolescent",
+        "description": "Intervention, Performed: Follow-up for depression - adolescent",
+        "code_list_id": "2.16.840.1.113883.3.600.467",
+        "type": "interventions",
+        "definition": "intervention",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Follow_upfordepression_adolescent_InterventionPerformed_40280381_3e93_d1af_013e_9f64279f2251_source",
+        "variable": false
+      },
+      "Follow_upfordepression_adult_InterventionPerformed_40280381_3e93_d1af_013e_9f64279f2252": {
+        "title": "Follow-up for depression - adult",
+        "description": "Intervention, Performed: Follow-up for depression - adult",
+        "code_list_id": "2.16.840.1.113883.3.600.468",
+        "type": "interventions",
+        "definition": "intervention",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Follow_upfordepression_adult_InterventionPerformed_40280381_3e93_d1af_013e_9f64279f2252_source",
+        "variable": false
+      },
+      "ReferralforDepressionAdolescent_InterventionOrder_40280381_3e93_d1af_013e_9f64279f2253": {
+        "title": "Referral for Depression Adolescent",
+        "description": "Intervention, Order: Referral for Depression Adolescent",
+        "code_list_id": "2.16.840.1.113883.3.600.537",
+        "type": "interventions",
+        "definition": "intervention",
+        "status": "ordered",
+        "hard_status": true,
+        "negation": false,
+        "source_data_criteria": "ReferralforDepressionAdolescent_InterventionOrder_40280381_3e93_d1af_013e_9f64279f2253_source",
+        "variable": false
+      },
+      "ReferralforDepressionAdult_InterventionOrder_40280381_3e93_d1af_013e_9f64279f2254": {
+        "title": "Referral for Depression Adult",
+        "description": "Intervention, Order: Referral for Depression Adult",
+        "code_list_id": "2.16.840.1.113883.3.600.538",
+        "type": "interventions",
+        "definition": "intervention",
+        "status": "ordered",
+        "hard_status": true,
+        "negation": false,
+        "source_data_criteria": "ReferralforDepressionAdult_InterventionOrder_40280381_3e93_d1af_013e_9f64279f2254_source",
+        "variable": false
+      },
+      "SuicideRiskAssessment_ProcedurePerformed_40280381_3e93_d1af_013e_9f6427a0225e": {
+        "title": "Suicide Risk Assessment",
+        "description": "Procedure, Performed: Suicide Risk Assessment",
+        "code_list_id": "2.16.840.1.113883.3.600.559",
+        "type": "procedures",
+        "definition": "procedure",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "SuicideRiskAssessment_ProcedurePerformed_40280381_3e93_d1af_013e_9f6427a0225e_source",
+        "variable": false
+      },
+      "prefix_6bd73930_cae4_40ca_8b08_712f379049f9_a2d7bb92_e6fb_42a1_b866_ab69ec275a70": {
+        "title": "Adolescent Depression Screening",
+        "description": "Risk Category Assessment: Adolescent Depression Screening",
+        "code_list_id": "2.16.840.1.113883.3.600.2452",
+        "type": "risk_category_assessments",
+        "definition": "risk_category_assessment",
+        "hard_status": false,
+        "negation": true,
+        "negation_code_list_id": "2.16.840.1.113883.3.600.1.1502",
+        "source_data_criteria": "OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_a2d7bb92_e6fb_42a1_b866_ab69ec275a70_source",
+        "variable": false
+      },
+      "prefix_536b5031_eb3a_4d7f_91f7_88a4c87206cb_793d57fa_5f9a_4333_a99f_0ef98ccc67ff": {
+        "title": "Adult Depression Screening",
+        "description": "Risk Category Assessment: Adult Depression Screening",
+        "code_list_id": "2.16.840.1.113883.3.600.2449",
+        "type": "risk_category_assessments",
+        "definition": "risk_category_assessment",
+        "hard_status": false,
+        "negation": true,
+        "negation_code_list_id": "2.16.840.1.113883.3.600.1.1502",
+        "source_data_criteria": "OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_793d57fa_5f9a_4333_a99f_0ef98ccc67ff_source",
+        "variable": false
+      },
+      "prefix_71e99ebf_6306_40e1_9953_a7b81a441a2c_a2d7bb92_e6fb_42a1_b866_ab69ec275a70": {
+        "title": "Adolescent Depression Screening",
+        "description": "Risk Category Assessment: Adolescent Depression Screening",
+        "code_list_id": "2.16.840.1.113883.3.600.2452",
+        "type": "risk_category_assessments",
+        "definition": "risk_category_assessment",
+        "hard_status": false,
+        "negation": true,
+        "negation_code_list_id": "2.16.840.1.113883.3.600.791",
+        "source_data_criteria": "OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_a2d7bb92_e6fb_42a1_b866_ab69ec275a70_source",
+        "variable": false
+      },
+      "prefix_97588de2_0119_43ac_963c_6c487ab60642_793d57fa_5f9a_4333_a99f_0ef98ccc67ff": {
+        "title": "Adult Depression Screening",
+        "description": "Risk Category Assessment: Adult Depression Screening",
+        "code_list_id": "2.16.840.1.113883.3.600.2449",
+        "type": "risk_category_assessments",
+        "definition": "risk_category_assessment",
+        "hard_status": false,
+        "negation": true,
+        "negation_code_list_id": "2.16.840.1.113883.3.600.791",
+        "source_data_criteria": "OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_793d57fa_5f9a_4333_a99f_0ef98ccc67ff_source",
+        "variable": false
+      },
+      "Ethnicity_PatientCharacteristicEthnicity_40280381_3e93_d1af_013e_9f6427a02265": {
+        "title": "Ethnicity",
+        "description": "Patient Characteristic Ethnicity: Ethnicity",
+        "code_list_id": "2.16.840.1.114222.4.11.837",
+        "property": "ethnicity",
+        "type": "characteristic",
+        "definition": "patient_characteristic_ethnicity",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_40280381_3e93_d1af_013e_9f6427a02265_source",
+        "variable": false,
+        "inline_code_list": {
+          "CDC Race": [
+            "2135-2",
+            "2186-5"
+          ]
+        }
+      },
+      "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3e93_d1af_013e_9f6427a02263": {
+        "title": "ONC Administrative Sex",
+        "description": "Patient Characteristic Sex: ONC Administrative Sex",
+        "code_list_id": "2.16.840.1.113762.1.4.1",
+        "property": "gender",
+        "type": "characteristic",
+        "definition": "patient_characteristic_gender",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3e93_d1af_013e_9f6427a02263_source",
+        "variable": false,
+        "value": {
+          "type": "CD",
+          "system": "Administrative Sex",
+          "code": "F"
+        }
+      },
+      "Payer_PatientCharacteristicPayer_40280381_3e93_d1af_013e_9f6427a02266": {
+        "title": "Payer",
+        "description": "Patient Characteristic Payer: Payer",
+        "code_list_id": "2.16.840.1.114222.4.11.3591",
+        "property": "payer",
+        "type": "characteristic",
+        "definition": "patient_characteristic_payer",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Payer_PatientCharacteristicPayer_40280381_3e93_d1af_013e_9f6427a02266_source",
+        "variable": false,
+        "inline_code_list": {
+          "Source of Payment Typology": [
+            "1",
+            "11",
+            "111",
+            "112",
+            "113",
+            "119",
+            "12",
+            "121",
+            "122",
+            "123",
+            "129",
+            "19",
+            "2",
+            "21",
+            "211",
+            "212",
+            "213",
+            "219",
+            "22",
+            "23",
+            "24",
+            "25",
+            "29",
+            "3",
+            "31",
+            "311",
+            "3111",
+            "3112",
+            "3113",
+            "3114",
+            "3115",
+            "3116",
+            "3119",
+            "312",
+            "3121",
+            "3122",
+            "3123",
+            "313",
+            "32",
+            "321",
+            "3211",
+            "3212",
+            "32121",
+            "32122",
+            "32123",
+            "32124",
+            "32125",
+            "32126",
+            "322",
+            "3221",
+            "3222",
+            "3223",
+            "3229",
+            "33",
+            "331",
+            "332",
+            "333",
+            "334",
+            "34",
+            "341",
+            "342",
+            "343",
+            "349",
+            "35",
+            "36",
+            "361",
+            "362",
+            "369",
+            "37",
+            "371",
+            "3711",
+            "3712",
+            "3713",
+            "372",
+            "379",
+            "38",
+            "381",
+            "3811",
+            "3812",
+            "3813",
+            "3819",
+            "382",
+            "389",
+            "39",
+            "4",
+            "41",
+            "42",
+            "43",
+            "44",
+            "5",
+            "51",
+            "511",
+            "512",
+            "513",
+            "514",
+            "515",
+            "519",
+            "52",
+            "521",
+            "522",
+            "523",
+            "529",
+            "53",
+            "54",
+            "55",
+            "59",
+            "6",
+            "61",
+            "611",
+            "612",
+            "613",
+            "619",
+            "62",
+            "63",
+            "64",
+            "69",
+            "7",
+            "71",
+            "72",
+            "73",
+            "79",
+            "8",
+            "81",
+            "82",
+            "821",
+            "822",
+            "823",
+            "83",
+            "84",
+            "85",
+            "89",
+            "9",
+            "91",
+            "92",
+            "93",
+            "94",
+            "95",
+            "951",
+            "953",
+            "954",
+            "959",
+            "96",
+            "98",
+            "99",
+            "9999"
+          ]
+        }
+      },
+      "Race_PatientCharacteristicRace_40280381_3e93_d1af_013e_9f6427a02264": {
+        "title": "Race",
+        "description": "Patient Characteristic Race: Race",
+        "code_list_id": "2.16.840.1.114222.4.11.836",
+        "property": "race",
+        "type": "characteristic",
+        "definition": "patient_characteristic_race",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Race_PatientCharacteristicRace_40280381_3e93_d1af_013e_9f6427a02264_source",
+        "variable": false,
+        "inline_code_list": {
+          "CDC Race": [
+            "1002-5",
+            "2028-9",
+            "2054-5",
+            "2076-8",
+            "2106-3",
+            "2131-1"
+          ]
+        }
+      },
+      "Agegrtr_thn_eql_12yearsat_5683FB27_9D26_4106_B9EC_23F83DB3362F_A92238D2_7028_4FE9_BA4C_6AE60E3C4116": {
+        "title": "Birth Date",
+        "description": "Patient Characteristic Birthdate: Birth Date",
+        "property": "birthtime",
+        "type": "characteristic",
+        "definition": "patient_characteristic_birthdate",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Agegrtr_thn_eql_12yearsat_5683FB27_9D26_4106_B9EC_23F83DB3362F_A92238D2_7028_4FE9_BA4C_6AE60E3C4116_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "SBS",
+            "reference": "MeasurePeriod",
+            "range": {
+              "type": "IVL_PQ",
+              "low": {
+                "type": "PQ",
+                "unit": "a",
+                "value": "12",
+                "inclusive?": true,
+                "derived?": false
+              }
+            }
+          }
+        ]
+      },
+      "Agegrtr_thn_eql_18yearsat_33C77439_0862_43DF_81BB_CB360A920F8B_9D8CA1D6_FA60_4B44_9995_1E9638C33282": {
+        "title": "Birth Date",
+        "description": "Patient Characteristic Birthdate: Birth Date",
+        "property": "birthtime",
+        "type": "characteristic",
+        "definition": "patient_characteristic_birthdate",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Agegrtr_thn_eql_12yearsat_5683FB27_9D26_4106_B9EC_23F83DB3362F_A92238D2_7028_4FE9_BA4C_6AE60E3C4116_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "SBS",
+            "reference": "MeasurePeriod",
+            "range": {
+              "type": "IVL_PQ",
+              "low": {
+                "type": "PQ",
+                "unit": "a",
+                "value": "18",
+                "inclusive?": true,
+                "derived?": false
+              }
+            }
+          }
+        ]
+      },
+      "Ageless_thn_18yearsat_ACDF8CBD_3CCF_4D5C_BD06_2F52375CC698_5A80031F_6D8C_4835_8FAE_8FE15BAD6A3B": {
+        "title": "Birth Date",
+        "description": "Patient Characteristic Birthdate: Birth Date",
+        "property": "birthtime",
+        "type": "characteristic",
+        "definition": "patient_characteristic_birthdate",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Agegrtr_thn_eql_12yearsat_5683FB27_9D26_4106_B9EC_23F83DB3362F_A92238D2_7028_4FE9_BA4C_6AE60E3C4116_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "SBS",
+            "reference": "MeasurePeriod",
+            "range": {
+              "type": "IVL_PQ",
+              "high": {
+                "type": "PQ",
+                "unit": "a",
+                "value": "18",
+                "inclusive?": false,
+                "derived?": false
+              }
+            }
+          }
+        ]
+      },
+      "During_AEFA4179_C538_4FFE_AF76_44D03796BE9A_F53CA3C0_91B8_47D8_BF83_4E8013FFCD9F": {
+        "title": "Depression Screening  Encounter Codes",
+        "description": "Encounter, Performed: Depression Screening Encounter Codes",
+        "code_list_id": "2.16.840.1.113883.3.600.1916",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "DepressionScreeningEncounterCodes_EncounterPerformed_04f6615c_81c1_449c_b477_70a87697193a_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      },
+      "StartsBeforeStartOf_365FF4D1_AA52_470F_8C3D_8010D56305F0_3c230357_a77e_4b04_95b6_64edea004a54": {
+        "title": "Bipolar Diagnosis",
+        "description": "Diagnosis: Bipolar Diagnosis",
+        "code_list_id": "2.16.840.1.113883.3.600.450",
+        "type": "conditions",
+        "definition": "diagnosis",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "StartsBeforeStartOf_365FF4D1_AA52_470F_8C3D_8010D56305F0_3c230357_a77e_4b04_95b6_64edea004a54_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "SBS",
+            "reference": "During_AEFA4179_C538_4FFE_AF76_44D03796BE9A_F53CA3C0_91B8_47D8_BF83_4E8013FFCD9F"
+          }
+        ]
+      },
+      "Overlaps_83AE16C2_28FE_4736_A6D0_888141A68343_3c230357_a77e_4b04_95b6_64edea004a54": {
+        "title": "Bipolar Diagnosis",
+        "description": "Diagnosis: Bipolar Diagnosis",
+        "code_list_id": "2.16.840.1.113883.3.600.450",
+        "type": "conditions",
+        "definition": "diagnosis",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "StartsBeforeStartOf_365FF4D1_AA52_470F_8C3D_8010D56305F0_3c230357_a77e_4b04_95b6_64edea004a54_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "OVERLAP",
+            "reference": "During_AEFA4179_C538_4FFE_AF76_44D03796BE9A_F53CA3C0_91B8_47D8_BF83_4E8013FFCD9F"
+          }
+        ]
+      },
+      "SatisfiesAll_66A3D16A_7D48_4650_9CF9_BD2559D727AF_505E166D_750D_4EC8_9781_99D893D89AE8": {
+        "title": "SatisfiesAll_66A3D16A-7D48-4650-9CF9-BD2559D727AF",
+        "description": "SatisfiesAll_66A3D16A-7D48-4650-9CF9-BD2559D727AF",
+        "children_criteria": [
+          "StartsBeforeStartOf_365FF4D1_AA52_470F_8C3D_8010D56305F0_3c230357_a77e_4b04_95b6_64edea004a54",
+          "Overlaps_83AE16C2_28FE_4736_A6D0_888141A68343_3c230357_a77e_4b04_95b6_64edea004a54"
+        ],
+        "derivation_operator": "INTERSECT",
+        "type": "derived",
+        "definition": "satisfies_all",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "SatisfiesAll_66A3D16A_7D48_4650_9CF9_BD2559D727AF_505E166D_750D_4EC8_9781_99D893D89AE8",
+        "variable": false
+      },
+      "StartsBeforeStartOf_0A042CD1_4C41_4816_B208_D83273570AA1_194d7683_260a_4fd3_aa65_bb27d2cf81bc": {
+        "title": "Depression diagnosis",
+        "description": "Diagnosis: Depression diagnosis",
+        "code_list_id": "2.16.840.1.113883.3.600.145",
+        "type": "conditions",
+        "definition": "diagnosis",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "StartsBeforeStartOf_0A042CD1_4C41_4816_B208_D83273570AA1_194d7683_260a_4fd3_aa65_bb27d2cf81bc_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "SBS",
+            "reference": "During_AEFA4179_C538_4FFE_AF76_44D03796BE9A_F53CA3C0_91B8_47D8_BF83_4E8013FFCD9F"
+          }
+        ]
+      },
+      "Overlaps_305F872F_F087_4B01_B059_83CF9D3F5851_194d7683_260a_4fd3_aa65_bb27d2cf81bc": {
+        "title": "Depression diagnosis",
+        "description": "Diagnosis: Depression diagnosis",
+        "code_list_id": "2.16.840.1.113883.3.600.145",
+        "type": "conditions",
+        "definition": "diagnosis",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "StartsBeforeStartOf_0A042CD1_4C41_4816_B208_D83273570AA1_194d7683_260a_4fd3_aa65_bb27d2cf81bc_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "OVERLAP",
+            "reference": "During_AEFA4179_C538_4FFE_AF76_44D03796BE9A_F53CA3C0_91B8_47D8_BF83_4E8013FFCD9F"
+          }
+        ]
+      },
+      "SatisfiesAll_6CCD43CD_F5B2_4C66_9919_CBFC1618CF3F_AA746EB4_B1B8_4C22_97D6_D3B0822184F6": {
+        "title": "SatisfiesAll_6CCD43CD-F5B2-4C66-9919-CBFC1618CF3F",
+        "description": "SatisfiesAll_6CCD43CD-F5B2-4C66-9919-CBFC1618CF3F",
+        "children_criteria": [
+          "StartsBeforeStartOf_0A042CD1_4C41_4816_B208_D83273570AA1_194d7683_260a_4fd3_aa65_bb27d2cf81bc",
+          "Overlaps_305F872F_F087_4B01_B059_83CF9D3F5851_194d7683_260a_4fd3_aa65_bb27d2cf81bc"
+        ],
+        "derivation_operator": "INTERSECT",
+        "type": "derived",
+        "definition": "satisfies_all",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "SatisfiesAll_6CCD43CD_F5B2_4C66_9919_CBFC1618CF3F_AA746EB4_B1B8_4C22_97D6_D3B0822184F6",
+        "variable": false
+      },
+      "During_F26213B0_60AA_4A64_9220_5D7B727FBABC_04f6615c_81c1_449c_b477_70a87697193a": {
+        "title": "Depression Screening  Encounter Codes",
+        "description": "Encounter, Performed: Depression Screening Encounter Codes",
+        "code_list_id": "2.16.840.1.113883.3.600.1916",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "DepressionScreeningEncounterCodes_EncounterPerformed_04f6615c_81c1_449c_b477_70a87697193a_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      },
+      "During_C54F9B35_88BB_49BF_B045_957052AD9C68_06DB3890_23E6_4C58_B2B1_C197A107453C": {
+        "title": "Adolescent Depression Screening",
+        "description": "Risk Category Assessment: Adolescent Depression Screening",
+        "code_list_id": "2.16.840.1.113883.3.600.2452",
+        "type": "risk_category_assessments",
+        "definition": "risk_category_assessment",
+        "hard_status": false,
+        "negation": false,
+        "specific_occurrence": "A",
+        "specific_occurrence_const": "OCCURRENCEA_ADOLESCENTDEPRESSIONSCREENING_RISKCATEGORYASSESSMENT_A2D7BB92_E6FB_42A1_B866_AB69EC275A70_SOURCE",
+        "source_data_criteria": "OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279e2232_source",
+        "variable": false,
+        "value": {
+          "type": "ANYNonNull"
+        },
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "During_F26213B0_60AA_4A64_9220_5D7B727FBABC_04f6615c_81c1_449c_b477_70a87697193a"
+          }
+        ],
+        "subset_operators": [
+          {
+            "type": "RECENT"
+          }
+        ]
+      },
+      "prefix_98807327_1e74_48ac_afd8_bb4fde9c3224_FA78751E_B948_4431_82CF_74623BF627F8": {
+        "title": "Adolescent Depression Screening",
+        "description": "Risk Category Assessment: Adolescent Depression Screening",
+        "code_list_id": "2.16.840.1.113883.3.600.2452",
+        "type": "risk_category_assessments",
+        "definition": "risk_category_assessment",
+        "hard_status": false,
+        "negation": false,
+        "specific_occurrence": "A",
+        "specific_occurrence_const": "OCCURRENCEA_ADOLESCENTDEPRESSIONSCREENING_RISKCATEGORYASSESSMENT_A2D7BB92_E6FB_42A1_B866_AB69EC275A70_SOURCE",
+        "source_data_criteria": "OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279e2232_source",
+        "variable": false,
+        "value": {
+          "type": "CD",
+          "code_list_id": "2.16.840.1.113883.3.600.2451",
+          "title": "Negative Depression Screening SNOMEDCT Value Set"
+        }
+      },
+      "prefix_2183e135_4b36_4fee_9bf4_063a3f1de6f8_BF2E4ED5_3202_40AA_9E61_699B2B96DEA8": {
+        "title": "Adolescent Depression Screening",
+        "description": "Risk Category Assessment: Adolescent Depression Screening",
+        "code_list_id": "2.16.840.1.113883.3.600.2452",
+        "type": "risk_category_assessments",
+        "definition": "risk_category_assessment",
+        "hard_status": false,
+        "negation": false,
+        "specific_occurrence": "A",
+        "specific_occurrence_const": "OCCURRENCEA_ADOLESCENTDEPRESSIONSCREENING_RISKCATEGORYASSESSMENT_A2D7BB92_E6FB_42A1_B866_AB69EC275A70_SOURCE",
+        "source_data_criteria": "OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279e2232_source",
+        "variable": false,
+        "value": {
+          "type": "CD",
+          "code_list_id": "2.16.840.1.113883.3.600.2450",
+          "title": "Positive Depression Screening SNOMEDCT Value Set"
+        }
+      },
+      "prefix_2c73ea70_3c66_4ce7_abf7_19c889e8ce40_B867A301_55B6_46F6_8178_C243A6B65B25": {
+        "title": "Adult Depression Screening",
+        "description": "Risk Category Assessment: Adult Depression Screening",
+        "code_list_id": "2.16.840.1.113883.3.600.2449",
+        "type": "risk_category_assessments",
+        "definition": "risk_category_assessment",
+        "hard_status": false,
+        "negation": false,
+        "specific_occurrence": "A",
+        "specific_occurrence_const": "OCCURRENCEA_ADULTDEPRESSIONSCREENING_RISKCATEGORYASSESSMENT_793D57FA_5F9A_4333_A99F_0EF98CCC67FF_SOURCE",
+        "source_data_criteria": "OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279d222d_source",
+        "variable": false,
+        "value": {
+          "type": "CD",
+          "code_list_id": "2.16.840.1.113883.3.600.2451",
+          "title": "Negative Depression Screening SNOMEDCT Value Set"
+        }
+      },
+      "b3dd103a_825a_473a_bb02_3a5b2542dd21_70B4C343_92CA_4A17_861A_18D399B19EF2": {
+        "title": "Adult Depression Screening",
+        "description": "Risk Category Assessment: Adult Depression Screening",
+        "code_list_id": "2.16.840.1.113883.3.600.2449",
+        "type": "risk_category_assessments",
+        "definition": "risk_category_assessment",
+        "hard_status": false,
+        "negation": false,
+        "specific_occurrence": "A",
+        "specific_occurrence_const": "OCCURRENCEA_ADULTDEPRESSIONSCREENING_RISKCATEGORYASSESSMENT_793D57FA_5F9A_4333_A99F_0EF98CCC67FF_SOURCE",
+        "source_data_criteria": "OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279d222d_source",
+        "variable": false,
+        "value": {
+          "type": "CD",
+          "code_list_id": "2.16.840.1.113883.3.600.2450",
+          "title": "Positive Depression Screening SNOMEDCT Value Set"
+        }
+      },
+      "less_thn_eql_1daysStartsAfterOrConcurrentWithStartOf_80F6909A_A0DA_4076_B2D3_CD2A01B1DD72_50FDBFD9_4207_45EA_81C1_ADABB8C19FB0": {
+        "title": "less_thn_eql_1daysStartsAfterOrConcurrentWithStartOf_80F6909A-A0DA-4076-B2D3-CD2A01B1DD72",
+        "description": "less_thn_eql_1daysStartsAfterOrConcurrentWithStartOf_80F6909A-A0DA-4076-B2D3-CD2A01B1DD72",
+        "children_criteria": [
+          "Additionalevaluationfordepression_adolescent_InterventionPerformed_ffd9cd79_d134_4258_91f1_abb87efb104d",
+          "ReferralforDepressionAdolescent_InterventionOrder_40280381_3e93_d1af_013e_9f64279f2253",
+          "Depressionmedications_adolescent_MedicationOrder_40280381_3e93_d1af_013e_9f64279f224f",
+          "Follow_upfordepression_adolescent_InterventionPerformed_40280381_3e93_d1af_013e_9f64279f2251",
+          "SuicideRiskAssessment_ProcedurePerformed_40280381_3e93_d1af_013e_9f6427a0225e"
+        ],
+        "derivation_operator": "UNION",
+        "type": "derived",
+        "definition": "derived",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "less_thn_eql_1daysStartsAfterOrConcurrentWithStartOf_80F6909A_A0DA_4076_B2D3_CD2A01B1DD72_50FDBFD9_4207_45EA_81C1_ADABB8C19FB0",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "SACW",
+            "reference": "OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279e2232",
+            "range": {
+              "type": "IVL_PQ",
+              "high": {
+                "type": "PQ",
+                "unit": "d",
+                "value": "1",
+                "inclusive?": true,
+                "derived?": false
+              }
+            }
+          }
+        ]
+      },
+      "less_thn_eql_1daysStartsAfterOrConcurrentWithStartOf_9036D018_A88B_431C_AEA2_038FD8A1EEF3_7CEB7508_79F3_4AC0_BF18_82851F029228": {
+        "title": "less_thn_eql_1daysStartsAfterOrConcurrentWithStartOf_9036D018-A88B-431C-AEA2-038FD8A1EEF3",
+        "description": "less_thn_eql_1daysStartsAfterOrConcurrentWithStartOf_9036D018-A88B-431C-AEA2-038FD8A1EEF3",
+        "children_criteria": [
+          "Additionalevaluationfordepression_adult_InterventionPerformed_af06cc6b_5791_459e_9d68_631da83207a8",
+          "ReferralforDepressionAdult_InterventionOrder_40280381_3e93_d1af_013e_9f64279f2254",
+          "Depressionmedications_adult_MedicationOrder_40280381_3e93_d1af_013e_9f64279f2250",
+          "Follow_upfordepression_adult_InterventionPerformed_40280381_3e93_d1af_013e_9f64279f2252",
+          "SuicideRiskAssessment_ProcedurePerformed_40280381_3e93_d1af_013e_9f6427a0225e"
+        ],
+        "derivation_operator": "UNION",
+        "type": "derived",
+        "definition": "derived",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "less_thn_eql_1daysStartsAfterOrConcurrentWithStartOf_9036D018_A88B_431C_AEA2_038FD8A1EEF3_7CEB7508_79F3_4AC0_BF18_82851F029228",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "SACW",
+            "reference": "OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279d222d",
+            "range": {
+              "type": "IVL_PQ",
+              "high": {
+                "type": "PQ",
+                "unit": "d",
+                "value": "1",
+                "inclusive?": true,
+                "derived?": false
+              }
+            }
+          }
+        ]
+      },
+      "During_D75EC90C_0C11_4FDC_973A_08E117554ADD_04f6615c_81c1_449c_b477_70a87697193a": {
+        "title": "Depression Screening  Encounter Codes",
+        "description": "Encounter, Performed: Depression Screening Encounter Codes",
+        "code_list_id": "2.16.840.1.113883.3.600.1916",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "DepressionScreeningEncounterCodes_EncounterPerformed_04f6615c_81c1_449c_b477_70a87697193a_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      },
+      "During_FEC12CD0_2C65_4F77_9748_AA06BCC2D5A2_C3139BF8_0A1D_4DF0_A138_CCBAF87F8408": {
+        "title": "Adult Depression Screening",
+        "description": "Risk Category Assessment: Adult Depression Screening",
+        "code_list_id": "2.16.840.1.113883.3.600.2449",
+        "type": "risk_category_assessments",
+        "definition": "risk_category_assessment",
+        "hard_status": false,
+        "negation": false,
+        "specific_occurrence": "A",
+        "specific_occurrence_const": "OCCURRENCEA_ADULTDEPRESSIONSCREENING_RISKCATEGORYASSESSMENT_793D57FA_5F9A_4333_A99F_0EF98CCC67FF_SOURCE",
+        "source_data_criteria": "OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_40280381_3e93_d1af_013e_9f64279d222d_source",
+        "variable": false,
+        "value": {
+          "type": "ANYNonNull"
+        },
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "During_D75EC90C_0C11_4FDC_973A_08E117554ADD_04f6615c_81c1_449c_b477_70a87697193a"
+          }
+        ],
+        "subset_operators": [
+          {
+            "type": "RECENT"
+          }
+        ]
+      },
+      "During_13DD1035_BBDF_4989_A087_1AB95DF7176C_09A856E5_AFFD_46CC_B436_B7B48FB0C5A2": {
+        "title": "During_13DD1035-BBDF-4989-A087-1AB95DF7176C",
+        "description": "During_13DD1035-BBDF-4989-A087-1AB95DF7176C",
+        "children_criteria": [
+          "prefix_6bd73930_cae4_40ca_8b08_712f379049f9_a2d7bb92_e6fb_42a1_b866_ab69ec275a70",
+          "prefix_71e99ebf_6306_40e1_9953_a7b81a441a2c_a2d7bb92_e6fb_42a1_b866_ab69ec275a70"
+        ],
+        "derivation_operator": "UNION",
+        "type": "derived",
+        "definition": "derived",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "During_13DD1035_BBDF_4989_A087_1AB95DF7176C_09A856E5_AFFD_46CC_B436_B7B48FB0C5A2",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "DepressionScreeningEncounterCodes_EncounterPerformed_04f6615c_81c1_449c_b477_70a87697193a"
+          }
+        ]
+      },
+      "During_66BAFADF_0D08_4D89_AC7C_11F0CF442A09_32966FFB_59D9_45CE_9683_159016F5AFD2": {
+        "title": "During_66BAFADF-0D08-4D89-AC7C-11F0CF442A09",
+        "description": "During_66BAFADF-0D08-4D89-AC7C-11F0CF442A09",
+        "children_criteria": [
+          "prefix_536b5031_eb3a_4d7f_91f7_88a4c87206cb_793d57fa_5f9a_4333_a99f_0ef98ccc67ff",
+          "prefix_97588de2_0119_43ac_963c_6c487ab60642_793d57fa_5f9a_4333_a99f_0ef98ccc67ff"
+        ],
+        "derivation_operator": "UNION",
+        "type": "derived",
+        "definition": "derived",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "During_66BAFADF_0D08_4D89_AC7C_11F0CF442A09_32966FFB_59D9_45CE_9683_159016F5AFD2",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "DepressionScreeningEncounterCodes_EncounterPerformed_04f6615c_81c1_449c_b477_70a87697193a"
+          }
+        ]
+      },
+      "During_28180DE5_4FBE_4325_A180_AB28A20F320D_340CFBD3_40DD_483D_B59C_AB70092FCA0F": {
+        "title": "Adolescent Depression Screening",
+        "description": "Risk Category Assessment: Adolescent Depression Screening",
+        "code_list_id": "2.16.840.1.113883.3.600.2452",
+        "type": "risk_category_assessments",
+        "definition": "risk_category_assessment",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "OccurrenceA_AdolescentDepressionScreening_RiskCategoryAssessment_a2d7bb92_e6fb_42a1_b866_ab69ec275a70_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      },
+      "During_CCA81F8A_B2A9_4C88_A67B_990628149CEA_CBCCB648_D273_4201_A80E_D3885CC81EE0": {
+        "title": "Adult Depression Screening",
+        "description": "Risk Category Assessment: Adult Depression Screening",
+        "code_list_id": "2.16.840.1.113883.3.600.2449",
+        "type": "risk_category_assessments",
+        "definition": "risk_category_assessment",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "OccurrenceA_AdultDepressionScreening_RiskCategoryAssessment_793d57fa_5f9a_4333_a99f_0ef98ccc67ff_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ]
+      }
+    }],
+  "oids": [
+    "2.16.840.1.113883.3.600.1542",
+    "2.16.840.1.113883.3.600.1545",
+    "2.16.840.1.113883.3.600.2452",
+    "2.16.840.1.113883.3.600.2449",
+    "2.16.840.1.113883.3.600.469",
+    "2.16.840.1.113883.3.600.470",
+    "2.16.840.1.113883.3.600.1916",
+    "2.16.840.1.113883.3.600.467",
+    "2.16.840.1.113883.3.600.468",
+    "2.16.840.1.113883.3.600.537",
+    "2.16.840.1.113883.3.600.538",
+    "2.16.840.1.113883.3.600.559",
+    "2.16.840.1.113883.3.600.450",
+    "2.16.840.1.113883.3.600.145",
+    "2.16.840.1.113883.3.600.2451",
+    "2.16.840.1.113883.3.600.2450",
+    "2.16.840.1.113883.3.600.1.1502",
+    "2.16.840.1.113883.3.600.791",
+    "2.16.840.1.114222.4.11.3591",
+    "2.16.840.1.113762.1.4.1",
+    "2.16.840.1.114222.4.11.836",
+    "2.16.840.1.114222.4.11.837"
+  ],
+  "population_ids": {
+    "IPP": "55D921A2-0700-43F0-8C6F-1DB4ADDD7FAB",
+    "DENOM": "CB0D06D7-9C40-45B0-AEC2-60C39262ABA0",
+    "DENEX": "8C56B86F-EFE9-404D-B97C-F8FC4691D50D",
+    "NUMER": "D94BAE8B-1EAC-4832-B040-884B4BBC5BD0",
+    "DENEXCEP": "E98E90BE-F3BD-42CD-A194-D6BEFA1BB714"
+  }
+}

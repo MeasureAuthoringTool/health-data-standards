@@ -31,15 +31,19 @@ class VSApiTest < Minitest::Test
       unless valueset_xml_version[valueset_xml[0]] == ""
         stub_request(:get,'https://localhost/vsservice').with(:query =>{:id=>"oid", :ticket=>"ticket", :effectiveDate=>valueset_xml_version[valueset_xml[0]]}).to_return(:body=>valueset_xml_by_date[valueset_xml[0]])
         assert_equal valueset_xml_by_date[valueset_xml[0]], api.get_valueset("oid", valueset_xml_version[valueset_xml[0]])
-        vs = api.get_valueset("oid", valueset_xml_version[valueset_xml[0]])
-        assert_equal valueset_xml_by_date[valueset_xml[0]], vs
+        api.get_valueset("oid", valueset_xml_version[valueset_xml[0]]) do |oid,vs|
+          assert_equal "oid", oid
+          assert_equal valueset_xml_by_date[valueset_xml[0]], vs
+        end
       end
 
       if valueset_xml_version[valueset_xml[0]] == ""
         stub_request(:get,'https://localhost/vsservice').with(:query =>{:id=>"oid", :ticket=>"ticket"}).to_return(:body=>valueset_xml_by_date[valueset_xml[0]])
         assert_equal valueset_xml_by_date[valueset_xml[0]], api.get_valueset("oid")
-        vs = api.get_valueset("oid")
-        assert_equal valueset_xml_by_date[valueset_xml[0]], vs
+        api.get_valueset("oid") do |oid,vs|
+          assert_equal "oid", oid
+          assert_equal valueset_xml_by_date[valueset_xml[0]], vs
+        end
       end
     end
 	end
@@ -49,43 +53,40 @@ class VSApiTest < Minitest::Test
     valueset_xml = %{<?xml version="1.0" encoding="UTF-8"?><RetrieveValueSetResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" cacheExpirationHint="2012-09-20T00:00:00-04:00" xmlns:nlm="urn:ihe:iti:svs:2008" xmlns="urn:ihe:iti:svs:2008"><ValueSet id="2.16.840.1.113883.11.20.9.23" version="#{ valueset_xml_version }"></ValueSet></RetrieveValueSetResponse>}
     stub_request(:get,'https://localhost/vsservice').with(:query =>{:id=>"oid", :ticket=>"ticket" ,:version => valueset_xml_version}).to_return(:body=>valueset_xml)
     api = HealthDataStandards::Util::VSApiV2.new("https://localhost/token", "https://localhost/vsservice", "myusername", "mypassword")
-    vs = api.get_valueset("oid", version: valueset_xml_version)
-    assert_equal valueset_xml, vs
+    api.get_valueset("oid", version: valueset_xml_version) do |oid,vs|
+      assert_equal "oid", oid
+      assert_equal valueset_xml, vs
+    end
   end
   
   def test_api_v2_with_include_draft_default_profile
     valueset_xml = %{<?xml version="1.0" encoding="UTF-8"?><RetrieveValueSetResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" cacheExpirationHint="2012-09-20T00:00:00-04:00" xmlns:nlm="urn:ihe:iti:svs:2008" xmlns="urn:ihe:iti:svs:2008"><ValueSet id="2.16.840.1.113883.11.20.9.23" version="Draft"></ValueSet></RetrieveValueSetResponse>}
     stub_request(:get,'https://localhost/vsservice').with(:query =>{:id=>"oid", :ticket=>"ticket", :includeDraft=>"yes", :profile=>"Most Recent CS Versions"}).to_return(:body=>valueset_xml)
     api = HealthDataStandards::Util::VSApiV2.new("https://localhost/token", "https://localhost/vsservice", "myusername", "mypassword")
-    # does not raise HealthDataStandards::Util::MalformedVSQueryError
-    vs = api.get_valueset("oid", include_draft: true, :profile=>"Most Recent CS Versions")
-    assert_equal valueset_xml, vs
-  end
-  
-  def test_api_v2_with_include_draft_no_profile
-    valueset_xml = %{<?xml version="1.0" encoding="UTF-8"?><RetrieveValueSetResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" cacheExpirationHint="2012-09-20T00:00:00-04:00" xmlns:nlm="urn:ihe:iti:svs:2008" xmlns="urn:ihe:iti:svs:2008"><ValueSet id="2.16.840.1.113883.11.20.9.23" version="Draft"></ValueSet></RetrieveValueSetResponse>}
-    test_stub = stub_request(:get,'https://localhost/vsservice').to_return(:body=>valueset_xml)
-    api = HealthDataStandards::Util::VSApiV2.new("https://localhost/token", "https://localhost/vsservice", "myusername", "mypassword")
-    assert_raises HealthDataStandards::Util::MalformedVSQueryError do
-      api.get_valueset("oid", include_draft: true)
+    api.get_valueset("oid", include_draft: true, :profile=>"Most Recent CS Versions") do |oid,vs|
+      assert_equal "oid", oid
+      assert_equal valueset_xml, vs
     end
-    assert_not_requested test_stub
   end
   
   def test_api_v2_with_include_draft_specified_profile
     valueset_xml = %{<?xml version="1.0" encoding="UTF-8"?><RetrieveValueSetResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" cacheExpirationHint="2012-09-20T00:00:00-04:00" xmlns:nlm="urn:ihe:iti:svs:2008" xmlns="urn:ihe:iti:svs:2008"><ValueSet id="2.16.840.1.113883.11.20.9.23" version="Draft"></ValueSet></RetrieveValueSetResponse>}
     stub_request(:get,'https://localhost/vsservice').with(:query =>{:id=>"oid", :ticket=>"ticket", :includeDraft=>"yes", :profile=>"Test Profile"}).to_return(:body=>valueset_xml)
     api = HealthDataStandards::Util::VSApiV2.new("https://localhost/token", "https://localhost/vsservice", "myusername", "mypassword")
-    vs = api.get_valueset("oid", include_draft: true, profile: "Test Profile")
-    assert_equal valueset_xml, vs
+    api.get_valueset("oid", include_draft: true, profile: "Test Profile") do |oid,vs|
+      assert_equal "oid", oid
+      assert_equal valueset_xml, vs
+    end
   end
 
   def test_api_v2
     valueset_xml = %{<?xml version="1.0" encoding="UTF-8"?><RetrieveValueSetResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" cacheExpirationHint="2012-09-20T00:00:00-04:00" xmlns:nlm="urn:ihe:iti:svs:2008" xmlns="urn:ihe:iti:svs:2008"><ValueSet id="2.16.840.1.113883.11.20.9.23"></ValueSet></RetrieveValueSetResponse>}
     stub_request(:get,'https://localhost/vsservice').with(:query =>{:id=>"oid", :ticket=>"ticket"}).to_return(:body=>valueset_xml)
     api = HealthDataStandards::Util::VSApiV2.new("https://localhost/token", "https://localhost/vsservice", "myusername", "mypassword")
-    vs = api.get_valueset("oid")
-    assert_equal valueset_xml, vs
+    api.get_valueset("oid") do |oid, vs|
+      assert_equal "oid", oid
+      assert_equal valueset_xml, vs
+    end
   end
 
   def test_404_response

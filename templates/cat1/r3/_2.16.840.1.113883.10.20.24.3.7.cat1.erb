@@ -15,7 +15,7 @@
     </effectiveTime>
     
     <% if entry.respond_to?(:anatomical_target) && entry.anatomical_target.present? -%>
-      <% vset = oid_for_code(entry.anatomical_target.code,field_oids["LATERALITY"]) %>
+      <% vset = oid_for_code(entry.anatomical_target.code,field_oids["LATERALITY"], entry.record["bundle_id"]) %>
       <% if vset %>
         <targetSiteCode code="<%= entry.anatomical_target['code'] %>" 
           codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.anatomical_target['code_system']) %>" sdtc:valueSet="<%= vset %>"/>

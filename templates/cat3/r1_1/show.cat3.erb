@@ -11,7 +11,7 @@
   <realmCode code="US"/>
   <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
   <!-- QRDA Category III template ID (this template ID differs from QRDA III comment only template ID). -->
-  <templateId root="2.16.840.1.113883.10.20.27.1.1" <% if qrda3_version == 'r1_1' %>extension="2016-02-01"<%end%>/>
+  <templateId root="2.16.840.1.113883.10.20.27.1.1" extension="2016-02-01"/>
   <%== render :partial=>"id", :locals=>{identifier: header.identifier} %>
 
   <!-- SHALL QRDA III document type code -->
@@ -94,7 +94,7 @@ Measure Section
           <templateId root="2.16.840.1.113883.10.20.24.2.2"/>
           <!-- In this case the query is using an eMeasure -->
           <!-- QRDA Category III Measure Section template -->
-          <templateId root="2.16.840.1.113883.10.20.27.2.1" <% if qrda3_version == 'r1_1' %>extension="2016-02-01"<%end%>/>
+          <templateId root="2.16.840.1.113883.10.20.27.2.1" extension="2016-02-01"/>
           <code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
           <title>Measure Section</title>
           <text>
@@ -106,7 +106,7 @@ Measure Section
               <!-- Implied template Measure Reference templateId -->
               <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
               <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
-              <templateId root="2.16.840.1.113883.10.20.27.3.1" <% if qrda3_version == 'r1_1' %>extension="2016-02-01"<%end%>/>
+              <templateId root="2.16.840.1.113883.10.20.27.3.1" extension="2016-02-01"/>
               <id extension="<%= measure['id'] || UUID.generate %>"/>
               <statusCode code="completed"/>
               <reference typeCode="REFR">

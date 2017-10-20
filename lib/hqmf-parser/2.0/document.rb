@@ -78,6 +78,17 @@ module HQMF2
       find(@data_criteria, :local_variable_name, local_variable_name)
     end
 
+    # Get ids of data criteria directly referenced by others
+    # @return [Array] an array of ids of directly referenced data criteria
+    def all_reference_ids
+      @reference_ids
+    end
+
+    # Adds id of a data criteria to the list of reference ids
+    def add_reference_id(id)
+      @reference_ids << id
+    end
+
     # Parse an XML document from the supplied contents
     # @return [Nokogiri::XML::Document]
     def self.parse(hqmf_contents)
@@ -114,7 +125,7 @@ module HQMF2
             attr_val('cda:QualityMeasureDocument/cda:id/@root').upcase
       @hqmf_set_id = attr_val('cda:QualityMeasureDocument/cda:setId/@extension') ||
                      attr_val('cda:QualityMeasureDocument/cda:setId/@root').upcase
-      @hqmf_version_number = attr_val('cda:QualityMeasureDocument/cda:versionNumber/@value').to_i
+      @hqmf_version_number = attr_val('cda:QualityMeasureDocument/cda:versionNumber/@value')
 
       # TODO: -- figure out if this is the correct thing to do -- probably not, but is
       # necessary to get the bonnie comparison to work.  Currently
@@ -181,7 +192,7 @@ module HQMF2
       value_obj = handle_attribute_value(attribute, value) if attribute.at_xpath('./cda:value', NAMESPACES)
 
       # Handle the cms_id - changed to eCQM in MAT 5.4 (QDM 5.3)
-      @cms_id = "CMS#{value}v#{@hqmf_version_number}" if (name.include? 'eMeasure Identifier') || (name.include? 'eCQM Identifier')
+      @cms_id = "CMS#{value}v#{@hqmf_version_number.to_i}" if (name.include? 'eMeasure Identifier') || (name.include? 'eCQM Identifier')
 
       HQMF::Attribute.new(id, code, value, nil, name, id_obj, code_obj, value_obj)
     end
@@ -272,7 +283,7 @@ module HQMF2
         end
       end
     end
-    
+
     # For specific occurrence data criteria, make sure the source data criteria reference points
     # to the correct source data criteria.
     def handle_specific_source_data_criteria_reference(criteria)
@@ -288,6 +299,6 @@ module HQMF2
         original_sdc.instance_variable_set(:@code_list_id, criteria.code_list_id)
       end
     end
-    
+
   end
 end

@@ -1,0 +1,44 @@
+  <!--                            Supplemental Date Template                                                  -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <!-- <%= template_name %> -->
+      <% template_ids.each do |tid| %>
+        <templateId root="<%= tid %>"/>
+      <% end %>
+        <id nullFlavor="NA" />
+      <code code="<%= supplemental_data_code %>" 
+            codeSystem="<%= supplemental_data_code_system %>"/>
+      <statusCode code="completed"/>
+      <% if template_name == 'Payer Supplemental Data' %>
+      <effectiveTime>
+        <low nullFlavor="NA"/>
+        <high nullFlavor="NA"/>
+      </effectiveTime>
+      <% end %>
+      <% if supplemental_data_value_code == "" || supplemental_data_value_code == "UNK" -%>
+      <value xsi:type="CD" 
+             nullFlavor="UNK" />
+      <% else -%>
+      
+      <value xsi:type="CD" 
+             code="<%= supplemental_data_value_code %>"
+             codeSystem="<%= supplemental_data_value_code_system %>"/>
+      <% end %>       
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <!-- Aggregate Count template -->
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <value xsi:type="INT" value="<%= count.round %>"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+    </observation>
+  </entryRelationship> 

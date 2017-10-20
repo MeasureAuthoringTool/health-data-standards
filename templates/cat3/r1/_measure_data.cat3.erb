@@ -2,21 +2,15 @@
 <!--   MEASURE DATA REPORTING FOR    <%= population.type %>  <%= population.id %>  -->
 <observation classCode="OBS" moodCode="EVN">
   <!-- Measure Data template -->
-  <templateId root="2.16.840.1.113883.10.20.27.3.5" <% if qrda3_version == 'r1_1' %>extension="2016-02-01"<%end%>/>
+  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
   <code code="ASSERTION" 
         codeSystem="2.16.840.1.113883.5.4" 
         displayName="Assertion" 
         codeSystemName="ActCode"/>
   <statusCode code="completed"/>
-  <% if qrda3_version == 'r1_1' %>
-    <value xsi:type="CD" code="<%= population.type == 'IPP' ? 'IPOP' : population.type %>"
-           codeSystem="2.16.840.1.113883.5.4"  
-           codeSystemName="ActCode"/>
-  <% else %>
-    <value xsi:type="CD" code="<%= population.type %>" 
-           codeSystem="2.16.840.1.113883.5.1063"  
-           codeSystemName="ObservationValue"/>
-  <% end %>
+  <value xsi:type="CD" code="<%= population.type %>" 
+         codeSystem="2.16.840.1.113883.5.1063"  
+         codeSystemName="ObservationValue"/>
   <!-- Aggregate Count -->
   <entryRelationship typeCode="SUBJ" inversionInd="true">
     <observation classCode="OBS" moodCode="EVN">
@@ -122,7 +116,7 @@
          payer_supplimental_data.each do |payer, count| -%>
 
  <!--         PAYER Supplemental Data Reporting   for<%= population.type %>  <%= population.id %>   -->
- <% payer_templates_ids = qrda3_version == 'r1_1' ? ['2.16.840.1.113883.10.20.27.3.9'] : ['2.16.840.1.113883.10.20.27.3.9', '2.16.840.1.113883.10.20.24.3.55'] %>
+ <% payer_templates_ids = ['2.16.840.1.113883.10.20.27.3.9', '2.16.840.1.113883.10.20.24.3.55'] %>
  <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Payer Supplemental Data', 
                 :template_ids => payer_templates_ids, :supplemental_data_code => '48768-6',
                 :supplemental_data_code_system => '2.16.840.1.113883.6.1', :supplemental_data_value_code => payer,

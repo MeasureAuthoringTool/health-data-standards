@@ -1,0 +1,18 @@
+<observation classCode="OBS" moodCode="EVN">
+  <templateId root="2.16.840.1.113883.10.20.27.3.14"/>
+  <code code="72510-1" codeSystem="2.16.840.1.113883.6.1"
+    displayName="Performance Rate" 
+    codeSystemName="2.16.840.1.113883.6.1"/>
+  <statusCode code="completed"/>
+  <% if population_group.performance_rate_denominator > 0 %>
+  <value xsi:type="REAL" value="<%= population_group.performance_rate.round(6) %>"/>
+  <% else %>
+    <value xsi:type="REAL" nullFlavor="NA"/>
+  <% end %>
+  <reference typeCode="REFR">
+     <externalObservation classCode="OBS" moodCode="EVN">
+       <id root="<%= population_group.numerator.id %>"/>
+       <code code="NUMER" displayName="Numerator" codeSystem="2.16.840.1.113883.5.1063" codeSystemName="ObservationValue"/>
+    </externalObservation>
+  </reference>
+</observation>

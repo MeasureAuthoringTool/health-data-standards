@@ -98,14 +98,14 @@ module HealthDataStandards
           data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                                       data_criteria.status || '',
                                                                                        data_criteria.negation)
-          is_hqmfr2 = true unless data_criteria_oid 
+          is_hqmfr2 = true unless data_criteria_oid
           data_criteria_oid ||= HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                                       data_criteria.status || '',
                                                                                       data_criteria.negation, "r2")
-          HealthDataStandards.logger.warn("Looking for dc [#{data_criteria_oid}]")
+          HealthDataStandards.logger.debug("Looking for dc [#{data_criteria_oid}]")
           filtered_entries = []
           entries = []
-          
+
           case data_criteria_oid
           when '2.16.840.1.113883.3.560.1.404'
             filtered_entries = handle_patient_expired(patient)

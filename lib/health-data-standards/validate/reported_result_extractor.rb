@@ -152,7 +152,11 @@ module ReportedResultExtractor
             value = node.at_xpath('cda:value')
             count = get_aggregate_count(node)
             if value.at_xpath("./@nullFlavor")
-             key_hash["UNK"] = count
+             if supp == "PAYER" && value['xsi:type'] == 'CD' && value['nullFlavor'] == 'OTH' && value.at_xpath("cda:translation") && value.at_xpath("cda:translation")['code']
+              key_hash[value.at_xpath("cda:translation")['code']] = count
+             else
+              key_hash["UNK"] = count
+             end
             else
              key_hash[value['code']] = count
             end

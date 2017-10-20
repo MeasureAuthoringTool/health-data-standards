@@ -15,7 +15,7 @@
       <high <%= value_or_null_flavor(entry.discharge_time || entry.end_time) %>/>
     </effectiveTime>
       <% if entry.discharge_disposition.present?
-      vset = oid_for_code(entry.discharge_disposition,field_oids["DISCHARGE_STATUS"])
+      vset = oid_for_code(entry.discharge_disposition,field_oids["DISCHARGE_STATUS"], entry.record["bundle_id"])
       if vset %>  
         <sdtc:dischargeDispositionCode code="<%= entry.discharge_disposition['code'] %>" 
             codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.discharge_disposition['codeSystem'] || entry.discharge_disposition['code_system']) %>" sdtc:valueSet="<%= vset %>"/>
@@ -34,7 +34,7 @@
       </time>
       <participantRole classCode="SDLOC">
         <% if entry.facility.code.present? -%>
-          <% vset = oid_for_code(entry.facility.code,field_oids["FACILITY_LOCATION"]) %>
+          <% vset = oid_for_code(entry.facility.code,field_oids["FACILITY_LOCATION"], entry.record["bundle_id"]) %>
           <% if vset %>
             <code code="<%= entry.facility.code['code'] %>" 
               codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.facility.code['codeSystem'] || entry.facility.code['code_system']) %>" sdtc:valueSet="<%= vset %>"/>
@@ -58,24 +58,6 @@
           <name><%= entry.facility.name %></name>
         </playingEntity>
       </participantRole>
-    </participant>
-    <% end -%>
-
-    <% if entry.respond_to?(:transferTo) && entry.transferTo.present? -%>
-    <participant typeCode="DST">
-      <!-- Transfer To (Destination) template --> 
-      <templateId root="2.16.840.1.113883.10.20.24.3.82"/> 
-      <time <%= value_or_null_flavor(entry.transferTo.time) %>/>
-      <participantRole classCode="LOCE">
-        <% 
-           entry.transferTo.codes[entry.transferTo.code_system] = [entry.transferTo.code]
-           transfer_vs_map = [{"set"=>entry.transferTo.code_system, "values"=>[entry.transferTo.code]}]
-           transfer_oid = (data_criteria.field_values || {})['TRANSFER_TO'].try(:code_list_id)
-           options = {'value_set_map' => transfer_vs_map, 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT']}
-           options['extra_content'] = "sdtc:valueSet=\"#{transfer_oid}\"" if transfer_oid
-        %>
-        <%== code_display(entry.transferTo, options) %>
-      </participantRole> 
     </participant>
     <% end -%>
 

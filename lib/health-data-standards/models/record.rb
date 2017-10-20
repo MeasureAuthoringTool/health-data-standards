@@ -16,6 +16,7 @@ class Record
   field :ethnicity, type: Hash
   field :languages, type: Array, default: []
   field :test_id, type: BSON::ObjectId
+  field :bundle_id, type: BSON::ObjectId
   field :marital_status, type: Hash
   field :medical_record_number, type: String
   field :medical_record_assigner, type: String
@@ -127,7 +128,7 @@ class Record
       else
         unique_entries[entry.identifier] = entry
       end
-      
+
     end
     self.send("#{section}=", unique_entries.values)
   end
