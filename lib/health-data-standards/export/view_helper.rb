@@ -34,7 +34,7 @@ module HealthDataStandards
 
       def create_code_display_string(entry, preferred_code, options={})
         code_string = nil
-        if entry.negation_ind
+        if entry.respond_to?(:negation_ind) && entry[:negation_ind]
           code_string = "<#{options['tag_name']} "
           code_string += "nullFlavor=\"NA\" " unless options["exclude_null_flavor"]
           code_string += "#{options['extra_content']}>"
@@ -59,7 +59,7 @@ module HealthDataStandards
 
       def create_translations_code_string(entry, options={})
         code_string = ''
-        if (!entry.negation_ind)
+        if (!entry[:negation_ind])
           entry.translation_codes(options['preferred_code_sets'], options['value_set_map']).each do |translation|
             code_string += "<translation code=\"#{translation['code']}\" codeSystem=\"#{HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(translation['code_set'])}\"/>\n"
           end
