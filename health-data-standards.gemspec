@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.email = "tacoma-list@lists.mitre.org"
   s.homepage = "https://github.com/projectcypress/health-data-standards"
   s.authors = ["The MITRE Corporation"]
-  s.license = 'APL 2.0'
+  s.license = 'Apache-2.0'
 
   s.version = '3.7.0'
 
