@@ -26,7 +26,7 @@
   <id root="<%= UUID.generate %>"/>
   <!-- QRDA document type code -->
   <code code="55182-0" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Quality Measure Report"/>
-  <title>QRDA Incidence Report</title>
+  <title>Harris CareTracker QRDA Incidence Report</title>
   <!-- This is the document creation time -->
   <effectiveTime value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
   <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
@@ -104,29 +104,39 @@
         </addr>
         <telecom use="WP" value="tel:(781)271-3000"/>
         <assignedAuthoringDevice>
-          <manufacturerModelName>Cypress</manufacturerModelName >
-          <softwareName>Cypress</softwareName >
+          <manufacturerModelName>Harris CareTracker</manufacturerModelName >
+          <softwareName>Amb EMR CQM</softwareName >
         </assignedAuthoringDevice >
       </assignedAuthor>
     </author>
     <custodian>
       <assignedCustodian>
         <representedCustodianOrganization>
-          <!-- HQR Only -->
           <% if cms_compatibility && reporting_program == 'HQR_EHR' %>
+            <!-- HQR Only -->
             <id root="2.16.840.1.113883.4.336" extension="800890"/>
           <% else %>
             <id root="2.16.840.1.113883.19.5"/>
           <% end %>
-          <name>Cypress Test Deck</name>
+          <name><%= patient.practice.name %></name>
           <telecom use="WP" value="tel:(781)271-3000"/>
-          <addr>
-            <streetAddressLine>202 Burlington Rd.</streetAddressLine>
-            <city>Bedford</city>
-            <state>MA</state>
-            <postalCode>01730</postalCode>
-            <country>US</country>
-          </addr>
+          <% if patient.practice.address_hash %>
+            <addr>
+              <streetAddressLine><%= patient.practice.address_hash[:street] %></streetAddressLine>
+              <city><%= patient.practice.address_hash[:city] %></city>
+              <state><%= patient.practice.address_hash[:state] %></state>
+              <postalCode><%= patient.practice.address_hash[:zip] %></postalCode>
+              <country><%= patient.practice.address_hash[:country] %></country>
+            </addr>
+          <% else %>
+            <addr>
+              <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+              <city>Bedford</city>
+              <state>MA</state>
+              <postalCode>01730</postalCode>
+              <country>US</country>
+            </addr>
+          <% end %>
         </representedCustodianOrganization>
       </assignedCustodian>
     </custodian>
