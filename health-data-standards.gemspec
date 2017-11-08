@@ -4,12 +4,12 @@ Gem::Specification.new do |s|
   s.name = "health-data-standards"
   s.summary = "A library for generating and consuming various healthcare related formats."
   s.description = "A library for generating and consuming various healthcare related formats. These include HITSP C32, QRDA Category I, and QRDA Category III."
-  s.email = "talk@projectpophealth.org"
+  s.email = "tacoma-list@lists.mitre.org"
   s.homepage = "https://github.com/projectcypress/health-data-standards"
-  s.authors = ["Andy Gregorowicz", "Sam Sayer", "Marc Hadley", "Rob Dingwell", "Andre Quina"]
+  s.authors = ["The MITRE Corporation"]
   s.license = 'APL 2.0'
 
-  s.version = '3.6.1'
+  s.version = '3.7.0'
 
   s.add_dependency 'rest-client', '~>1.8.0'
   s.add_dependency 'erubis', '~> 2.7.0'
