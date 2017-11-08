@@ -95,13 +95,23 @@
           <% else %>
         <id extension="FakeNPI" root="2.16.840.1.113883.4.6"/>
         <% end %>
-        <addr>
-          <streetAddressLine>202 Burlington Rd.</streetAddressLine>
-          <city>Bedford</city>
-          <state>MA</state>
-          <postalCode>01730</postalCode>
-          <country>US</country>
-        </addr>
+        <% if patient.practice.address_hash %>
+            <addr>
+              <streetAddressLine><%= patient.practice.address_hash[:street] %></streetAddressLine>
+              <city><%= patient.practice.address_hash[:city] %></city>
+              <state><%= patient.practice.address_hash[:state] %></state>
+              <postalCode><%= patient.practice.address_hash[:zip] %></postalCode>
+              <country><%= patient.practice.address_hash[:country] %></country>
+            </addr>
+        <% else %>
+            <addr>
+              <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+              <city>Bedford</city>
+              <state>MA</state>
+              <postalCode>01730</postalCode>
+              <country>US</country>
+            </addr>
+        <% end %>
         <telecom use="WP" value="tel:(781)271-3000"/>
         <assignedAuthoringDevice>
           <manufacturerModelName>Harris CareTracker</manufacturerModelName >
