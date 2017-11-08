@@ -6,6 +6,12 @@ module HealthDataStandards
           super(entry_finder)
           @entry_class = LabResult
         end
+
+        def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
+          labOrder = super
+          extract_reason_or_negation(entry_element, labOrder)
+          labOrder
+        end
         
         private
 
