@@ -95,7 +95,7 @@
           <% else %>
         <id extension="1010101016" root="2.16.840.1.113883.4.6"/>
         <% end %>
-        <% if patient.practice.address_hash %>
+        <% if patient.practice[:address_hash] %>
             <addr>
               <streetAddressLine><%= patient.practice.address_hash[:street] %></streetAddressLine>
               <city><%= patient.practice.address_hash[:city] %></city>
@@ -130,7 +130,7 @@
           <% end %>
           <name><%= patient.practice.name %></name>
           <telecom use="WP" value="tel:(781)271-3000"/>
-          <% if patient.practice.address_hash %>
+          <% if patient.practice[:address_hash] %>
             <addr>
               <streetAddressLine><%= patient.practice.address_hash[:street] %></streetAddressLine>
               <city><%= patient.practice.address_hash[:city] %></city>
@@ -163,7 +163,7 @@
       <signatureCode code="S"/>
       <assignedEntity>
         <id root="bc01a5d1-3a34-4286-82cc-43eb04c972a7"/>
-        <% if patient.practice.address_hash %>
+        <% if patient.practice[:address_hash] %>
           <addr>
             <streetAddressLine><%= patient.practice.address_hash[:street] %></streetAddressLine>
             <city><%= patient.practice.address_hash[:city] %></city>
@@ -191,7 +191,7 @@
           <id root="2.16.840.1.113883.19.5"/>
           <name><%= patient.practice.name %></name>
           <telecom use="WP" value="tel:(781)271-3000"/>
-          <% if patient.practice.address_hash %>
+          <% if patient.practice[:address_hash] %>
             <addr>
               <streetAddressLine><%= patient.practice.address_hash[:street] %></streetAddressLine>
               <city><%= patient.practice.address_hash[:city] %></city>
