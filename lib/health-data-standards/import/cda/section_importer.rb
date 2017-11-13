@@ -99,7 +99,8 @@ module HealthDataStandards
           code_elements = parent_element.xpath(@description_xpath)
           code_elements.each do |code_element|
             tag = code_element['value']
-            entry.description = nrh.lookup_tag(tag)
+            description = nrh.lookup_tag(tag)
+            entry.description = description if description
           end
         end
 
