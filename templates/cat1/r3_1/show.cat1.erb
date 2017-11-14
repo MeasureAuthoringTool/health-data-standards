@@ -111,7 +111,7 @@
           <id extension="1010101016" root="2.16.840.1.113883.4.6"/>
           <% if patient.practice[:address_hash] %>
               <addr>
-                <% if patient.practice.address_hash[:street].each do |street| %>
+                <% patient.practice.address_hash[:street].each do |street| %>
                   <streetAddressLine><%= street %></streetAddressLine>
                 <% end %>
                 <city><%= patient.practice.address_hash[:city] %></city>
@@ -150,7 +150,7 @@
           <telecom nullFlavor="UNK" />
           <% if patient.practice[:address_hash] %>
             <addr>
-              <% if patient.practice.address_hash[:street].each do |street| %>
+              <% patient.practice.address_hash[:street].each do |street| %>
                 <streetAddressLine><%= street %></streetAddressLine>
               <% end %>
               <city><%= patient.practice.address_hash[:city] %></city>
@@ -185,7 +185,7 @@
         <id root="bc01a5d1-3a34-4286-82cc-43eb04c972a7"/>
         <% if patient.practice[:address_hash] %>
           <addr>
-            <% if patient.practice.address_hash[:street].each do |street| %>
+            <% patient.practice.address_hash[:street].each do |street| %>
               <streetAddressLine><%= street %></streetAddressLine>
             <% end %>
             <city><%= patient.practice.address_hash[:city] %></city>
@@ -225,7 +225,7 @@
           <telecom nullFlavor="UNK" />
           <% if patient.practice[:address_hash] %>
             <addr>
-              <% if patient.practice.address_hash[:street].each do |street| %>
+              <% patient.practice.address_hash[:street].each do |street| %>
                 <streetAddressLine><%= street %></streetAddressLine>
               <% end %>
               <city><%= patient.practice.address_hash[:city] %></city>
