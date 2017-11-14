@@ -34,8 +34,11 @@
             <country>US</country>
           </addr>
         <% end -%>
-      
-      <telecom use="WP" value="tel:+1-781-271-3000"/>
+        <% if patient.telecoms %>
+          <% patient.telecoms.each do |telecom| %>
+            <telecom use="<%=telecom.use%>" value="tel:+1<%=telecom.value%>" />
+          <% end %>          
+        <% end %>
       <patient>
         <name>
           <given><%= patient.first %></given>
