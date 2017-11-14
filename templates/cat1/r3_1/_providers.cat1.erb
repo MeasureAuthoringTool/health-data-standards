@@ -1,27 +1,29 @@
 <documentationOf typeCode="DOC">
   <serviceEvent classCode="PCPR"> <!-- care provision -->
-  <% if patient[:group_provider] %>
+  <% if patient[:group_providers] %>
       <effectiveTime>
           <low nullFlavor='UNK'/>
           <high nullFlavor='UNK'/>
       </effectiveTime>
-      <performer typeCode="PRF"> 
-        <time>
-          <low nullFlavor='UNK'/>
-          <high nullFlavor='UNK'/>
-        </time>
-        <assignedEntity>
-          <id root="2.16.840.1.113883.4.6" extension="<%= patient[:group_provider].npi %>" />          
-          <assignedPerson>
-            <name>
-              <given><%= patient[:group_provider][:given_name] %></given>
-              <family><%= patient[:group_provider][:family_name] %></family>
-            </name>
-          </assignedPerson>
-          <representedOrganization>
-          </representedOrganization>
-        </assignedEntity>
-      </performer>
+      <% patient[:group_providers].each do |group_provider| %>
+        <performer typeCode="PRF"> 
+          <time>
+            <low nullFlavor='UNK'/>
+            <high nullFlavor='UNK'/>
+          </time>
+          <assignedEntity>
+            <id root="2.16.840.1.113883.4.6" extension="<%= group_provider.npi %>" />          
+            <assignedPerson>
+              <name>
+                <given><%= group_provider[:given_name] %></given>
+                <family><%= group_provider[:family_name] %></family>
+              </name>
+            </assignedPerson>
+            <representedOrganization>
+            </representedOrganization>
+          </assignedEntity>
+        </performer>
+      <% end %>
   <% elsif patient.provider_performances.empty? -%>
     <!-- No provider data found in the patient record
          putting in a fake provider -->
