@@ -8,13 +8,17 @@ module HealthDataStandards
           html_array = entries.map do |entry|
               bundle_id = entry.record ? entry.record["bundle_id"] : nil
               vs_map = (value_set_map(bundle_id) || {})[dc['value_set_oid']]
-              render(:partial => HealthDataStandards::Export::QRDA::EntryTemplateResolver.partial_for(dc['data_criteria_oid'], dc['value_set_oid'], qrda_version), :locals => {:entry => entry,
+              begin
+                render(:partial => HealthDataStandards::Export::QRDA::EntryTemplateResolver.partial_for(dc['data_criteria_oid'], dc['value_set_oid'], qrda_version), :locals => {:entry => entry,
                                                                                                                                    :data_criteria => dc['data_criteria'],
                                                                                                                                    :value_set_oid => dc['value_set_oid'],
                                                                                                                                    :filtered_vs_map => vs_map,
                                                                                                                                    :result_oids => dc["result_oids"],
                                                                                                                                    :field_oids => dc["field_oids"],
                                                                                                                                    :r2_compatibility => r2_compatibility})
+              rescue => e
+                Rails.logger.info "*****CAT1*** DC: #{dc['data_criteria_oid']}  VS: #{dc['value_set_oid']} #{e.message}"
+              end
           end
           html_array.join("\n")
         end
