@@ -82,9 +82,9 @@
     <author>
       <time value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
       <assignedAuthor>
-        <!-- id extension="Cypress" root="2.16.840.1.113883.19.5"/ -->
         <!-- NPI -->
         <% if cms_compatibility %>
+            <!-- id extension="Cypress" root="2.16.840.1.113883.19.5"/ -->
             <% patient.provider_performances.each do |pp| -%>
               <% pp.provider.cda_identifiers.each do |cda_id| -%>
                 <% if cda_id.root.eql?('2.16.840.1.113883.4.6') -%>
@@ -93,20 +93,20 @@
               <% end -%>
             <% end -%>
         <% end %>
-        <% if patient[:group_provider] %>
-          <id extension="<%= patient[:group_provider].npi %>" root="2.16.840.1.113883.4.6"/>
-          <% if patient[:group_provider][:addresses] && patient[:group_provider][:addresses][0] %>
-          <addr>
-            <% patient[:group_provider][:addresses][0][:street].each do |street| %>
-              <streetAddressLine><%= street %></streetAddressLine>
-            <% end %>
-            <city><%= patient[:group_provider][:addresses][0][:city] %></city>
-            <state><%= patient[:group_provider][:addresses][0][:state] %></state>
-            <postalCode><%= patient[:group_provider][:addresses][0][:zip] %></postalCode>
-            <country><%= patient[:group_provider][:addresses][0][:country] %></country>
-          </addr>
+        <% if patient[:group_providers] %>
+          <id extension="Harris CareTracker CQM" root="2.16.840.1.113883.19.5" />
+          <% if patient.practice[:address_hash] %>
+            <addr>
+              <% patient.practice.address_hash[:street].each do |street| %>
+                <streetAddressLine><%= street %></streetAddressLine>
+              <% end %>
+              <city><%= patient.practice.address_hash[:city] %></city>
+              <state><%= patient.practice.address_hash[:state] %></state>
+              <postalCode><%= patient.practice.address_hash[:zip] %></postalCode>
+              <country><%= patient.practice.address_hash[:country] %></country>
+            </addr>
           <% end %>
-          <telecom use="WP" value="tel:(123)456-7890"/>
+          <telecom nullFlavor="UNK" />
         <% else %>
           <id extension="1010101016" root="2.16.840.1.113883.4.6"/>
           <% if patient.practice[:address_hash] %>
