@@ -48,6 +48,7 @@ module HealthDataStandards
           extract_fulfillment_history(entry_element, medication)
           extract_reason_or_negation(entry_element, medication)
           medication.freeTextSig = entry_element.at_xpath("./cda:text").try("text")
+          medication.freeTextSig = medication.freeTextSig.encode("UTF-8", invalid: :replace, undef: :replace) if medication.freeTextSig 
           medication
         end
 
