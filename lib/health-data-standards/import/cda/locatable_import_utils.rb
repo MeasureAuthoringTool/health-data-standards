@@ -6,7 +6,7 @@ module HealthDataStandards
         def import_address(address_element)
           address = Address.new
           address.use = address_element['use']
-          address.street = address_element.xpath("./cda:streetAddressLine").map {|street| street.text}
+          address.street = address_element.xpath("./cda:streetAddressLine").map {|street| street.text.encode("UTF-8", invalid: :replace, undef: :replace) if street.text}
           address.city = address_element.at_xpath("./cda:city").try(:text)
           address.state = address_element.at_xpath("./cda:state").try(:text)
           address.zip = address_element.at_xpath("./cda:postalCode").try(:text)
