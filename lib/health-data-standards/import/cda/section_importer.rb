@@ -70,7 +70,9 @@ module HealthDataStandards
           if entry.description.nil? || entry.description.blank? || entry.description.empty? 
             code_elements = parent_element.xpath(@code_xpath)
             code_element = code_elements[0] if code_elements
-            entry.description = code_element['displayName'] if code_element
+            if (code_element && code_element['displayName'])
+               entry.description = code_element['displayName'].encode("UTF-8", invalid: :replace, undef: :replace)
+            end
           end
         end
 
