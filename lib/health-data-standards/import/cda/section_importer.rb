@@ -71,9 +71,10 @@ module HealthDataStandards
             code_elements = parent_element.xpath(@code_xpath)
             code_element = code_elements[0] if code_elements
             if (code_element && code_element['displayName'])
-               entry.description = code_element['displayName'].encode("UTF-8", invalid: :replace, undef: :replace)
+               entry.description = code_element['displayName']
             end
           end
+          entry.description = entry.description.encode("UTF-8", invalid: :replace, undef: :replace) if !entry.description.nil?
         end
 
         def extract_status(parent_element, entry)
