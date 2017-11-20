@@ -114,17 +114,6 @@ module HealthDataStandards
         end
       end
 
-      def ucum_for_dose_quantity(unit)
-        case unit
-        when 'capsule(s)'
-          '{Capsule}'
-        when 'tablet(s)'
-          '{tbl}'
-        else
-          unit
-        end
-      end
-
       def time_if_not_nil(*args)
         args.compact.map {|t| Time.at(t).utc}.first
       end
