@@ -77,7 +77,7 @@ module HealthDataStandards
             entry["duplicate"] = qhMap[qhash] || false
             qhMap[qhash] = true     
           end
-          Rails.logger.info "CCDA conditionimporter total #{entries.count} unique #{qhMap.keys.count}"
+          Rails.logger.info "#{Time.now.to_s} CCDA conditionimporter total #{entries.count} unique #{qhMap.keys.count}"
           qhMap = {}
         end
         
