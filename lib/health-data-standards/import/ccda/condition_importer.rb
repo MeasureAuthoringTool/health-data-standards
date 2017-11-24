@@ -7,7 +7,7 @@ module HealthDataStandards
           super
           @entry_finder = CDA::EntryFinder.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.10.20.22.2.5' or cda:templateId/@root='2.16.840.1.113883.10.20.22.2.5.1']/cda:entry/cda:act/cda:entryRelationship/cda:observation[@duplicate='false']")
           @status_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.6']/cda:value"
-          
+          @laterality_xpath = "./cda:targetSiteCode"
           #optional
           #health status
           #age at onset
@@ -18,6 +18,12 @@ module HealthDataStandards
           super
         end
 
+        def create_entry(entry_element, nrh = CDA::NarrativeReferenceHandler.new)
+          condition = super
+          extract_laterality(entry_element, condition)
+          condition
+        end
+
         def extract_dates(parent_element, entry, element_name="effectiveTime")
           super
           if parent_element.at_xpath("../../cda:#{element_name}/cda:low")
@@ -25,6 +31,16 @@ module HealthDataStandards
           end
           if parent_element.at_xpath("../../cda:#{element_name}/cda:high")
             entry[:end_time] = HL7Helper.timestamp_to_integer(parent_element.at_xpath("../../cda:#{element_name}/cda:high")['value'])
+          end
+        end
+
+        def extract_laterality(entry_element,condition)
+          laterality = entry_element.at_xpath(@laterality_xpath)
+          if laterality
+            # kept to be backward compatible
+            # UNISLINK
+            # condition.laterality = { 'code_system' => CodeSystemHelper.code_system_for(laterality['codeSystem']), 'code' => laterality['code'] }
+            condition.anatomical_location = { 'code_system' => CodeSystemHelper.code_system_for(laterality['codeSystem']), 'code' => laterality['code'] }
           end
         end
 
