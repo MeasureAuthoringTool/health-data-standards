@@ -122,8 +122,15 @@ module HealthDataStandards
             entries.concat patient.entries_for_oid(data_criteria_oid)
             # append ccda entries
             ccda_oid = HQMFTemplateHelper.get_ccda_oid(data_criteria_oid)
-            if ccda_oid && data_criteria_oid != ccda_oid
-              entries.concat patient.entries_for_oid(ccda_oid)
+            if ccda_oid
+              if ccda_oid.is_a?(String)
+                entries.concat patient.entries_for_oid(ccda_oid) if data_criteria_oid != ccda_oid
+              elsif ccda_oid.is_a?(Array)
+                ccda_oids = ccda_oid
+                ccda_oids.each do |cc_oid|
+                  entries.concat patient.entries_for_oid(cc_oid) if data_criteria_oid != cc_oid
+                end
+              end
             end
 
             case data_criteria_oid
