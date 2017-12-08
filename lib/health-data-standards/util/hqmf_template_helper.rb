@@ -33,6 +33,16 @@ module HealthDataStandards
           nil
         end
       end
+
+      def self.get_ccda_oid(template_id)
+        r1kv = definition_for_template_id(template_id,'r1')
+        ccda_oid = r1kv['ccda_oid'] if r1kv
+
+        r2kv = definition_for_template_id(template_id,'r2')
+        ccda_oid ||= r2kv['ccda_oid'] if r2kv
+        ccda_oid
+      end
+
     end
   end
 end

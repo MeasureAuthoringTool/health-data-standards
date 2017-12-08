@@ -144,6 +144,12 @@ module HealthDataStandards
               end
             end
 
+            # append ccda entries
+            ccda_oid = HQMFTemplateHelper.get_ccda_oid(data_criteria_oid)
+            if ccda_oid && data_criteria_oid != ccda_oid
+              entries.concat patient.entries_for_oid(ccda_oid)
+            end
+
             codes ||= (value_set_map(patient["bundle_id"])[data_criteria.code_list_id] || [])
             if codes.empty?
               HealthDataStandards.logger.warn("No codes for #{data_criteria.code_list_id}")
