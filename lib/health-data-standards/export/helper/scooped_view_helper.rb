@@ -120,6 +120,11 @@ module HealthDataStandards
             filtered_entries = handle_payer_information(patient)
           else
             entries.concat patient.entries_for_oid(data_criteria_oid)
+            # append ccda entries
+            ccda_oid = HQMFTemplateHelper.get_ccda_oid(data_criteria_oid)
+            if ccda_oid && data_criteria_oid != ccda_oid
+              entries.concat patient.entries_for_oid(ccda_oid)
+            end
 
             case data_criteria_oid
             when '2.16.840.1.113883.3.560.1.5'
@@ -142,13 +147,7 @@ module HealthDataStandards
                 code_list_id = data_criteria.field_values['TRANSFER_FROM'].try(:code_list_id) || data_criteria.field_values['TRANSFER_TO'].try(:code_list_id)
                 codes = (value_set_map(patient["bundle_id"])[code_list_id] || [])
               end
-            end
-
-            # append ccda entries
-            ccda_oid = HQMFTemplateHelper.get_ccda_oid(data_criteria_oid)
-            if ccda_oid && data_criteria_oid != ccda_oid
-              entries.concat patient.entries_for_oid(ccda_oid)
-            end
+            end            
 
             codes ||= (value_set_map(patient["bundle_id"])[data_criteria.code_list_id] || [])
             if codes.empty?
