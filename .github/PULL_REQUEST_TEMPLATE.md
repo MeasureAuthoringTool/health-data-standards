@@ -2,6 +2,7 @@ Pull requests into Health Data Standards require the following. Submitter and re
  
 **Submitter:**
 - [ ] This pull request describes why these changes were made.
+- [ ] This PR is into the correct branch.
 - [ ] Internal ticket for this PR:
 - [ ] Internal ticket links back to this PR
 - [ ] Code diff has been done and been reviewed (it **does not** contain: additional white space, not applicable code changes, debug statements, etc.)
