@@ -218,6 +218,66 @@
       </intendedRecipient>
     </informationRecipient>
     <% end %>
+    <legalAuthenticator>
+        <time value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
+        <signatureCode code="S"/>
+        <assignedEntity>
+          <id root="bc01a5d1-3a34-4286-82cc-43eb04c972a7"/>
+          <% if patient.practice[:address_hash] %>
+            <addr>
+              <% patient.practice.address_hash[:street].each do |street| %>
+                <streetAddressLine><%= street %></streetAddressLine>
+              <% end %>
+              <city><%= patient.practice.address_hash[:city] %></city>
+              <state><%= patient.practice.address_hash[:state] %></state>
+              <postalCode><%= patient.practice.address_hash[:zip] %></postalCode>
+              <country><%= patient.practice.address_hash[:country] %></country>
+            </addr>
+          <% else %>
+            <addr>
+              <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+              <city>Bedford</city>
+              <state>MA</state>
+              <postalCode>01730</postalCode>
+              <country>US</country>
+            </addr>
+          <% end %>
+          <telecom nullFlavor="UNK" />
+          <% if patient[:group_provider] %>
+            <assignedPerson>
+              <name>
+                <given><%= patient[:group_provider][:given_name] %></given>
+                <family><%= patient[:group_provider][:family_name] %></family>
+              </name>
+            </assignedPerson>
+          <% else %>
+            <!-- no group provider available -->
+            <assignedPerson>
+              <name>
+                <given>Henry</given>
+                <family>Seven</family>
+              </name>
+            </assignedPerson>
+          <% end %>
+          <representedOrganization>
+            <id root="2.16.840.1.113883.19.5"/>
+            <name><%= patient.practice.name %></name>
+            <telecom nullFlavor="UNK" />
+            <% if patient.practice[:address_hash] %>
+              <addr>
+                <% patient.practice.address_hash[:street].each do |street| %>
+                  <streetAddressLine><%= street %></streetAddressLine>
+                <% end %>
+                <city><%= patient.practice.address_hash[:city] %></city>
+                <state><%= patient.practice.address_hash[:state] %></state>
+                <postalCode><%= patient.practice.address_hash[:zip] %></postalCode>
+                <country><%= patient.practice.address_hash[:country] %></country>
+              </addr>
+            <% end %>
+          </representedOrganization>
+        </assignedEntity>
+    </legalAuthenticator>
+
   <% end %>
 
   <%== render :partial => 'providers', :locals => {:patient => patient} %>
