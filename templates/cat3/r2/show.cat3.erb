@@ -62,7 +62,12 @@
           <assignedAuthoringDevice>
             <manufacturerModelName><%= header[:practice].partner_name %></manufacturerModelName >
             <softwareName>Amb EMR CQM</softwareName >
-          </assignedAuthoringDevice > 
+          </assignedAuthoringDevice >
+          <representedOrganization>
+            <!-- The organization id is optional, but the name is required -->
+            <id root="2.16.840.1.113883.19.5" extension="<%= header[:practice].code %>"/>
+            <name><%= header[:practice].name %></name>
+          </representedOrganization> 
         <% end %>
       </assignedAuthor>
     </author>
@@ -79,6 +84,7 @@
     <custodian>
       <assignedCustodian>
         <representedCustodianOrganization>
+          <id root="2.16.840.1.113883.19.5"/>
           <name><%= header[:practice].name %></name>
           <telecom nullFlavor="UNK" />
           <% if header[:practice][:address_hash] %>
