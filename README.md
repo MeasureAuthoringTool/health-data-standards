@@ -5,7 +5,7 @@ In addition this project also contains libraries for parsing HQMF documents and 
 Environment
 ===========
 
-This project currently uses Ruby 2.0.0, Ruby 2.1.1, Ruby 2.2.1, and JRuby 1.7.11 and is built using [Bundler](http://gembundler.com/). To get all of the dependencies for the project, first install bundler:
+This project currently uses Ruby 2.0.0, Ruby 2.1.1, Ruby 2.2.1, Ruby 2.4.1 and JRuby 1.7.11 and is built using [Bundler](http://gembundler.com/). To get all of the dependencies for the project, first install bundler:
 
     gem install bundler
 
