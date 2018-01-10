@@ -86,16 +86,19 @@
   <% end -%>
   <% if population.supplemental_data.present? -%>
   <%   sex_supplimental_data = population.supplemental_data["SEX"]
-       if sex_supplimental_data.present?
+       if sex_supplimental_data.present? && !sex_supplimental_data.empty?
          sex_supplimental_data.each do |sex, count| -%>
-   
-   <!--    SEX Supplemental Data Reporting for <%= population.type %>  <%= population.id %>      --> 
-         
-  <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Sex Supplemental Data', 
+          <!--    SEX Supplemental Data Reporting for <%= population.type %>  <%= population.id %>      --> 
+          <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Sex Supplemental Data', 
                 :template_ids => ['2.16.840.1.113883.10.20.27.3.6','2.16.840.1.113883.10.20.27.3.21'], :extensiones => ['2016-09-01','2016-11-01'], :supplemental_data_code => '76689-9',
                 :supplemental_data_code_system => '2.16.840.1.113883.6.1', :supplemental_data_value_code => sex,
                 :supplemental_data_value_code_system => '2.16.840.1.113883.5.1', :count => count, :qrda3_version => qrda3_version} %>   
-      <% end -%>
+         <% end -%>
+    <% else %>
+         <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Sex Supplemental Data', 
+            :template_ids => ['2.16.840.1.113883.10.20.27.3.6','2.16.840.1.113883.10.20.27.3.21'], :extensiones => ['2016-09-01','2016-11-01'], :supplemental_data_code => '76689-9',
+            :supplemental_data_code_system => '2.16.840.1.113883.6.1', :supplemental_data_value_code => 'OTH',
+            :supplemental_data_value_code_system => '2.16.840.1.113883.5.1', :count => 0, :qrda3_version => qrda3_version} %>   
     <% end -%>
   <%   ethnicity_supplimental_data = population.supplemental_data["ETHNICITY"]
        if ethnicity_supplimental_data.present?
