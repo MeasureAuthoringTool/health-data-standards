@@ -10,11 +10,6 @@
       <code code="<%= supplemental_data_code %>" 
             codeSystem="<%= supplemental_data_code_system %>"/>
       <statusCode code="completed"/>
-      <% if supplemental_data_value_code == "" || supplemental_data_value_code == "UNK" -%>
-      <value xsi:type="CD" 
-             nullFlavor="UNK" />
-      <% else -%>
-
       <% case supplemental_data_value_code
          when "1"
            payer_grouping_code = "A"
@@ -38,7 +33,6 @@
                      codeSystemName="CMS Clinical Codes"
                      displayName="<%= payer_grouping_print_name %>"/>
       </value>
-      <% end %>       
       <entryRelationship typeCode="SUBJ" inversionInd="true">
         <!-- Aggregate Count template -->
         <observation classCode="OBS" moodCode="EVN">
