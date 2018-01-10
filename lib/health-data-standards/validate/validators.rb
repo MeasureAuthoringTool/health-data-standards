@@ -17,6 +17,7 @@ module HealthDataStandards
     QRDA_CAT3_SCHEMATRON = 'resources/schematron/qrda/cat_3/QRDA Category III.sch'
     QRDA_CAT3_1_1SCHEMATRON = 'resources/schematron/qrda/cat_3_r1_1/HL7 QRDA Category III STU 1.1.sch'
     QRDA_CAT3_2SCHEMATRON = 'resources/schematron/qrda/cat_3_r2/HL7 QRDA Category III STU 2.sch'
+    QRDA_CAT3_21SCHEMATRON = 'resources/schematron/qrda/cat_3_r2_1/HL7 QRDA Category III STU 2.1.sch'
     BASE_DIR = File.expand_path("../../../../", __FILE__)
 
     class Cat1Measure < MeasureValidator
@@ -94,6 +95,14 @@ module HealthDataStandards
 
       def initialize
         super("QRDA Cat 3 Validator", File.join(BASE_DIR, QRDA_CAT3_2SCHEMATRON))
+      end
+    end
+
+    class Cat3R21 < Schematron::Validator
+      include Singleton
+
+      def initialize
+        super("QRDA Cat 3 Validator", File.join(BASE_DIR, QRDA_CAT3_21SCHEMATRON))
       end
     end
 

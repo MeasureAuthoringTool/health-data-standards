@@ -1,0 +1,60 @@
+  <!--                            Supplemental Data Template                                                  -->
+
+  <entryRelationship typeCode="COMP">
+    <observation classCode="OBS" moodCode="EVN">
+      <!-- <%= template_name %> -->
+      <% for idx in (0..1) %>
+      <templateId root="<%= template_ids[idx] %>" extension="<%= extensiones[idx] %>"/>
+      <% end %>
+      <id nullFlavor="NA" />
+      <code code="<%= supplemental_data_code %>" 
+            codeSystem="<%= supplemental_data_code_system %>"/>
+      <statusCode code="completed"/>
+      <% if supplemental_data_value_code == "" || supplemental_data_value_code == "UNK" -%>
+      <value xsi:type="CD" 
+             nullFlavor="UNK" />
+      <% else -%>
+
+      <% case supplemental_data_value_code
+         when "1"
+           payer_grouping_code = "A"
+           payer_grouping_print_name = "Medicare"
+         when "2"
+           payer_grouping_code = "B"
+           payer_grouping_print_name = "Medicaid"
+         when "5"
+           payer_grouping_code = "C"
+           payer_grouping_print_name = "Private Health Insurance"
+         when "6"
+           payer_grouping_code = "C"
+           payer_grouping_print_name = "Private Health Insurance"
+         else
+           payer_grouping_code = "D"
+           payer_grouping_print_name = "Other"
+      end %>
+      <value xsi:type="CD" nullFlavor="OTH">
+        <translation code="<%= payer_grouping_code %>"
+                     codeSystem="2.16.840.1.113883.3.249.12"
+                     codeSystemName="CMS Clinical Codes"
+                     displayName="<%= payer_grouping_print_name %>"/>
+      </value>
+      <% end %>       
+      <entryRelationship typeCode="SUBJ" inversionInd="true">
+        <!-- Aggregate Count template -->
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+          <templateId root="2.16.840.1.113883.10.20.27.3.24"/>
+          <code code="MSRAGG" 
+                displayName="rate aggregation" 
+                codeSystem="2.16.840.1.113883.5.4" 
+                codeSystemName="ActCode"/>
+          <statusCode code="completed"/>
+          <value xsi:type="INT" value="<%= count.round %>"/>
+          <methodCode code="COUNT" 
+                      displayName="Count" 
+                      codeSystem="2.16.840.1.113883.5.84" 
+                      codeSystemName="ObservationMethod"/>
+        </observation>
+      </entryRelationship>
+    </observation>
+  </entryRelationship> 
