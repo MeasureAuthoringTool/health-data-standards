@@ -40,6 +40,16 @@ class Provider
     cda_id_tin ? cda_id_tin.extension : nil
   end
 
+  def tins=(a_tins)
+    if a_tins.nil? && self.cda_identifiers
+      self.cda_identifiers.delete_if { |c| c.root == TAX_ID_OID }
+    else
+      a_tins.each do | t |
+        self.cda_identifiers << CDAIdentifier.new(root: TAX_ID_OID, extension: t)
+      end
+    end
+  end
+
   def tins
     cda_id_tins = self.cda_identifiers.where(root: TAX_ID_OID)
     tids = cda_id_tins.map do | t |
