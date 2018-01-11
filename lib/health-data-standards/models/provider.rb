@@ -40,6 +40,14 @@ class Provider
     cda_id_tin ? cda_id_tin.extension : nil
   end
 
+  def tins
+    cda_id_tins = self.cda_identifiers.where(root: TAX_ID_OID)
+    tids = cda_id_tins.map do | t |
+       t.extension
+    end if cda_id_tins
+    tids = tids || []
+  end
+
   def records(effective_date=nil)
     Record.by_provider(self, effective_date)
   end
