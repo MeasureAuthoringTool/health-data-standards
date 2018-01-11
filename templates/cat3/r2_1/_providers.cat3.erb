@@ -37,17 +37,9 @@
           <high value="<%= end_date.utc.to_formatted_s(:number) %>" />
         </time>
         <assignedEntity>
-          <% prov.cda_identifiers.each do |cda_id| -%>
-            <% unless cda_id.root.eql? '2.16.840.1.113883.4.2' -%>
-          <id root="<%= cda_id.root %>" extension="<%= cda_id.extension %>" />
-            <% end -%>
-          <% end -%>
+          <id root="2.16.840.1.113883.4.6" extension="<%= prov.npi %>" />
           <representedOrganization>
-            <% prov.cda_identifiers.each do |cda_id| -%>
-              <% if cda_id.root.eql?('2.16.840.1.113883.4.2') -%>
-                <id root="2.16.840.1.113883.4.2" extension="<%= cda_id.extension %>" />
-              <% end -%>
-            <% end -%>
+            <id root="2.16.840.1.113883.4.2" extension="<%= prov.tin %>" />
           </representedOrganization>
         </assignedEntity>
       </performer>
