@@ -18,7 +18,7 @@
   <code code="55184-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"
     displayName="Quality Reporting Document Architecture Calculated Summary Report"/>
   <!-- SHALL Title, SHOULD have this content -->
-  <title>QRDA Calculated Summary Report</title>
+  <title><%= header[:partner_name] %> QRDA Calculated Summary Report</title>
   <!-- SHALL  -->
   <effectiveTime value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
   <confidentialityCode codeSystem="2.16.840.1.113883.5.25" code="N"/>
@@ -32,40 +32,166 @@
     </patientRole>
   </recordTarget>
 
-  <%== render :partial=>"author", :collection=>header.authors %>
+  <% if header[:practice]  %>
+    <author>
+      <time value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
+      <assignedAuthor>
+        <% if header[:practice] %>
+          <id extension="<%= header[:practice].partner_name %> CQM" root="2.16.840.1.113883.19.5" />
+          <% if header[:practice][:address_hash] %>
+              <addr>
+                <% header[:practice].address_hash[:street].each do |street| %>
+                  <streetAddressLine><%= street %></streetAddressLine>
+                <% end %>
+                <city><%= header[:practice].address_hash[:city] %></city>
+                <state><%= header[:practice].address_hash[:state] %></state>
+                <postalCode><%= header[:practice].address_hash[:zip] %></postalCode>
+                <country><%= header[:practice].address_hash[:country] %></country>
+              </addr>
+              <telecom nullFlavor="UNK" />
+          <% else %>
+              <addr>
+                <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+                <city>Bedford</city>
+                <state>MA</state>
+                <postalCode>01730</postalCode>
+                <country>US</country>
+              </addr>
+              <telecom use="WP" value="tel:(781)271-3000"/>
+          <% end %>
+          <assignedAuthoringDevice>
+            <manufacturerModelName><%= header[:practice].partner_name %></manufacturerModelName >
+            <softwareName>Amb EMR CQM</softwareName >
+          </assignedAuthoringDevice >
+          <representedOrganization>
+            <!-- The organization id is optional, but the name is required -->
+            <id root="2.16.840.1.113883.19.5" extension="<%= header[:practice].code %>"/>
+            <name><%= header[:practice].name %></name>
+          </representedOrganization> 
+        <% end %>
+      </assignedAuthor>
+    </author>
+  <% else %>
+    <%== render :partial=>"author", :collection=>header.authors %>
+  <% end %>
+  
   <!-- SHALL have 1..* author. MAY be device or person.
     The author of the CDA document in this example is a device at a data submission vendor/registry. -->
 
   <!-- The custodian of the CDA document is the same as the legal authenticator in this
   example and represents the reporting organization. -->
   <!-- SHALL -->
-  <custodian>
-    <assignedCustodian>
-      <%== render :partial=>"organization", :locals=>{organization: header.custodian.organization, tag_name: "representedCustodianOrganization"} %>
-    </assignedCustodian>
-  </custodian>
+  <% if header[:practice] %>
+    <custodian>
+      <assignedCustodian>
+        <representedCustodianOrganization>
+          <id root="2.16.840.1.113883.19.5"/>
+          <name><%= header[:practice].name %></name>
+          <telecom nullFlavor="UNK" />
+          <% if header[:practice][:address_hash] %>
+            <addr>
+              <% header[:practice].address_hash[:street].each do |street| %>
+                <streetAddressLine><%= street %></streetAddressLine>
+              <% end %>
+              <city><%= header[:practice].address_hash[:city] %></city>
+              <state><%= header[:practice].address_hash[:state] %></state>
+              <postalCode><%= header[:practice].address_hash[:zip] %></postalCode>
+              <country><%= header[:practice].address_hash[:country] %></country>
+            </addr>
+          <% else %>
+            <addr>
+              <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+              <city>Bedford</city>
+              <state>MA</state>
+              <postalCode>01730</postalCode>
+              <country>US</country>
+            </addr>
+          <% end %>
+        </representedCustodianOrganization>
+      </assignedCustodian>
+    </custodian>
+  <% else %>
+    <custodian>
+      <assignedCustodian>
+        <%== render :partial=>"organization", :locals=>{organization: header.custodian.organization, tag_name: "representedCustodianOrganization"} %>
+      </assignedCustodian>
+    </custodian>
+  <% end %>
   <!-- The legal authenticator of the CDA document is a single person who is at the
     same organization as the custodian in this example. This element must be present. -->
   <!-- SHALL -->
-  <legalAuthenticator>
-    <!-- SHALL -->
-    <time value="<%= header.legal_authenticator.time.utc.to_formatted_s(:number) %>"/>
-    <!-- SHALL -->
-    <signatureCode code="S"/>
-    <assignedEntity>
-      <!-- SHALL ID -->
-      <%== render :partial=>"id", :collection=>header.legal_authenticator.ids, :id=>"identifier" %>
-      <%== render :partial=>"address" , :collection=>header.legal_authenticator.addresses %>
-      <assignedPerson>
-        <name>
-           <given><%= header.legal_authenticator.person.given %></given>
-           <family><%= header.legal_authenticator.person.family %></family>
-        </name>
-     </assignedPerson>
+  <% if header[:practice] %>
+    <legalAuthenticator>
+      <time value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
+      <signatureCode code="S"/>
+      <assignedEntity>
+        <id root="bc01a5d1-3a34-4286-82cc-43eb04c972a7"/>
+        <% if header[:practice][:address_hash] %>
+          <addr>
+            <% header[:practice].address_hash[:street].each do |street| %>
+              <streetAddressLine><%= street %></streetAddressLine>
+            <% end %>
+            <city><%= header[:practice].address_hash[:city] %></city>
+            <state><%= header[:practice].address_hash[:state] %></state>
+            <postalCode><%= header[:practice].address_hash[:zip] %></postalCode>
+            <country><%= header[:practice].address_hash[:country] %></country>
+          </addr>
+        <% else %>
+          <addr>
+            <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+            <city>Bedford</city>
+            <state>MA</state>
+            <postalCode>01730</postalCode>
+            <country>US</country>
+          </addr>
+        <% end %>
+        <telecom nullFlavor="UNK" />
+        <!-- no group provider available -->
+        <assignedPerson>
+          <name>
+            <given>Unknown</given>
+            <family>Unknown</family>
+          </name>
+        </assignedPerson>
+        <representedOrganization>
+          <id root="2.16.840.1.113883.19.5"/>
+          <name><%= header[:practice].name %></name>
+          <telecom nullFlavor="UNK" />
+          <% if header[:practice][:address_hash] %>
+            <addr>
+              <% header[:practice].address_hash[:street].each do |street| %>
+                <streetAddressLine><%= street %></streetAddressLine>
+              <% end %>
+              <city><%= header[:practice].address_hash[:city] %></city>
+              <state><%= header[:practice].address_hash[:state] %></state>
+              <postalCode><%= header[:practice].address_hash[:zip] %></postalCode>
+              <country><%= header[:practice].address_hash[:country] %></country>
+            </addr>
+          <% end %>
+        </representedOrganization>
+      </assignedEntity>
+    </legalAuthenticator>
+  <% else %>
+    <legalAuthenticator>
+      <!-- SHALL -->
+      <time value="<%= header.legal_authenticator.time.utc.to_formatted_s(:number) %>"/>
+      <!-- SHALL -->
+      <signatureCode code="S"/>
+      <assignedEntity>
+        <!-- SHALL ID -->
+        <%== render :partial=>"id", :collection=>header.legal_authenticator.ids, :id=>"identifier" %>
+        <%== render :partial=>"address" , :collection=>header.legal_authenticator.addresses %>
+        <assignedPerson>
+          <name>
+            <given><%= header.legal_authenticator.person.given %></given>
+            <family><%= header.legal_authenticator.person.family %></family>
+          </name>
+      </assignedPerson>
 
-      <%== render :partial=>"organization", :locals=>{organization: header.legal_authenticator.organization, tag_name: "representedOrganization"} %>
-    </assignedEntity>
-  </legalAuthenticator>
+        <%== render :partial=>"organization", :locals=>{organization: header.legal_authenticator.organization, tag_name: "representedOrganization"} %>
+      </assignedEntity>
+    </legalAuthenticator>
+  <% end %>
 
   <%== render :partial=>"providers", :locals=>{providers: header.performers, start_date: start_date, end_date: end_date} %>
 
