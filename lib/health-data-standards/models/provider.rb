@@ -41,9 +41,10 @@ class Provider
   end
 
   def tins=(a_tins)
-    if a_tins.nil? && self.cda_identifiers
+    if self.cda_identifiers
       self.cda_identifiers.delete_if { |c| c.root == TAX_ID_OID }
-    else
+    end
+    if !a_tins.nil?
       a_tins.each do | t |
         self.cda_identifiers << CDAIdentifier.new(root: TAX_ID_OID, extension: t)
       end
@@ -56,6 +57,7 @@ class Provider
        t.extension
     end if cda_id_tins
     tids = tids || []
+    tids.reject { |t| t.blank? }
   end
 
   def records(effective_date=nil)
