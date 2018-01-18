@@ -37,7 +37,11 @@
           <high value="<%= end_date.utc.to_formatted_s(:number) %>" />
         </time>
         <assignedEntity>
+        <% if !prov.npi.blank? %>
           <id root="2.16.840.1.113883.4.6" extension="<%= prov.npi %>" />
+        <% else %>
+          <id root="2.16.840.1.113883.4.6" nullFlavor="NA" />
+        <% end %>
           <representedOrganization>
             <id root="2.16.840.1.113883.4.2" extension="<%= prov.tin %>" />
           </representedOrganization>
