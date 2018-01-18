@@ -181,7 +181,7 @@ class PatientImporterTest < Minitest::Test
     med_order = patient.medications.first
     expected_start = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20000328001401')
     expected_end = HealthDataStandards::Util::HL7Helper.timestamp_to_integer('20000328012924')
-    assert med_order.codes['NA_VALUESET'].include?('2.16.840.1.113883.3.526.3.1184')
+    assert med_order.codes['RxNorm'].include?('200031')
     assert_equal expected_start, med_order.start_time
     assert_equal expected_end, med_order.end_time
   end

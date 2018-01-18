@@ -10,7 +10,7 @@ class ProcedurePerformedImporterTest < Minitest::Test
   end
 
   def test_procedure_performed
-   	doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/procedure_performed_fragment.xml'))
+    doc = Nokogiri::XML(File.new('test/fixtures/cat1_fragments/procedure_performed_fragment.xml'))
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     nrh = HealthDataStandards::Import::CDA::NarrativeReferenceHandler.new
     nrh.build_id_map(doc)
@@ -46,7 +46,7 @@ class ProcedurePerformedImporterTest < Minitest::Test
     p_p= HealthDataStandards::Import::Cat1::EntryPackage.new(HealthDataStandards::Import::Cat1::ProcedurePerformedImporter.new, '2.16.840.1.113883.3.560.1.6', 'ordered')
     procedures_performed = p_p.package_entries(cat1_patient_data_section(doc), nrh)
     procedure_performed = procedures_performed[0]
-    assert procedure_performed.codes['NA_VALUESET'].include?('2.16.840.1.113883.3.526.3.399') # original code was nullFlavor="NA" 236209003 is first code in valueset
+    assert procedure_performed.codes['SNOMED-CT'].include?('236209003') # original code was nullFlavor="NA" 236209003 is first code in valueset
     assert procedure_performed.ordinality['SNOMED-CT'].include?('63161005')
   end
 end

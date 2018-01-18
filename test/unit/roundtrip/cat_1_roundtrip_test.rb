@@ -59,6 +59,11 @@ class Cat1RoundtripTest < Minitest::Test
     # Compare Allergy Attributes
     assert_equal allergy.codes, allergy_import.codes
 
+    # Compare Medical Equipment Attributes
+    # Both codes are in the negated valueset
+    assert_equal 1, HealthDataStandards::SVS::ValueSet.where('concepts.code' => medical_equipment.codes.first[1][0]).in(oid: medical_equipment_import.codes['NA_VALUESET'][0]).count
+    assert_equal 1, HealthDataStandards::SVS::ValueSet.where('concepts.code' => medical_equipment_import.codes.first[1][0]).in(oid: medical_equipment_import.codes['NA_VALUESET'][0]).count
+
   end
 
 

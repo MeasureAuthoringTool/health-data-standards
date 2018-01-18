@@ -199,10 +199,23 @@ module HealthDataStandards
           code_elements = coded_parent_element.xpath(@code_xpath)
           code_elements.each do |code_element|
             if code_element['nullFlavor'] == 'NA' && code_element['sdtc:valueSet']
+              # choose code from valueset
+              valueset = HealthDataStandards::SVS::ValueSet.where(oid: code_element['sdtc:valueSet'], bundle_id: get_bundle_id(coded_parent_element))
+              entry.add_code(valueset.first.concepts.first['code'], valueset.first.concepts.first['code_system_name'])
               # A "code" is added to indicate the Non-Applicable valueset.
               entry.add_code(code_element['sdtc:valueSet'], 'NA_VALUESET')
             end
           end
+        end
+
+        def get_bundle_id(parent_element)
+          while parent_element.name != 'document'
+            parent_element = parent_element.parent
+          end
+          # first measure id specified in the document
+          measure_id = parent_element.xpath("cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.98']/cda:reference/cda:externalDocument/cda:id[@root='2.16.840.1.113883.4.738']/@extension").first.value.upcase
+          # bundle of the first measure id 
+          HealthDataStandards::CQM::Measure.where(hqmf_id: measure_id).first['bundle_id']
         end
 
         def extract_code(parent_element, code_xpath, code_system=nil)
