@@ -4,7 +4,7 @@
               <id extension="<%= identifier_for([start_date, end_date]) %>" />
               <code code="252116004" codeSystem="2.16.840.1.113883.6.96" displayName="Observation Parameters"/>
               <effectiveTime>
-                <low value="<%= start_date.to_formatted_s(:number) %>"/>
-                <high value="<%= end_date.to_formatted_s(:number) %>"/>
+                <low value="<%= start_date.beginning_of_year.to_formatted_s(:number) %>"/>
+                <high value="<%= start_date.end_of_year.to_formatted_s(:number) %>"/>
               </effectiveTime>
             </act>
