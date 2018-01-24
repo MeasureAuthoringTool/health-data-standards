@@ -20,7 +20,8 @@ module HealthDataStandards
 
       validates_presence_of :version
 
-      has_many :value_sets, class_name: "HealthDataStandards::SVS::ValueSet", inverse_of: :bundle
+      has_and_belongs_to_many :value_sets, class_name: "HealthDataStandards::SVS::ValueSet"
+
 
       scope :active, -> {where(active: true)}
 
