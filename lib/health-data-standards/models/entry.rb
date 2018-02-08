@@ -1,5 +1,4 @@
 class Entry
-  include ActiveModel::MassAssignmentSecurity
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
   include ThingWithCodes
@@ -27,7 +26,7 @@ class Entry
   field :health_record_field, type: Hash
   
   field :version
-  field :_id
+  # field :_id
   field :created_at
   field :updated_at
   
