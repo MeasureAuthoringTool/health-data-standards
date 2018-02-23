@@ -5,6 +5,7 @@ class Procedure < Entry
   field :source,              type: Hash
   field :anatomical_approach, type: Hash
   field :anatomical_target,   type: Hash
+  field :anatomical_location, type: Hash
   field :method,              type: Hash
   field :reaction,            type: Hash 
   # The resulting status of a procedure as defined in the QDM documentation. This is different
