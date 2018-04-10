@@ -66,7 +66,31 @@ class Cat1RoundtripTest < Minitest::Test
 
   end
 
+  def test_round_trip_procedure_r4
+    # Export
+    patient = Record.where({first: "Mary"}).first
+    # Replace the "Diagnosis, Active" oid with the "Diagnosis" oid
+    patient.conditions.first.oid = '2.16.840.1.113883.10.20.28.3.110'
+    # Replace the "Physical, Exam" oid with the "Procedure Performed" oid
+    patient.procedures.first.oid = '2.16.840.1.113883.3.560.1.6'
+    result_values = [{ scalar: '40', units: '', _type: 'PhysicalQuantityResultValue'}]
+    patient.procedures.first.values = result_values
+    start_date = Time.now.years_ago(1)
+    end_date = Time.now
+    measure = HealthDataStandards::CQM::Measure.where({name: "Mary Berry's Wacky Wild Measure"}).first
+    qrda_xml = HealthDataStandards::Export::Cat1.new("r4").export(patient, [measure], start_date, end_date, nil, "r4")
+    doc_import = Nokogiri::XML(qrda_xml)
+    doc_import.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+    doc_import.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
 
+    patient_import = Record.new
+    HealthDataStandards::Import::Cat1::PatientImporter.instance.import_sections(patient_import, doc_import)
+    procedure = patient.procedures.first
+    procedure_import = patient_import.procedures.first
+
+    # Compare Procedure Result Values
+    assert_equal procedure.values.first.scalar, procedure_import.values.first.scalar
+  end
 
   private
 
