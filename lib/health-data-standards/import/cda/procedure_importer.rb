@@ -18,7 +18,9 @@ module HealthDataStandards
           extract_performer(entry_element, procedure)
           extract_anatomical_target(entry_element, procedure)
           extract_reason_or_negation(entry_element, procedure)
-          extract_scalar(entry_element, procedure)
+          #extract_scalar(entry_element, procedure)
+          extract_components(entry_element, procedure)
+          extract_author_time(entry_element, procedure) unless procedure[:start_time]
           procedure
         end
 
@@ -28,6 +30,13 @@ module HealthDataStandards
           ordinality_element = parent_element.at_xpath(@ordinality_xpath)
           if ordinality_element
             procedure.ordinality = {"code" => ordinality_element['code'], "code_system" => CodeSystemHelper.code_system_for(ordinality_element['codeSystem']), "codeSystemName" => CodeSystemHelper.code_system_for(ordinality_element['codeSystem']), CodeSystemHelper.code_system_for(ordinality_element['codeSystem']) => [ordinality_element['code']]}
+          end
+        end
+
+        def extract_author_time(entry_element, procedure)
+          if entry_element.at_xpath("cda:author/cda:time/@value")
+            procedure[:start_time] = HL7Helper.timestamp_to_integer(entry_element.at_xpath("cda:author/cda:time")['value'])
+            procedure[:end_time] = HL7Helper.timestamp_to_integer(entry_element.at_xpath("cda:author/cda:time")['value'])
           end
         end
 

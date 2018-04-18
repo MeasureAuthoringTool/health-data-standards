@@ -135,7 +135,7 @@ module HealthDataStandards
           if value_element && !value_element['nullFlavor']
             value = value_element['value']
             if value.present?
-              unit = value_element['unit']
+              unit = value_element['unit'] == "1" || value_element['unit'].nil? ? "" : value_element['unit']
               entry.set_value(value.strip, unit)
             elsif value_element['code'].present?
               crv = CodedResultValue.new
@@ -200,8 +200,8 @@ module HealthDataStandards
           code_elements.each do |code_element|
             if code_element['nullFlavor'] == 'NA' && code_element['sdtc:valueSet']
               # choose code from valueset
-              valueset = HealthDataStandards::SVS::ValueSet.where(oid: code_element['sdtc:valueSet'], bundle_id: get_bundle_id(coded_parent_element))
-              entry.add_code(valueset.first.concepts.first['code'], valueset.first.concepts.first['code_system_name'])
+              # valueset = HealthDataStandards::SVS::ValueSet.where(oid: code_element['sdtc:valueSet'], bundle_id: get_bundle_id(coded_parent_element))
+              # entry.add_code(valueset.first.concepts.first['code'], valueset.first.concepts.first['code_system_name'])
               # A "code" is added to indicate the Non-Applicable valueset.
               entry.add_code(code_element['sdtc:valueSet'], 'NA_VALUESET')
             end
@@ -243,6 +243,24 @@ module HealthDataStandards
           end
         end
 
+        def extract_components(parent_element, entry)
+          component_elements = parent_element.xpath("./cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.149']")
+          if component_elements
+            component = { 'type' => 'COL', 'values' => [] }
+            component_elements.each do |component_element|
+              component_code = extract_code(component_element, './cda:code')
+              value_element = component_element.at_xpath('./cda:value')
+              if value_element['code'].present?
+                result_code = extract_code(value_element, '.')
+                component['values'] << { 'code' => component_code, 'result' => { 'code'  => result_code } }
+              else
+                result_scalar = extract_scalar(value_element, '.')
+                component['values'] << { 'code' => component_code, 'result' => { 'scalar'  => result_scalar } }
+              end
+            end
+            entry.components = component
+          end
+        end
       end
     end
   end

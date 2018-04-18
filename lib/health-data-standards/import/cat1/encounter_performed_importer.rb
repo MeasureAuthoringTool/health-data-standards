@@ -13,23 +13,44 @@ module HealthDataStandards
           encounter = super
           extract_admit_time(entry_element, encounter)
           extract_reason(entry_element, encounter, nrh)
-          encounter.principal_diagnosis = extract_diagnosis(entry_element, @principal_diagnosis_xpath)
+          encounter.principal_diagnosis = extract_principal_diagnosis(entry_element, @principal_diagnosis_xpath)
           encounter.diagnosis = extract_diagnosis(entry_element, @diagnosis_xpath)
           encounter
         end
 
         private
 
-        def extract_diagnosis(parent_element, xpath)
-          diagnosis_element = parent_element.at_xpath(xpath)
-          if(diagnosis_element)
-            diagnosis = Entry.new
-            extract_workaround_codes(diagnosis_element, diagnosis)
-            diagnosis.codes[diagnosis['code_system']] ||= []
-            diagnosis.codes[diagnosis['code_system']] << diagnosis['code']
-            return diagnosis
+        def extract_principal_diagnosis(parent_element, xpath)
+          principal_diagnosis_element = parent_element.at_xpath(xpath)
+          if principal_diagnosis_element
+            value = principal_diagnosis_element.at_xpath("./cda:value")
+            principal_diagnosis = {}
+            principal_diagnosis['code'] = value['code']
+            principal_diagnosis['code_system'] = CodeSystemHelper.code_system_for(value['codeSystem'])
+            principal_diagnosis
+          else 
+            nil
           end
-          nil
+        end
+
+        def extract_diagnosis(parent_element, xpath)
+          diagnosis_elements = parent_element.xpath(xpath)
+          diagnosis_list = []
+          diagnosis_elements.each do |diagnosis_element|
+            value = diagnosis_element.at_xpath("./cda:value")
+            diagnosis_hash = {}
+            diagnosis_hash['code'] = value['code']
+            diagnosis_hash['code_system'] = CodeSystemHelper.code_system_for(value['codeSystem'])
+            diagnosis_list << diagnosis_hash
+          end
+          if diagnosis_list.empty?
+            nil
+          else
+            diagnosis_hash = {}
+            diagnosis_hash['type'] = 'COL'
+            diagnosis_hash['values'] = diagnosis_list
+            diagnosis_hash
+          end
         end
 
         def extract_reason(parent_element, encounter, nrh)

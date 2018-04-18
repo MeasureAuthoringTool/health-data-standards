@@ -141,9 +141,9 @@ module HealthDataStandards
           
           # parse race, ethnicity, and spoken language
           race_node = patient_element.at_xpath('cda:raceCode')
-          patient.race = { code: race_node['code'], code_set: 'CDC-RE' } if race_node
+          patient.race = { 'code' => race_node['code'], 'codeSystem' => 'CDC Race' } if race_node
           ethnicity_node = patient_element.at_xpath('cda:ethnicGroupCode')
-          patient.ethnicity = {code: ethnicity_node['code'], code_set: 'CDC-RE'} if ethnicity_node
+          patient.ethnicity = {'code' => ethnicity_node['code'], 'codeSystem' => 'CDC Race'} if ethnicity_node
           marital_status_node = patient_element.at_xpath("./cda:maritalStatusCode")
           patient.marital_status = {code: marital_status_node['code'], code_set: "HL7 Marital Status"} if marital_status_node
           ra_node = patient_element.at_xpath("./cda:religiousAffiliationCode")

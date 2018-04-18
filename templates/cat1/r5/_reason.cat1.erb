@@ -5,8 +5,6 @@
     end
     
     if reason.present?
-      vset = oid_for_code(reason,reason_oids, entry.record["bundle_id"])
-      if vset
   -%>
 <entryRelationship typeCode="RSON">
   <observation classCode="OBS" moodCode="EVN">
@@ -21,14 +19,12 @@
         <low <%= value_or_null_flavor(entry.start_time) %>/>
       </effectiveTime>
     <value xsi:type="CD"
-         code="<%= reason['code'] %>"
-         codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(reason['codeSystem'] || reason['code_system']) %>"
+         code="<%= reason[:code] %>"
+         codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(reason[:codeSystem] || reason[:code_system]) %>"
        <% if reason.respond_to?('title') || reason.has_key?('title') -%>
          displayName="<%=reason['title']%>"
        <% end -%>
-         sdtc:valueSet="<%= vset %>"
          />
   </observation>
 </entryRelationship>
-  <% end -%>
 <% end -%>

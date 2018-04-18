@@ -33,15 +33,12 @@
         <% end %>
         <% if entry.route.present? -%>
         <!-- Attribute: route -->
-          <% vset = oid_for_code(entry.route.code,field_oids["ROUTE"], entry.record["bundle_id"]) %>
-          <% if vset %>
-            <routeCode code="<%= entry.route['code'] %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.route['code_system']) %>" sdtc:valueSet="<%= vset %>"/>
-          <% end %>
+            <routeCode code="<%= entry.route[:code] %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.route[:code_system]) %>"/>
         <% end -%>
         
         <!-- Attribute: dose -->
         <% if entry.dose.present? -%>
-          <doseQuantity value="<%= entry.dose['value']%>"/>
+          <doseQuantity value="<%= entry.dose[:value]%>"/>
         <% end -%>
 
         <% if entry.product_form.present? -%>
@@ -54,7 +51,7 @@
             <templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/>
             <id root="<%= UUID.generate %>"/>
             <manufacturedMaterial>
-              <%== code_display(entry,'preferred_code_sets' => ['RxNorm'],'value_set_map' => filtered_vs_map, 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+              <%== code_display(entry,'preferred_code_sets' => ['RxNorm'],'value_set_map' => filtered_vs_map) %>
             </manufacturedMaterial>
             <manufacturerOrganization>
               <name>Medication Factory Inc.</name>
