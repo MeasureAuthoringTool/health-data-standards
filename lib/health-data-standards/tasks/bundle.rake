@@ -153,7 +153,7 @@ namespace :bundle do
     raise "Two bundle zip file paths to be merged must be specified" unless args.bundle_one && args.bundle_two
 
     tmpdir = Dir.mktmpdir
-    ['measures','patients','library_functions','results', 'sources', 'value_sets'].each do |dir|
+    ['measures','patients','value_sets'].each do |dir|
 
       FileUtils.mkdir_p(File.join(tmpdir, 'output', dir))
 
@@ -172,7 +172,7 @@ namespace :bundle do
       end
 
 
-      ['measures','patients','library_functions', 'sources'].each do |dir|
+      ['measures','patients'].each do |dir|
         ['one','two'].each do |key|
           FileUtils.mv(Dir.glob(File.join(tmpdir,key,dir,'*')), File.join(tmpdir,'output',dir))
         end
@@ -201,7 +201,7 @@ namespace :bundle do
 
       json_out.merge! json_one
 
-      ['measures','patients','extensions'].each do |key|
+      ['measures','patients'].each do |key|
         json_out[key] = (json_one[key] + json_two[key]).uniq
       end
 
