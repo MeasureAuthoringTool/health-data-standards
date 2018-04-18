@@ -1,7 +1,7 @@
 <entry>
   <act classCode="ACT" moodCode="EVN" <%== negation_indicator(entry) %>>
     <!--Encounter performed Act -->
-    <templateId root="2.16.840.1.113883.10.20.24.3.133"/>
+    <templateId root="2.16.840.1.113883.10.20.24.3.133" extension="2017-08-01"/>
     <id root="<%= UUID.generate %>" />
     <code code="ENC" codeSystem="2.16.840.1.113883.5.6" displayName="Encounter" codeSystemName="ActClass"/>
     <entryRelationship typeCode="SUBJ">
@@ -9,7 +9,7 @@
         <!--  Encounter activities template -->
         <templateId root="2.16.840.1.113883.10.20.22.4.49" extension="2015-08-01"/> 
         <!-- Encounter performed template -->
-        <templateId root="2.16.840.1.113883.10.20.24.3.23" extension="2016-02-01"/>
+        <templateId root="2.16.840.1.113883.10.20.24.3.23" extension="2017-08-01"/>
         <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
         <%== code_display(entry, 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['*'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
         <text><%= entry.description %></text>
@@ -31,16 +31,16 @@
         <% if entry.respond_to?(:facility) && entry.facility.present? -%>
         <participant typeCode="LOC">
           <!-- Facility Location template -->
-          <templateId root="2.16.840.1.113883.10.20.24.3.100"/>
+          <templateId root="2.16.840.1.113883.10.20.24.3.100" extension="2017-08-01"/>
           <time>
             <!-- Attribute: facility location arrival datetime -->
-            <low <%= value_or_null_flavor(entry.facility.start_time) %>/>
+            <low <%= value_or_null_flavor(entry.start_time) %>/>
             <!-- Attribute: facility location departure datetime -->
-            <high <%= value_or_null_flavor(entry.facility.end_time) %>/>
+            <high <%= value_or_null_flavor(entry.end_time) %>/>
           </time>
           <participantRole classCode="SDLOC">
-            <% if entry.facility.code.present? -%>
-              <% vset = oid_for_code(entry.facility.code,field_oids["FACILITY_LOCATION"],entry.record["bundle_id"]) %>
+            <% if entry.facility['values'][0].present? -%>
+              <% vset = oid_for_code(entry.facility['values'][0].code.code,field_oids["FACILITY_LOCATION"],entry.record["bundle_id"]) %>
               <% if vset %>
                 <code code="<%= entry.facility.code['code'] %>" 
                   codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.facility.code['codeSystem'] || entry.facility.code['code_system']) %>" sdtc:valueSet="<%= vset %>"/>
@@ -50,18 +50,9 @@
             <% else -%>
             <code nullFlavor="UNK"/>
             <% end -%>
-            <% if entry.facility.addresses.present? -%>
-            <addr>
-              <streetAddressLine><%= entry.facility.addresses.first.street %></streetAddressLine>
-              <city><%= entry.facility.addresses.first.city %></city>
-              <state><%= entry.facility.addresses.first.state %></state>
-              <postalCode><%= entry.facility.addresses.first.zip %></postalCode>
-              <country><%= entry.facility.addresses.first.country %></country>
-            </addr>
-            <% end -%>
             <telecom nullFlavor="UNK"/>
             <playingEntity classCode="PLC">
-              <name><%= entry.facility.name %></name>
+              <name><%= entry.facility['values'][0]['display'] %></name>
             </playingEntity>
           </participantRole>
         </participant>
@@ -69,8 +60,8 @@
         <% if entry.reason.present? -%>
           <%== render(:partial => 'reason', :locals => {:entry => entry,:reason_oids=>field_oids["REASON"]}) %>
         <% end -%>
-        <% if entry.principalDiagnosis 
-          value_set = oid_for_code(entry.principal_diagnosis.preferred_code, field_oids["PRINCIPAL_DIAGNOSIS"], entry.record["bundle_id"])
+        <% if entry.principalDiagnosis
+          value_set = oid_for_code(entry.principal_diagnosis.code, field_oids["PRINCIPAL_DIAGNOSIS"], entry.record["bundle_id"])
           if value_set %>
             <entryRelationship typeCode="REFR">
                 <observation classCode="OBS" moodCode="EVN">
@@ -81,7 +72,7 @@
           <% end %>
         <% end -%>
         <% if entry.diagnosis
-          value_set = oid_for_code(entry.diagnosis.preferred_code, field_oids["DIAGNOSIS"], entry.record["bundle_id"])
+          value_set = oid_for_code(entry.diagnosis['values'][0].code, field_oids["DIAGNOSIS"], entry.record["bundle_id"])
           if value_set %>
             <entryRelationship typeCode="REFR">
                 <act classCode="ACT" moodCode="EVN">

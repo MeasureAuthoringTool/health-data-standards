@@ -1,0 +1,33 @@
+<entry>
+  <observation classCode="OBS" moodCode="EVN">
+    <!-- Adverse Event -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.146" extension="2017-08-01"/>
+    <id root="1.3.6.1.4.1.115" extension="<%= entry.id %>"/>
+    <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+    <statusCode code="completed"/>
+    <effectiveTime>
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+      <high <%= value_or_null_flavor(entry.end_time) %>/>
+    </effectiveTime>
+        <value xsi:type="CD" 
+           code="281647001" 
+           displayName="Adverse reaction"
+           codeSystem="2.16.840.1.113883.6.96" 
+           codeSystemName="SNOMED CT"/>
+    <author>
+      <templateId root="2.16.840.1.113883.10.20.22.4.119"/>
+      <time <%= value_or_null_flavor(entry.as_point_in_time) %>/>
+      <assignedAuthor>
+        <id root="<%= UUID.generate %>"/>
+      </assignedAuthor>
+    </author> 
+    <entryRelationship typeCode="CAUS" inversionInd="true">
+      <observation classCode="OBS" moodCode="EVN">
+        <templateId root="2.16.840.1.113883.10.20.24.3.148" extension="2017-08-01" />
+        <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4" />
+        <statusCode code="completed" />
+        <%== code_display(entry, 'tag_name' => 'value', 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['*'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+      </observation>
+  </entryRelationship>
+  </observation>
+</entry>
