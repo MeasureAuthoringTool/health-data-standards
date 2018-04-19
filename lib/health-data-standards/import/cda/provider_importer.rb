@@ -39,15 +39,19 @@ module HealthDataStandards
           informants = doc.xpath("//cda:informant")
           informants.map do | informant |
             informant_prov = extract_informant_provider_data(informant)
-
+            clinical_attribs = {}
+            
             if !informant_prov[:cda_identifiers].nil? && !informant_prov[:cda_identifiers].empty?
-              clinical_groups_nodes = informant_prov[:cda_identifiers].select {|x| x[:root] == 'clinical.group.ids'}
+              clinical_cda_identifiers = informant_prov[:cda_identifiers].select { |x| x[:root] && x[:root].start_with?('clinical.') }
               group_codes = clinical_groups_nodes[0].extension if !clinical_groups_nodes.empty?
-              informant_prov[:cda_identifiers].delete_if {|x| x[:root] == 'clinical.group.ids'}
+              clinical_cda_identifiers.each do | cci |
+                clinical_attribs[cci.root] = clinical_attribs[cci.extension]
+              end if !clinical_cda_identifiers.empty?
+              informant_prov[:cda_identifiers].delete_if {|x| x[:root] && x[:root].start_with?('clinical.') }
             end
             
             ip = find_or_create_provider(informant_prov)
-            { :provider => ip, :group_codes => group_codes }
+            clinical_attribs.merge { :provider => ip }
           end
         end
 
