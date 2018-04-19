@@ -10,7 +10,6 @@ module HealthDataStandards
         @rendering_context.extensions = [HealthDataStandards::Export::Helper::Cat1ViewHelper]
       end
 
-
       @@vs_map = nil
 
       @@most_recent_qrda_version = 'r3_1'

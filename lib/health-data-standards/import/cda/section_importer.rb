@@ -66,12 +66,25 @@ module HealthDataStandards
           else
             entry.description = parent_element.at_xpath("./cda:text").try("text")
           end
+          #fallback extract description
+          if entry.description.nil? || entry.description.blank? || entry.description.empty? 
+            code_elements = parent_element.xpath(@code_xpath)
+            code_element = code_elements[0] if code_elements
+            if (code_element && code_element['displayName'])
+               entry.description = code_element['displayName']
+            end
+          end
+          entry.description = entry.description.encode("UTF-8", invalid: :replace, undef: :replace) if !entry.description.nil?
         end
 
         def extract_status(parent_element, entry)
           status_element = parent_element.at_xpath(@status_xpath)
           if status_element
-            entry.status_code = {CodeSystemHelper.code_system_for(status_element['codeSystem']) => [status_element['code']]}
+            if status_element['codeSystem']
+              entry.status_code = {CodeSystemHelper.code_system_for(status_element['codeSystem']) => [status_element['code']]}
+            else
+              entry.status = status_element['code'] if status_element['code']
+            end
           end
         end
 
@@ -89,7 +102,8 @@ module HealthDataStandards
           code_elements = parent_element.xpath(@description_xpath)
           code_elements.each do |code_element|
             tag = code_element['value']
-            entry.description = nrh.lookup_tag(tag)
+            description = nrh.lookup_tag(tag)
+            entry.description = description if description
           end
         end
 
@@ -100,6 +114,21 @@ module HealthDataStandards
             translations = code_element.xpath('cda:translation')
             translations.each do |translation|
               add_code_if_present(translation, entry)
+            end
+          end
+          extract_codes_if_negation(parent_element, entry)
+        end
+
+        def extract_codes_if_negation(parent_element, entry)
+          if parent_element['negationInd'] == 'true'
+            code_elements = parent_element.xpath(@code_xpath)
+            code_elements.each do | code_element |
+              valueSetKey = code_element['sdtc:valueSet']
+              valueSet = HealthDataStandards::SVS::ValueSet.by_oid(valueSetKey).first if valueSetKey
+              concept = valueSet.concepts[0] if valueSet
+              if concept && concept['code_system'] && concept['code']
+                entry.add_code(concept['code'], CodeSystemHelper.code_system_for(concept['code_system']))
+              end
             end
           end
         end
@@ -174,7 +203,9 @@ module HealthDataStandards
         end
 
         def extract_reason_or_negation(parent_element, entry)
-          reason_element = parent_element.at_xpath("./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value | ./cda:entryRelationship[@typeCode='RSON']/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:code")
+          reason_element = parent_element.at_xpath("./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value 
+                                    | ./cda:entryRelationship[@typeCode='RSON']/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:code
+                                    | ./cda:entryRelationship[@typeCode='RSON'][cda:templateId/@root='2.16.840.1.113883.10.20.22.4.53']/cda:observation/cda:code")
           negation_indicator = parent_element['negationInd']
           if reason_element
             code_system_oid = reason_element['codeSystem']

@@ -1,6 +1,30 @@
 <documentationOf typeCode="DOC">
   <serviceEvent classCode="PCPR"> <!-- care provision -->
-  <% if patient.provider_performances.empty? -%>
+  <% if patient[:group_providers] %>
+      <effectiveTime>
+          <low nullFlavor='UNK'/>
+          <high nullFlavor='UNK'/>
+      </effectiveTime>
+      <% patient[:group_providers].each do |group_provider| %>
+        <performer typeCode="PRF"> 
+          <time>
+            <low nullFlavor='UNK'/>
+            <high nullFlavor='UNK'/>
+          </time>
+          <assignedEntity>
+            <id root="2.16.840.1.113883.4.6" extension="<%= group_provider.npi %>" />          
+            <assignedPerson>
+              <name>
+                <given><%= group_provider[:given_name] %></given>
+                <family><%= group_provider[:family_name] %></family>
+              </name>
+            </assignedPerson>
+            <representedOrganization>
+            </representedOrganization>
+          </assignedEntity>
+        </performer>
+      <% end %>
+  <% elsif patient.provider_performances.empty? -%>
     <!-- No provider data found in the patient record
          putting in a fake provider -->
     <effectiveTime>
@@ -25,11 +49,15 @@
       </assignedEntity>
     </performer>
   <% else -%>
+    <% singlePerformer = 0 -%>
     <% patient.provider_performances.each do |pp| -%>
-      <effectiveTime>
-        <low <%= value_or_null_flavor(pp.start_date) %>/>
-        <high <%= value_or_null_flavor(pp.end_date) %>/>
-      </effectiveTime>
+      <% if singlePerformer == 0 -%>
+        <effectiveTime>
+          <low <%= value_or_null_flavor(pp.start_date) %>/>
+          <high <%= value_or_null_flavor(pp.end_date) %>/>
+        </effectiveTime>
+        <% singlePerformer = 1 -%>
+     <% end -%>
       <!-- You can include multiple performers, each with an NPI, TIN, CCN. -->
       <performer typeCode="PRF"> 
         <time>
@@ -62,10 +90,8 @@
             <%if pp.provider.organization %>
               <name><%= pp.provider.organization.name %></name>
               <%== render :partial=>"address" , :collection=>pp.provider.organization.addresses %>
-              <%== render :partial=>"telecom", :collection=>pp.provider.organization.telecoms %>
             <% else %>
               <%== render :partial=>"address" , :collection=>pp.provider.addresses %>
-              <%== render :partial=>"telecom", :collection=>pp.provider.telecoms %>
             <% end %>
           </representedOrganization>
         </assignedEntity>

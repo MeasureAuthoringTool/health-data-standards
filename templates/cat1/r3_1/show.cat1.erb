@@ -26,7 +26,7 @@
   <id root="<%= UUID.generate %>"/>
   <!-- QRDA document type code -->
   <code code="55182-0" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Quality Measure Report"/>
-  <title>QRDA Incidence Report</title>
+  <title><%= patient.practice.partner_name %> QRDA Incidence Report</title>
   <!-- This is the document creation time -->
   <effectiveTime value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
   <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
@@ -82,51 +82,131 @@
     <author>
       <time value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
       <assignedAuthor>
-        <!-- id extension="Cypress" root="2.16.840.1.113883.19.5"/ -->
         <!-- NPI -->
         <% if cms_compatibility %>
-        <% patient.provider_performances.each do |pp| -%>
-        <% pp.provider.cda_identifiers.each do |cda_id| -%>
-            <% if cda_id.root.eql?('2.16.840.1.113883.4.6') -%>
-            <id root="2.16.840.1.113883.4.6" extension="<%= cda_id.extension %>" />
+            <!-- id extension="Cypress" root="2.16.840.1.113883.19.5"/ -->
+            <% patient.provider_performances.each do |pp| -%>
+              <% pp.provider.cda_identifiers.each do |cda_id| -%>
+                <% if cda_id.root.eql?('2.16.840.1.113883.4.6') -%>
+                  <id root="2.16.840.1.113883.4.6" extension="<%= cda_id.extension %>" />
+                <% end -%>
+              <% end -%>
             <% end -%>
-            <% end -%>
-            <% end -%>
-          <% else %>
-        <id extension="FakeNPI" root="2.16.840.1.113883.4.6"/>
         <% end %>
-        <addr>
-          <streetAddressLine>202 Burlington Rd.</streetAddressLine>
-          <city>Bedford</city>
-          <state>MA</state>
-          <postalCode>01730</postalCode>
-          <country>US</country>
-        </addr>
-        <telecom use="WP" value="tel:(781)271-3000"/>
+        <% if patient[:group_providers] %>
+          <id extension="<%= patient.practice.partner_name %> CQM" root="2.16.840.1.113883.19.5" />
+          <% if patient.practice[:address_hash] %>
+            <addr>
+              <% patient.practice.address_hash[:street].each do |street| %>
+                <streetAddressLine><%= street %></streetAddressLine>
+              <% end %>
+              <city><%= patient.practice.address_hash[:city] %></city>
+              <state><%= patient.practice.address_hash[:state] %></state>
+              <postalCode><%= patient.practice.address_hash[:zip] %></postalCode>
+              <country><%= patient.practice.address_hash[:country] %></country>
+            </addr>
+          <% end %>
+          <telecom nullFlavor="UNK" />
+        <% else %>
+          <id extension="1010101016" root="2.16.840.1.113883.4.6"/>
+          <% if patient.practice[:address_hash] %>
+              <addr>
+                <% patient.practice.address_hash[:street].each do |street| %>
+                  <streetAddressLine><%= street %></streetAddressLine>
+                <% end %>
+                <city><%= patient.practice.address_hash[:city] %></city>
+                <state><%= patient.practice.address_hash[:state] %></state>
+                <postalCode><%= patient.practice.address_hash[:zip] %></postalCode>
+                <country><%= patient.practice.address_hash[:country] %></country>
+              </addr>
+          <% else %>
+              <addr>
+                <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+                <city>Bedford</city>
+                <state>MA</state>
+                <postalCode>01730</postalCode>
+                <country>US</country>
+              </addr>
+              <telecom use="WP" value="tel:(781)271-3000"/>
+          <% end %>
+        <% end %>
+        
         <assignedAuthoringDevice>
-          <manufacturerModelName>Cypress</manufacturerModelName >
-          <softwareName>Cypress</softwareName >
+          <manufacturerModelName><%= patient.practice.partner_name %></manufacturerModelName >
+          <softwareName>Amb EMR CQM</softwareName >
         </assignedAuthoringDevice >
       </assignedAuthor>
     </author>
+    <% if patient[:group_providers] %>
+      <% patient[:group_providers].each do |group_provider| %>
+        <informant> 
+          <assignedEntity> 
+            <id extension="<%= group_provider.npi %>" root="2.16.840.1.113883.4.6" /> 
+            <% if group_provider.addresses %>
+              <% group_provider.addresses.each do |address| %>
+                <addr <%= address.use ? "use='#{address.use}'" : "" %>>
+                  <% address.street.each do |street| %>
+                  <streetAddressLine><%= street %></streetAddressLine>
+                  <% end %>
+                  <city><%= address.city %></city>
+                  <state><%= address.state %></state>
+                  <postalCode><%= address.zip %></postalCode>
+                  <country><%= address.country %></country>
+                </addr>
+              <% end %>
+            <% else %>
+              <addr>
+                <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+                <city>Bedford</city>
+                <state>MA</state>
+                <postalCode>01730</postalCode>
+                <country>US</country>
+              </addr> 
+            <% end %>
+            <telecom nullFlavor="UNK" /> 
+            <assignedPerson>
+              <name>
+                <given><%= group_provider[:given_name] %></given>
+                <family><%= group_provider[:family_name] %></family>
+              </name>
+            </assignedPerson>
+            <representedOrganization> 
+              <name><%= patient.practice.name %></name> 
+            </representedOrganization> 
+          </assignedEntity> 
+        </informant>
+      <% end %>
+    <% end %>
     <custodian>
       <assignedCustodian>
         <representedCustodianOrganization>
-          <!-- HQR Only -->
           <% if cms_compatibility && reporting_program == 'HQR_EHR' %>
+            <!-- HQR Only -->
             <id root="2.16.840.1.113883.4.336" extension="800890"/>
           <% else %>
             <id root="2.16.840.1.113883.19.5"/>
           <% end %>
-          <name>Cypress Test Deck</name>
-          <telecom use="WP" value="tel:(781)271-3000"/>
-          <addr>
-            <streetAddressLine>202 Burlington Rd.</streetAddressLine>
-            <city>Bedford</city>
-            <state>MA</state>
-            <postalCode>01730</postalCode>
-            <country>US</country>
-          </addr>
+          <name><%= patient.practice.name %></name>
+          <telecom nullFlavor="UNK" />
+          <% if patient.practice[:address_hash] %>
+            <addr>
+              <% patient.practice.address_hash[:street].each do |street| %>
+                <streetAddressLine><%= street %></streetAddressLine>
+              <% end %>
+              <city><%= patient.practice.address_hash[:city] %></city>
+              <state><%= patient.practice.address_hash[:state] %></state>
+              <postalCode><%= patient.practice.address_hash[:zip] %></postalCode>
+              <country><%= patient.practice.address_hash[:country] %></country>
+            </addr>
+          <% else %>
+            <addr>
+              <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+              <city>Bedford</city>
+              <state>MA</state>
+              <postalCode>01730</postalCode>
+              <country>US</country>
+            </addr>
+          <% end %>
         </representedCustodianOrganization>
       </assignedCustodian>
     </custodian>
@@ -139,30 +219,65 @@
     </informationRecipient>
     <% end %>
     <legalAuthenticator>
-      <time value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
-      <signatureCode code="S"/>
-      <assignedEntity>
-        <id root="bc01a5d1-3a34-4286-82cc-43eb04c972a7"/>
-        <addr>
-          <streetAddressLine>202 Burlington Rd.</streetAddressLine>
-          <city>Bedford</city>
-          <state>MA</state>
-          <postalCode>01730</postalCode>
-          <country>US</country>
-        </addr>
-        <telecom use="WP" value="tel:(781)271-3000"/>
-        <assignedPerson>
-          <name>
-             <given>Henry</given>
-             <family>Seven</family>
-          </name>
-       </assignedPerson>
-        <representedOrganization>
-          <id root="2.16.840.1.113883.19.5"/>
-          <name>Cypress</name>
-        </representedOrganization>
-      </assignedEntity>
+        <time value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
+        <signatureCode code="S"/>
+        <assignedEntity>
+          <id root="bc01a5d1-3a34-4286-82cc-43eb04c972a7"/>
+          <% if patient.practice[:address_hash] %>
+            <addr>
+              <% patient.practice.address_hash[:street].each do |street| %>
+                <streetAddressLine><%= street %></streetAddressLine>
+              <% end %>
+              <city><%= patient.practice.address_hash[:city] %></city>
+              <state><%= patient.practice.address_hash[:state] %></state>
+              <postalCode><%= patient.practice.address_hash[:zip] %></postalCode>
+              <country><%= patient.practice.address_hash[:country] %></country>
+            </addr>
+          <% else %>
+            <addr>
+              <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+              <city>Bedford</city>
+              <state>MA</state>
+              <postalCode>01730</postalCode>
+              <country>US</country>
+            </addr>
+          <% end %>
+          <telecom nullFlavor="UNK" />
+          <% if patient[:group_provider] %>
+            <assignedPerson>
+              <name>
+                <given><%= patient[:group_provider][:given_name] %></given>
+                <family><%= patient[:group_provider][:family_name] %></family>
+              </name>
+            </assignedPerson>
+          <% else %>
+            <!-- no group provider available -->
+            <assignedPerson>
+              <name>
+                <given>Unknown</given>
+                <family>Unknown</family>
+              </name>
+            </assignedPerson>
+          <% end %>
+          <representedOrganization>
+            <id root="2.16.840.1.113883.19.5"/>
+            <name><%= patient.practice.name %></name>
+            <telecom nullFlavor="UNK" />
+            <% if patient.practice[:address_hash] %>
+              <addr>
+                <% patient.practice.address_hash[:street].each do |street| %>
+                  <streetAddressLine><%= street %></streetAddressLine>
+                <% end %>
+                <city><%= patient.practice.address_hash[:city] %></city>
+                <state><%= patient.practice.address_hash[:state] %></state>
+                <postalCode><%= patient.practice.address_hash[:zip] %></postalCode>
+                <country><%= patient.practice.address_hash[:country] %></country>
+              </addr>
+            <% end %>
+          </representedOrganization>
+        </assignedEntity>
     </legalAuthenticator>
+
   <% end %>
 
   <%== render :partial => 'providers', :locals => {:patient => patient} %>

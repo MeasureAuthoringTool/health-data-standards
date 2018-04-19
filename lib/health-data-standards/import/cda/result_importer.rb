@@ -15,6 +15,17 @@ module HealthDataStandards
           extract_reason_description(entry_element, result, nrh)
           result
         end
+
+        #UNISLINK - added to fill start/end date if its not in CDA
+        def extract_dates(parent_element, entry, element_name="effectiveTime")
+          super
+          if entry[:start_time] && !entry[:end_time]
+            entry[:end_time] = entry[:start_time]
+          end
+          if entry[:end_time] && !entry[:start_time]
+            entry[:start_time] = entry[:end_time]
+          end          
+        end        
     
         private
         def extract_interpretation(parent_element, result)

@@ -7,8 +7,8 @@ module HealthDataStandards
         @rendering_context.template_helper = template_helper
       end
 
-      @@most_recent_qrda_version = 'r2'
-      @@valid_qrda_versions = ['r1', 'r1_1', 'r2']
+      @@most_recent_qrda_version = 'r2_1'
+      @@valid_qrda_versions = ['r1', 'r1_1', 'r2', 'r2_1']
 
       def export(measures, header, effective_date, start_date, end_date, qrda3_version=nil, filter=nil,test_id=nil)
         results = {}
@@ -19,7 +19,8 @@ module HealthDataStandards
                                   :locals => {:measures => measures, :start_date => start_date, 
                                               :end_date => end_date,
                                               :results => results, :qrda3_version => qrda3_version,
-                                              :header=>header})
+                                              :header=>header
+                                            })
       end
     end
   end

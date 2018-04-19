@@ -13,6 +13,7 @@ module HealthDataStandards
       class MedicationImporter < SectionImporter
         def initialize(entry_finder=EntryFinder.new("//cda:section[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.112']/cda:entry/cda:substanceAdministration"))
           super(entry_finder)
+          @status_xpath = "./cda:statusCode"
           @code_xpath = "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code"
           @description_xpath = "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code/cda:originalText/cda:reference[@value]"
           @type_of_med_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.8.1']/cda:code"
@@ -39,13 +40,15 @@ module HealthDataStandards
           medication.indication = extract_code(entry_element, @indication_xpath, 'SNOMED-CT')
           medication.vehicle = extract_code(entry_element, @vehicle_xpath, 'SNOMED-CT')
 
-          medication.allowed_administrations = extract_scalar(entry_element, "./cda:repeatNumber")
-
+          repeatNumber = extract_scalar(entry_element, "./cda:repeatNumber")
+          medication.allowed_administrations = repeatNumber['value'] if repeatNumber
+            
           extract_order_information(entry_element, medication)
 
           extract_fulfillment_history(entry_element, medication)
           extract_reason_or_negation(entry_element, medication)
-
+          medication.freeTextSig = entry_element.at_xpath("./cda:text").try("text")
+          medication.freeTextSig = medication.freeTextSig.encode("UTF-8", invalid: :replace, undef: :replace) if medication.freeTextSig 
           medication
         end
 
@@ -55,10 +58,28 @@ module HealthDataStandards
           negation_indicator = parent_element['negationInd']
           if negation_indicator.nil? && parent_element.parent.name == "entryRelationship"
             super(parent_element.parent.parent, medication)
-          elsif negation_indicator.eql?('true')
+          else #if negation_indicator.eql?('true') #UNISLINK - process Cat1
             super(parent_element, medication)
           end
         end
+
+        def extract_codes_if_negation(parent_element, entry)
+          negation_indicator = parent_element['negationInd']
+          if negation_indicator.nil? && parent_element.parent.name == "entryRelationship"
+            negation_indicator = parent_element.parent.parent['negationInd']
+          end
+          if negation_indicator.eql?('true')
+            code_elements = parent_element.xpath(@code_xpath)
+            code_elements.each do | code_element |
+              valueSetKey = code_element['sdtc:valueSet']
+              valueSet = HealthDataStandards::SVS::ValueSet.by_oid(valueSetKey).first if valueSetKey
+              concept = valueSet.concepts[0] if valueSet
+              if concept && concept['code_system'] && concept['code']
+                entry.add_code(concept['code'], CodeSystemHelper.code_system_for(concept['code_system']))
+              end
+            end
+          end
+        end        
 
         def extract_fulfillment_history(parent_element, medication)
           fhs = parent_element.xpath("./cda:entryRelationship/cda:supply[@moodCode='EVN']")

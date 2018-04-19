@@ -228,4 +228,8 @@ namespace :bundle do
 
   end
 
+  desc 'Save mongo function'
+  task :save_system_js_fn, [:name, :fn] do |task, args|
+    HealthDataStandards::Import::Bundle::Importer.save_system_js_fn(args.name, args.fn)
+  end
 end

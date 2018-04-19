@@ -8,25 +8,29 @@
       <% else -%>
         <id extension="12345" root="PlaceholderOrganization" />
       <% end -%>
-      <addr use="HP">
+      
         <% if patient.addresses.present?
             patient.addresses.each do |address| -%>
-            <% address.street.each do |street| -%>
-              <streetAddressLine><%= street %></streetAddressLine>
-            <% end %>
-            <city><%= address.city %></city>
-            <state><%= address.state %></state>
-            <postalCode><%= address.zip %></postalCode>
-            <country><%= address.country %></country>
+            <addr use="HP">
+              <% address.street.each do |street| -%>
+                <streetAddressLine><%= street %></streetAddressLine>
+              <% end %>
+              <city><%= address.city %></city>
+              <state><%= address.state %></state>
+              <postalCode><%= address.zip %></postalCode>
+              <country><%= address.country %></country>
+            </addr>
           <% end -%>
         <% else -%>
-          <streetAddressLine>202 Burlington Rd.</streetAddressLine>
-          <city>Bedford</city>
-          <state>MA</state>
-          <postalCode>01730</postalCode>
-          <country>US</country>
+          <addr use="HP">
+            <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+            <city>Bedford</city>
+            <state>MA</state>
+            <postalCode>01730</postalCode>
+            <country>US</country>
+          </addr>
         <% end -%>
-      </addr>
+      
       <telecom use="WP" value="tel:+1-781-271-3000"/>
       <patient>
         <name>
@@ -35,12 +39,16 @@
         </name>
         <administrativeGenderCode code="<%= patient.gender %>" codeSystem="2.16.840.1.113883.5.1" codeSystemName="HL7 AdministrativeGender"/>
         <birthTime value="<%= Time.at(patient.birthdate).utc.to_formatted_s(:number) %>"/>
-        <% if (patient.race) %>
+        <% if (patient.race && patient.race['code'].to_s != '' ) %>
           <raceCode code="<%= patient.race['code'] %>" <% if patient.race['name']%>displayName="<%= patient.race['name'] %>"<% end %> codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
-        <% end %>
-        <% if (patient.ethnicity) %>
+        <% else %>
+          <raceCode nullFlavor="UNK" />
+         <% end %>
+        <% if (patient.ethnicity && patient.ethnicity['code'].to_s != '' ) %>
           <ethnicGroupCode code="<%= patient.ethnicity['code'] %>" <% if patient.ethnicity['name']%>displayName="<%= patient.ethnicity['name'] %>"<% end %> codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
-        <% end %>
+        <% else %>
+          <ethnicGroupCode nullFlavor="UNK" />
+         <% end %>
         <%
           languages = patient.languages
           languages = ["eng"] if languages.nil? or languages.empty?

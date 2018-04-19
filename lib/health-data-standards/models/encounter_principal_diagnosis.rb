@@ -1,4 +1,4 @@
-class EncounterPrincipalDiagnosis
+class EncounterPrincipalDiagnosis < Entry
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
 

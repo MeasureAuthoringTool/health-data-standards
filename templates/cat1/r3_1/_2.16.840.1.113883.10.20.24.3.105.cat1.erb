@@ -35,7 +35,7 @@
         <!-- Attribute: route -->
           <% vset = oid_for_code(entry.route.code,field_oids["ROUTE"], entry.record["bundle_id"]) %>
           <% if vset %>
-            <routeCode code="<%= entry.route['code'] %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.route['code_system']) %>" sdtc:valueSet="<%= vset %>"/>
+            <routeCode code="<%= entry.route['code'] %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.route['codeSystem'] || entry.route['code_system']) %>" sdtc:valueSet="<%= vset %>"/>
           <% end %>
         <% end -%>
         

@@ -25,7 +25,7 @@
               <reference value="vitals-desc-<%= i %>"/>
             </text>
             <statusCode code="completed"/>
-            <effectiveTime <%= value_or_null_flavor(entry.as_point_in_time) %>/>
+            <effectiveTime <%= date_value_or_null_flavor(entry.as_point_in_time) %>/>
               <% ev = entry.values.first
                 if ev.present? && ev.respond_to?(:scalar) -%>
                <% if is_num?(ev.scalar) -%>

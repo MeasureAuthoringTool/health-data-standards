@@ -87,7 +87,7 @@ module HealthDataStandards
         pipeline << {'$project' => {'category' => '$_id', 'measures' => 1, '_id' => 0}}
 
         pipeline << {'$sort' => {"category" => 1}}
-        Mongoid.default_session.command(aggregate: 'measures', pipeline: pipeline)['result']
+        Mongoid.default_client.command(aggregate: 'measures', pipeline: pipeline).documents[0]["result"]
       end
 
 
@@ -143,17 +143,28 @@ module HealthDataStandards
         self.name
       end
 
-      def all_data_criteria
+      def all_data_criteria_old
         return @crit if @crit
         @crit = []
         self.data_criteria.each do |dc|
           dc.each_pair do |k,v|
-            @crit << HQMF::DataCriteria.from_json(k,v)
+           @crit << HQMF::DataCriteria.from_json(k,v)
           end
         end
         @crit
       end
 
+      def all_data_criteria
+        @crit = []
+        self.as_hqmf_model
+        @hqmf.all_data_criteria.each do |dc|
+          dc.to_json.each_pair do |k,v|
+            @crit << HQMF::DataCriteria.from_json(k.to_s,JSON.parse(v.to_json))
+         end
+        end
+        @crit
+      end 
+      
       # Builds the query hash to pass to MongoDB
       # Calling this method will create Prefilters if they do not exist on the
       # measure
@@ -170,7 +181,7 @@ module HealthDataStandards
           end
         end
       end
-
+      
       # For submeasures, this will return something like IPP_1
       def ipp_id
         ipp_hqmf_id = self.population_ids['IPP']

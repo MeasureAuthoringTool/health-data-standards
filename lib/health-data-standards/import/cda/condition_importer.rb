@@ -9,7 +9,7 @@ module HealthDataStandards
           @id_xpath = "./cda:id"
           @status_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.1.50']/cda:value"
           @ordinality_xpath = "./cda:priorityCode"
-          @description_xpath = "./cda:text/cda:reference[@value]"
+          @description_xpath = "./cda:text/cda:reference[@value] | ./cda:value/cda:originalText/cda:reference[@value]"
           @provider_xpath = "./cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:performer"
           @priority_xpath = "../cda:sequenceNumber"
           @entry_class = Condition
@@ -59,7 +59,8 @@ module HealthDataStandards
           laterality = entry_element.at_xpath(@laterality_xpath)
           if laterality
             # kept to be backward compatible
-            condition.laterality = { 'code_system' => CodeSystemHelper.code_system_for(laterality['codeSystem']), 'code' => laterality['code'] }
+            # UNISLINK
+            # condition.laterality = { 'code_system' => CodeSystemHelper.code_system_for(laterality['codeSystem']), 'code' => laterality['code'] }
             condition.anatomical_location = { 'code_system' => CodeSystemHelper.code_system_for(laterality['codeSystem']), 'code' => laterality['code'] }
           end
         end

@@ -19,7 +19,7 @@
         <statusCode code="active"/>
         <% end -%>
         <effectiveTime>
-          <low <%= value_or_null_flavor(entry.as_point_in_time) %>/>
+          <low <%= date_value_or_null_flavor(entry.as_point_in_time) %>/>
         </effectiveTime>
         <entryRelationship typeCode="SUBJ" inversionInd="false">
           <observation classCode="OBS" moodCode="EVN">
@@ -33,7 +33,7 @@
             </text>
             <statusCode code="completed"/>
             <effectiveTime>
-              <low <%= value_or_null_flavor(entry.as_point_in_time) %>/>
+              <low <%= date_value_or_null_flavor(entry.as_point_in_time) %>/>
             </effectiveTime>
             <% if entry.ordinality -%>
               <priorityCode code="8319008" codeSystem="2.16.840.1.113883.6.96" displayName="Principal diagnosis" />

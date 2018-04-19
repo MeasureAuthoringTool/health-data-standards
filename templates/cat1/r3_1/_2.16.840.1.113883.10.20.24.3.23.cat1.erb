@@ -17,8 +17,8 @@
         <effectiveTime>
           <!-- We try to look for the admit/discharge times on the encounter if they are
                there. If not, we fall back to the typical start/end date. -->
-          <low <%= value_or_null_flavor(entry.admit_time || entry.start_time) %>/>
-          <high <%= value_or_null_flavor(entry.discharge_time || entry.end_time) %>/>
+          <low <%= value_or_null_flavor(entry.admit_time || entry.start_time || entry.time) %>/>
+          <high <%= value_or_null_flavor(entry.discharge_time || entry.end_time || entry.time) %>/>
         </effectiveTime>
         <% if entry.discharge_disposition.present?
           vset = oid_for_code(entry.discharge_disposition,field_oids["DISCHARGE_STATUS"], entry.record["bundle_id"])

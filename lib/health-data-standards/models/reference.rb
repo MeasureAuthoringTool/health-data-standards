@@ -9,7 +9,7 @@ class Reference
   def resolve_reference
     entry.record.entries.find do |e|
       e.class.to_s == referenced_type &&
-      e.identifier.to_s == referenced_id.to_s
+      e.id.to_s == referenced_id.to_s
     end
   end
 

@@ -25,11 +25,15 @@
       </assignedEntity>
     </performer>
   <% else -%>
+    <% singlePerformer = 0 -%>
     <% patient.provider_performances.each do |pp| -%>
-      <effectiveTime>
-        <low <%= value_or_null_flavor(pp.start_date) %>/>
-        <high <%= value_or_null_flavor(pp.end_date) %>/>
-      </effectiveTime>
+      <% if singlePerformer == 0 -%>
+        <effectiveTime>
+          <low <%= value_or_null_flavor(pp.start_date) %>/>
+          <high <%= value_or_null_flavor(pp.end_date) %>/>
+        </effectiveTime>
+        <% singlePerformer = 1 -%>
+     <% end -%>
       <!-- You can include multiple performers, each with an NPI, TIN, CCN. -->
       <performer typeCode="PRF"> 
         <time>

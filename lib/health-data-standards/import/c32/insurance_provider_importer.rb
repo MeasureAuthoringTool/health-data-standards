@@ -16,7 +16,7 @@ module HealthDataStandards
           ip.payer = import_organization(payer_element.at_xpath("./cda:performer/cda:assignedEntity[cda:code[@code='PAYOR']]"))
           ip.guarantors = extract_guarantors(payer_element.xpath("./cda:performer[cda:assignedEntity[cda:code[@code='GUAR']]]"))
           ip.subscriber = import_person(payer_element.at_xpath("./cda:participant[@typeCode='HLD']/cda:participantRole"))
-          member_info_element = payer_element.at_xpath("cda:participant[@typeCode='COV']")
+          member_info_element = payer_element.at_xpath("//cda:participant[@typeCode='COV']")
           extract_dates(member_info_element, ip, "time")
           name = payer_element.at_xpath("./cda:entryRelationship[@typeCode='REFR']/cda:act[@classCode='ACT' and @moodCode='DEF']/cda:text")
           ip.name = name.try(:text)

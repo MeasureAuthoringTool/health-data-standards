@@ -106,14 +106,13 @@ module HealthDataStandards
           data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                                       data_criteria.status || '',
                                                                                        data_criteria.negation)
-          is_hqmfr2 = true unless data_criteria_oid
+          is_hqmfr2 = true unless data_criteria_oid 
           data_criteria_oid ||= HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition,
                                                                                       data_criteria.status || '',
                                                                                       data_criteria.negation, "r2")
-          HealthDataStandards.logger.debug("Looking for dc [#{data_criteria_oid}]")
           filtered_entries = []
           entries = []
-
+          
           case data_criteria_oid
           when '2.16.840.1.113883.3.560.1.404'
             filtered_entries = handle_patient_expired(patient)
@@ -121,6 +120,18 @@ module HealthDataStandards
             filtered_entries = handle_payer_information(patient)
           else
             entries.concat patient.entries_for_oid(data_criteria_oid)
+            # append ccda entries
+            ccda_oid = HQMFTemplateHelper.get_ccda_oid(data_criteria_oid)
+            if ccda_oid
+              if ccda_oid.is_a?(String)
+                entries.concat patient.entries_for_oid(ccda_oid) if data_criteria_oid != ccda_oid
+              elsif ccda_oid.is_a?(Array)
+                ccda_oids = ccda_oid
+                ccda_oids.each do |cc_oid|
+                  entries.concat patient.entries_for_oid(cc_oid) if data_criteria_oid != cc_oid
+                end
+              end
+            end
 
             case data_criteria_oid
             when '2.16.840.1.113883.3.560.1.5'
@@ -143,7 +154,7 @@ module HealthDataStandards
                 code_list_id = data_criteria.field_values['TRANSFER_FROM'].try(:code_list_id) || data_criteria.field_values['TRANSFER_TO'].try(:code_list_id)
                 codes = (value_set_map(patient["bundle_id"])[code_list_id] || [])
               end
-            end
+            end            
 
             codes ||= (value_set_map(patient["bundle_id"])[data_criteria.code_list_id] || [])
             if codes.empty?
