@@ -5,6 +5,7 @@ class Medication < Entry
   # Bonnie displays this as 'dosage'.
   field :dose, type: Hash
   field :supply, type: Hash
+  field :refills, type: Hash
   field :typeOfMedication, as: :type_of_medication, type: Hash
   field :statusOfMedication, as: :status_of_medication, type: Hash
   embeds_many :fulfillmentHistory, class_name: 'FulfillmentHistory'
