@@ -1,10 +1,12 @@
 class Medication < Entry
+  # administrationTiming is the same as QDM5.3 frequency in Bonnie
   field :administrationTiming, as: :administration_timing, type: Hash
   field :freeTextSig, type: String
   # QDM 5.0 disambiguates dose to be dosage and suppy. 'dose' here represents the QDM 5.0 'dosage'.
   # Bonnie displays this as 'dosage'.
   field :dose, type: Hash
   field :supply, type: Hash
+  field :refills, type: Hash
   field :typeOfMedication, as: :type_of_medication, type: Hash
   field :statusOfMedication, as: :status_of_medication, type: Hash
   embeds_many :fulfillmentHistory, class_name: 'FulfillmentHistory'
