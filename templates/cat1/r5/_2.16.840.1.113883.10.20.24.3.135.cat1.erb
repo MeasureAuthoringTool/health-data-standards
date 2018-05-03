@@ -39,18 +39,14 @@
                           codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.laterality['codeSystem'] || entry.laterality['code_system']) %>"
                           <% if entry.laterality.has_key?('title') -%>
                             displayName="<%=entry.laterality['title']%>"
-                          <% end -%>
-                          sdtc:valueSet="<%= oid_for_code(entry.severity,field_oids["LATERALITY"] || [], entry.record["bundle_id"]) %>"
-          />
+                          <% end -%>/>
         <% end -%>
         <% if entry.anatomical_location -%>
           <targetSiteCode code="<%= entry.anatomical_location['code'] %>"
                           codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.anatomical_location['codeSystem'] || entry.anatomical_location['code_system']) %>"
                           <% if entry.anatomical_location.has_key?('title') -%>
                             displayName="<%=entry.anatomical_location['title']%>"
-                          <% end -%>
-                          sdtc:valueSet="<%= oid_for_code(entry.anatomical_location,field_oids["ANATOMICAL_LOCATION_SITE"] || [], entry.record["bundle_id"]) %>"
-          />
+                          <% end -%>/>
         <% end -%>
         <% if entry.severity -%>
           <entryRelationship typeCode="REFR">
@@ -63,9 +59,7 @@
                      codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.severity['codeSystem'] || entry.severity['code_system']) %>"
                      <% if entry.severity.has_key?('title') -%>
                        displayName="<%=entry.severity['title']%>"
-                     <% end -%>
-                     sdtc:valueSet="<%= oid_for_code(entry.severity,field_oids["SEVERITY"] || [], entry.record["bundle_id"]) %>"
-              />
+                     <% end -%>/>
             </observation>
           </entryRelationship>
         <% end -%>

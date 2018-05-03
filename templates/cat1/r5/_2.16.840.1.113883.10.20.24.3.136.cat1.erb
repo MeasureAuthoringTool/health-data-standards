@@ -40,9 +40,7 @@
                      codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.severity['codeSystem'] || entry.severity['code_system']) %>"
                      <% if entry.severity.has_key?('title') -%>
                        displayName="<%=entry.severity['title']%>"
-                     <% end -%>
-                     sdtc:valueSet="<%= oid_for_code(entry.severity,field_oids["SEVERITY"] || [], entry.record["bundle_id"]) %>"
-              />
+                     <% end -%>/>
             </observation>
           </entryRelationship>
         <% end -%>
