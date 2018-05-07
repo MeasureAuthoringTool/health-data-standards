@@ -21,15 +21,23 @@ module HealthDataStandards
         private
 
         def extract_diagnosis(parent_element, xpath)
-          diagnosis_element = parent_element.at_xpath(xpath)
-          if(diagnosis_element)
-            diagnosis = Entry.new
-            extract_workaround_codes(diagnosis_element, diagnosis)
-            diagnosis.codes[diagnosis['code_system']] ||= []
-            diagnosis.codes[diagnosis['code_system']] << diagnosis['code']
-            return diagnosis
+          diagnosis_elements = parent_element.xpath(xpath)
+          diagnosis_list = []
+          diagnosis_elements.each do |diagnosis_element|
+            value = diagnosis_element.at_xpath("./cda:value")
+            diagnosis_hash = {}
+            diagnosis_hash['code'] = value['code']
+            diagnosis_hash['code_system'] = CodeSystemHelper.code_system_for(value['codeSystem'])
+            diagnosis_list << diagnosis_hash
           end
-          nil
+          if diagnosis_list.empty?
+            nil
+          else
+            diagnosis_hash = {}
+            diagnosis_hash['type'] = 'COL'
+            diagnosis_hash['values'] = diagnosis_list
+            diagnosis_hash
+          end
         end
 
         def extract_reason(parent_element, encounter, nrh)
