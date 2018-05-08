@@ -8,6 +8,12 @@ module HealthDataStandards
           #@entry_class = Medication
         end
 
+        def create_entry(entry_element, nrh = CDA::NarrativeReferenceHandler.new)
+          medication = super
+          medication.start_time = medication.time
+          medication
+        end
+
       end
     end
   end

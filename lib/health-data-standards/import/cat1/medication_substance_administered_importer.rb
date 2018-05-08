@@ -9,8 +9,10 @@ module HealthDataStandards
 
         def create_entry(entry_element, nrh = CDA::NarrativeReferenceHandler.new)
           medication = super
+          medication.start_time = medication.time unless medication.start_time
           medication
         end
+
       end
     end
   end
