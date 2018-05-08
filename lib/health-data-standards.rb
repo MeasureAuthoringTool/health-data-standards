@@ -145,6 +145,7 @@ require_relative 'health-data-standards/import/ccda/care_goal_importer'
 require_relative 'health-data-standards/import/ccda/medical_equipment_importer'
 require_relative 'health-data-standards/import/ccda/insurance_provider_importer'
 
+require_relative 'health-data-standards/import/cat1/medication_substance_administered_importer'
 require_relative 'health-data-standards/import/cat1/adverse_event_importer'
 require_relative 'health-data-standards/import/cat1/allergy_intolerance_importer'
 require_relative 'health-data-standards/import/cat1/device_order_importer'

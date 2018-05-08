@@ -13,11 +13,23 @@ module HealthDataStandards
 
         def package_entries (doc, nrh)
           entries = self.importer_type.create_entries(doc, nrh)
-          entries.each do |entry| 
-            entry.oid = self.hqmf_oid
-            entry.status = self.status
+          entries_to_add = []
+          entries.each_with_index do |entry, index|
+            if self.hqmf_oid.kind_of?(Array)
+              self.hqmf_oid.each do |hqmf_oid|
+                entry_copy = entry.clone
+                entry_copy.oid = hqmf_oid
+                entry_copy.status = self.status
+                entry_copy.cda_identifier['extension'] = entry_copy.id.to_s
+                entries_to_add << entry_copy
+              end
+              entries.delete(entry)
+            else
+              entry.oid = self.hqmf_oid
+              entry.status = self.status
+            end
           end          
-          entries
+          entries.concat(entries_to_add)
         end
       end
     end

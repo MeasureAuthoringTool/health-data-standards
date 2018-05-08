@@ -54,6 +54,8 @@
         <% if entry.principalDiagnosis %>
             <entryRelationship typeCode="REFR">
                 <observation classCode="OBS" moodCode="EVN">
+                  <templateId root="2.16.840.1.113883.10.20.24.3.152" extension="2017-08-01"/>
+                  <id root="1.3.6.1.4.1.115" extension="<%= UUID.generate %>"/>
                   <code code="8319008" codeSystem="2.16.840.1.113883.6.96" displayName="Principal Diagnosis" codeSystemName="SNOMED CT"/>
                   <value code="<%= entry.principal_diagnosis.code %>" xsi:type="CD" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.principal_diagnosis.code_system) %>"/>
                 </observation>
