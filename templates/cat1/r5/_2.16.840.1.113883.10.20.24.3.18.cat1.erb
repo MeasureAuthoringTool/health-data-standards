@@ -18,8 +18,9 @@
       <!-- Attribute: End Datetime -->
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
-    <%== render(:partial => 'result_value', :locals => {:values => [value], :result_oids=>result_oids}) %>
+    <value nullFlavor="NA" xsi:type="CD" />
     <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"]}) %>
+    <%== render(:partial => 'results', :locals => {:entry => entry, :result_oids => result_oids, :value_set_oid => value_set_oid}) %>
     <% if entry.components -%>
       <%== render(:partial => 'components', :locals => {:entry => entry} ) %>
     <% end %>
