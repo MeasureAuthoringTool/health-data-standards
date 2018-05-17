@@ -74,5 +74,15 @@ module HQMF2CQL
 
     end
 
+    # Parse an XML document from the supplied contents
+    # @return [Nokogiri::XML::Document]
+    def self.parse(hqmf_contents)
+      doc = hqmf_contents.is_a?(Nokogiri::XML::Document) ? hqmf_contents : Nokogiri::XML(hqmf_contents)
+      doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+
+      # cql-ext is used for Supplemental Data Elements
+      doc.root.add_namespace_definition('cql-ext', 'urn:hhs-cql:hqmf-n1-extensions:v1')
+      doc
+    end
   end
 end

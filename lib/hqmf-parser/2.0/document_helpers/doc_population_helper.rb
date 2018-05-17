@@ -50,6 +50,10 @@ module HQMF2
         population['title'] = title_def ? title_def.value : "Population #{population_index}"
 
         population['OBSERV'] = 'OBSERV' if has_observation
+
+        # Do additional processing for CQL
+        yield(population_def, population) if block_given?
+
         @populations << population
         handle_stratifications(population_def, number_of_populations, population, id_def, population_index)
       end
