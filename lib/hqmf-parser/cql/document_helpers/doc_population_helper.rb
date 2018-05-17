@@ -122,7 +122,32 @@ module HQMF2CQL
       end
     end
 
-    def extract_supplemental_data_elements(population_def, population)
+    # Returns the population descriptions and criteria found in this document
+    def extract_populations_and_criteria
+      has_observation = extract_observations
+      document_populations = get_document_populations
+      number_of_populations = document_populations.length
+      document_populations.each_with_index do |population_def, population_index|
+        population = {}
+        handle_base_populations(population_def, population)
+
+        id_def = get_id_def(population_def)
+        add_id_to_population(population_def, id_def, population, population_index)
+        add_title_to_population(population_def, population)
+        add_observ_to_population(has_observation, population)
+
+        add_supplemental_data_elements_to_population(population_def, population)
+
+        @populations << population
+        handle_stratifications(population_def, number_of_populations, population, id_def, population_index)
+      end
+
+      # Push in the stratification populations after the unstratified populations
+      @populations.concat(@stratifications)
+      [@populations, @population_criteria]
+    end
+
+    def add_supplemental_data_elements_to_population(population_def, population)
       begin
         supplemental_data_elements_def = population_def.xpath('cda:component/cql-ext:supplementalDataElement')
       rescue Nokogiri::XML::XPath::SyntaxError
