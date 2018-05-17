@@ -124,7 +124,7 @@ module HQMF2CQL
 
     def extract_supplemental_data_elements(population_def, population)
       begin
-        supplemental_data_elements_def = population_def.xpath("cda:component/cql-ext:supplementalDataElement")
+        supplemental_data_elements_def = population_def.xpath('cda:component/cql-ext:supplementalDataElement')
       rescue Nokogiri::XML::XPath::SyntaxError
         # If the hqmf has no SDEs, it won't have the cql-ext namespace
         return
@@ -132,7 +132,7 @@ module HQMF2CQL
 
       supplemental_data_elements = []
       supplemental_data_elements_def.each do |sde_def|
-        cql_definition_name = sde_def.at_xpath("cda:precondition/cda:criteriaReference/cda:id").attribute('extension').to_s.match(/"([^"]*)"/)[1]
+        cql_definition_name = sde_def.at_xpath('cda:precondition/cda:criteriaReference/cda:id').attribute('extension').to_s.match(/"([^"]*)"/)[1]
         supplemental_data_elements << cql_definition_name
       end
       population['supplemental_data_elements'] = supplemental_data_elements
