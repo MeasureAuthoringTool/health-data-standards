@@ -126,7 +126,7 @@ module HQMF2CQL
       begin
         supplemental_data_elements_def = population_def.xpath('cda:component/cql-ext:supplementalDataElement')
       rescue Nokogiri::XML::XPath::SyntaxError
-        # If the hqmf has no SDEs, it won't have the cql-ext namespace
+        # Older fixtures without SDEs don't have the cql-ext namespace
         return
       end
 
