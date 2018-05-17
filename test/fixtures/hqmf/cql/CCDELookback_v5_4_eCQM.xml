@@ -1,0 +1,952 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<QualityMeasureDocument xmlns="urn:hl7-org:v3" xmlns:cql-ext="urn:hhs-cql:hqmf-n1-extensions:v1"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         
+      <!--
+            **************************************************************
+            Measure Details Section
+            **************************************************************
+        -->
+         
+      <typeId extension="POQM_HD000001UV02" root="2.16.840.1.113883.1.3"/>
+   <templateId>
+      <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.1.2"/>
+   </templateId>
+   <id root="40280382-5fa6-fe85-0160-128121cf2479"/>
+   <code code="57024-2" codeSystem="2.16.840.1.113883.6.1">
+      <displayName value="Health Quality Measure Document"/>
+   </code>
+   <title value="Hospital Core Clinical Data Elements"/>
+   <text
+         value="This is not a measure. This logic is intended to extract electronic clinical data. It is designed to extract the first captured set of vital signs and basic laboratory results obtained on adult Medicare fee-for-service patients admitted to acute care short stay hospitals. These data will be linked with administrative claims data to risk-adjust hospital-level hybrid outcome measures."/>
+   <statusCode code="COMPLETED"/>
+   <setId root="fa75de85-a934-45d7-a2f7-c700a756078b"/>
+   <versionNumber value="0.1.003"/>
+   <author>
+      <responsibleParty classCode="ASSIGNED">
+         <representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id>
+               <item root="2.16.840.1.113883.3.1240"/>
+            </id>
+            <name>
+               <item>
+                  <part value="Mathematica Policy Research"/>
+               </item>
+            </name>
+         </representedResponsibleOrganization>
+      </responsibleParty>
+   </author>
+   <author>
+      <responsibleParty classCode="ASSIGNED">
+         <representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id>
+               <item root="88a7ab8e-b92d-11e4-a71e-12e3f512a338"/>
+            </id>
+            <name>
+               <item>
+                  <part value="Yale New Haven Health Service Corporation/ Center for Outcomes Research and Evaluation"/>
+               </item>
+            </name>
+         </representedResponsibleOrganization>
+      </responsibleParty>
+   </author>
+   <custodian>
+      <responsibleParty classCode="ASSIGNED">
+         <representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id>
+               <item root="9048cd4c-b61b-11e4-a71e-12e3f512a338"/>
+            </id>
+            <name>
+               <item>
+                  <part value="Centers for Medicare &amp; Medicaid Services (CMS)"/>
+               </item>
+            </name>
+         </representedResponsibleOrganization>
+      </responsibleParty>
+   </custodian>
+   <!--Payer-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.114222.4.11.3591"/>
+         <title value="Payer"/>
+      </valueSet>
+   </definition>
+   <!--Body Temperature LOINC-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1045.152"/>
+         <title value="Body Temperature LOINC"/>
+      </valueSet>
+   </definition>
+   <!--ONC Administrative Sex-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1"/>
+         <title value="ONC Administrative Sex"/>
+      </valueSet>
+   </definition>
+   <!--Body Weight-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1045.159"/>
+         <title value="Body Weight"/>
+      </valueSet>
+   </definition>
+   <!--Troponin Lab Test-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113883.13.190.5.3"/>
+         <title value="Troponin Lab Test"/>
+      </valueSet>
+   </definition>
+   <!--Glucose Lab Test-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1045.134"/>
+         <title value="Glucose Lab Test"/>
+      </valueSet>
+   </definition>
+   <!--Diastolic Blood Pressure-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113883.3.526.2.1045"/>
+         <title value="Diastolic Blood Pressure"/>
+      </valueSet>
+   </definition>
+   <!--White Blood Cells Count Lab Test-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1045.129"/>
+         <title value="White Blood Cells Count Lab Test"/>
+      </valueSet>
+   </definition>
+   <!--Chloride Lab Test-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1045.123"/>
+         <title value="Chloride Lab Test"/>
+      </valueSet>
+   </definition>
+   <!--Hemoglobin lab test-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1045.131"/>
+         <title value="Hemoglobin lab test"/>
+      </valueSet>
+   </definition>
+   <!--Bicarbonate Lab Test-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1045.138"/>
+         <title value="Bicarbonate Lab Test"/>
+      </valueSet>
+   </definition>
+   <!--Sodium Lab Test V-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1045.119"/>
+         <title value="Sodium Lab Test V"/>
+      </valueSet>
+   </definition>
+   <!--BUN Lab Test-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1045.140"/>
+         <title value="BUN Lab Test"/>
+      </valueSet>
+   </definition>
+   <!--Ethnicity-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.114222.4.11.837"/>
+         <title value="Ethnicity"/>
+      </valueSet>
+   </definition>
+   <!--Oxygen Saturation in Arterial Blood by Pulse Oximetry-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1045.151"/>
+         <title value="Oxygen Saturation in Arterial Blood by Pulse Oximetry"/>
+      </valueSet>
+   </definition>
+   <!--Platelet Count Lab Test-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1045.127"/>
+         <title value="Platelet Count Lab Test"/>
+      </valueSet>
+   </definition>
+   <!--Race-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.114222.4.11.836"/>
+         <title value="Race"/>
+      </valueSet>
+   </definition>
+   <!--Potassium Lab Test-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1045.117"/>
+         <title value="Potassium Lab Test"/>
+      </valueSet>
+   </definition>
+   <!--Heart Rate LOINC-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1045.149"/>
+         <title value="Heart Rate LOINC"/>
+      </valueSet>
+   </definition>
+   <!--Systolic Blood Pressure LOINC-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1045.163"/>
+         <title value="Systolic Blood Pressure LOINC"/>
+      </valueSet>
+   </definition>
+   <!--Respiratory Rate LOINC-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1045.130"/>
+         <title value="Respiratory Rate LOINC"/>
+      </valueSet>
+   </definition>
+   <!--Hematocrit lab test-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1045.114"/>
+         <title value="Hematocrit lab test"/>
+      </valueSet>
+   </definition>
+   <!--Creatinine Lab Test-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113883.3.666.5.2363"/>
+         <title value="Creatinine Lab Test"/>
+      </valueSet>
+   </definition>
+   <!--Acute care hospital Inpatient Encounter-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113883.3.666.5.2289"/>
+         <title value="Acute care hospital Inpatient Encounter"/>
+      </valueSet>
+   </definition>
+   <!--Medicare payer-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1104.10"/>
+         <title value="Medicare payer"/>
+      </valueSet>
+   </definition>
+   <relatedDocument typeCode="COMP">
+      <expressionDocument>
+         <id root="9486A445-460C-4883-8F64-B4E5A7965C3D"/>
+         <text mediaType="text/cql">
+            <reference value="HospitalCoreClinicalDataElements-0.1.003.cql"/>
+            <translation mediaType="application/elm+xml">
+               <reference value="HospitalCoreClinicalDataElements-0.1.003.xml"/>
+            </translation>
+            <translation mediaType="application/elm+json">
+               <reference value="HospitalCoreClinicalDataElements-0.1.003.json"/>
+            </translation>
+         </text>
+      </expressionDocument>
+   </relatedDocument>
+   <controlVariable>
+      <measurePeriod>
+         <id extension="measureperiod" root="953dc726-ae2c-4928-a2f4-132a62502ac4"/>
+         <code code="MSRTP" codeSystem="2.16.840.1.113883.5.4">
+            <originalText value="Measurement Period"/>
+         </code>
+         <value xsi:type="PIVL_TS">
+            <phase highClosed="true" lowClosed="true">
+               <low value="20180101"/>
+               <width unit="a" value="1" xsi:type="PQ"/>
+            </phase>
+            <period unit="a" value="1"/>
+         </value>
+      </measurePeriod>
+   </controlVariable>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText value="eCQM Identifier (Measure Authoring Tool)"/>
+         </code>
+         <value mediaType="text/plain" value="529" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText value="NQF Number"/>
+         </code>
+         <value mediaType="text/plain" value="" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="COPY" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Copyright"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Limited proprietary coding is contained in these specifications for user convenience. Users of proprietary code sets should obtain all necessary licenses from the owners of the code sets.  &#xD;&#xA;&#xD;&#xA;CPT(R) contained in the Measure specifications is copyright 2004-2013 American Medical Association. LOINC(R) copyright 2004-2013 Regenstrief Institute, Inc. This material contains SNOMED Clinical Terms(R) (SNOMED CT[R]) copyright 2004-2013 International Health Terminology Standards Development Organisation. ICD-10 copyright 2013 World Health Organization. All Rights Reserved."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DISC" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Disclaimer"/>
+         </code>
+         <value mediaType="text/plain"
+                value="These performance specifications are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications.&#xD;&#xA;&#xD;&#xA;THE MEASURES AND SPECIFICATIONS ARE PROVIDED AS IS WITHOUT WARRANTY OF ANY KIND.&#xD;&#xA;&#xD;&#xA;Due to technical limitations, registered trademarks are indicated by (R) or [R] and unregistered trademarks are indicated by (TM) or [TM]."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRSCORE" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Measure Scoring"/>
+         </code>
+         <value code="PROPOR" codeSystem="2.16.840.1.113883.1.11.20367" xsi:type="CD">
+            <displayName value="Proportion"/>
+         </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="STRAT" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Stratification"/>
+         </code>
+         <value mediaType="text/plain" value="None" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRADJ" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Risk Adjustment"/>
+         </code>
+         <value mediaType="text/plain" value="None" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRAGG" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Rate Aggregation"/>
+         </code>
+         <value mediaType="text/plain" value="None" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="RAT" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Rationale"/>
+         </code>
+         <value mediaType="text/plain"
+                value="Although we are using the &quot;proportion&quot; function in the MAT, hospitals will not report a proportion, ratio, or rate. Instead hospitals will report actual data values for the elements included. &#xD;&#xA;&#xD;&#xA;The intent of this logic is to extract the FIRST set of clinical data elements on patients, from hospital EHRs, and to use the data to risk adjust hospital-level hybrid outcome measures. This work addresses stakeholder concerns that clinical data garnered from patients, and used by clinicians to guide diagnostic decisions and treatment, are preferable to administrative claims data. We are calling the list of data elements for extraction the &quot;core clinical data elements&quot;. The core clinical data elements are the first set of vital signs and basic laboratory test results captured on adult Medicare fee-for-service patients, age 65 or older, after they arrive at the hospital to which they are subsequently admitted. For example, this first set of data values are often captured in the emergency department or in the pre-operative area sometimes hours before a patient is admitted to that same facility. &#xD;&#xA;&#xD;&#xA;These data elements were selected because they: 1. reflect patients' clinical status when they first present to the hospital; 2. are clinically and statistically relevant to patient outcomes; 3. are consistently obtained on adult inpatients based on current clinical practice; 4. are captured with a standard definition and recorded in a standard format across providers; and 5. are entered in structured fields that are feasibly retrieved from current EHR systems. The core clinical data elements also include some demographic data (such as age and sex). Demographic data are used to link EHR data files with administrative claims data for CMS to calculate results for hospital-level hybrid outcome measures."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="CRS" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Clinical Recommendation Statement"/>
+         </code>
+         <value mediaType="text/plain"
+                value="The logic is not meant to guide or alter the care patients receive. The purpose of this CCDE logic is to extract clinical data that are already routinely captured in EHRs among hospitalized adult patients. It is not intended to require that clinical staff perform additional measurements or tests that are not needed for diagnostic assessment or treatment of patients."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IDUR" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Improvement Notation"/>
+         </code>
+         <value mediaType="text/plain"
+                value="No actual measure score will be generated by hospitals. Instead hospitals will report the data values for each of the core clinical data elements for all patients in the denominator. These core clinical data elements will be linked to administrative claims data and used by CMS to calculate results for hospital-level hybrid outcome measures."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DEF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Definition"/>
+         </code>
+         <value mediaType="text/plain" value="Core Clinical Data Elements" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="GUIDE" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Guidance"/>
+         </code>
+         <value mediaType="text/plain"
+                value="This logic guides the user to extract the FIRST captured core clinical data elements for all Medicare fee-for-service patients age 65 or older, (as described by Initial Population field) directly admitted to the hospital or admitted to the same facility after an emergency department stay or surgical procedure. &#xD;&#xA;&#xD;&#xA;The logic supports extraction of the FIRST set of core clinical data elements in two different ways, depending on if the patient was a direct admission: &#xD;&#xA;&#xD;&#xA;1. If the patient was a direct admission, the logic supports extraction of the FIRST captured vital signs within 2 hours after the start of the inpatient admission, and the FIRST captured laboratory test results within 24 hours after the start of the inpatient admission. &#xD;&#xA;2. If the patient has values captured prior to admission, for example from the emergency department or pre-operative or other outpatient area within the hospital, the logic supports extraction of the FIRST captured vital signs and laboratory test results within 24 hours PRIOR to the start of the inpatient admission. All clinical systems used in inpatient and outpatient locations within the hospital facility should be queried when looking for core clinical data element values related to a patient who is subsequently admitted.&#xD;&#xA;&#xD;&#xA;Value sets for the laboratory tests represent the LOINC codes currently available for these tests. If the institution is using local codes to capture and store relevant laboratory test data, those sites should map that information to the LOINC code for CCDE reporting.&#xD;&#xA;&#xD;&#xA;NOTE: Do not report ALL values on a patient during their entire admission.  Only report the FIRST recorded value for EACH core clinical data element collected in the appropriate timeframe, if available."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="TRANF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Transmission Format"/>
+         </code>
+         <value mediaType="text/plain" value="To be determined." xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IPOP" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Initial Population"/>
+         </code>
+         <value mediaType="text/plain"
+                value="All Medicare fee-for-service patients age 65 and older with an inpatient admission (length of stay &lt;365 days) during the measurement period."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENOM" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Denominator"/>
+         </code>
+         <value mediaType="text/plain" value="Same as initial population" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENEX" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Denominator Exclusions"/>
+         </code>
+         <value mediaType="text/plain" value="None" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="NUMER" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Numerator"/>
+         </code>
+         <value mediaType="text/plain"
+                value="For patients in the denominator, report the FIRST value for vital signs captured within the 24 hours prior to the inpatient admission. If no values were captured in the 24 hours prior to the admission (for example, for patients directly admitted to the hospitals) report the first value captured within 2 hours after the start of the inpatient admission. For laboratory test results, report the first captured value in the 24 hours prior to admission. If there are no values in the 24 hours prior to admission, report the first values within 24 hours after the start of the inpatient admission. First values for the following data elements may be captured in the emergency department or other outpatient area within the hospital before a patient is subsequently admitted to the same hospital. First values for these data elements may also be captured on an inpatient unit for directly admitted patients who do not receive care in the emergency department or other hospital outpatient location before admission. &#xD;&#xA;&#xD;&#xA;The core clinical data elements are as follows:&#xD;&#xA;Heart rate&#xD;&#xA;Systolic blood pressure&#xD;&#xA;Respiratory rate&#xD;&#xA;Temperature&#xD;&#xA;Oxygen saturation&#xD;&#xA;Weight&#xD;&#xA;Hematocrit&#xD;&#xA;White blood cell count&#xD;&#xA;Potassium&#xD;&#xA;Sodium&#xD;&#xA;Bicarbonate&#xD;&#xA;Creatinine&#xD;&#xA;Glucose&#xD;&#xA;&#xD;&#xA;NOTE: Do not report ALL values on a patient during their entire admission. Only report the FIRST recorded value for EACH core clinical data element collected in the appropriate timeframe, if available."
+                xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="NUMEX" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Numerator Exclusions"/>
+         </code>
+         <value mediaType="text/plain" value="None" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DENEXCEP" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Denominator Exceptions"/>
+         </code>
+         <value mediaType="text/plain" value="None" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="SDE" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Supplemental Data Elements"/>
+         </code>
+         <value mediaType="text/plain" value="" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <componentOf>
+      <qualityMeasureSet classCode="ACT">
+         <id root=""/>
+         <title value=""/>
+      </qualityMeasureSet>
+   </componentOf>
+   <!--Data Criteria Section-->
+   <component>
+      <dataCriteriaSection>
+         <templateId>
+            <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.2.6"/>
+         </templateId>
+         <code code="57025-9" codeSystem="2.16.840.1.113883.6.1"/>
+         <title value="Data Criteria Section"/>
+         <text/>
+         <entry typeCode="DRIV">
+            <localVariableName value="Payer_PatientCharacteristic_kNJSo"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.53"/>
+               </templateId>
+               <id extension="Payer_PatientCharacteristic"
+                   root="41dc8804-cc7b-413d-9a39-e815347fcb46"/>
+               <code valueSet="2.16.840.1.114222.4.11.3591"/>
+               <title value="Patient Characteristic"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="Payer_PatientCharacteristicPayer_hhSTY"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-05-01" root="2.16.840.1.113883.10.20.28.4.58"/>
+               </templateId>
+               <id extension="Payer_PatientCharacteristicPayer"
+                   root="41dc8804-cc7b-413d-9a39-e815347fcb46"/>
+               <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Payer"/>
+               </code>
+               <title value="Patient Characteristic Payer"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.114222.4.11.3591" xsi:type="CD"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="BodyTemperatureLOINC_PhysicalExamPerformed_fzVjt"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.62"/>
+               </templateId>
+               <id extension="BodyTemperatureLOINC_PhysicalExamPerformed"
+                   root="efae3a9a-e721-4ae3-b7c7-9cd40bf51274"/>
+               <code code="5880005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="physical examination"/>
+               </code>
+               <title value="Physical Exam, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.113762.1.4.1045.152" xsi:type="CD"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="ONCAdministrativeSex_PatientCharacteristicSex_KC68N"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-05-01" root="2.16.840.1.113883.10.20.28.4.55"/>
+               </templateId>
+               <id extension="ONCAdministrativeSex_PatientCharacteristicSex"
+                   root="01915e63-a980-4c33-90f4-e20c172923cb"/>
+               <code code="263495000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="Gender"/>
+               </code>
+               <title value="Patient Characteristic Sex"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.113762.1.4.1" xsi:type="CD"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="BodyWeight_PhysicalExamPerformed_jNFBz"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.62"/>
+               </templateId>
+               <id extension="BodyWeight_PhysicalExamPerformed"
+                   root="dc80045e-4464-4e8d-b830-8bb0b22a229c"/>
+               <code code="5880005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="physical examination"/>
+               </code>
+               <title value="Physical Exam, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.113762.1.4.1045.159" xsi:type="CD"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="TroponinLabTest_LaboratoryTestPerformed_MSFaM"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.42"/>
+               </templateId>
+               <id extension="TroponinLabTest_LaboratoryTestPerformed"
+                   root="0fabe1d4-9f60-4a76-96fb-58a4538231c6"/>
+               <code valueSet="2.16.840.1.113883.13.190.5.3"/>
+               <title value="Laboratory Test, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="GlucoseLabTest_LaboratoryTestPerformed_T7blG"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.42"/>
+               </templateId>
+               <id extension="GlucoseLabTest_LaboratoryTestPerformed"
+                   root="2719267e-2474-47db-a07e-712db786577d"/>
+               <code valueSet="2.16.840.1.113762.1.4.1045.134"/>
+               <title value="Laboratory Test, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="DiastolicBloodPressure_PhysicalExamPerformed_5xUBP"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.62"/>
+               </templateId>
+               <id extension="DiastolicBloodPressure_PhysicalExamPerformed"
+                   root="a22e6fd9-0e96-43c8-b9d3-dc269246d50d"/>
+               <code code="5880005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="physical examination"/>
+               </code>
+               <title value="Physical Exam, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.113883.3.526.2.1045" xsi:type="CD"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="WhiteBloodCellsCountLabTest_LaboratoryTestPerformed_md2jO"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.42"/>
+               </templateId>
+               <id extension="WhiteBloodCellsCountLabTest_LaboratoryTestPerformed"
+                   root="25b05c8c-66bb-4aa3-80a6-be2b86e9e7cf"/>
+               <code valueSet="2.16.840.1.113762.1.4.1045.129"/>
+               <title value="Laboratory Test, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="ChlorideLabTest_LaboratoryTestPerformed_XEEoP"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.42"/>
+               </templateId>
+               <id extension="ChlorideLabTest_LaboratoryTestPerformed"
+                   root="99341447-f791-4426-8618-2854bdebe851"/>
+               <code valueSet="2.16.840.1.113762.1.4.1045.123"/>
+               <title value="Laboratory Test, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="Hemoglobinlabtest_LaboratoryTestPerformed_7dcFj"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.42"/>
+               </templateId>
+               <id extension="Hemoglobinlabtest_LaboratoryTestPerformed"
+                   root="d85a4e39-c049-4394-aac1-7a331091b90b"/>
+               <code valueSet="2.16.840.1.113762.1.4.1045.131"/>
+               <title value="Laboratory Test, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="BicarbonateLabTest_LaboratoryTestPerformed_297Pw"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.42"/>
+               </templateId>
+               <id extension="BicarbonateLabTest_LaboratoryTestPerformed"
+                   root="cd54ee55-868b-4961-aa5b-e205e14229a8"/>
+               <code valueSet="2.16.840.1.113762.1.4.1045.138"/>
+               <title value="Laboratory Test, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="SodiumLabTestV_LaboratoryTestPerformed_9yqkx"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.42"/>
+               </templateId>
+               <id extension="SodiumLabTestV_LaboratoryTestPerformed"
+                   root="7e9f9e68-052f-4703-abee-5ac80a41b317"/>
+               <code valueSet="2.16.840.1.113762.1.4.1045.119"/>
+               <title value="Laboratory Test, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="BUNLabTest_LaboratoryTestPerformed_n9SZ0"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.42"/>
+               </templateId>
+               <id extension="BUNLabTest_LaboratoryTestPerformed"
+                   root="d9bb39f8-be13-4945-a873-2d776eeef2f2"/>
+               <code valueSet="2.16.840.1.113762.1.4.1045.140"/>
+               <title value="Laboratory Test, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="Ethnicity_PatientCharacteristicEthnicity_awcHA"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-05-01" root="2.16.840.1.113883.10.20.28.4.56"/>
+               </templateId>
+               <id extension="Ethnicity_PatientCharacteristicEthnicity"
+                   root="4bf33d89-3c0e-4cbe-9787-a2008b58507c"/>
+               <code code="54133-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Ethnicity"/>
+               </code>
+               <title value="Patient Characteristic Ethnicity"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.114222.4.11.837" xsi:type="CD"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="OxygenSaturationinArterialBloodbyPulseOximetry_PhysicalExamPerformed_Fy6Ui"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.62"/>
+               </templateId>
+               <id extension="OxygenSaturationinArterialBloodbyPulseOximetry_PhysicalExamPerformed"
+                   root="136b8339-2253-4f43-adc4-0c7a6562da36"/>
+               <code code="5880005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="physical examination"/>
+               </code>
+               <title value="Physical Exam, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.113762.1.4.1045.151" xsi:type="CD"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="PlateletCountLabTest_LaboratoryTestPerformed_paHNy"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.42"/>
+               </templateId>
+               <id extension="PlateletCountLabTest_LaboratoryTestPerformed"
+                   root="eadb2e01-71a1-47dd-86f8-058652bfeb77"/>
+               <code valueSet="2.16.840.1.113762.1.4.1045.127"/>
+               <title value="Laboratory Test, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="Race_PatientCharacteristicRace_UREdl"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-05-01" root="2.16.840.1.113883.10.20.28.4.59"/>
+               </templateId>
+               <id extension="Race_PatientCharacteristicRace"
+                   root="715b4daf-0528-4f42-ac85-378aff2679d5"/>
+               <code code="32624-9" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Race"/>
+               </code>
+               <title value="Patient Characteristic Race"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.114222.4.11.836" xsi:type="CD"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="PotassiumLabTest_LaboratoryTestPerformed_nw9NT"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.42"/>
+               </templateId>
+               <id extension="PotassiumLabTest_LaboratoryTestPerformed"
+                   root="82158d31-1f08-4b57-a857-f5d6805375f9"/>
+               <code valueSet="2.16.840.1.113762.1.4.1045.117"/>
+               <title value="Laboratory Test, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="HeartRateLOINC_PhysicalExamPerformed_tesTO"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.62"/>
+               </templateId>
+               <id extension="HeartRateLOINC_PhysicalExamPerformed"
+                   root="7a2d5acf-d73a-46a1-ad09-d17f8dbe2899"/>
+               <code code="5880005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="physical examination"/>
+               </code>
+               <title value="Physical Exam, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.113762.1.4.1045.149" xsi:type="CD"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="SystolicBloodPressureLOINC_PhysicalExamPerformed_prBVA"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.62"/>
+               </templateId>
+               <id extension="SystolicBloodPressureLOINC_PhysicalExamPerformed"
+                   root="45c5dc24-9f9d-4bf0-b8d1-29a78faba9a0"/>
+               <code code="5880005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="physical examination"/>
+               </code>
+               <title value="Physical Exam, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.113762.1.4.1045.163" xsi:type="CD"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="RespiratoryRateLOINC_PhysicalExamPerformed_ZD7fg"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.62"/>
+               </templateId>
+               <id extension="RespiratoryRateLOINC_PhysicalExamPerformed"
+                   root="17356479-6475-49f3-bd9c-c07283556d4d"/>
+               <code code="5880005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="physical examination"/>
+               </code>
+               <title value="Physical Exam, Performed"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.113762.1.4.1045.130" xsi:type="CD"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="Hematocritlabtest_LaboratoryTestPerformed_tEzRE"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.42"/>
+               </templateId>
+               <id extension="Hematocritlabtest_LaboratoryTestPerformed"
+                   root="80cec38d-992c-41eb-81ea-060db8f7e889"/>
+               <code valueSet="2.16.840.1.113762.1.4.1045.114"/>
+               <title value="Laboratory Test, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="CreatinineLabTest_LaboratoryTestPerformed_KECqv"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.42"/>
+               </templateId>
+               <id extension="CreatinineLabTest_LaboratoryTestPerformed"
+                   root="680904bf-5c17-4f6d-9d9e-e550855f4a4b"/>
+               <code valueSet="2.16.840.1.113883.3.666.5.2363"/>
+               <title value="Laboratory Test, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="AcutecarehospitalInpatientEncounter_EncounterPerformed_N1jyl"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.5"/>
+               </templateId>
+               <id extension="AcutecarehospitalInpatientEncounter_EncounterPerformed"
+                   root="cb0e4615-4bf7-47ca-8f0a-6f68ce9643a4"/>
+               <code valueSet="2.16.840.1.113883.3.666.5.2289"/>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </encounterCriteria>
+         </entry>
+      </dataCriteriaSection>
+   </component>
+   <component>
+      <populationCriteriaSection>
+         <templateId>
+            <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.2.7"/>
+         </templateId>
+         <id extension="PopulationCriteria1" root="8220343A-D363-474C-A287-CC3C02EB0DC6"/>
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"/>
+         <title value="Population Criteria Section"/>
+         <text/>
+         <component typeCode="COMP">
+            <initialPopulationCriteria classCode="OBS" moodCode="EVN">
+               <id extension="initialPopulation" root="6E1B1C89-DB4E-4295-A4FB-C3AA38755D72"/>
+               <code code="IPOP" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="HospitalCoreClinicalDataElements.&quot;Initial Population&quot;"
+                         root="9486A445-460C-4883-8F64-B4E5A7965C3D"/>
+                  </criteriaReference>
+               </precondition>
+            </initialPopulationCriteria>
+         </component>
+         <component typeCode="COMP">
+            <denominatorCriteria classCode="OBS" moodCode="EVN">
+               <id extension="denominator" root="BE6F7755-2732-4A51-A235-F8A09521E71E"/>
+               <code code="DENOM" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="HospitalCoreClinicalDataElements.&quot;Denominator&quot;"
+                         root="9486A445-460C-4883-8F64-B4E5A7965C3D"/>
+                  </criteriaReference>
+               </precondition>
+            </denominatorCriteria>
+         </component>
+         <component typeCode="COMP">
+            <numeratorCriteria classCode="OBS" moodCode="EVN">
+               <id extension="numerator" root="82B3BF89-42AF-44E5-ACBB-3C21C5C845BB"/>
+               <code code="NUMER" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="HospitalCoreClinicalDataElements.&quot;Numerator&quot;"
+                         root="9486A445-460C-4883-8F64-B4E5A7965C3D"/>
+                  </criteriaReference>
+               </precondition>
+            </numeratorCriteria>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="4A8D1A15-84B6-44E2-A5C3-45E7C8EBFF33"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="HospitalCoreClinicalDataElements.&quot;SDE Ethnicity&quot;"
+                         root="9486A445-460C-4883-8F64-B4E5A7965C3D"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="95C62880-85AD-4930-9A72-0DC07240E30E"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="HospitalCoreClinicalDataElements.&quot;SDE Payer&quot;"
+                         root="9486A445-460C-4883-8F64-B4E5A7965C3D"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="D841250F-68CB-4069-944D-5F2B578D80F1"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="HospitalCoreClinicalDataElements.&quot;SDE Race&quot;"
+                         root="9486A445-460C-4883-8F64-B4E5A7965C3D"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="CAB1FB7E-62AD-4670-BFF5-D6D8D01A0C58"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="HospitalCoreClinicalDataElements.&quot;SDE Sex&quot;"
+                         root="9486A445-460C-4883-8F64-B4E5A7965C3D"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="92341E8E-2718-4B34-9CA8-2237A0B1E89B"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="HospitalCoreClinicalDataElements.&quot;Results&quot;"
+                         root="9486A445-460C-4883-8F64-B4E5A7965C3D"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+      </populationCriteriaSection>
+   </component>
+</QualityMeasureDocument>
