@@ -73,5 +73,6 @@ module HQMF2CQL
       end
 
     end
+
   end
 end
