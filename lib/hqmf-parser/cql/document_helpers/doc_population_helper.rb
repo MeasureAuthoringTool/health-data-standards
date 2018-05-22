@@ -5,9 +5,7 @@ module HQMF2CQL
 
     def extract_populations
       @populations_cql_map = extract_populations_cql_map
-      extract_populations_and_criteria do |population_def, population|
-        extract_supplemental_data_elements(population_def, population)
-      end
+      extract_populations_and_criteria
       # Return via destructuring
       [@populations, @population_criteria, @populations_cql_map, @observations]
     end
