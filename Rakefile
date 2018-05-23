@@ -1,6 +1,5 @@
 require 'rake/testtask'
 require 'cane/rake_task'
-require "simplecov"
 
 import 'lib/tasks/hqmf.rake'
 

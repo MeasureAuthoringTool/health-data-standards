@@ -31,5 +31,11 @@ class HQMF2CQLTest < Minitest::Test
     diff = ''
     assert diff.empty?, 'Diff is not empty.'
   end
+  def test_supplemental_data_element_parsing
+    sde_measure_file = File.join(HQMF_CQL_ROOT, 'CCDELookback_v5_4_eCQM.xml')
+    model = HQMF2CQL::Document.new(File.open(sde_measure_file).read).to_model
+
+    assert model.populations[0]['supplemental_data_elements'].length == 5
+  end
 
 end
