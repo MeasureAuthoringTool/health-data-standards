@@ -100,7 +100,13 @@ module HealthDataStandards
             return "value='1'"
           end
         else
-          return "value='#{dose[:scalar]}' unit='#{dose[:units]}'"
+          if dose[:scalar].present?
+            return "value='#{dose[:scalar]}' unit='#{dose[:units]}'"
+          elsif dose[:value].present?
+            return "value='#{dose[:value]}' unit='#{dose[:unit]}'"
+          else
+            return "value='1'"
+          end
         end
       end
 
