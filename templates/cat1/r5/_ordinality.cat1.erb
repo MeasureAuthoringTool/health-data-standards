@@ -1,6 +1,6 @@
 <% if entry.respond_to?(:ordinality) && entry.ordinality.present? 
   -%>
-<priorityCode  code="<%= entry.ordinality['code'] %>" 
-              codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.ordinality['codeSystem'] || entry.ordinality['code_system']) %>"
+<priorityCode  code="<%= entry.ordinality[:code] %>" 
+              codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.ordinality[:codeSystem] || entry.ordinality[:code_system]) %>"
               />
 <% end -%>

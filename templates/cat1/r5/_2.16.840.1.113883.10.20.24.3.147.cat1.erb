@@ -1,5 +1,5 @@
 <entry>
-  <observation classCode="OBS" moodCode="INT">
+  <observation classCode="OBS" moodCode="EVN">
     <!-- Conforms to C-CDA R2.1 Substance or Device Allergy - Intolerance Observation (V2) -->
     <templateId root="2.16.840.1.113883.10.20.24.3.90" extension="2014-06-09"/>
     <!-- Allergy Intolerance -->
@@ -19,7 +19,7 @@
     <participant typeCode="CSM">
       <participantRole classCode="MANU">
         <playingEntity classCode="MMAT">
-          <%== code_display(entry,'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['RxNorm', 'SNOMED-CT', 'CVX'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+          <%== code_display(entry,'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['RxNorm', 'SNOMED-CT', 'CVX']) %>
           <name><%= entry.description %></name>
         </playingEntity>
       </participantRole>

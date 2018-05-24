@@ -37,7 +37,8 @@ module HealthDataStandards
       def create_code_display_string(entry, preferred_code, options={})
         code_string = nil
         if entry['negationInd'] == true
-          code_string = "<#{options['tag_name']} nullFlavor=\"NA\" #{options['extra_content']}/>"
+          code_system_oid = HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(preferred_code['code_set'])
+          code_string = "<#{options['tag_name']} code=\"#{preferred_code['code']}\" codeSystem=\"#{code_system_oid}\"/>"
         elsif preferred_code
           code_system_oid = HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(preferred_code['code_set'])
           code_string = "<#{options['tag_name']} code=\"#{preferred_code['code']}\" codeSystem=\"#{code_system_oid}\" #{options['extra_content']}>"
@@ -93,13 +94,13 @@ module HealthDataStandards
 
       def dose_quantity(codes, dose)
         if (codes["RxNorm"].present? || codes["CVX"].present?)
-          if dose['unit'].present?
-            return "value='1' unit='#{ucum_for_dose_quantity(dose['unit'])}'"
+          if dose[:unit].present?
+            return "value='1' unit='#{ucum_for_dose_quantity(dose[:unit])}'"
           else
             return "value='1'"
           end
         else
-          return "value='#{dose['scalar']}' unit='#{dose['units']}'"
+          return "value='#{dose[:scalar]}' unit='#{dose[:units]}'"
         end
       end
 

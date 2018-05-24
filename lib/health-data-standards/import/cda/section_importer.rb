@@ -135,7 +135,7 @@ module HealthDataStandards
           if value_element && !value_element['nullFlavor']
             value = value_element['value']
             if value.present?
-              unit = value_element['unit']
+              unit = value_element['unit'] != "1" ? value_element['unit'] : ""
               entry.set_value(value.strip, unit)
             elsif value_element['code'].present?
               crv = CodedResultValue.new

@@ -18,7 +18,7 @@ module HealthDataStandards
           extract_performer(entry_element, procedure)
           extract_anatomical_target(entry_element, procedure)
           extract_reason_or_negation(entry_element, procedure)
-          extract_scalar(entry_element, procedure)
+          #extract_scalar(entry_element, procedure)
           extract_components(entry_element, procedure)
           procedure
         end

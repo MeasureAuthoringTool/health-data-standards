@@ -5,6 +5,7 @@ module HealthDataStandards
         def initialize(entry_finder=EntryFinder.new("//cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.15.1'] | //cda:observation[cda:templateId/@root='2.16.840.1.113883.3.88.11.83.15']"))
           super(entry_finder)
           @entry_class = LabResult
+          @value_xpath = "cda:value | ./cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.87']/cda:value"
         end
         
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)

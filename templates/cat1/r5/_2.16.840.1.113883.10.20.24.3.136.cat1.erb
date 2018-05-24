@@ -28,7 +28,7 @@
           <high <%= value_or_null_flavor(entry.end_time) %> />
         </effectiveTime>
         <%== code_display(entry, 'tag_name' => 'value', 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'],
-                                 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
+                                 'extra_content' => "xsi:type=\"CD\"") %>
         <% if entry.severity -%>
           <entryRelationship typeCode="REFR">
             <observation classCode="OBS" moodCode="EVN">
@@ -36,10 +36,10 @@
               <code code="SEV" codeSystem="2.16.840.1.113883.5.4" />
               <statusCode code="completed" />
               <value xsi:type="CD"
-                     code="<%= entry.severity['code'] %>"
-                     codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.severity['codeSystem'] || entry.severity['code_system']) %>"
-                     <% if entry.severity.has_key?('title') -%>
-                       displayName="<%=entry.severity['title']%>"
+                     code="<%= entry.severity[:code] %>"
+                     codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.severity[:codeSystem] || entry.severity[:code_system]) %>"
+                     <% if entry.severity.has_key?(:title) -%>
+                       displayName="<%=entry.severity[:title]%>"
                      <% end -%>/>
             </observation>
           </entryRelationship>
