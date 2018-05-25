@@ -25,7 +25,7 @@ module HQMF
     # `code_system`: This is the oid for whatever code system contains `code`. For Diagnosis, this is LOINC: `2.16.840.1.113883.6.1`. This is also located at (http://www.hl7.org/implement/standards/product_brief.cfm?product_id=346) vol 2 page 155.
     # `template_id`: These appear to be related to HQMFr1 template ids. These appear to be dangerously out of date. Don't use.
     FIELDS = {'ABATEMENT_DATETIME' => {title:'Abatement Datetime', coded_entry_method: :end_date, field_type: :timestamp},
-              'ACTIVE_DATETIME' => {title:'Active Date/Time', coded_entry_method: :active_date_time, field_type: :timestamp},
+              'ACTIVE_DATETIME' => {title:'Active Date/Time', coded_entry_method: :active_datetime, field_type: :timestamp},
               'ADMISSION_DATETIME' => {title:'Admission Date/Time', coded_entry_method: :admit_time, code: '399423000', code_system:'2.16.840.1.113883.6.96', field_type: :timestamp},
               # QDM 5.0 addition. This is the same as FACILITY_LOCATION.
               # TODO: (LDY 10/5/2016) this is a new attribute from QDM 5.0. We do not yet have the code or template_id for this. This should be updated when we do.
