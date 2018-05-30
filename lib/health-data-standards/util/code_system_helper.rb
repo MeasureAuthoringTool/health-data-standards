@@ -34,7 +34,8 @@ module HealthDataStandards
         '2.16.840.1.113883.1.11.78' => "HL7 Observation Interpretation",
         '2.16.840.1.113883.3.221.5' => "Source of Payment Typology",
         '2.16.840.1.113883.6.13' => 'CDT',
-        '2.16.840.1.113883.18.2' => 'AdministrativeSex'
+        '2.16.840.1.113883.18.2' => 'AdministrativeSex',
+        '2.16.840.1.113883.5.1' => 'AdministrativeGender'
       }
       
       CODE_SYSTEM_ALIASES = {
@@ -73,4 +74,3 @@ module HealthDataStandards
     end
   end
 end
-
