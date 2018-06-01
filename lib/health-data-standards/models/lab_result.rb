@@ -1,6 +1,6 @@
 class LabResult < Entry
   # NOT used for QDM 5.0 referenceRange
-  field :referenceRange, as: :reference_range, type: Hash
+  field :referenceRange, as: :reference_range, type: String
   # used for QDM 5.0 referenceRange
   field :referenceRangeHigh, as: :reference_range_high, type: Hash
   # used for QDM 5.0 referenceRange
