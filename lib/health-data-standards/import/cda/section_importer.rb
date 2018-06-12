@@ -123,6 +123,14 @@ module HealthDataStandards
           if parent_element.at_xpath("cda:#{element_name}/cda:center")
             entry[:time] = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:center")['value'])
           end
+          extract_author_time(parent_element, entry) unless entry[:start_time]
+        end
+
+        def extract_author_time(parent_element, entry)
+          if parent_element.at_xpath("cda:author/cda:time/@value")
+            entry[:start_time] = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:author/cda:time")['value'])
+            entry[:end_time] = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:author/cda:time")['value'])
+          end
         end
 
         def extract_values(parent_element, entry)
