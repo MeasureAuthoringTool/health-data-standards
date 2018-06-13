@@ -56,7 +56,7 @@ module HealthDataStandards
                                             generate_importer(CDA::AllergyImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.43']", '2.16.840.1.113883.3.560.1.7'), #medication adverse effect
                                             generate_importer(CDA::AllergyImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.44']", '2.16.840.1.113883.3.560.1.1')] #medication allergy
 
-          @section_importers[:medical_equipment] = [generate_importer(CDA::MedicalEquipmentImporter, "./cda:entry/cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.7']", '2.16.840.1.113883.3.560.1.110', 'applied'),
+          @section_importers[:medical_equipment] = [generate_importer(CDA::MedicalEquipmentImporter, "./cda:entry/cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.7']", '2.16.840.1.113883.3.560.1.10', 'applied'),
                                                     generate_importer(CDA::MedicalEquipmentImporter, "./cda:entry/cda:act[cda:code/@code = 'SPLY']", '2.16.840.1.113883.3.560.1.137'),
                                                     generate_importer(DeviceOrderImporter, nil, '2.16.840.1.113883.3.560.1.37', 'ordered')]
 

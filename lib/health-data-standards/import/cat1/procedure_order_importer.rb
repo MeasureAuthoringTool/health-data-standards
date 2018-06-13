@@ -18,12 +18,6 @@ module HealthDataStandards
 
         private
 
-        def extract_dates(parent_element, entry, element_name="author")
-          if parent_element.at_xpath("cda:#{element_name}/cda:time/@value")
-            entry.time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:time")['value'])
-          end
-        end
-
         def extract_performer(parent_element, procedure)
           performer_element = parent_element.at_xpath("./cda:performer")
           procedure.performer = import_actor(performer_element) if performer_element

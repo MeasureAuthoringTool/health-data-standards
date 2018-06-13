@@ -45,6 +45,7 @@ module HealthDataStandards
 
           extract_fulfillment_history(entry_element, medication)
           extract_reason_or_negation(entry_element, medication)
+          extract_author_time(entry_element, medication) unless medication[:start_time]
 
           medication
         end
@@ -76,6 +77,13 @@ module HealthDataStandards
               fulfillment_history.fill_number = fill_number.to_i if fill_number
               medication.fulfillmentHistory << fulfillment_history
             end
+          end
+        end
+
+        def extract_author_time(entry_element, medication)
+          if entry_element.at_xpath("cda:author/cda:time/@value")
+            medication[:start_time] = HL7Helper.timestamp_to_integer(entry_element.at_xpath("cda:author/cda:time")['value'])
+            medication[:end_time] = HL7Helper.timestamp_to_integer(entry_element.at_xpath("cda:author/cda:time")['value'])
           end
         end
 
