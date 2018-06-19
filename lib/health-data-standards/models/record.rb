@@ -53,10 +53,11 @@ class Record
   embeds_many :advance_directives, class_name: "Entry"
   embeds_many :insurance_providers
   embeds_many :functional_statuses
+  embeds_many :participations
 
   Sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
    :medications, :procedures, :results, :communications, :family_history, :social_history, :vital_signs, :support, :advance_directives,
-   :insurance_providers, :functional_statuses, :care_experiences, :assessments, :adverse_events]
+   :insurance_providers, :functional_statuses, :care_experiences, :assessments, :adverse_events, :participations]
 
   embeds_many :provider_performances
   embeds_many :addresses, as: :locatable

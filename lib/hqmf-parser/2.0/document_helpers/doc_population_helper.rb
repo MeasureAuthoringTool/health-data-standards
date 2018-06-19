@@ -32,24 +32,17 @@ module HQMF2
     # Returns the population descriptions and criteria found in this document
     def extract_populations_and_criteria
       has_observation = extract_observations
-      document_populations = @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:populationCriteriaSection',
-                                        HQMF2::Document::NAMESPACES)
-      # Sort the populations based on the id/extension, since the populations may be out of order; there doesn't seem to
-      # be any other way that order is indicated in the HQMF
-      document_populations = document_populations.sort_by do |pop|
-        pop.at_xpath('cda:id/@extension', HQMF2::Document::NAMESPACES).try(:value)
-      end
+      document_populations = get_document_populations
       number_of_populations = document_populations.length
       document_populations.each_with_index do |population_def, population_index|
         population = {}
         handle_base_populations(population_def, population)
 
-        id_def = population_def.at_xpath('cda:id/@extension', HQMF2::Document::NAMESPACES)
-        population['id'] = id_def ? id_def.value : "Population#{population_index}"
-        title_def = population_def.at_xpath('cda:title/@value', HQMF2::Document::NAMESPACES)
-        population['title'] = title_def ? title_def.value : "Population #{population_index}"
+        id_def = get_id_def(population_def)
+        add_id_to_population(population_def, id_def, population, population_index)
+        add_title_to_population(population_def, population)
+        add_observ_to_population(has_observation, population)
 
-        population['OBSERV'] = 'OBSERV' if has_observation
         @populations << population
         handle_stratifications(population_def, number_of_populations, population, id_def, population_index)
       end
@@ -57,6 +50,37 @@ module HQMF2
       # Push in the stratification populations after the unstratified populations
       @populations.concat(@stratifications)
       [@populations, @population_criteria]
+    end
+
+    def get_document_populations
+      document_populations = @doc.xpath('cda:QualityMeasureDocument/cda:component/cda:populationCriteriaSection',
+                                        HQMF2::Document::NAMESPACES)
+      # Sort the populations based on the id/extension, since the populations may be out of order; there doesn't seem to
+      # be any other way that order is indicated in the HQMF
+      document_populations = document_populations.sort_by do |pop|
+        pop.at_xpath('cda:id/@extension', HQMF2::Document::NAMESPACES).try(:value)
+      end
+    end
+
+    def get_id_def(population_def)
+      population_def.at_xpath('cda:id/@extension', HQMF2::Document::NAMESPACES)
+    end
+
+    def get_title_def(population_def)
+      title_def = population_def.at_xpath('cda:title/@value', HQMF2::Document::NAMESPACES)
+    end
+
+    def add_id_to_population(population_def, id_def, population, population_index)
+      population['id'] = id_def ? id_def.value : "Population#{population_index}"
+    end
+
+    def add_title_to_population(population_def, population)
+      title_def = get_title_def(population_def)
+      population['title'] = title_def ? title_def.value : "Population #{population_index}"
+    end
+
+    def add_observ_to_population(has_observation, population)
+      population['OBSERV'] = 'OBSERV' if has_observation
     end
 
     # Extracts the measure observations, will return true if one exists

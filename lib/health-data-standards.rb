@@ -84,6 +84,7 @@ require_relative 'health-data-standards/models/care_goal'
 require_relative 'health-data-standards/models/encounter_principal_diagnosis'
 require_relative 'health-data-standards/models/assessment'
 require_relative 'health-data-standards/models/adverse_event'
+require_relative 'health-data-standards/models/participation'
 
 require_relative 'health-data-standards/models/qrda/id'
 require_relative 'health-data-standards/models/qrda/device'
