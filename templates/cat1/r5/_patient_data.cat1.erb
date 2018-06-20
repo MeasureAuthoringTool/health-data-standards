@@ -1,0 +1,17 @@
+      <component>
+        <section>
+          <!-- This is the templateId for Patient Data section -->
+          <templateId root="2.16.840.1.113883.10.20.17.2.4"/>
+          <!-- This is the templateId for Patient Data QDM section -->
+	        <templateId root="2.16.840.1.113883.10.20.24.2.1" extension="2016-08-01" />
+          <% if cms_compatibility %>
+            <templateId root="2.16.840.1.113883.10.20.24.2.1.1" extension="2017-07-01"/>
+          <% end %>
+          <code code="55188-7" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Patient Data</title>
+          <text>
+
+          </text>
+          <%== render_patient_data(patient, measures, false, qrda_version) %>
+        </section>
+      </component>
