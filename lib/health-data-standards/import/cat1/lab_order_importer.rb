@@ -11,7 +11,7 @@ module HealthDataStandards
 
         def extract_dates(parent_element, entry, element_name="author")
           if parent_element.at_xpath("cda:#{element_name}/cda:time/@value")
-            entry.start_time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:time")['value'])
+            entry.time = HL7Helper.timestamp_to_integer(parent_element.at_xpath("cda:#{element_name}/cda:time")['value'])
           end
         end
       end
