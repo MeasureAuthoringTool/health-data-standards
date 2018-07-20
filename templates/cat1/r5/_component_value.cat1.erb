@@ -1,5 +1,5 @@
 <% if result['code'] -%>
-  <value xsi:type="CD" code="<%= result['code'].code %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(result['code'].code_system) %>" />
+  <value xsi:type="CD" code="<%= result['code']['code'] %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(result['code']['code_system']) %>" />
 <% elsif result['scalar'] %>
   <value xsi:type="PQ" value="<%= result['scalar'] %>" unit="<%= result['units'] %>"/>
 <% end %>
