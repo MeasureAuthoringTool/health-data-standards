@@ -1,0 +1,4894 @@
+{
+  "_id": {
+    "$oid": "5a57f07b942c6d230492c674"
+  },
+  "bundle_id": "5a57e977942c6d1e61d32f14",
+  "category": "Miscellaneous",
+  "cms_id": "CMS32v7",
+  "complexity": {
+    "variables": [
+      {
+        "name": "Patient",
+        "complexity": 1
+      },
+      {
+        "name": "SDE Ethnicity",
+        "complexity": 1
+      },
+      {
+        "name": "SDE Payer",
+        "complexity": 1
+      },
+      {
+        "name": "SDE Race",
+        "complexity": 1
+      },
+      {
+        "name": "SDE Sex",
+        "complexity": 1
+      },
+      {
+        "name": "ED Visit",
+        "complexity": 1
+      },
+      {
+        "name": "Initial Population",
+        "complexity": 1
+      },
+      {
+        "name": "Measure Population",
+        "complexity": 1
+      },
+      {
+        "name": "Stratification 1",
+        "complexity": 1
+      },
+      {
+        "name": "Stratification 2",
+        "complexity": 1
+      },
+      {
+        "name": "Stratification 3",
+        "complexity": 2
+      },
+      {
+        "name": "Measure Population Exclusions",
+        "complexity": 1
+      },
+      {
+        "name": "Measure Observation",
+        "complexity": 1
+      }
+    ]
+  },
+  "continuous_variable": true,
+  "cql": [
+    "library MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients version '7.2.002'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"SNOMEDCT:2013-09\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2013-09'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Discharge To Acute Care Facility\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.87'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Psychiatric/Mental Health Patient\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.299'\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\n\r\ncode \"Patient deceased during stay (discharge status = dead) (finding)\": '371828006' from \"SNOMEDCT:2013-09\" display 'Patient deceased during stay (discharge status = dead) (finding)'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Initial Population\":\r\n\t\"ED Visit\"\r\n\r\ndefine \"Measure Population\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Stratification 1\":\r\n\t\"ED Visit\" EDVisit\r\n\t\twhere EDVisit.principalDiagnosis in \"Psychiatric/Mental Health Patient\"\r\n\r\ndefine \"Stratification 2\":\r\n\t\"ED Visit\" EDVisit\r\n\t\twhere EDVisit.dischargeDisposition in \"Discharge To Acute Care Facility\"\r\n\r\ndefine \"Stratification 3\":\r\n\t\"ED Visit\" EDVisit\r\n\t\twhere not ( EDVisit.principalDiagnosis in \"Psychiatric/Mental Health Patient\" )\r\n\t\t\tand not ( EDVisit.dischargeDisposition in \"Discharge To Acute Care Facility\" )\r\n\r\ndefine \"Measure Population Exclusions\":\r\n\t( \"ED Visit\" EDVisit\r\n\t\t\twhere EDVisit.dischargeDisposition ~ \"Patient deceased during stay (discharge status = dead) (finding)\"\r\n\t)\r\n\t\tunion ( \"ED Visit\" EDVisit\r\n\t\t\t\twith [\"Encounter, Performed\": \"Encounter Inpatient\"] Encounter\r\n\t\t\t\t\tsuch that EDVisit.relevantPeriod ends 1 hour or less before or on start of Encounter.relevantPeriod\r\n\t\t)\r\n\r\ndefine \"ED Visit\":\r\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\twhere EDVisit.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine function \"Measure Observation\"(Encounter \"Encounter, Performed\"):\r\n\tduration in minutes of Encounter.relevantPeriod\r\n"
+  ],
+  "cql_statement_dependencies": {
+    "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+      "Patient": [
+
+      ],
+      "SDE Ethnicity": [
+
+      ],
+      "SDE Payer": [
+
+      ],
+      "SDE Race": [
+
+      ],
+      "SDE Sex": [
+
+      ],
+      "ED Visit": [
+
+      ],
+      "Initial Population": [
+        {
+          "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
+          "statement_name": "ED Visit"
+        }
+      ],
+      "Measure Population": [
+        {
+          "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
+          "statement_name": "Initial Population"
+        }
+      ],
+      "Stratification 1": [
+        {
+          "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
+          "statement_name": "ED Visit"
+        }
+      ],
+      "Stratification 2": [
+        {
+          "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
+          "statement_name": "ED Visit"
+        }
+      ],
+      "Stratification 3": [
+        {
+          "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
+          "statement_name": "ED Visit"
+        }
+      ],
+      "Measure Population Exclusions": [
+        {
+          "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
+          "statement_name": "ED Visit"
+        },
+        {
+          "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
+          "statement_name": "ED Visit"
+        }
+      ],
+      "Measure Observation": [
+
+      ]
+    }
+  },
+  "created_at": "2018-01-11T23:17:15.611Z",
+  "data_criteria": {
+    "EncounterInpatient_EncounterPerformed_2f356da9_9e4f_442a_9232_4a10ae95334c": {
+      "title": "EncounterInpatient",
+      "description": "Encounter, Performed: EncounterInpatient",
+      "code_list_id": "2.16.840.1.113883.3.666.5.307",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterInpatient_EncounterPerformed_2f356da9_9e4f_442a_9232_4a10ae95334c_source",
+      "variable": false
+    },
+    "Payer_PatientCharacteristicPayer_03d54d24_1c12_4344_af14_d287a16e0c5d": {
+      "title": "Payer",
+      "description": "Patient Characteristic Payer: Payer",
+      "code_list_id": "2.16.840.1.114222.4.11.3591",
+      "property": "payer",
+      "type": "characteristic",
+      "definition": "patient_characteristic_payer",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Payer_PatientCharacteristicPayer_03d54d24_1c12_4344_af14_d287a16e0c5d_source",
+      "variable": false,
+      "inline_code_list": {
+        "Source of Payment Typology": [
+          "1",
+          "11",
+          "111",
+          "112",
+          "113",
+          "119",
+          "12",
+          "121",
+          "122",
+          "123",
+          "129",
+          "13",
+          "14",
+          "19",
+          "191",
+          "2",
+          "21",
+          "211",
+          "212",
+          "213",
+          "219",
+          "22",
+          "23",
+          "24",
+          "25",
+          "26",
+          "29",
+          "291",
+          "3",
+          "31",
+          "311",
+          "3111",
+          "3112",
+          "3113",
+          "3114",
+          "3115",
+          "3116",
+          "3119",
+          "312",
+          "3121",
+          "3122",
+          "3123",
+          "313",
+          "32",
+          "321",
+          "3211",
+          "3212",
+          "32121",
+          "32122",
+          "32123",
+          "32124",
+          "32125",
+          "32126",
+          "322",
+          "3221",
+          "3222",
+          "3223",
+          "3229",
+          "33",
+          "331",
+          "332",
+          "333",
+          "334",
+          "34",
+          "341",
+          "342",
+          "343",
+          "349",
+          "35",
+          "36",
+          "361",
+          "362",
+          "369",
+          "37",
+          "371",
+          "3711",
+          "3712",
+          "3713",
+          "372",
+          "379",
+          "38",
+          "381",
+          "3811",
+          "3812",
+          "3813",
+          "3819",
+          "382",
+          "389",
+          "39",
+          "4",
+          "41",
+          "42",
+          "43",
+          "44",
+          "5",
+          "51",
+          "511",
+          "512",
+          "513",
+          "514",
+          "515",
+          "516",
+          "519",
+          "52",
+          "521",
+          "522",
+          "523",
+          "529",
+          "53",
+          "54",
+          "55",
+          "56",
+          "561",
+          "562",
+          "59",
+          "6",
+          "61",
+          "611",
+          "612",
+          "613",
+          "619",
+          "62",
+          "63",
+          "64",
+          "69",
+          "7",
+          "71",
+          "72",
+          "73",
+          "79",
+          "8",
+          "81",
+          "82",
+          "821",
+          "822",
+          "823",
+          "83",
+          "84",
+          "85",
+          "89",
+          "9",
+          "91",
+          "92",
+          "93",
+          "94",
+          "95",
+          "951",
+          "953",
+          "954",
+          "959",
+          "96",
+          "97",
+          "98",
+          "99",
+          "9999"
+        ]
+      }
+    },
+    "Ethnicity_PatientCharacteristicEthnicity_948d7525_d40a_4e02_a4d3_5c2a569da60e": {
+      "title": "Ethnicity",
+      "description": "Patient Characteristic Ethnicity: Ethnicity",
+      "code_list_id": "2.16.840.1.114222.4.11.837",
+      "property": "ethnicity",
+      "type": "characteristic",
+      "definition": "patient_characteristic_ethnicity",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_948d7525_d40a_4e02_a4d3_5c2a569da60e_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDC Race": [
+          "2135-2",
+          "2186-5"
+        ]
+      }
+    },
+    "ONCAdministrativeSex_PatientCharacteristicSex_4dc873e6_aec1_4ca7_9e88_e06b3d8bd6c3": {
+      "title": "ONCAdministrativeSex",
+      "description": "Patient Characteristic Sex: ONCAdministrativeSex",
+      "code_list_id": "2.16.840.1.113762.1.4.1",
+      "property": "gender",
+      "type": "characteristic",
+      "definition": "patient_characteristic_gender",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_4dc873e6_aec1_4ca7_9e88_e06b3d8bd6c3_source",
+      "variable": false,
+      "value": {
+        "type": "CD",
+        "system": "Administrative Sex",
+        "code": "F"
+      }
+    },
+    "Race_PatientCharacteristicRace_09f1f235_32d7_4f6d_b0a2_a57842c95342": {
+      "title": "Race",
+      "description": "Patient Characteristic Race: Race",
+      "code_list_id": "2.16.840.1.114222.4.11.836",
+      "property": "race",
+      "type": "characteristic",
+      "definition": "patient_characteristic_race",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Race_PatientCharacteristicRace_09f1f235_32d7_4f6d_b0a2_a57842c95342_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDC Race": [
+          "1002-5",
+          "2028-9",
+          "2054-5",
+          "2076-8",
+          "2106-3",
+          "2131-1"
+        ]
+      }
+    },
+    "EmergencyDepartmentVisit_EncounterPerformed_e9dfea5a_0011_42cc_b048_3a8748c1c4b0": {
+      "title": "EmergencyDepartmentVisit",
+      "description": "Encounter, Performed: EmergencyDepartmentVisit",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EmergencyDepartmentVisit_EncounterPerformed_e9dfea5a_0011_42cc_b048_3a8748c1c4b0_source",
+      "variable": false
+    }
+  },
+  "description": "Median elapsed time from emergency department arrival to emergency room departure for patients discharged from the emergency department",
+  "elm": [
+    {
+      "library": {
+        "identifier": {
+          "id": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
+          "version": "7.2.002"
+        },
+        "schemaIdentifier": {
+          "id": "urn:hl7-org:elm",
+          "version": "r1"
+        },
+        "usings": {
+          "def": [
+            {
+              "localIdentifier": "System",
+              "uri": "urn:hl7-org:elm-types:r1"
+            },
+            {
+              "localId": "1",
+              "locator": "3:1-3:23",
+              "localIdentifier": "QDM",
+              "uri": "urn:healthit-gov:qdm:v5_3",
+              "version": "5.3"
+            }
+          ]
+        },
+        "parameters": {
+          "def": [
+            {
+              "localId": "15",
+              "locator": "18:1-18:49",
+              "name": "Measurement Period",
+              "accessLevel": "Public",
+              "parameterTypeSpecifier": {
+                "localId": "14",
+                "locator": "18:32-18:49",
+                "type": "IntervalTypeSpecifier",
+                "pointType": {
+                  "localId": "13",
+                  "locator": "18:41-18:48",
+                  "name": "{urn:hl7-org:elm-types:r1}DateTime",
+                  "type": "NamedTypeSpecifier"
+                }
+              }
+            }
+          ]
+        },
+        "codeSystems": {
+          "def": [
+            {
+              "localId": "2",
+              "locator": "5:1-5:97",
+              "name": "SNOMEDCT:2013-09",
+              "id": "SNOMED-CT",
+              "version": "urn:hl7:version:2013-09",
+              "accessLevel": "Public"
+            }
+          ]
+        },
+        "valueSets": {
+          "def": [
+            {
+              "localId": "3",
+              "locator": "7:1-7:68",
+              "name": "ONC Administrative Sex",
+              "id": "2.16.840.1.113762.1.4.1",
+              "accessLevel": "Public"
+            },
+            {
+              "localId": "4",
+              "locator": "8:1-8:53",
+              "name": "Race",
+              "id": "2.16.840.1.114222.4.11.836",
+              "accessLevel": "Public"
+            },
+            {
+              "localId": "5",
+              "locator": "9:1-9:58",
+              "name": "Ethnicity",
+              "id": "2.16.840.1.114222.4.11.837",
+              "accessLevel": "Public"
+            },
+            {
+              "localId": "6",
+              "locator": "10:1-10:55",
+              "name": "Payer",
+              "id": "2.16.840.1.114222.4.11.3591",
+              "accessLevel": "Public"
+            },
+            {
+              "localId": "7",
+              "locator": "11:1-11:87",
+              "name": "Discharge To Acute Care Facility",
+              "id": "2.16.840.1.113883.3.117.1.7.1.87",
+              "accessLevel": "Public"
+            },
+            {
+              "localId": "8",
+              "locator": "12:1-12:71",
+              "name": "Encounter Inpatient",
+              "id": "2.16.840.1.113883.3.666.5.307",
+              "accessLevel": "Public"
+            },
+            {
+              "localId": "9",
+              "locator": "13:1-13:89",
+              "name": "Psychiatric/Mental Health Patient",
+              "id": "2.16.840.1.113883.3.117.1.7.1.299",
+              "accessLevel": "Public"
+            },
+            {
+              "localId": "10",
+              "locator": "14:1-14:82",
+              "name": "Emergency Department Visit",
+              "id": "2.16.840.1.113883.3.117.1.7.1.292",
+              "accessLevel": "Public"
+            }
+          ]
+        },
+        "codes": {
+          "def": [
+            {
+              "localId": "12",
+              "locator": "16:1-16:183",
+              "name": "Patient deceased during stay (discharge status = dead) (finding)",
+              "id": "371828006",
+              "display": "Patient deceased during stay (discharge status = dead) (finding)",
+              "accessLevel": "Public",
+              "codeSystem": {
+                "localId": "11",
+                "locator": "16:91-16:108",
+                "name": "SNOMEDCT:2013-09"
+              }
+            }
+          ]
+        },
+        "statements": {
+          "def": [
+            {
+              "locator": "20:1-20:15",
+              "name": "Patient",
+              "context": "Patient",
+              "expression": {
+                "type": "SingletonFrom",
+                "operand": {
+                  "locator": "20:1-20:15",
+                  "dataType": "{urn:healthit-gov:qdm:v5_3}Patient",
+                  "templateId": "Patient",
+                  "type": "Retrieve"
+                }
+              }
+            },
+            {
+              "localId": "17",
+              "locator": "22:1-23:50",
+              "name": "SDE Ethnicity",
+              "context": "Patient",
+              "accessLevel": "Public",
+              "annotation": [
+                {
+                  "type": "Annotation",
+                  "s": {
+                    "r": "17",
+                    "s": [
+                      {
+                        "value": [
+                          "define ",
+                          "\"SDE Ethnicity\"",
+                          ":\n\t"
+                        ]
+                      },
+                      {
+                        "r": "16",
+                        "s": [
+                          {
+                            "value": [
+                              "[",
+                              "\"Patient Characteristic Ethnicity\"",
+                              ": "
+                            ]
+                          },
+                          {
+                            "s": [
+                              {
+                                "value": [
+                                  "\"Ethnicity\""
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "value": [
+                              "]"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "expression": {
+                "localId": "16",
+                "locator": "23:2-23:50",
+                "dataType": "{urn:healthit-gov:qdm:v5_3}PatientCharacteristicEthnicity",
+                "codeProperty": "code",
+                "type": "Retrieve",
+                "codes": {
+                  "name": "Ethnicity",
+                  "type": "ValueSetRef"
+                }
+              }
+            },
+            {
+              "localId": "19",
+              "locator": "25:1-26:42",
+              "name": "SDE Payer",
+              "context": "Patient",
+              "accessLevel": "Public",
+              "annotation": [
+                {
+                  "type": "Annotation",
+                  "s": {
+                    "r": "19",
+                    "s": [
+                      {
+                        "value": [
+                          "define ",
+                          "\"SDE Payer\"",
+                          ":\n\t"
+                        ]
+                      },
+                      {
+                        "r": "18",
+                        "s": [
+                          {
+                            "value": [
+                              "[",
+                              "\"Patient Characteristic Payer\"",
+                              ": "
+                            ]
+                          },
+                          {
+                            "s": [
+                              {
+                                "value": [
+                                  "\"Payer\""
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "value": [
+                              "]"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "expression": {
+                "localId": "18",
+                "locator": "26:2-26:42",
+                "dataType": "{urn:healthit-gov:qdm:v5_3}PatientCharacteristicPayer",
+                "codeProperty": "code",
+                "type": "Retrieve",
+                "codes": {
+                  "name": "Payer",
+                  "type": "ValueSetRef"
+                }
+              }
+            },
+            {
+              "localId": "21",
+              "locator": "28:1-29:40",
+              "name": "SDE Race",
+              "context": "Patient",
+              "accessLevel": "Public",
+              "annotation": [
+                {
+                  "type": "Annotation",
+                  "s": {
+                    "r": "21",
+                    "s": [
+                      {
+                        "value": [
+                          "define ",
+                          "\"SDE Race\"",
+                          ":\n\t"
+                        ]
+                      },
+                      {
+                        "r": "20",
+                        "s": [
+                          {
+                            "value": [
+                              "[",
+                              "\"Patient Characteristic Race\"",
+                              ": "
+                            ]
+                          },
+                          {
+                            "s": [
+                              {
+                                "value": [
+                                  "\"Race\""
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "value": [
+                              "]"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "expression": {
+                "localId": "20",
+                "locator": "29:2-29:40",
+                "dataType": "{urn:healthit-gov:qdm:v5_3}PatientCharacteristicRace",
+                "codeProperty": "code",
+                "type": "Retrieve",
+                "codes": {
+                  "name": "Race",
+                  "type": "ValueSetRef"
+                }
+              }
+            },
+            {
+              "localId": "23",
+              "locator": "31:1-32:57",
+              "name": "SDE Sex",
+              "context": "Patient",
+              "accessLevel": "Public",
+              "annotation": [
+                {
+                  "type": "Annotation",
+                  "s": {
+                    "r": "23",
+                    "s": [
+                      {
+                        "value": [
+                          "define ",
+                          "\"SDE Sex\"",
+                          ":\n\t"
+                        ]
+                      },
+                      {
+                        "r": "22",
+                        "s": [
+                          {
+                            "value": [
+                              "[",
+                              "\"Patient Characteristic Sex\"",
+                              ": "
+                            ]
+                          },
+                          {
+                            "s": [
+                              {
+                                "value": [
+                                  "\"ONC Administrative Sex\""
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "value": [
+                              "]"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "expression": {
+                "localId": "22",
+                "locator": "32:2-32:57",
+                "dataType": "{urn:healthit-gov:qdm:v5_3}PatientCharacteristicSex",
+                "codeProperty": "code",
+                "type": "Retrieve",
+                "codes": {
+                  "name": "ONC Administrative Sex",
+                  "type": "ValueSetRef"
+                }
+              }
+            },
+            {
+              "localId": "31",
+              "locator": "62:1-64:58",
+              "name": "ED Visit",
+              "context": "Patient",
+              "accessLevel": "Public",
+              "annotation": [
+                {
+                  "type": "Annotation",
+                  "s": {
+                    "r": "31",
+                    "s": [
+                      {
+                        "value": [
+                          "define ",
+                          "\"ED Visit\"",
+                          ":\n\t"
+                        ]
+                      },
+                      {
+                        "r": "30",
+                        "s": [
+                          {
+                            "s": [
+                              {
+                                "r": "25",
+                                "s": [
+                                  {
+                                    "r": "24",
+                                    "s": [
+                                      {
+                                        "r": "24",
+                                        "s": [
+                                          {
+                                            "value": [
+                                              "[",
+                                              "\"Encounter, Performed\"",
+                                              ": "
+                                            ]
+                                          },
+                                          {
+                                            "s": [
+                                              {
+                                                "value": [
+                                                  "\"Emergency Department Visit\""
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "value": [
+                                              "]"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "value": [
+                                      " ",
+                                      "EDVisit"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "value": [
+                              "\n\t\t"
+                            ]
+                          },
+                          {
+                            "r": "29",
+                            "s": [
+                              {
+                                "value": [
+                                  "where "
+                                ]
+                              },
+                              {
+                                "r": "29",
+                                "s": [
+                                  {
+                                    "r": "27",
+                                    "s": [
+                                      {
+                                        "r": "26",
+                                        "s": [
+                                          {
+                                            "value": [
+                                              "EDVisit"
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "value": [
+                                          "."
+                                        ]
+                                      },
+                                      {
+                                        "r": "27",
+                                        "s": [
+                                          {
+                                            "value": [
+                                              "relevantPeriod"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "value": [
+                                      " ",
+                                      "during",
+                                      " "
+                                    ]
+                                  },
+                                  {
+                                    "r": "28",
+                                    "s": [
+                                      {
+                                        "value": [
+                                          "\"Measurement Period\""
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "expression": {
+                "localId": "30",
+                "locator": "63:2-64:58",
+                "type": "Query",
+                "source": [
+                  {
+                    "localId": "25",
+                    "locator": "63:2-63:63",
+                    "alias": "EDVisit",
+                    "expression": {
+                      "localId": "24",
+                      "locator": "63:2-63:55",
+                      "dataType": "{urn:healthit-gov:qdm:v5_3}PositiveEncounterPerformed",
+                      "templateId": "PositiveEncounterPerformed",
+                      "codeProperty": "code",
+                      "type": "Retrieve",
+                      "codes": {
+                        "name": "Emergency Department Visit",
+                        "type": "ValueSetRef"
+                      }
+                    }
+                  }
+                ],
+                "relationship": [
+
+                ],
+                "where": {
+                  "localId": "29",
+                  "locator": "64:3-64:58",
+                  "type": "IncludedIn",
+                  "operand": [
+                    {
+                      "localId": "27",
+                      "locator": "64:9-64:30",
+                      "path": "relevantPeriod",
+                      "scope": "EDVisit",
+                      "type": "Property"
+                    },
+                    {
+                      "localId": "28",
+                      "locator": "64:39-64:58",
+                      "name": "Measurement Period",
+                      "type": "ParameterRef"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "localId": "33",
+              "locator": "34:1-35:11",
+              "name": "Initial Population",
+              "context": "Patient",
+              "accessLevel": "Public",
+              "annotation": [
+                {
+                  "type": "Annotation",
+                  "s": {
+                    "r": "33",
+                    "s": [
+                      {
+                        "value": [
+                          "define ",
+                          "\"Initial Population\"",
+                          ":\n\t"
+                        ]
+                      },
+                      {
+                        "r": "32",
+                        "s": [
+                          {
+                            "value": [
+                              "\"ED Visit\""
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "expression": {
+                "localId": "32",
+                "locator": "35:2-35:11",
+                "name": "ED Visit",
+                "type": "ExpressionRef"
+              }
+            },
+            {
+              "localId": "35",
+              "locator": "37:1-38:21",
+              "name": "Measure Population",
+              "context": "Patient",
+              "accessLevel": "Public",
+              "annotation": [
+                {
+                  "type": "Annotation",
+                  "s": {
+                    "r": "35",
+                    "s": [
+                      {
+                        "value": [
+                          "define ",
+                          "\"Measure Population\"",
+                          ":\n\t"
+                        ]
+                      },
+                      {
+                        "r": "34",
+                        "s": [
+                          {
+                            "value": [
+                              "\"Initial Population\""
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "expression": {
+                "localId": "34",
+                "locator": "38:2-38:21",
+                "name": "Initial Population",
+                "type": "ExpressionRef"
+              }
+            },
+            {
+              "localId": "43",
+              "locator": "40:1-42:73",
+              "name": "Stratification 1",
+              "context": "Patient",
+              "accessLevel": "Public",
+              "annotation": [
+                {
+                  "type": "Annotation",
+                  "s": {
+                    "r": "43",
+                    "s": [
+                      {
+                        "value": [
+                          "define ",
+                          "\"Stratification 1\"",
+                          ":\n\t"
+                        ]
+                      },
+                      {
+                        "r": "42",
+                        "s": [
+                          {
+                            "s": [
+                              {
+                                "r": "37",
+                                "s": [
+                                  {
+                                    "r": "36",
+                                    "s": [
+                                      {
+                                        "s": [
+                                          {
+                                            "value": [
+                                              "\"ED Visit\""
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "value": [
+                                      " ",
+                                      "EDVisit"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "value": [
+                              "\n\t\t"
+                            ]
+                          },
+                          {
+                            "r": "41",
+                            "s": [
+                              {
+                                "value": [
+                                  "where "
+                                ]
+                              },
+                              {
+                                "r": "41",
+                                "s": [
+                                  {
+                                    "r": "39",
+                                    "s": [
+                                      {
+                                        "r": "38",
+                                        "s": [
+                                          {
+                                            "value": [
+                                              "EDVisit"
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "value": [
+                                          "."
+                                        ]
+                                      },
+                                      {
+                                        "r": "39",
+                                        "s": [
+                                          {
+                                            "value": [
+                                              "principalDiagnosis"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "value": [
+                                      " in "
+                                    ]
+                                  },
+                                  {
+                                    "r": "40",
+                                    "s": [
+                                      {
+                                        "value": [
+                                          "\"Psychiatric/Mental Health Patient\""
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "expression": {
+                "localId": "42",
+                "locator": "41:2-42:73",
+                "type": "Query",
+                "source": [
+                  {
+                    "localId": "37",
+                    "locator": "41:2-41:19",
+                    "alias": "EDVisit",
+                    "expression": {
+                      "localId": "36",
+                      "locator": "41:2-41:11",
+                      "name": "ED Visit",
+                      "type": "ExpressionRef"
+                    }
+                  }
+                ],
+                "relationship": [
+
+                ],
+                "where": {
+                  "localId": "41",
+                  "locator": "42:3-42:73",
+                  "type": "InValueSet",
+                  "code": {
+                    "localId": "39",
+                    "locator": "42:9-42:34",
+                    "path": "principalDiagnosis",
+                    "scope": "EDVisit",
+                    "type": "Property"
+                  },
+                  "valueset": {
+                    "localId": "40",
+                    "locator": "42:39-42:73",
+                    "name": "Psychiatric/Mental Health Patient"
+                  }
+                }
+              }
+            },
+            {
+              "localId": "51",
+              "locator": "44:1-46:74",
+              "name": "Stratification 2",
+              "context": "Patient",
+              "accessLevel": "Public",
+              "annotation": [
+                {
+                  "type": "Annotation",
+                  "s": {
+                    "r": "51",
+                    "s": [
+                      {
+                        "value": [
+                          "define ",
+                          "\"Stratification 2\"",
+                          ":\n\t"
+                        ]
+                      },
+                      {
+                        "r": "50",
+                        "s": [
+                          {
+                            "s": [
+                              {
+                                "r": "45",
+                                "s": [
+                                  {
+                                    "r": "44",
+                                    "s": [
+                                      {
+                                        "s": [
+                                          {
+                                            "value": [
+                                              "\"ED Visit\""
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "value": [
+                                      " ",
+                                      "EDVisit"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "value": [
+                              "\n\t\t"
+                            ]
+                          },
+                          {
+                            "r": "49",
+                            "s": [
+                              {
+                                "value": [
+                                  "where "
+                                ]
+                              },
+                              {
+                                "r": "49",
+                                "s": [
+                                  {
+                                    "r": "47",
+                                    "s": [
+                                      {
+                                        "r": "46",
+                                        "s": [
+                                          {
+                                            "value": [
+                                              "EDVisit"
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "value": [
+                                          "."
+                                        ]
+                                      },
+                                      {
+                                        "r": "47",
+                                        "s": [
+                                          {
+                                            "value": [
+                                              "dischargeDisposition"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "value": [
+                                      " in "
+                                    ]
+                                  },
+                                  {
+                                    "r": "48",
+                                    "s": [
+                                      {
+                                        "value": [
+                                          "\"Discharge To Acute Care Facility\""
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "expression": {
+                "localId": "50",
+                "locator": "45:2-46:74",
+                "type": "Query",
+                "source": [
+                  {
+                    "localId": "45",
+                    "locator": "45:2-45:19",
+                    "alias": "EDVisit",
+                    "expression": {
+                      "localId": "44",
+                      "locator": "45:2-45:11",
+                      "name": "ED Visit",
+                      "type": "ExpressionRef"
+                    }
+                  }
+                ],
+                "relationship": [
+
+                ],
+                "where": {
+                  "localId": "49",
+                  "locator": "46:3-46:74",
+                  "type": "InValueSet",
+                  "code": {
+                    "localId": "47",
+                    "locator": "46:9-46:36",
+                    "path": "dischargeDisposition",
+                    "scope": "EDVisit",
+                    "type": "Property"
+                  },
+                  "valueset": {
+                    "localId": "48",
+                    "locator": "46:41-46:74",
+                    "name": "Discharge To Acute Care Facility"
+                  }
+                }
+              }
+            },
+            {
+              "localId": "66",
+              "locator": "48:1-51:81",
+              "name": "Stratification 3",
+              "context": "Patient",
+              "accessLevel": "Public",
+              "annotation": [
+                {
+                  "type": "Annotation",
+                  "s": {
+                    "r": "66",
+                    "s": [
+                      {
+                        "value": [
+                          "define ",
+                          "\"Stratification 3\"",
+                          ":\n\t"
+                        ]
+                      },
+                      {
+                        "r": "65",
+                        "s": [
+                          {
+                            "s": [
+                              {
+                                "r": "53",
+                                "s": [
+                                  {
+                                    "r": "52",
+                                    "s": [
+                                      {
+                                        "s": [
+                                          {
+                                            "value": [
+                                              "\"ED Visit\""
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "value": [
+                                      " ",
+                                      "EDVisit"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "value": [
+                              "\n\t\t"
+                            ]
+                          },
+                          {
+                            "r": "64",
+                            "s": [
+                              {
+                                "value": [
+                                  "where "
+                                ]
+                              },
+                              {
+                                "r": "64",
+                                "s": [
+                                  {
+                                    "r": "58",
+                                    "s": [
+                                      {
+                                        "value": [
+                                          "not "
+                                        ]
+                                      },
+                                      {
+                                        "r": "57",
+                                        "s": [
+                                          {
+                                            "value": [
+                                              "( "
+                                            ]
+                                          },
+                                          {
+                                            "r": "57",
+                                            "s": [
+                                              {
+                                                "r": "55",
+                                                "s": [
+                                                  {
+                                                    "r": "54",
+                                                    "s": [
+                                                      {
+                                                        "value": [
+                                                          "EDVisit"
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "value": [
+                                                      "."
+                                                    ]
+                                                  },
+                                                  {
+                                                    "r": "55",
+                                                    "s": [
+                                                      {
+                                                        "value": [
+                                                          "principalDiagnosis"
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "value": [
+                                                  " in "
+                                                ]
+                                              },
+                                              {
+                                                "r": "56",
+                                                "s": [
+                                                  {
+                                                    "value": [
+                                                      "\"Psychiatric/Mental Health Patient\""
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "value": [
+                                              " )"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "value": [
+                                      "\n\t\t\tand "
+                                    ]
+                                  },
+                                  {
+                                    "r": "63",
+                                    "s": [
+                                      {
+                                        "value": [
+                                          "not "
+                                        ]
+                                      },
+                                      {
+                                        "r": "62",
+                                        "s": [
+                                          {
+                                            "value": [
+                                              "( "
+                                            ]
+                                          },
+                                          {
+                                            "r": "62",
+                                            "s": [
+                                              {
+                                                "r": "60",
+                                                "s": [
+                                                  {
+                                                    "r": "59",
+                                                    "s": [
+                                                      {
+                                                        "value": [
+                                                          "EDVisit"
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "value": [
+                                                      "."
+                                                    ]
+                                                  },
+                                                  {
+                                                    "r": "60",
+                                                    "s": [
+                                                      {
+                                                        "value": [
+                                                          "dischargeDisposition"
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "value": [
+                                                  " in "
+                                                ]
+                                              },
+                                              {
+                                                "r": "61",
+                                                "s": [
+                                                  {
+                                                    "value": [
+                                                      "\"Discharge To Acute Care Facility\""
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "value": [
+                                              " )"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "expression": {
+                "localId": "65",
+                "locator": "49:2-51:81",
+                "type": "Query",
+                "source": [
+                  {
+                    "localId": "53",
+                    "locator": "49:2-49:19",
+                    "alias": "EDVisit",
+                    "expression": {
+                      "localId": "52",
+                      "locator": "49:2-49:11",
+                      "name": "ED Visit",
+                      "type": "ExpressionRef"
+                    }
+                  }
+                ],
+                "relationship": [
+
+                ],
+                "where": {
+                  "localId": "64",
+                  "locator": "50:3-51:81",
+                  "type": "And",
+                  "operand": [
+                    {
+                      "localId": "58",
+                      "locator": "50:9-50:81",
+                      "type": "Not",
+                      "operand": {
+                        "localId": "57",
+                        "locator": "50:13-50:81",
+                        "type": "InValueSet",
+                        "code": {
+                          "localId": "55",
+                          "locator": "50:15-50:40",
+                          "path": "principalDiagnosis",
+                          "scope": "EDVisit",
+                          "type": "Property"
+                        },
+                        "valueset": {
+                          "localId": "56",
+                          "locator": "50:45-50:79",
+                          "name": "Psychiatric/Mental Health Patient"
+                        }
+                      }
+                    },
+                    {
+                      "localId": "63",
+                      "locator": "51:8-51:81",
+                      "type": "Not",
+                      "operand": {
+                        "localId": "62",
+                        "locator": "51:12-51:81",
+                        "type": "InValueSet",
+                        "code": {
+                          "localId": "60",
+                          "locator": "51:14-51:41",
+                          "path": "dischargeDisposition",
+                          "scope": "EDVisit",
+                          "type": "Property"
+                        },
+                        "valueset": {
+                          "localId": "61",
+                          "locator": "51:46-51:79",
+                          "name": "Discharge To Acute Care Facility"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "localId": "88",
+              "locator": "53:1-60:3",
+              "name": "Measure Population Exclusions",
+              "context": "Patient",
+              "accessLevel": "Public",
+              "annotation": [
+                {
+                  "type": "Annotation",
+                  "s": {
+                    "r": "88",
+                    "s": [
+                      {
+                        "value": [
+                          "define ",
+                          "\"Measure Population Exclusions\"",
+                          ":\n\t"
+                        ]
+                      },
+                      {
+                        "r": "87",
+                        "s": [
+                          {
+                            "r": "73",
+                            "s": [
+                              {
+                                "value": [
+                                  "( "
+                                ]
+                              },
+                              {
+                                "r": "73",
+                                "s": [
+                                  {
+                                    "s": [
+                                      {
+                                        "r": "68",
+                                        "s": [
+                                          {
+                                            "r": "67",
+                                            "s": [
+                                              {
+                                                "s": [
+                                                  {
+                                                    "value": [
+                                                      "\"ED Visit\""
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "value": [
+                                              " ",
+                                              "EDVisit"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "value": [
+                                      "\n\t\t\t"
+                                    ]
+                                  },
+                                  {
+                                    "r": "72",
+                                    "s": [
+                                      {
+                                        "value": [
+                                          "where "
+                                        ]
+                                      },
+                                      {
+                                        "r": "72",
+                                        "s": [
+                                          {
+                                            "r": "70",
+                                            "s": [
+                                              {
+                                                "r": "69",
+                                                "s": [
+                                                  {
+                                                    "value": [
+                                                      "EDVisit"
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "value": [
+                                                  "."
+                                                ]
+                                              },
+                                              {
+                                                "r": "70",
+                                                "s": [
+                                                  {
+                                                    "value": [
+                                                      "dischargeDisposition"
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "value": [
+                                              " ",
+                                              "~",
+                                              " "
+                                            ]
+                                          },
+                                          {
+                                            "r": "71",
+                                            "s": [
+                                              {
+                                                "value": [
+                                                  "\"Patient deceased during stay (discharge status = dead) (finding)\""
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "value": [
+                                  "\n\t)"
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "value": [
+                              "\n\t\tunion "
+                            ]
+                          },
+                          {
+                            "r": "86",
+                            "s": [
+                              {
+                                "value": [
+                                  "( "
+                                ]
+                              },
+                              {
+                                "r": "86",
+                                "s": [
+                                  {
+                                    "s": [
+                                      {
+                                        "r": "75",
+                                        "s": [
+                                          {
+                                            "r": "74",
+                                            "s": [
+                                              {
+                                                "s": [
+                                                  {
+                                                    "value": [
+                                                      "\"ED Visit\""
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "value": [
+                                              " ",
+                                              "EDVisit"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "value": [
+                                      "\n\t\t\t\t"
+                                    ]
+                                  },
+                                  {
+                                    "r": "85",
+                                    "s": [
+                                      {
+                                        "value": [
+                                          "with "
+                                        ]
+                                      },
+                                      {
+                                        "r": "77",
+                                        "s": [
+                                          {
+                                            "r": "76",
+                                            "s": [
+                                              {
+                                                "r": "76",
+                                                "s": [
+                                                  {
+                                                    "value": [
+                                                      "[",
+                                                      "\"Encounter, Performed\"",
+                                                      ": "
+                                                    ]
+                                                  },
+                                                  {
+                                                    "s": [
+                                                      {
+                                                        "value": [
+                                                          "\"Encounter Inpatient\""
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "value": [
+                                                      "]"
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "value": [
+                                              " ",
+                                              "Encounter"
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "value": [
+                                          "\n\t\t\t\t\tsuch that "
+                                        ]
+                                      },
+                                      {
+                                        "r": "84",
+                                        "s": [
+                                          {
+                                            "r": "79",
+                                            "s": [
+                                              {
+                                                "r": "78",
+                                                "s": [
+                                                  {
+                                                    "value": [
+                                                      "EDVisit"
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "value": [
+                                                  "."
+                                                ]
+                                              },
+                                              {
+                                                "r": "79",
+                                                "s": [
+                                                  {
+                                                    "value": [
+                                                      "relevantPeriod"
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "value": [
+                                              " "
+                                            ]
+                                          },
+                                          {
+                                            "r": "84",
+                                            "s": [
+                                              {
+                                                "value": [
+                                                  "ends "
+                                                ]
+                                              },
+                                              {
+                                                "r": "83",
+                                                "s": [
+                                                  {
+                                                    "value": [
+                                                      "1 ",
+                                                      "hour"
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "value": [
+                                                  " or less before or on"
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "value": [
+                                              " "
+                                            ]
+                                          },
+                                          {
+                                            "r": "82",
+                                            "s": [
+                                              {
+                                                "value": [
+                                                  "start of "
+                                                ]
+                                              },
+                                              {
+                                                "r": "81",
+                                                "s": [
+                                                  {
+                                                    "r": "80",
+                                                    "s": [
+                                                      {
+                                                        "value": [
+                                                          "Encounter"
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "value": [
+                                                      "."
+                                                    ]
+                                                  },
+                                                  {
+                                                    "r": "81",
+                                                    "s": [
+                                                      {
+                                                        "value": [
+                                                          "relevantPeriod"
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "value": [
+                                  "\n\t\t)"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "expression": {
+                "localId": "87",
+                "locator": "54:2-60:3",
+                "type": "Union",
+                "operand": [
+                  {
+                    "localId": "73",
+                    "locator": "54:2-56:2",
+                    "type": "Query",
+                    "source": [
+                      {
+                        "localId": "68",
+                        "locator": "54:4-54:21",
+                        "alias": "EDVisit",
+                        "expression": {
+                          "localId": "67",
+                          "locator": "54:4-54:13",
+                          "name": "ED Visit",
+                          "type": "ExpressionRef"
+                        }
+                      }
+                    ],
+                    "relationship": [
+
+                    ],
+                    "where": {
+                      "localId": "72",
+                      "locator": "55:4-55:106",
+                      "type": "Equivalent",
+                      "operand": [
+                        {
+                          "localId": "70",
+                          "locator": "55:10-55:37",
+                          "path": "dischargeDisposition",
+                          "scope": "EDVisit",
+                          "type": "Property"
+                        },
+                        {
+                          "localId": "71",
+                          "locator": "55:41-55:106",
+                          "name": "Patient deceased during stay (discharge status = dead) (finding)",
+                          "type": "CodeRef"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "localId": "86",
+                    "locator": "57:9-60:3",
+                    "type": "Query",
+                    "source": [
+                      {
+                        "localId": "75",
+                        "locator": "57:11-57:28",
+                        "alias": "EDVisit",
+                        "expression": {
+                          "localId": "74",
+                          "locator": "57:11-57:20",
+                          "name": "ED Visit",
+                          "type": "ExpressionRef"
+                        }
+                      }
+                    ],
+                    "relationship": [
+                      {
+                        "localId": "85",
+                        "locator": "58:5-59:104",
+                        "alias": "Encounter",
+                        "type": "With",
+                        "expression": {
+                          "localId": "76",
+                          "locator": "58:10-58:56",
+                          "dataType": "{urn:healthit-gov:qdm:v5_3}PositiveEncounterPerformed",
+                          "templateId": "PositiveEncounterPerformed",
+                          "codeProperty": "code",
+                          "type": "Retrieve",
+                          "codes": {
+                            "name": "Encounter Inpatient",
+                            "type": "ValueSetRef"
+                          }
+                        },
+                        "suchThat": {
+                          "localId": "84",
+                          "locator": "59:16-59:104",
+                          "type": "In",
+                          "operand": [
+                            {
+                              "locator": "59:39-59:42",
+                              "type": "End",
+                              "operand": {
+                                "localId": "79",
+                                "locator": "59:16-59:37",
+                                "path": "relevantPeriod",
+                                "scope": "EDVisit",
+                                "type": "Property"
+                              }
+                            },
+                            {
+                              "locator": "59:44-59:57",
+                              "lowClosed": true,
+                              "highClosed": true,
+                              "type": "Interval",
+                              "low": {
+                                "locator": "59:72-59:104",
+                                "type": "Subtract",
+                                "operand": [
+                                  {
+                                    "localId": "82",
+                                    "locator": "59:72-59:104",
+                                    "type": "Start",
+                                    "operand": {
+                                      "localId": "81",
+                                      "locator": "59:81-59:104",
+                                      "path": "relevantPeriod",
+                                      "scope": "Encounter",
+                                      "type": "Property"
+                                    }
+                                  },
+                                  {
+                                    "localId": "83",
+                                    "locator": "59:44-59:49",
+                                    "value": 1,
+                                    "unit": "hour",
+                                    "type": "Quantity"
+                                  }
+                                ]
+                              },
+                              "high": {
+                                "localId": "82",
+                                "locator": "59:72-59:104",
+                                "type": "Start",
+                                "operand": {
+                                  "localId": "81",
+                                  "locator": "59:81-59:104",
+                                  "path": "relevantPeriod",
+                                  "scope": "Encounter",
+                                  "type": "Property"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "localId": "93",
+              "locator": "66:1-67:48",
+              "name": "Measure Observation",
+              "context": "Patient",
+              "accessLevel": "Public",
+              "type": "FunctionDef",
+              "annotation": [
+                {
+                  "type": "Annotation",
+                  "s": {
+                    "r": "93",
+                    "s": [
+                      {
+                        "value": [
+                          "define function ",
+                          "\"Measure Observation\"",
+                          "(",
+                          "Encounter",
+                          " "
+                        ]
+                      },
+                      {
+                        "r": "89",
+                        "s": [
+                          {
+                            "value": [
+                              "\"Encounter, Performed\""
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "value": [
+                          " ):\n\t"
+                        ]
+                      },
+                      {
+                        "r": "92",
+                        "s": [
+                          {
+                            "r": "92",
+                            "s": [
+                              {
+                                "value": [
+                                  "duration in minutes of "
+                                ]
+                              },
+                              {
+                                "r": "91",
+                                "s": [
+                                  {
+                                    "r": "90",
+                                    "s": [
+                                      {
+                                        "value": [
+                                          "Encounter"
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "value": [
+                                      "."
+                                    ]
+                                  },
+                                  {
+                                    "r": "91",
+                                    "s": [
+                                      {
+                                        "value": [
+                                          "relevantPeriod"
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "expression": {
+                "localId": "92",
+                "locator": "67:2-67:48",
+                "precision": "Minute",
+                "type": "DurationBetween",
+                "operand": [
+                  {
+                    "type": "Start",
+                    "operand": {
+                      "localId": "91",
+                      "locator": "67:25-67:48",
+                      "path": "relevantPeriod",
+                      "type": "Property",
+                      "source": {
+                        "localId": "90",
+                        "locator": "67:25-67:33",
+                        "name": "Encounter",
+                        "type": "OperandRef"
+                      }
+                    }
+                  },
+                  {
+                    "type": "End",
+                    "operand": {
+                      "localId": "91",
+                      "locator": "67:25-67:48",
+                      "path": "relevantPeriod",
+                      "type": "Property",
+                      "source": {
+                        "localId": "90",
+                        "locator": "67:25-67:33",
+                        "name": "Encounter",
+                        "type": "OperandRef"
+                      }
+                    }
+                  }
+                ]
+              },
+              "operand": [
+                {
+                  "name": "Encounter",
+                  "operandTypeSpecifier": {
+                    "localId": "89",
+                    "locator": "66:49-66:70",
+                    "name": "{urn:healthit-gov:qdm:v5_3}PositiveEncounterPerformed",
+                    "type": "NamedTypeSpecifier"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "elm_annotations": {
+    "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+      "statements": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "text": "define \"SDE Ethnicity\":\n  "
+                    }
+                  ]
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "text": "[\"Patient Characteristic Ethnicity\": "
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "text": "\"Ethnicity\""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "text": "]"
+                        }
+                      ]
+                    }
+                  ],
+                  "node_type": "Retrieve",
+                  "ref_id": "16"
+                }
+              ],
+              "ref_id": "17"
+            }
+          ],
+          "define_name": "SDE Ethnicity"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "text": "define \"SDE Payer\":\n  "
+                    }
+                  ]
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "text": "[\"Patient Characteristic Payer\": "
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "text": "\"Payer\""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "text": "]"
+                        }
+                      ]
+                    }
+                  ],
+                  "node_type": "Retrieve",
+                  "ref_id": "18"
+                }
+              ],
+              "ref_id": "19"
+            }
+          ],
+          "define_name": "SDE Payer"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "text": "define \"SDE Race\":\n  "
+                    }
+                  ]
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "text": "[\"Patient Characteristic Race\": "
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "text": "\"Race\""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "text": "]"
+                        }
+                      ]
+                    }
+                  ],
+                  "node_type": "Retrieve",
+                  "ref_id": "20"
+                }
+              ],
+              "ref_id": "21"
+            }
+          ],
+          "define_name": "SDE Race"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "text": "define \"SDE Sex\":\n  "
+                    }
+                  ]
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "text": "[\"Patient Characteristic Sex\": "
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "text": "\"ONC Administrative Sex\""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "text": "]"
+                        }
+                      ]
+                    }
+                  ],
+                  "node_type": "Retrieve",
+                  "ref_id": "22"
+                }
+              ],
+              "ref_id": "23"
+            }
+          ],
+          "define_name": "SDE Sex"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "text": "define \"ED Visit\":\n  "
+                    }
+                  ]
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "text": "[\"Encounter, Performed\": "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "children": [
+                                        {
+                                          "children": [
+                                            {
+                                              "text": "\"Emergency Department Visit\""
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "children": [
+                                        {
+                                          "text": "]"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "node_type": "Retrieve",
+                                  "ref_id": "24"
+                                }
+                              ],
+                              "node_type": "Retrieve",
+                              "ref_id": "24"
+                            },
+                            {
+                              "children": [
+                                {
+                                  "text": " EDVisit"
+                                }
+                              ]
+                            }
+                          ],
+                          "ref_id": "25"
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "text": "\n    "
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "text": "where "
+                            }
+                          ]
+                        },
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "text": "EDVisit"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "ref_id": "26"
+                                },
+                                {
+                                  "children": [
+                                    {
+                                      "text": "."
+                                    }
+                                  ]
+                                },
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "text": "relevantPeriod"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "node_type": "Property",
+                                  "ref_id": "27"
+                                }
+                              ],
+                              "node_type": "Property",
+                              "ref_id": "27"
+                            },
+                            {
+                              "children": [
+                                {
+                                  "text": " during "
+                                }
+                              ]
+                            },
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "text": "\"Measurement Period\""
+                                    }
+                                  ]
+                                }
+                              ],
+                              "node_type": "ParameterRef",
+                              "ref_id": "28"
+                            }
+                          ],
+                          "ref_id": "29"
+                        }
+                      ],
+                      "ref_id": "29"
+                    }
+                  ],
+                  "node_type": "Query",
+                  "ref_id": "30"
+                }
+              ],
+              "ref_id": "31"
+            }
+          ],
+          "define_name": "ED Visit"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "text": "define \"Initial Population\":\n  "
+                    }
+                  ]
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "text": "\"ED Visit\""
+                        }
+                      ]
+                    }
+                  ],
+                  "node_type": "ExpressionRef",
+                  "ref_id": "32"
+                }
+              ],
+              "ref_id": "33"
+            }
+          ],
+          "define_name": "Initial Population"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "text": "define \"Measure Population\":\n  "
+                    }
+                  ]
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "text": "\"Initial Population\""
+                        }
+                      ]
+                    }
+                  ],
+                  "node_type": "ExpressionRef",
+                  "ref_id": "34"
+                }
+              ],
+              "ref_id": "35"
+            }
+          ],
+          "define_name": "Measure Population"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "text": "define \"Stratification 1\":\n  "
+                    }
+                  ]
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "text": "\"ED Visit\""
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "node_type": "ExpressionRef",
+                              "ref_id": "36"
+                            },
+                            {
+                              "children": [
+                                {
+                                  "text": " EDVisit"
+                                }
+                              ]
+                            }
+                          ],
+                          "ref_id": "37"
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "text": "\n    "
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "text": "where "
+                            }
+                          ]
+                        },
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "text": "EDVisit"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "ref_id": "38"
+                                },
+                                {
+                                  "children": [
+                                    {
+                                      "text": "."
+                                    }
+                                  ]
+                                },
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "text": "principalDiagnosis"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "ref_id": "39"
+                                }
+                              ],
+                              "ref_id": "39"
+                            },
+                            {
+                              "children": [
+                                {
+                                  "text": " in "
+                                }
+                              ]
+                            },
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "text": "\"Psychiatric/Mental Health Patient\""
+                                    }
+                                  ]
+                                }
+                              ],
+                              "ref_id": "40"
+                            }
+                          ],
+                          "ref_id": "41"
+                        }
+                      ],
+                      "ref_id": "41"
+                    }
+                  ],
+                  "node_type": "Query",
+                  "ref_id": "42"
+                }
+              ],
+              "ref_id": "43"
+            }
+          ],
+          "define_name": "Stratification 1"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "text": "define \"Stratification 2\":\n  "
+                    }
+                  ]
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "text": "\"ED Visit\""
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "node_type": "ExpressionRef",
+                              "ref_id": "44"
+                            },
+                            {
+                              "children": [
+                                {
+                                  "text": " EDVisit"
+                                }
+                              ]
+                            }
+                          ],
+                          "ref_id": "45"
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "text": "\n    "
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "text": "where "
+                            }
+                          ]
+                        },
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "text": "EDVisit"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "ref_id": "46"
+                                },
+                                {
+                                  "children": [
+                                    {
+                                      "text": "."
+                                    }
+                                  ]
+                                },
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "text": "dischargeDisposition"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "ref_id": "47"
+                                }
+                              ],
+                              "ref_id": "47"
+                            },
+                            {
+                              "children": [
+                                {
+                                  "text": " in "
+                                }
+                              ]
+                            },
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "text": "\"Discharge To Acute Care Facility\""
+                                    }
+                                  ]
+                                }
+                              ],
+                              "ref_id": "48"
+                            }
+                          ],
+                          "ref_id": "49"
+                        }
+                      ],
+                      "ref_id": "49"
+                    }
+                  ],
+                  "node_type": "Query",
+                  "ref_id": "50"
+                }
+              ],
+              "ref_id": "51"
+            }
+          ],
+          "define_name": "Stratification 2"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "text": "define \"Stratification 3\":\n  "
+                    }
+                  ]
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "text": "\"ED Visit\""
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "node_type": "ExpressionRef",
+                              "ref_id": "52"
+                            },
+                            {
+                              "children": [
+                                {
+                                  "text": " EDVisit"
+                                }
+                              ]
+                            }
+                          ],
+                          "ref_id": "53"
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "text": "\n    "
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "text": "where "
+                            }
+                          ]
+                        },
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "text": "not "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "text": "( "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "children": [
+                                        {
+                                          "children": [
+                                            {
+                                              "children": [
+                                                {
+                                                  "children": [
+                                                    {
+                                                      "text": "EDVisit"
+                                                    }
+                                                  ]
+                                                }
+                                              ],
+                                              "ref_id": "54"
+                                            },
+                                            {
+                                              "children": [
+                                                {
+                                                  "text": "."
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "children": [
+                                                {
+                                                  "children": [
+                                                    {
+                                                      "text": "principalDiagnosis"
+                                                    }
+                                                  ]
+                                                }
+                                              ],
+                                              "ref_id": "55"
+                                            }
+                                          ],
+                                          "ref_id": "55"
+                                        },
+                                        {
+                                          "children": [
+                                            {
+                                              "text": " in "
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "children": [
+                                            {
+                                              "children": [
+                                                {
+                                                  "text": "\"Psychiatric/Mental Health Patient\""
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "ref_id": "56"
+                                        }
+                                      ],
+                                      "node_type": "InValueSet",
+                                      "ref_id": "57"
+                                    },
+                                    {
+                                      "children": [
+                                        {
+                                          "text": " )"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "node_type": "InValueSet",
+                                  "ref_id": "57"
+                                }
+                              ],
+                              "node_type": "Not",
+                              "ref_id": "58"
+                            },
+                            {
+                              "children": [
+                                {
+                                  "text": "\n      and "
+                                }
+                              ]
+                            },
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "text": "not "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "text": "( "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "children": [
+                                        {
+                                          "children": [
+                                            {
+                                              "children": [
+                                                {
+                                                  "children": [
+                                                    {
+                                                      "text": "EDVisit"
+                                                    }
+                                                  ]
+                                                }
+                                              ],
+                                              "ref_id": "59"
+                                            },
+                                            {
+                                              "children": [
+                                                {
+                                                  "text": "."
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "children": [
+                                                {
+                                                  "children": [
+                                                    {
+                                                      "text": "dischargeDisposition"
+                                                    }
+                                                  ]
+                                                }
+                                              ],
+                                              "ref_id": "60"
+                                            }
+                                          ],
+                                          "ref_id": "60"
+                                        },
+                                        {
+                                          "children": [
+                                            {
+                                              "text": " in "
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "children": [
+                                            {
+                                              "children": [
+                                                {
+                                                  "text": "\"Discharge To Acute Care Facility\""
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "ref_id": "61"
+                                        }
+                                      ],
+                                      "node_type": "InValueSet",
+                                      "ref_id": "62"
+                                    },
+                                    {
+                                      "children": [
+                                        {
+                                          "text": " )"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "node_type": "InValueSet",
+                                  "ref_id": "62"
+                                }
+                              ],
+                              "node_type": "Not",
+                              "ref_id": "63"
+                            }
+                          ],
+                          "ref_id": "64"
+                        }
+                      ],
+                      "ref_id": "64"
+                    }
+                  ],
+                  "node_type": "Query",
+                  "ref_id": "65"
+                }
+              ],
+              "ref_id": "66"
+            }
+          ],
+          "define_name": "Stratification 3"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "text": "define \"Measure Population Exclusions\":\n  "
+                    }
+                  ]
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "text": "( "
+                            }
+                          ]
+                        },
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "children": [
+                                            {
+                                              "children": [
+                                                {
+                                                  "text": "\"ED Visit\""
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "node_type": "ExpressionRef",
+                                      "ref_id": "67"
+                                    },
+                                    {
+                                      "children": [
+                                        {
+                                          "text": " EDVisit"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "ref_id": "68"
+                                }
+                              ]
+                            },
+                            {
+                              "children": [
+                                {
+                                  "text": "\n      "
+                                }
+                              ]
+                            },
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "text": "where "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "children": [
+                                            {
+                                              "children": [
+                                                {
+                                                  "text": "EDVisit"
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "ref_id": "69"
+                                        },
+                                        {
+                                          "children": [
+                                            {
+                                              "text": "."
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "children": [
+                                            {
+                                              "children": [
+                                                {
+                                                  "text": "dischargeDisposition"
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "node_type": "Property",
+                                          "ref_id": "70"
+                                        }
+                                      ],
+                                      "node_type": "Property",
+                                      "ref_id": "70"
+                                    },
+                                    {
+                                      "children": [
+                                        {
+                                          "text": " ~ "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "children": [
+                                        {
+                                          "children": [
+                                            {
+                                              "text": "\"Patient deceased during stay (discharge status = dead) (finding)\""
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "node_type": "CodeRef",
+                                      "ref_id": "71"
+                                    }
+                                  ],
+                                  "ref_id": "72"
+                                }
+                              ],
+                              "ref_id": "72"
+                            }
+                          ],
+                          "node_type": "Query",
+                          "ref_id": "73"
+                        },
+                        {
+                          "children": [
+                            {
+                              "text": "\n  )"
+                            }
+                          ]
+                        }
+                      ],
+                      "node_type": "Query",
+                      "ref_id": "73"
+                    },
+                    {
+                      "children": [
+                        {
+                          "text": "\n    union "
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "text": "( "
+                            }
+                          ]
+                        },
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "children": [
+                                            {
+                                              "children": [
+                                                {
+                                                  "text": "\"ED Visit\""
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "node_type": "ExpressionRef",
+                                      "ref_id": "74"
+                                    },
+                                    {
+                                      "children": [
+                                        {
+                                          "text": " EDVisit"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "ref_id": "75"
+                                }
+                              ]
+                            },
+                            {
+                              "children": [
+                                {
+                                  "text": "\n        "
+                                }
+                              ]
+                            },
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "text": "with "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "children": [
+                                            {
+                                              "children": [
+                                                {
+                                                  "text": "[\"Encounter, Performed\": "
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "children": [
+                                                {
+                                                  "children": [
+                                                    {
+                                                      "text": "\"Encounter Inpatient\""
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "children": [
+                                                {
+                                                  "text": "]"
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "node_type": "Retrieve",
+                                          "ref_id": "76"
+                                        }
+                                      ],
+                                      "node_type": "Retrieve",
+                                      "ref_id": "76"
+                                    },
+                                    {
+                                      "children": [
+                                        {
+                                          "text": " Encounter"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "ref_id": "77"
+                                },
+                                {
+                                  "children": [
+                                    {
+                                      "text": "\n          such that "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "children": [
+                                            {
+                                              "children": [
+                                                {
+                                                  "text": "EDVisit"
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "ref_id": "78"
+                                        },
+                                        {
+                                          "children": [
+                                            {
+                                              "text": "."
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "children": [
+                                            {
+                                              "children": [
+                                                {
+                                                  "text": "relevantPeriod"
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "node_type": "Property",
+                                          "ref_id": "79"
+                                        }
+                                      ],
+                                      "node_type": "Property",
+                                      "ref_id": "79"
+                                    },
+                                    {
+                                      "children": [
+                                        {
+                                          "text": " "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "children": [
+                                        {
+                                          "children": [
+                                            {
+                                              "text": "ends "
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "children": [
+                                            {
+                                              "children": [
+                                                {
+                                                  "text": "1 hour"
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "node_type": "Quantity",
+                                          "ref_id": "83"
+                                        },
+                                        {
+                                          "children": [
+                                            {
+                                              "text": " or less before or on"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "node_type": "In",
+                                      "ref_id": "84"
+                                    },
+                                    {
+                                      "children": [
+                                        {
+                                          "text": " "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "children": [
+                                        {
+                                          "children": [
+                                            {
+                                              "text": "start of "
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "children": [
+                                            {
+                                              "children": [
+                                                {
+                                                  "children": [
+                                                    {
+                                                      "text": "Encounter"
+                                                    }
+                                                  ]
+                                                }
+                                              ],
+                                              "ref_id": "80"
+                                            },
+                                            {
+                                              "children": [
+                                                {
+                                                  "text": "."
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "children": [
+                                                {
+                                                  "children": [
+                                                    {
+                                                      "text": "relevantPeriod"
+                                                    }
+                                                  ]
+                                                }
+                                              ],
+                                              "node_type": "Property",
+                                              "ref_id": "81"
+                                            }
+                                          ],
+                                          "node_type": "Property",
+                                          "ref_id": "81"
+                                        }
+                                      ],
+                                      "node_type": "Start",
+                                      "ref_id": "82"
+                                    }
+                                  ],
+                                  "node_type": "In",
+                                  "ref_id": "84"
+                                }
+                              ],
+                              "ref_id": "85"
+                            }
+                          ],
+                          "node_type": "Query",
+                          "ref_id": "86"
+                        },
+                        {
+                          "children": [
+                            {
+                              "text": "\n    )"
+                            }
+                          ]
+                        }
+                      ],
+                      "node_type": "Query",
+                      "ref_id": "86"
+                    }
+                  ],
+                  "node_type": "Union",
+                  "ref_id": "87"
+                }
+              ],
+              "ref_id": "88"
+            }
+          ],
+          "define_name": "Measure Population Exclusions"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "text": "define function \"Measure Observation\"(Encounter "
+                    }
+                  ]
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "text": "\"Encounter, Performed\""
+                        }
+                      ]
+                    }
+                  ],
+                  "ref_id": "89"
+                },
+                {
+                  "children": [
+                    {
+                      "text": " ):\n  "
+                    }
+                  ]
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "text": "duration in minutes of "
+                            }
+                          ]
+                        },
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "text": "Encounter"
+                                    }
+                                  ]
+                                }
+                              ],
+                              "ref_id": "90"
+                            },
+                            {
+                              "children": [
+                                {
+                                  "text": "."
+                                }
+                              ]
+                            },
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "text": "relevantPeriod"
+                                    }
+                                  ]
+                                }
+                              ],
+                              "node_type": "Property",
+                              "ref_id": "91"
+                            }
+                          ],
+                          "node_type": "Property",
+                          "ref_id": "91"
+                        }
+                      ],
+                      "node_type": "DurationBetween",
+                      "ref_id": "92"
+                    }
+                  ],
+                  "node_type": "DurationBetween",
+                  "ref_id": "92"
+                }
+              ],
+              "ref_id": "93"
+            }
+          ],
+          "define_name": "Measure Observation"
+        }
+      ],
+      "identifier": {
+        "id": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
+        "version": "7.2.002"
+      }
+    }
+  },
+  "episode_ids": null,
+  "episode_of_care": true,
+  "hqmf_id": "40280382-5FA6-FE85-015F-BB40A1CD0B95",
+  "hqmf_set_id": "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+  "hqmf_version_number": 0,
+  "id": "5a57f07b942c6d230492c674",
+  "main_cql_library": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
+  "measure_attributes": [
+    {
+      "code": "OTH",
+      "value": "32",
+      "name": "eCQM Identifier (Measure Authoring Tool)",
+      "code_obj": {
+        "type": "CD",
+        "null_flavor": "OTH",
+        "original_text": "eCQM Identifier (Measure Authoring Tool)"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "32",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "OTH",
+      "value": "0496",
+      "name": "NQF Number",
+      "code_obj": {
+        "type": "CD",
+        "null_flavor": "OTH",
+        "original_text": "NQF Number"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "0496",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "COPY",
+      "value": "Measure specifications are in the Public Domain.\n\nLogical Observation Identifiers Names and Codes (LOINC) (R) is a registered trademark of the Regenstrief Institute.\n\nThis material contains Systematized Nomenclature of Medicine -- Clinical Terms (SNOMED CT (R)) copyright 2004-2016 International Health Terminology Standards Development Organization. All rights reserved.",
+      "name": "Copyright",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "COPY",
+        "title": "Copyright"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Measure specifications are in the Public Domain.\n\nLogical Observation Identifiers Names and Codes (LOINC) (R) is a registered trademark of the Regenstrief Institute.\n\nThis material contains Systematized Nomenclature of Medicine -- Clinical Terms (SNOMED CT (R)) copyright 2004-2016 International Health Terminology Standards Development Organization. All rights reserved.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DISC",
+      "value": "These performance measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications. The measures and specifications are provided without warranty. CMS has contracted with Mathematica Policy Research and its subcontractors, Lantana and Telligen, for the continued maintenance of this electronic measure.",
+      "name": "Disclaimer",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DISC",
+        "title": "Disclaimer"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "These performance measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications. The measures and specifications are provided without warranty. CMS has contracted with Mathematica Policy Research and its subcontractors, Lantana and Telligen, for the continued maintenance of this electronic measure.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRSCORE",
+      "name": "Measure Scoring",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRSCORE",
+        "title": "Measure Scoring"
+      },
+      "value_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.1.11.20367",
+        "code": "CONTVAR",
+        "title": "Continuous Variable"
+      }
+    },
+    {
+      "code": "MSRTYPE",
+      "name": "Measure Type",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRTYPE",
+        "title": "Measure Type"
+      },
+      "value_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.1.11.20368",
+        "code": "PROCESS",
+        "title": "PROCESS"
+      }
+    },
+    {
+      "code": "STRAT",
+      "value": "Report total score and the following strata: \nStratification 1 - all patients with principal diagnosis consistent with mental disorders;\nStratification 2 - all patients transferred to another acute care hospital; and \nStratification 3 - all patients who do not have a principal diagnosis consistent with mental disorders and who are not transferred.",
+      "name": "Stratification",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "STRAT",
+        "title": "Stratification"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Report total score and the following strata: \nStratification 1 - all patients with principal diagnosis consistent with mental disorders;\nStratification 2 - all patients transferred to another acute care hospital; and \nStratification 3 - all patients who do not have a principal diagnosis consistent with mental disorders and who are not transferred.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRADJ",
+      "value": "None",
+      "name": "Risk Adjustment",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRADJ",
+        "title": "Risk Adjustment"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "None",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRAGG",
+      "value": "Calculate the ED encounter duration at the facility in minutes for each ED encounter in the measure population; report the median time for all calculations performed. The specification provides elements from the clinical electronic record required to calculate for each ED encounter, i.e., the length of time the patient was in the Emergency Department, also stated as: the Datetime difference between the Emergency Department facility location departure time and the Emergency Department facility location arrival time. The calculation requires the median across all ED encounter durations.",
+      "name": "Rate Aggregation",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRAGG",
+        "title": "Rate Aggregation"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Calculate the ED encounter duration at the facility in minutes for each ED encounter in the measure population; report the median time for all calculations performed. The specification provides elements from the clinical electronic record required to calculate for each ED encounter, i.e., the length of time the patient was in the Emergency Department, also stated as: the Datetime difference between the Emergency Department facility location departure time and the Emergency Department facility location arrival time. The calculation requires the median across all ED encounter durations.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "RAT",
+      "value": "In recent times, EDs have experienced significant overcrowding. Although once only a problem in large, urban, teaching hospitals, the phenomenon has spread to other suburban and rural healthcare organizations. According to a 2002 national U.S. survey, more than 90 percent of large hospitals report EDs operating \"at\" or \"over\" capacity. Overcrowding and heavy emergency resource demand have led to a number of problems, including ambulance refusals, prolonged patient waiting times, increased suffering for those who wait, rushed and unpleasant treatment environments, and potentially poor patient outcomes. Approximately one third of hospitals in the U.S. report increases in ambulance diversion in a given year, whereas up to half report crowded conditions in the ED. In a recent national survey, 40 percent of hospital leaders viewed ED crowding as a symptom of workforce shortages. ED crowding may result in delays in the administration of medication such as antibiotics for pneumonia and has been associated with perceptions of compromised emergency care. For patients with non-ST-segment-elevation myocardial infarction, long ED stays were associated with decreased use of guideline-recommended therapies and a higher risk of recurrent myocardial infarction. When EDs are overwhelmed, their ability to respond to community emergencies and disasters may be compromised.",
+      "name": "Rationale",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "RAT",
+        "title": "Rationale"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "In recent times, EDs have experienced significant overcrowding. Although once only a problem in large, urban, teaching hospitals, the phenomenon has spread to other suburban and rural healthcare organizations. According to a 2002 national U.S. survey, more than 90 percent of large hospitals report EDs operating \"at\" or \"over\" capacity. Overcrowding and heavy emergency resource demand have led to a number of problems, including ambulance refusals, prolonged patient waiting times, increased suffering for those who wait, rushed and unpleasant treatment environments, and potentially poor patient outcomes. Approximately one third of hospitals in the U.S. report increases in ambulance diversion in a given year, whereas up to half report crowded conditions in the ED. In a recent national survey, 40 percent of hospital leaders viewed ED crowding as a symptom of workforce shortages. ED crowding may result in delays in the administration of medication such as antibiotics for pneumonia and has been associated with perceptions of compromised emergency care. For patients with non-ST-segment-elevation myocardial infarction, long ED stays were associated with decreased use of guideline-recommended therapies and a higher risk of recurrent myocardial infarction. When EDs are overwhelmed, their ability to respond to community emergencies and disasters may be compromised.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "CRS",
+      "value": "Reducing the time patients remain in the emergency department (ED) can improve access to treatment and increase quality of care. Reducing this time potentially improves access to care specific to the patient condition and increases the capability to provide additional treatment.",
+      "name": "Clinical Recommendation Statement",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "CRS",
+        "title": "Clinical Recommendation Statement"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Reducing the time patients remain in the emergency department (ED) can improve access to treatment and increase quality of care. Reducing this time potentially improves access to care specific to the patient condition and increases the capability to provide additional treatment.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "IDUR",
+      "value": "Improvement noted as a decrease in the median value",
+      "name": "Improvement Notation",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "IDUR",
+        "title": "Improvement Notation"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Improvement noted as a decrease in the median value",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Derlet RW, Richards JR. Emergency department overcrowding in Florida, New York, and Texas. South Med J. 2002;95:846-9.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Derlet RW, Richards JR. Emergency department overcrowding in Florida, New York, and Texas. South Med J. 2002;95:846-9.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Derlet RW, Richards JR. Overcrowding in the nation's emergency departments: complex causes and disturbing effects. Ann Emerg Med. 2000; 35:63-8.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Derlet RW, Richards JR. Overcrowding in the nation's emergency departments: complex causes and disturbing effects. Ann Emerg Med. 2000; 35:63-8.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Diercks DB, et al. Prolonged emergency department stays of non-ST-segment-elevation myocardial infarction patients are associated with worse adherence to the American College of Cardiology/American Heart Association guidelines for management and increased adverse events. Ann Emerg Med.2007;50:489-96.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Diercks DB, et al. Prolonged emergency department stays of non-ST-segment-elevation myocardial infarction patients are associated with worse adherence to the American College of Cardiology/American Heart Association guidelines for management and increased adverse events. Ann Emerg Med.2007;50:489-96.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Fatovich DM, Hirsch RL. Entry overload, emergency department overcrowding, and ambulance bypass. Emerg Med J. 2003; 20:406-9.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Fatovich DM, Hirsch RL. Entry overload, emergency department overcrowding, and ambulance bypass. Emerg Med J. 2003; 20:406-9.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Hwang U, Richardson LD, Sonuyi TO, Morrison RS. The effect of emergency department crowding on the management of pain in older adults with hip fracture. J Am Geriatr Soc. 2006; 54:270-5.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Hwang U, Richardson LD, Sonuyi TO, Morrison RS. The effect of emergency department crowding on the management of pain in older adults with hip fracture. J Am Geriatr Soc. 2006; 54:270-5.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Institute of Medicine of the National Academies. Future of emergency care: Hospital-based emergency care at the breaking point. The National Academies Press 2006.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Institute of Medicine of the National Academies. Future of emergency care: Hospital-based emergency care at the breaking point. The National Academies Press 2006.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Kyriacou DN, Ricketts V, Dyne PL, McCollough MD, Talan DA. A 5-year time study analysis of emergency department patient care efficiency. Ann Emerg Med. 1999;34:326-35",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Kyriacou DN, Ricketts V, Dyne PL, McCollough MD, Talan DA. A 5-year time study analysis of emergency department patient care efficiency. Ann Emerg Med. 1999;34:326-35",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Pines JM, et al. ED crowding is associated with variable perceptions of care compromise. Acad Emerg Med. 2007;14:1176-81.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Pines JM, et al. ED crowding is associated with variable perceptions of care compromise. Acad Emerg Med. 2007;14:1176-81.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Pines JM, et al. Emergency department crowding is associated with poor care for patients with severe pain. Ann Emerg Med. 2008;51:6-7.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Pines JM, et al. Emergency department crowding is associated with poor care for patients with severe pain. Ann Emerg Med. 2008;51:6-7.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Schull MJ, et al. Emergency department crowding and thrombolysis delays in acute myocardial infarction. Ann Emerg Med. 2004;44:577-85.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Schull MJ, et al. Emergency department crowding and thrombolysis delays in acute myocardial infarction. Ann Emerg Med. 2004;44:577-85.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Siegel B, et al. Enhancing work flow to reduce crowding. Jt Comm J Qual Patient Saf. 2007;33(11 Suppl):57-67.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Siegel B, et al. Enhancing work flow to reduce crowding. Jt Comm J Qual Patient Saf. 2007;33(11 Suppl):57-67.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Trzeciak S, Rivers EP. Emergency department overcrowding in the United States: an emerging threat to patient safety and public health. Emerg Med J. 2003;20:402-5.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Trzeciak S, Rivers EP. Emergency department overcrowding in the United States: an emerging threat to patient safety and public health. Emerg Med J. 2003;20:402-5.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Wilper AP, Woolhandler S, Lasser KE, McCormick D, Cutrona SL, Bor DH, Himmelstein DU. Waits to see an emergency department physician: U.S. trends and predictors, 1997-2004. Health Aff (Millwood). 2008;27:w84-95.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Wilper AP, Woolhandler S, Lasser KE, McCormick D, Cutrona SL, Bor DH, Himmelstein DU. Waits to see an emergency department physician: U.S. trends and predictors, 1997-2004. Health Aff (Millwood). 2008;27:w84-95.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DEF",
+      "value": "None",
+      "name": "Definition",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DEF",
+        "title": "Definition"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "None",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "GUIDE",
+      "value": "This measure uses a continuous variable.  The specification provides elements from the clinical electronic record required to calculate for each ED encounter, i.e., the length of time the patient was in the Emergency Department, also stated as: the Emergency Department departure time minus the Emergency Department arrival time. The calculation requires the median of all ED encounter durations.  This measure specification defines how to determine an individual Emergency Department stay. Reporting requires the median of all patient stays ([Encounter: encounter ED].facility location departure date and time minus [Encounter: encounter ED].facility location arrival date and time).\n\nFor each population, results should be reported without stratification and then with each stratum applied. For this measure, the number of encounters that fall into the Initial Population are reported without stratification, then reported according to the defined stratification. The number of encounters that fall into the Measure Population are reported without stratification, then reported according to the defined stratification. The computed continuous variable defined by the Measure Observation is reported for the Measure Population also, then reported according to the defined stratification.",
+      "name": "Guidance",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "GUIDE",
+        "title": "Guidance"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "This measure uses a continuous variable.  The specification provides elements from the clinical electronic record required to calculate for each ED encounter, i.e., the length of time the patient was in the Emergency Department, also stated as: the Emergency Department departure time minus the Emergency Department arrival time. The calculation requires the median of all ED encounter durations.  This measure specification defines how to determine an individual Emergency Department stay. Reporting requires the median of all patient stays ([Encounter: encounter ED].facility location departure date and time minus [Encounter: encounter ED].facility location arrival date and time).\n\nFor each population, results should be reported without stratification and then with each stratum applied. For this measure, the number of encounters that fall into the Initial Population are reported without stratification, then reported according to the defined stratification. The number of encounters that fall into the Measure Population are reported without stratification, then reported according to the defined stratification. The computed continuous variable defined by the Measure Observation is reported for the Measure Population also, then reported according to the defined stratification.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "TRANF",
+      "value": "TBD",
+      "name": "Transmission Format",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "TRANF",
+        "title": "Transmission Format"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "TBD",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "IPOP",
+      "value": "Emergency department encounters during the measurement period",
+      "name": "Initial Population",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "IPOP",
+        "title": "Initial Population"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Emergency department encounters during the measurement period",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRPOPL",
+      "value": "Equals initial population",
+      "name": "Measure Population",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRPOPL",
+        "title": "Measure Population"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Equals initial population",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRPOPLEX",
+      "value": "Emergency department encounters where the patient expired during the encounter or where the ED visit is followed within an hour by an inpatient encounter at the same physical facility",
+      "name": "Measure Population Exclusions",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRPOPLEX",
+        "title": "Measure Population Exclusions"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Emergency department encounters where the patient expired during the encounter or where the ED visit is followed within an hour by an inpatient encounter at the same physical facility",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "OTH",
+      "value": "Median elapsed time (in minutes) from emergency department arrival to emergency room departure for patients discharged from the emergency department",
+      "name": "Measure Observations",
+      "code_obj": {
+        "type": "CD",
+        "title": "Measure Observations",
+        "null_flavor": "OTH"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Median elapsed time (in minutes) from emergency department arrival to emergency room departure for patients discharged from the emergency department",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "SDE",
+      "value": "For every patient evaluated by this measure also identify payer, race, ethnicity and sex",
+      "name": "Supplemental Data Elements",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "SDE",
+        "title": "Supplemental Data Elements"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "For every patient evaluated by this measure also identify payer, race, ethnicity and sex",
+        "media_type": "text/plain"
+      }
+    }
+  ],
+  "measure_id": "40280382-5FA6-FE85-015F-BB40A1CD0B95",
+  "measure_period": {
+    "type": "IVL_TS",
+    "low": {
+      "type": "TS",
+      "value": "201201010000",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "high": {
+      "type": "TS",
+      "value": "201212312359",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "width": {
+      "type": "PQ",
+      "unit": "a",
+      "value": "1",
+      "inclusive?": true,
+      "derived?": false
+    }
+  },
+  "needs_finalize": false,
+  "observations": [
+    {
+      "function_name": "Measure Observation",
+      "parameter": "Measure Population"
+    }
+  ],
+  "population_criteria": {
+    "OBSERV": {
+      "conjunction?": false,
+      "type": "OBSERV",
+      "hqmf_id": "FFB1B6BE-B96F-4B29-A920-0E4966D209A3"
+    },
+    "IPP": {
+      "conjunction?": true,
+      "type": "IPP",
+      "hqmf_id": "036B7EEE-DEB5-40E2-B802-BC6CDF2B8A43",
+      "preconditions": [
+        {
+          "id": 2,
+          "preconditions": [
+            {
+              "id": 1,
+              "reference": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients__Initial_Population__8A3E2D90_2D26_431C_99E4_2670D8EBF16F"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "MSRPOPL": {
+      "conjunction?": true,
+      "type": "MSRPOPL",
+      "hqmf_id": "4A80FF43-6FC1-4975-806B-4FD40C7C4B95",
+      "preconditions": [
+        {
+          "id": 4,
+          "preconditions": [
+            {
+              "id": 3,
+              "reference": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients__Measure_Population__8A3E2D90_2D26_431C_99E4_2670D8EBF16F"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "MSRPOPLEX": {
+      "conjunction?": true,
+      "type": "MSRPOPLEX",
+      "hqmf_id": "34607208-5E04-4BC6-94E4-F3168609640E",
+      "preconditions": [
+        {
+          "id": 6,
+          "preconditions": [
+            {
+              "id": 5,
+              "reference": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients__Measure_Population_Exclusions__8A3E2D90_2D26_431C_99E4_2670D8EBF16F"
+            }
+          ],
+          "conjunction_code": "atLeastOneTrue"
+        }
+      ]
+    },
+    "STRAT": {
+      "conjunction?": true,
+      "type": "STRAT",
+      "hqmf_id": "041A37F6-86D3-471F-86DD-12FB668092BD",
+      "preconditions": [
+        {
+          "id": 10,
+          "preconditions": [
+            {
+              "id": 9,
+              "reference": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients__Stratification_1__8A3E2D90_2D26_431C_99E4_2670D8EBF16F"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "STRAT_1": {
+      "conjunction?": true,
+      "type": "STRAT",
+      "hqmf_id": "7846CD9A-9B68-4C2C-9CFB-0E52777D9EEA",
+      "preconditions": [
+        {
+          "id": 14,
+          "preconditions": [
+            {
+              "id": 13,
+              "reference": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients__Stratification_2__8A3E2D90_2D26_431C_99E4_2670D8EBF16F"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "STRAT_2": {
+      "conjunction?": true,
+      "type": "STRAT",
+      "hqmf_id": "566164F8-47E0-4ADB-A3A6-383067490DA8",
+      "preconditions": [
+        {
+          "id": 18,
+          "preconditions": [
+            {
+              "id": 17,
+              "reference": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients__Stratification_3__8A3E2D90_2D26_431C_99E4_2670D8EBF16F"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    }
+  },
+  "populations": [
+    {
+      "IPP": "IPP",
+      "MSRPOPL": "MSRPOPL",
+      "MSRPOPLEX": "MSRPOPLEX",
+      "id": "PopulationCriteria1",
+      "title": "Population Criteria Section",
+      "OBSERV": "OBSERV"
+    },
+    {
+      "IPP": "IPP",
+      "MSRPOPL": "MSRPOPL",
+      "MSRPOPLEX": "MSRPOPLEX",
+      "id": "PopulationCriteria1 - Stratification 1",
+      "title": "Stratification 1",
+      "OBSERV": "OBSERV",
+      "stratification": "041A37F6-86D3-471F-86DD-12FB668092BD",
+      "STRAT": "STRAT",
+      "population_index": 0,
+      "stratification_index": 0
+    },
+    {
+      "IPP": "IPP",
+      "MSRPOPL": "MSRPOPL",
+      "MSRPOPLEX": "MSRPOPLEX",
+      "id": "PopulationCriteria1 - Stratification 2",
+      "title": "Stratification 2",
+      "OBSERV": "OBSERV",
+      "stratification": "7846CD9A-9B68-4C2C-9CFB-0E52777D9EEA",
+      "STRAT": "STRAT_1",
+      "population_index": 0,
+      "stratification_index": 1
+    },
+    {
+      "IPP": "IPP",
+      "MSRPOPL": "MSRPOPL",
+      "MSRPOPLEX": "MSRPOPLEX",
+      "id": "PopulationCriteria1 - Stratification 3",
+      "title": "Stratification 3",
+      "OBSERV": "OBSERV",
+      "stratification": "566164F8-47E0-4ADB-A3A6-383067490DA8",
+      "STRAT": "STRAT_2",
+      "population_index": 0,
+      "stratification_index": 2
+    }
+  ],
+  "populations_cql_map": {
+    "IPP": [
+      "Initial Population"
+    ],
+    "MSRPOPL": [
+      "Measure Population"
+    ],
+    "MSRPOPLEX": [
+      "Measure Population Exclusions"
+    ],
+    "STRAT": [
+      "Stratification 1",
+      "Stratification 2",
+      "Stratification 3"
+    ]
+  },
+  "publish_date": null,
+  "published": null,
+  "record_ids": [
+
+  ],
+  "source_data_criteria": {
+    "EncounterInpatient_EncounterPerformed_2f356da9_9e4f_442a_9232_4a10ae95334c_source": {
+      "title": "EncounterInpatient",
+      "description": "Encounter, Performed: EncounterInpatient",
+      "code_list_id": "2.16.840.1.113883.3.666.5.307",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterInpatient_EncounterPerformed_2f356da9_9e4f_442a_9232_4a10ae95334c_source",
+      "variable": false
+    },
+    "Payer_PatientCharacteristicPayer_03d54d24_1c12_4344_af14_d287a16e0c5d_source": {
+      "title": "Payer",
+      "description": "Patient Characteristic Payer: Payer",
+      "code_list_id": "2.16.840.1.114222.4.11.3591",
+      "property": "payer",
+      "type": "characteristic",
+      "definition": "patient_characteristic_payer",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Payer_PatientCharacteristicPayer_03d54d24_1c12_4344_af14_d287a16e0c5d_source",
+      "variable": false,
+      "inline_code_list": {
+        "Source of Payment Typology": [
+          "1",
+          "11",
+          "111",
+          "112",
+          "113",
+          "119",
+          "12",
+          "121",
+          "122",
+          "123",
+          "129",
+          "13",
+          "14",
+          "19",
+          "191",
+          "2",
+          "21",
+          "211",
+          "212",
+          "213",
+          "219",
+          "22",
+          "23",
+          "24",
+          "25",
+          "26",
+          "29",
+          "291",
+          "3",
+          "31",
+          "311",
+          "3111",
+          "3112",
+          "3113",
+          "3114",
+          "3115",
+          "3116",
+          "3119",
+          "312",
+          "3121",
+          "3122",
+          "3123",
+          "313",
+          "32",
+          "321",
+          "3211",
+          "3212",
+          "32121",
+          "32122",
+          "32123",
+          "32124",
+          "32125",
+          "32126",
+          "322",
+          "3221",
+          "3222",
+          "3223",
+          "3229",
+          "33",
+          "331",
+          "332",
+          "333",
+          "334",
+          "34",
+          "341",
+          "342",
+          "343",
+          "349",
+          "35",
+          "36",
+          "361",
+          "362",
+          "369",
+          "37",
+          "371",
+          "3711",
+          "3712",
+          "3713",
+          "372",
+          "379",
+          "38",
+          "381",
+          "3811",
+          "3812",
+          "3813",
+          "3819",
+          "382",
+          "389",
+          "39",
+          "4",
+          "41",
+          "42",
+          "43",
+          "44",
+          "5",
+          "51",
+          "511",
+          "512",
+          "513",
+          "514",
+          "515",
+          "516",
+          "519",
+          "52",
+          "521",
+          "522",
+          "523",
+          "529",
+          "53",
+          "54",
+          "55",
+          "56",
+          "561",
+          "562",
+          "59",
+          "6",
+          "61",
+          "611",
+          "612",
+          "613",
+          "619",
+          "62",
+          "63",
+          "64",
+          "69",
+          "7",
+          "71",
+          "72",
+          "73",
+          "79",
+          "8",
+          "81",
+          "82",
+          "821",
+          "822",
+          "823",
+          "83",
+          "84",
+          "85",
+          "89",
+          "9",
+          "91",
+          "92",
+          "93",
+          "94",
+          "95",
+          "951",
+          "953",
+          "954",
+          "959",
+          "96",
+          "97",
+          "98",
+          "99",
+          "9999"
+        ]
+      }
+    },
+    "Ethnicity_PatientCharacteristicEthnicity_948d7525_d40a_4e02_a4d3_5c2a569da60e_source": {
+      "title": "Ethnicity",
+      "description": "Patient Characteristic Ethnicity: Ethnicity",
+      "code_list_id": "2.16.840.1.114222.4.11.837",
+      "property": "ethnicity",
+      "type": "characteristic",
+      "definition": "patient_characteristic_ethnicity",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_948d7525_d40a_4e02_a4d3_5c2a569da60e_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDC Race": [
+          "2135-2",
+          "2186-5"
+        ]
+      }
+    },
+    "ONCAdministrativeSex_PatientCharacteristicSex_4dc873e6_aec1_4ca7_9e88_e06b3d8bd6c3_source": {
+      "title": "ONCAdministrativeSex",
+      "description": "Patient Characteristic Sex: ONCAdministrativeSex",
+      "code_list_id": "2.16.840.1.113762.1.4.1",
+      "property": "gender",
+      "type": "characteristic",
+      "definition": "patient_characteristic_gender",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_4dc873e6_aec1_4ca7_9e88_e06b3d8bd6c3_source",
+      "variable": false,
+      "value": {
+        "type": "CD",
+        "system": "Administrative Sex",
+        "code": "F"
+      }
+    },
+    "Race_PatientCharacteristicRace_09f1f235_32d7_4f6d_b0a2_a57842c95342_source": {
+      "title": "Race",
+      "description": "Patient Characteristic Race: Race",
+      "code_list_id": "2.16.840.1.114222.4.11.836",
+      "property": "race",
+      "type": "characteristic",
+      "definition": "patient_characteristic_race",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Race_PatientCharacteristicRace_09f1f235_32d7_4f6d_b0a2_a57842c95342_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDC Race": [
+          "1002-5",
+          "2028-9",
+          "2054-5",
+          "2076-8",
+          "2106-3",
+          "2131-1"
+        ]
+      }
+    },
+    "EmergencyDepartmentVisit_EncounterPerformed_e9dfea5a_0011_42cc_b048_3a8748c1c4b0_source": {
+      "title": "EmergencyDepartmentVisit",
+      "description": "Encounter, Performed: EmergencyDepartmentVisit",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EmergencyDepartmentVisit_EncounterPerformed_e9dfea5a_0011_42cc_b048_3a8748c1c4b0_source",
+      "variable": false
+    }
+  },
+  "title": "Median Time from ED Arrival to ED Departure for Discharged ED Patients",
+  "type": "eh",
+  "updated_at": "2018-02-15T19:54:15.434Z",
+  "user_id": "501fdba3044a111b98000001",
+  "value_set_oid_version_objects": [
+    {
+      "oid": "2.16.840.1.113762.1.4.1",
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
+    },
+    {
+      "oid": "2.16.840.1.114222.4.11.836",
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
+    },
+    {
+      "oid": "2.16.840.1.114222.4.11.837",
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
+    },
+    {
+      "oid": "2.16.840.1.114222.4.11.3591",
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
+    },
+    {
+      "oid": "2.16.840.1.113883.3.117.1.7.1.87",
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
+    },
+    {
+      "oid": "2.16.840.1.113883.3.666.5.307",
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
+    },
+    {
+      "oid": "2.16.840.1.113883.3.117.1.7.1.299",
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
+    },
+    {
+      "oid": "2.16.840.1.113883.3.117.1.7.1.292",
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
+    },
+    {
+      "oid": "drc-9a0727cbd97def2f0dcfdd3e68a18188bb563ecab0d8afc4b2069fd27dca2310",
+      "version": ""
+    }
+  ],
+  "value_set_oids": [
+    "2.16.840.1.113762.1.4.1",
+    "2.16.840.1.114222.4.11.836",
+    "2.16.840.1.114222.4.11.837",
+    "2.16.840.1.114222.4.11.3591",
+    "2.16.840.1.113883.3.117.1.7.1.87",
+    "2.16.840.1.113883.3.666.5.307",
+    "2.16.840.1.113883.3.117.1.7.1.299",
+    "2.16.840.1.113883.3.117.1.7.1.292",
+    "drc-9a0727cbd97def2f0dcfdd3e68a18188bb563ecab0d8afc4b2069fd27dca2310"
+  ],
+  "version": null
+}
