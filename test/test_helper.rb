@@ -28,16 +28,80 @@ class Minitest::Test
 
   # Add more helper methods to be used by all tests here...
 
-  def collection_fixtures(collection, *id_attributes)
-    Mongoid.client(:default)[collection].drop
-    Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', collection, '*.json')).each do |json_fixture_file|
+  def collection_fixtures(file_path, *id_attributes)
+    Mongoid.client(:default)[file_path].drop
+
+    # Mongoid names collections based off of the default_client argument.
+    # With nested folders,the collection name is “records/X” (for example).
+    # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
+    collection = file_path.split(File::SEPARATOR)[0]
+
+    Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', file_path, '*.json')).each do |json_fixture_file|
       #puts "Loading #{json_fixture_file}"
       fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
+
+      convert_times(fixture_json)
+      set_mongoid_ids(fixture_json)
+      fix_binary_data(fixture_json)
+
+      # cql measures store data criteria differently than what is expected by the hds measure model.
+      # it doesn't make sense to add a whole new cql model just for testing, so transforming the 
+      # 'data_criteria' field to facilitate testing.
+      # this should not be a long term solution because we will eventually move to the qdm measure model.
+      if collection == 'measures' && fixture_json.key?('cql')
+        data_critiera = fixture_json['data_criteria']
+        fixture_json['data_criteria'] = []
+        data_critiera.each do |key, dc|
+          fixture_json['data_criteria'] << { key.to_s => dc }
+        end
+      end
+
       id_attributes.each do |attr|
         fixture_json[attr] = BSON::ObjectId.from_string(fixture_json[attr])
       end
-
       Mongoid.client(:default)[collection].insert_one(fixture_json)
+    end
+  end
+
+
+
+  # JSON.parse doesn't catch time fields, so this converts fields ending in _at
+  # to a Time object.
+  def convert_times(json)
+    if json.kind_of?(Hash)
+      json.each_pair do |k,v|
+        if k.ends_with?("_at")
+          json[k] = Time.parse(v)
+        end
+      end
+    end
+  end
+
+  def set_mongoid_ids(json)
+    if json.kind_of?( Hash)
+      json.each_pair do |k,v|
+        if v && v.kind_of?( Hash )
+          if v["$oid"]
+            json[k] = BSON::ObjectId.from_string(v["$oid"])
+          else
+            set_mongoid_ids(v)
+          end
+        end
+      end
+    end
+  end
+
+  def fix_binary_data(json)
+    if json.kind_of?(Hash)
+      json.each_pair do |k,v|
+        if v.kind_of?(Hash)
+          if v.has_key?('$binary')
+            json[k] = BSON::Binary.new(Base64.decode64(v['$binary']), v['$type'].to_sym)
+          else
+            fix_binary_data(v)
+          end
+        end
+      end
     end
   end
 
@@ -102,6 +166,7 @@ def collection_fixtures(collection, *id_attributes)
   Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', collection, '*.json')).each do |json_fixture_file|
     #puts "Loading #{json_fixture_file}"
     fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
+
     id_attributes.each do |attr|
       fixture_json[attr] = BSON::ObjectId.from_string(fixture_json[attr])
     end
