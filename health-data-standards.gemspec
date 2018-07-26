@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'uuid', '~> 2.3.7'
   s.add_dependency 'builder', '~> 3.1'
   s.add_dependency 'nokogiri', '~> 1.8.3'
+  s.add_dependency 'mongo', '~> 2.4.3'
   s.add_dependency 'highline', "~> 1.7.0"
 
   s.add_dependency 'rubyzip', '~> 1.2.1'
