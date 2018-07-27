@@ -29,10 +29,6 @@ class Cat1TestQRDAR5 < Minitest::Test
     end
   end
 
-  def test_sample
-    assert_equal @patient.first, "Elements"
-  end
-
   def test_encounter_performed_serialization
     encounter_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.23")
     encounter_performed_node = @doc.xpath(encounter_performed_xpath)
@@ -98,72 +94,4 @@ class Cat1TestQRDAR5 < Minitest::Test
     "//xmlns:entry//xmlns:templateId[@root=\"" + qrda_oid + "\"]/ancestor::xmlns:entry"
   end
 
-  # def test_patient_data_section_export
-  #   med_dispensed = @doc.at_xpath('//cda:supply[cda:templateId/@root="2.16.840.1.113883.10.20.24.3.45"]')
-  #   assert med_dispensed, "med_dispensed is nil"
-  #   assert_equal "Multivitamin", med_dispensed.at_xpath('./cda:text').text
-  # end
-
-  # def test_entries_for_data_criteria
-  #   # for some reason the find method isn't working on @measures
-  #   measure1 = @measures.select{|m| m.hqmf_id == '0001'}.first
-  #   assert measure1
-  #   data_criteria = measure1.all_data_criteria.find{|dc| dc.id == 'MedicationDispensedPreferredAsthmaTherapy_precondition_37'}
-  #   entries = entries_for_data_criteria(data_criteria, @patient)
-  #   assert_equal 1, entries.length
-  #   assert_equal 'Multivitamin', entries[0].description
-  # end
-
-  # def test_payer_information
-  #   data_criteria = OpenStruct.new(definition: "patient_characteristic_payer",
-  #                                  status: "",
-  #                                  negation: false)
-  #   entries = entries_for_data_criteria(data_criteria, @patient)
-  #   assert_equal 1, entries.length
-  #   assert entries.first.codes['Source of Payment Typology'].include?('6')
-  # end
-
-  # def test_unique_data_criteria
-  #   pairs = unique_data_criteria(@measures, false)
-  #   assert pairs
-  #   assert pairs.any? do |p|
-  #     p['data_criteria_oid'] == "2.16.840.1.113883.3.560.1.8" &&
-  #     p['value_set_oid'] == "2.16.840.1.113883.3.464.0001.373"
-  #   end
-  # end
-
-  # def test_handling_expired_patients
-  #   data_criteria = OpenStruct.new(definition: "patient_characteristic_expired", status: "", negation: false)
-  #   deathdate = Time.now.to_i
-  #   patient = OpenStruct.new(expired: true, deathdate: deathdate)
-  #   entries = entries_for_data_criteria(data_criteria, patient)
-  #   assert_equal 1, entries.length
-  #   assert_equal deathdate, entries.first.start_time
-  # end
-
-  # def test_measure_section_export
-  #   measure_entries = @doc.xpath('//cda:section[cda:templateId/@root="2.16.840.1.113883.10.20.24.2.3"]/cda:entry')
-  #   assert_equal @measures.length, measure_entries.size
-  #   measure = measure_entries.find do |measure_entry|
-  #     measure_entry.at_xpath('./cda:organizer/cda:reference/cda:externalDocument/cda:id[@extension="0001"]').present?
-  #   end
-  #   assert measure
-  # end
-
-  # def test_reporting_parameters_section_export
-  #   effective_time = @doc.at_xpath('//cda:section[cda:templateId/@root="2.16.840.1.113883.10.20.17.2.1"]/cda:entry/cda:act/cda:effectiveTime')
-  #   assert effective_time
-
-  #   assert_equal @start_date.to_formatted_s(:number), effective_time.at_xpath('./cda:low')['value']
-  #   assert_equal @end_date.to_formatted_s(:number), effective_time.at_xpath('./cda:high')['value']
-  # end
-
-  # def test_record_target_export
-  #   street_address = @doc.at_xpath('//cda:recordTarget/cda:patientRole/cda:addr/cda:streetAddressLine')
-  #   assert street_address
-
-  #   expected_addr = "15 Credibility Street"
-
-  #   assert_equal expected_addr, street_address.children.first.to_s
-  # end
 end
