@@ -29,41 +29,46 @@ class Minitest::Test
   # Add more helper methods to be used by all tests here...
 
   def collection_fixtures(file_path, *id_attributes)
-    Mongoid.client(:default)[file_path].drop
-
     # Mongoid names collections based off of the default_client argument.
     # With nested folders,the collection name is “records/X” (for example).
     # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
-    collection = file_path.split(File::SEPARATOR)[0]
+    collection_name = file_path.split(File::SEPARATOR)[0]
+    Mongoid.client(:default)[collection_name].drop
 
     Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', file_path, '*.json')).each do |json_fixture_file|
-      #puts "Loading #{json_fixture_file}"
       fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
+      if fixture_json.length == 0
+        next
+      end
 
-      convert_times(fixture_json)
-      set_mongoid_ids(fixture_json)
-      fix_binary_data(fixture_json)
+      # Value_sets are arrays of objects, unlike measures etc, so we need to iterate in that case.
+      fixture_json = [fixture_json] unless fixture_json.kind_of? Array
 
-      # cql measures store data criteria differently than what is expected by the hds measure model.
-      # it doesn't make sense to add a whole new cql model just for testing, so transforming the 
-      # 'data_criteria' field to facilitate testing.
-      # this should not be a long term solution because we will eventually move to the qdm measure model.
-      if collection == 'measures' && fixture_json.key?('cql')
-        data_critiera = fixture_json['data_criteria']
-        fixture_json['data_criteria'] = []
-        data_critiera.each do |key, dc|
-          fixture_json['data_criteria'] << { key.to_s => dc }
+      fixture_json.each do |fixture|
+        convert_times(fixture)
+        set_mongoid_ids(fixture)
+        fix_binary_data(fixture)
+
+        # cql measures store data criteria differently than what is expected by the hds measure model.
+        # it doesn't make sense to add a whole new cql model just for testing, so transforming the
+        # 'data_criteria' field to facilitate testing.
+        # this should not be a long term solution because we will eventually move to the qdm measure model.
+        if collection_name == 'measures' && fixture.key?('cql')
+          data_critiera = fixture['data_criteria']
+          fixture['data_criteria'] = []
+          data_critiera.each do |key, dc|
+            fixture['data_criteria'] << { key.to_s => dc }
+          end
         end
-      end
 
-      id_attributes.each do |attr|
-        fixture_json[attr] = BSON::ObjectId.from_string(fixture_json[attr])
+        id_attributes.each do |attr|
+          fixture[attr] = BSON::ObjectId.from_string(fixture[attr])
+        end
+
+        Mongoid.client(:default)[collection_name].insert_one(fixture)
       end
-      Mongoid.client(:default)[collection].insert_one(fixture_json)
     end
   end
-
-
 
   # JSON.parse doesn't catch time fields, so this converts fields ending in _at
   # to a Time object.
@@ -80,6 +85,9 @@ class Minitest::Test
   def set_mongoid_ids(json)
     if json.kind_of?( Hash)
       json.each_pair do |k,v|
+        if k == 'bundle_id' && v != nil && !v.empty?
+          json[k] = BSON::ObjectId.from_string(v)
+        end
         if v && v.kind_of?( Hash )
           if v["$oid"]
             json[k] = BSON::ObjectId.from_string(v["$oid"])
