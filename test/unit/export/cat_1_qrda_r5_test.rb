@@ -4,7 +4,6 @@ require 'pry'
 class Cat1TestQRDAR5 < Minitest::Test
   include HealthDataStandards::Export::Helper::Cat1ViewHelper
 
-  ENCOUNTER_PERFORMED_XPATH = '//xmlns:entry//templateId[@root="2.16.840.1.113883.10.20.24.3.23"]'
 
   def setup
     unless @initialized
@@ -26,13 +25,59 @@ class Cat1TestQRDAR5 < Minitest::Test
       @qrda_xml = HealthDataStandards::Export::Cat1.new("r5").export(@patient, @measure, @start_date, @end_date, nil, "r5")
       @doc = Nokogiri::XML(@qrda_xml)
       @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-      node = @doc.xpath(ENCOUNTER_PERFORMED_XPATH)
       @initialized = true
     end
   end
 
   def test_sample
     assert_equal @patient.first, "Elements"
+  end
+
+  def test_encounter_performed_serialization
+    encounter_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.23")
+    encounter_performed_node = @doc.xpath(encounter_performed_xpath)
+
+    # relevant period
+    relevant_period_node = encounter_performed_node.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:encounter/xmlns:effectiveTime")
+    start = relevant_period_node.xpath("./xmlns:low/@value")
+    stop = relevant_period_node.xpath("./xmlns:high/@value")
+
+    assert_equal "20120723080000", start.inner_text
+    assert_equal "20120723081500", stop.inner_text
+
+    # admission Source
+    # TODO: unsupported (?)
+
+    # diagnosis
+    diagnoses_nodes = encounter_performed_node.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:encounter/xmlns:entryRelationship/xmlns:act/xmlns:templateId[@root=\"2.16.840.1.113883.10.20.22.4.80\"]/parent::xmlns:act")
+
+    assert_equal 2, diagnoses_nodes.count
+
+    kidney_failure = diagnoses_nodes.xpath("./xmlns:entryRelationship/xmlns:observation/xmlns:value[@code=\"129151000119102\"]")
+    proteinuria = diagnoses_nodes.xpath("./xmlns:entryRelationship/xmlns:observation/xmlns:value[@code=\"12178007\"]")
+
+    assert kidney_failure != nil
+    assert proteinuria != nil
+
+    # discharge disposition
+
+    # length of stay
+
+    # negation rationale
+
+    # principal diagnosis
+
+    # code
+
+    # facility locations
+
+
+    debugger
+    @initialized = true
+  end
+
+  def get_entry_xpath(qrda_oid)
+    "//xmlns:entry//xmlns:templateId[@root=\"" + qrda_oid + "\"]/ancestor::xmlns:entry"
   end
 
   # def test_patient_data_section_export
