@@ -24,30 +24,33 @@
             <sdtc:dischargeDispositionCode code="<%= entry.discharge_disposition[:code] %>"
                 codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.discharge_disposition[:code_system]) %>"/>
         <% end -%>
-        <% if entry.respond_to?(:facility) && entry.facility.present? -%>
+        <% if entry.respond_to?(:facility) && entry.facility.present?
+          entry.facility[:values].each do |facility|
+          -%>
         <participant typeCode="LOC">
           <!-- Facility Location template -->
           <templateId root="2.16.840.1.113883.10.20.24.3.100" extension="2017-08-01"/>
           <time>
             <!-- Attribute: facility location arrival datetime -->
-            <low <%= value_or_null_flavor(entry.start_time) %>/>
+            <low <%= value_or_null_flavor(DateTime.strptime(facility[:locationPeriodLow], "%m/%d/%Y %I:%M %p").to_i) %>/>
             <!-- Attribute: facility location departure datetime -->
-            <high <%= value_or_null_flavor(entry.end_time) %>/>
+            <high <%= value_or_null_flavor(DateTime.strptime(facility[:locationPeriodHigh], "%m/%d/%Y %I:%M %p").to_i) %>/>
           </time>
           <participantRole classCode="SDLOC">
             <% if entry.facility[:values][0].present? -%>
-                <code code="<%= entry.facility[:values][0][:code][:code] %>"
-                  codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.facility[:values][0][:code][:code_system]) %>"/>
+                <code code="<%= facility[:code][:code] %>"
+                  codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(facility[:code][:code_system]) %>"/>
             <% else -%>
             <code nullFlavor="UNK"/>
             <% end -%>
             <telecom nullFlavor="UNK"/>
             <playingEntity classCode="PLC">
-              <name><%= entry.facility[:values][0][:display] %></name>
+              <name><%= facility[:display] %></name>
             </playingEntity>
           </participantRole>
         </participant>
-        <% end -%>
+        <%   end
+           end -%>
         <% if entry.reason.present? -%>
           <%== render(:partial => 'reason', :locals => {:entry => entry,:reason_oids=>field_oids["REASON"]}) %>
         <% end -%>
@@ -83,7 +86,7 @@
                         <!-- Attribute: discharge datetime -->
                         <high <%= value_or_null_flavor(entry.end_time) %>/>
                       </effectiveTime>
-                      <value code="<%= diagnosis[:code] %>" xsi:type="CD" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(diagnosis[:code_system]) %>" <% if diagnosis[:title] -%> displayName="<%= diagnosis[:title] %>" <% end -%>/>
+                      <value code="<%= diagnosis[:code] %>" xsi:type="CD" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(diagnosis[:code_system]) %>" />
                     </observation>
                   </entryRelationship>
                 </act>
