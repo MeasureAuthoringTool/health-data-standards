@@ -4,6 +4,8 @@ require 'pry'
 class Cat1TestQRDAR5 < Minitest::Test
   include HealthDataStandards::Export::Helper::Cat1ViewHelper
 
+  ENCOUNTER_PERFORMED_XPATH = '//xmlns:entry//templateId[@root="2.16.840.1.113883.10.20.24.3.23"]'
+
   def setup
     unless @initialized
       dump_database
@@ -15,7 +17,7 @@ class Cat1TestQRDAR5 < Minitest::Test
       collection_fixtures(valueset_set)
       collection_fixtures(measure_set)
 
-      @patient = Record.where({first: "Pass", last:"Numer"}).first
+      @patient = Record.where({first: "Elements", last:"Test"}).first
       @measure = [HealthDataStandards::CQM::Measure.first]
 
       @start_date = Time.now.years_ago(1)
@@ -24,12 +26,13 @@ class Cat1TestQRDAR5 < Minitest::Test
       @qrda_xml = HealthDataStandards::Export::Cat1.new("r5").export(@patient, @measure, @start_date, @end_date, nil, "r5")
       @doc = Nokogiri::XML(@qrda_xml)
       @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+      node = @doc.xpath(ENCOUNTER_PERFORMED_XPATH)
       @initialized = true
     end
   end
 
   def test_sample
-    assert_equal @patient.first, "Pass"
+    assert_equal @patient.first, "Elements"
   end
 
   # def test_patient_data_section_export
