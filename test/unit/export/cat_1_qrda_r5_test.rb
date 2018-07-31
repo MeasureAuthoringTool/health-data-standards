@@ -30,6 +30,7 @@ class Cat1TestQRDAR5 < Minitest::Test
   end
 
   def test_encounter_performed_serialization
+    #byebug
     encounter_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.23")
     encounter_performed_node = @doc.xpath(encounter_performed_xpath)
 
@@ -76,7 +77,6 @@ class Cat1TestQRDAR5 < Minitest::Test
 
     # facility locations
     facility_locations_nodes = encounter_performed_node.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:encounter/xmlns:participant/xmlns:templateId[@root=\"2.16.840.1.113883.10.20.24.3.100\"]/parent::xmlns:participant")
-    debugger
     assert_equal 2, facility_locations_nodes.count
 
     emergency_department = facility_locations_nodes.xpath("./xmlns:participantRole/xmlns:code[@code=\"4525004\"]/parent::xmlns:participantRole/parent::xmlns:participant")
@@ -88,6 +88,108 @@ class Cat1TestQRDAR5 < Minitest::Test
     assert office_visit != nil
     assert "20120723090000", emergency_department.xpath("./xmlns:time/xmlns:low").inner_text
     assert "20120723100000", emergency_department.xpath("./xmlns:time/xmlns:high").inner_text
+
+    # length of stay
+    # TODO
+
+  end
+
+  def test_diagnosis_serialization
+    # TODO: use diagnosis template
+    diagnosis_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.23")
+    # TODO: code, SNOMED-CT: 129151000119102
+    # TODO: prevalencePeriod, start and stop, 07/23/2012 8:00 AM and  07/23/2012 8:15 AM
+    # TODO: anatomicalLocationSite, Anatomical Location Site: Kidney Failure
+    # TODO: severity,  Severity: Proteinuria
+
+  end
+
+  def test_intervention_performed_serialization
+    # TODO: use intervention performed template
+    intervention_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.23")
+    # TODO: code, SNOMED-CT: 385763009
+    # TODO: relevantPeriod, start and stop, 07/23/2012 8:00 AM and  07/23/2012 8:15 AM
+    # TODO: reason, Reason: Kidney Failure
+    # TODO: result, Dead
+    # TODO: status, Status: Diabetes
+    # TODO: negationRationale, ???
+
+  end
+
+  def test_laboratory_test_performed_serialization
+    # TODO: use laboratory test performed template
+    lab_test_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.23")
+    #first test
+
+    # TODO: code, LOINC: 11218-5
+    # TODO: relevantPeriod, start and stop, 07/23/2012 8:00 AM and  07/23/2012 8:15 AM
+    # TODO: status, Status: Discharged to Health Care Facility for Hospice Care
+    # TODO: method, Method: Vascular Access for Dialysis
+    # TODO: result, 35 mg
+    # TODO: resultDatetime, Result Date/Time: 07/28/2012 8:00 AM
+    # TODO: reason, Reason: Kidney Failure
+    # TODO: referenceRange, start and stop, 20 mg and 60 mg
+    # TODO: negationRationale, ???
+    # TODO: components, ???
+
+    #second test
+
+    # TODO: code, LOINC: 11218-5
+    # TODO: relevantPeriod, start and stop, 07/23/2012 8:00 AM and  07/23/2012 8:15 AM
+    # TODO: status, ???
+    # TODO: method, ???
+    # TODO: result, ???
+    # TODO: resultDatetime, ???
+    # TODO: reason, ???
+    # TODO: referenceRange, ???
+    # TODO: negationRationale, ???
+    # TODO: components, Component: Proteinuria, 45 mg , Reference Range - Low: 20 mg, Reference Range - High: 60 mg
+    #Component: Vascular Access for Dialysis, Diabetes
+
+  end
+
+  def test_medication_active_serialization
+    # TODO: use medication active template
+    medication_active_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.23")
+    # TODO: code, RxNorm: 1000001
+    # TODO: relevantPeriod, start and stop, 07/23/2012 8:00 AM and  07/23/2012 8:15 AM
+    # TODO: dosage, Dosage: 60 mg
+    # TODO: supply, Supply: 60 {pills}
+    # TODO: frequency, Frequency: 1 mg/day
+    # TODO: route, Route: Vascular Access for Dialysis
+  end
+
+  def test_procedure_performed_serialization
+    # TODO: use procedure performed template
+    procedure_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.23")
+    # first procedure
+    # TODO: code, SNOMED-CT: 108241001
+    # TODO: relevantPeriod, start and stop, 07/23/2012 8:00 AM and  07/23/2012 8:15 AM
+    # TODO: reason, Reason: Proteinuria
+    # TODO: method, Method: Urine Protein Tests
+    # TODO: result, Dead
+    # TODO: status, Status: Dead
+    # TODO: anatomicalApproachSite, ???
+    # TODO: anatomicalLocationSite, Face-to-Face Interaction
+    # TODO: ordinality, Ordinality: 4
+    # TODO: incisionDatetime, Incision Date/Time: 07/12/2012 8:00 AM
+    # TODO: negationRationale, ???
+    # TODO: components, ???
+
+    #second procedure
+    # TODO: code, SNOMED-CT: 175899003
+    # TODO: relevantPeriod, start and stop, 07/23/2012 8:00 AM and  07/23/2012 8:15 AM
+    # TODO: reason, ???
+    # TODO: method, ???
+    # TODO: result, ???
+    # TODO: status, ???
+    # TODO: anatomicalApproachSite, ???
+    # TODO: anatomicalLocationSite, ???
+    # TODO: ordinality, type: ???
+    # TODO: incisionDatetime, ???
+    # TODO: negationRationale, ???
+    # TODO: components, Component: Diabetic Nephropathy, 56
+    # Component: Urine Protein Tests, Proteinuria
   end
 
   def get_entry_xpath(qrda_oid)
