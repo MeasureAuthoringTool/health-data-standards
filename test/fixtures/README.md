@@ -59,6 +59,8 @@ CMS108
 Covers Assessment Performed, Device Applied, Device Ordered, Medication
 Administered, Medication Ordered.
 
+NOTE: value set file is so large that git doesn't accept it. It needs to be divided into multiple files.
+
 bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS108v7,bonnie-fixtures@mitre.org,CMS108v7]
 
 
