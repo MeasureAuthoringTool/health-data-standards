@@ -142,6 +142,8 @@ class Cat1TestQRDAR5 < Minitest::Test
     diagnosis_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.135")
     diagnosis_node = @doc_134v6.xpath(diagnosis_xpath)
 
+    assert_equal 1, diagnosis_node.count
+
     # code
     code_node = diagnosis_node.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:observation/xmlns:value")
     assert_equal 1, code_node.count
@@ -170,12 +172,35 @@ class Cat1TestQRDAR5 < Minitest::Test
   def _test_intervention_performed_serialization
     intervention_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.32")
     intervention_performed_node = @doc_134v6.xpath(intervention_performed_xpath)
-    # TODO: code, SNOMED-CT: 385763009
-    # TODO: relevantPeriod, start and stop, 07/23/2012 8:00 AM and  07/23/2012 8:15 AM
-    # TODO: reason, Reason: Kidney Failure
-    # TODO: result, Dead
-    # TODO: status, Status: Diabetes
-    # TODO: negationRationale, ???
+
+    # code
+    code_node = intervention_performed_node.xpath("./xmlns:act/xmlns:code")
+    assert_equal 1, code_node.count
+    assert_equal "385763009", code_node.xpath("./@code").inner_text
+
+    # relevant period
+    relevant_period_node = intervention_performed_node.xpath("./xmlns:act/xmlns:effectiveTime")
+    start = relevant_period_node.xpath("./xmlns:low/@value")
+    stop = relevant_period_node.xpath("./xmlns:high/@value")
+
+    assert_equal "20120723080000", start.inner_text
+    assert_equal "20120723081500", stop.inner_text
+
+    # reason
+    reason_node = intervention_performed_node.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.88']/parent::xmlns:observation/xmlns:value")
+    assert_equal 1, reason_node.count
+    assert_equal "129151000119102", reason_node.xpath("./@code").inner_text
+
+    # result
+    result_node = intervention_performed_node.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.22.4.2']/parent::xmlns:observation/xmlns:value")
+    assert_equal 1, result_node.count
+    assert_equal "419099009", result_node.xpath("./@code").inner_text
+
+    # status
+    # does not exist in any AU measures. Not yet supported in QRDA export.
+
+    # negation rationale
+    # not present on this element
 
   end
 
