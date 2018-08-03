@@ -35,7 +35,49 @@ class Cat1TestQRDAR5 < Minitest::Test
     end
   end
 
-  def test_encounter_performed_serialization
+  # doing tests by measures. each test takes ~30 seconds to run due to setup. Testing by measures
+  # allows us to do this more efficiently by breaking the tests up into sub functions.
+
+  def test_CMS134_serialization
+    _test_encounter_performed_serialization
+    _test_diagnosis_serialization
+    _test_intervention_performed_serialization
+    _test_laboratory_test_performed_serialization
+    _test_medication_active_serialization
+    _test_procedure_performed_serialization
+  end
+
+  # CMS108v7
+  # Covers Assessment Performed, Device Applied, Device Order, Medication
+  # Administered, Medication Order.
+  #
+  # Note:
+  # • medication order missing “method”
+  # • device applied missing “anatomical approach site” and “anatomical location”
+  # (not present in Bonnie)
+  def test_CMS108_serialization
+    _test_assessment_performed_serialization
+    _test_device_applied_serialization
+    _test_device_order_serialization
+    _test_medication_administered_serialization
+    _test_medication_order_serialization
+  end
+
+  # CMS144v7
+  # Covers Allergy Intolerance, Diagnostic Study Performed, Physical Exam Performed.
+  #
+  # Note:
+  # • Allergy missing “type”
+  # • Physical exam missing “anatomical location”
+  def test_CMS144_serialization
+    _test_allergy_intolerance_serialization
+    _test_diagnostic_study_performed_serialization
+    _test_physical_exam_performed_serialization
+  end
+
+  # helper tests
+
+  def _test_encounter_performed_serialization
     encounter_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.23")
     encounter_performed_node = @doc_134v6.xpath(encounter_performed_xpath)
 
@@ -68,7 +110,7 @@ class Cat1TestQRDAR5 < Minitest::Test
     assert_equal "428361000124107", discharge_disposition_node.xpath("./@code").inner_text
 
     # negation rationale
-    # TODO
+    # not present on this element
 
     # principal diagnosis
     principal_diagnosis_node = encounter_performed_node.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:encounter/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root=\"2.16.840.1.113883.10.20.24.3.152\"]/parent::xmlns:observation")
@@ -94,22 +136,38 @@ class Cat1TestQRDAR5 < Minitest::Test
     assert "20120723090000", emergency_department.xpath("./xmlns:time/xmlns:low").inner_text
     assert "20120723100000", emergency_department.xpath("./xmlns:time/xmlns:high").inner_text
 
-    # length of stay
-    # TODO
-
   end
 
-  def test_diagnosis_serialization
+  def _test_diagnosis_serialization
     diagnosis_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.135")
     diagnosis_node = @doc_134v6.xpath(diagnosis_xpath)
-    # TODO: code, SNOMED-CT: 129151000119102
-    # TODO: prevalencePeriod, start and stop, 07/23/2012 8:00 AM and  07/23/2012 8:15 AM
-    # TODO: anatomicalLocationSite, Anatomical Location Site: Kidney Failure
-    # TODO: severity,  Severity: Proteinuria
+
+    # code
+    code_node = diagnosis_node.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:observation/xmlns:value")
+    assert_equal 1, code_node.count
+    assert_equal "129151000119102", code_node.xpath("./@code").inner_text
+
+    # prevalence period
+    prevalence_period_node = diagnosis_node.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:observation/xmlns:effectiveTime")
+    start = prevalence_period_node.xpath("./xmlns:low/@value")
+    stop = prevalence_period_node.xpath("./xmlns:high/@value")
+
+    assert_equal "20120723080000", start.inner_text
+    assert_equal "20120723081500", stop.inner_text
+
+    # anatomical location site
+    anatomical_location_node = diagnosis_node.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:observation/xmlns:targetSiteCode")
+    assert_equal 1, anatomical_location_node.count
+    assert_equal "129151000119102", anatomical_location_node.xpath("./@code").inner_text
+
+    # severity
+    severity_node = diagnosis_node.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:observation/xmlns:entryRelationship/xmlns:observation/xmlns:value")
+    assert_equal 1, severity_node.count
+    assert_equal "12178007", severity_node.xpath("./@code").inner_text
 
   end
 
-  def test_intervention_performed_serialization
+  def _test_intervention_performed_serialization
     intervention_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.32")
     intervention_performed_node = @doc_134v6.xpath(intervention_performed_xpath)
     # TODO: code, SNOMED-CT: 385763009
@@ -121,7 +179,7 @@ class Cat1TestQRDAR5 < Minitest::Test
 
   end
 
-  def test_laboratory_test_performed_serialization
+  def _test_laboratory_test_performed_serialization
     lab_test_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3")
     lab_test_performed_node = @doc_134v6.xpath(lab_test_performed_xpath)
     #first test
@@ -153,7 +211,7 @@ class Cat1TestQRDAR5 < Minitest::Test
 
   end
 
-  def test_medication_active_serialization
+  def _test_medication_active_serialization
     medication_active_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.41")
     medication_active_node = @doc_134v6.xpath(medication_active_xpath)
     # TODO: code, RxNorm: 1000001
@@ -164,7 +222,7 @@ class Cat1TestQRDAR5 < Minitest::Test
     # TODO: route, Route: Vascular Access for Dialysis
   end
 
-  def test_procedure_performed_serialization
+  def _test_procedure_performed_serialization
     procedure_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.64")
     procedure_performed_node = @doc_134v6.xpath(procedure_performed_xpath)
     # first procedure
@@ -207,7 +265,7 @@ class Cat1TestQRDAR5 < Minitest::Test
 # • device applied missing “anatomical approach site” and “anatomical location”
 # (not present in Bonnie)
 
-  def test_assessment_performed_serialization
+  def _test_assessment_performed_serialization
     assessment_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.144")
     assessment_performed_node = @doc_108v7.xpath(assessment_performed_xpath)
     # TODO: code, LOINC: 72136-5
@@ -223,7 +281,7 @@ class Cat1TestQRDAR5 < Minitest::Test
     # TODO: relatedTo, Related To: Device, Applied: Venous foot pumps (VFP) 08/01/2012
   end
 
-  def test_device_applied_serialization
+  def _test_device_applied_serialization
     device_applied_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.7")
     device_applied_node = @doc_108v7.xpath(device_applied_xpath)
     # TODO: code, SNOMED-CT: 442023007
@@ -237,7 +295,7 @@ class Cat1TestQRDAR5 < Minitest::Test
     #Note: has second "not performed" device applied
   end
 
-  def test_device_order_serialization
+  def _test_device_order_serialization
     device_order_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.9")
     device_order_node = @doc_108v7.xpath(device_order_xpath)
     # TODO: code, SNOMED-CT: 442023007
@@ -247,7 +305,7 @@ class Cat1TestQRDAR5 < Minitest::Test
 
   end
 
-  def test_medication_administered_serialization
+  def _test_medication_administered_serialization
     medication_administered_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.42")
     medication_administered_node = @doc_108v7.xpath(medication_administered_xpath)
 
@@ -261,7 +319,7 @@ class Cat1TestQRDAR5 < Minitest::Test
     # TODO: negationRationale, ???
   end
 
-  def test_medication_order_serialization
+  def _test_medication_order_serialization
     medication_order_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.47")
     medication_order_node = @doc_108v7.xpath(medication_order_xpath)
 
@@ -286,7 +344,7 @@ class Cat1TestQRDAR5 < Minitest::Test
 # • Allergy missing “type”
 # • Physical exam missing “anatomical location”
 
-  def test_allergy_intolerance_serialization
+  def _test_allergy_intolerance_serialization
     allergy_intolerance_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.147")
     allergy_intolerance_node = @doc_144v7.xpath(allergy_intolerance_xpath)
 
@@ -296,7 +354,7 @@ class Cat1TestQRDAR5 < Minitest::Test
     # TODO: severity, Severity: Heart rate
   end
 
-  def test_diagnostic_study_performed_serialization
+  def _test_diagnostic_study_performed_serialization
     diagnostic_study_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.18")
     diagnostic_study_performed_node = @doc_144v7.xpath(diagnostic_study_performed_xpath)
 
@@ -314,7 +372,7 @@ class Cat1TestQRDAR5 < Minitest::Test
     # Component: Intensive Care Unit, 08/01/2012 9:00 AM
   end
 
-  def test_physical_exam_performed_serialization
+  def _test_physical_exam_performed_serialization
     physical_exam_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.59")
     physical_exam_performed_node = @doc_144v7.xpath(physical_exam_performed_xpath)
 
