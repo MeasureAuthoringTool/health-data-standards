@@ -173,6 +173,8 @@ class Cat1TestQRDAR5 < Minitest::Test
     intervention_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.32")
     intervention_performed_node = @doc_134v6.xpath(intervention_performed_xpath)
 
+    assert_equal 1, intervention_performed_node.count
+
     # code
     code_node = intervention_performed_node.xpath("./xmlns:act/xmlns:code")
     assert_equal 1, code_node.count
@@ -205,33 +207,108 @@ class Cat1TestQRDAR5 < Minitest::Test
   end
 
   def _test_laboratory_test_performed_serialization
-    lab_test_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3")
-    lab_test_performed_node = @doc_134v6.xpath(lab_test_performed_xpath)
-    #first test
+    lab_test_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.38")
+    lab_test_performed_nodes = @doc_134v6.xpath(lab_test_performed_xpath)
 
-    # TODO: code, LOINC: 11218-5
-    # TODO: relevantPeriod, start and stop, 07/23/2012 8:00 AM and  07/23/2012 8:15 AM
-    # TODO: status, Status: Discharged to Health Care Facility for Hospice Care
-    # TODO: method, Method: Vascular Access for Dialysis
-    # TODO: result, 35 mg
-    # TODO: resultDatetime, Result Date/Time: 07/28/2012 8:00 AM
-    # TODO: reason, Reason: Kidney Failure
-    # TODO: referenceRange, start and stop, 20 mg and 60 mg
-    # TODO: negationRationale, ???
-    # TODO: components, ???
+    assert_equal 2, lab_test_performed_nodes.count
+
+    lab_test_performed_node1 = lab_test_performed_nodes.xpath("./xmlns:observation/xmlns:code[@code='11218-5']/../..")
+    assert_equal 1, lab_test_performed_node1.count
+
+    lab_test_performed_node2 = lab_test_performed_nodes.xpath("./xmlns:observation/xmlns:code[@code='12842-1']/../..")
+    assert_equal 1, lab_test_performed_node2.count
+
+    # first test
+
+    # code already confirmed above
+
+    # relevant period
+    relevant_period_node = lab_test_performed_node1.xpath("./xmlns:observation/xmlns:effectiveTime")
+    start = relevant_period_node.xpath("./xmlns:low/@value")
+    stop = relevant_period_node.xpath("./xmlns:high/@value")
+
+    assert_equal "20120723080000", start.inner_text
+    assert_equal "20120723081500", stop.inner_text
+
+    # status
+    # does not exist in any AU measures. Not yet supported in QRDA export.
+
+    # method
+    # appears to be missing from the qrda spec. observations contain 'methodCode', but this is not noted for use w method in the spec
+
+    # result
+    result_node = lab_test_performed_node1.xpath("./xmlns:observation/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.22.4.2']/parent::xmlns:observation/xmlns:value")
+    assert_equal 1, result_node.count
+    assert_equal "35", result_node.xpath("./@value").inner_text
+    assert_equal "mg", result_node.xpath("./@unit").inner_text
+
+    # result date time
+    result_date_time_node = lab_test_performed_node1.xpath("./xmlns:observation/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.22.4.2']/parent::xmlns:observation/xmlns:effectiveTime")
+    # start and stop should be equal
+    start = result_date_time_node.xpath("./xmlns:low/@value")
+    stop = result_date_time_node.xpath("./xmlns:high/@value")
+    assert_equal "20120728080000", start.inner_text
+    assert_equal start.inner_text, stop.inner_text
+
+    # reason
+    reason_node = lab_test_performed_node1.xpath("./xmlns:observation/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.88']/parent::xmlns:observation/xmlns:value")
+    assert_equal 1, reason_node.count
+    assert_equal "129151000119102", reason_node.xpath("./@code").inner_text
+
+    # reference range
+    reference_range_node = lab_test_performed_node1.xpath("./xmlns:observation/xmlns:referenceRange")
+    assert_equal 1, reference_range_node.count
+
+    low = reference_range_node.xpath("./xmlns:observationRange/xmlns:value/xmlns:low")
+    high = reference_range_node.xpath("./xmlns:observationRange/xmlns:value/xmlns:high")
+
+    assert_equal "20", low.xpath("./@value").inner_text
+    assert_equal "mg", low.xpath("./@unit").inner_text
+    assert_equal "60", high.xpath("./@value").inner_text
+    assert_equal "mg", high.xpath("./@unit").inner_text
 
     #second test
 
-    # TODO: code, LOINC: 11218-5
-    # TODO: relevantPeriod, start and stop, 07/23/2012 8:00 AM and  07/23/2012 8:15 AM
-    # TODO: status, ???
-    # TODO: method, ???
-    # TODO: result, ???
-    # TODO: resultDatetime, ???
-    # TODO: reason, ???
-    # TODO: referenceRange, ???
-    # TODO: negationRationale, ???
-    # TODO: components, Component: Proteinuria, 45 mg , Reference Range - Low: 20 mg, Reference Range - High: 60 mg
+    # code already confirmed above
+
+    # relevant period
+    relevant_period_node = lab_test_performed_node2.xpath("./xmlns:observation/xmlns:effectiveTime")
+    start = relevant_period_node.xpath("./xmlns:low/@value")
+    stop = relevant_period_node.xpath("./xmlns:high/@value")
+
+    assert_equal "20120723080000", start.inner_text
+    assert_equal "20120723081500", stop.inner_text
+
+    # components
+    component_nodes = lab_test_performed_node2.xpath("./xmlns:observation/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.149']/../..")
+    assert_equal 2, component_nodes.count
+
+    component_node1 = component_nodes.xpath("./xmlns:observation/xmlns:code[@code='12178007']/../..")
+    component_node2 = component_nodes.xpath("./xmlns:observation/xmlns:code[@code='180272001']/../..")
+    assert_equal 1, component_node1.count
+    assert_equal 1, component_node2.count
+
+    # first component
+    component_result_node = component_node1.xpath("./xmlns:observation/xmlns:value")
+    assert_equal 1, component_result_node.count
+    assert_equal "45", component_result_node.xpath("./@value").inner_text
+    assert_equal "mg", component_result_node.xpath("./@unit").inner_text
+
+    component_reference_range_node = component_node1.xpath("./xmlns:observation/xmlns:referenceRange")
+    assert_equal 1, reference_range_node.count
+
+    low = reference_range_node.xpath("./xmlns:observationRange/xmlns:value/xmlns:low")
+    high = reference_range_node.xpath("./xmlns:observationRange/xmlns:value/xmlns:high")
+
+    assert_equal "20", low.xpath("./@value").inner_text
+    assert_equal "mg", low.xpath("./@unit").inner_text
+    assert_equal "60", high.xpath("./@value").inner_text
+    assert_equal "mg", high.xpath("./@unit").inner_text
+
+
+
+
+    # TODO: components
     #Component: Vascular Access for Dialysis, Diabetes
 
   end
