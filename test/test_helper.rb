@@ -35,7 +35,7 @@ class Minitest::Test
     collection_name = file_path.split(File::SEPARATOR)[0]
     Mongoid.client(:default)[collection_name].drop
 
-    Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', file_path, '*.json')).each do |json_fixture_file|
+    Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', file_path, '**/*.json')).each do |json_fixture_file|
       fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
       if fixture_json.length == 0
         next
@@ -61,11 +61,18 @@ class Minitest::Test
           end
         end
 
+        mon_collection = Mongoid.client(:default)[collection_name]
+        id_exists = false
+
         id_attributes.each do |attr|
           fixture[attr] = BSON::ObjectId.from_string(fixture[attr])
+          id_exists = (mon_collection.find(attr => fixture[attr]).count>0)
+          break if id_exists
         end
 
-        Mongoid.client(:default)[collection_name].insert_one(fixture)
+        # check for existing identifier (dont' add if already exists)
+        mon_collection.insert_one(fixture) if !id_exists
+
       end
     end
   end
@@ -174,12 +181,18 @@ def collection_fixtures(collection, *id_attributes)
   Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', collection, '*.json')).each do |json_fixture_file|
     #puts "Loading #{json_fixture_file}"
     fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
+    mon_collection = Mongoid.client(:default)[collection]
 
+    id_exists = false
     id_attributes.each do |attr|
       fixture_json[attr] = BSON::ObjectId.from_string(fixture_json[attr])
+      id_exists = (mon_collection.find(attr => fixture_json[attr]).count>0)
+      break if id_exists
     end
 
-    Mongoid.client(:default)[collection].insert_one(fixture_json)
+    # check for existing identifier (dont' add if already exists)
+
+    mon_collection.insert_one(fixture_json) if !id_exists
   end
 end
 

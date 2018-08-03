@@ -15,10 +15,9 @@
       <effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A">
         <period nullFlavor="NA"/>
       </effectiveTime>
-    <% elsif entry.administrationTiming.present?
-      period = entry.administrationTiming['period'] %>
+    <% elsif entry.administrationTiming.present? %>
       <effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A">
-        <period value="<%= period['value']%>" unit="<%= period['unit']%>"/>
+        <period value="<%= entry.administrationTiming['scalar']%>" unit="<%= entry.administrationTiming['units']%>"/>
       </effectiveTime>
     <% end %>
     <% if entry.allowedAdministrations.present? %>
