@@ -220,7 +220,8 @@ class Cat1TestQRDAR5 < Minitest::Test
 
     # first test
 
-    # code already confirmed above
+    # code
+    # already confirmed above
 
     # relevant period
     relevant_period_node = lab_test_performed_node1.xpath("./xmlns:observation/xmlns:effectiveTime")
@@ -269,7 +270,8 @@ class Cat1TestQRDAR5 < Minitest::Test
 
     #second test
 
-    # code already confirmed above
+    # code
+    # already confirmed above
 
     # relevant period
     relevant_period_node = lab_test_performed_node2.xpath("./xmlns:observation/xmlns:effectiveTime")
@@ -305,23 +307,58 @@ class Cat1TestQRDAR5 < Minitest::Test
     assert_equal "60", high.xpath("./@value").inner_text
     assert_equal "mg", high.xpath("./@unit").inner_text
 
-
-
-
-    # TODO: components
-    #Component: Vascular Access for Dialysis, Diabetes
+    # second component
+    component_result_node = component_node2.xpath("./xmlns:observation/xmlns:value")
+    assert_equal 1, component_result_node.count
+    assert_equal "105401000119101", component_result_node.xpath("./@code").inner_text
 
   end
 
   def _test_medication_active_serialization
     medication_active_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.41")
     medication_active_node = @doc_134v6.xpath(medication_active_xpath)
-    # TODO: code, RxNorm: 1000001
-    # TODO: relevantPeriod, start and stop, 07/23/2012 8:00 AM and  07/23/2012 8:15 AM
-    # TODO: dosage, Dosage: 60 mg
-    # TODO: supply, Supply: 60 {pills}
-    # TODO: frequency, Frequency: 1 mg/day
-    # TODO: route, Route: Vascular Access for Dialysis
+
+    assert_equal 1, medication_active_node.count
+
+    # code
+    code_node = medication_active_node.xpath("./xmlns:substanceAdministration/xmlns:consumable/xmlns:manufacturedProduct/xmlns:manufacturedMaterial/xmlns:code")
+    assert_equal 1, code_node.count
+    assert_equal "1000001", code_node.xpath("./@code").inner_text
+
+    # effective time elements
+    effective_time_nodes = medication_active_node.xpath("./xmlns:substanceAdministration/xmlns:effectiveTime")
+    assert_equal 2, effective_time_nodes.count
+
+    # relevant period
+    relevant_period_node = effective_time_nodes[0]
+    start = relevant_period_node.xpath("./xmlns:low/@value")
+    stop = relevant_period_node.xpath("./xmlns:high/@value")
+
+    assert_equal "20120723080000", start.inner_text
+    assert_equal "20120723081500", stop.inner_text
+
+    # frequency
+    frequency_node = effective_time_nodes[1].xpath("./xmlns:period")
+    assert_equal "1", frequency_node.xpath("./@value").inner_text
+    assert_equal "mg/day", frequency_node.xpath("./@unit").inner_text
+
+    # dosage
+    dosage_node = medication_active_node.xpath("./xmlns:substanceAdministration/xmlns:doseQuantity")
+    assert_equal 1, dosage_node.count
+    assert_equal "60", dosage_node.xpath("./@value").inner_text
+    assert_equal "mg", dosage_node.xpath("./@unit").inner_text
+
+    # supply
+    supply_node = medication_active_node.xpath("./xmlns:substanceAdministration/xmlns:entryRelationship/xmlns:supply")
+    assert_equal 1, supply_node.count
+    assert_equal "60", supply_node.xpath("./xmlns:quantity/@value").inner_text
+    assert_equal "{pills}", supply_node.xpath("./xmlns:quantity/@unit").inner_text
+
+    # route
+    route_node = medication_active_node.xpath("./xmlns:substanceAdministration/xmlns:routeCode")
+    assert_equal 1, route_node.count
+    assert_equal "180272001", route_node.xpath("./@code").inner_text
+
   end
 
   def _test_procedure_performed_serialization

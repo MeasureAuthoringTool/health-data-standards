@@ -1,13 +1,16 @@
-
+<% if entry.supply %>
 <entryRelationship typeCode="REFR">
   <supply classCode="SPLY" moodCode="EVN">
     <!-- Medication Dispense template -->
     <templateId root="2.16.840.1.113883.10.20.22.4.18" extension="2014-06-09"/>
     <id root="1.3.6.1.4.1.115" extension="<%= UUID.generate %>"/>
     <statusCode code="completed"/>
-    <effectiveTime <%= value_or_null_flavor(medication_dispense.dispense_date) %>/>
+    <effectiveTime xsi:type="IVL_TS">
+        <low <%= value_or_null_flavor(entry.start_time) %>/>
+        <high <%= value_or_null_flavor(entry.end_time) %>/>
+    </effectiveTime>
     <repeatNumber value="1"/>
-    <quantity <%= fulfillment_quantity(entry.codes, medication_dispense, entry.dose) %>/>
+    <quantity value="<%= entry.supply[:scalar] %>" <% if entry.supply[:units] %>unit="<%= entry.supply[:units] %>"<% end %>/>
     <product>
       <manufacturedProduct classCode="MANU">
         <!-- Medication Information (consolidation) template -->
@@ -20,3 +23,4 @@
     </product>
   </supply>
 </entryRelationship>
+<% end %>
