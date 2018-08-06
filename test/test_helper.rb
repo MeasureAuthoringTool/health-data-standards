@@ -35,7 +35,7 @@ class Minitest::Test
     collection_name = file_path.split(File::SEPARATOR)[0]
     Mongoid.client(:default)[collection_name].drop
 
-    Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', file_path, '**/*.json')).each do |json_fixture_file|
+    Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', file_path, '*.json')).each do |json_fixture_file|
       fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
       if fixture_json.length == 0
         next
@@ -120,6 +120,9 @@ class Minitest::Test
     end
   end
 
+  def get_entry_xpath(qrda_oid)
+    "//xmlns:entry//xmlns:templateId[@root=\"" + qrda_oid + "\"]/ancestor::xmlns:entry"
+  end
 
   # Delete all collections from the database.
   def dump_database
