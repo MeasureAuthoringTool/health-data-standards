@@ -599,33 +599,153 @@ class Cat1TestQRDAR5 < Minitest::Test
 
     def _test_medication_administered_serialization
       medication_administered_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.42")
-      medication_administered_node = @doc_108v7.xpath(medication_administered_xpath)
+      medication_administered_nodes = @doc_108v7.xpath(medication_administered_xpath)
 
-      # TODO: code, RxNorm: 1037045
-      # TODO: relevantPeriod, start and stop, 08/01/2012 8:00 AM and UNDEFINED
-      # TODO: dosage, Dosage: 5 mg
-      # TODO: supply, Supply: 100 mg
-      # TODO: frequency, Frequency: 3 days
-      # TODO: route, Route: Intravenous route
-      # TODO: reason, Reason: Emergency Department Visit
-      # TODO: negationRationale, ???
+      assert_equal 2, medication_administered_nodes.count
+
+      medication_administered_node1 = medication_administered_nodes.xpath("./xmlns:substanceAdministration/xmlns:consumable/xmlns:manufacturedProduct/xmlns:manufacturedMaterial/xmlns:code[@code='1037045']/../../../../..")
+      assert_equal 1, medication_administered_node1.count
+
+      medication_administered_node2 = medication_administered_nodes.xpath("./xmlns:substanceAdministration/xmlns:consumable/xmlns:manufacturedProduct/xmlns:manufacturedMaterial/xmlns:code[@code='1361226']/../../../../..")
+      assert_equal 1, medication_administered_node2.count
+
+      # first medication
+
+      # code
+      # already confirmed above
+
+      # effective time elements
+      effective_time_nodes = medication_administered_node1.xpath("./xmlns:substanceAdministration/xmlns:effectiveTime")
+      assert_equal 2, effective_time_nodes.count
+
+      # relevant period
+      relevant_period_node = effective_time_nodes[0]
+      start = relevant_period_node.xpath("./xmlns:low/@value")
+      stop = relevant_period_node.xpath("./xmlns:high/@value")
+      stop_undef = relevant_period_node.xpath("./xmlns:high/@nullFlavor")
+
+      assert_equal "20120801080000", start.inner_text
+      assert_equal 0, stop.count
+      assert_equal "UNK", stop_undef.inner_text
+
+      # frequency
+      frequency_node = effective_time_nodes[1].xpath("./xmlns:period")
+      assert_equal "3", frequency_node.xpath("./@value").inner_text
+      assert_equal "days", frequency_node.xpath("./@unit").inner_text
+
+      # dosage
+      dosage_node = medication_administered_node1.xpath("./xmlns:substanceAdministration/xmlns:doseQuantity")
+      assert_equal 1, dosage_node.count
+      assert_equal "5", dosage_node.xpath("./@value").inner_text
+      assert_equal "mg", dosage_node.xpath("./@unit").inner_text
+
+      # supply
+      supply_node = medication_administered_node1.xpath("./xmlns:substanceAdministration/xmlns:entryRelationship/xmlns:supply")
+      assert_equal 1, supply_node.count
+      assert_equal "100", supply_node.xpath("./xmlns:quantity/@value").inner_text
+      assert_equal "mg", supply_node.xpath("./xmlns:quantity/@unit").inner_text
+
+      # route
+      route_node = medication_administered_node1.xpath("./xmlns:substanceAdministration/xmlns:routeCode")
+      assert_equal 1, route_node.count
+      assert_equal "418114005", route_node.xpath("./@code").inner_text
+
+      # second medication
+
+      # code
+      # already confirmed above
+
+      # author date time
+      author_datetime_node = medication_administered_node2.xpath("./xmlns:substanceAdministration/xmlns:effectiveTime")
+      start = author_datetime_node.xpath("./xmlns:low/@value")
+
+      assert_equal "20120801080000", start.inner_text
+
+      # negation rationale
+      negation_indicator = medication_administered_node2.xpath("./xmlns:substanceAdministration/@negationInd")
+      assert_equal "true", negation_indicator.inner_text
+
+      negation_reason_node = medication_administered_node2.xpath("./xmlns:substanceAdministration/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.88']/parent::xmlns:observation/xmlns:value")
+      assert_equal 1, negation_reason_node.count
+      assert_equal "861356", negation_reason_node.xpath("./@code").inner_text
+
     end
 
     def _test_medication_order_serialization
       medication_order_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.47")
-      medication_order_node = @doc_108v7.xpath(medication_order_xpath)
+      medication_order_nodes = @doc_108v7.xpath(medication_order_xpath)
 
-      # TODO: code, RxNorm: 855288
-      # TODO: activeDatetime, ???
-      # TODO: relevantPeriod, start and stop, 08/01/2012 8:00 AM and 08/01/2012 8:15 AM
-      # TODO: refills, Refills: 9
-      # TODO: dosage, Dosage: 5 mg
-      # TODO: supply, Supply: 100 mg
-      # TODO: frequency, Frequency: 1 day
-      # TODO: route, Route: Subcutaneous route
-      # TODO: method, ???
-      # TODO: reason, Reason: Atrial Fibrillation/Flutter
-      # TODO: negationRationale, ???
+      assert_equal 2, medication_order_nodes.count
+
+      medication_order_node1 = medication_order_nodes.xpath("./xmlns:substanceAdministration/xmlns:consumable/xmlns:manufacturedProduct/xmlns:manufacturedMaterial/xmlns:code[@code='855288']/../../../../..")
+      assert_equal 1, medication_order_node1.count
+
+      medication_order_node2 = medication_order_nodes.xpath("./xmlns:substanceAdministration/xmlns:consumable/xmlns:manufacturedProduct/xmlns:manufacturedMaterial/xmlns:code[@code='1361226']/../../../../..")
+      assert_equal 1, medication_order_node2.count
+
+      # first medication
+
+      # code
+      # already confirmed above
+
+      # effective time elements
+      effective_time_nodes = medication_order_node1.xpath("./xmlns:substanceAdministration/xmlns:effectiveTime")
+      assert_equal 2, effective_time_nodes.count
+
+      # author date time
+      author_datetime_node = effective_time_nodes[0]
+      start = author_datetime_node.xpath("./xmlns:low/@value")
+
+      assert_equal "20120801080000", start.inner_text
+
+      # frequency
+      frequency_node = effective_time_nodes[1].xpath("./xmlns:period")
+      assert_equal "1", frequency_node.xpath("./@value").inner_text
+      assert_equal "day", frequency_node.xpath("./@unit").inner_text
+
+      # dosage
+      dosage_node = medication_order_node1.xpath("./xmlns:substanceAdministration/xmlns:doseQuantity")
+      assert_equal 1, dosage_node.count
+      assert_equal "5", dosage_node.xpath("./@value").inner_text
+      assert_equal "mg", dosage_node.xpath("./@unit").inner_text
+
+      # # supply
+      # TODO: don't see this in the QRDA documentation even though it's in the QDM model
+      # supply_node = medication_order_node1.xpath("./xmlns:substanceAdministration/xmlns:entryRelationship/xmlns:supply")
+      # assert_equal 1, supply_node.count
+      # assert_equal "100", supply_node.xpath("./xmlns:quantity/@value").inner_text
+      # assert_equal "mg", supply_node.xpath("./xmlns:quantity/@unit").inner_text
+
+      # route
+      route_node = medication_order_node1.xpath("./xmlns:substanceAdministration/xmlns:routeCode")
+      assert_equal 1, route_node.count
+      assert_equal "34206005", route_node.xpath("./@code").inner_text
+
+      # refills
+      refills_node = medication_order_node1.xpath("./xmlns:substanceAdministration/xmlns:repeatNumber")
+      assert_equal "9", refills_node.xpath("./@value").inner_text
+
+      # method
+      # not available in bonnie
+
+      # second medication
+
+      # code
+      # already confirmed above
+
+      # author date time
+      author_datetime_node = medication_order_node2.xpath("./xmlns:substanceAdministration/xmlns:effectiveTime")
+      start = author_datetime_node.xpath("./xmlns:low/@value")
+
+      assert_equal "20120801080000", start.inner_text
+
+      # negation rationale
+      negation_indicator = medication_order_node2.xpath("./xmlns:substanceAdministration/@negationInd")
+      assert_equal "true", negation_indicator.inner_text
+
+      negation_reason_node = medication_order_node2.xpath("./xmlns:substanceAdministration/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.88']/parent::xmlns:observation/xmlns:value")
+      assert_equal 1, negation_reason_node.count
+      assert_equal "10007009", negation_reason_node.xpath("./@code").inner_text
     end
 
   end

@@ -22,6 +22,8 @@
     <% end %>
     <% if entry.allowedAdministrations.present? %>
       <repeatNumber value="<%== entry.allowedAdministrations %>" />
+    <% elsif entry.refills.present? %>
+      <repeatNumber value="<%== entry.refills['scalar'] %>" %>"/>
     <% end %>
      <%== render(:partial => 'medication_details', :locals => {:entry => entry, :route_oids=>field_oids["ROUTE"]}) %>
     <consumable>
