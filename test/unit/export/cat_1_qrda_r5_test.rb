@@ -18,7 +18,6 @@ class Cat1TestQRDAR5 < Minitest::Test
 
     def setup
       unless @initialized
-        puts "BEFORE ALL"
         dump_database
         # clear cached value sets
         HealthDataStandards::Export::Helper::ScoopedViewHelper::VS_MAP.clear
@@ -396,7 +395,7 @@ class Cat1TestQRDAR5 < Minitest::Test
       # negation rationale
       # no negation rationale present on this element
 
-      #second procedure
+      # second procedure
 
       # code
       # already confirmed above
@@ -496,25 +495,105 @@ class Cat1TestQRDAR5 < Minitest::Test
 
     def _test_device_applied_serialization
       device_applied_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.7")
-      device_applied_node = @doc_108v7.xpath(device_applied_xpath)
-      # TODO: code, SNOMED-CT: 442023007
-      # TODO: authorDatetime, type: DateTime
-      # TODO: relevantPeriod, start and stop, 08/01/2012 8:00 AM and undefined
-      # TODO: negationRationale, ???
-      # TODO: reason, Reason: Hemorrhagic Stroke
-      # TODO: anatomicalLocationSite, ???
-      # TODO: anatomicalApproachSite, ???
+      device_applied_nodes = @doc_108v7.xpath(device_applied_xpath)
 
-      #Note: has second "not performed" device applied
+      assert_equal 2, device_applied_nodes.count
+
+      device_applied_node1 = device_applied_nodes.xpath("./xmlns:procedure/xmlns:participant/xmlns:participantRole/xmlns:playingDevice/xmlns:code[@code='442023007']/../../../../..")
+      assert_equal 1, device_applied_node1.count
+
+      device_applied_node2 = device_applied_nodes.xpath("./xmlns:procedure/xmlns:participant/xmlns:participantRole/xmlns:playingDevice/xmlns:code[@code='428411000124104']/../../../../..")
+      assert_equal 1, device_applied_node2.count
+
+      # first device
+
+      # code
+      # already confirmed above
+
+      # relevant period
+      relevant_period_node = device_applied_node1.xpath("./xmlns:procedure/xmlns:effectiveTime")
+      start = relevant_period_node.xpath("./xmlns:low/@value")
+      stop = relevant_period_node.xpath("./xmlns:high/@value")
+      stop_undef = relevant_period_node.xpath("./xmlns:high/@nullFlavor")
+
+      assert_equal "20120801080000", start.inner_text
+      assert_equal 0, stop.count
+      assert_equal "UNK", stop_undef.inner_text
+
+      # reason
+      reason_node = device_applied_node1.xpath("./xmlns:procedure/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.88']/parent::xmlns:observation/xmlns:value")
+      assert_equal 1, reason_node.count
+      assert_equal "195155004", reason_node.xpath("./@code").inner_text
+
+      # anatomical location site
+      # not available in bonnie
+
+      # anatomical approach site
+      # not available in bonnie
+
+      # second device
+
+      # code
+      # already confirmed above
+
+      # author date time
+      author_datetime_node = device_applied_node2.xpath("./xmlns:procedure/xmlns:effectiveTime")
+      start = author_datetime_node.xpath("./xmlns:low/@value")
+
+      assert_equal "20120801080000", start.inner_text
+
+      # negation rationale
+      negation_indicator = device_applied_node2.xpath("./xmlns:procedure/@negationInd")
+      assert_equal "true", negation_indicator.inner_text
+
+      negation_reason_node = device_applied_node2.xpath("./xmlns:procedure/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.88']/parent::xmlns:observation/xmlns:value")
+      assert_equal 1, negation_reason_node.count
+      assert_equal "1037045", negation_reason_node.xpath("./@code").inner_text
+
     end
 
     def _test_device_order_serialization
       device_order_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.9")
-      device_order_node = @doc_108v7.xpath(device_order_xpath)
-      # TODO: code, SNOMED-CT: 442023007
-      # TODO: authorDatetime, start_time, 1343808000
-      # TODO: negationRationale, ???
-      # TODO: reason, "code_system": "ICD-10-PCS",   "code": "0SP909Z",   "title": "Hip Replacement Surgery"
+      device_order_nodes = @doc_108v7.xpath(device_order_xpath)
+      assert_equal 2, device_order_nodes.count
+
+      device_order_node1 = device_order_nodes.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:supply/xmlns:participant/xmlns:participantRole/xmlns:playingDevice/xmlns:code[@code='442023007']/../../../../../../..")
+      assert_equal 1, device_order_node1.count
+
+      device_order_node2 = device_order_nodes.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:supply/xmlns:participant/xmlns:participantRole/xmlns:playingDevice/xmlns:code[@code='348681001']/../../../../../../..")
+      assert_equal 1, device_order_node2.count
+
+      # first device
+
+      # code
+      # already confirmed above
+
+      # author datetime
+      author_datetime_node = device_order_node1.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:supply/xmlns:effectiveTime")
+      start = author_datetime_node.xpath("./xmlns:low/@value")
+
+      assert_equal "20120801080000", start.inner_text
+
+      # reason
+      reason_node = device_order_node1.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:supply/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.88']/parent::xmlns:observation/xmlns:value")
+      assert_equal 1, reason_node.count
+      assert_equal "0SP909Z", reason_node.xpath("./@code").inner_text
+
+      # second device
+
+      # author date time
+      author_datetime_node = device_order_node2.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:supply/xmlns:effectiveTime")
+      start = author_datetime_node.xpath("./xmlns:low/@value")
+
+      assert_equal "20120801080000", start.inner_text
+
+      # negation rationale
+      negation_indicator = device_order_node2.xpath("./xmlns:act/@negationInd")
+      assert_equal "true", negation_indicator.inner_text
+
+      negation_reason_node = device_order_node2.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:supply/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.88']/parent::xmlns:observation/xmlns:value")
+      assert_equal 1, negation_reason_node.count
+      assert_equal "195155004", negation_reason_node.xpath("./@code").inner_text
 
     end
 
