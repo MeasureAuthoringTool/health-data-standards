@@ -1,7 +1,7 @@
 # bonnie-fixtures
 
 **NOTE**: Records need to be changed slightly to be parsed correctly within HDS. 
-For result values that include codes, you need to add "_type": "CodedResultValue"'
+For result values that include codes, you need to add "\_type": "CodedResultValue"
 
 for example:
 

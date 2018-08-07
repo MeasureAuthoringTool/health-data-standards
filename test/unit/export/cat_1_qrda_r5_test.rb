@@ -1,5 +1,6 @@
 require 'test_helper'
 require 'pry'
+require 'minitest/hooks/default'
 
 class Cat1TestQRDAR5 < Minitest::Test
   include HealthDataStandards::Export::Helper::Cat1ViewHelper
@@ -14,8 +15,10 @@ class Cat1TestQRDAR5 < Minitest::Test
   * Medication Active
   * Procedure Performed""" do
 
+
     def setup
       unless @initialized
+        puts "BEFORE ALL"
         dump_database
         # clear cached value sets
         HealthDataStandards::Export::Helper::ScoopedViewHelper::VS_MAP.clear
@@ -35,9 +38,6 @@ class Cat1TestQRDAR5 < Minitest::Test
         @initialized = true
       end
     end
-
-    # doing tests by measures. each test takes ~30 seconds to run due to setup. Testing by measures
-    # allows us to do this more efficiently by breaking the tests up into sub functions.
 
     def test_CMS134_serialization
       _test_encounter_performed_serialization
@@ -334,37 +334,101 @@ class Cat1TestQRDAR5 < Minitest::Test
 
     def _test_procedure_performed_serialization
       procedure_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.64")
-      procedure_performed_node = @doc_134v6.xpath(procedure_performed_xpath)
+      procedure_performed_nodes = @doc_134v6.xpath(procedure_performed_xpath)
+
+      assert_equal 2, procedure_performed_nodes.count
+
+      procedure_performed_node1 = procedure_performed_nodes.xpath("./xmlns:procedure/xmlns:code[@code='108241001']/../..")
+      assert_equal 1, procedure_performed_node1.count
+
+      procedure_performed_node2 = procedure_performed_nodes.xpath("./xmlns:procedure/xmlns:code[@code='175899003']/../..")
+      assert_equal 1, procedure_performed_node2.count
+
       # first procedure
-      # TODO: code, SNOMED-CT: 108241001
-      # TODO: relevantPeriod, start and stop, 07/23/2012 8:00 AM and  07/23/2012 8:15 AM
-      # TODO: reason, Reason: Proteinuria
-      # TODO: method, Method: Urine Protein Tests
-      # TODO: result, Dead
-      # TODO: status, Status: Dead
-      # TODO: anatomicalApproachSite, ???
-      # TODO: anatomicalLocationSite, Face-to-Face Interaction
-      # TODO: ordinality, Ordinality: 4
-      # TODO: incisionDatetime, Incision Date/Time: 07/12/2012 8:00 AM
-      # TODO: negationRationale, ???
-      # TODO: components, ???
+
+      # code
+      # already confirmed above
+
+      # relevant period
+      relevant_period_node = procedure_performed_node1.xpath("./xmlns:procedure/xmlns:effectiveTime")
+      start = relevant_period_node.xpath("./xmlns:low/@value")
+      stop = relevant_period_node.xpath("./xmlns:high/@value")
+
+      assert_equal "20120723080000", start.inner_text
+      assert_equal "20120723081500", stop.inner_text
+
+      # reason
+      reason_node = procedure_performed_node1.xpath("./xmlns:procedure/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.88']/parent::xmlns:observation/xmlns:value")
+      assert_equal 1, reason_node.count
+      assert_equal "12178007", reason_node.xpath("./@code").inner_text
+
+      # result
+      result_node = procedure_performed_node1.xpath("./xmlns:procedure/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.22.4.2']/parent::xmlns:observation/xmlns:value")
+      assert_equal 1, result_node.count
+      assert_equal "419099009", result_node.xpath("./@code").inner_text
+
+      # method
+      method_node = procedure_performed_node1.xpath("./xmlns:procedure/xmlns:methodCode")
+      assert_equal 1, method_node.count
+      assert_equal "11218-5", method_node.xpath("./@code").inner_text
+
+      # status
+      # does not exist in any AU measures. Not yet supported in QRDA export.
+
+      # anatomical approach site
+      # not on fixture. missing in bonnie.
+
+      # anatomical location site
+      anatomical_location_node = procedure_performed_node1.xpath("./xmlns:procedure/xmlns:targetSiteCode")
+      assert_equal 1, anatomical_location_node.count
+      assert_equal "12843005", anatomical_location_node.xpath("./@code").inner_text
+
+      # ordinality
+      ordinality_node = procedure_performed_node1.xpath("./xmlns:procedure/xmlns:priorityCode")
+      assert_equal 1, ordinality_node.count
+      assert_equal "127013003", ordinality_node.xpath("./@code").inner_text
+
+      # incision date time
+      incision_datetime_node = procedure_performed_node1.xpath("./xmlns:procedure/xmlns:entryRelationship/xmlns:procedure/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.89']/parent::xmlns:procedure/xmlns:effectiveTime")
+      assert_equal 1, incision_datetime_node.count
+      assert_equal "20120712080000", incision_datetime_node.xpath("./@value").inner_text
+
+      # negation rationale
+      # no negation rationale present on this element
 
       #second procedure
-      # TODO: code, SNOMED-CT: 175899003
-      # TODO: relevantPeriod, start and stop, 07/23/2012 8:00 AM and  07/23/2012 8:15 AM
-      # TODO: reason, ???
-      # TODO: method, ???
-      # TODO: result, ???
-      # TODO: status, ???
-      # TODO: anatomicalApproachSite, ???
-      # TODO: anatomicalLocationSite, ???
-      # TODO: ordinality, type: ???
-      # TODO: incisionDatetime, ???
-      # TODO: negationRationale, ???
-      # TODO: components, Component: Diabetic Nephropathy, 56
-      # Component: Urine Protein Tests, Proteinuria
-    end
 
+      # code
+      # already confirmed above
+
+      # relevant period
+      relevant_period_node = procedure_performed_node2.xpath("./xmlns:procedure/xmlns:effectiveTime")
+      start = relevant_period_node.xpath("./xmlns:low/@value")
+      stop = relevant_period_node.xpath("./xmlns:high/@value")
+
+      # components
+      component_nodes = procedure_performed_node2.xpath("./xmlns:procedure/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.149']/../..")
+      assert_equal 2, component_nodes.count
+
+      component_node1 = component_nodes.xpath("./xmlns:observation/xmlns:code[@code='127013003']/../..")
+      component_node2 = component_nodes.xpath("./xmlns:observation/xmlns:code[@code='11218-5']/../..")
+      assert_equal 1, component_node1.count
+      assert_equal 1, component_node2.count
+
+      # component 1
+      # Component: Diabetic Nephropathy, 56
+      component_result_node = component_node1.xpath("./xmlns:observation/xmlns:value")
+      assert_equal 1, component_result_node.count
+      assert_equal "56", component_result_node.xpath("./@value").inner_text
+      assert_equal "", component_result_node.xpath("./@unit").inner_text
+
+      # component 2
+      # Component: Urine Protein Tests, Proteinuria
+      component_result_node = component_node2.xpath("./xmlns:observation/xmlns:value")
+      assert_equal 1, component_result_node.count
+      assert_equal "12178007", component_result_node.xpath("./@code").inner_text
+
+    end
   end
 
   describe """Tests QRDA5 export using CMS108v7.
