@@ -315,10 +315,9 @@ class Cat1TestQRDAR5 < Minitest::Test
       assert_equal "mg/day", frequency_node.xpath("./@unit").inner_text
 
       # dosage
-      # dosage value entered as 60 but shows as 1 due to use of rxnorm code, which is precoordinated
       dosage_node = medication_active_node.xpath("./xmlns:substanceAdministration/xmlns:doseQuantity")
       assert_equal 1, dosage_node.count
-      assert_equal "1", dosage_node.xpath("./@value").inner_text
+      assert_equal "60", dosage_node.xpath("./@value").inner_text
       assert_equal "mg", dosage_node.xpath("./@unit").inner_text
 
       # supply
@@ -639,10 +638,9 @@ class Cat1TestQRDAR5 < Minitest::Test
       assert_equal "days", frequency_node.xpath("./@unit").inner_text
 
       # dosage
-      # dosage value entered as 5 but shows as 1 due to use of rxnorm code, which is precoordinated
       dosage_node = medication_administered_node1.xpath("./xmlns:substanceAdministration/xmlns:doseQuantity")
       assert_equal 1, dosage_node.count
-      assert_equal "1", dosage_node.xpath("./@value").inner_text
+      assert_equal "5", dosage_node.xpath("./@value").inner_text
       assert_equal "mg", dosage_node.xpath("./@unit").inner_text
 
       # supply
@@ -710,10 +708,9 @@ class Cat1TestQRDAR5 < Minitest::Test
       assert_equal "day", frequency_node.xpath("./@unit").inner_text
 
       # dosage
-      # dosage value entered as 5 but shows as 1 due to use of rxnorm code, which is precoordinated
       dosage_node = medication_order_node1.xpath("./xmlns:substanceAdministration/xmlns:doseQuantity")
       assert_equal 1, dosage_node.count
-      assert_equal "1", dosage_node.xpath("./@value").inner_text
+      assert_equal "5", dosage_node.xpath("./@value").inner_text
       assert_equal "mg", dosage_node.xpath("./@unit").inner_text
 
       # # supply
