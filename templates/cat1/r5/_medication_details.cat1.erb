@@ -7,10 +7,6 @@
 <% end -%>
 <% if entry.negationInd %>
 	<doseQuantity nullFlavor="NA"/>
-<% elsif entry.respond_to?(:dose) && entry.dose.present?
-      # provide an empty object for the 'codes' argument in 'dose_quantity' to force the dose to
-      # be exported in the qrda. Otherwise, if RxNorm or CVX code included in the codes, outputs
-      # '1' for the value instead of the actual value.
--%>
-<doseQuantity <%= dose_quantity({}, entry.dose) %>/>
+<% elsif entry.respond_to?(:dose) && entry.dose.present? -%>
+<doseQuantity <%= dose_quantity(entry.codes, entry.dose) %>/>
 <% end -%>

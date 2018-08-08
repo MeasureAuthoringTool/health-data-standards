@@ -94,8 +94,8 @@ module HealthDataStandards
 
       def dose_quantity(codes, dose)
         if (codes["RxNorm"].present? || codes["CVX"].present?)
-          if dose[:unit].present?
-            return "value='1' unit='#{ucum_for_dose_quantity(dose[:unit])}'"
+          if dose[:units].present?
+            return "value='1' unit='#{ucum_for_dose_quantity(dose[:units])}'"
           else
             return "value='1'"
           end
@@ -103,7 +103,7 @@ module HealthDataStandards
           if dose[:scalar].present?
             return "value='#{dose[:scalar]}' unit='#{dose[:units]}'"
           elsif dose[:value].present?
-            return "value='#{dose[:value]}' unit='#{dose[:unit]}'"
+            return "value='#{dose[:value]}' unit='#{dose[:units]}'"
           else
             return "value='1'"
           end
