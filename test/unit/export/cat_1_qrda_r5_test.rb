@@ -61,8 +61,10 @@ class Cat1TestQRDAR5 < Minitest::Test
       assert_equal "20120723080000", start.inner_text
       assert_equal "20120723081500", stop.inner_text
 
-      # admission Source
-      # TODO: unsupported (?)
+      # admission source
+      admission_source_node = encounter_performed_node.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:encounter/xmlns:participant/xmlns:participantRole/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.151']/../..")
+      assert_equal 1, admission_source_node.count
+      assert_equal "185460008", admission_source_node.xpath("./xmlns:participantRole/xmlns:code/@code").inner_text
 
       # diagnosis
       diagnoses_nodes = encounter_performed_node.xpath("./xmlns:act/xmlns:entryRelationship/xmlns:encounter/xmlns:entryRelationship/xmlns:act/xmlns:templateId[@root=\"2.16.840.1.113883.10.20.22.4.80\"]/parent::xmlns:act")
@@ -205,8 +207,7 @@ class Cat1TestQRDAR5 < Minitest::Test
       # does not exist in any AU measures. Not yet supported in QRDA export.
 
       # method
-      # TODO
-      # appears to be missing from the qrda spec. observations contain 'methodCode', but this is not noted for use w method in the spec
+      # not specified in the QRDA documentation
 
       # result
       result_node = lab_test_performed_node1.xpath("./xmlns:observation/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.22.4.2']/parent::xmlns:observation/xmlns:value")
@@ -485,16 +486,16 @@ class Cat1TestQRDAR5 < Minitest::Test
     # def _test_assessment_performed_serialization
     #   assessment_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.144")
     #   assessment_performed_node = @doc_108v7.xpath(assessment_performed_xpath)
-    #   # TODO: code, LOINC: 72136-5
-    #   # TODO: authorDatetime, 08/01/2012 8:00 AM
+    #   # code, LOINC: 72136-5
+    #   # authorDatetime, 08/01/2012 8:00 AM
     #
-    #   # TODO: reason, Reason: Comfort Measures
-    #   # TODO: method, Method: General Surgery
-    #   # TODO: result, 06/14/2012 8:00 AM
-    #   # TODO: components, Component: General or Neuraxial Anesthesia, Hip Replacement Surgery
+    #   # reason, Reason: Comfort Measures
+    #   # method, Method: General Surgery
+    #   # result, 06/14/2012 8:00 AM
+    #   # components, Component: General or Neuraxial Anesthesia, Hip Replacement Surgery
     #   # Component: Direct Thrombin Inhibitor, 34 mg
     #   # Component: Glycoprotein IIb/IIIa Inhibitors, 05/16/2012 8:00 AM
-    #   # TODO: relatedTo, Related To: Device, Applied: Venous foot pumps (VFP) 08/01/2012
+    #   # relatedTo, Related To: Device, Applied: Venous foot pumps (VFP) 08/01/2012
     # end
 
     def _test_device_applied_serialization
@@ -855,7 +856,6 @@ class Cat1TestQRDAR5 < Minitest::Test
       assert_equal "5", result_node.xpath("./@value").inner_text
       assert_equal "%", result_node.xpath("./@unit").inner_text
 
-      # TODO: resultDatetime, Result Date/Time: 08/01/2012 8:00 AM
       # result date time
       result_date_time_node = diagnostic_study_performed_node.xpath("./xmlns:observation/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.22.4.2']/parent::xmlns:observation/xmlns:effectiveTime")
       # start and stop should be equal
@@ -916,14 +916,14 @@ class Cat1TestQRDAR5 < Minitest::Test
     #   physical_exam_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.59")
     #   physical_exam_performed_node = @doc_144v7.xpath(physical_exam_performed_xpath)
     #
-    #   # TODO: code, LOINC: 8867-4
-    #   # TODO: relevantPeriod, start and stop, 08/01/2012 8:00 AM and 08/01/2012 11:00 AM
-    #   # TODO: reason, Reason: Bradycardia
-    #   # TODO: method, Method: Cardiac Pacer in Situ
-    #   # TODO: result, 29 mg
-    #   # TODO: anatomicalLocationSite, ???
-    #   # TODO: negationRationale, ???
-    #   # TODO: components, Component: Intolerance to Beta Blocker Therapy, Nursing Facility Visit
+    #   # code, LOINC: 8867-4
+    #   # relevantPeriod, start and stop, 08/01/2012 8:00 AM and 08/01/2012 11:00 AM
+    #   # reason, Reason: Bradycardia
+    #   # method, Method: Cardiac Pacer in Situ
+    #   # result, 29 mg
+    #   # anatomicalLocationSite, ???
+    #   # negationRationale, ???
+    #   # components, Component: Intolerance to Beta Blocker Therapy, Nursing Facility Visit
     #   # Component: Medical Reason, 5 mg
     #   # Component: Ejection Fraction, 08/01/2012 10:00 AM
     # end
