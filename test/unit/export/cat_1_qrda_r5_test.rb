@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'pry'
 
 class Cat1TestQRDAR5 < Minitest::Test
   include HealthDataStandards::Export::Helper::Cat1ViewHelper
