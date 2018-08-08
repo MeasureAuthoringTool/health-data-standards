@@ -205,6 +205,7 @@ class Cat1TestQRDAR5 < Minitest::Test
       # does not exist in any AU measures. Not yet supported in QRDA export.
 
       # method
+      # TODO
       # appears to be missing from the qrda spec. observations contain 'methodCode', but this is not noted for use w method in the spec
 
       # result
@@ -825,18 +826,84 @@ class Cat1TestQRDAR5 < Minitest::Test
       diagnostic_study_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.18")
       diagnostic_study_performed_node = @doc_144v7.xpath(diagnostic_study_performed_xpath)
 
-      # TODO: code, LOINC: 10230-1
-      # TODO: relevantPeriod, start and stop, 08/01/2012 8:00 AM and 08/01/2012 11:00 AM
-      # TODO: reason, Reason: Bradycardia
-      # TODO: result, 5 %
+      assert_equal 1, diagnostic_study_performed_node.count
+
+      # code
+      code_node = diagnostic_study_performed_node.xpath("./xmlns:observation/xmlns:code")
+      assert_equal 1, code_node.count
+      assert_equal "10230-1", code_node.xpath("./@code").inner_text
+
+      # relevant period
+      relevant_period_node = diagnostic_study_performed_node.xpath("./xmlns:observation/xmlns:effectiveTime")
+      start = relevant_period_node.xpath("./xmlns:low/@value")
+      stop = relevant_period_node.xpath("./xmlns:high/@value")
+
+      assert_equal "20120801080000", start.inner_text
+      assert_equal "20120801110000", stop.inner_text
+
+      # reason
+      reason_node = diagnostic_study_performed_node.xpath("./xmlns:observation/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.88']/parent::xmlns:observation/xmlns:value")
+      assert_equal 1, reason_node.count
+      assert_equal "251162005", reason_node.xpath("./@code").inner_text
+
+      # result
+      result_node = diagnostic_study_performed_node.xpath("./xmlns:observation/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.22.4.2']/parent::xmlns:observation/xmlns:value")
+      assert_equal 1, result_node.count
+      assert_equal "5", result_node.xpath("./@value").inner_text
+      assert_equal "%", result_node.xpath("./@unit").inner_text
+
       # TODO: resultDatetime, Result Date/Time: 08/01/2012 8:00 AM
-      # TODO: status, Status: Moderate or Severe
-      # TODO: method, Method: Outpatient Consultation
-      # TODO: facilityLocation, SNOMED-CT: 309904001
-      # TODO: negationRationale, ???
-      # TODO: components, Component: Arrhythmia, 50 bpm
-      # Component: Bradycardia, Hypotension
-      # Component: Intensive Care Unit, 08/01/2012 9:00 AM
+      # result date time
+      result_date_time_node = diagnostic_study_performed_node.xpath("./xmlns:observation/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.22.4.2']/parent::xmlns:observation/xmlns:effectiveTime")
+      # start and stop should be equal
+      start = result_date_time_node.xpath("./xmlns:low/@value")
+      stop = result_date_time_node.xpath("./xmlns:high/@value")
+      assert_equal "20120801080000", start.inner_text
+      assert_equal start.inner_text, stop.inner_text
+
+      # status
+      # does not exist in any AU measures. Not yet supported in QRDA export.
+
+      # method
+      method_node = diagnostic_study_performed_node.xpath("./xmlns:observation/xmlns:methodCode")
+      assert_equal 1, method_node.count
+      assert_equal "17436001", method_node.xpath("./@code").inner_text
+
+      # facility location
+      facility_location_node = diagnostic_study_performed_node.xpath("./xmlns:observation/xmlns:participant/xmlns:templateId[@root=\"2.16.840.1.113883.10.20.24.3.100\"]/parent::xmlns:participant")
+      assert_equal 1, facility_location_node.count
+      assert_equal "309904001", facility_location_node.xpath("./xmlns:participantRole/xmlns:code/@code").inner_text
+
+      # negation rationale
+      # not present on this element
+
+      # components
+      component_nodes = diagnostic_study_performed_node.xpath("./xmlns:observation/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.149']/../..")
+      assert_equal 3, component_nodes.count
+
+      component_node1 = component_nodes.xpath("./xmlns:observation/xmlns:code[@code='10164001']/../..")
+      component_node2 = component_nodes.xpath("./xmlns:observation/xmlns:code[@code='251162005']/../..")
+      component_node3 = component_nodes.xpath("./xmlns:observation/xmlns:code[@code='309904001']/../..")
+      assert_equal 1, component_node1.count
+      assert_equal 1, component_node2.count
+      assert_equal 1, component_node3.count
+
+      # component 1
+      component_result_node = component_node1.xpath("./xmlns:observation/xmlns:value")
+      assert_equal 1, component_result_node.count
+      assert_equal "50", component_result_node.xpath("./@value").inner_text
+      assert_equal "bpm", component_result_node.xpath("./@unit").inner_text
+
+      # component 2
+      component_result_node = component_node2.xpath("./xmlns:observation/xmlns:value")
+      assert_equal 1, component_result_node.count
+      assert_equal "195506001", component_result_node.xpath("./@code").inner_text
+
+      # component 3
+      component_result_node = component_node3.xpath("./xmlns:observation/xmlns:value")
+      assert_equal 1, component_result_node.count
+      assert_equal "20120801090000", component_result_node.xpath("./@value").inner_text
+
     end
 
     # TODO: CMS144 seems to get parsed in a way where the physical exam performed has

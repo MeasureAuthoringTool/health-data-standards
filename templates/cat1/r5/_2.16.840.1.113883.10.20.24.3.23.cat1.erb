@@ -24,33 +24,7 @@
             <sdtc:dischargeDispositionCode code="<%= entry.discharge_disposition[:code] %>"
                 codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.discharge_disposition[:code_system]) %>"/>
         <% end -%>
-        <% if entry.respond_to?(:facility) && entry.facility.present?
-          entry.facility[:values].each do |facility|
-          -%>
-        <participant typeCode="LOC">
-          <!-- Facility Location template -->
-          <templateId root="2.16.840.1.113883.10.20.24.3.100" extension="2017-08-01"/>
-          <time>
-            <!-- Attribute: facility location arrival datetime -->
-            <low <%= value_or_null_flavor(DateTime.strptime(facility[:locationPeriodLow], "%m/%d/%Y %I:%M %p").to_i) %>/>
-            <!-- Attribute: facility location departure datetime -->
-            <high <%= value_or_null_flavor(DateTime.strptime(facility[:locationPeriodHigh], "%m/%d/%Y %I:%M %p").to_i) %>/>
-          </time>
-          <participantRole classCode="SDLOC">
-            <% if entry.facility[:values][0].present? -%>
-                <code code="<%= facility[:code][:code] %>"
-                  codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(facility[:code][:code_system]) %>"/>
-            <% else -%>
-            <code nullFlavor="UNK"/>
-            <% end -%>
-            <telecom nullFlavor="UNK"/>
-            <playingEntity classCode="PLC">
-              <name><%= facility[:display] %></name>
-            </playingEntity>
-          </participantRole>
-        </participant>
-        <%   end
-           end -%>
+        <%== render(:partial => 'facility', :locals => {:entry => entry,:reason_oids=>field_oids["FACILITY_LOCATION"]}) %>
         <% if entry.reason.present? -%>
           <%== render(:partial => 'reason', :locals => {:entry => entry,:reason_oids=>field_oids["REASON"]}) %>
         <% end -%>

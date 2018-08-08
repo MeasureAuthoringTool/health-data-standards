@@ -1,0 +1,31 @@
+<% if entry.respond_to?(:facility) && entry.facility.present?
+  entry.facility[:values].each do |facility|
+    start_time = facility[:locationPeriodLow].present? ? DateTime.strptime(facility[:locationPeriodLow], "%m/%d/%Y %I:%M %p").to_i : nil
+    end_time = facility[:locationPeriodHigh].present? ? DateTime.strptime(facility[:locationPeriodHigh], "%m/%d/%Y %I:%M %p").to_i : nil
+  -%>
+<participant typeCode="LOC">
+  <!-- Facility Location template -->
+  <templateId root="2.16.840.1.113883.10.20.24.3.100" extension="2017-08-01"/>
+  <time>
+    <!-- Attribute: facility location arrival datetime -->
+    <low <%= value_or_null_flavor(start_time) %>/>
+    <!-- Attribute: facility location departure datetime -->
+    <high <%= value_or_null_flavor(end_time) %>/>
+  </time>
+  <participantRole classCode="SDLOC">
+    <% if facility[:code].present? -%>
+        <code code="<%= facility[:code][:code] %>"
+          codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(facility[:code][:code_system]) %>"/>
+    <% else -%>
+    <code nullFlavor="UNK"/>
+    <% end -%>
+    <telecom nullFlavor="UNK"/>
+    <% if facility[:display].present? -%>
+    <playingEntity classCode="PLC">
+      <name><%= facility[:display] %></name>
+    </playingEntity>
+    <% end -%>
+  </participantRole>
+</participant>
+<%   end
+   end -%>
