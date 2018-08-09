@@ -178,7 +178,7 @@ module HQMF
                    }
 
 
-    attr_reader :title, :description, :code_list_id, :derivation_operator , :specific_occurrence, :specific_occurrence_const, :source_data_criteria, :variable
+    attr_reader :title, :description, :code_list_id, :derivation_operator , :specific_occurrence, :specific_occurrence_const, :source_data_criteria, :variable, :attributes
     attr_accessor :id, :value, :field_values, :children_criteria, :effective_time, :status, :temporal_references, :subset_operators, :definition, :inline_code_list, :negation_code_list_id, :negation, :display_name, :comments
 
     # Create a new data criteria instance
@@ -205,7 +205,7 @@ module HQMF
     # @param [String] source_data_criteria (id for the source data criteria, important for specific occurrences)
     # @param [String] user comments for the criteria
     # @param [Boolean] variable defines if the element is a QDM variable
-    def initialize(id, title, display_name, description, code_list_id, children_criteria, derivation_operator, definition, status, value, field_values, effective_time, inline_code_list, negation, negation_code_list_id, temporal_references, subset_operators, specific_occurrence, specific_occurrence_const, source_data_criteria=nil, comments=nil, variable=false)
+    def initialize(id, title, display_name, description, code_list_id, children_criteria, derivation_operator, definition, status, value, field_values, effective_time, inline_code_list, negation, negation_code_list_id, temporal_references, subset_operators, specific_occurrence, specific_occurrence_const, source_data_criteria=nil, comments=nil, variable=false, attributes=nil)
 
       status = normalize_status(definition, status)
       @settings = HQMF::DataCriteria.get_settings_for_definition(definition, status)
@@ -232,6 +232,7 @@ module HQMF
       @source_data_criteria = source_data_criteria || id
       @comments = comments
       @variable = variable
+      @attributes = attributes
     end
 
     # create a new data criteria given a category and sub_category.  A sub category can either be a status or a sub category
@@ -291,9 +292,10 @@ module HQMF
       source_data_criteria = json['source_data_criteria'] if json['source_data_criteria']
       comments = json['comments'] if json['comments']
       variable = json['variable'] || false
+      attributes = json['attributes'] || nil
 
       HQMF::DataCriteria.new(id, title, display_name, description, code_list_id, children_criteria, derivation_operator, definition, status, value, field_values,
-                             effective_time, inline_code_list, negation, negation_code_list_id, temporal_references, subset_operators,specific_occurrence,specific_occurrence_const,source_data_criteria, comments, variable)
+                             effective_time, inline_code_list, negation, negation_code_list_id, temporal_references, subset_operators,specific_occurrence,specific_occurrence_const,source_data_criteria, comments, variable, attributes)
     end
 
     def is_same_type?(criteria)
@@ -308,7 +310,7 @@ module HQMF
 
     def base_json
       x = nil
-      json = build_hash(self, [:title,:display_name,:description,:code_list_id,:children_criteria, :derivation_operator, :property, :type, :definition, :status, :hard_status, :negation, :negation_code_list_id,:specific_occurrence,:specific_occurrence_const,:source_data_criteria,:variable])
+      json = build_hash(self, [:title,:display_name,:description,:code_list_id,:children_criteria, :derivation_operator, :property, :type, :definition, :status, :hard_status, :negation, :negation_code_list_id,:specific_occurrence,:specific_occurrence_const,:source_data_criteria,:variable,:attributes])
       json[:children_criteria] = @children_criteria unless @children_criteria.nil? || @children_criteria.empty?
       json[:value] = ((@value.is_a? String) ? @value : @value.to_json) if @value
       json[:field_values] = @field_values.inject({}) {|memo,(k,v)| memo[k] = (!v.nil? ? v.to_json : nil); memo} if @field_values
