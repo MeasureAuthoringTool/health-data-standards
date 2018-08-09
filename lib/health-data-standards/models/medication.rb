@@ -13,7 +13,6 @@ class Medication < Entry
   embeds_many :orderInformation, class_name: 'OrderInformation'
 
   field :route, type: Hash
-  field :anatomical_approach, type: Hash
   field :doseRestriction, as: :dose_restriction, type: Hash
   field :fulfillmentInstructions, as: :fulfillment_instructions, type: String
   field :indication, type: Hash

@@ -3,7 +3,6 @@ class Procedure < Entry
   field :incisionTime,        type: Integer,      as: :incision_time 
   field :ordinality,          type: Hash
   field :source,              type: Hash
-  field :anatomical_approach, type: Hash
   field :anatomical_target,   type: Hash
   field :anatomical_location, type: Hash
   field :method,              type: Hash
