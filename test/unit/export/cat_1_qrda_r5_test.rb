@@ -748,7 +748,7 @@ class Cat1TestQRDAR5 < Minitest::Test
 
       negation_reason_node = medication_order_node2.xpath("./xmlns:substanceAdministration/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.88']/parent::xmlns:observation/xmlns:value")
       assert_equal 1, negation_reason_node.count
-      assert_equal "10007009", negation_reason_node.xpath("./@code").inner_text
+      assert_equal "101421000119107", negation_reason_node.xpath("./@code").inner_text
     end
 
   end
