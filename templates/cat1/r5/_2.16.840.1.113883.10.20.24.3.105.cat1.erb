@@ -27,7 +27,7 @@
         </effectiveTime>
         <% if entry.administrationTiming.present? %>
           <effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A">
-            <period value="<%= entry.administrationTiming['scalar']%>" unit="<%= entry.administrationTiming['units']%>"/>
+            <period value="<%= entry.administrationTiming['scalar']%>" <% if entry.administrationTiming['units'] && (entry.administrationTiming['units'] != "") -%>unit="<%= entry.administrationTiming['units']%>"<% end %>/>
           </effectiveTime>
         <% end %>
         <% if entry.route.present? -%>

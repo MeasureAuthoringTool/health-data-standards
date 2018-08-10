@@ -4,6 +4,6 @@
   <% if result['units'] == 'UnixTime' %>
   <value xsi:type="TS" <%= value_or_null_flavor(result['scalar']) %>/>
   <% else %>
-  <value xsi:type="PQ" value="<%= result['scalar'] %>" unit="<%= result['units'] %>"/>
+  <value xsi:type="PQ" value="<%= result['scalar'] %>" <% if result['units'] && (result['units'] != "") -%>unit="<%= result['units']%>"<% else %>unit="1"<% end %>/>
   <% end %>
 <% end %>
