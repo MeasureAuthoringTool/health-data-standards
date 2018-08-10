@@ -24,6 +24,7 @@ class Medication < Entry
   field :patientInstructions, as: :patient_instructions, type: String
   field :doseIndicator, as: :dose_indicator, type: String
 
+  # In QDM 5.4: method not present on 'medication'. deprecated for 'substance' (particularly, 'Substance, Recommended')
   field :method ,   type: Hash 
   field :active_datetime ,  type: Integer
   field :signed_datetime ,  type: Integer
