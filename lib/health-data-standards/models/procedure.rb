@@ -3,6 +3,7 @@ class Procedure < Entry
   field :incisionTime,        type: Integer,      as: :incision_time 
   field :ordinality,          type: Hash
   field :source,              type: Hash
+  # anatomical approach deprecated as of QDM 5.4
   field :anatomical_approach, type: Hash
   field :anatomical_target,   type: Hash
   field :anatomical_location, type: Hash
