@@ -7,6 +7,9 @@ class Procedure < Entry
   field :anatomical_approach, type: Hash
   field :anatomical_target,   type: Hash
   field :anatomical_location, type: Hash
+  # method deprecated for "Procedure, Recommended" and "Procedure, Order" in QDM 5.4. Remains for "Procedure, Performed".
+  # method deprecated for "Diagnostic Study, Recommended" and "Diagnostic Study, Order" in QDM 5.4. Remains for "Diagnostic Study, Performed".
+  # method deprecated for "Physical Exam, Recommended" and "Physical Exam, Order" in QDM 5.4. Remains for "Physical Exam, Performed".
   field :method,              type: Hash
   field :reaction,            type: Hash 
   # The resulting status of a procedure as defined in the QDM documentation. This is different

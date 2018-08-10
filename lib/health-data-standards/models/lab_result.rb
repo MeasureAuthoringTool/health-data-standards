@@ -7,6 +7,7 @@ class LabResult < Entry
   field :referenceRangeLow, as: :reference_range_low, type: Hash
   field :interpretation,      type: Hash  
   field :reaction,            type: Hash
+  # method deprecated for "Laboratory Test, Recommended" and "Laboratory Test, Order" in QDM 5.4. Remains for "Laboratory Test, Performed".
   field :method,              type: Hash
   # The resulting status of a procedure as defined in the QDM documentation. This is different
   # than the status associated with the `Entry` object, which relates to the data criteria
