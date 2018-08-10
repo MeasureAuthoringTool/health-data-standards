@@ -419,7 +419,7 @@ class Cat1TestQRDAR5 < Minitest::Test
       component_result_node = component_node1.xpath("./xmlns:observation/xmlns:value")
       assert_equal 1, component_result_node.count
       assert_equal "56", component_result_node.xpath("./@value").inner_text
-      assert_equal "", component_result_node.xpath("./@unit").inner_text
+      assert_equal "1", component_result_node.xpath("./@unit").inner_text
 
       # component 2
       # Component: Urine Protein Tests, Proteinuria
