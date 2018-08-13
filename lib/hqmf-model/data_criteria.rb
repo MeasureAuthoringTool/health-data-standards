@@ -77,6 +77,7 @@ module HQMF
               # TODO: (LDY 10/4/2016) RESULT_DATETIME is a new attribute in QDM 5.0. We do not yet have codes/template information for this.
               'RESULT_DATETIME' => {title:'Result Date/Time', coded_entry_method: :result_date_time, field_type: :timestamp},
               'ROUTE' => {title:'Route', coded_entry_method: :route, code: '263513008', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1020.2', field_type: :value},
+              'SETTING' => {title:'Setting', coded_entry_method: :setting, field_type: :value},
               'SEVERITY' => {title:'Severity', coded_entry_method: :severity, code: 'SEV', code_system:'2.16.840.1.113883.5.4', template_id: '2.16.840.1.113883.10.20.22.4.8', field_type: :value},
               'SIGNED_DATETIME' =>  {title:'Signed Date/Time', coded_entry_method: :signed_date_time, field_type: :timestamp},
               'START_DATETIME' => {title:'Start Date/Time', coded_entry_method: :start_date, code: '398201009', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1027.1', field_type: :timestamp},
