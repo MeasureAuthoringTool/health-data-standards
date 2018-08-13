@@ -6,7 +6,7 @@ class Medication < Entry
   # QDM 5.0 disambiguates dose to be dosage and suppy. 'dose' here represents the QDM 5.0 'dosage'.
   # Bonnie displays this as 'dosage'.
   field :dose, type: Hash
-
+  field :setting, type: Hash
   # Attribute deprecated for "Medication, Active", "Medication, Administered", "Immunization, Administered", "Substance, Administered", "Substance, Recommended" in QDM 5.4.
   # Remains for "Medication, Dispensed", "Medication, Order", "Medication, Discharge", "Immunization, Order", "Substance, Order"
   field :supply, type: Hash
