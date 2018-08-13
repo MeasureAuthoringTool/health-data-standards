@@ -6,7 +6,7 @@ require 'test_helper'
     @medication = Medication.new
   end
    # setting attribute added to medication order in QDM 5.4
-  def test_anatomical_approach_not_present
+  def test_setting_not_present
     assert @medication.respond_to?(:setting)
   end
 end
