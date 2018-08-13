@@ -21,33 +21,11 @@
           <high <%= value_or_null_flavor(entry.discharge_time || entry.end_time) %>/>
         </effectiveTime>
         <% if entry.discharge_disposition.present? %>
-            <sdtc:dischargeDispositionCode code="<%= entry.discharge_disposition.code %>" 
-                codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.discharge_disposition.code_system) %>"/>
+            <sdtc:dischargeDispositionCode code="<%= entry.discharge_disposition[:code] %>"
+                codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.discharge_disposition[:code_system]) %>"/>
         <% end -%>
-        <% if entry.respond_to?(:facility) && entry.facility.present? -%>
-        <participant typeCode="LOC">
-          <!-- Facility Location template -->
-          <templateId root="2.16.840.1.113883.10.20.24.3.100" extension="2017-08-01"/>
-          <time>
-            <!-- Attribute: facility location arrival datetime -->
-            <low <%= value_or_null_flavor(entry.start_time) %>/>
-            <!-- Attribute: facility location departure datetime -->
-            <high <%= value_or_null_flavor(entry.end_time) %>/>
-          </time>
-          <participantRole classCode="SDLOC">
-            <% if entry.facility[:values][0].present? -%>
-                <code code="<%= entry.facility.values[0][0].code.code %>" 
-                  codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.facility.values[0][0].code.code_system) %>"/>
-            <% else -%>
-            <code nullFlavor="UNK"/>
-            <% end -%>
-            <telecom nullFlavor="UNK"/>
-            <playingEntity classCode="PLC">
-              <name><%= entry.facility[:values][0]['display'] %></name>
-            </playingEntity>
-          </participantRole>
-        </participant>
-        <% end -%>
+        <%== render(:partial => 'facility', :locals => {:entry => entry,:facility_oids=>field_oids["FACILITY_LOCATION"]}) %>
+        <%== render(:partial => 'admission_source', :locals => {:entry => entry,:admission_source_oids=>field_oids["ADMISSION_SOURCE"]}) %>
         <% if entry.reason.present? -%>
           <%== render(:partial => 'reason', :locals => {:entry => entry,:reason_oids=>field_oids["REASON"]}) %>
         <% end -%>
@@ -57,11 +35,13 @@
                   <templateId root="2.16.840.1.113883.10.20.24.3.152" extension="2017-08-01"/>
                   <id root="1.3.6.1.4.1.115" extension="<%= UUID.generate %>"/>
                   <code code="8319008" codeSystem="2.16.840.1.113883.6.96" displayName="Principal Diagnosis" codeSystemName="SNOMED CT"/>
-                  <value code="<%= entry.principal_diagnosis.code %>" xsi:type="CD" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.principal_diagnosis.code_system) %>"/>
+                  <value code="<%= entry.principal_diagnosis[:code] %>" xsi:type="CD" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.principal_diagnosis[:code_system]) %>"/>
                 </observation>
             </entryRelationship>
         <% end -%>
-        <% if entry.diagnosis %>
+        <% if entry.diagnosis
+            entry.diagnosis[:values].each do |diagnosis|
+          %>
             <entryRelationship typeCode="REFR">
                 <act classCode="ACT" moodCode="EVN">
                   <templateId root="2.16.840.1.113883.10.20.22.4.80" extension="2015-08-01"/>
@@ -81,12 +61,13 @@
                         <!-- Attribute: discharge datetime -->
                         <high <%= value_or_null_flavor(entry.end_time) %>/>
                       </effectiveTime>
-                      <value code="<%= entry.diagnosis.values[1][0].code %>" xsi:type="CD" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.diagnosis.values[1][0].code_system) %>"/>
+                      <value code="<%= diagnosis[:code] %>" xsi:type="CD" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(diagnosis[:code_system]) %>" />
                     </observation>
                   </entryRelationship>
                 </act>
             </entryRelationship>
-        <% end -%>
+        <%   end 
+           end -%>
       </encounter>
     </entryRelationship>
     <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"], :r2_compatibility => r2_compatibility}) %>

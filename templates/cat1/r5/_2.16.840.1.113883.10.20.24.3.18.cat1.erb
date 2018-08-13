@@ -19,6 +19,8 @@
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
     <value nullFlavor="NA" xsi:type="CD" />
+    <%== render(:partial => 'method', :locals => {:entry => entry, :method_oids=>field_oids["METHOD"]}) %>
+    <%== render(:partial => 'facility', :locals => {:entry => entry,:facility_oids=>field_oids["FACILITY_LOCATION"]}) %>
     <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"]}) %>
     <%== render(:partial => 'results', :locals => {:entry => entry, :result_oids => result_oids, :value_set_oid => value_set_oid}) %>
     <% if entry.components -%>

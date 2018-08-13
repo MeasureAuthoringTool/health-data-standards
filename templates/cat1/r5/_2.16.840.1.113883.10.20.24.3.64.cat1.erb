@@ -13,6 +13,14 @@
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
     <%== render(:partial => 'ordinality', :locals => {:entry => entry, :ordinality_oids=>field_oids["ORDINAL"]}) %>
+    <%== render(:partial => 'method', :locals => {:entry => entry, :method_oids=>field_oids["METHOD"]}) %>
+    <% if entry.anatomical_location -%>
+      <targetSiteCode code="<%= entry.anatomical_location[:code] %>"
+                      codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.anatomical_location[:codeSystem] || entry.anatomical_location[:code_system]) %>"
+                      <% if entry.anatomical_location.has_key?(:title) -%>
+                        displayName="<%=entry.anatomical_location[:title]%>"
+                      <% end -%>/>
+    <% end -%>
     <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"]}) %>
     <% if entry.respond_to?(:incision_time) && entry.incision_time.present? -%>
     <entryRelationship typeCode="REFR">
@@ -52,4 +60,3 @@
     <% end %>
   </procedure>
 </entry>
-

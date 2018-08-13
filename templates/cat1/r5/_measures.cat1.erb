@@ -58,11 +58,10 @@
                   <versionNumber value="<%= measure.hqmf_version_number %>"/>                  
                 </externalDocument>
               </reference>
-            </organizer>
-            
+
             <% # Only want the epxected values when running from Bonnie
             if patient.respond_to?('expected_values_for_qrda_export') -%>
-            <component>
+
               <%
               #     # Going to assume that any expected_value > 0 is a TRUE
               #     # As per HL7 CDA R2:QRDA I, R1, STU Release 3.1, US Realm, Vol. 2 —Templates and Supporting Material
@@ -70,13 +69,13 @@
               #     # QRDA expects IPOP instead of IPP.
               qrda_expected_values = patient.expected_values_for_qrda_export(measure)
               qrda_expected_values.each do |qev| -%>
+              <component>
                 <observation classCode="OBS" moodCode="EVN" negationInd="<%= qev[:expected_value] == '0' ? 'true' : 'false' %>">
                   <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
                   <value xsi:type="CD"
                     code="<%= qev[:code] == 'IPP' ? 'IPOP' : qev[:code] %>"
                     codeSystem="2.16.840.1.113883.5.4"
-                    codeSystemName="ActCode"
-                    displayName="<%= qev[:display_name] %>"/>
+                    codeSystemName="ActCode"/>
                   <!-- Explicit reference to the eMeasure population (because some eMeasures have multiple Numerators, etc -->
                   <reference typeCode="REFR">
                     <externalObservation classCode="OBS" moodCode="EVN">
@@ -84,9 +83,10 @@
                     </externalObservation>
                   </reference>
                 </observation>
+              </component>
               <% end -%>
-            </component>
             <% end -%>
+            </organizer>
           </entry>
           <% end -%>
         </section>

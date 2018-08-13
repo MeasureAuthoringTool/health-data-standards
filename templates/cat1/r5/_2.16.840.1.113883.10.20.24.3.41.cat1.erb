@@ -12,10 +12,9 @@
         <low <%= value_or_null_flavor(entry.start_time) %>/>
         <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
-    <% if entry.administrationTiming.present?
-      period = entry.administrationTiming['period'] %>
+    <% if entry.administrationTiming.present? && entry.administrationTiming.key?('scalar') %>
       <effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A">
-        <period value="<%= period['value']%>" unit="<%= period['unit']%>"/>
+        <period value="<%= entry.administrationTiming['scalar']%>" <% if entry.administrationTiming['units'] && (entry.administrationTiming['units'] != "") -%>unit="<%= entry.administrationTiming['units']%>"<% end %>/>
       </effectiveTime>
     <% end %>
     <%== render(:partial => 'medication_details', :locals => {:entry => entry, :route_oids=>field_oids["ROUTE"]}) %>
@@ -38,7 +37,7 @@
       </manufacturedProduct>
     </consumable>
 
-    <%== render(:partial => 'medication_dispense', :collection => entry.fulfillmentHistory, :locals => {:entry => entry, :value_set_map => value_set_map, :value_set_oid => value_set_oid}) %>
+    <%== render(:partial => 'medication_dispense', :locals => {:entry => entry, :filtered_vs_map => filtered_vs_map}) %>
 
   </substanceAdministration>
 

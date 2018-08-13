@@ -1,5 +1,9 @@
 <% if result['code'] -%>
-  <value xsi:type="CD" code="<%= result['code'].code %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(result['code'].code_system) %>" />
+  <value xsi:type="CD" code="<%= result['code']['code'] %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(result['code']['code_system']) %>" />
 <% elsif result['scalar'] %>
-  <value xsi:type="PQ" value="<%= result['scalar'] %>" unit="<%= result['units'] %>"/>
+  <% if result['units'] == 'UnixTime' %>
+  <value xsi:type="TS" <%= value_or_null_flavor(result['scalar']) %>/>
+  <% else %>
+  <value xsi:type="PQ" value="<%= result['scalar'] %>" <% if result['units'] && (result['units'] != "") -%>unit="<%= result['units']%>"<% else %>unit="1"<% end %>/>
+  <% end %>
 <% end %>

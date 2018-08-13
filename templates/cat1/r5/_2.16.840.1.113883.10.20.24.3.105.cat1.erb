@@ -25,10 +25,9 @@
             <low <%= value_or_null_flavor(entry.start_time) %>/>
             <high <%= value_or_null_flavor(entry.end_time) %>/>
         </effectiveTime>
-        <% if entry.administrationTiming.present?
-          period = entry.administrationTiming['period'] %>
+        <% if entry.administrationTiming.present? && entry.administrationTiming.key?('scalar') %>
           <effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A">
-            <period value="<%= period['value']%>" unit="<%= period['unit']%>"/>
+            <period value="<%= entry.administrationTiming['scalar']%>" <% if entry.administrationTiming['units'] && (entry.administrationTiming['units'] != "") -%>unit="<%= entry.administrationTiming['units']%>"<% end %>/>
           </effectiveTime>
         <% end %>
         <% if entry.route.present? -%>
@@ -38,7 +37,7 @@
         
         <!-- Attribute: dose -->
         <% if entry.dose.present? -%>
-          <doseQuantity value="<%= entry.dose[:value]%>"/>
+          <doseQuantity value="<%= entry.dose[:scalar]%>"/>
         <% end -%>
 
         <% if entry.product_form.present? -%>
