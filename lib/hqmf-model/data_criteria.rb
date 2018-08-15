@@ -33,6 +33,8 @@ module HQMF
               'ANATOMICAL_APPROACH_SITE' => {title:'Anatomical Approach Site', coded_entry_method: :anatomical_approach,  field_type: :value},
               'ANATOMICAL_LOCATION_SITE' => {title:'Anatomical Location Site', coded_entry_method: :anatomical_location,  field_type: :value},
               'ANATOMICAL_STRUCTURE' => {title:'Anatomical Structure', coded_entry_method: :anatomical_structure, code: '91723000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1000.2', field_type: :value},
+              # Added in QDM 5.4
+              'CATEGORY' => {title:'Category', coded_entry_method: :category, field_type: :value},
               'CAUSE' => {title:'Cause', coded_entry_method: :cause_of_death, code: '42752001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1017.2', field_type: :value},
               # TODO: Determine actual code and code_system for component attribute
               'COMPONENT' => {title: 'Component', coded_entry_method: :components, field_type: :value},
@@ -53,6 +55,8 @@ module HQMF
               'INCISION_DATETIME' => {title:'Incision Date/Time', coded_entry_method: :incision_time, code: '34896006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.89', field_type: :timestamp},
               'LATERALITY' => {title:'Laterality', coded_entry_method: :laterality, code: '272741003', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
               'LENGTH_OF_STAY' => {title:'Length of Stay', coded_entry_method: :length_of_stay, code: '183797002', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1029.3', field_type: :value},
+              # Added in QDM 5.4
+              'MEDIUM' => {title:'Medium', coded_entry_method: :medium, field_type: :value},
               'METHOD' => {title:'Method', coded_entry_method: :method, template_id: '', field_type: :value},
               # Negation Rationale isn't encoded
               'ONSET_AGE' => {title:'Onset Age', coded_entry_method: :onset_age, code: '445518008', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
@@ -66,6 +70,8 @@ module HQMF
               'RADIATION_DURATION' => {title:'Radiation Duration', coded_entry_method: :radiation_duration, code: '306751006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.91', field_type: :value},
               'REACTION'=> {title:'Reaction', coded_entry_method: :reaction, code: '263851003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.85', field_type: :value},
               'REASON' => {title:'Reason', coded_entry_method: :reason, code: '410666004', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.88', field_type: :value},
+              # Added in QDM 5.4
+              'RECIPIENT' => {title:'Recipient', coded_entry_method: :recipient, field_type: :value},
               'RECORDED_DATETIME' => {title:'Recorded Datetime', coded_entry_method: :start_date, field_type: :timestamp},
               'REFERENCE_RANGE_HIGH' => {title:'Reference Range - High', coded_entry_method: :reference_range_high, field_type: :value},
               'REFERENCE_RANGE_LOW' => {title:'Reference Range - Low', coded_entry_method: :reference_range_low, field_type: :value},
@@ -78,6 +84,8 @@ module HQMF
               'RESULT_DATETIME' => {title:'Result Date/Time', coded_entry_method: :result_date_time, field_type: :timestamp},
               'ROUTE' => {title:'Route', coded_entry_method: :route, code: '263513008', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1020.2', field_type: :value},
               'SETTING' => {title:'Setting', coded_entry_method: :setting, field_type: :value},
+              # Added in QDM 5.4
+              'SENDER' => {title:'Sender', coded_entry_method: :sender, field_type: :value},
               'SEVERITY' => {title:'Severity', coded_entry_method: :severity, code: 'SEV', code_system:'2.16.840.1.113883.5.4', template_id: '2.16.840.1.113883.10.20.22.4.8', field_type: :value},
               'SIGNED_DATETIME' =>  {title:'Signed Date/Time', coded_entry_method: :signed_date_time, field_type: :timestamp},
               'START_DATETIME' => {title:'Start Date/Time', coded_entry_method: :start_date, code: '398201009', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1027.1', field_type: :timestamp},
