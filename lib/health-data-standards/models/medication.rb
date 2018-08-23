@@ -31,7 +31,6 @@ class Medication < Entry
   field :doseIndicator, as: :dose_indicator, type: String
   field :daysSupplied, as: :days_supplied, type: Hash
 
-
   # In QDM 5.4: method not present on 'medication'. deprecated for 'substance' (particularly, 'Substance, Recommended')
   field :method ,   type: Hash 
   field :active_datetime ,  type: Integer
