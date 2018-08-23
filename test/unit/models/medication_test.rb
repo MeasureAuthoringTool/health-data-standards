@@ -1,5 +1,6 @@
 require 'test_helper'
- class MedicationTest < Minitest::Test
+
+class MedicationTest < Minitest::Test
   # test content geared for QDM 5.4
   # only testing QDM 5.4 diffs for now
   def setup
@@ -14,5 +15,8 @@ require 'test_helper'
   end
   def test_prescriber_identifier_present
     assert @medication.respond_to?(:prescriber_identifier)
+  end
+  def test_days_supplied_present
+    assert @medication.respond_to?(:days_supplied)
   end
 end
