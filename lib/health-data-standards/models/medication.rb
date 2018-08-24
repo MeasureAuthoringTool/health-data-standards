@@ -18,6 +18,7 @@ class Medication < Entry
 
   field :route, type: Hash
   field :anatomical_approach, type: Hash
+  field :dispenserIdentifier, as: :dispenser_identifier, type: Hash
   field :doseRestriction, as: :dose_restriction, type: Hash
   field :fulfillmentInstructions, as: :fulfillment_instructions, type: String
   field :indication, type: Hash
@@ -25,6 +26,7 @@ class Medication < Entry
   field :vehicle, type: Hash
   field :reaction, type: Hash
   field :deliveryMethod, as: :delivery_method, type: Hash
+  field :prescriberIdentifier, as: :prescriber_identifier, type: Hash
   field :patientInstructions, as: :patient_instructions, type: String
   field :doseIndicator, as: :dose_indicator, type: String
 
