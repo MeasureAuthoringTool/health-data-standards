@@ -6,7 +6,13 @@ require 'test_helper'
     @medication = Medication.new
   end
    # setting attribute added to medication order in QDM 5.4
-  def test_setting_not_present
+  def test_setting_present
     assert @medication.respond_to?(:setting)
+  end
+  def test_dispenser_identifier_present
+    assert @medication.respond_to?(:dispenser_identifier)
+  end
+  def test_prescriber_identifier_present
+    assert @medication.respond_to?(:prescriber_identifier)
   end
 end

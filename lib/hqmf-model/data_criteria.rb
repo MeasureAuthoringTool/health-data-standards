@@ -44,6 +44,7 @@ module HQMF
               'DISCHARGE_DATETIME' => {title:'Discharge Date/Time', coded_entry_method: :discharge_time, code: '442864001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1025.1', field_type: :timestamp},
               # TODO: (LDY 10/5/2016) this changed from "discharge status" to "discharge disposition". likely there is a code and template id change necessary. these are not yet known.
               'DISCHARGE_STATUS' => {title:'Discharge Disposition', coded_entry_method: :discharge_disposition, code: '309039003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1003.2', field_type: :value},
+              'DISPENSER_IDENTIFIER' => {title:'Dispenser Identifier', coded_entry_method: :dispenser_identifier, field_type: :value},
               # TODO: (LDY 10/4/2016) this changed from "dose" to "dosage". it's possible that there's another code associated with this. this code was not available at the time of this change.
               'DOSE' => {title:'Dosage', coded_entry_method: :dose, code: '398232005', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1004.1', field_type: :value},
               'FACILITY_LOCATION' => {title:'Facility Location', coded_entry_method: :facility, code: 'SDLOC', field_type: :value},
@@ -64,6 +65,7 @@ module HQMF
               'ORDINAL' => {title:'Ordinality', coded_entry_method: :ordinality, code: '117363000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1012.2', field_type: :value}, # previous
               'ORDINALITY' => {title:'Ordinality', coded_entry_method: :ordinality, code: '117363000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1012.2', field_type: :value},
               'PATIENT_PREFERENCE' => {title:'Patient Preference', coded_entry_method: :patient_preference,  code: 'PAT', code_system: '2.16.840.1.113883.5.8', template_id: '2.16.840.1.113883.10.20.24.3.83', field_type: :value},
+              'PRESCRIBER_IDENTIFIER' => {title:'Prescriber Identifier', coded_entry_method: :prescriber_identifier, field_type: :value},
               'PRINCIPAL_DIAGNOSIS' => {title:'Principal Diagnosis', coded_entry_method: :principal_diagnosis, field_type: :value},
               'PROVIDER_PREFERENCE' => {title:'Provider Preference', coded_entry_method: :provider_preference, code: '103323008', code_system: '2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.84', field_type: :value},
               'RADIATION_DOSAGE' => {title:'Radiation Dosage', coded_entry_method: :radiation_dose, code: '228815006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.91', field_type: :value},
@@ -464,6 +466,8 @@ module HQMF
           value = HQMF::Collection.from_json(json)
         when 'FAC'
           value = Facility.new(json)
+        when 'ID'
+          value = HQMF::Identifier.from_json(json)
         else
           raise "Unknown value type [#{type}]"
         end
