@@ -24,25 +24,31 @@ module HQMF
     # `code`: The code for the entry. This should be included to make HQMF generation work properly. This is whatever code is dictated in the HQMF. For Diagnosis, this is in [HQMF QDM IG](http://www.hl7.org/implement/standards/product_brief.cfm?product_id=346) vol 2 page 155 and is `29308-4`.
     # `code_system`: This is the oid for whatever code system contains `code`. For Diagnosis, this is LOINC: `2.16.840.1.113883.6.1`. This is also located at (http://www.hl7.org/implement/standards/product_brief.cfm?product_id=346) vol 2 page 155.
     # `template_id`: These appear to be related to HQMFr1 template ids. These appear to be dangerously out of date. Don't use.
-    FIELDS = {'ABATEMENT_DATETIME' => {title:'Abatement Datetime', coded_entry_method: :end_date, field_type: :timestamp},
+    FIELDS = {'ABATEMENT_DATETIME' => {title:'Abatement Datetime', coded_entry_method: :end_date, field_type: :timestamp}, # ABATEMENT_DATETIME is no longer used.
               'ACTIVE_DATETIME' => {title:'Active Date/Time', coded_entry_method: :active_datetime, field_type: :timestamp},
+              # ADMISSION_DATETIME is no longer used.
               'ADMISSION_DATETIME' => {title:'Admission Date/Time', coded_entry_method: :admit_time, code: '399423000', code_system:'2.16.840.1.113883.6.96', field_type: :timestamp},
               # QDM 5.0 addition. This is the same as FACILITY_LOCATION.
               # TODO: (LDY 10/5/2016) this is a new attribute from QDM 5.0. We do not yet have the code or template_id for this. This should be updated when we do.
               'ADMISSION_SOURCE' => {title:'Admission Source', coded_entry_method: :admission_source, field_type: :value},
+              # ANATOMICAL_APPROACH_SITE is no longer used.
               'ANATOMICAL_APPROACH_SITE' => {title:'Anatomical Approach Site', coded_entry_method: :anatomical_approach,  field_type: :value},
               'ANATOMICAL_LOCATION_SITE' => {title:'Anatomical Location Site', coded_entry_method: :anatomical_location,  field_type: :value},
+              # ANATOMICAL_STRUCTURE is no longer used.
               'ANATOMICAL_STRUCTURE' => {title:'Anatomical Structure', coded_entry_method: :anatomical_structure, code: '91723000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1000.2', field_type: :value},
               # Added in QDM 5.4
               'CATEGORY' => {title:'Category', coded_entry_method: :category, field_type: :value},
               'CAUSE' => {title:'Cause', coded_entry_method: :cause_of_death, code: '42752001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1017.2', field_type: :value},
               # TODO: Determine actual code and code_system for component attribute
               'COMPONENT' => {title: 'Component', coded_entry_method: :components, field_type: :value},
+              # CUMULATIVE_MEDICATION_DURATION is no longer used
               'CUMULATIVE_MEDICATION_DURATION' => {title:'Cumulative Medication Duration', coded_entry_method: :cumulative_medication_duration, code: '261773006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1001.3', field_type: :value},
               # MISSING Date - The date that the patient passed away. - Patient Characteristic Expired
               'DIAGNOSIS' => {title:'Diagnosis', coded_entry_method: :diagnosis, field_type: :value},
+              # DISCHARGE_DATETIME is no longer used.
               'DISCHARGE_DATETIME' => {title:'Discharge Date/Time', coded_entry_method: :discharge_time, code: '442864001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1025.1', field_type: :timestamp},
               # TODO: (LDY 10/5/2016) this changed from "discharge status" to "discharge disposition". likely there is a code and template id change necessary. these are not yet known.
+              # DISCHARGE_STATUS is no longer used.
               'DISCHARGE_STATUS' => {title:'Discharge Disposition', coded_entry_method: :discharge_disposition, code: '309039003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1003.2', field_type: :value},
               'DISPENSER_IDENTIFIER' => {title:'Dispenser Identifier', coded_entry_method: :dispenser_identifier, field_type: :value},
               # TODO: (LDY 10/4/2016) this changed from "dose" to "dosage". it's possible that there's another code associated with this. this code was not available at the time of this change.
@@ -52,57 +58,72 @@ module HQMF
               'FACILITY_LOCATION_ARRIVAL_DATETIME' => {title:'Location Period Start Date/Time', coded_entry_method: :facility_arrival, code: 'SDLOC_ARRIVAL', field_type: :nested_timestamp},
               'FACILITY_LOCATION_DEPARTURE_DATETIME' => {title:'Location Period End Date/Time', coded_entry_method: :facility_departure, code: 'SDLOC_DEPARTURE', field_type: :nested_timestamp},
               'FREQUENCY' => {title:'Frequency', coded_entry_method: :administration_timing, code: '307430002', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1006.1', field_type: :value},
+              # HEALTH_RECORD_FIELD is no longer used.
               'HEALTH_RECORD_FIELD' => {title: 'Health Record Field', coded_entry_method: :health_record_field, code: '395676008', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.28.3.102:2014-11-24', field_type: :value},
               'INCISION_DATETIME' => {title:'Incision Date/Time', coded_entry_method: :incision_time, code: '34896006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.89', field_type: :timestamp},
+              # LATERALITY is no longer used.
               'LATERALITY' => {title:'Laterality', coded_entry_method: :laterality, code: '272741003', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
               'LENGTH_OF_STAY' => {title:'Length of Stay', coded_entry_method: :length_of_stay, code: '183797002', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1029.3', field_type: :value},
               # Added in QDM 5.4
               'MEDIUM' => {title:'Medium', coded_entry_method: :medium, field_type: :value},
               'METHOD' => {title:'Method', coded_entry_method: :method, template_id: '', field_type: :value},
               # Negation Rationale isn't encoded
+              # ONSET_AGE is no longer used.
               'ONSET_AGE' => {title:'Onset Age', coded_entry_method: :onset_age, code: '445518008', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
+              # ONSET_DATETIME is no longer used.
               'ONSET_DATETIME' => {title:'Onset Datetime', coded_entry_method: :start_date, field_type: :timestamp},
+              # ORDINAL is no longer used.
               'ORDINAL' => {title:'Ordinality', coded_entry_method: :ordinality, code: '117363000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1012.2', field_type: :value}, # previous
               'ORDINALITY' => {title:'Ordinality', coded_entry_method: :ordinality, code: '117363000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1012.2', field_type: :value},
+              # PATIENT_PREFERENCE is no longer used.
               'PATIENT_PREFERENCE' => {title:'Patient Preference', coded_entry_method: :patient_preference,  code: 'PAT', code_system: '2.16.840.1.113883.5.8', template_id: '2.16.840.1.113883.10.20.24.3.83', field_type: :value},
               'PRESCRIBER_IDENTIFIER' => {title:'Prescriber Identifier', coded_entry_method: :prescriber_identifier, field_type: :value},
               'PRINCIPAL_DIAGNOSIS' => {title:'Principal Diagnosis', coded_entry_method: :principal_diagnosis, field_type: :value},
+              # PROVIDER_PREFERENCE is no longer used.
               'PROVIDER_PREFERENCE' => {title:'Provider Preference', coded_entry_method: :provider_preference, code: '103323008', code_system: '2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.84', field_type: :value},
+              #RADIATION_DOSAGE is no longer used.
               'RADIATION_DOSAGE' => {title:'Radiation Dosage', coded_entry_method: :radiation_dose, code: '228815006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.91', field_type: :value},
+              #RADIATION_DURATION is no longer used.
               'RADIATION_DURATION' => {title:'Radiation Duration', coded_entry_method: :radiation_duration, code: '306751006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.91', field_type: :value},
+              # REACTION is no longer used.
               'REACTION'=> {title:'Reaction', coded_entry_method: :reaction, code: '263851003', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.85', field_type: :value},
               'REASON' => {title:'Reason', coded_entry_method: :reason, code: '410666004', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.10.20.24.3.88', field_type: :value},
               # Added in QDM 5.4
               'RECIPIENT' => {title:'Recipient', coded_entry_method: :recipient, field_type: :value},
+              # RECORDED_DATETIME is no longer used.
               'RECORDED_DATETIME' => {title:'Recorded Datetime', coded_entry_method: :start_date, field_type: :timestamp},
               'REFERENCE_RANGE_HIGH' => {title:'Reference Range - High', coded_entry_method: :reference_range_high, field_type: :value},
               'REFERENCE_RANGE_LOW' => {title:'Reference Range - Low', coded_entry_method: :reference_range_low, field_type: :value},
               'REFILLS' => {title:'Refills', coded_entry_method: :refills,  field_type: :value},
               'RELATED_TO' => {title:'Related To', coded_entry_method: :related_to,  code: 'REL', codeSystem: '2.16.840.1.113883.1.11.11603', field_type: :value},
               'RELATIONSHIP' => {title:'Relationship', coded_entry_method: :relationship_to_patient, field_type: :value},
+              # REMOVAL_DATETIME is no longer used.
               'REMOVAL_DATETIME' => {title:'Removal Date/Time', coded_entry_method: :removal_time, code: '118292001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1032.1', field_type: :timestamp},
               # Result isn't encoded
               # TODO: (LDY 10/4/2016) RESULT_DATETIME is a new attribute in QDM 5.0. We do not yet have codes/template information for this.
               'RESULT_DATETIME' => {title:'Result Date/Time', coded_entry_method: :result_date_time, field_type: :timestamp},
               'ROUTE' => {title:'Route', coded_entry_method: :route, code: '263513008', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1020.2', field_type: :value},
-              'SETTING' => {title:'Setting', coded_entry_method: :setting, field_type: :value},
               # Added in QDM 5.4
               'SENDER' => {title:'Sender', coded_entry_method: :sender, field_type: :value},
+              'SETTING' => {title:'Setting', coded_entry_method: :setting, field_type: :value},
               'SEVERITY' => {title:'Severity', coded_entry_method: :severity, code: 'SEV', code_system:'2.16.840.1.113883.5.4', template_id: '2.16.840.1.113883.10.20.22.4.8', field_type: :value},
+              # SIGNED_DATETIME is no longer used.
               'SIGNED_DATETIME' =>  {title:'Signed Date/Time', coded_entry_method: :signed_date_time, field_type: :timestamp},
+              # START_DATETIME is no longer used.
               'START_DATETIME' => {title:'Start Date/Time', coded_entry_method: :start_date, code: '398201009', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1027.1', field_type: :timestamp},
               # STATUS is referenced in the code as `qdm_status` because entry/Record already has a `status`/`status_code` field which has a different meaning
               'STATUS' => {title: 'Status', coded_entry_method: :qdm_status, code: '33999-4', code_system:'2.16.840.1.113883.6.1', field_type: :value},
+              # STOP_DATETIME is no longer used.
               'STOP_DATETIME' => {title:'Stop Date/Time', coded_entry_method: :end_date, code: '397898000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1026.1', field_type: :timestamp},
               # TODO: (LDY 10/4/2016) SUPPLY is a new attribute in QDM 5.0. We do not yet have codes/template information for this.
               'SUPPLY' => {title:'Supply', coded_entry_method: :supply, field_type: :value},
               'TARGET_OUTCOME' => {title:'Target Outcome', coded_entry_method: :target_outcome, code: '385676005', code_system:'2.16.840.1.113883.6.96', template_id: '', field_type: :value},
-              # MISSING Time - The time that the patient passed away
 
               # Custom field values
               # QDM 5.3 Update: "Related To" replaces Fulfills. We are keeping the fulfills code and only make changes to the UI.
               'FLFS' => {title:'Related To', coded_entry_method: :fulfills, code: 'FLFS', field_type: :reference},
               'SOURCE' => {title:'Source', coded_entry_method: :source, code: '260753009', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.2001.2', field_type: :value},
+              # TRANSFER_FROM, TRANSFER_FROM_DATETIME, TRANSFER_TO, and TRANSFER_TO_DATETIME are no longer used.
               'TRANSFER_FROM' => {title:'Transfer From', coded_entry_method: :transfer_from, code: 'TRANSFER_FROM', template_id: '2.16.840.1.113883.10.20.24.3.81', field_type: :value},
               'TRANSFER_FROM_DATETIME' => {title:'Transfer From Date/Time', coded_entry_method: :transfer_from_time, code: 'ORG_TIME', template_id: '2.16.840.1.113883.10.20.24.3.81', field_type: :nested_timestamp},
               'TRANSFER_TO' => {title:'Transfer To', coded_entry_method: :transfer_to, code: 'TRANSFER_TO', template_id: '2.16.840.1.113883.10.20.24.3.82', field_type: :value},
