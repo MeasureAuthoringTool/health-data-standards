@@ -44,6 +44,8 @@ module HQMF
               # CUMULATIVE_MEDICATION_DURATION is no longer used
               'CUMULATIVE_MEDICATION_DURATION' => {title:'Cumulative Medication Duration', coded_entry_method: :cumulative_medication_duration, code: '261773006', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1001.3', field_type: :value},
               # MISSING Date - The date that the patient passed away. - Patient Characteristic Expired
+              # Could not find a code and code_system for this data criteria (days supplied) in HQMF QDM IG v3
+              'DAYS_SUPPLIED' => {title:'Days Supplied', coded_entry_method: :days_supplied, field_type: :value},
               'DIAGNOSIS' => {title:'Diagnosis', coded_entry_method: :diagnosis, field_type: :value},
               # DISCHARGE_DATETIME is no longer used.
               'DISCHARGE_DATETIME' => {title:'Discharge Date/Time', coded_entry_method: :discharge_time, code: '442864001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1025.1', field_type: :timestamp},
