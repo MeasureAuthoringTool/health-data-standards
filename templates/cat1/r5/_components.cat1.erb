@@ -4,8 +4,22 @@
           <!-- Component -->
           <templateId root="2.16.840.1.113883.10.20.24.3.149" extension="2017-08-01" />
           <id root="1.3.6.1.4.1.115" extension="<%= identifier_for(component) %>"/>
-          <code code="<%= component.code['code'] %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(component.code['code_system']) %>" />
-          <%== render(:partial => 'component_value', :locals => {:result => component.result} ) %>
+          <code code="<%= component[:code][:code] %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(component[:code][:code_system]) %>" />
+          <%== render(:partial => 'component_value', :locals => {:result => component[:result]} ) %>
+          <% if (component['referenceRangeHigh'] && !component['referenceRangeHigh']['scalar'].to_s.empty?) || (component['referenceRangeLow'] && !component['referenceRangeLow']['scalar'].to_s.empty?) %>
+          <referenceRange>
+            <observationRange>
+              <value xsi:type="IVL_PQ">
+              <% if component['referenceRangeLow'] %>
+                <low value="<%= component['referenceRangeLow']['scalar'] %>" <% if component['referenceRangeLow']['units'] && (component['referenceRangeLow']['units'] != "") -%>unit="<%= component['referenceRangeLow']['units'] %>"<% else -%>unit="1"<% end -%>/>
+              <% end %>
+              <% if component['referenceRangeHigh'] %>
+                <high value="<%= component['referenceRangeHigh']['scalar'] %>" <% if component['referenceRangeHigh']['units'] && (component['referenceRangeHigh']['units'] != "") -%>unit="<%= component['referenceRangeHigh']['units'] %>"<% else -%>unit="1"<% end -%>/>
+              <% end %>
+              </value>
+            </observationRange>
+          </referenceRange>
+          <% end %>
       </observation>
   </entryRelationship>
 <% end %>

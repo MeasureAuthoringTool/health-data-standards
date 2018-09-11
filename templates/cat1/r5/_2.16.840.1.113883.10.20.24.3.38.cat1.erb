@@ -19,5 +19,19 @@
     <% if entry.components -%>
       <%== render(:partial => 'components', :locals => {:entry => entry} ) %>
     <% end %>
-    </observation>
+    <% if entry.referenceRangeHigh || entry.referenceRangeLow %>
+    <referenceRange>
+      <observationRange>
+        <value xsi:type="IVL_PQ">
+        <% if entry.referenceRangeLow %>
+          <low value="<%= entry.referenceRangeLow['scalar'] %>" <% if entry.referenceRangeLow['units'] && (entry.referenceRangeLow['units'] != "") -%>unit="<%= entry.referenceRangeLow['units'] %>"<% else -%>unit="1"<% end -%>/>
+        <% end %>
+        <% if entry.referenceRangeHigh %>
+          <high value="<%= entry.referenceRangeHigh['scalar'] %>" <% if entry.referenceRangeHigh['units'] && (entry.referenceRangeHigh['units'] != "") -%>unit="<%= entry.referenceRangeHigh['units'] %>"<% else -%>unit="1"<% end -%>/>
+        <% end %>
+        </value>
+      </observationRange>
+    </referenceRange>
+    <% end %>
+  </observation>
 </entry>

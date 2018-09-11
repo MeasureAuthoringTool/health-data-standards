@@ -1,0 +1,6 @@
+<% if entry.respond_to?(:method) && entry.method.present? 
+  -%>
+<methodCode  code="<%= entry.method[:code] %>" 
+              codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.method[:codeSystem] || entry.method[:code_system]) %>"
+              />
+<% end -%>

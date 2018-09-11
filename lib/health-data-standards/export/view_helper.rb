@@ -93,20 +93,23 @@ module HealthDataStandards
       end
 
       def dose_quantity(codes, dose)
-        if (codes["RxNorm"].present? || codes["CVX"].present?)
-          if dose[:unit].present?
-            return "value='1' unit='#{ucum_for_dose_quantity(dose[:unit])}'"
-          else
-            return "value='1'"
-          end
+        # this previously paid attention to precoordinated medications like RxNorm and CVX
+        # and would ignore medication dosage if the code was one of those. However, that does
+        # not seem accurate. From conversation with Dave Czulada on 8/8:
+        # "When a medication code is "precoordinated" one should not be able to specify a UOM
+        # that is other than capsule/dose/tablet/unit. For example, you wouldn't say 20 MG of
+        # RxNorm 1000048 (Doxepin Hydrochloride 10 MG Oral Capsule).  You would say 2 capsules
+        # of RxNorm 1000048 or 2 units of RxNorm 1000048."
+        #
+        # In order to enable a user to say "2 units" or "2 capsules", we need to allow the
+        # dosage to be present even if an RxNorm or CVX code is used. It is the user's job
+        # to confirm that they aren't contradicting the coded value.
+        if dose[:scalar].present?
+          return "value='#{dose[:scalar]}' unit='#{dose[:units]}'"
+        elsif dose[:value].present?
+          return "value='#{dose[:value]}' unit='#{dose[:unit]}'"
         else
-          if dose[:scalar].present?
-            return "value='#{dose[:scalar]}' unit='#{dose[:units]}'"
-          elsif dose[:value].present?
-            return "value='#{dose[:value]}' unit='#{dose[:unit]}'"
-          else
-            return "value='1'"
-          end
+          return "value='1' unit='1'"
         end
       end
 

@@ -15,14 +15,15 @@
       <effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A">
         <period nullFlavor="NA"/>
       </effectiveTime>
-    <% elsif entry.administrationTiming.present?
-      period = entry.administrationTiming['period'] %>
+    <% elsif entry.administrationTiming.present? && entry.administrationTiming.key?('scalar')%>
       <effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A">
-        <period value="<%= period['value']%>" unit="<%= period['unit']%>"/>
+        <period value="<%= entry.administrationTiming['scalar']%>" <% if entry.administrationTiming['units'] && (entry.administrationTiming['units'] != "") -%>unit="<%= entry.administrationTiming['units']%>"<% end %>/>
       </effectiveTime>
     <% end %>
     <% if entry.allowedAdministrations.present? %>
       <repeatNumber value="<%== entry.allowedAdministrations %>" />
+    <% elsif entry.refills.present? %>
+      <repeatNumber value="<%== entry.refills['scalar'] %>" />
     <% end %>
      <%== render(:partial => 'medication_details', :locals => {:entry => entry, :route_oids=>field_oids["ROUTE"]}) %>
     <consumable>
