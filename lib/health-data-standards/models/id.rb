@@ -4,6 +4,5 @@ class Id
     embedded_in :entry
     field :naming_system, type: String
     field :id_value, type: String
-
  end
   
