@@ -138,6 +138,7 @@ module HealthDataStandards
           patient.gender = gender_node['code']
           id_node = patient_role_element.at_xpath('./cda:id')
           patient.medical_record_number = id_node['extension']
+          patient.medical_record_assigner = id_node['root']
           
           # parse race, ethnicity, and spoken language
           race_node = patient_element.at_xpath('cda:raceCode')
