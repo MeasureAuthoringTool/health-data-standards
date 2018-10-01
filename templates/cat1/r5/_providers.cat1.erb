@@ -25,52 +25,55 @@
       </assignedEntity>
     </performer>
   <% else -%>
-    <% patient.provider_performances.each do |pp| -%>
-      <effectiveTime>
-        <low <%= value_or_null_flavor(pp.start_date) %>/>
-        <high <%= value_or_null_flavor(pp.end_date) %>/>
-      </effectiveTime>
-      <!-- You can include multiple performers, each with an NPI, TIN, CCN. -->
-      <performer typeCode="PRF"> 
-        <time>
-          <low <%= value_or_null_flavor(pp.start_date) %>/>
-          <high <%= value_or_null_flavor(pp.end_date) %>/>
-        </time>
-        <assignedEntity>
-          <% pp.provider.cda_identifiers.each do |cda_id| -%>
-            <% unless cda_id.root.eql? '2.16.840.1.113883.4.2' -%>
-          <id root="<%= cda_id.root %>" extension="<%= cda_id.extension %>" />
+        <effectiveTime>
+          <low value="20020716"/>
+          <high value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
+        </effectiveTime>
+        <% patient.provider_performances.each do |pp| -%>
+            <% if pp.provider.cda_identifiers.reduce(false){|found, item|
+              found || /2\.16\.840\.1\.113883\.4\.[26]/ === item['root']} -%>
+                <!-- You can include multiple performers, each with an NPI, TIN, CCN. -->
+                <performer typeCode="PRF">
+                  <time>
+                    <low <%= value_or_null_flavor(pp.start_date) %>/>
+                    <high <%= value_or_null_flavor(pp.end_date) %>/>
+                  </time>
+                  <assignedEntity>
+                    <% pp.provider.cda_identifiers.each do |cda_id| -%>
+                        <% unless cda_id.root.eql? '2.16.840.1.113883.4.2' -%>
+                            <id root="<%= cda_id.root %>" extension="<%= cda_id.extension %>"/>
+                        <% end -%>
+                    <% end -%>
+                    <% if pp.provider.specialty %>
+                        <code code="<%= pp.provider.specialty %>" codeSystemName="Healthcare Provider Taxonomy (HIPAA)" codeSystem="2.16.840.1.113883.6.101"/>
+                    <% end %>
+                    <%== render :partial => "address", :collection => pp.provider.addresses %>
+                    <%== render :partial => "telecom", :collection => pp.provider.telecoms %>
+                    <assignedPerson>
+                      <name>
+                        <given><%= pp.provider.given_name %></given>
+                        <family><%= pp.provider.family_name %></family>
+                      </name>
+                    </assignedPerson>
+                    <representedOrganization>
+                      <% pp.provider.cda_identifiers.each do |cda_id| -%>
+                          <% if cda_id.root.eql?('2.16.840.1.113883.4.2') -%>
+                              <id root="2.16.840.1.113883.4.2" extension="<%= cda_id.extension %>"/>
+                          <% end -%>
+                      <% end -%>
+                      <% if pp.provider.organization %>
+                          <name><%= pp.provider.organization.name %></name>
+                          <%== render :partial => "address", :collection => pp.provider.organization.addresses %>
+                          <%== render :partial => "telecom", :collection => pp.provider.organization.telecoms %>
+                      <% else %>
+                          <%== render :partial => "address", :collection => pp.provider.addresses %>
+                          <%== render :partial => "telecom", :collection => pp.provider.telecoms %>
+                      <% end %>
+                    </representedOrganization>
+                  </assignedEntity>
+                </performer>
             <% end -%>
-          <% end -%>
-          <% if pp.provider.specialty %>
-          <code code="<%= pp.provider.specialty %>" codeSystemName="Healthcare Provider Taxonomy (HIPAA)" codeSystem="2.16.840.1.113883.6.101"/>
-          <% end %>
-          <%== render :partial=>"address" , :collection=>pp.provider.addresses %>
-          <%== render :partial=>"telecom", :collection=>pp.provider.telecoms %>
-          <assignedPerson>
-          <name>
-             <given><%= pp.provider.given_name %></given>
-             <family><%= pp.provider.family_name %></family>
-          </name>
-          </assignedPerson>
-          <representedOrganization>
-            <% pp.provider.cda_identifiers.each do |cda_id| -%>
-            <% if cda_id.root.eql?('2.16.840.1.113883.4.2') -%>
-            <id root="2.16.840.1.113883.4.2" extension="<%= cda_id.extension %>" />
-            <% end -%>
-            <% end -%>
-            <%if pp.provider.organization %>
-              <name><%= pp.provider.organization.name %></name>
-              <%== render :partial=>"address" , :collection=>pp.provider.organization.addresses %>
-              <%== render :partial=>"telecom", :collection=>pp.provider.organization.telecoms %>
-            <% else %>
-              <%== render :partial=>"address" , :collection=>pp.provider.addresses %>
-              <%== render :partial=>"telecom", :collection=>pp.provider.telecoms %>
-            <% end %>
-          </representedOrganization>
-        </assignedEntity>
-      </performer>
+        <% end -%>
     <% end -%>
-  <% end -%>
   </serviceEvent>
 </documentationOf>
