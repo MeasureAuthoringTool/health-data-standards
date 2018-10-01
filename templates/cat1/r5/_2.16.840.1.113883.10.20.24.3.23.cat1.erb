@@ -81,7 +81,7 @@
                         <!-- Attribute: discharge datetime -->
                         <high <%= value_or_null_flavor(entry.end_time) %>/>
                       </effectiveTime>
-                      <value code="<%= entry.diagnosis.values[1][0].code %>" xsi:type="CD" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.diagnosis.values[1][0].code_system) %>"/>
+                      <value code="<%= entry.diagnosis.values[1][0]['code'] %>" xsi:type="CD" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.diagnosis.values[1][0]['code_system']) %>"/>
                     </observation>
                   </entryRelationship>
                 </act>
