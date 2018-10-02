@@ -25,11 +25,11 @@
       </assignedEntity>
     </performer>
   <% else -%>
-    <% providers.each do |prov| -%>
       <effectiveTime>
         <low value= "<%= start_date.utc.to_formatted_s(:number) %>" />
         <high value= "<%= end_date.utc.to_formatted_s(:number) %>" />
       </effectiveTime>
+    <% providers.each do |prov| -%>
       <!-- You can include multiple performers, each with an NPI, TIN, CCN. -->
       <performer typeCode="PRF">
         <time>
