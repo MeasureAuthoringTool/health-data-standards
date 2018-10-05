@@ -120,7 +120,7 @@ module HealthDataStandards
               population.add_stratification(strat_id,cache_entry[population_type])
             else
               population.value = cache_entry[population_type]
-              population.supplemental_data = cache_entry.result.supplemental_data[population_type]
+              population.supplemental_data = cache_entry.supplemental_data[population_type]
             end
           end
           entry_populations << population if population
