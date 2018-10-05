@@ -103,7 +103,7 @@ module HealthDataStandards
 
       def add_entry(cache_entry)
         puts "<<<<<<<<<<<<<<<<<<<<<<<<add entry>>>>>>>>>>>>>>>>>>>>>>>>>>"
-        puts cache_entry
+        puts cache_entry.to_yaml
         puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<end>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
         entry_populations = []
         cache_entry.population_ids.each do |population_type, population_id|
