@@ -102,6 +102,9 @@ module HealthDataStandards
       end
 
       def add_entry(cache_entry)
+        puts "<<<<<<<<<<<<<<<<<<<<<<<<add entry>>>>>>>>>>>>>>>>>>>>>>>>>>"
+        puts cache_entry
+        puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<end>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
         entry_populations = []
         cache_entry.population_ids.each do |population_type, population_id|
           population = populations.find{|pop| pop.id == population_id}
@@ -117,7 +120,7 @@ module HealthDataStandards
               population.add_stratification(strat_id,cache_entry[population_type])
             else
               population.value = cache_entry[population_type]
-              population.supplemental_data = cache_entry.supplemental_data[population_type]
+              population.supplemental_data = cache_entry.result.supplemental_data[population_type]
             end
           end
           entry_populations << population if population
