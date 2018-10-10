@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<QualityMeasureDocument xmlns="urn:hl7-org:v3" xmlns:cql-ext="urn:hhs-cql:hqmf-n1-extensions:v1"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         
+      <!--
+			**************************************************************
+			Measure Details Section
+			**************************************************************
+		-->
+         
+      <typeId extension="POQM_HD000001UV02" root="2.16.840.1.113883.1.3"/>
+   <templateId>
+      <item extension="2018-05-01" root="2.16.840.1.113883.10.20.28.1.2"/>
+   </templateId>
+   <id root="40280582-6621-2797-0166-58b86b0f12bd"/>
+   <code code="57024-2" codeSystem="2.16.840.1.113883.6.1">
+      <displayName value="Health Quality Measure Document"/>
+   </code>
+   <title value="CVmulti"/>
+   <text
+         value="Testing Bonnie CV measure handling with multiple populations, and mesaure obs functions"/>
+   <statusCode code="COMPLETED"/>
+   <setId root="4757555a-175c-43ea-b803-b4ba9f79a7e2"/>
+   <versionNumber value="0.0.001"/>
+   <author>
+      <responsibleParty classCode="ASSIGNED">
+         <representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id>
+               <item root="2.16.840.1.113883.3.1257"/>
+            </id>
+            <name>
+               <item>
+                  <part value="MITRE"/>
+               </item>
+            </name>
+         </representedResponsibleOrganization>
+      </responsibleParty>
+   </author>
+   <author>
+      <responsibleParty classCode="ASSIGNED">
+         <representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id>
+               <item root="2.16.840.1.113883.3.1502"/>
+            </id>
+            <name>
+               <item>
+                  <part value="MITRE"/>
+               </item>
+            </name>
+         </representedResponsibleOrganization>
+      </responsibleParty>
+   </author>
+   <author>
+      <responsibleParty classCode="ASSIGNED">
+         <representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id>
+               <item root="2.16.840.1.113883.3.400"/>
+            </id>
+            <name>
+               <item>
+                  <part value="MITRE"/>
+               </item>
+            </name>
+         </representedResponsibleOrganization>
+      </responsibleParty>
+   </author>
+   <custodian>
+      <responsibleParty classCode="ASSIGNED">
+         <representedResponsibleOrganization classCode="ORG" determinerCode="INSTANCE">
+            <id>
+               <item root="2.16.840.1.113883.3.1257"/>
+            </id>
+            <name>
+               <item>
+                  <part value="MITRE"/>
+               </item>
+            </name>
+         </representedResponsibleOrganization>
+      </responsibleParty>
+   </custodian>
+   <!--Encounter Inpatient-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113883.3.666.5.307"/>
+         <title value="Encounter Inpatient"/>
+      </valueSet>
+   </definition>
+   <!--Payer-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.114222.4.11.3591"/>
+         <title value="Payer"/>
+      </valueSet>
+   </definition>
+   <!--ONC Administrative Sex-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.113762.1.4.1"/>
+         <title value="ONC Administrative Sex"/>
+      </valueSet>
+   </definition>
+   <!--Ethnicity-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.114222.4.11.837"/>
+         <title value="Ethnicity"/>
+      </valueSet>
+   </definition>
+   <!--Race-->
+     	 <definition>
+      <valueSet classCode="OBS" moodCode="DEF">
+         <id root="2.16.840.1.114222.4.11.836"/>
+         <title value="Race"/>
+      </valueSet>
+   </definition>
+   <relatedDocument typeCode="COMP">
+      <expressionDocument>
+         <id root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+         <text mediaType="text/cql">
+            <reference value="https://emeasuretool.cms.gov/libraries/4757555a-175c-43ea-b803-b4ba9f79a7e2/CVmulti-0.0.001.cql"/>
+            <translation mediaType="application/elm+xml">
+               <reference value="https://emeasuretool.cms.gov/libraries/4757555a-175c-43ea-b803-b4ba9f79a7e2/CVmulti-0.0.001.xml"/>
+            </translation>
+            <translation mediaType="application/elm+json">
+               <reference value="https://emeasuretool.cms.gov/libraries/4757555a-175c-43ea-b803-b4ba9f79a7e2/CVmulti-0.0.001.json"/>
+            </translation>
+         </text>
+         <setId extension="4757555a-175c-43ea-b803-b4ba9f79a7e2" identifierName="CVmulti"
+                root="https://emeasuretool.cms.gov/libraries"/>
+         <versionNumber value="0.0.001"/>
+      </expressionDocument>
+   </relatedDocument>
+   <controlVariable>
+      <measurePeriod>
+         <id extension="measureperiod" root="a8e7814f-f000-428b-b8f3-23a751675c31"/>
+         <code code="MSRTP" codeSystem="2.16.840.1.113883.5.4">
+            <originalText value="Measurement Period"/>
+         </code>
+         <value xsi:type="PIVL_TS">
+            <phase highClosed="true" lowClosed="true">
+               <low value="20180101"/>
+               <width unit="a" value="1" xsi:type="PQ"/>
+            </phase>
+            <period unit="a" value="1"/>
+         </value>
+      </measurePeriod>
+   </controlVariable>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText value="eCQM Identifier (Measure Authoring Tool)"/>
+         </code>
+         <value mediaType="text/plain" value="889" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code nullFlavor="OTH">
+            <originalText value="NQF Number"/>
+         </code>
+         <value mediaType="text/plain" value="Not Applicable" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="COPY" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Copyright"/>
+         </code>
+         <value mediaType="text/plain" value="" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DISC" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Disclaimer"/>
+         </code>
+         <value mediaType="text/plain" value="" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRSCORE" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Measure Scoring"/>
+         </code>
+         <value code="CONTVAR" codeSystem="2.16.840.1.113883.5.1063" xsi:type="CD">
+            <displayName value="Continuous Variable"/>
+         </value>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="STRAT" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Stratification"/>
+         </code>
+         <value mediaType="text/plain" value="" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRADJ" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Risk Adjustment"/>
+         </code>
+         <value mediaType="text/plain" value="" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRAGG" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Rate Aggregation"/>
+         </code>
+         <value mediaType="text/plain" value="" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="RAT" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Rationale"/>
+         </code>
+         <value mediaType="text/plain" value="" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="CRS" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Clinical Recommendation Statement"/>
+         </code>
+         <value mediaType="text/plain" value="" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IDUR" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Improvement Notation"/>
+         </code>
+         <value mediaType="text/plain" value="" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="REF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Reference"/>
+         </code>
+         <value mediaType="text/plain" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="DEF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Definition"/>
+         </code>
+         <value mediaType="text/plain" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="GUIDE" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Guidance"/>
+         </code>
+         <value mediaType="text/plain" value="" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="TRANF" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Transmission Format"/>
+         </code>
+         <value mediaType="text/plain" value="" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="IPOP" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Initial Population"/>
+         </code>
+         <value mediaType="text/plain" value="" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Measure Population"/>
+         </code>
+         <value mediaType="text/plain" value="" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSRPOPLEX" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Measure Population Exclusions"/>
+         </code>
+         <value mediaType="text/plain" value="" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="MSROBS" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Measure Observation"/>
+         </code>
+         <value mediaType="text/plain" value="" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <subjectOf>
+      <measureAttribute>
+         <code code="SDE" codeSystem="2.16.840.1.113883.5.4">
+            <displayName value="Supplemental Data Elements"/>
+         </code>
+         <value mediaType="text/plain" value="" xsi:type="ED"/>
+      </measureAttribute>
+   </subjectOf>
+   <componentOf>
+      <qualityMeasureSet classCode="ACT">
+         <id root=""/>
+         <title value=""/>
+      </qualityMeasureSet>
+   </componentOf>
+   <!--Data Criteria Section-->
+   <component>
+      <dataCriteriaSection>
+         <templateId>
+            <item extension="2018-05-01" root="2.16.840.1.113883.10.20.28.2.6"/>
+         </templateId>
+         <code code="57025-9" codeSystem="2.16.840.1.113883.6.1"/>
+         <title value="Data Criteria Section"/>
+         <text/>
+         <entry typeCode="DRIV">
+            <localVariableName value="EncounterInpatient_EncounterPerformed_bI4cK"/>
+            <encounterCriteria classCode="ENC" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.4.5"/>
+               </templateId>
+               <id extension="EncounterInpatient_EncounterPerformed"
+                   root="bde7ccce-e704-4830-bbb6-6fc564e03907"/>
+               <code valueSet="2.16.840.1.113883.3.666.5.307"/>
+               <title value="Encounter, Performed"/>
+               <statusCode code="COMPLETED"/>
+            </encounterCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="Payer_PatientCharacteristicPayer_FpHNE"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-05-01" root="2.16.840.1.113883.10.20.28.4.58"/>
+               </templateId>
+               <id extension="Payer_PatientCharacteristicPayer"
+                   root="e1a59ef4-728b-4503-86e1-f814d2b2f006"/>
+               <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Payer"/>
+               </code>
+               <title value="Patient Characteristic Payer"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.114222.4.11.3591" xsi:type="CD"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="ONCAdministrativeSex_PatientCharacteristicSex_BQjlX"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-05-01" root="2.16.840.1.113883.10.20.28.4.55"/>
+               </templateId>
+               <id extension="ONCAdministrativeSex_PatientCharacteristicSex"
+                   root="c14d1c63-ad4c-4d3b-bbe6-de84aac32e57"/>
+               <code code="263495000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
+                  <displayName value="Gender"/>
+               </code>
+               <title value="Patient Characteristic Sex"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.113762.1.4.1" xsi:type="CD"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="Ethnicity_PatientCharacteristicEthnicity_VToVy"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-05-01" root="2.16.840.1.113883.10.20.28.4.56"/>
+               </templateId>
+               <id extension="Ethnicity_PatientCharacteristicEthnicity"
+                   root="790c689a-3bcc-4a02-bf23-9cf7b08b38ec"/>
+               <code code="54133-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Ethnicity"/>
+               </code>
+               <title value="Patient Characteristic Ethnicity"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.114222.4.11.837" xsi:type="CD"/>
+            </observationCriteria>
+         </entry>
+         <entry typeCode="DRIV">
+            <localVariableName value="Race_PatientCharacteristicRace_WFfTN"/>
+            <observationCriteria classCode="OBS" moodCode="EVN">
+               <templateId>
+                  <item extension="2017-05-01" root="2.16.840.1.113883.10.20.28.4.59"/>
+               </templateId>
+               <id extension="Race_PatientCharacteristicRace"
+                   root="893ff831-987b-4c2f-8353-2b570f7b7491"/>
+               <code code="32624-9" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+                  <displayName value="Race"/>
+               </code>
+               <title value="Patient Characteristic Race"/>
+               <statusCode code="COMPLETED"/>
+               <value valueSet="2.16.840.1.114222.4.11.836" xsi:type="CD"/>
+            </observationCriteria>
+         </entry>
+      </dataCriteriaSection>
+   </component>
+   <component>
+      <populationCriteriaSection>
+         <templateId>
+            <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.2.7"/>
+         </templateId>
+         <id extension="PopulationCriteria1" root="AEAB9EE7-409E-46C8-A923-8F883FCF8F29"/>
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"/>
+         <title value="Population Criteria Section"/>
+         <text/>
+         <component typeCode="COMP">
+            <initialPopulationCriteria classCode="OBS" moodCode="EVN">
+               <id extension="initialPopulation" root="6F483740-DD77-4B37-A52E-43A9B5CB1CAE"/>
+               <code code="IPOP" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;Initial Population 1&quot;"
+                         root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </initialPopulationCriteria>
+         </component>
+         <component typeCode="COMP">
+            <measurePopulationCriteria classCode="OBS" moodCode="EVN">
+               <id extension="measurePopulation" root="C2521E66-D88B-44DA-955F-B5782D641F1A"/>
+               <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;Measure Population 1&quot;"
+                         root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </measurePopulationCriteria>
+         </component>
+         <component typeCode="COMP">
+            <measurePopulationExclusionCriteria classCode="OBS" moodCode="EVN">
+               <id extension="measurePopulationExclusions"
+                   root="76F61EFB-48A4-4E06-8679-5FDF8B58269F"/>
+               <code code="MSRPOPLEX" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;Measure Population Exclusions 1&quot;"
+                         root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </measurePopulationExclusionCriteria>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="027ABED6-D830-4196-89FF-9183E580D5C5"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;SDE Ethnicity&quot;" root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="94746449-60DD-4DCB-B543-EE0B4A4E6A93"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;SDE Payer&quot;" root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="5E83A9E6-D0A6-485F-AF0F-0707386DED5D"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;SDE Race&quot;" root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="500E7784-EB94-4241-A8EB-73547A3676A9"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;SDE Sex&quot;" root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+      </populationCriteriaSection>
+   </component>
+   <component>
+      <populationCriteriaSection>
+         <templateId>
+            <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.2.7"/>
+         </templateId>
+         <id extension="PopulationCriteria2" root="E4A29CE9-B4CE-4ECE-B5BF-07218BDE3332"/>
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"/>
+         <title value="Population Criteria Section"/>
+         <text/>
+         <component typeCode="COMP">
+            <initialPopulationCriteria classCode="OBS" moodCode="EVN">
+               <id extension="initialPopulation" root="36C2D1C0-7C80-4C86-96C7-FC9B5F6CD6AC"/>
+               <code code="IPOP" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;Initial Population 2&quot;"
+                         root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </initialPopulationCriteria>
+         </component>
+         <component typeCode="COMP">
+            <measurePopulationCriteria classCode="OBS" moodCode="EVN">
+               <id extension="measurePopulation" root="C4336330-4C32-4A55-93F3-1C3D95F827AB"/>
+               <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;Measure Population 2&quot;"
+                         root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </measurePopulationCriteria>
+         </component>
+         <component typeCode="COMP">
+            <measurePopulationExclusionCriteria classCode="OBS" moodCode="EVN">
+               <id extension="measurePopulationExclusions"
+                   root="A6A28F3E-6106-4013-B2CB-DE103C25A98E"/>
+               <code code="MSRPOPLEX" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;Measure Population Exclusions 2&quot;"
+                         root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </measurePopulationExclusionCriteria>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="A62FD88D-EEF2-4F07-A378-269EB899D5B5"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;SDE Ethnicity&quot;" root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="C97DD620-A9FC-42FB-9512-1680DABBA98A"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;SDE Payer&quot;" root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="1595781B-63CB-43C6-9CCF-923815DD2CD8"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;SDE Race&quot;" root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="EE6E2F59-6A94-44CE-BD35-521802254696"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;SDE Sex&quot;" root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+      </populationCriteriaSection>
+   </component>
+   <component>
+      <populationCriteriaSection>
+         <templateId>
+            <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.2.7"/>
+         </templateId>
+         <id extension="PopulationCriteria3" root="5E018B85-206E-4177-BB74-0B657C41C7BA"/>
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"/>
+         <title value="Population Criteria Section"/>
+         <text/>
+         <component typeCode="COMP">
+            <initialPopulationCriteria classCode="OBS" moodCode="EVN">
+               <id extension="initialPopulation" root="AAD3EC83-4D2A-49B3-AA57-C2BB6DCCA7E9"/>
+               <code code="IPOP" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;Initial Population 1&quot;"
+                         root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </initialPopulationCriteria>
+         </component>
+         <component typeCode="COMP">
+            <measurePopulationCriteria classCode="OBS" moodCode="EVN">
+               <id extension="measurePopulation" root="90861F4A-713A-42B0-A222-488E23F91873"/>
+               <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;Measure Population 1&quot;"
+                         root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </measurePopulationCriteria>
+         </component>
+         <component typeCode="COMP">
+            <measurePopulationExclusionCriteria classCode="OBS" moodCode="EVN">
+               <id extension="measurePopulationExclusions"
+                   root="3E12DBD1-DE0F-49B2-BC94-820EC010AFF7"/>
+               <code code="MSRPOPLEX" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;Measure Population Exclusions 1&quot;"
+                         root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </measurePopulationExclusionCriteria>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="D51D2BEE-05EB-4DC4-92F1-B3570F31573A"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;SDE Ethnicity&quot;" root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="2AEBF2F0-BFCF-4B26-A0F9-13FA80F818A0"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;SDE Payer&quot;" root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="6682E3D2-6A46-4258-8455-BAEA1CB7F58B"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;SDE Race&quot;" root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="E5E2DF12-29AC-47E9-B6C9-0EE6A26D619E"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;SDE Sex&quot;" root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+      </populationCriteriaSection>
+   </component>
+   <component>
+      <populationCriteriaSection>
+         <templateId>
+            <item extension="2017-08-01" root="2.16.840.1.113883.10.20.28.2.7"/>
+         </templateId>
+         <id extension="PopulationCriteria4" root="EBE980E4-0548-4D90-9ED5-EE5B2CDFEEB0"/>
+         <code code="57026-7" codeSystem="2.16.840.1.113883.6.1"/>
+         <title value="Population Criteria Section"/>
+         <text/>
+         <component typeCode="COMP">
+            <initialPopulationCriteria classCode="OBS" moodCode="EVN">
+               <id extension="initialPopulation" root="40C9C618-3AEE-401D-A872-E252D33CD560"/>
+               <code code="IPOP" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;Initial Population 2&quot;"
+                         root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </initialPopulationCriteria>
+         </component>
+         <component typeCode="COMP">
+            <measurePopulationCriteria classCode="OBS" moodCode="EVN">
+               <id extension="measurePopulation" root="518A6FEB-C7F1-4C0E-ACE9-A1B250F5E42C"/>
+               <code code="MSRPOPL" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;Measure Population 2&quot;"
+                         root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </measurePopulationCriteria>
+         </component>
+         <component typeCode="COMP">
+            <measurePopulationExclusionCriteria classCode="OBS" moodCode="EVN">
+               <id extension="measurePopulationExclusions"
+                   root="F062BD65-214E-466D-9E32-E552E5AE27CF"/>
+               <code code="MSRPOPLEX" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;Measure Population Exclusions 2&quot;"
+                         root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </measurePopulationExclusionCriteria>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="682E4E15-7CCE-4A23-A77B-BC0A7D6EE00B"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;SDE Ethnicity&quot;" root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="DCD39121-3B7E-460D-8EB5-CF4489231632"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;SDE Payer&quot;" root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="65B89AF3-5899-4A17-80C0-731BF459EC7A"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;SDE Race&quot;" root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+         <component typeCode="COMP">
+            <cql-ext:supplementalDataElement>
+               <id extension="Supplemental Data Elements"
+                   root="8D089FD5-5CAC-45AB-8559-2DA46EC41AC5"/>
+               <code code="SDE" codeSystem="2.16.840.1.113883.5.4" codeSystemName="Act Code"/>
+               <precondition typeCode="PRCN">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="CVmulti.&quot;SDE Sex&quot;" root="03B10AD4-E1DC-46AE-BEC5-F818A65086CE"/>
+                  </criteriaReference>
+               </precondition>
+            </cql-ext:supplementalDataElement>
+         </component>
+      </populationCriteriaSection>
+   </component>
+   <component>
+      <measureObservationSection>
+         <templateId>
+            <item extension="2018-05-01" root="2.16.840.1.113883.10.20.28.2.4"/>
+         </templateId>
+         <id extension="MeasureObservations" root="7FB121A5-E8DF-42A4-8C0E-D8E40D6C6104"/>
+         <code code="57027-5" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+         <title value="Measure Observation Section"/>
+         <text/>
+         <!--Definition for Measure Observation 1--><definition>
+            <measureObservationDefinition classCode="OBS" moodCode="DEF">
+               <id extension="SUM Of Measure Observation 1"
+                   root="EFFBD5B2-5BF9-40C2-88FA-214EB0A454BD"/>
+               <code code="AGGREGATE" codeSystem="2.16.840.1.113883.5.4"/>
+               <value nullFlavor="DER" xsi:type="INT">
+                  <expression value="CVmulti.&quot;Measure Observation 1&quot;"/>
+               </value>
+               <methodCode>
+                  <item code="SUM" codeSystem="2.16.840.1.113883.5.84"/>
+               </methodCode>
+               <component typeCode="COMP">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="measurePopulation" root="C2521E66-D88B-44DA-955F-B5782D641F1A"/>
+                  </criteriaReference>
+               </component>
+            </measureObservationDefinition>
+         </definition>
+         <!--Definition for Measure Observation 2--><definition>
+            <measureObservationDefinition classCode="OBS" moodCode="DEF">
+               <id extension="AVERAGE Of Measure Observation 2"
+                   root="CEF2FD3F-D97A-459B-B525-BBBB627351EC"/>
+               <code code="AGGREGATE" codeSystem="2.16.840.1.113883.5.4"/>
+               <value nullFlavor="DER" xsi:type="INT">
+                  <expression value="CVmulti.&quot;Measure Observation 2&quot;"/>
+               </value>
+               <methodCode>
+                  <item code="AVERAGE" codeSystem="2.16.840.1.113883.5.84"/>
+               </methodCode>
+               <component typeCode="COMP">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="measurePopulation" root="C4336330-4C32-4A55-93F3-1C3D95F827AB"/>
+                  </criteriaReference>
+               </component>
+            </measureObservationDefinition>
+         </definition>
+         <!--Definition for Measure Observation 2--><definition>
+            <measureObservationDefinition classCode="OBS" moodCode="DEF">
+               <id extension="AVERAGE Of Measure Observation 2"
+                   root="FF3A9D3B-6456-4C30-8717-DB08B25F3111"/>
+               <code code="AGGREGATE" codeSystem="2.16.840.1.113883.5.4"/>
+               <value nullFlavor="DER" xsi:type="INT">
+                  <expression value="CVmulti.&quot;Measure Observation 2&quot;"/>
+               </value>
+               <methodCode>
+                  <item code="AVERAGE" codeSystem="2.16.840.1.113883.5.84"/>
+               </methodCode>
+               <component typeCode="COMP">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="measurePopulation" root="90861F4A-713A-42B0-A222-488E23F91873"/>
+                  </criteriaReference>
+               </component>
+            </measureObservationDefinition>
+         </definition>
+         <!--Definition for Measure Observation 1--><definition>
+            <measureObservationDefinition classCode="OBS" moodCode="DEF">
+               <id extension="SUM Of Measure Observation 1"
+                   root="D6524A08-4905-4B9B-A9EE-FE9E34B61C44"/>
+               <code code="AGGREGATE" codeSystem="2.16.840.1.113883.5.4"/>
+               <value nullFlavor="DER" xsi:type="INT">
+                  <expression value="CVmulti.&quot;Measure Observation 1&quot;"/>
+               </value>
+               <methodCode>
+                  <item code="SUM" codeSystem="2.16.840.1.113883.5.84"/>
+               </methodCode>
+               <component typeCode="COMP">
+                  <criteriaReference classCode="OBS" moodCode="EVN">
+                     <id extension="measurePopulation" root="518A6FEB-C7F1-4C0E-ACE9-A1B250F5E42C"/>
+                  </criteriaReference>
+               </component>
+            </measureObservationDefinition>
+         </definition>
+      </measureObservationSection>
+   </component>
+</QualityMeasureDocument>
