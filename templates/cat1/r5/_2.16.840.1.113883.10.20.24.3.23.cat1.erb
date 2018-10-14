@@ -21,8 +21,8 @@
           <high <%= value_or_null_flavor(entry.discharge_time || entry.end_time) %>/>
         </effectiveTime>
         <% if entry.discharge_disposition.present? %>
-            <sdtc:dischargeDispositionCode code="<%= entry.discharge_disposition.code %>" 
-                codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.discharge_disposition.code_system) %>"/>
+            <sdtc:dischargeDispositionCode code="<%= entry.discharge_disposition[:code] %>" 
+                codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.discharge_disposition[:code_system]) %>"/>
         <% end -%>
         <% if entry.respond_to?(:facility) && entry.facility.present? -%>
         <participant typeCode="LOC">
