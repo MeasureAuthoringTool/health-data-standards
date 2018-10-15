@@ -14,6 +14,7 @@ module HealthDataStandards
 
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
           communication = super
+          # communication.direction is deprecated as of QDM 5.4
           communication.direction = find_communication_direction(entry_element)
           extract_reason_or_negation(entry_element, communication)
           extract_references(entry_element, communication)
@@ -22,6 +23,7 @@ module HealthDataStandards
 
         private
 
+        # find_communication_direction is deprecated as of QDM 5.4
         def find_communication_direction(entry_element)
           case entry_element.at_xpath(@template_xpath).value
           when "2.16.840.1.113883.10.20.24.3.3"

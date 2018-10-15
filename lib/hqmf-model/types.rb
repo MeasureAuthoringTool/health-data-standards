@@ -453,5 +453,42 @@ module HQMF
       check_equality(self,other)
     end
   end
+
+  class Ratio
+    include HQMF::Conversion::Utilities
+    attr_accessor :type, :numerator, :denominator
+
+    # @param [String] type
+    # @param [Value] numerator
+    # @param [Value] denominator
+    def initialize(type, numerator, denominator)
+      @type = type || 'RT'
+      @numerator = numerator
+      @denominator = denominator
+    end
+
+    def self.from_json(json)
+      type = json["type"] if json["type"]
+      numerator = json["numerator"] if json["numerator"]
+      denominator = json["denominator"] if json["denominator"]
+      HQMF::Ratio.new(type, numerator, denominator)
+    end
+
+    def numerator?
+      @numerator
+    end
+
+    def denominator?
+      @denominator
+    end
+
+    def to_json
+      build_hash(self, [:type, :numerator, :denominator])
+    end
+
+    def ==(other)
+      check_equality(self, other)
+    end
+  end
   
 end

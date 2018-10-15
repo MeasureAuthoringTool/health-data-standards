@@ -1,3 +1,4 @@
+# Medication is used for Medication, Immunization and Substance QDM types.
 class Medication < Entry
   # administrationTiming is the same as QDM5.3 frequency in Bonnie
   field :administrationTiming, as: :administration_timing, type: Hash
@@ -5,6 +6,9 @@ class Medication < Entry
   # QDM 5.0 disambiguates dose to be dosage and suppy. 'dose' here represents the QDM 5.0 'dosage'.
   # Bonnie displays this as 'dosage'.
   field :dose, type: Hash
+  field :setting, type: Hash
+  # Attribute deprecated for "Medication, Active", "Medication, Administered", "Immunization, Administered", "Substance, Administered", "Substance, Recommended" in QDM 5.4.
+  # Remains for "Medication, Dispensed", "Medication, Order", "Medication, Discharge", "Immunization, Order", "Substance, Order"
   field :supply, type: Hash
   field :refills, type: Hash
   field :typeOfMedication, as: :type_of_medication, type: Hash
@@ -14,6 +18,7 @@ class Medication < Entry
 
   field :route, type: Hash
   field :anatomical_approach, type: Hash
+  field :dispenserIdentifier, as: :dispenser_identifier, type: Hash
   field :doseRestriction, as: :dose_restriction, type: Hash
   field :fulfillmentInstructions, as: :fulfillment_instructions, type: String
   field :indication, type: Hash
@@ -21,9 +26,12 @@ class Medication < Entry
   field :vehicle, type: Hash
   field :reaction, type: Hash
   field :deliveryMethod, as: :delivery_method, type: Hash
+  field :prescriberIdentifier, as: :prescriber_identifier, type: Hash
   field :patientInstructions, as: :patient_instructions, type: String
   field :doseIndicator, as: :dose_indicator, type: String
+  field :daysSupplied, as: :days_supplied, type: Hash
 
+  # In QDM 5.4: method not present on 'medication'. deprecated for 'substance' (particularly, 'Substance, Recommended')
   field :method ,   type: Hash 
   field :active_datetime ,  type: Integer
   field :signed_datetime ,  type: Integer
