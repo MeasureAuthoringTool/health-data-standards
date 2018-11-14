@@ -2,7 +2,7 @@
   -%>
   <% entry.references.each do |reference| 
     resolved_reference = reference.resolve_reference %>
-  <% if reference.type == "fulfills" %>
+  <% if reference.type == "fulfills" || reference.type == "Related To" %>
   <sdtc:inFulfillmentOf1 typeCode="FLFS">
     <sdtc:templateId root="2.16.840.1.113883.10.20.24.3.126" extension="2016-08-01"/>
       <sdtc:actReference classCode="ACT" moodCode="<%= resolved_reference.mood_code %>">
