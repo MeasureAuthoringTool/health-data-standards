@@ -137,7 +137,7 @@ module HealthDataStandards
               end
             end
 
-            # if the data criteria uses a direct reference code, the code_list_id will be drc-****
+            # If the data criteria uses a direct reference code, the code_list_id will be drc-****
             # direct reference codes reference a single code and do not appear in the value_set_map
             if data_criteria.code_list_id && data_criteria.code_list_id.match(/^drc-/)
               codes = [{'set' => data_criteria.inline_code_list.keys[0], 'values' => data_criteria.inline_code_list.values[0]}]
