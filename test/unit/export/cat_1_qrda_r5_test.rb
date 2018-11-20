@@ -470,30 +470,69 @@ class Cat1TestQRDAR5 < Minitest::Test
     # • device applied missing “anatomical approach site” and “anatomical location”
     # (not present in Bonnie)
     def test_CMS108_serialization
-      # _test_assessment_performed_serialization
+      _test_assessment_performed_serialization
       _test_device_applied_serialization
       _test_device_order_serialization
       _test_medication_administered_serialization
       _test_medication_order_serialization
     end
 
-    # TODO: CMS108 seems to get parsed in a way where the assessment performed has
-    # an unusable code_list_id (non-oid). Skipping this test until that's resolved.
-    # see https://jira.mitre.org/browse/BONNIE-1649
-    # def _test_assessment_performed_serialization
-    #   assessment_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.144")
-    #   assessment_performed_node = @doc_108v7.xpath(assessment_performed_xpath)
-    #   # code, LOINC: 72136-5
-    #   # authorDatetime, 08/01/2012 8:00 AM
-    #
-    #   # reason, Reason: Comfort Measures
-    #   # method, Method: General Surgery
-    #   # result, 06/14/2012 8:00 AM
-    #   # components, Component: General or Neuraxial Anesthesia, Hip Replacement Surgery
-    #   # Component: Direct Thrombin Inhibitor, 34 mg
-    #   # Component: Glycoprotein IIb/IIIa Inhibitors, 05/16/2012 8:00 AM
-    #   # relatedTo, Related To: Device, Applied: Venous foot pumps (VFP) 08/01/2012
-    # end
+    def _test_assessment_performed_serialization
+      assessment_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.144")
+      assessment_performed_node = @doc_108v7.xpath(assessment_performed_xpath)
+      assert_equal 1, assessment_performed_node.count
+      code_node = assessment_performed_node.xpath("./xmlns:observation/xmlns:code")
+      assert_equal 1, code_node.count
+      assert_equal "72136-5", code_node.xpath("./@code").inner_text
+
+      # relevant period
+      relevant_period_node = assessment_performed_node.xpath("./xmlns:observation/xmlns:effectiveTime")
+      start = relevant_period_node.xpath("./xmlns:low/@value")
+      stop = relevant_period_node.xpath("./xmlns:high/@value")
+      stop_undef = relevant_period_node.xpath("./xmlns:high/@nullFlavor")
+      assert_equal "20120801080000", start.inner_text
+      assert_equal 0, stop.count
+      assert_equal "UNK", stop_undef.inner_text
+      # reason
+      reason_node = assessment_performed_node.xpath("./xmlns:observation/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.88']/parent::xmlns:observation/xmlns:value")
+      assert_equal 1, reason_node.count
+      assert_equal "133918004", reason_node.xpath("./@code").inner_text
+      # method
+      method_node = assessment_performed_node.xpath("./xmlns:observation/xmlns:methodCode")
+      assert_equal 1, method_node.count
+      assert_equal "008Q0ZZ", method_node.xpath("./@code").inner_text
+
+      # result
+      result_value = assessment_performed_node.xpath("./xmlns:observation/xmlns:value")
+      assert_equal 1, result_value.count
+      assert_equal "1339660800000", result_value.xpath("./@value").inner_text
+
+      # components
+      component_nodes = assessment_performed_node.xpath("./xmlns:observation/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.149']/../..")
+      assert_equal 3, component_nodes.count
+
+      component_node1 = component_nodes.xpath("./xmlns:observation/xmlns:code[@code='112943005']/../..")
+      component_node2 = component_nodes.xpath("./xmlns:observation/xmlns:code[@code='1037045']/../..")
+      component_node3 = component_nodes.xpath("./xmlns:observation/xmlns:code[@code='1736470']/../..")
+      assert_equal 1, component_node1.count
+      assert_equal 1, component_node2.count
+      assert_equal 1, component_node3.count
+      # component 1
+      assert_equal "0SP909Z", component_node1.xpath("./xmlns:observation/xmlns:value/@code").inner_text
+      assert_equal "2.16.840.1.113883.6.4", component_node1.xpath("./xmlns:observation/xmlns:value/@codeSystem").inner_text
+      # component 2
+      assert_equal "34", component_node2.xpath("./xmlns:observation/xmlns:value/@value").inner_text
+      assert_equal "mg", component_node2.xpath("./xmlns:observation/xmlns:value/@unit").inner_text
+      # component 3
+      assert_equal "443421006080000", component_node3.xpath("./xmlns:observation/xmlns:value/@value").inner_text
+
+      # relatedTo
+      related_to_node = assessment_performed_node.xpath("./xmlns:observation/sdtc:inFulfillmentOf1")
+      assert_equal 1, related_to_node.count
+      related_to_id = related_to_node.xpath("sdtc:actReference/sdtc:id/@extension")[0].value
+      assert_equal "5b6c247cb848464add0870ee", related_to_id
+
+    end
 
     def _test_device_applied_serialization
       device_applied_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.7")
@@ -790,7 +829,7 @@ class Cat1TestQRDAR5 < Minitest::Test
     def test_CMS144_serialization
       _test_allergy_intolerance_serialization
       _test_diagnostic_study_performed_serialization
-      # _test_physical_exam_performed_serialization
+      _test_physical_exam_performed_serialization
     end
 
     def _test_allergy_intolerance_serialization
@@ -905,23 +944,56 @@ class Cat1TestQRDAR5 < Minitest::Test
 
     end
 
-    # TODO: CMS144 seems to get parsed in a way where the physical exam performed has
-    # an unusable code_list_id (non-oid). Skipping this test until that's resolved.
-    # see https://jira.mitre.org/browse/BONNIE-1649
-    # def _test_physical_exam_performed_serialization
-    #   physical_exam_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.59")
-    #   physical_exam_performed_node = @doc_144v7.xpath(physical_exam_performed_xpath)
-    #
-    #   # code, LOINC: 8867-4
-    #   # relevantPeriod, start and stop, 08/01/2012 8:00 AM and 08/01/2012 11:00 AM
-    #   # reason, Reason: Bradycardia
-    #   # method, Method: Cardiac Pacer in Situ
-    #   # result, 29 mg
-    #   # anatomicalLocationSite, ???
-    #   # negationRationale, ???
-    #   # components, Component: Intolerance to Beta Blocker Therapy, Nursing Facility Visit
-    #   # Component: Medical Reason, 5 mg
-    #   # Component: Ejection Fraction, 08/01/2012 10:00 AM
-    # end
+    def _test_physical_exam_performed_serialization
+      physical_exam_performed_xpath = get_entry_xpath("2.16.840.1.113883.10.20.24.3.59")
+      physical_exam_performed_node = @doc_144v7.xpath(physical_exam_performed_xpath)
+
+      assert_equal 1, physical_exam_performed_node.count
+      code_node = physical_exam_performed_node.xpath("./xmlns:observation/xmlns:code")
+      assert_equal 1, code_node.count
+      assert_equal "8867-4", code_node.xpath("./@code").inner_text
+
+      # relevant period
+      relevant_period_node = physical_exam_performed_node.xpath("./xmlns:observation/xmlns:effectiveTime")
+      start = relevant_period_node.xpath("./xmlns:low/@value")
+      stop = relevant_period_node.xpath("./xmlns:high/@value")
+      assert_equal "20120801080000", start.inner_text
+      assert_equal 1, stop.count
+      assert_equal "20120801081500", stop.inner_text
+
+      # reason
+      reason_node = physical_exam_performed_node.xpath("./xmlns:observation/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.88']/parent::xmlns:observation/xmlns:value")
+      assert_equal 1, reason_node.count
+      assert_equal "251162005", reason_node.xpath("./@code").inner_text
+
+      # method
+      method_node = physical_exam_performed_node.xpath("./xmlns:observation/xmlns:methodCode")
+      assert_equal 1, method_node.count
+      assert_equal "441509002", method_node.xpath("./@code").inner_text
+
+      # result
+      result_value = physical_exam_performed_node.xpath("./xmlns:observation/xmlns:value")
+      assert_equal 1, result_value.count
+      assert_equal "29", result_value.xpath("./@value").inner_text
+
+      # components
+      component_nodes = physical_exam_performed_node.xpath("./xmlns:observation/xmlns:entryRelationship/xmlns:observation/xmlns:templateId[@root='2.16.840.1.113883.10.20.24.3.149']/../..")
+      assert_equal 3, component_nodes.count
+
+      component_node1 = component_nodes.xpath("./xmlns:observation/xmlns:code[@code='292419005']/../..")
+      component_node2 = component_nodes.xpath("./xmlns:observation/xmlns:code[@code='183932001']/../..")
+      component_node3 = component_nodes.xpath("./xmlns:observation/xmlns:code[@code='10230-1']/../..")
+      assert_equal 1, component_node1.count
+      assert_equal 1, component_node2.count
+      assert_equal 1, component_node3.count
+      # component 1
+      assert_equal "18170008", component_node1.xpath("./xmlns:observation/xmlns:value/@code").inner_text
+      assert_equal "2.16.840.1.113883.6.96", component_node1.xpath("./xmlns:observation/xmlns:value/@codeSystem").inner_text
+      # component 2
+      assert_equal "5", component_node2.xpath("./xmlns:observation/xmlns:value/@value").inner_text
+      assert_equal "mg", component_node2.xpath("./xmlns:observation/xmlns:value/@unit").inner_text
+      # component 3
+      assert_equal "20120801100000", component_node3.xpath("./xmlns:observation/xmlns:value/@value").inner_text
+    end
   end
 end

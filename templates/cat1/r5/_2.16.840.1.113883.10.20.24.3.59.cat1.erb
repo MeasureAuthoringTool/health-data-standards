@@ -16,6 +16,7 @@
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
     <%== render(:partial => 'result_value', :locals => {:values => [value], :result_oids=>result_oids}) %>
+    <%== render(:partial => 'method', :locals => {:entry => entry, :method_oids=>field_oids["METHOD"]}) %>
     <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"]}) %>
     <% if entry.components -%>
       <%== render(:partial => 'components', :locals => {:entry => entry} ) %>
