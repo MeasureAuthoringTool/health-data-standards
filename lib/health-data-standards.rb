@@ -92,6 +92,7 @@ require_relative 'health-data-standards/models/qrda/organization'
 require_relative 'health-data-standards/models/qrda/information_recipient'
 require_relative 'health-data-standards/models/qrda/custodian'
 require_relative 'health-data-standards/models/qrda/legal_authenticator'
+require_relative 'health-data-standards/models/qrda/participant'
 require_relative 'health-data-standards/models/qrda/author'
 require_relative 'health-data-standards/models/qrda/header'
 
