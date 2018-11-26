@@ -64,7 +64,12 @@ module HealthDataStandards
 
         def extract_discharge_disposition(parent_element, encounter)
           encounter.discharge_time = encounter.end_time
-          encounter.discharge_disposition = extract_code(parent_element, "./sdtc:dischargeDispositionCode")
+          discharge_disposition = extract_code(parent_element, "./sdtc:dischargeDispositionCode")
+          if discharge_disposition.present?
+            discharge_disposition["code_system"] = discharge_disposition["codeSystemOid"] if discharge_disposition["codeSystemOid"]
+            discharge_disposition["title"] = discharge_disposition["codeSystem"] if discharge_disposition["codeSystem"]
+          end
+          encounter.discharge_disposition = discharge_disposition
         end
 
         def extract_transfer(transfer_element, encounter)
