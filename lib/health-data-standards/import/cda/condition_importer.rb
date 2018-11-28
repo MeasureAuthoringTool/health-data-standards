@@ -51,7 +51,7 @@ module HealthDataStandards
         def extract_severity(entry_element,condition)
           severity = entry_element.at_xpath(@severity_xpath)
           if(severity)
-            condition.severity = { 'code_system' => CodeSystemHelper.code_system_for(severity['codeSystem']), 'code' => severity['code'] }
+            condition.severity = { 'code_system' => CodeSystemHelper.code_system_for(severity['codeSystem']), 'code' => severity['code'], 'title' => severity['codeSystemName'] }
           end
         end
 
