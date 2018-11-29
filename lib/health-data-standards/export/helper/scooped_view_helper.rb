@@ -137,7 +137,14 @@ module HealthDataStandards
               end
             end
 
-            codes ||= (value_set_map(patient["bundle_id"])[data_criteria.code_list_id] || [])
+            # If the data criteria uses a direct reference code, the code_list_id will be drc-****
+            # direct reference codes reference a single code and do not appear in the value_set_map
+            if data_criteria.code_list_id && data_criteria.code_list_id.match(/^drc-/)
+              codes = [{'set' => data_criteria.inline_code_list.keys[0], 'values' => data_criteria.inline_code_list.values[0]}]
+            else
+              codes ||= (value_set_map(patient["bundle_id"])[data_criteria.code_list_id] || [])
+            end
+
             if codes.empty?
               HealthDataStandards.logger.warn("No codes for #{data_criteria.code_list_id}")
             end
