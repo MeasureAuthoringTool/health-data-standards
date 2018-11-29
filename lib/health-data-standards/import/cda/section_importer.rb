@@ -233,9 +233,11 @@ module HealthDataStandards
             code_hash = {'code' => code_element['code']}
             if code_system
               code_hash['codeSystem'] = code_system
+              code_hash['code_system'] = code_system
             else
               code_hash['codeSystemOid'] = code_element['codeSystem']
               code_hash['codeSystem'] = CodeSystemHelper.code_system_for(code_hash['codeSystemOid'])
+              code_hash['code_system'] = code_hash['codeSystem']
             end
           end
 
