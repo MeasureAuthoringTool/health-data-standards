@@ -36,8 +36,8 @@
           </time>
           <participantRole classCode="SDLOC">
             <% if entry.facility[:values][0].present? -%>
-                <code code="<%= entry.facility.values[0][0].code.code %>" 
-                  codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.facility.values[0][0].code.code_system) %>"/>
+                <code code="<%= entry.facility.values[0][0]["code"][:code] %>" 
+                  codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.facility.values[0][0]["code"][:code_system]) %>"/>
             <% else -%>
             <code nullFlavor="UNK"/>
             <% end -%>
