@@ -16,7 +16,6 @@ module HealthDataStandards
       index "concepts.code" => 1
       index "concepts.code_system" => 1
       index "concepts.code_system_name" => 1
-      index "concepts.display_name" => 1
       index "bundle_id" => 1
       scope :by_oid, ->(oid){where(:oid => oid)}
 
