@@ -33,7 +33,7 @@ module HealthDataStandards
           entity = performer.xpath(entity_path)
 
           cda_idents = []
-          entity.xpath("./cda:id").each do |cda_ident|
+          entity.xpath(".//cda:id").each do |cda_ident|
             ident_root = cda_ident['root']
             ident_extension = cda_ident['extension']
             cda_idents.push(CDAIdentifier.new(root: ident_root, extension: ident_extension)) if ident_root.present?
