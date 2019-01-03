@@ -5,6 +5,14 @@
     else
     'HQR_EHR'
     end -%>
+<% if measures.first.type == 'eh' %>
+  <% if header %>
+    <% eh_program = true %>
+    <% reporting_program = header.information_recipient.identifier.extension.to_s %>
+    <% reporting_program_root = header.information_recipient.identifier.root.to_s %>
+    <% cms_compatibility = true %>
+  <% end %>
+<% end %>
 <ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xmlns="urn:hl7-org:v3"
  xmlns:voc="urn:hl7-org:v3/voc"
@@ -51,7 +59,7 @@
     <% if cms_compatibility %>
     <informationRecipient>
       <intendedRecipient>
-        <id root="2.16.840.1.113883.3.249.7" extension="<%= reporting_program %>"/>
+        <id root= "<%= reporting_program_root %>" extension="<%= reporting_program %>"/>
       </intendedRecipient>
     </informationRecipient>
     <% end %>
@@ -134,7 +142,7 @@
     <% if cms_compatibility %>
     <informationRecipient>
       <intendedRecipient>
-        <id root="2.16.840.1.113883.3.249.7" extension="<%= reporting_program %>"/>
+        <id root= "<%= reporting_program_root %>" extension="<%= reporting_program %>"/>
       </intendedRecipient>
     </informationRecipient>
     <% end %>
