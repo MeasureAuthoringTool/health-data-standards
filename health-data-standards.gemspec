@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
 
   s.version = '4.2.0'
 
-  s.add_dependency 'rest-client', '~>1.8.0'
+  s.add_dependency 'rest-client', '~> 2.0.1'
   s.add_dependency 'erubis', '~> 2.7.0'
   s.add_dependency 'mongoid', '~> 5.0.0'
   s.add_dependency 'mongoid-tree', '~> 2.0.0'
