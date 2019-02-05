@@ -14,13 +14,7 @@
            displayName="Adverse reaction"
            codeSystem="2.16.840.1.113883.6.96" 
            codeSystemName="SNOMED CT"/>
-    <author>
-      <templateId root="2.16.840.1.113883.10.20.22.4.119"/>
-      <time <%= value_or_null_flavor(entry.as_point_in_time) %>/>
-      <assignedAuthor>
-        <id root="<%= UUID.generate %>"/>
-      </assignedAuthor>
-    </author> 
+    <%== render(:partial => 'author_qdm', :locals => {:entry => entry}) %>
     <entryRelationship typeCode="CAUS" inversionInd="true">
       <observation classCode="OBS" moodCode="EVN">
         <templateId root="2.16.840.1.113883.10.20.24.3.148" extension="2017-08-01" />

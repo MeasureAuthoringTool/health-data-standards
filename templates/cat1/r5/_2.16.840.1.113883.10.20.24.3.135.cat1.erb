@@ -32,6 +32,7 @@
           <!-- Attribute: abatement datetime -->
           <high <%= value_or_null_flavor(entry.end_time) %> />
         </effectiveTime>
+        <%== render(:partial => 'author_qdm', :locals => {:entry => entry}) %>
         <%== code_display(entry, 'tag_name' => 'value', 'value_set_map' => filtered_vs_map, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'],
                                  'extra_content' => "xsi:type=\"CD\"") %>
         <% if entry.laterality -%>

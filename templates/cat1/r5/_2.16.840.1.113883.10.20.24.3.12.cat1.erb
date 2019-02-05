@@ -44,6 +44,7 @@
           <low <%= value_or_null_flavor(entry.start_time) %>/>
           <high <%= value_or_null_flavor(entry.end_time) %>/>
         </effectiveTime>
+        <%== render(:partial => 'author_qdm', :locals => {:entry => entry}) %>
         <%== code_display(entry, 'value_set_map' => filtered_vs_map,'preferred_code_sets' => ['SNOMED-CT'],
                          'tag_name' => 'value',
                          'extra_content' => "xsi:type=\"CD\"") %>
