@@ -15,6 +15,7 @@
       <low <%= value_or_null_flavor(entry.start_time) %>/>
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
+    <%== render(:partial => 'author_qdm', :locals => {:entry => entry}) %>
     <%== render(:partial => 'result_value', :locals => {:values => [value], :result_oids=>result_oids}) %>
     <%== render(:partial => 'method', :locals => {:entry => entry, :method_oids=>field_oids["METHOD"]}) %>
     <%== render(:partial => 'reason', :locals => {:entry => entry, :reason_oids=>field_oids["REASON"]}) %>

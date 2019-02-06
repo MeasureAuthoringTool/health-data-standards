@@ -25,6 +25,13 @@
             <low <%= value_or_null_flavor(entry.start_time) %>/>
             <high <%= value_or_null_flavor(entry.end_time) %>/>
         </effectiveTime>
+        <author>
+          <templateId root="2.16.840.1.113883.10.20.22.4.119"/>
+          <time <%= value_or_null_flavor(entry.start_time) %>/>
+          <assignedAuthor>
+            <id root="<%= UUID.generate %>"/>
+          </assignedAuthor>
+        </author>
         <% if entry.administrationTiming.present? && entry.administrationTiming.key?('scalar') %>
           <effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A">
             <period value="<%= entry.administrationTiming['scalar']%>" <% if entry.administrationTiming['units'] && (entry.administrationTiming['units'] != "") -%>unit="<%= entry.administrationTiming['units']%>"<% end %>/>

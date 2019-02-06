@@ -18,6 +18,7 @@
       <!-- Attribute: End Datetime -->
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
+    <%== render(:partial => 'author_qdm', :locals => {:entry => entry}) %>
     <value nullFlavor="NA" xsi:type="CD" />
     <%== render(:partial => 'method', :locals => {:entry => entry, :method_oids=>field_oids["METHOD"]}) %>
     <%== render(:partial => 'facility', :locals => {:entry => entry,:facility_oids=>field_oids["FACILITY_LOCATION"]}) %>
