@@ -46,7 +46,6 @@ module HQMF2CQL
           # Get the name of the parameter to the  observation function within the measurePopulationCriteria section
           cql_define_function[:parameter] = @doc.at_xpath("cda:QualityMeasureDocument/cda:component/cda:populationCriteriaSection/cda:component/cda:#{measure_population_name}Criteria/cda:id[@root = \"#{measure_population_id}\"]/../cda:precondition/cda:criteriaReference/cda:id").attributes['extension'].value.match('\\"([A-Za-z0-9 ]+)\\"')[1]
 
-
           @observations << cql_define_function
         end
       end
