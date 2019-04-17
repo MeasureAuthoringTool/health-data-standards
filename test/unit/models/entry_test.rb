@@ -112,4 +112,8 @@ class EntryTest < Minitest::Test
     entry.cda_identifier = identifier
     assert_equal identifier, entry.identifier
   end
+
+  def test_author_datetime_present
+    assert @entry.respond_to?(:author_datetime)
+  end
 end

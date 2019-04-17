@@ -36,6 +36,8 @@ module HQMF
               'ANATOMICAL_LOCATION_SITE' => {title:'Anatomical Location Site', coded_entry_method: :anatomical_location,  field_type: :value},
               # ANATOMICAL_STRUCTURE is no longer used.
               'ANATOMICAL_STRUCTURE' => {title:'Anatomical Structure', coded_entry_method: :anatomical_structure, code: '91723000', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1000.2', field_type: :value},
+              # AUTHOR DATETIME
+              'AUTHOR_DATETIME' => {title:'Author Date/Time', coded_entry_method: :author_datetime, field_type: :timestamp},
               # Added in QDM 5.4
               'CATEGORY' => {title:'Category', coded_entry_method: :category, field_type: :value},
               'CAUSE' => {title:'Cause', coded_entry_method: :cause_of_death, code: '42752001', code_system:'2.16.840.1.113883.6.96', template_id: '2.16.840.1.113883.3.560.1.1017.2', field_type: :value},
