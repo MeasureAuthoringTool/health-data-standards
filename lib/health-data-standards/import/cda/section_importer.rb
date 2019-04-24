@@ -48,6 +48,7 @@ module HealthDataStandards
             extract_values(entry_element, entry)
           end
           extract_description(entry_element, entry, nrh)
+          verify_description(entry_element, entry)
           if @status_xpath
             extract_status(entry_element, entry)
           end
@@ -55,7 +56,22 @@ module HealthDataStandards
         end
 
         private
-
+          def update_default_description(parent_element, entry)
+            templateid = parent_element.at_xpath("./cda:templateId/@root").to_s
+            template_id_file = File.expand_path('../../../util/description_mapper.json', __FILE__)
+            data = JSON.parse(File.read(template_id_file))
+            entry.description = data[templateid]
+          end
+       
+          def verify_description(parent_element, entry)
+            if entry.description != nil && entry.description.length > 0
+              if (entry.description.rindex(":") == nil)
+                update_default_description(parent_element, entry)
+              end
+            else
+              update_default_description(parent_element, entry)
+            end
+          end
         def extract_description(parent_element, entry, nrh)
           orig_text_ref_element = parent_element.at_xpath(@description_xpath)
           desc_ref_element = parent_element.at_xpath("./cda:text/cda:reference")
@@ -91,6 +107,7 @@ module HealthDataStandards
             tag = code_element['value']
             entry.description = nrh.lookup_tag(tag)
           end
+          verify_description(parent_element, entry)
         end
 
         def extract_codes(parent_element, entry)
