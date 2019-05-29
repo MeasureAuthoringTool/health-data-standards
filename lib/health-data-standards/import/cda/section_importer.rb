@@ -17,6 +17,7 @@ module HealthDataStandards
           @check_for_usable = true
           @entry_class = Entry
           @value_xpath = 'cda:value'
+          @docutype = nil
         end
 
         # Traverses an HL7 CDA document passed in and creates an Array of Entry
@@ -27,6 +28,11 @@ module HealthDataStandards
         # @return [Array] will be a list of Entry objects
         def create_entries(doc, nrh = NarrativeReferenceHandler.new)
           entry_list = []
+          if doc.at_xpath("/cda:ClinicalDocument/cda:templateId[@root='2.16.840.1.113883.3.88.11.32.1']") || doc.at_xpath("/cda:ClinicalDocument/cda:templateId[@root='2.16.840.1.113883.10.20.24.1.2']")
+             @docutype = "cat1"
+          elsif doc.at_xpath("/cda:ClinicalDocument/cda:templateId[@root='2.16.840.1.113883.10.20.22.1.2']")
+              @docutype = "ccda"
+          end
           entry_elements = @entry_finder.entries(doc)
           entry_elements.each do |entry_element|
             entry = create_entry(entry_element, nrh)
@@ -48,7 +54,9 @@ module HealthDataStandards
             extract_values(entry_element, entry)
           end
           extract_description(entry_element, entry, nrh)
-          verify_description(entry_element, entry)
+          if(@docutype == "ccda")
+           verify_description(entry_element, entry)
+          end
           if @status_xpath
             extract_status(entry_element, entry)
           end
