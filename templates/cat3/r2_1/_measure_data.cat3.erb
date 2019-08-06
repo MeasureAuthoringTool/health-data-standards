@@ -3,6 +3,7 @@
 <observation classCode="OBS" moodCode="EVN">
   <!-- Measure Data template -->
   <templateId root="2.16.840.1.113883.10.20.27.3.5" extension="2016-09-01"/>
+  <templateId root="2.16.840.1.113883.10.20.27.3.16" extension="2018-05-01" />
   <code code="ASSERTION" 
         codeSystem="2.16.840.1.113883.5.4" 
         displayName="Assertion" 
@@ -118,7 +119,7 @@
  <!--         PAYER Supplemental Data Reporting   for <%= population.type %>  <%= population.id %>   -->
  <% payer_templates_ids = ['2.16.840.1.113883.10.20.27.3.9'] %>
  <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Payer Supplemental Data', 
-                :template_ids => payer_templates_ids, :extension => '2016-02-01',  :supplemental_data_code => '48768-6',
+                :template_ids => payer_templates_ids, :extension => '2016-02-01', :addtn_template_id => '2.16.840.1.113883.10.20.27.3.18', :addtn_extension => '2018-05-01', :supplemental_data_code => '48768-6',
                 :supplemental_data_code_system => '2.16.840.1.113883.6.1', :supplemental_data_value_code => payer,
                 :supplemental_data_value_code_system => '2.16.840.1.113883.3.221.5', :count => count, :qrda3_version => qrda3_version} %>   
       <% end -%>
