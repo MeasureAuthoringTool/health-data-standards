@@ -120,14 +120,16 @@ module HealthDataStandards
               entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.12')
             when '2.16.840.1.113883.3.560.1.12'
               entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.5')
+            when '2.16.840.1.113883.3.560.1.106'
+              entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.6')
             when '2.16.840.1.113883.3.560.1.6'
-               entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.63')
+              entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.63')
             when  '2.16.840.1.113883.3.560.1.63'
-               entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.6')
+              entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.6')
             when '2.16.840.1.113883.3.560.1.3'
-               entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.11')
+              entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.11')
             when  '2.16.840.1.113883.3.560.1.11'
-               entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.3')
+              entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.3')
             when '2.16.840.1.113883.3.560.1.71', '2.16.840.1.113883.3.560.1.72'
               # transfers
               entries.concat patient.entries_for_oid('2.16.840.1.113883.3.560.1.79')
