@@ -20,6 +20,7 @@
           <low <%= value_or_null_flavor(entry.admit_time || entry.start_time) %>/>
           <high <%= value_or_null_flavor(entry.discharge_time || entry.end_time) %>/>
         </effectiveTime>
+		<%== render(:partial => 'author_qdm', :locals => {:entry => entry}) %>
         <% if entry.discharge_disposition.present? %>
             <sdtc:dischargeDispositionCode code="<%= entry.discharge_disposition[:code] %>" 
                 codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.discharge_disposition[:code_system]) || entry.discharge_disposition[:code_system] %>"/>
