@@ -33,7 +33,11 @@
             <!-- Attribute: facility location arrival datetime -->
             <low <%= value_or_null_flavor(entry.start_time) %>/>
             <!-- Attribute: facility location departure datetime -->
-            <high <%= value_or_null_flavor(entry.end_time) %>/>
+            <% if entry.facility[:values][0][:locationPeriodHigh].present? -%>
+               <high <%= value_or_null_flavor(DateTime.strptime(entry.facility[:values][0] [:locationPeriodHigh], '%m/%d/%Y %I:%M %p')) %>/>
+            <% else -%>
+                <high <%= value_or_null_flavor(entry.end_time) %>/>
+            <% end %>
           </time>
           <participantRole classCode="SDLOC">
             <% if entry.facility[:values][0].present? -%>
