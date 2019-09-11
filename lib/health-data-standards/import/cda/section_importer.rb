@@ -241,7 +241,9 @@ module HealthDataStandards
             if code_element['nullFlavor'] == 'NA' && code_element['sdtc:valueSet']
               # choose code from valueset
               valueset = HealthDataStandards::SVS::ValueSet.where(oid: code_element['sdtc:valueSet'], bundle_id: get_bundle_id(coded_parent_element))
-              entry.add_code(valueset.first.concepts.first['code'], valueset.first.concepts.first['code_system_name'])
+              if valueset.first
+                entry.add_code(valueset.first.concepts.first['code'], valueset.first.concepts.first['code_system_name'])
+              end
               # A "code" is added to indicate the Non-Applicable valueset.
               entry.add_code(code_element['sdtc:valueSet'], 'NA_VALUESET')
             end
