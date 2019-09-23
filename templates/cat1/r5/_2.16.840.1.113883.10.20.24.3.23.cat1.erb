@@ -31,8 +31,12 @@
           <templateId root="2.16.840.1.113883.10.20.24.3.100" extension="2017-08-01"/>
           <time>
             <!-- Attribute: facility location arrival datetime -->
-            <low <%= value_or_null_flavor(entry.start_time) %>/>
-            <!-- Attribute: facility location departure datetime -->
+            <% if entry.facility[:values][0][:locationPeriodLow].present? -%>
+               <low <%= value_or_null_flavor(DateTime.strptime(entry.facility[:values][0] [:locationPeriodLow], '%m/%d/%Y %I:%M %p')) %>/>
+            <% else -%>
+               <low <%= value_or_null_flavor(entry.start_time) %>/>
+            <% end %>
+	    <!-- Attribute: facility location departure datetime -->
             <% if entry.facility[:values][0][:locationPeriodHigh].present? -%>
                <high <%= value_or_null_flavor(DateTime.strptime(entry.facility[:values][0] [:locationPeriodHigh], '%m/%d/%Y %I:%M %p')) %>/>
             <% else -%>
