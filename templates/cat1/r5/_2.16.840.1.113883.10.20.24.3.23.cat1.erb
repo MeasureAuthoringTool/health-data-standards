@@ -24,7 +24,7 @@
             <sdtc:dischargeDispositionCode code="<%= entry.discharge_disposition[:code] %>" 
                 codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.discharge_disposition[:code_system]) || entry.discharge_disposition[:code_system] %>"/>
         <% end -%>
-	<%== render(:partial => 'author_qdm', :locals => {:entry => entry}) %>
+	       <%== render(:partial => 'author_qdm', :locals => {:entry => entry}) %>
         <% if entry.respond_to?(:facility) && entry.facility.present? -%>
         <participant typeCode="LOC">
           <!-- Facility Location template -->
@@ -32,13 +32,13 @@
           <time>
             <!-- Attribute: facility location arrival datetime -->
             <% if entry.facility[:values][0][:locationPeriodLow].present? -%>
-               <low <%= value_or_null_flavor(DateTime.strptime(entry.facility[:values][0] [:locationPeriodLow], '%m/%d/%Y %I:%M %p')) %>/>
+               <low <%= value_or_null_flavor(DateTime.strptime(entry.facility[:values][0] [:locationPeriodLow], '%m/%d/%Y %I:%M:%S %p')) %>/>
             <% else -%>
                <low <%= value_or_null_flavor(entry.start_time) %>/>
             <% end %>
-	    <!-- Attribute: facility location departure datetime -->
+            <!-- Attribute: facility location departure datetime -->
             <% if entry.facility[:values][0][:locationPeriodHigh].present? -%>
-               <high <%= value_or_null_flavor(DateTime.strptime(entry.facility[:values][0] [:locationPeriodHigh], '%m/%d/%Y %I:%M %p')) %>/>
+               <high <%= value_or_null_flavor(DateTime.strptime(entry.facility[:values][0] [:locationPeriodHigh], '%m/%d/%Y %I:%M:%S %p')) %>/>
             <% else -%>
                 <high <%= value_or_null_flavor(entry.end_time) %>/>
             <% end %>
