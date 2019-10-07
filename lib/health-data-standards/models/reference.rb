@@ -16,7 +16,7 @@ class Reference
   def resolve_referenced_id
     resolved_reference = entry.record.entries.find do |e|
       e.class.to_s == referenced_type &&
-      e.identifier == referenced_id
+      e.identifier.extension == referenced_id
     end
     self.referenced_id = resolved_reference.id.to_s
   end
