@@ -7,13 +7,14 @@ class Encounter < Entry
   field :facility, type: Hash
 
   embeds_one :principalDiagnosis, class_name: "EncounterPrincipalDiagnosis"
-  
+
   embeds_one :transferTo, class_name: "Transfer"
   embeds_one :transferFrom, class_name: "Transfer"
 
   embeds_one :admission_source, class_name: "AdmissionSource"
   embeds_one :reason, class_name: "Entry"
 
+  # belongs_to :performer, class_name: "HDS::Provider"
   belongs_to :performer, class_name: "Provider"
 
   alias :transfer_to :transferTo
@@ -32,7 +33,7 @@ class Encounter < Entry
       self.facility['start_time'] += date_diff if self.facility['start_time']
       self.facility['end_time'] += date_diff if self.facility['end_time']
     end
-    
+
     self.admitTime = (self.admitTime.nil?) ? nil : self.admitTime + date_diff
     self.dischargeTime = (self.dischargeTime.nil?) ? nil : self.dischargeTime + date_diff
   end

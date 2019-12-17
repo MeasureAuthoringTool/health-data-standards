@@ -5,12 +5,12 @@ module HealthDataStandards
   module Import
     module CDA
       class ProviderImporter < SectionImporter
-        
-        
+
+
         def initialize
-          
+
         end
-        
+
         include Singleton
         include ProviderImportUtils
         # Extract Healthcare Providers from C32
@@ -27,7 +27,7 @@ module HealthDataStandards
         end
 
         private
-      
+
         def extract_provider_data(performer, use_dates=true, entity_path="./cda:assignedEntity")
           provider = {}
           entity = performer.xpath(entity_path)
@@ -46,28 +46,29 @@ module HealthDataStandards
           provider[:organization] = OrganizationImporter.instance.extract_organization(entity.at_xpath("./cda:representedOrganization"))
           provider[:specialty]    = extract_data(entity, "./cda:code/@code")
           time                    = performer.xpath(performer, "./cda:time")
-          
+
           if use_dates
             provider[:start]        = extract_date(time, "./cda:low/@value")
             provider[:end]          = extract_date(time, "./cda:high/@value")
           end
-          
+
           # NIST sample C32s use different OID for NPI vs C83, support both
           npi                     = extract_data(entity, "./cda:id[@root='2.16.840.1.113883.4.6' or @root='2.16.840.1.113883.3.72.5.2']/@extension")
           provider[:addresses] = performer.xpath("./cda:assignedEntity/cda:addr").try(:map) {|ae| import_address(ae)}
           provider[:telecoms] = performer.xpath("./cda:assignedEntity/cda:telecom").try(:map) {|te| import_telecom(te)}
-          
+
           provider[:npi] = npi if Provider.valid_npi?(npi)
+          # provider[:npi] = npi if HDS::Provider.valid_npi?(npi)
           provider[:cda_identifiers] = cda_idents
 
           provider
         end
-      
+
         def extract_date(subject,query)
           date = extract_data(subject,query)
           date ? Date.parse(date).to_time.to_i : nil
         end
-      
+
         # Returns nil if result is an empty string, block allows text munging of result if there is one
         def extract_data(subject, query)
           result = subject.try(:xpath,query).try(:text)
@@ -77,7 +78,7 @@ module HealthDataStandards
             result
           end
         end
-      
+
       end
     end
   end

@@ -1,4 +1,5 @@
 class Provider
+# class HDS::Provider
   include Personable
   include Mongoid::Tree
   include Mongoid::Attributes::Dynamic
@@ -103,5 +104,6 @@ class Provider
   # in the db based on the information in the parsed hash.
   def self.resolve_provider(provider_hash, patient=nil)
     Provider.where(:npi => nil).first
+    # HDS::Provider.where(:npi => nil).first
   end
 end
