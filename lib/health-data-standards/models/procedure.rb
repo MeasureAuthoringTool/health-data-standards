@@ -24,7 +24,6 @@ class Procedure < Entry
   field :facility, type: Hash
 
   belongs_to :performer, class_name: "Provider"
-  # belongs_to :performer, class_name: "HDS::Provider"
 
   def shift_dates(date_diff)
   	super

@@ -6,18 +6,16 @@ module ProviderImportUtils
   end
 
   def find_or_create_provider(provider_hash, patient=nil)
-    provider = HDS::Provider.by_npi(provider_hash[:npi]).first if provider_hash[:npi] && !provider_hash[:npi].empty?
+    provider = Provider.by_npi(provider_hash[:npi]).first if provider_hash[:npi] && !provider_hash[:npi].empty?
     unless provider
       if provider_hash[:npi]
         provider = Provider.create(provider_hash)
-        # provider = HDS::Provider.create(provider_hash)
         provider.npi = provider_hash[:npi]
       else
         ident_roots = provider_hash[:cda_identifiers].map {|ident| ident.root}
         ident_extensions = provider_hash[:cda_identifiers].map {|ident| ident.extension}
         unless ident_roots.size == 0
           provider ||= Provider.in("cda_identifiers.root" => ident_roots).and.in("cda_identifiers.extension" => ident_extensions).first
-          # provider ||= HDS::Provider.in("cda_identifiers.root" => ident_roots).and.in("cda_identifiers.extension" => ident_extensions).first
         end
         provider_query = {:title => provider_hash[:title],
                             :given_name => provider_hash[:given_name],
@@ -26,9 +24,6 @@ module ProviderImportUtils
         provider ||= Provider.where(provider_query).first
         provider ||= Provider.where(provider_query).first
         provider ||= Provider.resolve_provider(provider_hash, patient)
-        # provider ||= HDS::Provider.resolve_provider(provider_hash, patient)
-        # provider ||= HDS::Provider.create(provider_hash)
-        # provider ||= HDS::Provider.create(provider_hash)
       end
     end
     provider

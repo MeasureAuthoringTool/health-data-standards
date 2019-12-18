@@ -9,7 +9,6 @@ class FulfillmentHistory
   field :fillStatus, as: :fill_status, type: String
 
   belongs_to :provider, class_name: "Provider"
-  # belongs_to :provider, class_name: "HDS::Provider"
 
   def shift_dates(date_diff)
     self.dispenseDate = (self.dispenseDate.nil?) ? nil : self.dispenseDate + date_diff

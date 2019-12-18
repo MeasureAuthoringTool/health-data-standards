@@ -9,7 +9,6 @@ module Qrda
     embeds_one :information_recipient
     embeds_one :participant
     embeds_many :performers, class_name: "Provider"
-    # embeds_many :performers, class_name: "HDS::Provider"
 
     field  :time , type: DateTime, default: Time.now
   end
