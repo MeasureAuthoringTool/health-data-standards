@@ -5,7 +5,7 @@ class Encounter < Entry
   field :dischargeTime, as: :discharge_time, type: Integer
   field :principalDiagnosis, as: :principal_diagnosis, type: Hash
   field :diagnosis, type: Hash
-  
+
   embeds_one :transferTo, class_name: "Transfer"
   embeds_one :transferFrom, class_name: "Transfer"
 
@@ -24,7 +24,7 @@ class Encounter < Entry
     if self.facility
       self.facility.shift_dates(date_diff)
     end
-    
+
     self.admitTime = (self.admitTime.nil?) ? nil : self.admitTime + date_diff
     self.dischargeTime = (self.dischargeTime.nil?) ? nil : self.dischargeTime + date_diff
   end

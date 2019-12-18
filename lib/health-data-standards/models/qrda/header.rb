@@ -10,5 +10,5 @@ module Qrda
 
     field  :time , type: DateTime, default: Time.now
   end
-  
+
 end

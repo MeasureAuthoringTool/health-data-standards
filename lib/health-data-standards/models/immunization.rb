@@ -5,7 +5,7 @@ class Immunization < Entry
   belongs_to :performer, class_name: "HealthDataStandards::Provider"
 
   embeds_one :medication_product
-  
+
   alias :refusal_ind :negationInd
   alias :refusal_ind= :negationInd=
   alias :refusal_reason :negationReason

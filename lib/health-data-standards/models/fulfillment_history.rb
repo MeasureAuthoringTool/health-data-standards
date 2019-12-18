@@ -1,7 +1,7 @@
 class FulfillmentHistory
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
-  
+
   field :prescriptionNumber, as: :prescription_number, type: String
   field :dispenseDate, as: :dispense_date, type: Integer
   field :quantityDispensed, as: :quantity_dispensed, type: Hash
