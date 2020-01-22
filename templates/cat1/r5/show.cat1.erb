@@ -5,6 +5,14 @@
     else
     'HQR_EHR'
     end -%>
+<% if measures.first.type == 'eh' %>
+  <% if header %>
+    <% eh_program = true %>
+    <% reporting_program = header.information_recipient.identifier.extension.to_s %>
+    <% reporting_program_root = header.information_recipient.identifier.root.to_s %>
+    <% cms_compatibility = true %>
+  <% end %>
+<% end %>
 <ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xmlns="urn:hl7-org:v3"
  xmlns:voc="urn:hl7-org:v3/voc"
@@ -51,7 +59,7 @@
     <% if cms_compatibility %>
     <informationRecipient>
       <intendedRecipient>
-        <id root="2.16.840.1.113883.3.249.7" extension="<%= reporting_program %>"/>
+        <id root= "<%= reporting_program_root %>" extension="<%= reporting_program %>"/>
       </intendedRecipient>
     </informationRecipient>
     <% end %>
@@ -84,17 +92,17 @@
       <assignedAuthor>
         <!-- id extension="Cypress" root="2.16.840.1.113883.19.5"/ -->
         <!-- NPI -->
-        <% if cms_compatibility %>
-        <% patient.provider_performances.each do |pp| -%>
-        <% pp.provider.cda_identifiers.each do |cda_id| -%>
-            <% if cda_id.root.eql?('2.16.840.1.113883.4.6') -%>
-            <id root="2.16.840.1.113883.4.6" extension="<%= cda_id.extension %>" />
-            <% end -%>
-            <% end -%>
-            <% end -%>
-          <% else %>
-        <id extension="FakeNPI" root="2.16.840.1.113883.4.6"/>
-        <% end %>
+              <% # < % if cms_compatibility % > %>
+              <% patient.provider_performances.each do |pp| -%>
+                  <% pp.provider.cda_identifiers.each do |cda_id| -%>
+                      <% if cda_id.root.eql?('2.16.840.1.113883.4.6') -%>
+                          <id root="2.16.840.1.113883.4.6" extension="<%= cda_id.extension %>"/>
+                      <% end -%>
+                  <% end -%>
+              <% end -%>
+              <% #  < % else % > %>
+              <% # <id extension="FakeNPI" root="2.16.840.1.113883.4.6"/> %>
+              <% # < % end % > %>
         <addr>
           <streetAddressLine>202 Burlington Rd.</streetAddressLine>
           <city>Bedford</city>
@@ -134,7 +142,7 @@
     <% if cms_compatibility %>
     <informationRecipient>
       <intendedRecipient>
-        <id root="2.16.840.1.113883.3.249.7" extension="<%= reporting_program %>"/>
+        <id root= "<%= reporting_program_root %>" extension="<%= reporting_program %>"/>
       </intendedRecipient>
     </informationRecipient>
     <% end %>

@@ -51,7 +51,7 @@ module HealthDataStandards
         def extract_severity(entry_element,condition)
           severity = entry_element.at_xpath(@severity_xpath)
           if(severity)
-            condition.severity = { 'code_system' => CodeSystemHelper.code_system_for(severity['codeSystem']), 'code' => severity['code'] }
+            condition.severity = { 'code_system' => CodeSystemHelper.code_system_for(severity['codeSystem']), 'code' => severity['code'], 'title' => severity['codeSystemName'] }
           end
         end
 
@@ -59,8 +59,8 @@ module HealthDataStandards
           laterality = entry_element.at_xpath(@laterality_xpath)
           if laterality
             # kept to be backward compatible
-            condition.laterality = { 'code_system' => CodeSystemHelper.code_system_for(laterality['codeSystem']), 'code' => laterality['code'] }
-            condition.anatomical_location = { 'code_system' => CodeSystemHelper.code_system_for(laterality['codeSystem']), 'code' => laterality['code'] }
+            condition.laterality = { 'code_system' => CodeSystemHelper.code_system_for(laterality['codeSystem']), 'code' => laterality['code'] , 'title' => laterality['codeSystemName']}
+            condition.anatomical_location = { 'code_system' => CodeSystemHelper.code_system_for(laterality['codeSystem']), 'code' => laterality['code'], 'title' => laterality['codeSystemName'] }
           end
         end
       end

@@ -34,10 +34,10 @@
         <administrativeGenderCode code="<%= patient.gender %>" codeSystem="2.16.840.1.113883.5.1" codeSystemName="HL7 AdministrativeGender"/>
         <birthTime value="<%= Time.at(patient.birthdate).utc.to_formatted_s(:number) %>"/>
         <% if (patient.race) %>
-          <raceCode code="<%= patient.race[:code] %>" <% if patient.race[:name]%>displayName="<%= patient.race[:name] %>"<% end %> codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
+          <raceCode code="<%= patient.race['code'] %>" <% if patient.race['name']%>displayName="<%= patient.race['name'] %>"<% end %> codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
         <% end %>
         <% if (patient.ethnicity) %>
-          <ethnicGroupCode code="<%= patient.ethnicity[:code] %>" <% if patient.ethnicity[:name]%>displayName="<%= patient.ethnicity[:name] %>"<% end %> codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
+          <ethnicGroupCode code="<%= patient.ethnicity['code'] %>" <% if patient.ethnicity['name']%>displayName="<%= patient.ethnicity['name'] %>"<% end %> codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
         <% end %>
         <%
           languages = patient.languages

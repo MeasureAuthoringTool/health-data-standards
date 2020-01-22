@@ -17,6 +17,7 @@ module HealthDataStandards
           @check_for_usable = true
           @entry_class = Entry
           @value_xpath = 'cda:value'
+          @docutype = nil
         end
 
         # Traverses an HL7 CDA document passed in and creates an Array of Entry
@@ -27,6 +28,11 @@ module HealthDataStandards
         # @return [Array] will be a list of Entry objects
         def create_entries(doc, nrh = NarrativeReferenceHandler.new)
           entry_list = []
+          if doc.at_xpath("/cda:ClinicalDocument/cda:templateId[@root='2.16.840.1.113883.3.88.11.32.1']") || doc.at_xpath("/cda:ClinicalDocument/cda:templateId[@root='2.16.840.1.113883.10.20.24.1.2']")
+             @docutype = "cat1"
+          elsif doc.at_xpath("/cda:ClinicalDocument/cda:templateId[@root='2.16.840.1.113883.10.20.22.1.2']")
+              @docutype = "ccda"
+          end
           entry_elements = @entry_finder.entries(doc)
           entry_elements.each do |entry_element|
             entry = create_entry(entry_element, nrh)
@@ -48,6 +54,9 @@ module HealthDataStandards
             extract_values(entry_element, entry)
           end
           extract_description(entry_element, entry, nrh)
+          if(@docutype == "ccda")
+           verify_description(entry_element, entry)
+          end
           if @status_xpath
             extract_status(entry_element, entry)
           end
@@ -55,7 +64,22 @@ module HealthDataStandards
         end
 
         private
-
+          def update_default_description(parent_element, entry)
+            templateid = parent_element.at_xpath("./cda:templateId/@root").to_s
+            template_id_file = File.expand_path('../../../util/description_mapper.json', __FILE__)
+            data = JSON.parse(File.read(template_id_file))
+            entry.description = data[templateid]
+          end
+       
+          def verify_description(parent_element, entry)
+            if entry.description != nil && entry.description.length > 0
+              if (entry.description.rindex(":") == nil)
+                update_default_description(parent_element, entry)
+              end
+            else
+              update_default_description(parent_element, entry)
+            end
+          end
         def extract_description(parent_element, entry, nrh)
           orig_text_ref_element = parent_element.at_xpath(@description_xpath)
           desc_ref_element = parent_element.at_xpath("./cda:text/cda:reference")
@@ -91,6 +115,7 @@ module HealthDataStandards
             tag = code_element['value']
             entry.description = nrh.lookup_tag(tag)
           end
+          verify_description(parent_element, entry)
         end
 
         def extract_codes(parent_element, entry)
@@ -185,13 +210,20 @@ module HealthDataStandards
         # coded_parent_element is the 'parent' element when the coded is nested (e.g., medication order)
         def extract_reason_or_negation(parent_element, entry, coded_parent_element = nil)
           coded_parent_element ||= parent_element
-          reason_element = parent_element.at_xpath("./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value | ./cda:entryRelationship[@typeCode='RSON']/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:code")
+          reason_element = parent_element.at_xpath("./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value 
+                                                  | ./cda:entryRelationship[@typeCode='RSON']/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:code 
+                                                  | ./cda:entryRelationship[@typeCode='SUBJ']/cda:substanceAdministration/cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value
+                                                  | ./cda:entryRelationship[@typeCode='SUBJ']/cda:supply/cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value" )
+          
+          # | ./cda:entryRelationship[@typeCode='SUBJ']/cda:substanceAdministration/cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value
           negation_indicator = parent_element['negationInd']
+
           if reason_element
             code_system_oid = reason_element['codeSystem']
             code = reason_element['code']
             code_system = HealthDataStandards::Util::CodeSystemHelper.code_system_for(code_system_oid)
             entry.negation_ind = negation_indicator.eql?('true')
+
             if entry.negation_ind
               entry.negation_reason = {'code' => code, 'code_system' => code_system, 'codeSystem' => code_system}
             else
@@ -208,8 +240,10 @@ module HealthDataStandards
           code_elements.each do |code_element|
             if code_element['nullFlavor'] == 'NA' && code_element['sdtc:valueSet']
               # choose code from valueset
-              # valueset = HealthDataStandards::SVS::ValueSet.where(oid: code_element['sdtc:valueSet'], bundle_id: get_bundle_id(coded_parent_element))
-              # entry.add_code(valueset.first.concepts.first['code'], valueset.first.concepts.first['code_system_name'])
+              valueset = HealthDataStandards::SVS::ValueSet.where(oid: code_element['sdtc:valueSet'], bundle_id: get_bundle_id(coded_parent_element))
+              if valueset.first
+                entry.add_code(valueset.first.concepts.first['code'], valueset.first.concepts.first['code_system_name'])
+              end
               # A "code" is added to indicate the Non-Applicable valueset.
               entry.add_code(code_element['sdtc:valueSet'], 'NA_VALUESET')
             end
@@ -233,9 +267,11 @@ module HealthDataStandards
             code_hash = {'code' => code_element['code']}
             if code_system
               code_hash['codeSystem'] = code_system
+              code_hash['code_system'] = code_system
             else
               code_hash['codeSystemOid'] = code_element['codeSystem']
               code_hash['codeSystem'] = CodeSystemHelper.code_system_for(code_hash['codeSystemOid'])
+              code_hash['code_system'] = code_hash['codeSystem']
             end
           end
 

@@ -15,6 +15,7 @@ module HealthDataStandards
         measures.each do |measure|
           results[measure['hqmf_id']] = HealthDataStandards::CQM::QueryCache.aggregate_measure(measure['hqmf_id'], effective_date, filter, test_id)
         end
+        
         @rendering_context.render(:template => 'show', 
                                   :locals => {:measures => measures, :start_date => start_date, 
                                               :end_date => end_date,

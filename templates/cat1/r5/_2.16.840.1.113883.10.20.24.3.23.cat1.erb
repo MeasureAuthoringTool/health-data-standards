@@ -21,23 +21,32 @@
           <high <%= value_or_null_flavor(entry.discharge_time || entry.end_time) %>/>
         </effectiveTime>
         <% if entry.discharge_disposition.present? %>
-            <sdtc:dischargeDispositionCode code="<%= entry.discharge_disposition.code %>" 
-                codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.discharge_disposition.code_system) %>"/>
+            <sdtc:dischargeDispositionCode code="<%= entry.discharge_disposition[:code] %>" 
+                codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.discharge_disposition[:code_system]) || entry.discharge_disposition[:code_system] %>"/>
         <% end -%>
+	       <%== render(:partial => 'author_qdm', :locals => {:entry => entry}) %>
         <% if entry.respond_to?(:facility) && entry.facility.present? -%>
         <participant typeCode="LOC">
           <!-- Facility Location template -->
           <templateId root="2.16.840.1.113883.10.20.24.3.100" extension="2017-08-01"/>
           <time>
             <!-- Attribute: facility location arrival datetime -->
-            <low <%= value_or_null_flavor(entry.start_time) %>/>
+            <% if entry.facility[:values][0][:locationPeriodLow].present? -%>
+               <low <%= value_or_null_flavor(DateTime.strptime(entry.facility[:values][0] [:locationPeriodLow], '%m/%d/%Y %I:%M:%S %p')) %>/>
+            <% else -%>
+               <low <%= value_or_null_flavor(entry.start_time) %>/>
+            <% end %>
             <!-- Attribute: facility location departure datetime -->
-            <high <%= value_or_null_flavor(entry.end_time) %>/>
+            <% if entry.facility[:values][0][:locationPeriodHigh].present? -%>
+               <high <%= value_or_null_flavor(DateTime.strptime(entry.facility[:values][0] [:locationPeriodHigh], '%m/%d/%Y %I:%M:%S %p')) %>/>
+            <% else -%>
+                <high <%= value_or_null_flavor(entry.end_time) %>/>
+            <% end %>
           </time>
           <participantRole classCode="SDLOC">
             <% if entry.facility[:values][0].present? -%>
-                <code code="<%= entry.facility.values[0][0].code.code %>" 
-                  codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.facility.values[0][0].code.code_system) %>"/>
+                <code code="<%= entry.facility.values[0][0]["code"][:code] %>" 
+                  codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.facility.values[0][0]["code"][:code_system]) %>"/>
             <% else -%>
             <code nullFlavor="UNK"/>
             <% end -%>
@@ -81,7 +90,7 @@
                         <!-- Attribute: discharge datetime -->
                         <high <%= value_or_null_flavor(entry.end_time) %>/>
                       </effectiveTime>
-                      <value code="<%= entry.diagnosis.values[1][0].code %>" xsi:type="CD" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.diagnosis.values[1][0].code_system) %>"/>
+                      <value code="<%= entry.diagnosis.values[1][0][:code] %>" xsi:type="CD" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.diagnosis.values[1][0][:code_system]) %>"/>
                     </observation>
                   </entryRelationship>
                 </act>

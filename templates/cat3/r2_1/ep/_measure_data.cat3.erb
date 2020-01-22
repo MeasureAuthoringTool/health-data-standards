@@ -3,7 +3,8 @@
 <observation classCode="OBS" moodCode="EVN">
   <!-- Measure Data template -->
   <templateId root="2.16.840.1.113883.10.20.27.3.5" extension="2016-09-01"/>
-  <templateId root="2.16.840.1.113883.10.20.27.3.16" extension="2018-05-01" />
+  <!-- Measure Data - CMS V2 -->
+  <templateId root="2.16.840.1.113883.10.20.27.3.16" extension="2018-05-01"/>
   <code code="ASSERTION" 
         codeSystem="2.16.840.1.113883.5.4" 
         displayName="Assertion" 
@@ -16,10 +17,13 @@
   <entryRelationship typeCode="SUBJ" inversionInd="true">
     <observation classCode="OBS" moodCode="EVN">
       <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+      <!-- Aggregate Count - CMS -->
+      <templateId root="2.16.840.1.113883.10.20.27.3.24"/>
       <code code="MSRAGG" 
         displayName="rate aggregation" 
         codeSystem="2.16.840.1.113883.5.4" 
         codeSystemName="ActCode"/>
+      <statusCode code="completed"/>
       <value xsi:type="INT" value="<%= population.value.round %>"/>
       <methodCode code="COUNT" 
         displayName="Count" 
@@ -34,6 +38,8 @@
   <entryRelationship typeCode="COMP">
     <observation classCode="OBS" moodCode="EVN">
       <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+      <!-- Reporting Stratum - CMS template ID -->
+      <templateId root="2.16.840.1.113883.10.20.27.3.20"/>
       <code code="ASSERTION" 
             codeSystem="2.16.840.1.113883.5.4" 
             displayName="Assertion" 
@@ -45,10 +51,13 @@
       <entryRelationship typeCode="SUBJ" inversionInd="true">
         <observation classCode="OBS" moodCode="EVN">
           <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
-          <code code="MSRAGG" 
+          <!-- Aggregate Count – CMS template ID -->
+          <templateId root="2.16.840.1.113883.10.20.27.3.24"/>
+          <code code="MSRAGG"
                 displayName="rate aggregation" 
                 codeSystem="2.16.840.1.113883.5.4" 
                 codeSystemName="ActCode"/>
+          <statusCode code="completed"/>
           <value xsi:type="INT" value="<%= strat.value.round %>"/>
           <methodCode code="COUNT" 
                       displayName="Count" 
@@ -83,46 +92,78 @@
    <!--    SEX Supplemental Data Reporting for <%= population.type %>  <%= population.id %>      --> 
          
   <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Sex Supplemental Data', 
-                :template_ids => ['2.16.840.1.113883.10.20.27.3.6'], :extension => '2016-09-01', :supplemental_data_code => '76689-9',
+                :template_ids => ['2.16.840.1.113883.10.20.27.3.6','2.16.840.1.113883.10.20.27.3.21'], :extensiones => ['2016-09-01','2016-11-01'], :supplemental_data_code => '76689-9',
                 :supplemental_data_code_system => '2.16.840.1.113883.6.1', :supplemental_data_value_code => sex,
-                :supplemental_data_value_code_system => '2.16.840.1.113883.5.1', :count => count, :qrda3_version => qrda3_version} %>   
+                :supplemental_data_value_code_system => '2.16.840.1.113883.5.1', :count => count, :qrda3_version => qrda3_version} %>
       <% end -%>
-    <% end -%>
+    <% else -%>
+  <!--    SEX Supplemental Data Reporting for <%= population.type %>  <%= population.id %>      -->
+
+  <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Sex Supplemental Data',
+                :template_ids => ['2.16.840.1.113883.10.20.27.3.6','2.16.840.1.113883.10.20.27.3.21'], :extensiones => ['2016-09-01','2016-11-01'], :supplemental_data_code => '76689-9',
+                :supplemental_data_code_system => '2.16.840.1.113883.6.1', :supplemental_data_value_code => '',
+                :supplemental_data_value_code_system => '2.16.840.1.113883.5.1', :count => 0, :qrda3_version => qrda3_version} %>
+<% end -%>
   <%   ethnicity_supplimental_data = population.supplemental_data["ETHNICITY"]
        if ethnicity_supplimental_data.present?
          ethnicity_supplimental_data.each do |ethnicity, count| -%>
 
-    <!--     ETHNICITY Supplemental Data Reporting  for <%= population.type %>  <%= population.id %>     --> 
+    <!--     ETHNICITY Supplemental Data Reporting  for <%= population.type %>  <%= population.id %>     -->
 
-  <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Ethnicity Supplemental Data', 
-                :template_ids => ['2.16.840.1.113883.10.20.27.3.7'], :extension => '2016-09-01', :supplemental_data_code => '69490-1',
+  <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Ethnicity Supplemental Data',
+                :template_ids => ['2.16.840.1.113883.10.20.27.3.7','2.16.840.1.113883.10.20.27.3.22'], :extensiones => ['2016-09-01','2016-11-01'], :supplemental_data_code => '69490-1',
                 :supplemental_data_code_system => '2.16.840.1.113883.6.1', :supplemental_data_value_code => ethnicity,
-                :supplemental_data_value_code_system => '2.16.840.1.113883.6.238', :count => count, :qrda3_version => qrda3_version} %>   
+                :supplemental_data_value_code_system => '2.16.840.1.113883.6.238', :count => count, :qrda3_version => qrda3_version} %>
       <% end -%>
+      <% else -%>
+    <!--     ETHNICITY Supplemental Data Reporting  for <%= population.type %>  <%= population.id %>     -->
+
+  <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Ethnicity Supplemental Data',
+                 :template_ids => ['2.16.840.1.113883.10.20.27.3.7','2.16.840.1.113883.10.20.27.3.22'], :extensiones => ['2016-09-01','2016-11-01'], :supplemental_data_code => '69490-1',
+                 :supplemental_data_code_system => '2.16.840.1.113883.6.1', :supplemental_data_value_code => '',
+                 :supplemental_data_value_code_system => '2.16.840.1.113883.6.238', :count => 0, :qrda3_version => qrda3_version} %>
+
     <% end -%>
   <%   race_supplimental_data = population.supplemental_data["RACE"]
        if race_supplimental_data.present?
          race_supplimental_data.each do |race, count| -%>
 
-   <!--      RACE Supplemental Data Reporting  for <%= population.type %>  <%= population.id %> --> 
+   <!--      RACE Supplemental Data Reporting  for <%= population.type %>  <%= population.id %> -->
 
-  <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Race Supplemental Data', 
-                :template_ids => ['2.16.840.1.113883.10.20.27.3.8'], :extension => '2016-09-01',  :supplemental_data_code => '72826-1',
+  <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Race Supplemental Data',
+                :template_ids => ['2.16.840.1.113883.10.20.27.3.8','2.16.840.1.113883.10.20.27.3.19'], :extensiones => ['2016-09-01','2016-11-01'],  :supplemental_data_code => '72826-1',
                 :supplemental_data_code_system => '2.16.840.1.113883.6.1', :supplemental_data_value_code => race,
-                :supplemental_data_value_code_system => '2.16.840.1.113883.6.238', :count => count, :qrda3_version => qrda3_version} %>   
+                :supplemental_data_value_code_system => '2.16.840.1.113883.6.238', :count => count, :qrda3_version => qrda3_version} %>
       <% end -%>
+      <% else -%>
+  <!--      RACE Supplemental Data Reporting  for <%= population.type %>  <%= population.id %> -->
+
+  <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Race Supplemental Data',
+                 :template_ids => ['2.16.840.1.113883.10.20.27.3.8','2.16.840.1.113883.10.20.27.3.19'], :extensiones => ['2016-09-01','2016-11-01'],  :supplemental_data_code => '72826-1',
+                 :supplemental_data_code_system => '2.16.840.1.113883.6.1', :supplemental_data_value_code => '',
+                 :supplemental_data_value_code_system => '2.16.840.1.113883.6.238', :count => 0, :qrda3_version => qrda3_version} %>
+
+
+
     <% end -%>
   <%   payer_supplimental_data = population.supplemental_data["PAYER"]
        if payer_supplimental_data.present?
          payer_supplimental_data.each do |payer, count| -%>
 
  <!--         PAYER Supplemental Data Reporting   for <%= population.type %>  <%= population.id %>   -->
- <% payer_templates_ids = ['2.16.840.1.113883.10.20.27.3.9'] %>
- <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Payer Supplemental Data', 
-                :template_ids => payer_templates_ids, :extension => '2016-02-01', :addtn_template_id => '2.16.840.1.113883.10.20.27.3.18', :addtn_extension => '2018-05-01', :supplemental_data_code => '48768-6',
+ <% payer_templates_ids = ['2.16.840.1.113883.10.20.27.3.9','2.16.840.1.113883.10.20.27.3.18'] %>
+ <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Payer Supplemental Data',
+                :template_ids => payer_templates_ids, :extensiones => ['2016-02-01','2018-05-01'],  :supplemental_data_code => '48768-6',
                 :supplemental_data_code_system => '2.16.840.1.113883.6.1', :supplemental_data_value_code => payer,
-                :supplemental_data_value_code_system => '2.16.840.1.113883.3.221.5', :count => count, :qrda3_version => qrda3_version} %>   
+                :supplemental_data_value_code_system => '2.16.840.1.113883.3.221.5', :count => count, :qrda3_version => qrda3_version} %>
       <% end -%>
+      <% else -%>
+  <!--         PAYER Supplemental Data Reporting   for <%= population.type %>  <%= population.id %>   -->
+  <% payer_templates_ids = ['2.16.840.1.113883.10.20.27.3.9','2.16.840.1.113883.10.20.27.3.18'] %>
+  <%== render :partial => 'supplemental_data', :locals => {:template_name => 'Payer Supplemental Data',
+                 :template_ids => payer_templates_ids, :extensiones => ['2016-02-01','2018-05-01'],  :supplemental_data_code => '48768-6',
+                 :supplemental_data_code_system => '2.16.840.1.113883.6.1', :supplemental_data_value_code => '9',
+                 :supplemental_data_value_code_system => '2.16.840.1.113883.3.221.5', :count => 0, :qrda3_version => qrda3_version} %>
     <% end -%>
   <% end -%>
   <% if population.type == 'MSRPOPL' -%>

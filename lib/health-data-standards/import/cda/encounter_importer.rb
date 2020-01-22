@@ -13,6 +13,7 @@ module HealthDataStandards
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
           encounter = super
           extract_performer(entry_element, encounter)
+          extract_admit_source(entry_element, encounter)
           extract_facility(entry_element, encounter)
           extract_reason(entry_element, encounter, nrh)
           extract_reason_or_negation(entry_element, encounter)
@@ -34,6 +35,17 @@ module HealthDataStandards
           encounter.performer = import_actor(performer_element) if performer_element
         end
 
+        def extract_admit_source(parent_element, encounter)
+          admit_source_element = parent_element.at_xpath("./cda:participant[@typeCode='LOC']/cda:participantRole[@classCode='SDLOC'][cda:templateId/@root='2.16.840.1.113883.10.20.24.3.151']")
+          if admit_source_element
+            admissionSource = AdmissionSource.new
+            code_hash = extract_code(admit_source_element, './cda:code')
+            admissionSource['code'] = code_hash["code"]
+            admissionSource['code_system'] = code_hash["code_system"]
+            encounter.admission_source = admissionSource
+          end
+        end
+        
         def extract_facility(parent_element, encounter)
           participant_element = parent_element.at_xpath("./cda:participant[@typeCode='LOC']/cda:participantRole[@classCode='SDLOC']")
           if (participant_element)
@@ -42,7 +54,8 @@ module HealthDataStandards
             facility.telecoms = participant_element.xpath("./cda:telecom").try(:map) {|te| import_telecom(te)}
             facility.code = extract_code(participant_element, './cda:code')
             extract_dates(participant_element.parent, facility, "time")
-            encounter.facility = facility.as_json()
+            facility_raw = facility.as_json()
+            encounter.facility = update_facility(facility_raw)
           end
         end
     
@@ -64,7 +77,11 @@ module HealthDataStandards
 
         def extract_discharge_disposition(parent_element, encounter)
           encounter.discharge_time = encounter.end_time
-          encounter.discharge_disposition = extract_code(parent_element, "./sdtc:dischargeDispositionCode")
+          discharge_disposition = extract_code(parent_element, "./sdtc:dischargeDispositionCode")
+          if discharge_disposition.present?
+            discharge_disposition["code_system"] = discharge_disposition["codeSystem"] if discharge_disposition["codeSystem"]
+          end
+          encounter.discharge_disposition = discharge_disposition
         end
 
         def extract_transfer(transfer_element, encounter)
@@ -84,6 +101,14 @@ module HealthDataStandards
           transfer_from = true if transfer_element['typeCode'] && transfer_element['typeCode'] == 'ORG'
           transfer_to = true if transfer_element['typeCode'] && transfer_element['typeCode'] == 'DST'
           [transfer_from, transfer_to]
+        end
+        def update_facility(raw_result)
+            raw_result["locationPeriodLow"] = raw_result["start_time"]
+            raw_result["locationPeriodHigh"] = raw_result["end_time"]
+            updated_facility = {}
+            updated_facility[:values] = []
+            updated_facility[:values].push(raw_result)
+            updated_facility
         end
       end
     end

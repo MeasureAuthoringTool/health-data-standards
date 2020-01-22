@@ -1,11 +1,11 @@
 class Immunization < Entry
   field :seriesNumber, type: Integer
   field :reaction, type: Hash
-  
-  belongs_to :performer, class_name: "Provider"
-  
+
+  belongs_to :performer, class_name: "HealthDataStandards::Provider"
+
   embeds_one :medication_product
-  
+
   alias :refusal_ind :negationInd
   alias :refusal_ind= :negationInd=
   alias :refusal_reason :negationReason
