@@ -1,0 +1,28 @@
+name: Github Secrets Scanner
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      REPO: https://github.com/MeasureAuthoringTool/MeasureAuthoringTool
+      REMOTE_EXCLUDES_URL: https://raw.githubusercontent.com/casey-erdmann/bmat-gitleaks-automation/master/health-data-standards/gitleaks.toml
+      GITLEAKS_VERSION: v3.0.3
+    steps:
+    - name: Execute Gitleaks
+      run: |
+        wget ${REMOTE_EXCLUDES_URL} -O gitleaks.toml
+        wget https://github.com/zricethezav/gitleaks/releases/download/${GITLEAKS_VERSION}/gitleaks-linux-amd64 -O gitleaks
+        chmod +x gitleaks
+        echo ${GITHUB_SHA}
+        echo "gitleaks --repo=${REPO} -v --pretty --redact --commit=${GITHUB_SHA} --config=gitleaks.toml"
+        ./gitleaks --repo=${REPO} -v --pretty --redact --commit=${GITHUB_SHA} --config=gitleaks.toml
+    - name: Slack notification
+      if: failure()
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      uses: Ilshidur/action-slack@master
+      with:
+        args: 'Potential Secrets found in: https://github.com/{{ GITHUB_REPOSITORY }}/commit/{{ GITHUB_SHA }}. Link to build with full gitleaks output: https://github.com/{{ GITHUB_REPOSITORY }}/commit/{{ GITHUB_SHA }}/checks'
