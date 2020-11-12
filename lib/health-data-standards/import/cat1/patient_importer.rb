@@ -35,7 +35,7 @@ module HealthDataStandards
                                               generate_importer(ImmunizationAdministeredImporter, nil, '2.16.840.1.113883.10.20.28.3.112', 'administered')] #immunization
           @section_importers[:communications] = [generate_importer(CDA::CommunicationImporter, "./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.3']", '2.16.840.1.113883.3.560.1.31'), #comm from provider to patient
                                                  generate_importer(CDA::CommunicationImporter, "./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.2']", '2.16.840.1.113883.3.560.1.30'), #comm from patient to provider
-                                                 generate_importer(CDA::CommunicationImporter, "./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.4']", '2.16.840.1.113883.3.560.1.129')] #comm from provider to provider, not done
+                                                 generate_importer(CDA::CommunicationImporter, "./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.4']", '2.16.840.1.113883.3.560.1.29')] #comm from provider to provider done
           @section_importers[:procedures] = [generate_importer(CDA::ProcedureImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.59']", '2.16.840.1.113883.3.560.1.57', 'performed'), #physical exam performed
                                              generate_importer(CDA::ProcedureImporter, "./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.31']", '2.16.840.1.113883.3.560.1.45', 'ordered'), #intervention ordered
                                              generate_importer(CDA::ProcedureImporter, "./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.32']", '2.16.840.1.113883.3.560.1.46', 'performed'), #intervention performed
@@ -44,7 +44,7 @@ module HealthDataStandards
                                              generate_importer(ProcedurePerformedImporter, "./cda:entry/cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.64']", '2.16.840.1.113883.3.560.1.6'),
                                              generate_importer(CDA::ProcedureImporter, "./cda:entry/cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.66']", '2.16.840.1.113883.3.560.1.63'),
                                              generate_importer(CDA::ProcedureImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.69']", '2.16.840.1.113883.3.560.1.21'), #risk category assessment
-                                             generate_importer(CDA::ProcedureImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.18']", '2.16.840.1.113883.3.560.1.103', 'performed'), #diagnostic study performed
+                                             generate_importer(CDA::ProcedureImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.18']", '2.16.840.1.113883.3.560.1.3', 'performed'), #diagnostic study performed
                                              generate_importer(CDA::ProcedureImporter, "./cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.20']", '2.16.840.1.113883.3.560.1.11'), #diagnostic study result
                                              generate_importer(DiagnosticStudyOrderImporter, nil, '2.16.840.1.113883.3.560.1.40', 'ordered')]
 
